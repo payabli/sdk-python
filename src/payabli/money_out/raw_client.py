@@ -29,6 +29,7 @@ from ..types.subdomain import Subdomain
 from ..types.subscriptionid import Subscriptionid
 from ..types.vendor_payment_method import VendorPaymentMethod
 from .types.capture_all_out_response import CaptureAllOutResponse
+from .types.operation_result import OperationResult
 from .types.request_out_authorize_payment_details import RequestOutAuthorizePaymentDetails
 from .types.request_out_authorize_vendor_data import RequestOutAuthorizeVendorData
 from .types.v_card_get_response import VCardGetResponse
@@ -674,6 +675,92 @@ class RawMoneyOutClient:
                     VCardGetResponse,
                     parse_obj_as(
                         type_=VCardGetResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def send_v_card_link(
+        self, *, trans_id: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[OperationResult]:
+        """
+        Sends a virtual card link via email to the vendor associated with the `transId`.
+
+        Parameters
+        ----------
+        trans_id : str
+            The transaction ID of the virtual card payout. The ID is returned as `ReferenceId` in the response when you authorize a payout with POST /MoneyOut/authorize.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[OperationResult]
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "vcard/send-card-link",
+            method="POST",
+            json={
+                "transId": trans_id,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    OperationResult,
+                    parse_obj_as(
+                        type_=OperationResult,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1459,6 +1546,92 @@ class AsyncRawMoneyOutClient:
                     VCardGetResponse,
                     parse_obj_as(
                         type_=VCardGetResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def send_v_card_link(
+        self, *, trans_id: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[OperationResult]:
+        """
+        Sends a virtual card link via email to the vendor associated with the `transId`.
+
+        Parameters
+        ----------
+        trans_id : str
+            The transaction ID of the virtual card payout. The ID is returned as `ReferenceId` in the response when you authorize a payout with POST /MoneyOut/authorize.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[OperationResult]
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "vcard/send-card-link",
+            method="POST",
+            json={
+                "transId": trans_id,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    OperationResult,
+                    parse_obj_as(
+                        type_=OperationResult,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

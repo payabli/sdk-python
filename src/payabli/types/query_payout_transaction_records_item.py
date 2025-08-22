@@ -13,21 +13,41 @@ from .created_at import CreatedAt
 from .dbaname import Dbaname
 from .entrypointfield import Entrypointfield
 from .external_paypoint_id import ExternalPaypointId
+from .fee_amount import FeeAmount
 from .file_content import FileContent
 from .gatewayfield import Gatewayfield
+from .has_vcard_transactions import HasVcardTransactions
+from .is_same_day_ach import IsSameDayAch
 from .last_modified import LastModified
 from .legalname import Legalname
 from .netamountnullable import Netamountnullable
+from .org_parent_id import OrgParentId
 from .org_parent_name import OrgParentName
 from .paymentid import Paymentid
+from .payout_program import PayoutProgram
 from .query_payout_transaction_records_item_payment_data import QueryPayoutTransactionRecordsItemPaymentData
 from .query_transaction_events import QueryTransactionEvents
+from .risk_action import RiskAction
+from .risk_action_code import RiskActionCode
+from .risk_flagged import RiskFlagged
+from .risk_flagged_on import RiskFlaggedOn
+from .risk_reason import RiskReason
+from .risk_status import RiskStatus
+from .schedule_id import ScheduleId
+from .settlement_status_payout import SettlementStatusPayout
 from .source import Source
 from .vendor_query_record import VendorQueryRecord
 
 
 class QueryPayoutTransactionRecordsItem(UniversalBaseModel):
     batch_number: typing_extensions.Annotated[typing.Optional[BatchNumber], FieldMetadata(alias="BatchNumber")] = None
+    batch_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="BatchId")] = pydantic.Field(
+        default=None
+    )
+    """
+    Identifier of the batch associated with payout transaction.
+    """
+
     bills: typing_extensions.Annotated[typing.Optional[typing.List[BillPayOutData]], FieldMetadata(alias="Bills")] = (
         pydantic.Field(default=None)
     )
@@ -75,14 +95,11 @@ class QueryPayoutTransactionRecordsItem(UniversalBaseModel):
     external_paypoint_id: typing_extensions.Annotated[
         typing.Optional[ExternalPaypointId], FieldMetadata(alias="externalPaypointID")
     ] = None
-    fee_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="FeeAmount")] = pydantic.Field(
-        default=None
-    )
-    """
-    Service fee or sub-charge applied.
-    """
-
+    fee_amount: typing_extensions.Annotated[typing.Optional[FeeAmount], FieldMetadata(alias="FeeAmount")] = None
     gateway: typing_extensions.Annotated[typing.Optional[Gatewayfield], FieldMetadata(alias="Gateway")] = None
+    has_vcard_transactions: typing_extensions.Annotated[
+        typing.Optional[HasVcardTransactions], FieldMetadata(alias="HasVcardTransactions")
+    ] = None
     id_out: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="IdOut")] = pydantic.Field(
         default=None
     )
@@ -90,6 +107,9 @@ class QueryPayoutTransactionRecordsItem(UniversalBaseModel):
     Identifier of payout transaction.
     """
 
+    is_same_day_ach: typing_extensions.Annotated[typing.Optional[IsSameDayAch], FieldMetadata(alias="IsSameDayACH")] = (
+        None
+    )
     last_updated: typing_extensions.Annotated[typing.Optional[LastModified], FieldMetadata(alias="LastUpdated")] = (
         pydantic.Field(default=None)
     )
@@ -107,6 +127,7 @@ class QueryPayoutTransactionRecordsItem(UniversalBaseModel):
     parent_org_name: typing_extensions.Annotated[
         typing.Optional[OrgParentName], FieldMetadata(alias="ParentOrgName")
     ] = None
+    parent_org_id: typing_extensions.Annotated[typing.Optional[OrgParentId], FieldMetadata(alias="ParentOrgId")] = None
     payment_data: typing_extensions.Annotated[
         typing.Optional[QueryPayoutTransactionRecordsItemPaymentData], FieldMetadata(alias="PaymentData")
     ] = None
@@ -125,6 +146,9 @@ class QueryPayoutTransactionRecordsItem(UniversalBaseModel):
     Status of payout transaction. See [Payout Transaction Statuses](guides/money-out-statuses#payout-transaction-statuses) for a full reference.
     """
 
+    payout_program: typing_extensions.Annotated[
+        typing.Optional[PayoutProgram], FieldMetadata(alias="PayoutProgram")
+    ] = None
     paypoint_dbaname: typing_extensions.Annotated[typing.Optional[Dbaname], FieldMetadata(alias="PaypointDbaname")] = (
         None
     )
@@ -135,6 +159,20 @@ class QueryPayoutTransactionRecordsItem(UniversalBaseModel):
     Paypoint legal name.
     """
 
+    risk_action: typing_extensions.Annotated[typing.Optional[RiskAction], FieldMetadata(alias="RiskAction")] = None
+    risk_action_code: typing_extensions.Annotated[
+        typing.Optional[RiskActionCode], FieldMetadata(alias="RiskActionCode")
+    ] = None
+    risk_flagged: typing_extensions.Annotated[typing.Optional[RiskFlagged], FieldMetadata(alias="RiskFlagged")] = None
+    risk_flagged_on: typing_extensions.Annotated[
+        typing.Optional[RiskFlaggedOn], FieldMetadata(alias="RiskFlaggedOn")
+    ] = None
+    risk_reason: typing_extensions.Annotated[typing.Optional[RiskReason], FieldMetadata(alias="RiskReason")] = None
+    risk_status: typing_extensions.Annotated[typing.Optional[RiskStatus], FieldMetadata(alias="RiskStatus")] = None
+    schedule_id: typing_extensions.Annotated[typing.Optional[ScheduleId], FieldMetadata(alias="ScheduleId")] = None
+    settlement_status: typing_extensions.Annotated[
+        typing.Optional[SettlementStatusPayout], FieldMetadata(alias="SettlementStatus")
+    ] = None
     source: typing_extensions.Annotated[typing.Optional[Source], FieldMetadata(alias="Source")] = None
     status: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="Status")] = pydantic.Field(
         default=None

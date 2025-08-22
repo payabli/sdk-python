@@ -28,6 +28,7 @@ from ..types.contacts_field import ContactsField
 from ..types.dbaname import Dbaname
 from ..types.ein import Ein
 from ..types.email import Email
+from ..types.export_format import ExportFormat
 from ..types.external_paypoint_id import ExternalPaypointId
 from ..types.highticketamt import Highticketamt
 from ..types.legalname import Legalname
@@ -495,6 +496,7 @@ class BoardingClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -502,12 +504,14 @@ class BoardingClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> QueryBoardingAppsListResponse:
         """
-        Returns a list of boarding applications for an organization. Use filters to limit results.
+        Returns a list of boarding applications for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -579,6 +583,7 @@ class BoardingClient:
         """
         _response = self._raw_client.list_applications(
             org_id,
+            export_format=export_format,
             from_record=from_record,
             limit_record=limit_record,
             parameters=parameters,
@@ -1430,6 +1435,7 @@ class AsyncBoardingClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -1437,12 +1443,14 @@ class AsyncBoardingClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> QueryBoardingAppsListResponse:
         """
-        Returns a list of boarding applications for an organization. Use filters to limit results.
+        Returns a list of boarding applications for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -1522,6 +1530,7 @@ class AsyncBoardingClient:
         """
         _response = await self._raw_client.list_applications(
             org_id,
+            export_format=export_format,
             from_record=from_record,
             limit_record=limit_record,
             parameters=parameters,

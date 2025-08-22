@@ -8,8 +8,9 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 from .bill_data import BillData
 from .created_at import CreatedAt
-from .datetimenullable import Datetimenullable
+from .datetime_nullable import DatetimeNullable
 from .dbaname import Dbaname
+from .entrypage_id import EntrypageId
 from .entrypointfield import Entrypointfield
 from .external_paypoint_id import ExternalPaypointId
 from .general_events import GeneralEvents
@@ -34,20 +35,14 @@ class SubscriptionQueryRecords(UniversalBaseModel):
     customer: typing_extensions.Annotated[
         typing.Optional[QueryTransactionPayorData], FieldMetadata(alias="Customer")
     ] = None
-    end_date: typing_extensions.Annotated[typing.Optional[Datetimenullable], FieldMetadata(alias="EndDate")] = (
+    end_date: typing_extensions.Annotated[typing.Optional[DatetimeNullable], FieldMetadata(alias="EndDate")] = (
         pydantic.Field(default=None)
     )
     """
     The subscription's end date.
     """
 
-    entrypage_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="EntrypageId")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    If applicable, the internal reference ID to the payment page capturing the payment.
-    """
-
+    entrypage_id: typing_extensions.Annotated[typing.Optional[EntrypageId], FieldMetadata(alias="EntrypageId")] = None
     external_paypoint_id: typing_extensions.Annotated[
         typing.Optional[ExternalPaypointId], FieldMetadata(alias="ExternalPaypointID")
     ] = None
@@ -73,7 +68,7 @@ class SubscriptionQueryRecords(UniversalBaseModel):
     """
 
     invoice_data: typing_extensions.Annotated[typing.Optional[BillData], FieldMetadata(alias="InvoiceData")] = None
-    last_run: typing_extensions.Annotated[typing.Optional[Datetimenullable], FieldMetadata(alias="LastRun")] = (
+    last_run: typing_extensions.Annotated[typing.Optional[DatetimeNullable], FieldMetadata(alias="LastRun")] = (
         pydantic.Field(default=None)
     )
     """
@@ -108,7 +103,7 @@ class SubscriptionQueryRecords(UniversalBaseModel):
     The subscription amount, minus any fees.
     """
 
-    next_date: typing_extensions.Annotated[typing.Optional[Datetimenullable], FieldMetadata(alias="NextDate")] = (
+    next_date: typing_extensions.Annotated[typing.Optional[DatetimeNullable], FieldMetadata(alias="NextDate")] = (
         pydantic.Field(default=None)
     )
     """
@@ -151,7 +146,7 @@ class SubscriptionQueryRecords(UniversalBaseModel):
     """
 
     source: typing_extensions.Annotated[typing.Optional[Source], FieldMetadata(alias="Source")] = None
-    start_date: typing_extensions.Annotated[typing.Optional[Datetimenullable], FieldMetadata(alias="StartDate")] = (
+    start_date: typing_extensions.Annotated[typing.Optional[DatetimeNullable], FieldMetadata(alias="StartDate")] = (
         pydantic.Field(default=None)
     )
     """

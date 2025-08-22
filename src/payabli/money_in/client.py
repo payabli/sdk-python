@@ -10,7 +10,7 @@ from ..types.bill_data import BillData
 from ..types.entrypointfield import Entrypointfield
 from ..types.force_customer_creation import ForceCustomerCreation
 from ..types.idempotency_key import IdempotencyKey
-from ..types.ipaddress import Ipaddress
+from ..types.ip_address import IpAddress
 from ..types.orderdescription import Orderdescription
 from ..types.orderid import Orderid
 from ..types.payabli_api_response import PayabliApiResponse
@@ -67,7 +67,7 @@ class MoneyInClient:
         customer_data: typing.Optional[PayorDataRequest] = OMIT,
         entry_point: typing.Optional[Entrypointfield] = OMIT,
         invoice_data: typing.Optional[BillData] = OMIT,
-        ipaddress: typing.Optional[Ipaddress] = OMIT,
+        ipaddress: typing.Optional[IpAddress] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
         order_id: typing.Optional[Orderid] = OMIT,
         source: typing.Optional[Source] = OMIT,
@@ -102,7 +102,7 @@ class MoneyInClient:
         invoice_data : typing.Optional[BillData]
             Object describing an Invoice linked to the transaction.
 
-        ipaddress : typing.Optional[Ipaddress]
+        ipaddress : typing.Optional[IpAddress]
 
         order_description : typing.Optional[Orderdescription]
 
@@ -351,7 +351,7 @@ class MoneyInClient:
         customer_data: typing.Optional[PayorDataRequest] = OMIT,
         entry_point: typing.Optional[Entrypointfield] = OMIT,
         invoice_data: typing.Optional[BillData] = OMIT,
-        ipaddress: typing.Optional[Ipaddress] = OMIT,
+        ipaddress: typing.Optional[IpAddress] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
         order_id: typing.Optional[Orderid] = OMIT,
         source: typing.Optional[Source] = OMIT,
@@ -389,7 +389,7 @@ class MoneyInClient:
         invoice_data : typing.Optional[BillData]
             Object describing an Invoice linked to the transaction.
 
-        ipaddress : typing.Optional[Ipaddress]
+        ipaddress : typing.Optional[IpAddress]
 
         order_description : typing.Optional[Orderdescription]
 
@@ -547,7 +547,7 @@ class MoneyInClient:
         *,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         amount: typing.Optional[float] = OMIT,
-        ipaddress: typing.Optional[Ipaddress] = OMIT,
+        ipaddress: typing.Optional[IpAddress] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
         order_id: typing.Optional[Orderid] = OMIT,
         refund_details: typing.Optional[RefundDetail] = OMIT,
@@ -572,7 +572,7 @@ class MoneyInClient:
 
             An amount equal to zero will refund the total amount authorized minus any service fee.
 
-        ipaddress : typing.Optional[Ipaddress]
+        ipaddress : typing.Optional[IpAddress]
 
         order_description : typing.Optional[Orderdescription]
 
@@ -836,7 +836,7 @@ class AsyncMoneyInClient:
         customer_data: typing.Optional[PayorDataRequest] = OMIT,
         entry_point: typing.Optional[Entrypointfield] = OMIT,
         invoice_data: typing.Optional[BillData] = OMIT,
-        ipaddress: typing.Optional[Ipaddress] = OMIT,
+        ipaddress: typing.Optional[IpAddress] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
         order_id: typing.Optional[Orderid] = OMIT,
         source: typing.Optional[Source] = OMIT,
@@ -871,7 +871,7 @@ class AsyncMoneyInClient:
         invoice_data : typing.Optional[BillData]
             Object describing an Invoice linked to the transaction.
 
-        ipaddress : typing.Optional[Ipaddress]
+        ipaddress : typing.Optional[IpAddress]
 
         order_description : typing.Optional[Orderdescription]
 
@@ -1157,7 +1157,7 @@ class AsyncMoneyInClient:
         customer_data: typing.Optional[PayorDataRequest] = OMIT,
         entry_point: typing.Optional[Entrypointfield] = OMIT,
         invoice_data: typing.Optional[BillData] = OMIT,
-        ipaddress: typing.Optional[Ipaddress] = OMIT,
+        ipaddress: typing.Optional[IpAddress] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
         order_id: typing.Optional[Orderid] = OMIT,
         source: typing.Optional[Source] = OMIT,
@@ -1195,7 +1195,7 @@ class AsyncMoneyInClient:
         invoice_data : typing.Optional[BillData]
             Object describing an Invoice linked to the transaction.
 
-        ipaddress : typing.Optional[Ipaddress]
+        ipaddress : typing.Optional[IpAddress]
 
         order_description : typing.Optional[Orderdescription]
 
@@ -1382,7 +1382,7 @@ class AsyncMoneyInClient:
         *,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         amount: typing.Optional[float] = OMIT,
-        ipaddress: typing.Optional[Ipaddress] = OMIT,
+        ipaddress: typing.Optional[IpAddress] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
         order_id: typing.Optional[Orderid] = OMIT,
         refund_details: typing.Optional[RefundDetail] = OMIT,
@@ -1407,7 +1407,7 @@ class AsyncMoneyInClient:
 
             An amount equal to zero will refund the total amount authorized minus any service fee.
 
-        ipaddress : typing.Optional[Ipaddress]
+        ipaddress : typing.Optional[IpAddress]
 
         order_description : typing.Optional[Orderdescription]
 

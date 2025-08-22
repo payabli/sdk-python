@@ -21,7 +21,7 @@ class GetPaidResponseData(UniversalBaseModel):
     Response data for GetPaid transactions
     """
 
-    auth_code: typing_extensions.Annotated[Authcode, FieldMetadata(alias="authCode")]
+    auth_code: typing_extensions.Annotated[typing.Optional[Authcode], FieldMetadata(alias="authCode")] = None
     reference_id: typing_extensions.Annotated[Referenceidtrans, FieldMetadata(alias="referenceId")]
     result_code: typing_extensions.Annotated[ResultCode, FieldMetadata(alias="resultCode")]
     result_text: typing_extensions.Annotated[Resulttext, FieldMetadata(alias="resultText")]

@@ -9,7 +9,7 @@ from ...core.serialization import FieldMetadata
 from ...types.accountid import Accountid
 from ...types.bill_data import BillData
 from ...types.entrypointfield import Entrypointfield
-from ...types.ipaddress import Ipaddress
+from ...types.ip_address import IpAddress
 from ...types.orderdescription import Orderdescription
 from ...types.orderid import Orderid
 from ...types.payment_detail import PaymentDetail
@@ -64,7 +64,7 @@ class TransRequestBody(UniversalBaseModel):
     Object describing an Invoice linked to the transaction.
     """
 
-    ipaddress: typing.Optional[Ipaddress] = None
+    ipaddress: typing.Optional[IpAddress] = None
     order_description: typing_extensions.Annotated[
         typing.Optional[Orderdescription], FieldMetadata(alias="orderDescription")
     ] = None

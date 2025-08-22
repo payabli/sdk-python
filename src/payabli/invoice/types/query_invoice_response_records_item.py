@@ -12,7 +12,7 @@ from ...types.bill_options import BillOptions
 from ...types.created_at import CreatedAt
 from ...types.customer_id import CustomerId
 from ...types.datenullable import Datenullable
-from ...types.datetimenullable import Datetimenullable
+from ...types.datetime_nullable import DatetimeNullable
 from ...types.dbaname import Dbaname
 from ...types.discount import Discount
 from ...types.documents_ref import DocumentsRef
@@ -80,7 +80,7 @@ class QueryInvoiceResponseRecordsItem(UniversalBaseModel):
     """
 
     last_payment_date: typing_extensions.Annotated[
-        typing.Optional[Datetimenullable], FieldMetadata(alias="lastPaymentDate")
+        typing.Optional[DatetimeNullable], FieldMetadata(alias="lastPaymentDate")
     ] = pydantic.Field(default=None)
     """
     Timestamp of last payment.
@@ -95,7 +95,9 @@ class QueryInvoiceResponseRecordsItem(UniversalBaseModel):
     """
 
     payment_terms: typing_extensions.Annotated[Terms, FieldMetadata(alias="paymentTerms")]
-    terms_conditions: typing_extensions.Annotated[TermsConditions, FieldMetadata(alias="termsConditions")]
+    terms_conditions: typing_extensions.Annotated[
+        typing.Optional[TermsConditions], FieldMetadata(alias="termsConditions")
+    ] = None
     notes: typing.Optional[str] = pydantic.Field(default=None)
     """
     Invoice notes.
@@ -143,8 +145,8 @@ class QueryInvoiceResponseRecordsItem(UniversalBaseModel):
     """
 
     summary_commodity_code: typing_extensions.Annotated[
-        SummaryCommodityCode, FieldMetadata(alias="summaryCommodityCode")
-    ]
+        typing.Optional[SummaryCommodityCode], FieldMetadata(alias="summaryCommodityCode")
+    ] = None
     items: typing.List[BillItem] = pydantic.Field()
     """
     Array of line items included in the invoice.

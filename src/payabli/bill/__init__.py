@@ -3,6 +3,9 @@
 # isort: skip_file
 
 from .types import (
+    BillOutData,
+    BillOutDataScheduledOptions,
+    BillResponse,
     BillResponseData,
     EditBillResponse,
     GetBillResponse,
@@ -11,6 +14,9 @@ from .types import (
 )
 
 __all__ = [
+    "BillOutData",
+    "BillOutDataScheduledOptions",
+    "BillResponse",
     "BillResponseData",
     "EditBillResponse",
     "GetBillResponse",

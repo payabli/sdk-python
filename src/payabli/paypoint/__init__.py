@@ -2,6 +2,22 @@
 
 # isort: skip_file
 
-from .types import GetBasicEntryByIdResponse, GetBasicEntryResponse, GetEntryConfigResponse
+from .types import (
+    GetBasicEntryByIdResponse,
+    GetBasicEntryResponse,
+    GetEntryConfigResponse,
+    MigratePaypointResponse,
+    NotificationRequest,
+    PaypointMoveRequest,
+    WebHeaderParameter,
+)
 
-__all__ = ["GetBasicEntryByIdResponse", "GetBasicEntryResponse", "GetEntryConfigResponse"]
+__all__ = [
+    "GetBasicEntryByIdResponse",
+    "GetBasicEntryResponse",
+    "GetEntryConfigResponse",
+    "MigratePaypointResponse",
+    "NotificationRequest",
+    "PaypointMoveRequest",
+    "WebHeaderParameter",
+]

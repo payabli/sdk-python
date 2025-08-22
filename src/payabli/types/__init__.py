@@ -19,6 +19,7 @@ from .ach_holder import AchHolder
 from .ach_holder_type import AchHolderType
 from .ach_link_types import AchLinkTypes
 from .ach_pass_through_section import AchPassThroughSection
+from .ach_payment_method import AchPaymentMethod
 from .ach_sec_code import AchSecCode
 from .ach_section import AchSection
 from .ach_service import AchService
@@ -87,6 +88,8 @@ from .bank_nickname import BankNickname
 from .bank_section import BankSection
 from .basic_table import BasicTable
 from .basic_template_element import BasicTemplateElement
+from .batch_detail_response_record import BatchDetailResponseRecord
+from .batch_detail_response_summary import BatchDetailResponseSummary
 from .batch_number import BatchNumber
 from .batch_summary import BatchSummary
 from .bcity import Bcity
@@ -100,7 +103,6 @@ from .bill_events import BillEvents
 from .bill_id import BillId
 from .bill_item import BillItem
 from .bill_options import BillOptions
-from .bill_out_data import BillOutData
 from .bill_pay_out_data import BillPayOutData
 from .bill_pay_out_data_request import BillPayOutDataRequest
 from .bill_query_record_2 import BillQueryRecord2
@@ -169,8 +171,10 @@ from .cascade_job_details import CascadeJobDetails
 from .cash import Cash
 from .category import Category
 from .charge_back_response import ChargeBackResponse
+from .chargeback_id import ChargebackId
 from .chargeback_query_records import ChargebackQueryRecords
 from .check import Check
+from .check_payment_method import CheckPaymentMethod
 from .city_nullable import CityNullable
 from .cloud_query_api_response import CloudQueryApiResponse
 from .comments import Comments
@@ -196,11 +200,12 @@ from .customeridtrans import Customeridtrans
 from .cvvresponsetext import Cvvresponsetext
 from .d_section import DSection
 from .datenullable import Datenullable
-from .datetimenullable import Datetimenullable
+from .datetime_nullable import DatetimeNullable
 from .dbaname import Dbaname
 from .deposit_date import DepositDate
 from .descriptor import Descriptor
 from .device import Device
+from .device_id import DeviceId
 from .discount import Discount
 from .display_property import DisplayProperty
 from .document_section import DocumentSection
@@ -218,12 +223,15 @@ from .entity_id import EntityId
 from .entity_type import EntityType
 from .entry import Entry
 from .entry_attributes import EntryAttributes
+from .entrypage_id import EntrypageId
 from .entrypointfield import Entrypointfield
 from .expected_deposit_date import ExpectedDepositDate
 from .expected_processing_date_time import ExpectedProcessingDateTime
+from .export_format import ExportFormat
 from .external_paypoint_id import ExternalPaypointId
 from .external_processor_information import ExternalProcessorInformation
 from .fax_number import FaxNumber
+from .fee_amount import FeeAmount
 from .file import File
 from .file_content import FileContent
 from .file_content_ftype import FileContentFtype
@@ -240,6 +248,7 @@ from .google_pay_metadata import GooglePayMetadata
 from .google_pay_paypoint_registration_data import GooglePayPaypointRegistrationData
 from .google_pay_status_data import GooglePayStatusData
 from .google_wallet_data import GoogleWalletData
+from .has_vcard_transactions import HasVcardTransactions
 from .header_element import HeaderElement
 from .highticketamt import Highticketamt
 from .holdername import Holdername
@@ -254,9 +263,10 @@ from .invoice_element import InvoiceElement
 from .invoice_type import InvoiceType
 from .invoicenumber import Invoicenumber
 from .invoicestatus import Invoicestatus
-from .ipaddress import Ipaddress
+from .ip_address import IpAddress
 from .is_enabled import IsEnabled
 from .is_root import IsRoot
+from .is_same_day_ach import IsSameDayAch
 from .is_success import IsSuccess
 from .item_commodity_code import ItemCommodityCode
 from .item_description import ItemDescription
@@ -280,6 +290,7 @@ from .link_row import LinkRow
 from .location_code import LocationCode
 from .maddress import Maddress
 from .maddress_1 import Maddress1
+from .managed_payment_method import ManagedPaymentMethod
 from .maskedaccount import Maskedaccount
 from .mcc import Mcc
 from .mcity import Mcity
@@ -385,7 +396,6 @@ from .payabli_api_response_0_response_data import PayabliApiResponse0ResponseDat
 from .payabli_api_response_11 import PayabliApiResponse11
 from .payabli_api_response_11_response_data import PayabliApiResponse11ResponseData
 from .payabli_api_response_6 import PayabliApiResponse6
-from .payabli_api_response_bills import PayabliApiResponseBills
 from .payabli_api_response_cancel_list_payouts import PayabliApiResponseCancelListPayouts
 from .payabli_api_response_customer_query import PayabliApiResponseCustomerQuery
 from .payabli_api_response_error_400 import PayabliApiResponseError400
@@ -418,15 +428,19 @@ from .payment_method import PaymentMethod
 from .payment_method_domain_api_response import PaymentMethodDomainApiResponse
 from .payment_method_domain_general_response import PaymentMethodDomainGeneralResponse
 from .payment_method_domain_id import PaymentMethodDomainId
+from .payment_trans_status_description import PaymentTransStatusDescription
 from .paymentid import Paymentid
 from .payor_data_request import PayorDataRequest
 from .payor_data_response import PayorDataResponse
 from .payor_element import PayorElement
 from .payor_fields import PayorFields
+from .payor_id import PayorId
 from .payout_average_monthly_volume import PayoutAverageMonthlyVolume
 from .payout_average_ticket_limit import PayoutAverageTicketLimit
 from .payout_credit_limit import PayoutCreditLimit
+from .payout_gateway_connector import PayoutGatewayConnector
 from .payout_high_ticket_amount import PayoutHighTicketAmount
+from .payout_program import PayoutProgram
 from .paypoint_data import PaypointData
 from .paypoint_entry_config import PaypointEntryConfig
 from .paypoint_id import PaypointId
@@ -445,6 +459,7 @@ from .purchase_order import PurchaseOrder
 from .push_pay_link_request import PushPayLinkRequest, PushPayLinkRequest_Email, PushPayLinkRequest_Sms
 from .push_pay_link_request_email import PushPayLinkRequestEmail
 from .push_pay_link_request_sms import PushPayLinkRequestSms
+from .query_batches_detail_response import QueryBatchesDetailResponse
 from .query_batches_out_response import QueryBatchesOutResponse
 from .query_batches_out_response_records_item import QueryBatchesOutResponseRecordsItem
 from .query_batches_response import QueryBatchesResponse
@@ -482,9 +497,6 @@ from .query_summary_no_amt import QuerySummaryNoAmt
 from .query_transaction_events import QueryTransactionEvents
 from .query_transaction_events_event_data import QueryTransactionEventsEventData
 from .query_transaction_payor_data import QueryTransactionPayorData
-from .query_transfer_detail_response import QueryTransferDetailResponse
-from .query_transfer_response import QueryTransferResponse
-from .query_transfer_summary import QueryTransferSummary
 from .query_user_response import QueryUserResponse
 from .read_only import ReadOnly
 from .receipt_content import ReceiptContent
@@ -493,6 +505,8 @@ from .reference_name import ReferenceName
 from .reference_template_id import ReferenceTemplateId
 from .referenceidtrans import Referenceidtrans
 from .refund_detail import RefundDetail
+from .refund_id import RefundId
+from .remit_email import RemitEmail
 from .remitaddress_1 import Remitaddress1
 from .remitaddress_2 import Remitaddress2
 from .remitcity import Remitcity
@@ -512,6 +526,14 @@ from .responsedatanonobject import Responsedatanonobject
 from .result_code import ResultCode
 from .resulttext import Resulttext
 from .resumable import Resumable
+from .retrieval_id import RetrievalId
+from .returned_id import ReturnedId
+from .risk_action import RiskAction
+from .risk_action_code import RiskActionCode
+from .risk_flagged import RiskFlagged
+from .risk_flagged_on import RiskFlaggedOn
+from .risk_reason import RiskReason
+from .risk_status import RiskStatus
 from .room_id_not_in_use import RoomIdNotInUse
 from .routing_account import RoutingAccount
 from .s_section import SSection
@@ -519,6 +541,7 @@ from .sales_code import SalesCode
 from .sales_section import SalesSection
 from .save_if_success import SaveIfSuccess
 from .schedule_detail import ScheduleDetail
+from .schedule_id import ScheduleId
 from .sequence import Sequence
 from .service_cost import ServiceCost
 from .services import Services
@@ -526,6 +549,7 @@ from .services_section import ServicesSection
 from .setting_element import SettingElement
 from .settings_query_record import SettingsQueryRecord
 from .settlement_status import SettlementStatus
+from .settlement_status_payout import SettlementStatusPayout
 from .shipping_from_zip import ShippingFromZip
 from .shippingaddress import Shippingaddress
 from .shippingaddressadditional import Shippingaddressadditional
@@ -592,8 +616,10 @@ from .transaction_out_query_record import TransactionOutQueryRecord
 from .transaction_query_records import TransactionQueryRecords
 from .transaction_time import TransactionTime
 from .transfer import Transfer
-from .transfer_detail_record import TransferDetailRecord
+from .transfer_bank_account import TransferBankAccount
 from .transfer_event import TransferEvent
+from .transfer_message import TransferMessage
+from .transfer_message_properties import TransferMessageProperties
 from .transfer_query_response import TransferQueryResponse
 from .transfer_summary import TransferSummary
 from .type_account import TypeAccount
@@ -604,6 +630,7 @@ from .user_data import UserData
 from .user_query_record import UserQueryRecord
 from .usr_access import UsrAccess
 from .usr_status import UsrStatus
+from .v_card_payment_method import VCardPaymentMethod
 from .v_card_query_response import VCardQueryResponse
 from .v_card_record import VCardRecord
 from .v_card_summary import VCardSummary
@@ -617,8 +644,13 @@ from .vendor_name_1 import VendorName1
 from .vendor_name_2 import VendorName2
 from .vendor_number import VendorNumber
 from .vendor_out_data import VendorOutData
-from .vendor_payment_method import VendorPaymentMethod
-from .vendor_payment_method_method import VendorPaymentMethodMethod
+from .vendor_payment_method import (
+    VendorPaymentMethod,
+    VendorPaymentMethod_Ach,
+    VendorPaymentMethod_Check,
+    VendorPaymentMethod_Managed,
+    VendorPaymentMethod_Vcard,
+)
 from .vendor_phone import VendorPhone
 from .vendor_query_record import VendorQueryRecord
 from .vendor_response_billing_data import VendorResponseBillingData
@@ -655,6 +687,7 @@ __all__ = [
     "AchHolderType",
     "AchLinkTypes",
     "AchPassThroughSection",
+    "AchPaymentMethod",
     "AchSecCode",
     "AchSection",
     "AchService",
@@ -723,6 +756,8 @@ __all__ = [
     "BankSection",
     "BasicTable",
     "BasicTemplateElement",
+    "BatchDetailResponseRecord",
+    "BatchDetailResponseSummary",
     "BatchNumber",
     "BatchSummary",
     "Bcity",
@@ -736,7 +771,6 @@ __all__ = [
     "BillId",
     "BillItem",
     "BillOptions",
-    "BillOutData",
     "BillPayOutData",
     "BillPayOutDataRequest",
     "BillQueryRecord2",
@@ -805,8 +839,10 @@ __all__ = [
     "Cash",
     "Category",
     "ChargeBackResponse",
+    "ChargebackId",
     "ChargebackQueryRecords",
     "Check",
+    "CheckPaymentMethod",
     "CityNullable",
     "CloudQueryApiResponse",
     "Comments",
@@ -832,11 +868,12 @@ __all__ = [
     "Cvvresponsetext",
     "DSection",
     "Datenullable",
-    "Datetimenullable",
+    "DatetimeNullable",
     "Dbaname",
     "DepositDate",
     "Descriptor",
     "Device",
+    "DeviceId",
     "Discount",
     "DisplayProperty",
     "DocumentSection",
@@ -854,12 +891,15 @@ __all__ = [
     "EntityType",
     "Entry",
     "EntryAttributes",
+    "EntrypageId",
     "Entrypointfield",
     "ExpectedDepositDate",
     "ExpectedProcessingDateTime",
+    "ExportFormat",
     "ExternalPaypointId",
     "ExternalProcessorInformation",
     "FaxNumber",
+    "FeeAmount",
     "File",
     "FileContent",
     "FileContentFtype",
@@ -876,6 +916,7 @@ __all__ = [
     "GooglePayPaypointRegistrationData",
     "GooglePayStatusData",
     "GoogleWalletData",
+    "HasVcardTransactions",
     "HeaderElement",
     "Highticketamt",
     "Holdername",
@@ -890,9 +931,10 @@ __all__ = [
     "InvoiceType",
     "Invoicenumber",
     "Invoicestatus",
-    "Ipaddress",
+    "IpAddress",
     "IsEnabled",
     "IsRoot",
+    "IsSameDayAch",
     "IsSuccess",
     "ItemCommodityCode",
     "ItemDescription",
@@ -916,6 +958,7 @@ __all__ = [
     "LocationCode",
     "Maddress",
     "Maddress1",
+    "ManagedPaymentMethod",
     "Maskedaccount",
     "Mcc",
     "Mcity",
@@ -1021,7 +1064,6 @@ __all__ = [
     "PayabliApiResponse11",
     "PayabliApiResponse11ResponseData",
     "PayabliApiResponse6",
-    "PayabliApiResponseBills",
     "PayabliApiResponseCancelListPayouts",
     "PayabliApiResponseCustomerQuery",
     "PayabliApiResponseError400",
@@ -1054,15 +1096,19 @@ __all__ = [
     "PaymentMethodDomainApiResponse",
     "PaymentMethodDomainGeneralResponse",
     "PaymentMethodDomainId",
+    "PaymentTransStatusDescription",
     "Paymentid",
     "PayorDataRequest",
     "PayorDataResponse",
     "PayorElement",
     "PayorFields",
+    "PayorId",
     "PayoutAverageMonthlyVolume",
     "PayoutAverageTicketLimit",
     "PayoutCreditLimit",
+    "PayoutGatewayConnector",
     "PayoutHighTicketAmount",
+    "PayoutProgram",
     "PaypointData",
     "PaypointEntryConfig",
     "PaypointId",
@@ -1083,6 +1129,7 @@ __all__ = [
     "PushPayLinkRequestSms",
     "PushPayLinkRequest_Email",
     "PushPayLinkRequest_Sms",
+    "QueryBatchesDetailResponse",
     "QueryBatchesOutResponse",
     "QueryBatchesOutResponseRecordsItem",
     "QueryBatchesResponse",
@@ -1120,9 +1167,6 @@ __all__ = [
     "QueryTransactionEvents",
     "QueryTransactionEventsEventData",
     "QueryTransactionPayorData",
-    "QueryTransferDetailResponse",
-    "QueryTransferResponse",
-    "QueryTransferSummary",
     "QueryUserResponse",
     "ReadOnly",
     "ReceiptContent",
@@ -1131,6 +1175,8 @@ __all__ = [
     "ReferenceTemplateId",
     "Referenceidtrans",
     "RefundDetail",
+    "RefundId",
+    "RemitEmail",
     "Remitaddress1",
     "Remitaddress2",
     "Remitcity",
@@ -1150,6 +1196,14 @@ __all__ = [
     "ResultCode",
     "Resulttext",
     "Resumable",
+    "RetrievalId",
+    "ReturnedId",
+    "RiskAction",
+    "RiskActionCode",
+    "RiskFlagged",
+    "RiskFlaggedOn",
+    "RiskReason",
+    "RiskStatus",
     "RoomIdNotInUse",
     "RoutingAccount",
     "SSection",
@@ -1157,6 +1211,7 @@ __all__ = [
     "SalesSection",
     "SaveIfSuccess",
     "ScheduleDetail",
+    "ScheduleId",
     "Sequence",
     "ServiceCost",
     "Services",
@@ -1164,6 +1219,7 @@ __all__ = [
     "SettingElement",
     "SettingsQueryRecord",
     "SettlementStatus",
+    "SettlementStatusPayout",
     "ShippingFromZip",
     "Shippingaddress",
     "Shippingaddressadditional",
@@ -1230,8 +1286,10 @@ __all__ = [
     "TransactionQueryRecords",
     "TransactionTime",
     "Transfer",
-    "TransferDetailRecord",
+    "TransferBankAccount",
     "TransferEvent",
+    "TransferMessage",
+    "TransferMessageProperties",
     "TransferQueryResponse",
     "TransferSummary",
     "TypeAccount",
@@ -1242,6 +1300,7 @@ __all__ = [
     "UserQueryRecord",
     "UsrAccess",
     "UsrStatus",
+    "VCardPaymentMethod",
     "VCardQueryResponse",
     "VCardRecord",
     "VCardSummary",
@@ -1256,7 +1315,10 @@ __all__ = [
     "VendorNumber",
     "VendorOutData",
     "VendorPaymentMethod",
-    "VendorPaymentMethodMethod",
+    "VendorPaymentMethod_Ach",
+    "VendorPaymentMethod_Check",
+    "VendorPaymentMethod_Managed",
+    "VendorPaymentMethod_Vcard",
     "VendorPhone",
     "VendorQueryRecord",
     "VendorResponseBillingData",

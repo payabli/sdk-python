@@ -6,23 +6,84 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .transfer_event import TransferEvent
+from .batch_number import BatchNumber
+from .dbaname import Dbaname
+from .general_events import GeneralEvents
+from .legalname import Legalname
+from .paypoint_id import PaypointId
+from .transfer_bank_account import TransferBankAccount
+from .transfer_message import TransferMessage
 
 
 class Transfer(UniversalBaseModel):
+    """
+    Examples
+    --------
+    import datetime
+
+    from payabli import GeneralEvents, Transfer, TransferBankAccount
+
+    Transfer(
+        transfer_id=79851,
+        paypoint_id=705,
+        batch_number="split_705_gp_11-16-2024",
+        batch_currency="USD",
+        batch_records=1,
+        transfer_identifier="bbcbfed7-e535-45fe-8d62-000000",
+        batch_id=111430,
+        paypoint_entry_name="example_entry",
+        paypoint_legal_name="Example Company LLC",
+        paypoint_dba_name="Example Company",
+        paypoint_logo="https://example.com/logo.png",
+        bank_account=TransferBankAccount(
+            account_number="****1234",
+            routing_number="123456789",
+        ),
+        transfer_date="2024-11-17T08:20:07.288+00:00",
+        processor="gp",
+        transfer_status=2,
+        gross_amount=0.0,
+        charge_back_amount=0.0,
+        returned_amount=0.0,
+        hold_amount=0.0,
+        released_amount=0.0,
+        billing_fees_amount=0.0,
+        third_party_paid_amount=0.0,
+        adjustments_amount=0.0,
+        net_transfer_amount=2.0,
+        events_data=[
+            GeneralEvents(
+                description="Transfer Created",
+                event_time=datetime.datetime.fromisoformat(
+                    "2024-11-16 08:15:33.436000+00:00",
+                ),
+                ref_data="",
+                source="worker",
+            )
+        ],
+        messages=[],
+    )
+    """
+
     transfer_id: typing_extensions.Annotated[int, FieldMetadata(alias="transferId")] = pydantic.Field()
     """
     The transfer ID.
     """
 
-    paypoint_id: typing_extensions.Annotated[int, FieldMetadata(alias="paypointId")] = pydantic.Field()
+    paypoint_id: typing_extensions.Annotated[PaypointId, FieldMetadata(alias="paypointId")]
+    batch_number: typing_extensions.Annotated[BatchNumber, FieldMetadata(alias="batchNumber")]
+    batch_currency: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="batchCurrency")] = (
+        pydantic.Field(default=None)
+    )
     """
-    The ID of the paypoint the transfer belongs to.
+    The currency of the batch, either USD or CAD.
     """
 
-    batch_number: typing_extensions.Annotated[str, FieldMetadata(alias="batchNumber")] = pydantic.Field()
+    batch_records: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="batchRecords")] = (
+        pydantic.Field(default=None)
+    )
     """
-    The batch number associated with the transfer.
+    Number of records in the batch.
     """
 
     transfer_identifier: typing_extensions.Annotated[str, FieldMetadata(alias="transferIdentifier")] = pydantic.Field()
@@ -33,6 +94,41 @@ class Transfer(UniversalBaseModel):
     batch_id: typing_extensions.Annotated[int, FieldMetadata(alias="batchId")] = pydantic.Field()
     """
     The ID of the batch the transfer belongs to.
+    """
+
+    paypoint_entry_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="paypointEntryName")] = (
+        pydantic.Field(default=None)
+    )
+    """
+    The paypoint entry name.
+    """
+
+    paypoint_legal_name: typing_extensions.Annotated[
+        typing.Optional[Legalname], FieldMetadata(alias="paypointLegalName")
+    ] = pydantic.Field(default=None)
+    """
+    The paypoint legal name.
+    """
+
+    paypoint_dba_name: typing_extensions.Annotated[typing.Optional[Dbaname], FieldMetadata(alias="paypointDbaName")] = (
+        pydantic.Field(default=None)
+    )
+    """
+    The paypoint DBA name.
+    """
+
+    paypoint_logo: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="paypointLogo")] = (
+        pydantic.Field(default=None)
+    )
+    """
+    The paypoint logo URL.
+    """
+
+    bank_account: typing_extensions.Annotated[
+        typing.Optional[TransferBankAccount], FieldMetadata(alias="bankAccount")
+    ] = pydantic.Field(default=None)
+    """
+    Bank account information for the transfer.
     """
 
     transfer_date: typing_extensions.Annotated[str, FieldMetadata(alias="transferDate")] = pydantic.Field()
@@ -97,14 +193,14 @@ class Transfer(UniversalBaseModel):
     The net transfer amount after all deductions and additions.
     """
 
-    events_data: typing_extensions.Annotated[typing.List[TransferEvent], FieldMetadata(alias="eventsData")] = (
-        pydantic.Field()
-    )
+    events_data: typing_extensions.Annotated[
+        typing.Optional[typing.List[GeneralEvents]], FieldMetadata(alias="eventsData")
+    ] = pydantic.Field(default=None)
     """
     List of events associated with the transfer.
     """
 
-    messages: typing.List[str] = pydantic.Field()
+    messages: typing.Optional[typing.List[TransferMessage]] = pydantic.Field(default=None)
     """
     List of messages related to the transfer.
     """

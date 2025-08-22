@@ -10,6 +10,19 @@ from .email import Email
 
 
 class ContactsResponse(UniversalBaseModel):
+    """
+    Examples
+    --------
+    from payabli import ContactsResponse
+
+    ContactsResponse(
+        contact_email="eric@martinezcoatings.com",
+        contact_name="Eric Martinez",
+        contact_phone="5555555555",
+        contact_title="Owner",
+    )
+    """
+
     contact_email: typing_extensions.Annotated[typing.Optional[Email], FieldMetadata(alias="ContactEmail")] = (
         pydantic.Field(default=None)
     )

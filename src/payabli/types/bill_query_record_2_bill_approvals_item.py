@@ -6,7 +6,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .datetimenullable import Datetimenullable
+from .datetime_nullable import DatetimeNullable
 from .email import Email
 
 
@@ -17,7 +17,7 @@ class BillQueryRecord2BillApprovalsItem(UniversalBaseModel):
     """
 
     approved_time: typing_extensions.Annotated[
-        typing.Optional[Datetimenullable], FieldMetadata(alias="approvedTime")
+        typing.Optional[DatetimeNullable], FieldMetadata(alias="approvedTime")
     ] = pydantic.Field(default=None)
     """
     Timestamp of when the approval was made, in UTC.

@@ -63,6 +63,7 @@ NotificationContentEventType = typing.Union[
         "PayOutProcessed",
         "PayOutCanceled",
         "PayOutPaid",
+        "PayOutReturned",
         "PayoutSubscriptionCreated",
         "PayoutSubscriptionUpdated",
         "PayoutSubscriptionCanceled",

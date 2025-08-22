@@ -5,6 +5,7 @@
 from .authorize_payout_body import AuthorizePayoutBody
 from .capture_all_out_response import CaptureAllOutResponse
 from .capture_all_out_response_response_data_item import CaptureAllOutResponseResponseDataItem
+from .operation_result import OperationResult
 from .request_out_authorize_payment_details import RequestOutAuthorizePaymentDetails
 from .request_out_authorize_vendor_data import RequestOutAuthorizeVendorData
 from .v_card_get_response import VCardGetResponse
@@ -16,6 +17,7 @@ __all__ = [
     "AuthorizePayoutBody",
     "CaptureAllOutResponse",
     "CaptureAllOutResponseResponseDataItem",
+    "OperationResult",
     "RequestOutAuthorizePaymentDetails",
     "RequestOutAuthorizeVendorData",
     "VCardGetResponse",

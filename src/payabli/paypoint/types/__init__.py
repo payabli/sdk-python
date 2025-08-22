@@ -5,5 +5,17 @@
 from .get_basic_entry_by_id_response import GetBasicEntryByIdResponse
 from .get_basic_entry_response import GetBasicEntryResponse
 from .get_entry_config_response import GetEntryConfigResponse
+from .migrate_paypoint_response import MigratePaypointResponse
+from .notification_request import NotificationRequest
+from .paypoint_move_request import PaypointMoveRequest
+from .web_header_parameter import WebHeaderParameter
 
-__all__ = ["GetBasicEntryByIdResponse", "GetBasicEntryResponse", "GetEntryConfigResponse"]
+__all__ = [
+    "GetBasicEntryByIdResponse",
+    "GetBasicEntryResponse",
+    "GetEntryConfigResponse",
+    "MigratePaypointResponse",
+    "NotificationRequest",
+    "PaypointMoveRequest",
+    "WebHeaderParameter",
+]

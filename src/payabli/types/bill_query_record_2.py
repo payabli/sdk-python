@@ -13,7 +13,7 @@ from .bill_query_record_2_payment_method import BillQueryRecord2PaymentMethod
 from .billstatus import Billstatus
 from .created_at import CreatedAt
 from .datenullable import Datenullable
-from .datetimenullable import Datetimenullable
+from .datetime_nullable import DatetimeNullable
 from .dbaname import Dbaname
 from .external_paypoint_id import ExternalPaypointId
 from .frequency import Frequency
@@ -143,7 +143,7 @@ class BillQueryRecord2(UniversalBaseModel):
     Identifier of the bill.
     """
 
-    last_updated: typing_extensions.Annotated[typing.Optional[Datetimenullable], FieldMetadata(alias="LastUpdated")] = (
+    last_updated: typing_extensions.Annotated[typing.Optional[DatetimeNullable], FieldMetadata(alias="LastUpdated")] = (
         pydantic.Field(default=None)
     )
     """

@@ -6,6 +6,8 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.bill_data import BillData
 from ..types.bill_options import BillOptions
+from ..types.export_format import ExportFormat
+from ..types.file import File
 from ..types.file_content import FileContent
 from ..types.force_customer_creation import ForceCustomerCreation
 from ..types.idempotency_key import IdempotencyKey
@@ -416,6 +418,7 @@ class InvoiceClient:
         self,
         entry: str,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -423,12 +426,14 @@ class InvoiceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> QueryInvoiceResponse:
         """
-        Returns a list of invoices for an entrypoint. Use filters to limit results.
+        Returns a list of invoices for an entrypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -528,6 +533,7 @@ class InvoiceClient:
         """
         _response = self._raw_client.list_invoices(
             entry,
+            export_format=export_format,
             from_record=from_record,
             limit_record=limit_record,
             parameters=parameters,
@@ -540,6 +546,7 @@ class InvoiceClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -547,12 +554,14 @@ class InvoiceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> QueryInvoiceResponse:
         """
-        Returns a list of invoices for an org. Use filters to limit results.
+        Returns a list of invoices for an org. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -652,6 +661,7 @@ class InvoiceClient:
         """
         _response = self._raw_client.list_invoices_org(
             org_id,
+            export_format=export_format,
             from_record=from_record,
             limit_record=limit_record,
             parameters=parameters,
@@ -706,6 +716,37 @@ class InvoiceClient:
         _response = self._raw_client.send_invoice(
             id_invoice, attachfile=attachfile, mail_2=mail_2, request_options=request_options
         )
+        return _response.data
+
+    def get_invoice_pdf(self, id_invoice: int, *, request_options: typing.Optional[RequestOptions] = None) -> File:
+        """
+        Export a single invoice in PDF format.
+
+        Parameters
+        ----------
+        id_invoice : int
+            Invoice ID
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        File
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.invoice.get_invoice_pdf(
+            id_invoice=23548884,
+        )
+        """
+        _response = self._raw_client.get_invoice_pdf(id_invoice, request_options=request_options)
         return _response.data
 
 
@@ -1160,6 +1201,7 @@ class AsyncInvoiceClient:
         self,
         entry: str,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -1167,12 +1209,14 @@ class AsyncInvoiceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> QueryInvoiceResponse:
         """
-        Returns a list of invoices for an entrypoint. Use filters to limit results.
+        Returns a list of invoices for an entrypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -1280,6 +1324,7 @@ class AsyncInvoiceClient:
         """
         _response = await self._raw_client.list_invoices(
             entry,
+            export_format=export_format,
             from_record=from_record,
             limit_record=limit_record,
             parameters=parameters,
@@ -1292,6 +1337,7 @@ class AsyncInvoiceClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -1299,12 +1345,14 @@ class AsyncInvoiceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> QueryInvoiceResponse:
         """
-        Returns a list of invoices for an org. Use filters to limit results.
+        Returns a list of invoices for an org. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -1412,6 +1460,7 @@ class AsyncInvoiceClient:
         """
         _response = await self._raw_client.list_invoices_org(
             org_id,
+            export_format=export_format,
             from_record=from_record,
             limit_record=limit_record,
             parameters=parameters,
@@ -1474,4 +1523,45 @@ class AsyncInvoiceClient:
         _response = await self._raw_client.send_invoice(
             id_invoice, attachfile=attachfile, mail_2=mail_2, request_options=request_options
         )
+        return _response.data
+
+    async def get_invoice_pdf(
+        self, id_invoice: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> File:
+        """
+        Export a single invoice in PDF format.
+
+        Parameters
+        ----------
+        id_invoice : int
+            Invoice ID
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        File
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.invoice.get_invoice_pdf(
+                id_invoice=23548884,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_invoice_pdf(id_invoice, request_options=request_options)
         return _response.data

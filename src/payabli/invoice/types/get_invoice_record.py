@@ -13,7 +13,7 @@ from ...types.bill_options import BillOptions
 from ...types.created_at import CreatedAt
 from ...types.customer_id import CustomerId
 from ...types.datenullable import Datenullable
-from ...types.datetimenullable import Datetimenullable
+from ...types.datetime_nullable import DatetimeNullable
 from ...types.dbaname import Dbaname
 from ...types.discount import Discount
 from ...types.documents_ref import DocumentsRef
@@ -42,6 +42,7 @@ from ...types.shippingzip import Shippingzip
 from ...types.summary_commodity_code import SummaryCommodityCode
 from ...types.tax import Tax
 from ...types.terms import Terms
+from ...types.terms_conditions import TermsConditions
 from .invoice_id import InvoiceId
 from .invoice_paid_amount import InvoicePaidAmount
 
@@ -53,15 +54,17 @@ class GetInvoiceRecord(UniversalBaseModel):
     invoice_number: typing_extensions.Annotated[Invoicenumber, FieldMetadata(alias="invoiceNumber")]
     invoice_date: typing_extensions.Annotated[Datenullable, FieldMetadata(alias="invoiceDate")]
     invoice_due_date: typing_extensions.Annotated[Datenullable, FieldMetadata(alias="invoiceDueDate")]
-    invoice_sent_date: typing_extensions.Annotated[Datetimenullable, FieldMetadata(alias="invoiceSentDate")]
+    invoice_sent_date: typing_extensions.Annotated[DatetimeNullable, FieldMetadata(alias="invoiceSentDate")]
     invoice_end_date: typing_extensions.Annotated[Datenullable, FieldMetadata(alias="invoiceEndDate")]
-    last_payment_date: typing_extensions.Annotated[Datetimenullable, FieldMetadata(alias="lastPaymentDate")]
+    last_payment_date: typing_extensions.Annotated[DatetimeNullable, FieldMetadata(alias="lastPaymentDate")]
     created_at: typing_extensions.Annotated[CreatedAt, FieldMetadata(alias="createdAt")]
     invoice_status: typing_extensions.Annotated[Invoicestatus, FieldMetadata(alias="invoiceStatus")]
     invoice_type: typing_extensions.Annotated[InvoiceType, FieldMetadata(alias="invoiceType")]
     frequency: Frequency
     payment_terms: typing_extensions.Annotated[Terms, FieldMetadata(alias="paymentTerms")]
-    terms_conditions: typing_extensions.Annotated[str, FieldMetadata(alias="termsConditions")]
+    terms_conditions: typing_extensions.Annotated[
+        typing.Optional[TermsConditions], FieldMetadata(alias="termsConditions")
+    ] = None
     notes: typing.Optional[str] = None
     tax: Tax
     discount: Discount
@@ -110,9 +113,13 @@ class GetInvoiceRecord(UniversalBaseModel):
     paypoint_dbaname: typing_extensions.Annotated[Dbaname, FieldMetadata(alias="PaypointDbaname")]
     paypoint_entryname: typing_extensions.Annotated[Entrypointfield, FieldMetadata(alias="PaypointEntryname")]
     parent_org_name: typing_extensions.Annotated[OrgParentName, FieldMetadata(alias="ParentOrgName")]
-    additional_data: typing_extensions.Annotated[AdditionalDataString, FieldMetadata(alias="AdditionalData")]
+    additional_data: typing_extensions.Annotated[
+        typing.Optional[AdditionalDataString], FieldMetadata(alias="AdditionalData")
+    ] = None
     documents_ref: typing_extensions.Annotated[DocumentsRef, FieldMetadata(alias="DocumentsRef")]
-    external_paypoint_id: typing_extensions.Annotated[ExternalPaypointId, FieldMetadata(alias="externalPaypointID")]
+    external_paypoint_id: typing_extensions.Annotated[
+        typing.Optional[ExternalPaypointId], FieldMetadata(alias="externalPaypointID")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

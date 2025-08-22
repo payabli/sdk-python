@@ -9,10 +9,12 @@ from ..core.http_response import AsyncHttpResponse, HttpResponse
 from ..core.jsonable_encoder import jsonable_encoder
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
+from ..core.serialization import convert_and_respect_annotation_metadata
 from ..errors.bad_request_error import BadRequestError
 from ..errors.internal_server_error import InternalServerError
 from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.unauthorized_error import UnauthorizedError
+from ..types.entrypointfield import Entrypointfield
 from ..types.file_content_ftype import FileContentFtype
 from ..types.payabli_api_response import PayabliApiResponse
 from ..types.payabli_api_response_00_responsedatanonobject import PayabliApiResponse00Responsedatanonobject
@@ -22,6 +24,8 @@ from ..types.settings_query_record import SettingsQueryRecord
 from .types.get_basic_entry_by_id_response import GetBasicEntryByIdResponse
 from .types.get_basic_entry_response import GetBasicEntryResponse
 from .types.get_entry_config_response import GetEntryConfigResponse
+from .types.migrate_paypoint_response import MigratePaypointResponse
+from .types.notification_request import NotificationRequest
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -656,6 +660,110 @@ class RawPaypointClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def migrate(
+        self,
+        *,
+        entry_point: Entrypointfield,
+        new_parent_organization_id: int,
+        notification_request: typing.Optional[NotificationRequest] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[MigratePaypointResponse]:
+        """
+        Migrates a paypoint to a new parent organization.
+
+        Parameters
+        ----------
+        entry_point : Entrypointfield
+
+        new_parent_organization_id : int
+            The ID for the paypoint's new parent organization.
+
+        notification_request : typing.Optional[NotificationRequest]
+            Optional notification request object for a webhook
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[MigratePaypointResponse]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "Paypoint/migrate",
+            method="POST",
+            json={
+                "entryPoint": entry_point,
+                "newParentOrganizationId": new_parent_organization_id,
+                "notificationRequest": convert_and_respect_annotation_metadata(
+                    object_=notification_request, annotation=NotificationRequest, direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    MigratePaypointResponse,
+                    parse_obj_as(
+                        type_=MigratePaypointResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
 
 class AsyncRawPaypointClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -1233,6 +1341,110 @@ class AsyncRawPaypointClient:
                     SettingsQueryRecord,
                     parse_obj_as(
                         type_=SettingsQueryRecord,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def migrate(
+        self,
+        *,
+        entry_point: Entrypointfield,
+        new_parent_organization_id: int,
+        notification_request: typing.Optional[NotificationRequest] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[MigratePaypointResponse]:
+        """
+        Migrates a paypoint to a new parent organization.
+
+        Parameters
+        ----------
+        entry_point : Entrypointfield
+
+        new_parent_organization_id : int
+            The ID for the paypoint's new parent organization.
+
+        notification_request : typing.Optional[NotificationRequest]
+            Optional notification request object for a webhook
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[MigratePaypointResponse]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "Paypoint/migrate",
+            method="POST",
+            json={
+                "entryPoint": entry_point,
+                "newParentOrganizationId": new_parent_organization_id,
+                "notificationRequest": convert_and_respect_annotation_metadata(
+                    object_=notification_request, annotation=NotificationRequest, direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    MigratePaypointResponse,
+                    parse_obj_as(
+                        type_=MigratePaypointResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

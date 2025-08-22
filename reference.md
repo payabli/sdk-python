@@ -37,7 +37,7 @@ client = payabli(
 client.bill.add_bill(
     entry="8cfec329267",
     bill_number="ABC-123",
-    net_amount="3762.87",
+    net_amount=3762.87,
     bill_date=datetime.date.fromisoformat(
         "2024-07-01",
     ),
@@ -175,6 +175,14 @@ client.bill.add_bill(
 <dl>
 <dd>
 
+**discount:** `typing.Optional[float]` — Discount amount applied to the bill.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **due_date:** `typing.Optional[Datenullable]` — Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
     
 </dd>
@@ -199,6 +207,14 @@ client.bill.add_bill(
 <dl>
 <dd>
 
+**lot_number:** `typing.Optional[str]` — Lot number associated with the bill.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **mode:** `typing.Optional[int]` — Bill mode: value `0` for one-time bills, `1` for scheduled bills.
     
 </dd>
@@ -207,7 +223,15 @@ client.bill.add_bill(
 <dl>
 <dd>
 
-**net_amount:** `typing.Optional[NetAmountstring]` — Net Amount owed in bill. Required when adding a bill.
+**net_amount:** `typing.Optional[float]` — Net Amount owed in bill. Required when adding a bill.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**scheduled_options:** `typing.Optional[BillOutDataScheduledOptions]` — Options for scheduled bills.
     
 </dd>
 </dl>
@@ -224,6 +248,14 @@ client.bill.add_bill(
 <dd>
 
 **terms:** `typing.Optional[Terms]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**total_amount:** `typing.Optional[float]` — Total amount of the bill.
     
 </dd>
 </dl>
@@ -461,7 +493,7 @@ client = payabli(
 )
 client.bill.edit_bill(
     id_bill=285,
-    net_amount="3762.87",
+    net_amount=3762.87,
     bill_date=datetime.date.fromisoformat(
         "2025-07-01",
     ),
@@ -553,6 +585,14 @@ client.bill.edit_bill(
 <dl>
 <dd>
 
+**discount:** `typing.Optional[float]` — Discount amount applied to the bill.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **due_date:** `typing.Optional[Datenullable]` — Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
     
 </dd>
@@ -577,6 +617,14 @@ client.bill.edit_bill(
 <dl>
 <dd>
 
+**lot_number:** `typing.Optional[str]` — Lot number associated with the bill.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **mode:** `typing.Optional[int]` — Bill mode: value `0` for one-time bills, `1` for scheduled bills.
     
 </dd>
@@ -585,7 +633,15 @@ client.bill.edit_bill(
 <dl>
 <dd>
 
-**net_amount:** `typing.Optional[NetAmountstring]` — Net Amount owed in bill. Required when adding a bill.
+**net_amount:** `typing.Optional[float]` — Net Amount owed in bill. Required when adding a bill.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**scheduled_options:** `typing.Optional[BillOutDataScheduledOptions]` — Options for scheduled bills.
     
 </dd>
 </dl>
@@ -602,6 +658,14 @@ client.bill.edit_bill(
 <dd>
 
 **terms:** `typing.Optional[Terms]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**total_amount:** `typing.Optional[float]` — Total amount of the bill.
     
 </dd>
 </dl>
@@ -811,7 +875,7 @@ client.bill.get_bill(
 <dl>
 <dd>
 
-Retrieve a list of bills for an entrypoint. Use filters to limit results.
+Retrieve a list of bills for an entrypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 </dd>
 </dl>
 </dd>
@@ -860,7 +924,15 @@ client.bill.list_bills(
 <dl>
 <dd>
 
-**from_record:** `typing.Optional[int]` — The number of records to skip before starting to collect the result set.
+**export_format:** `typing.Optional[ExportFormat]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from_record:** `typing.Optional[int]` — The number of records to skip before starting to collect the result set. 
     
 </dd>
 </dl>
@@ -903,6 +975,7 @@ List of field names accepted:
 - `approvalUserId` (`eq`, `ne`)
 - `parentOrgId` (`ne`, `eq`, `nin`, `in`)
 - `approvalUserEmail` (`eq`, `ne`)
+- `scheduleId` (`ne`, `eq`)
 
 List of comparison accepted - enclosed between parentheses:
 - `eq` or empty => equal
@@ -959,7 +1032,7 @@ Example: `totalAmount(gt)=20` returns all records with a `totalAmount` that's gr
 <dl>
 <dd>
 
-Retrieve a list of bills for an organization. Use filters to limit results.
+Retrieve a list of bills for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 </dd>
 </dl>
 </dd>
@@ -1001,6 +1074,14 @@ client.bill.list_bills_org(
 <dd>
 
 **org_id:** `int` — The numeric identifier for organization, assigned by Payabli.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**export_format:** `typing.Optional[ExportFormat]` 
     
 </dd>
 </dl>
@@ -2118,7 +2199,7 @@ client.boarding.get_link_application(
 <dl>
 <dd>
 
-Returns a list of boarding applications for an organization. Use filters to limit results.
+Returns a list of boarding applications for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 </dd>
 </dl>
 </dd>
@@ -2160,6 +2241,14 @@ client.boarding.list_applications(
 <dd>
 
 **org_id:** `int` — The numeric identifier for organization, assigned by Payabli.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**export_format:** `typing.Optional[ExportFormat]` 
     
 </dd>
 </dl>
@@ -4522,7 +4611,7 @@ client.export.export_applications(
 <dl>
 <dd>
 
-**format:** `ExportFormat` — Format for the export, either XLSX or CSV. 
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -4683,7 +4772,7 @@ client.export.export_batch_details(
 <dl>
 <dd>
 
-**format:** `ExportFormat` — Format for the export, either XLSX or CSV. 
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -4839,7 +4928,7 @@ client.export.export_batch_details_org(
 <dl>
 <dd>
 
-**format:** `ExportFormat` — Format for the export, either XLSX or CSV. 
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -5025,7 +5114,7 @@ client.export.export_batches(
 <dl>
 <dd>
 
-**format:** `ExportFormat` — Format for the export, either XLSX or CSV. 
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -5185,7 +5274,7 @@ client.export.export_batches_org(
 <dl>
 <dd>
 
-**format:** `ExportFormat` — Format for the export, either XLSX or CSV. 
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -5359,7 +5448,7 @@ client.export.export_batches_out(
 <dl>
 <dd>
 
-**format:** `ExportFormat` — Format for the export, either XLSX or CSV. 
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -5499,7 +5588,7 @@ client.export.export_batches_out_org(
 <dl>
 <dd>
 
-**format:** `ExportFormat` — Format for the export, either XLSX or CSV. 
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -5655,7 +5744,7 @@ client.export.export_bills(
 <dl>
 <dd>
 
-**format:** `ExportFormat` — Format for the export, either XLSX or CSV. 
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -5813,7 +5902,7 @@ client.export.export_bills_org(
 <dl>
 <dd>
 
-**format:** `ExportFormat` — Format for the export, either XLSX or CSV. 
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -5987,7 +6076,7 @@ client.export.export_chargebacks(
 <dl>
 <dd>
 
-**format:** `ExportFormat` — Format for the export, either XLSX or CSV. 
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -6166,7 +6255,7 @@ client.export.export_chargebacks_org(
 <dl>
 <dd>
 
-**format:** `ExportFormat` — Format for the export, either XLSX or CSV. 
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -6361,7 +6450,7 @@ client.export.export_customers(
 <dl>
 <dd>
 
-**format:** `ExportFormat` — Format for the export, either XLSX or CSV. 
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -6533,7 +6622,7 @@ client.export.export_customers_org(
 <dl>
 <dd>
 
-**format:** `ExportFormat` — Format for the export, either XLSX or CSV. 
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -6721,7 +6810,7 @@ client.export.export_invoices(
 <dl>
 <dd>
 
-**format:** `ExportFormat` — Format for the export, either XLSX or CSV. 
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -6903,7 +6992,7 @@ client.export.export_invoices_org(
 <dl>
 <dd>
 
-**format:** `ExportFormat` — Format for the export, either XLSX or CSV. 
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -7093,7 +7182,7 @@ client.export.export_organizations(
 <dl>
 <dd>
 
-**format:** `ExportFormat` — Format for the export, either XLSX or CSV. 
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -7266,7 +7355,7 @@ client.export.export_payout(
 <dl>
 <dd>
 
-**format:** `ExportFormat` — Format for the export, either XLSX or CSV. 
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -7422,7 +7511,7 @@ client.export.export_payout_org(
 <dl>
 <dd>
 
-**format:** `ExportFormat` — Format for the export, either XLSX or CSV. 
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -7586,7 +7675,7 @@ client.export.export_paypoints(
 <dl>
 <dd>
 
-**format:** `ExportFormat` — Format for the export, either XLSX or CSV. 
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -7760,7 +7849,7 @@ client.export.export_settlements(
 <dl>
 <dd>
 
-**format:** `ExportFormat` — Format for the export, either XLSX or CSV. 
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -7938,7 +8027,7 @@ client.export.export_settlements_org(
 <dl>
 <dd>
 
-**format:** `ExportFormat` — Format for the export, either XLSX or CSV. 
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -8132,7 +8221,7 @@ client.export.export_subscriptions(
 <dl>
 <dd>
 
-**format:** `ExportFormat` — Format for the export, either XLSX or CSV. 
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -8312,7 +8401,7 @@ client.export.export_subscriptions_org(
 <dl>
 <dd>
 
-**format:** `ExportFormat` — Format for the export, either XLSX or CSV. 
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -8508,7 +8597,7 @@ client.export.export_transactions(
 <dl>
 <dd>
 
-**format:** `ExportFormat` — Format for the export, either XLSX or CSV. 
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -8692,7 +8781,7 @@ client.export.export_transactions_org(
 <dl>
 <dd>
 
-**format:** `ExportFormat` — Format for the export, either XLSX or CSV. 
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -8894,7 +8983,7 @@ client.export.export_transfer_details(
 <dl>
 <dd>
 
-**format:** `ExportFormat` — Format for the export, either XLSX or CSV. 
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -9223,7 +9312,7 @@ client.export.export_vendors(
 <dl>
 <dd>
 
-**format:** `ExportFormat` — Format for the export, either XLSX or CSV. 
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -9385,7 +9474,7 @@ client.export.export_vendors_org(
 <dl>
 <dd>
 
-**format:** `ExportFormat` — Format for the export, either XLSX or CSV. 
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -9482,146 +9571,6 @@ List of parameters accepted:
 - fromRecord : initial record in query
 
 Example: `netAmount(gt)=20` returns all records with a `netAmount` greater than 20.00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">get_invoice_pdf</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Export a single invoice in PDF format.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from payabli import payabli
-
-client = payabli(
-    api_key="YOUR_API_KEY",
-)
-client.export.get_invoice_pdf(
-    id_invoice=23548884,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id_invoice:** `int` — Invoice ID
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">get_report_file</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Gets a copy of a generated report by ID.'
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from payabli import payabli
-
-client = payabli(
-    api_key="YOUR_API_KEY",
-)
-client.export.get_report_file(
-    id=1000000,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `int` — Report ID
     
 </dd>
 </dl>
@@ -10983,7 +10932,7 @@ client.invoice.get_invoice_number(
 <dl>
 <dd>
 
-Returns a list of invoices for an entrypoint. Use filters to limit results.
+Returns a list of invoices for an entrypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 </dd>
 </dl>
 </dd>
@@ -11025,6 +10974,14 @@ client.invoice.list_invoices(
 <dd>
 
 **entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**export_format:** `typing.Optional[ExportFormat]` 
     
 </dd>
 </dl>
@@ -11152,7 +11109,7 @@ Example: totalAmount(gt)=20 return all records with totalAmount greater than 20.
 <dl>
 <dd>
 
-Returns a list of invoices for an org. Use filters to limit results.
+Returns a list of invoices for an org. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 </dd>
 </dl>
 </dd>
@@ -11194,6 +11151,14 @@ client.invoice.list_invoices_org(
 <dd>
 
 **org_id:** `int` — The numeric identifier for organization, assigned by Payabli.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**export_format:** `typing.Optional[ExportFormat]` 
     
 </dd>
 </dl>
@@ -11378,6 +11343,76 @@ client.invoice.send_invoice(
 <dd>
 
 **mail_2:** `typing.Optional[str]` — Email address where the invoice will be sent to. If this parameter isn't included, Payabli uses the email address on file for the customer owner of the invoice.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">get_invoice_pdf</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export a single invoice in PDF format.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.invoice.get_invoice_pdf(
+    id_invoice=23548884,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id_invoice:** `int` — Invoice ID
     
 </dd>
 </dl>
@@ -12134,7 +12169,7 @@ client.money_in.authorize(
 <dl>
 <dd>
 
-**ipaddress:** `typing.Optional[Ipaddress]` 
+**ipaddress:** `typing.Optional[IpAddress]` 
     
 </dd>
 </dl>
@@ -12662,7 +12697,7 @@ client.money_in.getpaid(
 <dl>
 <dd>
 
-**ipaddress:** `typing.Optional[Ipaddress]` 
+**ipaddress:** `typing.Optional[IpAddress]` 
     
 </dd>
 </dl>
@@ -12995,7 +13030,7 @@ An amount equal to zero will refund the total amount authorized minus any servic
 <dl>
 <dd>
 
-**ipaddress:** `typing.Optional[Ipaddress]` 
+**ipaddress:** `typing.Optional[IpAddress]` 
     
 </dd>
 </dl>
@@ -13417,12 +13452,7 @@ Authorizes transaction for payout. Authorized transactions aren't flagged for se
 <dd>
 
 ```python
-from payabli import (
-    BillPayOutDataRequest,
-    FileContent,
-    VendorPaymentMethod,
-    payabli,
-)
+from payabli import BillPayOutDataRequest, VendorPaymentMethod_Ach, payabli
 from payabli.money_out import (
     RequestOutAuthorizePaymentDetails,
     RequestOutAuthorizeVendorData,
@@ -13433,24 +13463,18 @@ client = payabli(
 )
 client.money_out.authorize_out(
     entry_point="48acde49",
+    source="api",
     invoice_data=[
         BillPayOutDataRequest(
-            bill_id=123,
-            attachments=[
-                FileContent(
-                    filename="bill.pdf",
-                    ftype="pdf",
-                    furl="https://example.com/bill.pdf",
-                )
-            ],
+            bill_id=54323,
         )
     ],
     order_description="Window Painting",
+    payment_method=VendorPaymentMethod_Ach(
+        stored_method_id="4c6a4b78-72de-4bdd-9455-b9d30f991001-XXXX",
+    ),
     payment_details=RequestOutAuthorizePaymentDetails(
         total_amount=47.0,
-    ),
-    payment_method=VendorPaymentMethod(
-        method="managed",
     ),
     vendor_data=RequestOutAuthorizeVendorData(
         vendor_number="7895433",
@@ -14039,6 +14063,76 @@ client.money_out.v_card_get(
 </dl>
 </details>
 
+<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">send_v_card_link</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Sends a virtual card link via email to the vendor associated with the `transId`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.money_out.send_v_card_link(
+    trans_id="01K33Z6YQZ6GD5QVKZ856MJBSC",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**trans_id:** `str` — The transaction ID of the virtual card payout. The ID is returned as `ReferenceId` in the response when you authorize a payout with POST /MoneyOut/authorize.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">get_check_image</a>(...)</code></summary>
 <dl>
 <dd>
@@ -14424,6 +14518,76 @@ client.notification.update_notification(
 <dd>
 
 **request:** `UpdateNotificationRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.notification.<a href="src/payabli/notification/client.py">get_report_file</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Gets a copy of a generated report by ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.notification.get_report_file(
+    id=1000000,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `int` — Report ID
     
 </dd>
 </dl>
@@ -17461,6 +17625,103 @@ client.paypoint.settings_page(
 </dl>
 </details>
 
+<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">migrate</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Migrates a paypoint to a new parent organization.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.paypoint import NotificationRequest, WebHeaderParameter
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.paypoint.migrate(
+    entry_point="473abc123def",
+    new_parent_organization_id=123,
+    notification_request=NotificationRequest(
+        notification_url="https://webhook-test.yoursie.com",
+        web_header_parameters=[
+            WebHeaderParameter(
+                key="testheader",
+                value="1234567890",
+            )
+        ],
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**entry_point:** `Entrypointfield` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**new_parent_organization_id:** `int` — The ID for the paypoint's new parent organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**notification_request:** `typing.Optional[NotificationRequest]` — Optional notification request object for a webhook
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Query
 <details><summary><code>client.query.<a href="src/payabli/query/client.py">list_batch_details</a>(...)</code></summary>
 <dl>
@@ -17474,7 +17735,8 @@ client.paypoint.settings_page(
 <dl>
 <dd>
 
-Retrieve a list of batches and their details, including settled and unsettled transactions for a paypoint. Use filters to limit results.
+Retrieve a list of batches and their details, including settled and
+unsettled transactions for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response. 
 </dd>
 </dl>
 </dd>
@@ -17516,6 +17778,14 @@ client.query.list_batch_details(
 <dd>
 
 **entry:** `Entry` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**export_format:** `typing.Optional[ExportFormat]` 
     
 </dd>
 </dl>
@@ -17656,7 +17926,7 @@ Example: `settledAmount(gt)=20` returns all records with a `settledAmount` great
 <dl>
 <dd>
 
-Retrieve a list of batches and their details, including settled and unsettled transactions for an organization. Use filters to limit results.
+Retrieve a list of batches and their details, including settled and unsettled transactions for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 </dd>
 </dl>
 </dd>
@@ -17698,6 +17968,14 @@ client.query.list_batch_details_org(
 <dd>
 
 **org_id:** `int` — The numeric identifier for organization, assigned by Payabli.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**export_format:** `typing.Optional[ExportFormat]` 
     
 </dd>
 </dl>
@@ -17837,7 +18115,7 @@ Example: `settledAmount(gt)=20` returns all records with a `settledAmount` great
 <dl>
 <dd>
 
-Retrieve a list of batches for a paypoint. Use filters to limit results.
+Retrieve a list of batches for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 </dd>
 </dl>
 </dd>
@@ -17879,6 +18157,14 @@ client.query.list_batches(
 <dd>
 
 **entry:** `Entry` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**export_format:** `typing.Optional[ExportFormat]` 
     
 </dd>
 </dl>
@@ -17997,7 +18283,7 @@ Example: `batchAmount(gt)=20` returns all records with a `batchAmount` greater t
 <dl>
 <dd>
 
-Retrieve a list of batches for an org. Use filters to limit results.
+Retrieve a list of batches for an org. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 </dd>
 </dl>
 </dd>
@@ -18039,6 +18325,14 @@ client.query.list_batches_org(
 <dd>
 
 **org_id:** `int` — The numeric identifier for organization, assigned by Payabli.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**export_format:** `typing.Optional[ExportFormat]` 
     
 </dd>
 </dl>
@@ -18157,7 +18451,7 @@ Example: `batchAmount(gt)=20` returns all records with a `batchAmount` greater t
 <dl>
 <dd>
 
-Retrieve a list of MoneyOut batches for a paypoint. Use filters to limit results.
+Retrieve a list of MoneyOut batches for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 </dd>
 </dl>
 </dd>
@@ -18199,6 +18493,14 @@ client.query.list_batches_out(
 <dd>
 
 **entry:** `Entry` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**export_format:** `typing.Optional[ExportFormat]` 
     
 </dd>
 </dl>
@@ -18279,7 +18581,7 @@ Collection of field names, conditions, and values used to filter the query. See 
 <dl>
 <dd>
 
-Retrieve a list of MoneyOut batches for an org. Use filters to limit results.
+Retrieve a list of MoneyOut batches for an org. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 </dd>
 </dl>
 </dd>
@@ -18321,6 +18623,14 @@ client.query.list_batches_out_org(
 <dd>
 
 **org_id:** `int` — The numeric identifier for organization, assigned by Payabli.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**export_format:** `typing.Optional[ExportFormat]` 
     
 </dd>
 </dl>
@@ -18416,7 +18726,7 @@ See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-repo
 <dl>
 <dd>
 
-Retrieves a list of chargebacks and returned transactions for a paypoint. Use filters to limit results.
+Retrieves a list of chargebacks and returned transactions for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 </dd>
 </dl>
 </dd>
@@ -18458,6 +18768,14 @@ client.query.list_chargebacks(
 <dd>
 
 **entry:** `Entry` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**export_format:** `typing.Optional[ExportFormat]` 
     
 </dd>
 </dl>
@@ -18593,7 +18911,7 @@ Example: `netAmount(gt)=20` returns all records with a `netAmount` greater than 
 <dl>
 <dd>
 
-Retrieve a list of chargebacks and returned transactions for an org. Use filters to limit results.
+Retrieve a list of chargebacks and returned transactions for an org. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 </dd>
 </dl>
 </dd>
@@ -18635,6 +18953,14 @@ client.query.list_chargebacks_org(
 <dd>
 
 **org_id:** `int` — The numeric identifier for organization, assigned by Payabli.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**export_format:** `typing.Optional[ExportFormat]` 
     
 </dd>
 </dl>
@@ -18772,7 +19098,7 @@ Example: `netAmount(gt)=20` returns all records with a `netAmount` greater than 
 <dl>
 <dd>
 
-Retrieves a list of customers for a paypoint. Use filters to limit results.
+Retrieves a list of customers for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 </dd>
 </dl>
 </dd>
@@ -18814,6 +19140,14 @@ client.query.list_customers(
 <dd>
 
 **entry:** `Entry` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**export_format:** `typing.Optional[ExportFormat]` 
     
 </dd>
 </dl>
@@ -18943,7 +19277,7 @@ See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-repo
 <dl>
 <dd>
 
-Retrieves a list of customers for an org. Use filters to limit results.
+Retrieves a list of customers for an org. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 </dd>
 </dl>
 </dd>
@@ -18985,6 +19319,14 @@ client.query.list_customers_org(
 <dd>
 
 **org_id:** `int` — The numeric identifier for organization, assigned by Payabli.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**export_format:** `typing.Optional[ExportFormat]` 
     
 </dd>
 </dl>
@@ -19692,7 +20034,7 @@ Example: totalAmount(gt)=20  return all records with totalAmount greater than 20
 <dl>
 <dd>
 
-Retrieves a list of an organization's suborganizations and their full details such as orgId, users, and settings. Use filters to limit results.
+Retrieves a list of an organization's suborganizations and their full details such as orgId, users, and settings. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 </dd>
 </dl>
 </dd>
@@ -19734,6 +20076,14 @@ client.query.list_organizations(
 <dd>
 
 **org_id:** `int` — The numeric identifier for organization, assigned by Payabli.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**export_format:** `typing.Optional[ExportFormat]` 
     
 </dd>
 </dl>
@@ -19850,7 +20200,7 @@ Example: `dbaname(ct)=hoa` returns all records with a `dbaname` containing "hoa"
 <dl>
 <dd>
 
-Retrieves a list of money out transactions (payouts) for a paypoint. Use filters to limit results.
+Retrieves a list of money out transactions (payouts) for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 </dd>
 </dl>
 </dd>
@@ -19892,6 +20242,14 @@ client.query.list_payout(
 <dd>
 
 **entry:** `Entry` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**export_format:** `typing.Optional[ExportFormat]` 
     
 </dd>
 </dl>
@@ -19972,6 +20330,7 @@ List of field names accepted:
   - `lotNumber` (ct, nct)
   - `customerVendorAccount` (ct, nct, eq, ne)
   - `batchId` (eq, ne)
+  - `payoutProgram`(eq, ne) the options are `managed` or `odp`. For example, `payoutProgram(eq)=managed` returns all records with a `payoutProgram` equal to `managed`. 
 
   List of comparison accepted - enclosed between parentheses:
   - eq or empty => equal
@@ -20033,7 +20392,7 @@ List of field names accepted:
 <dl>
 <dd>
 
-Retrieves a list of money out transactions (payouts) for an organization. Use filters to limit results.
+Retrieves a list of money out transactions (payouts) for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 </dd>
 </dl>
 </dd>
@@ -20075,6 +20434,14 @@ client.query.list_payout_org(
 <dd>
 
 **org_id:** `int` — The numeric identifier for organization, assigned by Payabli.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**export_format:** `typing.Optional[ExportFormat]` 
     
 </dd>
 </dl>
@@ -20154,6 +20521,7 @@ List of field names accepted:
   - `lotNumber` (ct, nct)
   - `customerVendorAccount` (ct, nct, eq, ne)
   - `batchId` (eq, ne)
+  - `payoutProgram`(eq, ne) the options are `managed` or `odp`. For example, `payoutProgram(eq)=managed` returns all records with a `payoutProgram` equal to `managed`.
 
   List of comparison accepted - enclosed between parentheses:
   - eq or empty => equal
@@ -20215,7 +20583,7 @@ List of field names accepted:
 <dl>
 <dd>
 
-Returns a list of paypoints in an organization. Use filters to limit results.
+Returns a list of paypoints in an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 </dd>
 </dl>
 </dd>
@@ -20257,6 +20625,14 @@ client.query.list_paypoints(
 <dd>
 
 **org_id:** `int` — The numeric identifier for organization, assigned by Payabli.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**export_format:** `typing.Optional[ExportFormat]` 
     
 </dd>
 </dl>
@@ -20378,7 +20754,7 @@ Example: `dbaname(ct)=hoa` returns all records with a `dbaname` containing "hoa"
 <dl>
 <dd>
 
-Retrieve a list of settled transactions for a paypoint. Use filters to limit results.
+Retrieve a list of settled transactions for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 </dd>
 </dl>
 </dd>
@@ -20420,6 +20796,14 @@ client.query.list_settlements(
 <dd>
 
 **entry:** `Entry` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**export_format:** `typing.Optional[ExportFormat]` 
     
 </dd>
 </dl>
@@ -20546,3 +20930,6556 @@ Example: `settledAmount(gt)=20` returns all records with a `settledAmount` great
 
 </dd>
 </dl>
+</details>
+
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_settlements_org</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a list of settled transactions for an organization. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.query.list_settlements_org(
+    org_id=123,
+    from_record=251,
+    limit_record=0,
+    sort_by="desc(field_name)",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**org_id:** `int` — The numeric identifier for organization, assigned by Payabli.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**export_format:** `typing.Optional[ExportFormat]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from_record:** `typing.Optional[int]` — The number of records to skip before starting to collect the result set.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit_record:** `typing.Optional[int]` — Max number of records to return for the query. Use `0` or negative value to return all records.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parameters:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` 
+
+
+Collection of field names, conditions, and values used to filter the query. 
+<Info>
+  **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+  Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+  For example:
+
+  --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+  should become:
+
+  --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+</Info>
+
+See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
+
+**List of field names accepted:**
+
+- `settlementDate` (gt, ge, lt, le, eq, ne)
+- `depositDate` (gt, ge, lt, le, eq, ne)
+- `transId`  (ne, eq, ct, nct)
+- `gatewayTransId`  (ne, eq, ct, nct)
+- `method`   (in, nin, eq, ne)
+- `settledAmount`  (gt, ge, lt, le, eq, ne)
+- `operation`    (in, nin, eq, ne)
+- `source`   (in, nin, eq, ne)
+- `batchNumber`  (ct, nct, eq, ne)
+- `payaccountLastfour`   (nct, ct)
+- `payaccountType`   (ne, eq, in, nin)
+- `customerFirstname`   (ct, nct, eq, ne)
+- `customerLastname`    (ct, nct, eq, ne)
+- `customerName`   (ct, nct)
+- `customerId`  (eq, ne)
+- `customerNumber`  (ct, nct, eq, ne)
+- `customerCompanyname`    (ct, nct, eq, ne)
+- `customerAddress` (ct, nct, eq, ne)
+- `customerCity`    (ct, nct, eq, ne)
+- `customerZip` (ct, nct, eq, ne)
+- `customerState` (ct, nct, eq, ne)
+- `customerCountry` (ct, nct, eq, ne)
+- `customerPhone` (ct, nct, eq, ne)
+- `customerEmail` (ct, nct, eq, ne)
+- `customerShippingAddress` (ct, nct, eq, ne)
+- `customerShippingCity`    (ct, nct, eq, ne)
+- `customerShippingZip` (ct, nct, eq, ne)
+- `customerShippingState` (ct, nct, eq, ne)
+- `customerShippingCountry` (ct, nct, eq, ne)
+- `orgId`  (eq) *mandatory when entry=org*
+- `isHold` (eq, ne)
+- `paypointId`  (ne, eq)
+- `paypointLegal`  (ne, eq, ct, nct)
+- `paypointDba`  (ne, eq, ct, nct)
+- `orgName`  (ne, eq, ct, nct)
+- `batchId` (ct, nct, eq, neq)
+- `additional-xxx`  (ne, eq, ct, nct) where xxx is the additional field name
+
+**List of comparison accepted:**
+- `eq` or empty => equal
+- `gt` => greater than
+- `ge` => greater or equal
+- `lt` => less than
+- `le` => less or equal
+- `ne` => not equal
+- `ct` => contains
+- `nct` => not contains
+- `in` => inside array separated by "|"
+- `nin` => not inside array separated by "|"
+
+**List of parameters accepted:**
+
+- `limitRecord`: max number of records for query (default="20", "0" or negative value for all)
+- `fromRecord`: initial record in query
+
+Example: `settledAmount(gt)=20` returns all records with a `settledAmount` greater than 20.00.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort_by:** `typing.Optional[str]` — The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_subscriptions</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of subscriptions for a single paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.query.list_subscriptions(
+    entry="8cfec329267",
+    from_record=251,
+    limit_record=0,
+    sort_by="desc(field_name)",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**entry:** `Entry` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**export_format:** `typing.Optional[ExportFormat]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from_record:** `typing.Optional[int]` — The number of records to skip before starting to collect the result set.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit_record:** `typing.Optional[int]` — Max number of records to return for the query. Use `0` or negative value to return all records.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parameters:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` 
+
+
+Collection of field names, conditions, and values used to filter the query. 
+<Info>
+  **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+  Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+  For example:
+
+  --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+  should become:
+
+  --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+</Info>
+See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
+      
+**List of field names accepted:**
+
+- `startDate` (gt, ge, lt, le, eq, ne)
+- `endDate` (gt, ge, lt, le, eq, ne)
+- `nextDate` (gt, ge, lt, le, eq, ne)
+- `frequency` (in, nin, ne, eq)
+- `method` (in, nin, eq, ne)
+- `totalAmount` (gt, ge, lt, le, eq, ne)
+- `netAmount` (gt, ge, lt, le, eq, ne)
+- `feeAmount` (gt, ge, lt, le, eq, ne)
+- `status` (in, nin, eq, ne)
+- `untilcancelled` (eq, ne)
+- `payaccountLastfour` (nct, ct)
+- `payaccountType` (ne, eq, in, nin)
+- `payaccountCurrency` (ne, eq, in, nin)
+- `customerFirstname` (ct, nct, eq, ne)
+- `customerLastname` (ct, nct, eq, ne)
+- `customerName` (ct, nct)
+- `customerId` (eq, ne)
+- `customerNumber` (ct, nct, eq, ne)
+- `customerCompanyname` (ct, nct, eq, ne)
+- `customerAddress` (ct, nct, eq, ne)
+- `customerCity` (ct, nct, eq, ne)
+- `customerZip` (ct, nct, eq, ne)
+- `customerState` (ct, nct, eq, ne)
+- `customerCountry` (ct, nct, eq, ne)
+- `customerPhone` (ct, nct, eq, ne)
+- `customerEmail` (ct, nct, eq, ne)
+- `customerShippingAddress` (ct, nct, eq, ne)
+- `customerShippingCity` (ct, nct, eq, ne)
+- `customerShippingZip` (ct, nct, eq, ne)
+- `customerShippingState` (ct, nct, eq, ne)
+- `customerShippingCountry` (ct, nct, eq, ne)
+- `orgId` (eq)
+- `paypointId` (ne, eq)
+- `paypointLegal` (ne, eq, ct, nct)
+- `paypointDba` (ne, eq, ct, nct)
+- `orgName` (ne, eq, ct, nct)
+- `externalPaypointId` (ct, nct, ne, eq)
+- `subId` (eq, ne)
+- `orderDescription` (ct, nct)
+- `cycles` (eq, ne, gt, ge, lt, le)
+- `leftcycles` (eq, ne, gt, ge, lt, le)
+- `createdAt` (eq, ne, gt, ge, lt, le)
+- `updatedOn` (eq, ne, gt, ge, lt, le)
+- `invoiceNumber` (ct, nct)
+- `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name  
+
+**List of comparison operators accepted:**
+- `eq` or empty => equal
+- `gt` => greater than
+- `ge` => greater or equal
+- `lt` => less than
+- `le` => less or equal
+- `ne` => not equal
+- `ct` => contains
+- `nct` => not contains
+- `in` => inside array
+- `nin` => not inside array
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort_by:** `typing.Optional[str]` — The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_subscriptions_org</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of subscriptions for a single org. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.query.list_subscriptions_org(
+    org_id=123,
+    from_record=251,
+    limit_record=0,
+    sort_by="desc(field_name)",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**org_id:** `int` — The numeric identifier for organization, assigned by Payabli.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**export_format:** `typing.Optional[ExportFormat]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from_record:** `typing.Optional[int]` — The number of records to skip before starting to collect the result set.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit_record:** `typing.Optional[int]` — Max number of records to return for the query. Use `0` or negative value to return all records.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parameters:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` 
+
+
+Collection of field names, conditions, and values used to filter the query. 
+<Info>
+  **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+  Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+  For example:
+
+  --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+  should become:
+
+  --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+</Info>
+See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
+      
+**List of field names accepted:**
+
+- `startDate` (gt, ge, lt, le, eq, ne)
+- `endDate` (gt, ge, lt, le, eq, ne)
+- `nextDate` (gt, ge, lt, le, eq, ne)
+- `frequency` (in, nin, ne, eq)
+- `method` (in, nin, eq, ne)
+- `totalAmount` (gt, ge, lt, le, eq, ne)
+- `netAmount` (gt, ge, lt, le, eq, ne)
+- `feeAmount` (gt, ge, lt, le, eq, ne)
+- `status` (in, nin, eq, ne)
+- `untilcancelled` (eq, ne)
+- `payaccountLastfour` (nct, ct)
+- `payaccountType` (ne, eq, in, nin)
+- `payaccountCurrency` (ne, eq, in, nin)
+- `customerFirstname` (ct, nct, eq, ne)
+- `customerLastname` (ct, nct, eq, ne)
+- `customerName` (ct, nct)
+- `customerId` (eq, ne)
+- `customerNumber` (ct, nct, eq, ne)
+- `customerCompanyname` (ct, nct, eq, ne)
+- `customerAddress` (ct, nct, eq, ne)
+- `customerCity` (ct, nct, eq, ne)
+- `customerZip` (ct, nct, eq, ne)
+- `customerState` (ct, nct, eq, ne)
+- `customerCountry` (ct, nct, eq, ne)
+- `customerPhone` (ct, nct, eq, ne)
+- `customerEmail` (ct, nct, eq, ne)
+- `customerShippingAddress` (ct, nct, eq, ne)
+- `customerShippingCity` (ct, nct, eq, ne)
+- `customerShippingZip` (ct, nct, eq, ne)
+- `customerShippingState` (ct, nct, eq, ne)
+- `customerShippingCountry` (ct, nct, eq, ne)
+- `orgId` (eq)
+- `paypointId` (ne, eq)
+- `paypointLegal` (ne, eq, ct, nct)
+- `paypointDba` (ne, eq, ct, nct)
+- `orgName` (ne, eq, ct, nct)
+- `externalPaypointId` (ct, nct, ne, eq)
+- `subId` (eq, ne)
+- `orderDescription` (ct, nct)
+- `cycles` (eq, ne, gt, ge, lt, le)
+- `leftcycles` (eq, ne, gt, ge, lt, le)
+- `createdAt` (eq, ne, gt, ge, lt, le)
+- `updatedOn` (eq, ne, gt, ge, lt, le)
+- `invoiceNumber` (ct, nct)
+- `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name  
+
+**List of comparison operators accepted:**
+- `eq` or empty => equal
+- `gt` => greater than
+- `ge` => greater or equal
+- `lt` => less than
+- `le` => less or equal
+- `ne` => not equal
+- `ct` => contains
+- `nct` => not contains
+- `in` => inside array
+- `nin` => not inside array      
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort_by:** `typing.Optional[str]` — The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transactions</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a list of transactions for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
+By default, this endpoint returns only transactions from the last 60 days. To query transactions outside of this period, include `transactionDate` filters.
+For example, this request parameters filter for transactions between April 01, 2024 and April 09, 2024. 
+``` curl --request GET \
+  --url https://sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59\
+  --header 'requestToken: <api-key>'
+
+  ```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.query.list_transactions(
+    entry="8cfec329267",
+    from_record=251,
+    limit_record=0,
+    sort_by="desc(field_name)",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**entry:** `Entry` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**export_format:** `typing.Optional[ExportFormat]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from_record:** `typing.Optional[int]` — The number of records to skip before starting to collect the result set.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit_record:** `typing.Optional[int]` — Max number of records to return for the query. Use `0` or negative value to return all records.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parameters:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` 
+
+
+Collection of field names, conditions, and values used to filter the query. 
+<Info>
+  **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+  Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+  For example:
+
+  --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+  should become:
+
+  --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+</Info>
+See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
+
+**List of field names accepted:**
+
+- `transactionDate` (gt, ge, lt, le, eq, ne)
+- `transId` (ne, eq, ct, nct, in, nin)
+- `gatewayTransId` (ne, eq, ct, nct)
+- `orderId` (ne, eq)
+- `scheduleId` (ne, eq)
+- `returnId` (ne, eq)
+- `refundId` (ne, eq)
+- `idTrans` (ne, eq)
+- `orgId` (ne, eq)
+- `paypointId` (ne, eq)
+- `paypointLegal` (ne, eq, ct, nct)
+- `paypointDba` (ne, eq, ct, nct)
+- `orgName` (ne, eq, ct, nct)
+- `externalPaypointId` (ct, nct, eq, ne)
+- `method` (in, nin, eq, ne)
+- `totalAmount` (gt, ge, lt, le, eq, ne)
+- `netAmount` (gt, ge, lt, le, eq, ne)
+- `feeAmount` (gt, ge, lt, le, eq, ne)
+- `operation` (in, nin, eq, ne)
+- `source` (in, nin, eq, ne, ct, nct)
+- `status` (in, nin, eq, ne)
+- `settlementStatus` (in, nin, eq, ne)
+- `batchNumber` (nct, ct)
+- `invoiceNumber` (ct, nct)
+- `authCode` (ct, nct)
+- `orderDescription` (ct, nct)
+- `payaccountLastfour` (nct, ct)
+- `payaccountType` (ne, eq, in, nin)
+- `payaccountCurrency` (ne, eq, in, nin)
+- `customerFirstname` (ct, nct, eq, ne)
+- `customerLastname` (ct, nct, eq, ne)
+- `customerName` (ct, nct)
+- `customerId` (eq, ne)
+- `customerNumber` (ct, nct, eq, ne)
+- `customerCompanyname` (ct, nct, eq, ne)
+- `customerAddress` (ct, nct, eq, ne)
+- `customerCity` (ct, nct, eq, ne)
+- `customerZip` (ct, nct, eq, ne)
+- `customerState` (ct, nct, eq, ne)
+- `customerCountry` (ct, nct, eq, ne)
+- `customerPhone` (ct, nct, eq, ne)
+- `customerEmail` (ct, nct, eq, ne)
+- `customerShippingAddress` (ct, nct, eq, ne)
+- `customerShippingCity` (ct, nct, eq, ne)
+- `customerShippingZip` (ct, nct, eq, ne)
+- `customerShippingState` (ct, nct, eq, ne)
+- `customerShippingCountry` (ct, nct, eq, ne)
+- `deviceId` (ct, nct, in, nin, eq, ne)
+- `AchSecCode` ( ct, nct, in, nin, eq, ne)
+- `AchHolderType` (ct, nct, in, nin, eq, and ne)
+- `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name related to customer data - 'invoiceAdditional-xxx' (ne, eq, ct, nct) where xxx is the additional field name related to invoice data
+
+**List of comparison operators accepted:**
+- `eq` or empty => equal
+- `gt` => greater than
+- `ge` => greater or equal
+- `lt` => less than
+- `le` => less or equal
+- `ne` => not equal
+- `ct` => contains
+- `nct` => not contains
+- `in` => inside array
+- `nin` => not inside array      
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort_by:** `typing.Optional[str]` — The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transactions_org</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+
+Retrieve a list of transactions for an organization. Use filters to
+limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
+
+
+By default, this endpoint returns only transactions from the last 60 days. To query transactions outside of this period, include `transactionDate` filters.
+
+For example, this request parameters filter for transactions between April 01, 2024 and April 09, 2024. 
+
+```
+curl --request GET \
+  --url https://sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59\
+  --header 'requestToken: <api-key>'
+
+  ```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.query.list_transactions_org(
+    org_id=123,
+    from_record=251,
+    limit_record=0,
+    sort_by="desc(field_name)",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**org_id:** `int` — The numeric identifier for organization, assigned by Payabli.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**export_format:** `typing.Optional[ExportFormat]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from_record:** `typing.Optional[int]` — The number of records to skip before starting to collect the result set.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit_record:** `typing.Optional[int]` — Max number of records to return for the query. Use `0` or negative value to return all records.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parameters:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` 
+
+
+Collection of field names, conditions, and values used to filter the query. 
+<Info>
+  **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+  Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+  For example:
+
+  --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+  should become:
+
+  --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+</Info>
+See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
+
+**List of field names accepted:**
+
+- `transactionDate` (gt, ge, lt, le, eq, ne)
+- `transId` (ne, eq, ct, nct, in, nin)
+- `gatewayTransId` (ne, eq, ct, nct)
+- `orderId` (ne, eq)
+- `scheduleId` (ne, eq)
+- `returnId` (ne, eq)
+- `refundId` (ne, eq)
+- `idTrans` (ne, eq)
+- `orgId` (ne, eq)
+- `paypointId` (ne, eq)
+- `paypointLegal` (ne, eq, ct, nct)
+- `paypointDba` (ne, eq, ct, nct)
+- `orgName` (ne, eq, ct, nct)
+- `externalPaypointId` (ct, nct, eq, ne)
+- `method` (in, nin, eq, ne)
+- `totalAmount` (gt, ge, lt, le, eq, ne)
+- `netAmount` (gt, ge, lt, le, eq, ne)
+- `feeAmount` (gt, ge, lt, le, eq, ne)
+- `operation` (in, nin, eq, ne)
+- `source` (in, nin, eq, ne, ct, nct)
+- `status` (in, nin, eq, ne)
+- `settlementStatus` (in, nin, eq, ne)
+- `batchNumber` (nct, ct)
+- `invoiceNumber` (ct, nct)
+- `authCode` (ct, nct)
+- `orderDescription` (ct, nct)
+- `payaccountLastfour` (nct, ct)
+- `payaccountType` (ne, eq, in, nin)
+- `payaccountCurrency` (ne, eq, in, nin)
+- `customerFirstname` (ct, nct, eq, ne)
+- `customerLastname` (ct, nct, eq, ne)
+- `customerName` (ct, nct)
+- `customerId` (eq, ne)
+- `customerNumber` (ct, nct, eq, ne)
+- `customerCompanyname` (ct, nct, eq, ne)
+- `customerAddress` (ct, nct, eq, ne)
+- `customerCity` (ct, nct, eq, ne)
+- `customerZip` (ct, nct, eq, ne)
+- `customerState` (ct, nct, eq, ne)
+- `customerCountry` (ct, nct, eq, ne)
+- `customerPhone` (ct, nct, eq, ne)
+- `customerEmail` (ct, nct, eq, ne)
+- `customerShippingAddress` (ct, nct, eq, ne)
+- `customerShippingCity` (ct, nct, eq, ne)
+- `customerShippingZip` (ct, nct, eq, ne)
+- `customerShippingState` (ct, nct, eq, ne)
+- `customerShippingCountry` (ct, nct, eq, ne)
+- `deviceId` (ct, nct, in, nin, eq, ne)
+- `AchSecCode` ( ct, nct, in, nin, eq, ne)
+- `AchHolderType`` (ct, nct, in, nin, eq, and ne)
+- `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name related to customer data
+- 'invoiceAdditional-xxx' (ne, eq, ct, nct) where xxx is the additional field name related to invoice data
+
+**List of comparison operators accepted:**
+- `eq` or empty => equal
+- `gt` => greater than
+- `ge` => greater or equal
+- `lt` => less than
+- `le` => less or equal
+- `ne` => not equal
+- `ct` => contains
+- `nct` => not contains
+- `in` => inside array
+- `nin` => not inside array
+  
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort_by:** `typing.Optional[str]` — The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transfer_details</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a list of transfer details records for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.query.list_transfer_details(
+    entry="47862acd",
+    transfer_id=123456,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**entry:** `Entry` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**transfer_id:** `int` — The numeric identifier for the transfer, assigned by Payabli.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit_record:** `LimitRecord` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**export_format:** `typing.Optional[ExportFormat]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from_record:** `typing.Optional[int]` — The number of records to skip before starting to collect the result set.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parameters:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` 
+
+
+Collection of field names, conditions, and values used to filter
+the query. 
+
+<Info>
+  **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+  Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+  For example:
+
+  --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+  should become:
+
+  --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+</Info>
+
+See [Filters and Conditions
+Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference)
+for more information.
+
+
+**List of field names accepted:**
+
+  - `grossAmount` (gt, ge, lt, le, eq, ne)
+  - `chargeBackAmount` (gt, ge, lt, le, eq, ne)
+  - `returnedAmount` (gt, ge, lt, le, eq, ne)
+  - `billingFeeAmount` (gt, ge, lt, le, eq, ne)
+  - `thirdPartyPaidAmount` (gt, ge, lt, le, eq, ne)
+  - `netFundedAmount` (gt, ge, lt, le, eq, ne)
+  - `adjustmentAmount` (gt, ge, lt, le, eq, ne)
+  - `splitFundingAmount` (gt, ge, lt, le, eq, ne)
+  - `operation` (in, nin, eq, ne)
+  - `transactionId` (eq, ne, in, nin)
+  - `category` (eq, ne, ct, nct)
+  - `type` (eq, ne, in, nin)
+  - `method` (eq, ne, in, nin)
+  
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort_by:** `typing.Optional[str]` — The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transfers</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a list of transfers for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.query.list_transfers(
+    entry="47862acd",
+    from_record=0,
+    limit_record=20,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**entry:** `Entry` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**export_format:** `typing.Optional[ExportFormat]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from_record:** `typing.Optional[int]` — The number of records to skip before starting to collect the result set.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit_record:** `typing.Optional[int]` — Max number of records to return for the query. Use `0` or negative value to return all records.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parameters:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` 
+
+Collection of field names, conditions, and values used to filter the query. See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
+<Info>
+  **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+  Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+  For example:
+
+  --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+  should become:
+
+  --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+</Info>
+List of field names accepted:
+
+  - `transferDate` (gt, ge, lt, le, eq, ne)
+  - `grossAmount` (gt, ge, lt, le, eq, ne)
+  - `chargeBackAmount` (gt, ge, lt, le, eq, ne)
+  - `returnedAmount` (gt, ge, lt, le, eq, ne)
+  - `billingFeeAmount` (gt, ge, lt, le, eq, ne)
+  - `thirdPartyPaidAmount` (gt, ge, lt, le, eq, ne)
+  - `netFundedAmount` (gt, ge, lt, le, eq, ne)
+  - `adjustmentAmount` (gt, ge, lt, le, eq, ne)
+  - `processor` (ne, eq, ct, nct)
+  - `transferStatus` (ne, eq, in, nin)
+  - `batchNumber` (ne, eq, ct, nct)
+  - `batchId` (ne, eq, in, nin)
+  - `transferId` (in, nin, eq, ne)
+  - `bankAccountNumber` (ct, nct, ne, eq)
+  - `bankRoutingNumber` (ct, nct, ne, eq)
+  - `batchCurrency` (in, nin, ne, eq)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort_by:** `typing.Optional[str]` — The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transfers_org</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a list of transfers for an org. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.query.list_transfers_org(
+    org_id=123,
+    from_record=0,
+    limit_record=20,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**org_id:** `Orgid` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**export_format:** `typing.Optional[ExportFormat]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from_record:** `typing.Optional[int]` — The number of records to skip before starting to collect the result set.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit_record:** `typing.Optional[int]` — Max number of records to return for the query. Use `0` or negative value to return all records.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parameters:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` 
+
+Collection of field names, conditions, and values used to filter the query. See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
+<Info>
+  **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+  Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+  For example:
+
+  --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+  should become:
+
+  --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+</Info>
+List of field names accepted:
+
+  - `transferDate` (gt, ge, lt, le, eq, ne)
+  - `grossAmount` (gt, ge, lt, le, eq, ne)
+  - `chargeBackAmount` (gt, ge, lt, le, eq, ne)
+  - `returnedAmount` (gt, ge, lt, le, eq, ne)
+  - `billingFeeAmount` (gt, ge, lt, le, eq, ne)
+  - `thirdPartyPaidAmount` (gt, ge, lt, le, eq, ne)
+  - `netFundedAmount` (gt, ge, lt, le, eq, ne)
+  - `adjustmentAmount` (gt, ge, lt, le, eq, ne)
+  - `processor` (ne, eq, ct, nct)
+  - `transferStatus` (ne, eq, in, nin)
+  - `batchNumber` (ne, eq, ct, nct)
+  - `batchId` (ne, eq, in, nin)
+  - `transferId` (in, nin, eq, ne)
+  - `bankAccountNumber` (ct, nct, ne, eq)
+  - `bankRoutingNumber` (ct, nct, ne, eq)
+  - `batchCurrency` (in, nin, ne, eq)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort_by:** `typing.Optional[str]` — The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_users_org</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get list of users for an org. Use filters to limit results.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.query.list_users_org(
+    org_id=123,
+    from_record=251,
+    limit_record=0,
+    sort_by="desc(field_name)",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**org_id:** `int` — The numeric identifier for organization, assigned by Payabli.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from_record:** `typing.Optional[int]` — The number of records to skip before starting to collect the result set.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit_record:** `typing.Optional[int]` — Max number of records to return for the query. Use `0` or negative value to return all records.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parameters:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` 
+
+Collection of field names, conditions, and values used to filter the query.
+<Info>
+  **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+  Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+  For example:
+
+  --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+  should become:
+
+  --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+</Info>
+See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
+
+**List of field names accepted:**
+
+- `createdDate` (gt, ge, lt, le, eq, ne)
+- `name`  (ne, eq, ct, nct)
+- `email`  (ne, eq, ct, nct)
+- `status`   (in, nin, eq, ne)
+- `role.xxx`  (ne, eq, ct, nct) where xxx is the role field: `roleLabel` or `roleValue`
+
+**List of comparison accepted - enclosed between parentheses:**
+
+- `eq` or empty => equal
+- `gt` => greater than
+- `ge` => greater or equal
+- `lt` => less than
+- `le` => less or equal
+- `ne` => not equal
+- `ct` => contains
+- `nct` => not contains
+- `in` => inside array separated by "|"
+- `nin` => not inside array separated by "|"
+
+**List of parameters accepted:**
+- `limitRecord`: max number of records for query (default="20", "0" or negative value for all)
+- `fromRecord`: initial record in query
+
+Example: `name(ct)=john`  return all records with name containing 'john'.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort_by:** `typing.Optional[str]` — The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_users_paypoint</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get list of users for a paypoint. Use filters to limit results.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.query.list_users_paypoint(
+    entry="8cfec329267",
+    from_record=251,
+    limit_record=0,
+    sort_by="desc(field_name)",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from_record:** `typing.Optional[int]` — The number of records to skip before starting to collect the result set.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit_record:** `typing.Optional[int]` — Max number of records to return for the query. Use `0` or negative value to return all records.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parameters:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` 
+
+Collection of field names, conditions, and values used to filter the query.
+<Info>
+  **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+  Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+  For example:
+
+  --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+  should become:
+
+  --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+</Info>
+See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
+
+**List of field names accepted:**
+
+- `createdDate` (gt, ge, lt, le, eq, ne)
+- `name`  (ne, eq, ct, nct)
+- `email`  (ne, eq, ct, nct)
+- `status`   (in, nin, eq, ne)
+- `role.xxx`  (ne, eq, ct, nct) where xxx is the role field: `roleLabel` or `roleValue`
+
+**List of comparison accepted - enclosed between parentheses:**
+
+- `eq` or empty => equal
+- `gt` => greater than
+- `ge` => greater or equal
+- `lt` => less than
+- `le` => less or equal
+- `ne` => not equal
+- `ct` => contains
+- `nct` => not contains
+- `in` => inside array separated by "|"
+- `nin` => not inside array separated by "|"
+
+**List of parameters accepted:**
+- `limitRecord`: max number of records for query (default="20", "0" or negative value for all)
+- `fromRecord`: initial record in query
+
+Example: `name(ct)=john`  return all records with name containing 'john'
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort_by:** `typing.Optional[str]` — The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_vendors</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a list of vendors for an entrypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.query.list_vendors(
+    entry="8cfec329267",
+    from_record=251,
+    limit_record=0,
+    sort_by="desc(field_name)",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**export_format:** `typing.Optional[ExportFormat]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from_record:** `typing.Optional[int]` — The number of records to skip before starting to collect the result set.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit_record:** `typing.Optional[int]` — Max number of records to return for the query. Use `0` or negative value to return all records.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parameters:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` 
+
+Collection of field names, conditions, and values used to filter the query
+<Info>
+  **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+  Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+  For example:
+
+  --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+  should become:
+
+  --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+</Info>
+See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
+
+List of field names accepted:
+- `method` (in, nin, eq, ne)
+- `enrollmentStatus` (in,nin, eq, ne)
+- `status` (in, nin, eq, ne)
+- `vendorNumber` (ct, nct, eq, ne)
+- `name` (ct, nct, eq, ne)
+- `ein` (ct, nct, eq, ne)
+- `phone` (ct, nct, eq, ne)
+- `email` (ct, nct, eq, ne)
+- `address` (ct, nct, eq, ne)
+- `city` (ct, nct, eq, ne)
+- `state` (ct, nct, eq, ne)
+- `country` (ct, nct, eq, ne)
+- `zip` (ct, nct, eq, ne)
+- `mcc` (ct, nct, eq, ne)
+- `locationCode` (ct, nct, eq, ne)
+- `paypointLegal` (ne, eq, ct, nct)
+- `parentOrgId` (ne, eq, nin, in)
+- `paypointDba` (ne, eq, ct, nct)
+- `orgName` (ne, eq, ct, nct)
+
+List of comparison accepted - enclosed between parentheses:
+- eq or empty => equal
+- gt => greater than
+- ge => greater or equal
+- lt => less than
+- le => less or equal
+- ne => not equal
+- ct => contains
+- nct => not contains
+- in => inside array separated by "|"
+- nin => not inside array separated by "|"
+
+List of parameters accepted:
+- limitRecord : max number of records for query (default="20", "0" or negative value for all)
+- fromRecord : initial record in query
+
+Example: `netAmount(gt)=20` returns all records with a `netAmount` greater than 20.00
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort_by:** `typing.Optional[str]` — The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_vendors_org</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a list of vendors for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.query.list_vendors_org(
+    org_id=123,
+    from_record=251,
+    limit_record=0,
+    sort_by="desc(field_name)",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**org_id:** `int` — The numeric identifier for organization, assigned by Payabli.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**export_format:** `typing.Optional[ExportFormat]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from_record:** `typing.Optional[int]` — The number of records to skip before starting to collect the result set.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit_record:** `typing.Optional[int]` — Max number of records to return for the query. Use `0` or negative value to return all records.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parameters:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` 
+
+Collection of field names, conditions, and values used to filter the query
+<Info>
+  **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+  Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+  For example:
+
+  --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+  should become:
+
+  --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+</Info>
+See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
+
+List of field names accepted:
+- `method` (in, nin, eq, ne)
+- `enrollmentStatus` (in,nin, eq, ne)
+- `status` (in, nin, eq, ne)
+- `vendorNumber` (ct, nct, eq, ne)
+- `name` (ct, nct, eq, ne)
+- `ein` (ct, nct, eq, ne)
+- `phone` (ct, nct, eq, ne)
+- `email` (ct, nct, eq, ne)
+- `address` (ct, nct, eq, ne)
+- `city` (ct, nct, eq, ne)
+- `state` (ct, nct, eq, ne)
+- `country` (ct, nct, eq, ne)
+- `zip` (ct, nct, eq, ne)
+- `mcc` (ct, nct, eq, ne)
+- `locationCode` (ct, nct, eq, ne)
+- `paypointLegal` (ne, eq, ct, nct)
+- `paypointDba` (ne, eq, ct, nct)
+- `parentOrgId` (ne, eq, nin, in)
+- `orgName` (ne, eq, ct, nct)
+
+List of comparison accepted - enclosed between parentheses:
+- eq or empty => equal
+- gt => greater than
+- ge => greater or equal
+- lt => less than
+- le => less or equal
+- ne => not equal
+- ct => contains
+- nct => not contains
+- in => inside array separated by "|"
+- nin => not inside array separated by "|"
+
+List of parameters accepted:
+- limitRecord : max number of records for query (default="20", "0" or negative value for all)
+- fromRecord : initial record in query
+
+Example: `netAmount(gt)=20` returns all records with a `netAmount` greater than 20.00
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort_by:** `typing.Optional[str]` — The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_vcards</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a list of vcards (virtual credit cards) issued for an entrypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.query.list_vcards(
+    entry="8cfec329267",
+    from_record=251,
+    limit_record=0,
+    sort_by="desc(field_name)",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**entry:** `Entry` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**export_format:** `typing.Optional[ExportFormat]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from_record:** `typing.Optional[int]` — The number of records to skip before starting to collect the result set.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit_record:** `typing.Optional[int]` — Max number of records to return for the query. Use `0` or negative value to return all records.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parameters:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` 
+
+Collection of field names, conditions, and values used to filter the query. 
+<Info>
+  **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+  Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+  For example:
+
+  --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+  should become:
+
+  --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+</Info>
+List of field names accepted:  
+
+  - `status` (in, nin, eq, ne)  
+  - `createdAt` (gt, ge, lt, le, eq, ne)  
+  - `cardToken` (ct, nct, eq, ne)  
+  - `lastFour` (ct, nct, eq, ne)  
+  - `expirationDate` (ct, nct, eq, ne)  
+  - `mcc` (ct, nct, eq, ne)  
+  - `payoutId` (ct, nct, eq, ne, in, nin)  
+  - `customerId` (ct, nct, eq, ne, in, nin)  
+  - `vendorId` (ct, nct, eq, ne, in, nin)  
+  - `miscData1` (ct, nct, eq, ne)  
+  - `miscData2` (ct, nct, eq, ne)  
+  - `currentUses` (gt, ge, lt, le, eq, ne)  
+  - `amount` (gt, ge, lt, le, eq, ne)  
+  - `balance` (gt, ge, lt, le, eq, ne)  
+  - `paypointLegal` (ne, eq, ct, nct)  
+  - `paypointDba` (ne, eq, ct, nct)  
+  - `orgName` (ne, eq, ct, nct)  
+  - `externalPaypointId` (ct, nct, eq, ne)  
+  - `paypointId` (in, nin, eq, ne)  
+
+List of comparison accepted - enclosed between parentheses:  
+
+  - eq or empty => equal  
+  - gt => greater than  
+  - ge => greater or equal  
+  - lt => less than  
+  - le => less or equal  
+  - ne => not equal  
+  - ct => contains  
+  - nct => not contains  
+  - in => inside array separated by "|"  
+  - nin => not inside array separated by "|"
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort_by:** `typing.Optional[str]` — The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_vcards_org</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a list of vcards (virtual credit cards) issued for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.query.list_vcards_org(
+    org_id=123,
+    from_record=251,
+    limit_record=0,
+    sort_by="desc(field_name)",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**org_id:** `int` — The numeric identifier for organization, assigned by Payabli.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**export_format:** `typing.Optional[ExportFormat]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from_record:** `typing.Optional[int]` — The number of records to skip before starting to collect the result set.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit_record:** `typing.Optional[int]` — Max number of records to return for the query. Use `0` or negative value to return all records.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parameters:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` 
+
+Collection of field names, conditions, and values used to filter the query. 
+<Info>
+  **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+  Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+  For example:
+
+  --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+  should become:
+
+  --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+</Info>
+List of field names accepted:  
+
+  - `status` (in, nin, eq, ne)  
+  - `createdAt` (gt, ge, lt, le, eq, ne)  
+  - `cardToken` (ct, nct, eq, ne)  
+  - `lastFour` (ct, nct, eq, ne)  
+  - `expirationDate` (ct, nct, eq, ne)  
+  - `mcc` (ct, nct, eq, ne)  
+  - `payoutId` (ct, nct, eq, ne, in, nin)  
+  - `customerId` (ct, nct, eq, ne, in, nin)  
+  - `vendorId` (ct, nct, eq, ne, in, nin)  
+  - `miscData1` (ct, nct, eq, ne)  
+  - `miscData2` (ct, nct, eq, ne)  
+  - `currentUses` (gt, ge, lt, le, eq, ne)  
+  - `amount` (gt, ge, lt, le, eq, ne)  
+  - `balance` (gt, ge, lt, le, eq, ne)  
+  - `paypointLegal` (ne, eq, ct, nct)  
+  - `paypointDba` (ne, eq, ct, nct)  
+  - `orgName` (ne, eq, ct, nct)  
+  - `externalPaypointId` (ct, nct, eq, ne)  
+  - `paypointId` (in, nin, eq, ne)  
+
+List of comparison accepted - enclosed between parentheses:  
+
+  - eq or empty => equal  
+  - gt => greater than  
+  - ge => greater or equal  
+  - lt => less than  
+  - le => less or equal  
+  - ne => not equal  
+  - ct => contains  
+  - nct => not contains  
+  - in => inside array separated by "|"  
+  - nin => not inside array separated by "|"
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort_by:** `typing.Optional[str]` — The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Statistic
+<details><summary><code>client.statistic.<a href="src/payabli/statistic/client.py">basic_stats</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves the basic statistics for an organization or a paypoint, for a given time period, grouped by a particular frequency. 
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.statistic.basic_stats(
+    entry_id=1000000,
+    freq="m",
+    level=1,
+    mode="ytd",
+    end_date="2023-05-23",
+    start_date="2023-03-23",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**entry_id:** `int` — Identifier in Payabli for the entity.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**freq:** `str` 
+
+Frequency to group series. Allowed values:
+
+- `m` - monthly
+- `w` - weekly
+- `d` - daily
+- `h` - hourly
+
+For example, `w` groups the results by week.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**level:** `int` 
+
+The entry level for the request: 
+  - 0 for Organization
+  - 2 for Paypoint
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**mode:** `str` 
+
+Mode for the request. Allowed values:
+
+- `custom` - Allows you to set a custom date range
+- `ytd` - Year To Date
+- `mtd` - Month To Date
+- `wtd` - Week To Date
+- `today` - All current day
+- `m12` - Last 12 months
+- `d30` - Last 30 days
+- `h24` - Last 24 hours
+- `lasty` - Last Year
+- `lastm` - Last Month
+- `lastw` - Last Week
+- `yesterday` - Last Day
+  
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_date:** `typing.Optional[str]` 
+
+Used with `custom` mode. The end date for the range. 
+Valid formats:
+  - YYYY-mm-dd
+  - YYYY/mm/dd
+  - mm-dd-YYYY
+  - mm/dd/YYYY
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parameters:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — List of parameters.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**start_date:** `typing.Optional[str]` 
+
+Used with `custom` mode. The start date for the range. 
+Valid formats:
+   - YYYY-mm-dd
+   - YYYY/mm/dd
+   -  mm-dd-YYYY
+   - mm/dd/YYYY
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.statistic.<a href="src/payabli/statistic/client.py">customer_basic_stats</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves the basic statistics for a customer for a specific time period, grouped by a selected frequency. 
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.statistic.customer_basic_stats(
+    customer_id=998,
+    freq="m",
+    mode="ytd",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**customer_id:** `int` — Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub. 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**freq:** `str` 
+
+Frequency to group series. Allowed values:
+
+- `m` - monthly
+- `w` - weekly
+- `d` - daily
+- `h` - hourly
+
+For example, `w` groups the results by week.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**mode:** `str` 
+
+Mode for request. Allowed values:
+
+- `ytd` - Year To Date
+- `mtd` - Month To Date
+- `wtd` - Week To Date
+- `today` - All current day
+- `m12` - Last 12 months
+- `d30` - Last 30 days
+- `h24` - Last 24 hours
+- `lasty` - Last Year
+- `lastm` - Last Month
+- `lastw` - Last Week
+- `yesterday` - Last Day
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parameters:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — List of parameters.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.statistic.<a href="src/payabli/statistic/client.py">sub_stats</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves the subscription statistics for a given interval for a paypoint or organization.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.statistic.sub_stats(
+    entry_id=1000000,
+    interval="30",
+    level=1,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**entry_id:** `int` — Identifier in Payabli for the entity.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**interval:** `str` 
+
+Interval to get the data. Allowed values:
+
+- `all` - all intervals
+- `30` - 1-30 days
+- `60` - 31-60 days
+- `90` - 61-90 days
+- `plus` - +90 days
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**level:** `int` 
+
+The entry level for the request: 
+  - 0 for Organization
+  - 2 for Paypoint
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parameters:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — List of parameters
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.statistic.<a href="src/payabli/statistic/client.py">vendor_basic_stats</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve the basic statistics about a vendor for a given time period, grouped by frequency. 
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.statistic.vendor_basic_stats(
+    freq="m",
+    id_vendor=1,
+    mode="ytd",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**freq:** `str` 
+
+Frequency to group series. Allowed values:
+
+- `m` - monthly
+- `w` - weekly
+- `d` - daily
+- `h` - hourly
+
+For example, `w` groups the results by week.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**id_vendor:** `int` — Vendor ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**mode:** `str` 
+
+Mode for request. Allowed values:
+
+- `ytd` - Year To Date
+- `mtd` - Month To Date
+- `wtd` - Week To Date
+- `today` - All current day
+- `m12` - Last 12 months
+- `d30` - Last 30 days
+- `h24` - Last 24 hours
+- `lasty` - Last Year
+- `lastm` - Last Month
+- `lastw` - Last Week
+- `yesterday` - Last Day
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parameters:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — List of parameters
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Subscription
+<details><summary><code>client.subscription.<a href="src/payabli/subscription/client.py">get_subscription</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a single subscription's details.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.subscription.get_subscription(
+    sub_id=263,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sub_id:** `int` — The subscription ID. 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.subscription.<a href="src/payabli/subscription/client.py">new_subscription</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a subscription or scheduled payment to run at a specified time and frequency. 
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import PaymentDetail, PayorDataRequest, ScheduleDetail, payabli
+from payabli.subscription import RequestSchedulePaymentMethodInitiator
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.subscription.new_subscription(
+    customer_data=PayorDataRequest(
+        customer_id=4440,
+    ),
+    entry_point="f743aed24a",
+    payment_details=PaymentDetail(
+        service_fee=0.0,
+        total_amount=100.0,
+    ),
+    payment_method=RequestSchedulePaymentMethodInitiator(
+        initiator="merchant",
+        stored_method_id="4000e8c6-3add-4200-8ac2-9b8a4f8b1639-1323",
+        stored_method_usage_type="recurring",
+    ),
+    schedule_details=ScheduleDetail(
+        end_date="03-20-2025",
+        frequency="weekly",
+        plan_id=1,
+        start_date="09-20-2024",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**force_customer_creation:** `typing.Optional[ForceCustomerCreation]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotency_key:** `typing.Optional[IdempotencyKey]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**customer_data:** `typing.Optional[PayorDataRequest]` — Object describing the customer/payor.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**entry_point:** `typing.Optional[Entrypointfield]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**invoice_data:** `typing.Optional[BillData]` — Object describing an Invoice linked to the subscription.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payment_details:** `typing.Optional[PaymentDetail]` — Object describing details of the payment. To skip the payment, set the `totalAmount` to 0. Payments will be paused until the amount is updated to a non-zero value. When `totalAmount` is set to 0, the `serviceFee` must also be set to 0.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payment_method:** `typing.Optional[RequestSchedulePaymentMethod]` — Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**schedule_details:** `typing.Optional[ScheduleDetail]` — Object describing the schedule for subscription.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**set_pause:** `typing.Optional[SetPause]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**source:** `typing.Optional[Source]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**subdomain:** `typing.Optional[Subdomain]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.subscription.<a href="src/payabli/subscription/client.py">remove_subscription</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a subscription, autopay, or recurring payment and prevents future charges.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.subscription.remove_subscription(
+    sub_id=396,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sub_id:** `int` — The subscription ID. 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.subscription.<a href="src/payabli/subscription/client.py">update_subscription</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates a subscription's details.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import PaymentDetail, ScheduleDetail, payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.subscription.update_subscription(
+    sub_id=231,
+    payment_details=PaymentDetail(
+        service_fee=0.0,
+        total_amount=100.0,
+    ),
+    schedule_details=ScheduleDetail(
+        end_date="03-20-2025",
+        frequency="weekly",
+        plan_id=1,
+        start_date="09-20-2024",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sub_id:** `int` — The subscription ID. 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payment_details:** `typing.Optional[PaymentDetail]` — Object describing details of the payment. To skip the payment, set the `totalAmount` to 0. Payments will be paused until the amount is updated to a non-zero value. When `totalAmount` is set to 0, the `serviceFee` must also be set to 0.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**schedule_details:** `typing.Optional[ScheduleDetail]` — Object describing the schedule for subscription
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**set_pause:** `typing.Optional[SetPause]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Templates
+<details><summary><code>client.templates.<a href="src/payabli/templates/client.py">add_template</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a boarding template in an organization.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.templates.add_template(
+    org_id_=123,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**org_id_:** `int` — The numeric identifier for organization, assigned by Payabli.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**org_id:** `typing.Optional[Orgid]` — The ID of the organization the template belongs to. 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pricing_id:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**template_code:** `typing.Optional[TemplateCode]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**template_content:** `typing.Optional[TemplateContent]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**template_description:** `typing.Optional[str]` — A description for the template.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**template_name:** `typing.Optional[TemplateName]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.templates.<a href="src/payabli/templates/client.py">delete_template</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a template by ID. 
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.templates.delete_template(
+    template_id=80.0,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**template_id:** `float` — The boarding template ID. Can be found at the end of the boarding template URL in PartnerHub. Example: `https://partner-sandbox.payabli.com/myorganization/boarding/edittemplate/80`. Here, the template ID is `80`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.templates.<a href="src/payabli/templates/client.py">getlink_template</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Generates a boarding link from a boarding template.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.templates.getlink_template(
+    ignore_empty=True,
+    template_id=80.0,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**ignore_empty:** `bool` — Ignore read-only and empty fields Default is `false`. If `ignoreEmpty` = `false` and any field is empty, then the request returns a failure response. If `ignoreEmpty` = `true`, the request returns the boarding link name regardless of whether fields are empty.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**template_id:** `float` — The boarding template ID. Can be found at the end of the boarding template URL in PartnerHub. Example: `https://partner-sandbox.payabli.com/myorganization/boarding/edittemplate/80`. Here, the template ID is `80`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.templates.<a href="src/payabli/templates/client.py">get_template</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a boarding template's details by ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.templates.get_template(
+    template_id=80.0,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**template_id:** `float` — The boarding template ID. Can be found at the end of the boarding template URL in PartnerHub. Example: `https://partner-sandbox.payabli.com/myorganization/boarding/edittemplate/80`. Here, the template ID is `80`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.templates.<a href="src/payabli/templates/client.py">list_templates</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a list of boarding templates for an organization. Use filters to limit results. You can't make a request that includes filters from the API console in the documentation. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.templates.list_templates(
+    org_id=123,
+    from_record=251,
+    limit_record=0,
+    sort_by="desc(field_name)",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**org_id:** `int` — The numeric identifier for organization, assigned by Payabli.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from_record:** `typing.Optional[int]` — The number of records to skip before starting to collect the result set.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit_record:** `typing.Optional[int]` — Max number of records to return for the query. Use `0` or negative value to return all records.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parameters:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` 
+
+
+Collection of field names, conditions, and values used to filter the query.
+
+<Info>
+  **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+  Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+  For example:
+
+  --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+  should become:
+
+  --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+</Info>
+
+
+See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
+
+List of field names accepted:
+- `createdAt` (gt, ge, lt, le, eq, ne)
+- `title` (ct, nct)
+- `description` (ct, nct)
+- `code` (ct, nct)
+- `orgParentname` (ct, nct)
+
+List of comparison accepted - enclosed between parentheses:
+- eq or empty => equal
+- gt => greater than
+- ge => greater or equal
+- lt => less than
+- le => less or equal
+- ne => not equal
+- ct => contains
+- nct => not contains
+- in => inside array
+- nin => not inside array
+
+List of parameters accepted:
+- limitRecord : max number of records for query (default="20", "0" or negative value for all)
+- fromRecord : initial record in query
+
+Example: title(ct)=hoa return all records with title containing "hoa"
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort_by:** `typing.Optional[str]` — The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.templates.<a href="src/payabli/templates/client.py">update_template</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates a boarding template by ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.templates.update_template(
+    template_id=80.0,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**template_id:** `float` — The boarding template ID. Can be found at the end of the boarding template URL in PartnerHub. Example: `https://partner-sandbox.payabli.com/myorganization/boarding/edittemplate/80`. Here, the template ID is `80`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**org_id:** `typing.Optional[Orgid]` — The ID of the organization the template belongs to. 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pricing_id:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**template_code:** `typing.Optional[TemplateCode]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**template_content:** `typing.Optional[TemplateContent]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**template_description:** `typing.Optional[str]` — A description for the template.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**template_name:** `typing.Optional[TemplateName]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## TokenStorage
+<details><summary><code>client.token_storage.<a href="src/payabli/token_storage/client.py">add_method</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Saves a payment method for reuse. This call exchanges sensitive payment information for a token that can be used to process future transactions. The `ReferenceId` value in the response is the `storedMethodId` to use with transactions.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import PayorDataRequest, payabli
+from payabli.token_storage import TokenizeAch
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.token_storage.add_method(
+    ach_validation=True,
+    customer_data=PayorDataRequest(
+        customer_id=4440,
+    ),
+    entry_point="f743aed24a",
+    payment_method=TokenizeAch(
+        ach_account="1111111111111",
+        ach_account_type="Checking",
+        ach_code="WEB",
+        ach_holder="John Doe",
+        ach_holder_type="personal",
+        ach_routing="123456780",
+        method="ach",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**create_anonymous:** `CreateAnonymous` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**temporary:** `Temporary` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ach_validation:** `typing.Optional[AchValidation]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**force_customer_creation:** `typing.Optional[ForceCustomerCreation]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotency_key:** `typing.Optional[IdempotencyKey]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**customer_data:** `typing.Optional[PayorDataRequest]` — Object describing the Customer/Payor owner of payment method. Required for POST requests. Which fields are required depends on the paypoint's custom identifier settings. 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**entry_point:** `typing.Optional[Entrypointfield]` — Entrypoint identifier. Required for POST requests.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fallback_auth:** `typing.Optional[bool]` — When `true`, if tokenization fails, Payabli will attempt an authorization transaction to request a permanent token for the card. If the authorization is successful, the card will be tokenized and the authorization will be voided automatically.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fallback_auth_amount:** `typing.Optional[int]` — The amount for the `fallbackAuth` transaction. Defaults to one dollar (`100`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**method_description:** `typing.Optional[str]` — Custom description for stored payment method.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payment_method:** `typing.Optional[RequestTokenStoragePaymentMethod]` — Information about the payment method for the transaction.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**source:** `typing.Optional[Source]` — Custom identifier to indicate the source for the request
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**subdomain:** `typing.Optional[Subdomain]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.token_storage.<a href="src/payabli/token_storage/client.py">get_method</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves details for a saved payment method.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.token_storage.get_method(
+    method_id="32-8877drt00045632-678",
+    card_expiration_format=1,
+    include_temporary=False,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**method_id:** `str` — The saved payment method ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**card_expiration_format:** `typing.Optional[int]` 
+
+Format for card expiration dates in the response. 
+
+Accepted values:
+  
+- 0: default, no formatting. Expiration dates are returned in the format they're saved in.
+
+- 1: MMYY
+ 
+- 2: MM/YY
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_temporary:** `typing.Optional[bool]` — When `true`, the request will include temporary tokens in the search and return details for a matching temporary token. The default behavior searches only for permanent tokens.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.token_storage.<a href="src/payabli/token_storage/client.py">remove_method</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a saved payment method.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.token_storage.remove_method(
+    method_id="32-8877drt00045632-678",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**method_id:** `str` — The saved payment method ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.token_storage.<a href="src/payabli/token_storage/client.py">update_method</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates a saved payment method.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import PayorDataRequest, payabli
+from payabli.token_storage import TokenizeAch
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.token_storage.update_method(
+    method_id="32-8877drt00045632-678",
+    customer_data=PayorDataRequest(
+        customer_id=4440,
+    ),
+    entry_point="f743aed24a",
+    payment_method=TokenizeAch(
+        ach_account="1111111111111",
+        ach_account_type="Checking",
+        ach_code="WEB",
+        ach_holder="John Doe",
+        ach_holder_type="personal",
+        ach_routing="123456780",
+        method="ach",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**method_id:** `str` — The saved payment method ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ach_validation:** `typing.Optional[AchValidation]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**customer_data:** `typing.Optional[PayorDataRequest]` — Object describing the Customer/Payor owner of payment method. Required for POST requests. Which fields are required depends on the paypoint's custom identifier settings. 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**entry_point:** `typing.Optional[Entrypointfield]` — Entrypoint identifier. Required for POST requests.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fallback_auth:** `typing.Optional[bool]` — When `true`, if tokenization fails, Payabli will attempt an authorization transaction to request a permanent token for the card. If the authorization is successful, the card will be tokenized and the authorization will be voided automatically.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fallback_auth_amount:** `typing.Optional[int]` — The amount for the `fallbackAuth` transaction. Defaults to one dollar (`100`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**method_description:** `typing.Optional[str]` — Custom description for stored payment method.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payment_method:** `typing.Optional[RequestTokenStoragePaymentMethod]` — Information about the payment method for the transaction.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**source:** `typing.Optional[Source]` — Custom identifier to indicate the source for the request
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**subdomain:** `typing.Optional[Subdomain]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## User
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">add_user</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.user.add_user()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**access:** `typing.Optional[typing.Sequence[UsrAccess]]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**additional_data:** `typing.Optional[AdditionalData]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**email:** `typing.Optional[Email]` — The user's email address.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**language:** `typing.Optional[Language]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**mfa_data:** `typing.Optional[MfaData]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[NameUser]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**phone:** `typing.Optional[PhoneNumber]` — The user's phone number.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pwd:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**scope:** `typing.Optional[typing.Sequence[OrgScope]]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**time_zone:** `typing.Optional[Timezone]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**usr_status:** `typing.Optional[UsrStatus]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">auth_refresh_user</a>()</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.user.auth_refresh_user()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">auth_reset_user</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.user.auth_reset_user()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**email:** `typing.Optional[Email]` — The user's email address.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**entry:** `typing.Optional[str]` — Identifier for entrypoint originating the request (used by front-end apps)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**entry_type:** `typing.Optional[int]` — Type of entry identifier: 0 - partner, 2 - paypoint. This is used by front-end apps, required if an Entry is indicated.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">auth_user</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+This endpoint requires an application API token.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.user.auth_user(
+    provider="provider",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**provider:** `str` — Auth provider. This fields is optional and defaults to null for the built-in provider.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**email:** `typing.Optional[Email]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**entry:** `typing.Optional[str]` — Identifier for entry point originating the request (used by front-end apps)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**entry_type:** `typing.Optional[int]` — Type of entry identifier: 0 - partner, 2 - paypoint. This is used by front-end apps, required if an Entry is indicated.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**psw:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_id:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_token_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">change_psw_user</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.user.change_psw_user()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**psw:** `typing.Optional[str]` — New User password
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">delete_user</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.user.delete_user(
+    user_id=1000000,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `int` — The Payabli-generated `userId` value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">edit_mfa_user</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.user.edit_mfa_user(
+    user_id=1000000,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `int` — User Identifier
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**mfa:** `typing.Optional[bool]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**mfa_mode:** `typing.Optional[MfaMode]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">edit_user</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.user.edit_user(
+    user_id=1000000,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `int` — User Identifier
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**access:** `typing.Optional[typing.Sequence[UsrAccess]]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**additional_data:** `typing.Optional[AdditionalData]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**email:** `typing.Optional[Email]` — The user's email address.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**language:** `typing.Optional[Language]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**mfa_data:** `typing.Optional[MfaData]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[NameUser]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**phone:** `typing.Optional[PhoneNumber]` — The user's phone number.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pwd:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**scope:** `typing.Optional[typing.Sequence[OrgScope]]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**time_zone:** `typing.Optional[Timezone]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**usr_status:** `typing.Optional[UsrStatus]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">get_user</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.user.get_user(
+    user_id=1000000,
+    entry="478ae1234",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `int` — The Payabli-generated `userId` value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**entry:** `typing.Optional[str]` — The entrypoint identifier.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**level:** `typing.Optional[int]` — Entry level: 0 - partner, 2 - paypoint
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">logout_user</a>()</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.user.logout_user()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">resend_mfa_code</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.user.resend_mfa_code(
+    entry="Entry",
+    entry_type=1,
+    usrname="usrname",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**entry:** `str` —  
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**entry_type:** `int` —  
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**usrname:** `str` —  
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">validate_mfa_user</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.user.validate_mfa_user()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**mfa_code:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**mfa_validation_code:** `typing.Optional[MfaValidationCode]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Vendor
+<details><summary><code>client.vendor.<a href="src/payabli/vendor/client.py">add_vendor</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a vendor in an entrypoint.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import BillingData, Contacts, VendorPaymentMethod_Managed, payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.vendor.add_vendor(
+    entry="8cfec329267",
+    vendor_number="1234",
+    name_1="Herman's Coatings and Masonry",
+    name_2="<string>",
+    ein="12-3456789",
+    phone="5555555555",
+    email="example@email.com",
+    address_1="123 Ocean Drive",
+    address_2="Suite 400",
+    city="Miami",
+    state="FL",
+    zip="33139",
+    country="US",
+    mcc="7777",
+    location_code="MIA123",
+    contacts=[
+        Contacts(
+            contact_name="Herman Martinez",
+            contact_email="example@email.com",
+            contact_title="Owner",
+            contact_phone="3055550000",
+        )
+    ],
+    billing_data=BillingData(
+        id=123,
+        bank_name="Country Bank",
+        routing_account="123123123",
+        account_number="123123123",
+        type_account="Checking",
+        bank_account_holder_name="Gruzya Adventure Outfitters LLC",
+        bank_account_holder_type="Business",
+        bank_account_function=0,
+    ),
+    payment_method=VendorPaymentMethod_Managed(),
+    vendor_status=1,
+    remit_address_1="123 Walnut Street",
+    remit_address_2="Suite 900",
+    remit_city="Miami",
+    remit_state="FL",
+    remit_zip="31113",
+    remit_country="US",
+    payee_name_1="<string>",
+    payee_name_2="<string>",
+    customer_vendor_account="A-37622",
+    internal_reference_id=123,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**entry:** `str` — Entrypoint identifier.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**vendor_number:** `typing.Optional[VendorNumber]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**additional_data:** `typing.Optional[AdditionalData]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**address_1:** `typing.Optional[AddressNullable]` — Vendor's address
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**address_2:** `typing.Optional[AddressAddtlNullable]` — Additional line for vendor's address.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**billing_data:** `typing.Optional[BillingData]` — Object containing vendor's bank information.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**city:** `typing.Optional[str]` — Vendor's city.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**contacts:** `typing.Optional[ContactsField]` — Array of objects describing the vendor's contacts.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**country:** `typing.Optional[str]` — Vendor's country.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**custom_field_1:** `typing.Optional[str]` — Custom field 1 for vendor
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**custom_field_2:** `typing.Optional[str]` — Custom field 2 for vendor
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**customer_vendor_account:** `typing.Optional[str]` — Account number of paypoint in the vendor side.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ein:** `typing.Optional[VendorEin]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**email:** `typing.Optional[Email]` — Vendor's email address. Required for vCard.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**internal_reference_id:** `typing.Optional[int]` — Internal identifier for global vendor account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**location_code:** `typing.Optional[LocationCode]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**mcc:** `typing.Optional[Mcc]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name_1:** `typing.Optional[VendorName1]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name_2:** `typing.Optional[VendorName2]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payee_name_1:** `typing.Optional[PayeeName]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payee_name_2:** `typing.Optional[PayeeName]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payment_method:** `typing.Optional[VendorPaymentMethod]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**phone:** `typing.Optional[VendorPhone]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remit_address_1:** `typing.Optional[Remitaddress1]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remit_address_2:** `typing.Optional[Remitaddress2]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remit_city:** `typing.Optional[Remitcity]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remit_country:** `typing.Optional[Remitcountry]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remit_email:** `typing.Optional[RemitEmail]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remit_state:** `typing.Optional[Remitstate]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remit_zip:** `typing.Optional[Remitzip]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**state:** `typing.Optional[str]` — Vendor's state. Must be a 2 character state code.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**vendor_status:** `typing.Optional[Vendorstatus]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**zip:** `typing.Optional[str]` — Vendor's zip code.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.vendor.<a href="src/payabli/vendor/client.py">delete_vendor</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a vendor. 
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.vendor.delete_vendor(
+    id_vendor=1,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id_vendor:** `int` — Vendor ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.vendor.<a href="src/payabli/vendor/client.py">edit_vendor</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates a vendor's information. Send only the fields you need to update.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.vendor.edit_vendor(
+    id_vendor=1,
+    name_1="Theodore's Janitorial",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id_vendor:** `int` — Vendor ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**vendor_number:** `typing.Optional[VendorNumber]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**additional_data:** `typing.Optional[AdditionalData]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**address_1:** `typing.Optional[AddressNullable]` — Vendor's address
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**address_2:** `typing.Optional[AddressAddtlNullable]` — Additional line for vendor's address.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**billing_data:** `typing.Optional[BillingData]` — Object containing vendor's bank information.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**city:** `typing.Optional[str]` — Vendor's city.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**contacts:** `typing.Optional[ContactsField]` — Array of objects describing the vendor's contacts.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**country:** `typing.Optional[str]` — Vendor's country.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**custom_field_1:** `typing.Optional[str]` — Custom field 1 for vendor
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**custom_field_2:** `typing.Optional[str]` — Custom field 2 for vendor
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**customer_vendor_account:** `typing.Optional[str]` — Account number of paypoint in the vendor side.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ein:** `typing.Optional[VendorEin]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**email:** `typing.Optional[Email]` — Vendor's email address. Required for vCard.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**internal_reference_id:** `typing.Optional[int]` — Internal identifier for global vendor account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**location_code:** `typing.Optional[LocationCode]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**mcc:** `typing.Optional[Mcc]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name_1:** `typing.Optional[VendorName1]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name_2:** `typing.Optional[VendorName2]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payee_name_1:** `typing.Optional[PayeeName]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payee_name_2:** `typing.Optional[PayeeName]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payment_method:** `typing.Optional[VendorPaymentMethod]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**phone:** `typing.Optional[VendorPhone]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remit_address_1:** `typing.Optional[Remitaddress1]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remit_address_2:** `typing.Optional[Remitaddress2]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remit_city:** `typing.Optional[Remitcity]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remit_country:** `typing.Optional[Remitcountry]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remit_email:** `typing.Optional[RemitEmail]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remit_state:** `typing.Optional[Remitstate]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remit_zip:** `typing.Optional[Remitzip]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**state:** `typing.Optional[str]` — Vendor's state. Must be a 2 character state code.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**vendor_status:** `typing.Optional[Vendorstatus]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**zip:** `typing.Optional[str]` — Vendor's zip code.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.vendor.<a href="src/payabli/vendor/client.py">get_vendor</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a vendor's details.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.vendor.get_vendor(
+    id_vendor=1,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id_vendor:** `int` — Vendor ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Wallet
+<details><summary><code>client.wallet.<a href="src/payabli/wallet/client.py">configure_apple_pay_organization</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Configure and activate Apple Pay for a Payabli organization
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.wallet.configure_apple_pay_organization(
+    cascade=True,
+    is_enabled=True,
+    org_id=901,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cascade:** `typing.Optional[Cascade]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_enabled:** `typing.Optional[IsEnabled]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**org_id:** `typing.Optional[OrganizationId]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.wallet.<a href="src/payabli/wallet/client.py">configure_apple_pay_paypoint</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Configure and activate Apple Pay for a Payabli paypoint
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.wallet.configure_apple_pay_paypoint(
+    entry="8cfec329267",
+    is_enabled=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**entry:** `typing.Optional[Entry]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_enabled:** `typing.Optional[IsEnabled]` — When `true`, Apple Pay is enabled.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.wallet.<a href="src/payabli/wallet/client.py">configure_google_pay_organization</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Configure and activate Google Pay for a Payabli organization
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.wallet.configure_google_pay_organization(
+    cascade=True,
+    is_enabled=True,
+    org_id=901,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cascade:** `typing.Optional[Cascade]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_enabled:** `typing.Optional[IsEnabled]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**org_id:** `typing.Optional[OrganizationId]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.wallet.<a href="src/payabli/wallet/client.py">configure_google_pay_paypoint</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Configure and activate Google Pay for a Payabli paypoint
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.wallet.configure_google_pay_paypoint(
+    entry="8cfec329267",
+    is_enabled=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**entry:** `typing.Optional[Entry]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_enabled:** `typing.Optional[IsEnabled]` — When `true`, Google Pay is enabled.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+

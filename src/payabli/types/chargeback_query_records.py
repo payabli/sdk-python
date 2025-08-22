@@ -51,14 +51,12 @@ class ChargebackQueryRecords(UniversalBaseModel):
     Identifier of chargeback or return.
     """
 
-    last_four: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="lastFour")] = pydantic.Field(
-        default=None
-    )
+    last_four: typing_extensions.Annotated[str, FieldMetadata(alias="lastFour")] = pydantic.Field()
     """
     Last 4 digits of card or bank account involved in chargeback or return.
     """
 
-    method: typing.Optional[str] = pydantic.Field(default=None)
+    method: str = pydantic.Field()
     """
     Type of payment vehicle: **ach** or **card**.
     """

@@ -6,7 +6,7 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.file import File
 from .raw_client import AsyncRawExportClient, RawExportClient
-from .types.export_format import ExportFormat
+from .types.export_format_1 import ExportFormat1
 
 
 class ExportClient:
@@ -26,7 +26,7 @@ class ExportClient:
 
     def export_applications(
         self,
-        format: ExportFormat,
+        format: ExportFormat1,
         org_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -40,7 +40,7 @@ class ExportClient:
 
         Parameters
         ----------
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         org_id : int
@@ -145,7 +145,7 @@ class ExportClient:
     def export_batch_details(
         self,
         entry: str,
-        format: ExportFormat,
+        format: ExportFormat1,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -159,7 +159,7 @@ class ExportClient:
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         columns_export : typing.Optional[str]
@@ -271,7 +271,7 @@ class ExportClient:
 
     def export_batch_details_org(
         self,
-        format: ExportFormat,
+        format: ExportFormat1,
         org_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -283,7 +283,7 @@ class ExportClient:
         """
         Parameters
         ----------
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         org_id : int
@@ -399,7 +399,7 @@ class ExportClient:
     def export_batches(
         self,
         entry: str,
-        format: ExportFormat,
+        format: ExportFormat1,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -415,7 +415,7 @@ class ExportClient:
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         columns_export : typing.Optional[str]
@@ -517,7 +517,7 @@ class ExportClient:
 
     def export_batches_org(
         self,
-        format: ExportFormat,
+        format: ExportFormat1,
         org_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -531,7 +531,7 @@ class ExportClient:
 
         Parameters
         ----------
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         org_id : int
@@ -635,7 +635,7 @@ class ExportClient:
     def export_batches_out(
         self,
         entry: str,
-        format: ExportFormat,
+        format: ExportFormat1,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -651,7 +651,7 @@ class ExportClient:
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         columns_export : typing.Optional[str]
@@ -733,7 +733,7 @@ class ExportClient:
 
     def export_batches_out_org(
         self,
-        format: ExportFormat,
+        format: ExportFormat1,
         org_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -747,7 +747,7 @@ class ExportClient:
 
         Parameters
         ----------
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         org_id : int
@@ -833,7 +833,7 @@ class ExportClient:
     def export_bills(
         self,
         entry: str,
-        format: ExportFormat,
+        format: ExportFormat1,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -849,7 +849,7 @@ class ExportClient:
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         columns_export : typing.Optional[str]
@@ -949,7 +949,7 @@ class ExportClient:
 
     def export_bills_org(
         self,
-        format: ExportFormat,
+        format: ExportFormat1,
         org_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -963,7 +963,7 @@ class ExportClient:
 
         Parameters
         ----------
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         org_id : int
@@ -1067,7 +1067,7 @@ class ExportClient:
     def export_chargebacks(
         self,
         entry: str,
-        format: ExportFormat,
+        format: ExportFormat1,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -1083,7 +1083,7 @@ class ExportClient:
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         columns_export : typing.Optional[str]
@@ -1204,7 +1204,7 @@ class ExportClient:
 
     def export_chargebacks_org(
         self,
-        format: ExportFormat,
+        format: ExportFormat1,
         org_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -1218,7 +1218,7 @@ class ExportClient:
 
         Parameters
         ----------
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         org_id : int
@@ -1343,7 +1343,7 @@ class ExportClient:
     def export_customers(
         self,
         entry: str,
-        format: ExportFormat,
+        format: ExportFormat1,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -1359,7 +1359,7 @@ class ExportClient:
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         columns_export : typing.Optional[str]
@@ -1473,7 +1473,7 @@ class ExportClient:
 
     def export_customers_org(
         self,
-        format: ExportFormat,
+        format: ExportFormat1,
         org_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -1487,7 +1487,7 @@ class ExportClient:
 
         Parameters
         ----------
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         org_id : int
@@ -1605,7 +1605,7 @@ class ExportClient:
     def export_invoices(
         self,
         entry: str,
-        format: ExportFormat,
+        format: ExportFormat1,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -1621,7 +1621,7 @@ class ExportClient:
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         columns_export : typing.Optional[str]
@@ -1745,7 +1745,7 @@ class ExportClient:
 
     def export_invoices_org(
         self,
-        format: ExportFormat,
+        format: ExportFormat1,
         org_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -1759,7 +1759,7 @@ class ExportClient:
 
         Parameters
         ----------
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         org_id : int
@@ -1886,7 +1886,7 @@ class ExportClient:
 
     def export_organizations(
         self,
-        format: ExportFormat,
+        format: ExportFormat1,
         org_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -1900,7 +1900,7 @@ class ExportClient:
 
         Parameters
         ----------
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         org_id : int
@@ -2003,7 +2003,7 @@ class ExportClient:
     def export_payout(
         self,
         entry: str,
-        format: ExportFormat,
+        format: ExportFormat1,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -2019,7 +2019,7 @@ class ExportClient:
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         columns_export : typing.Optional[str]
@@ -2117,7 +2117,7 @@ class ExportClient:
 
     def export_payout_org(
         self,
-        format: ExportFormat,
+        format: ExportFormat1,
         org_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -2131,7 +2131,7 @@ class ExportClient:
 
         Parameters
         ----------
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         org_id : int
@@ -2232,7 +2232,7 @@ class ExportClient:
 
     def export_paypoints(
         self,
-        format: ExportFormat,
+        format: ExportFormat1,
         org_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -2246,7 +2246,7 @@ class ExportClient:
 
         Parameters
         ----------
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         org_id : int
@@ -2350,7 +2350,7 @@ class ExportClient:
     def export_settlements(
         self,
         entry: str,
-        format: ExportFormat,
+        format: ExportFormat1,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -2366,7 +2366,7 @@ class ExportClient:
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         columns_export : typing.Optional[str]
@@ -2486,7 +2486,7 @@ class ExportClient:
 
     def export_settlements_org(
         self,
-        format: ExportFormat,
+        format: ExportFormat1,
         org_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -2500,7 +2500,7 @@ class ExportClient:
 
         Parameters
         ----------
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         org_id : int
@@ -2624,7 +2624,7 @@ class ExportClient:
     def export_subscriptions(
         self,
         entry: str,
-        format: ExportFormat,
+        format: ExportFormat1,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -2640,7 +2640,7 @@ class ExportClient:
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         columns_export : typing.Optional[str]
@@ -2762,7 +2762,7 @@ class ExportClient:
 
     def export_subscriptions_org(
         self,
-        format: ExportFormat,
+        format: ExportFormat1,
         org_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -2776,7 +2776,7 @@ class ExportClient:
 
         Parameters
         ----------
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         org_id : int
@@ -2902,7 +2902,7 @@ class ExportClient:
     def export_transactions(
         self,
         entry: str,
-        format: ExportFormat,
+        format: ExportFormat1,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -2918,7 +2918,7 @@ class ExportClient:
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         columns_export : typing.Optional[str]
@@ -3044,7 +3044,7 @@ class ExportClient:
 
     def export_transactions_org(
         self,
-        format: ExportFormat,
+        format: ExportFormat1,
         org_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -3058,7 +3058,7 @@ class ExportClient:
 
         Parameters
         ----------
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         org_id : int
@@ -3188,7 +3188,7 @@ class ExportClient:
     def export_transfer_details(
         self,
         entry: str,
-        format: ExportFormat,
+        format: ExportFormat1,
         transfer_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -3206,7 +3206,7 @@ class ExportClient:
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         transfer_id : int
@@ -3415,7 +3415,7 @@ class ExportClient:
     def export_vendors(
         self,
         entry: str,
-        format: ExportFormat,
+        format: ExportFormat1,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -3431,7 +3431,7 @@ class ExportClient:
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         columns_export : typing.Optional[str]
@@ -3535,7 +3535,7 @@ class ExportClient:
 
     def export_vendors_org(
         self,
-        format: ExportFormat,
+        format: ExportFormat1,
         org_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -3549,7 +3549,7 @@ class ExportClient:
 
         Parameters
         ----------
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         org_id : int
@@ -3654,68 +3654,6 @@ class ExportClient:
         )
         return _response.data
 
-    def get_invoice_pdf(self, id_invoice: int, *, request_options: typing.Optional[RequestOptions] = None) -> File:
-        """
-        Export a single invoice in PDF format.
-
-        Parameters
-        ----------
-        id_invoice : int
-            Invoice ID
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        File
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.export.get_invoice_pdf(
-            id_invoice=23548884,
-        )
-        """
-        _response = self._raw_client.get_invoice_pdf(id_invoice, request_options=request_options)
-        return _response.data
-
-    def get_report_file(self, id: int, *, request_options: typing.Optional[RequestOptions] = None) -> File:
-        """
-        Gets a copy of a generated report by ID.'
-
-        Parameters
-        ----------
-        id : int
-            Report ID
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        File
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.export.get_report_file(
-            id=1000000,
-        )
-        """
-        _response = self._raw_client.get_report_file(id, request_options=request_options)
-        return _response.data
-
 
 class AsyncExportClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -3734,7 +3672,7 @@ class AsyncExportClient:
 
     async def export_applications(
         self,
-        format: ExportFormat,
+        format: ExportFormat1,
         org_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -3748,7 +3686,7 @@ class AsyncExportClient:
 
         Parameters
         ----------
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         org_id : int
@@ -3861,7 +3799,7 @@ class AsyncExportClient:
     async def export_batch_details(
         self,
         entry: str,
-        format: ExportFormat,
+        format: ExportFormat1,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -3875,7 +3813,7 @@ class AsyncExportClient:
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         columns_export : typing.Optional[str]
@@ -3995,7 +3933,7 @@ class AsyncExportClient:
 
     async def export_batch_details_org(
         self,
-        format: ExportFormat,
+        format: ExportFormat1,
         org_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -4007,7 +3945,7 @@ class AsyncExportClient:
         """
         Parameters
         ----------
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         org_id : int
@@ -4131,7 +4069,7 @@ class AsyncExportClient:
     async def export_batches(
         self,
         entry: str,
-        format: ExportFormat,
+        format: ExportFormat1,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -4147,7 +4085,7 @@ class AsyncExportClient:
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         columns_export : typing.Optional[str]
@@ -4257,7 +4195,7 @@ class AsyncExportClient:
 
     async def export_batches_org(
         self,
-        format: ExportFormat,
+        format: ExportFormat1,
         org_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -4271,7 +4209,7 @@ class AsyncExportClient:
 
         Parameters
         ----------
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         org_id : int
@@ -4383,7 +4321,7 @@ class AsyncExportClient:
     async def export_batches_out(
         self,
         entry: str,
-        format: ExportFormat,
+        format: ExportFormat1,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -4399,7 +4337,7 @@ class AsyncExportClient:
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         columns_export : typing.Optional[str]
@@ -4489,7 +4427,7 @@ class AsyncExportClient:
 
     async def export_batches_out_org(
         self,
-        format: ExportFormat,
+        format: ExportFormat1,
         org_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -4503,7 +4441,7 @@ class AsyncExportClient:
 
         Parameters
         ----------
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         org_id : int
@@ -4597,7 +4535,7 @@ class AsyncExportClient:
     async def export_bills(
         self,
         entry: str,
-        format: ExportFormat,
+        format: ExportFormat1,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -4613,7 +4551,7 @@ class AsyncExportClient:
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         columns_export : typing.Optional[str]
@@ -4721,7 +4659,7 @@ class AsyncExportClient:
 
     async def export_bills_org(
         self,
-        format: ExportFormat,
+        format: ExportFormat1,
         org_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -4735,7 +4673,7 @@ class AsyncExportClient:
 
         Parameters
         ----------
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         org_id : int
@@ -4847,7 +4785,7 @@ class AsyncExportClient:
     async def export_chargebacks(
         self,
         entry: str,
-        format: ExportFormat,
+        format: ExportFormat1,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -4863,7 +4801,7 @@ class AsyncExportClient:
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         columns_export : typing.Optional[str]
@@ -4992,7 +4930,7 @@ class AsyncExportClient:
 
     async def export_chargebacks_org(
         self,
-        format: ExportFormat,
+        format: ExportFormat1,
         org_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -5006,7 +4944,7 @@ class AsyncExportClient:
 
         Parameters
         ----------
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         org_id : int
@@ -5139,7 +5077,7 @@ class AsyncExportClient:
     async def export_customers(
         self,
         entry: str,
-        format: ExportFormat,
+        format: ExportFormat1,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -5155,7 +5093,7 @@ class AsyncExportClient:
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         columns_export : typing.Optional[str]
@@ -5277,7 +5215,7 @@ class AsyncExportClient:
 
     async def export_customers_org(
         self,
-        format: ExportFormat,
+        format: ExportFormat1,
         org_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -5291,7 +5229,7 @@ class AsyncExportClient:
 
         Parameters
         ----------
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         org_id : int
@@ -5417,7 +5355,7 @@ class AsyncExportClient:
     async def export_invoices(
         self,
         entry: str,
-        format: ExportFormat,
+        format: ExportFormat1,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -5433,7 +5371,7 @@ class AsyncExportClient:
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         columns_export : typing.Optional[str]
@@ -5565,7 +5503,7 @@ class AsyncExportClient:
 
     async def export_invoices_org(
         self,
-        format: ExportFormat,
+        format: ExportFormat1,
         org_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -5579,7 +5517,7 @@ class AsyncExportClient:
 
         Parameters
         ----------
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         org_id : int
@@ -5714,7 +5652,7 @@ class AsyncExportClient:
 
     async def export_organizations(
         self,
-        format: ExportFormat,
+        format: ExportFormat1,
         org_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -5728,7 +5666,7 @@ class AsyncExportClient:
 
         Parameters
         ----------
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         org_id : int
@@ -5839,7 +5777,7 @@ class AsyncExportClient:
     async def export_payout(
         self,
         entry: str,
-        format: ExportFormat,
+        format: ExportFormat1,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -5855,7 +5793,7 @@ class AsyncExportClient:
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         columns_export : typing.Optional[str]
@@ -5961,7 +5899,7 @@ class AsyncExportClient:
 
     async def export_payout_org(
         self,
-        format: ExportFormat,
+        format: ExportFormat1,
         org_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -5975,7 +5913,7 @@ class AsyncExportClient:
 
         Parameters
         ----------
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         org_id : int
@@ -6084,7 +6022,7 @@ class AsyncExportClient:
 
     async def export_paypoints(
         self,
-        format: ExportFormat,
+        format: ExportFormat1,
         org_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -6098,7 +6036,7 @@ class AsyncExportClient:
 
         Parameters
         ----------
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         org_id : int
@@ -6210,7 +6148,7 @@ class AsyncExportClient:
     async def export_settlements(
         self,
         entry: str,
-        format: ExportFormat,
+        format: ExportFormat1,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -6226,7 +6164,7 @@ class AsyncExportClient:
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         columns_export : typing.Optional[str]
@@ -6354,7 +6292,7 @@ class AsyncExportClient:
 
     async def export_settlements_org(
         self,
-        format: ExportFormat,
+        format: ExportFormat1,
         org_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -6368,7 +6306,7 @@ class AsyncExportClient:
 
         Parameters
         ----------
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         org_id : int
@@ -6500,7 +6438,7 @@ class AsyncExportClient:
     async def export_subscriptions(
         self,
         entry: str,
-        format: ExportFormat,
+        format: ExportFormat1,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -6516,7 +6454,7 @@ class AsyncExportClient:
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         columns_export : typing.Optional[str]
@@ -6646,7 +6584,7 @@ class AsyncExportClient:
 
     async def export_subscriptions_org(
         self,
-        format: ExportFormat,
+        format: ExportFormat1,
         org_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -6660,7 +6598,7 @@ class AsyncExportClient:
 
         Parameters
         ----------
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         org_id : int
@@ -6794,7 +6732,7 @@ class AsyncExportClient:
     async def export_transactions(
         self,
         entry: str,
-        format: ExportFormat,
+        format: ExportFormat1,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -6810,7 +6748,7 @@ class AsyncExportClient:
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         columns_export : typing.Optional[str]
@@ -6944,7 +6882,7 @@ class AsyncExportClient:
 
     async def export_transactions_org(
         self,
-        format: ExportFormat,
+        format: ExportFormat1,
         org_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -6958,7 +6896,7 @@ class AsyncExportClient:
 
         Parameters
         ----------
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         org_id : int
@@ -7096,7 +7034,7 @@ class AsyncExportClient:
     async def export_transfer_details(
         self,
         entry: str,
-        format: ExportFormat,
+        format: ExportFormat1,
         transfer_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -7114,7 +7052,7 @@ class AsyncExportClient:
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         transfer_id : int
@@ -7339,7 +7277,7 @@ class AsyncExportClient:
     async def export_vendors(
         self,
         entry: str,
-        format: ExportFormat,
+        format: ExportFormat1,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -7355,7 +7293,7 @@ class AsyncExportClient:
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         columns_export : typing.Optional[str]
@@ -7467,7 +7405,7 @@ class AsyncExportClient:
 
     async def export_vendors_org(
         self,
-        format: ExportFormat,
+        format: ExportFormat1,
         org_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -7481,7 +7419,7 @@ class AsyncExportClient:
 
         Parameters
         ----------
-        format : ExportFormat
+        format : ExportFormat1
             Format for the export, either XLSX or CSV.
 
         org_id : int
@@ -7592,84 +7530,4 @@ class AsyncExportClient:
             parameters=parameters,
             request_options=request_options,
         )
-        return _response.data
-
-    async def get_invoice_pdf(
-        self, id_invoice: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> File:
-        """
-        Export a single invoice in PDF format.
-
-        Parameters
-        ----------
-        id_invoice : int
-            Invoice ID
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        File
-            Success
-
-        Examples
-        --------
-        import asyncio
-
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.export.get_invoice_pdf(
-                id_invoice=23548884,
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.get_invoice_pdf(id_invoice, request_options=request_options)
-        return _response.data
-
-    async def get_report_file(self, id: int, *, request_options: typing.Optional[RequestOptions] = None) -> File:
-        """
-        Gets a copy of a generated report by ID.'
-
-        Parameters
-        ----------
-        id : int
-            Report ID
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        File
-            Success
-
-        Examples
-        --------
-        import asyncio
-
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.export.get_report_file(
-                id=1000000,
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.get_report_file(id, request_options=request_options)
         return _response.data

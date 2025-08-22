@@ -30,7 +30,7 @@ from .subscription.client import AsyncSubscriptionClient, SubscriptionClient
 from .templates.client import AsyncTemplatesClient, TemplatesClient
 from .token_storage.client import AsyncTokenStorageClient, TokenStorageClient
 from .user.client import AsyncUserClient, UserClient
-from .vendorv.client import AsyncVendorvClient, VendorvClient
+from .vendor.client import AsyncVendorClient, VendorClient
 from .wallet.client import AsyncWalletClient, WalletClient
 
 
@@ -124,7 +124,7 @@ class payabli:
         self.templates = TemplatesClient(client_wrapper=self._client_wrapper)
         self.token_storage = TokenStorageClient(client_wrapper=self._client_wrapper)
         self.user = UserClient(client_wrapper=self._client_wrapper)
-        self.vendorv = VendorvClient(client_wrapper=self._client_wrapper)
+        self.vendor = VendorClient(client_wrapper=self._client_wrapper)
         self.wallet = WalletClient(client_wrapper=self._client_wrapper)
 
 
@@ -218,7 +218,7 @@ class Asyncpayabli:
         self.templates = AsyncTemplatesClient(client_wrapper=self._client_wrapper)
         self.token_storage = AsyncTokenStorageClient(client_wrapper=self._client_wrapper)
         self.user = AsyncUserClient(client_wrapper=self._client_wrapper)
-        self.vendorv = AsyncVendorvClient(client_wrapper=self._client_wrapper)
+        self.vendor = AsyncVendorClient(client_wrapper=self._client_wrapper)
         self.wallet = AsyncWalletClient(client_wrapper=self._client_wrapper)
 
 

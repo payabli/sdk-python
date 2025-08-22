@@ -9,24 +9,61 @@ from ..core.serialization import FieldMetadata
 
 
 class VendorSummary(UniversalBaseModel):
-    in_transit_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="inTransitBills")] = None
+    """
+    Examples
+    --------
+    from payabli import VendorSummary
+
+    VendorSummary(
+        active_bills=2,
+        pending_bills=4,
+        in_transit_bills=3,
+        paid_bills=18,
+        overdue_bills=1,
+        approved_bills=5,
+        disapproved_bills=1,
+        total_bills=34,
+        active_bills_amount=1250.75,
+        pending_bills_amount=2890.5,
+        in_transit_bills_amount=1675.25,
+        paid_bills_amount=15420.8,
+        overdue_bills_amount=425.0,
+        approved_bills_amount=3240.9,
+        disapproved_bills_amount=180.0,
+        total_bills_amount=25083.2,
+    )
+    """
+
+    active_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="ActiveBills")] = None
+    pending_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="PendingBills")] = None
+    in_transit_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="InTransitBills")] = None
+    paid_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="PaidBills")] = None
+    overdue_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="OverdueBills")] = None
+    approved_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="ApprovedBills")] = None
+    disapproved_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="DisapprovedBills")] = None
+    total_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="TotalBills")] = None
+    active_bills_amount: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="ActiveBillsAmount")
+    ] = None
+    pending_bills_amount: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="PendingBillsAmount")
+    ] = None
     in_transit_bills_amount: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="inTransitBillsAmount")
+        typing.Optional[float], FieldMetadata(alias="InTransitBillsAmount")
     ] = None
-    overdue_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="overdueBills")] = None
-    overdue_bills_amount: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="overdueBillsAmount")
-    ] = None
-    paid_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="paidBills")] = None
-    paid_bills_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="paidBillsAmount")] = (
+    paid_bills_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="PaidBillsAmount")] = (
         None
     )
-    pending_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="pendingBills")] = None
-    pending_bills_amount: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="pendingBillsAmount")
+    overdue_bills_amount: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="OverdueBillsAmount")
     ] = None
-    total_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="totalBills")] = None
-    total_bills_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="totalBillsAmount")] = (
+    approved_bills_amount: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="ApprovedBillsAmount")
+    ] = None
+    disapproved_bills_amount: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="DisapprovedBillsAmount")
+    ] = None
+    total_bills_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="TotalBillsAmount")] = (
         None
     )
 

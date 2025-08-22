@@ -16,6 +16,8 @@ from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.bill_data import BillData
 from ..types.bill_options import BillOptions
+from ..types.export_format import ExportFormat
+from ..types.file import File
 from ..types.file_content import FileContent
 from ..types.force_customer_creation import ForceCustomerCreation
 from ..types.idempotency_key import IdempotencyKey
@@ -736,6 +738,7 @@ class RawInvoiceClient:
         self,
         entry: str,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -743,12 +746,14 @@ class RawInvoiceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[QueryInvoiceResponse]:
         """
-        Returns a list of invoices for an entrypoint. Use filters to limit results.
+        Returns a list of invoices for an entrypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -836,6 +841,7 @@ class RawInvoiceClient:
             f"Query/invoices/{jsonable_encoder(entry)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -906,6 +912,7 @@ class RawInvoiceClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -913,12 +920,14 @@ class RawInvoiceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[QueryInvoiceResponse]:
         """
-        Returns a list of invoices for an org. Use filters to limit results.
+        Returns a list of invoices for an org. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -1006,6 +1015,7 @@ class RawInvoiceClient:
             f"Query/invoices/org/{jsonable_encoder(org_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -1117,6 +1127,89 @@ class RawInvoiceClient:
                     SendInvoiceResponse,
                     parse_obj_as(
                         type_=SendInvoiceResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def get_invoice_pdf(
+        self, id_invoice: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[File]:
+        """
+        Export a single invoice in PDF format.
+
+        Parameters
+        ----------
+        id_invoice : int
+            Invoice ID
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[File]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"Export/invoicePdf/{jsonable_encoder(id_invoice)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    File,
+                    parse_obj_as(
+                        type_=File,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1876,6 +1969,7 @@ class AsyncRawInvoiceClient:
         self,
         entry: str,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -1883,12 +1977,14 @@ class AsyncRawInvoiceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[QueryInvoiceResponse]:
         """
-        Returns a list of invoices for an entrypoint. Use filters to limit results.
+        Returns a list of invoices for an entrypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -1976,6 +2072,7 @@ class AsyncRawInvoiceClient:
             f"Query/invoices/{jsonable_encoder(entry)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -2046,6 +2143,7 @@ class AsyncRawInvoiceClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -2053,12 +2151,14 @@ class AsyncRawInvoiceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[QueryInvoiceResponse]:
         """
-        Returns a list of invoices for an org. Use filters to limit results.
+        Returns a list of invoices for an org. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -2146,6 +2246,7 @@ class AsyncRawInvoiceClient:
             f"Query/invoices/org/{jsonable_encoder(org_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -2257,6 +2358,89 @@ class AsyncRawInvoiceClient:
                     SendInvoiceResponse,
                     parse_obj_as(
                         type_=SendInvoiceResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def get_invoice_pdf(
+        self, id_invoice: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[File]:
+        """
+        Export a single invoice in PDF format.
+
+        Parameters
+        ----------
+        id_invoice : int
+            Invoice ID
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[File]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"Export/invoicePdf/{jsonable_encoder(id_invoice)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    File,
+                    parse_obj_as(
+                        type_=File,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

@@ -22,14 +22,15 @@ from ..types.billitems import Billitems
 from ..types.billstatus import Billstatus
 from ..types.comments import Comments
 from ..types.datenullable import Datenullable
+from ..types.export_format import ExportFormat
 from ..types.file_content import FileContent
 from ..types.frequency import Frequency
 from ..types.idempotency_key import IdempotencyKey
-from ..types.net_amountstring import NetAmountstring
 from ..types.payabli_api_response import PayabliApiResponse
-from ..types.payabli_api_response_bills import PayabliApiResponseBills
 from ..types.terms import Terms
 from ..types.vendor_data import VendorData
+from .types.bill_out_data_scheduled_options import BillOutDataScheduledOptions
+from .types.bill_response import BillResponse
 from .types.edit_bill_response import EditBillResponse
 from .types.get_bill_response import GetBillResponse
 from .types.modify_approval_bill_response import ModifyApprovalBillResponse
@@ -56,16 +57,20 @@ class RawBillClient:
         bill_items: typing.Optional[Billitems] = OMIT,
         bill_number: typing.Optional[str] = OMIT,
         comments: typing.Optional[Comments] = OMIT,
+        discount: typing.Optional[float] = OMIT,
         due_date: typing.Optional[Datenullable] = OMIT,
         end_date: typing.Optional[Datenullable] = OMIT,
         frequency: typing.Optional[Frequency] = OMIT,
+        lot_number: typing.Optional[str] = OMIT,
         mode: typing.Optional[int] = OMIT,
-        net_amount: typing.Optional[NetAmountstring] = OMIT,
+        net_amount: typing.Optional[float] = OMIT,
+        scheduled_options: typing.Optional[BillOutDataScheduledOptions] = OMIT,
         status: typing.Optional[Billstatus] = OMIT,
         terms: typing.Optional[Terms] = OMIT,
+        total_amount: typing.Optional[float] = OMIT,
         vendor: typing.Optional[VendorData] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PayabliApiResponseBills]:
+    ) -> HttpResponse[BillResponse]:
         """
         Creates a bill in an entrypoint.
 
@@ -95,6 +100,9 @@ class RawBillClient:
 
         comments : typing.Optional[Comments]
 
+        discount : typing.Optional[float]
+            Discount amount applied to the bill.
+
         due_date : typing.Optional[Datenullable]
             Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
 
@@ -104,15 +112,24 @@ class RawBillClient:
         frequency : typing.Optional[Frequency]
             Frequency for scheduled bills. Applied only in `Mode` = 1.
 
+        lot_number : typing.Optional[str]
+            Lot number associated with the bill.
+
         mode : typing.Optional[int]
             Bill mode: value `0` for one-time bills, `1` for scheduled bills.
 
-        net_amount : typing.Optional[NetAmountstring]
+        net_amount : typing.Optional[float]
             Net Amount owed in bill. Required when adding a bill.
+
+        scheduled_options : typing.Optional[BillOutDataScheduledOptions]
+            Options for scheduled bills.
 
         status : typing.Optional[Billstatus]
 
         terms : typing.Optional[Terms]
+
+        total_amount : typing.Optional[float]
+            Total amount of the bill.
 
         vendor : typing.Optional[VendorData]
             The vendor associated with the bill. Although you can create a vendor in a create bill request, Payabli recommends creating a vendor separately and passing a valid `vendorNumber` here. At minimum, the `vendorNumber` is required.
@@ -122,7 +139,7 @@ class RawBillClient:
 
         Returns
         -------
-        HttpResponse[PayabliApiResponseBills]
+        HttpResponse[BillResponse]
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -131,7 +148,7 @@ class RawBillClient:
             json={
                 "accountingField1": accounting_field_1,
                 "accountingField2": accounting_field_2,
-                "AdditionalData": additional_data,
+                "additionalData": additional_data,
                 "attachments": convert_and_respect_annotation_metadata(
                     object_=attachments, annotation=Attachments, direction="write"
                 ),
@@ -141,13 +158,19 @@ class RawBillClient:
                 ),
                 "billNumber": bill_number,
                 "comments": comments,
+                "discount": discount,
                 "dueDate": due_date,
                 "endDate": end_date,
                 "frequency": frequency,
+                "lotNumber": lot_number,
                 "mode": mode,
                 "netAmount": net_amount,
+                "scheduledOptions": convert_and_respect_annotation_metadata(
+                    object_=scheduled_options, annotation=BillOutDataScheduledOptions, direction="write"
+                ),
                 "status": status,
                 "terms": terms,
+                "totalAmount": total_amount,
                 "vendor": convert_and_respect_annotation_metadata(
                     object_=vendor, annotation=VendorData, direction="write"
                 ),
@@ -162,9 +185,9 @@ class RawBillClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    PayabliApiResponseBills,
+                    BillResponse,
                     parse_obj_as(
-                        type_=PayabliApiResponseBills,  # type: ignore
+                        type_=BillResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -225,7 +248,7 @@ class RawBillClient:
         *,
         return_object: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PayabliApiResponseBills]:
+    ) -> HttpResponse[BillResponse]:
         """
         Delete a file attached to a bill.
 
@@ -260,7 +283,7 @@ class RawBillClient:
 
         Returns
         -------
-        HttpResponse[PayabliApiResponseBills]
+        HttpResponse[BillResponse]
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -274,9 +297,9 @@ class RawBillClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    PayabliApiResponseBills,
+                    BillResponse,
                     parse_obj_as(
-                        type_=PayabliApiResponseBills,  # type: ignore
+                        type_=BillResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -332,7 +355,7 @@ class RawBillClient:
 
     def delete_bill(
         self, id_bill: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[PayabliApiResponseBills]:
+    ) -> HttpResponse[BillResponse]:
         """
         Deletes a bill by ID.
 
@@ -346,7 +369,7 @@ class RawBillClient:
 
         Returns
         -------
-        HttpResponse[PayabliApiResponseBills]
+        HttpResponse[BillResponse]
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -357,9 +380,9 @@ class RawBillClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    PayabliApiResponseBills,
+                    BillResponse,
                     parse_obj_as(
-                        type_=PayabliApiResponseBills,  # type: ignore
+                        type_=BillResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -425,13 +448,17 @@ class RawBillClient:
         bill_items: typing.Optional[Billitems] = OMIT,
         bill_number: typing.Optional[str] = OMIT,
         comments: typing.Optional[Comments] = OMIT,
+        discount: typing.Optional[float] = OMIT,
         due_date: typing.Optional[Datenullable] = OMIT,
         end_date: typing.Optional[Datenullable] = OMIT,
         frequency: typing.Optional[Frequency] = OMIT,
+        lot_number: typing.Optional[str] = OMIT,
         mode: typing.Optional[int] = OMIT,
-        net_amount: typing.Optional[NetAmountstring] = OMIT,
+        net_amount: typing.Optional[float] = OMIT,
+        scheduled_options: typing.Optional[BillOutDataScheduledOptions] = OMIT,
         status: typing.Optional[Billstatus] = OMIT,
         terms: typing.Optional[Terms] = OMIT,
+        total_amount: typing.Optional[float] = OMIT,
         vendor: typing.Optional[VendorData] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[EditBillResponse]:
@@ -462,6 +489,9 @@ class RawBillClient:
 
         comments : typing.Optional[Comments]
 
+        discount : typing.Optional[float]
+            Discount amount applied to the bill.
+
         due_date : typing.Optional[Datenullable]
             Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
 
@@ -471,15 +501,24 @@ class RawBillClient:
         frequency : typing.Optional[Frequency]
             Frequency for scheduled bills. Applied only in `Mode` = 1.
 
+        lot_number : typing.Optional[str]
+            Lot number associated with the bill.
+
         mode : typing.Optional[int]
             Bill mode: value `0` for one-time bills, `1` for scheduled bills.
 
-        net_amount : typing.Optional[NetAmountstring]
+        net_amount : typing.Optional[float]
             Net Amount owed in bill. Required when adding a bill.
+
+        scheduled_options : typing.Optional[BillOutDataScheduledOptions]
+            Options for scheduled bills.
 
         status : typing.Optional[Billstatus]
 
         terms : typing.Optional[Terms]
+
+        total_amount : typing.Optional[float]
+            Total amount of the bill.
 
         vendor : typing.Optional[VendorData]
             The vendor associated with the bill. Although you can create a vendor in a create bill request, Payabli recommends creating a vendor separately and passing a valid `vendorNumber` here. At minimum, the `vendorNumber` is required.
@@ -498,7 +537,7 @@ class RawBillClient:
             json={
                 "accountingField1": accounting_field_1,
                 "accountingField2": accounting_field_2,
-                "AdditionalData": additional_data,
+                "additionalData": additional_data,
                 "attachments": convert_and_respect_annotation_metadata(
                     object_=attachments, annotation=Attachments, direction="write"
                 ),
@@ -508,13 +547,19 @@ class RawBillClient:
                 ),
                 "billNumber": bill_number,
                 "comments": comments,
+                "discount": discount,
                 "dueDate": due_date,
                 "endDate": end_date,
                 "frequency": frequency,
+                "lotNumber": lot_number,
                 "mode": mode,
                 "netAmount": net_amount,
+                "scheduledOptions": convert_and_respect_annotation_metadata(
+                    object_=scheduled_options, annotation=BillOutDataScheduledOptions, direction="write"
+                ),
                 "status": status,
                 "terms": terms,
+                "totalAmount": total_amount,
                 "vendor": convert_and_respect_annotation_metadata(
                     object_=vendor, annotation=VendorData, direction="write"
                 ),
@@ -778,6 +823,7 @@ class RawBillClient:
         self,
         entry: str,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -785,12 +831,14 @@ class RawBillClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[BillQueryResponse]:
         """
-        Retrieve a list of bills for an entrypoint. Use filters to limit results.
+        Retrieve a list of bills for an entrypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -824,6 +872,7 @@ class RawBillClient:
             - `approvalUserId` (`eq`, `ne`)
             - `parentOrgId` (`ne`, `eq`, `nin`, `in`)
             - `approvalUserEmail` (`eq`, `ne`)
+            - `scheduleId` (`ne`, `eq`)
 
             List of comparison accepted - enclosed between parentheses:
             - `eq` or empty => equal
@@ -857,6 +906,7 @@ class RawBillClient:
             f"Query/bills/{jsonable_encoder(entry)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -927,6 +977,7 @@ class RawBillClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -934,12 +985,14 @@ class RawBillClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[BillQueryResponse]:
         """
-        Retrieve a list of bills for an organization. Use filters to limit results.
+        Retrieve a list of bills for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -1007,6 +1060,7 @@ class RawBillClient:
             f"Query/bills/org/{jsonable_encoder(org_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -1171,7 +1225,7 @@ class RawBillClient:
         autocreate_user: typing.Optional[bool] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PayabliApiResponseBills]:
+    ) -> HttpResponse[BillResponse]:
         """
         Send a bill to a user or list of users to approve.
 
@@ -1192,7 +1246,7 @@ class RawBillClient:
 
         Returns
         -------
-        HttpResponse[PayabliApiResponseBills]
+        HttpResponse[BillResponse]
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -1212,9 +1266,9 @@ class RawBillClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    PayabliApiResponseBills,
+                    BillResponse,
                     parse_obj_as(
-                        type_=PayabliApiResponseBills,  # type: ignore
+                        type_=BillResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1383,16 +1437,20 @@ class AsyncRawBillClient:
         bill_items: typing.Optional[Billitems] = OMIT,
         bill_number: typing.Optional[str] = OMIT,
         comments: typing.Optional[Comments] = OMIT,
+        discount: typing.Optional[float] = OMIT,
         due_date: typing.Optional[Datenullable] = OMIT,
         end_date: typing.Optional[Datenullable] = OMIT,
         frequency: typing.Optional[Frequency] = OMIT,
+        lot_number: typing.Optional[str] = OMIT,
         mode: typing.Optional[int] = OMIT,
-        net_amount: typing.Optional[NetAmountstring] = OMIT,
+        net_amount: typing.Optional[float] = OMIT,
+        scheduled_options: typing.Optional[BillOutDataScheduledOptions] = OMIT,
         status: typing.Optional[Billstatus] = OMIT,
         terms: typing.Optional[Terms] = OMIT,
+        total_amount: typing.Optional[float] = OMIT,
         vendor: typing.Optional[VendorData] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PayabliApiResponseBills]:
+    ) -> AsyncHttpResponse[BillResponse]:
         """
         Creates a bill in an entrypoint.
 
@@ -1422,6 +1480,9 @@ class AsyncRawBillClient:
 
         comments : typing.Optional[Comments]
 
+        discount : typing.Optional[float]
+            Discount amount applied to the bill.
+
         due_date : typing.Optional[Datenullable]
             Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
 
@@ -1431,15 +1492,24 @@ class AsyncRawBillClient:
         frequency : typing.Optional[Frequency]
             Frequency for scheduled bills. Applied only in `Mode` = 1.
 
+        lot_number : typing.Optional[str]
+            Lot number associated with the bill.
+
         mode : typing.Optional[int]
             Bill mode: value `0` for one-time bills, `1` for scheduled bills.
 
-        net_amount : typing.Optional[NetAmountstring]
+        net_amount : typing.Optional[float]
             Net Amount owed in bill. Required when adding a bill.
+
+        scheduled_options : typing.Optional[BillOutDataScheduledOptions]
+            Options for scheduled bills.
 
         status : typing.Optional[Billstatus]
 
         terms : typing.Optional[Terms]
+
+        total_amount : typing.Optional[float]
+            Total amount of the bill.
 
         vendor : typing.Optional[VendorData]
             The vendor associated with the bill. Although you can create a vendor in a create bill request, Payabli recommends creating a vendor separately and passing a valid `vendorNumber` here. At minimum, the `vendorNumber` is required.
@@ -1449,7 +1519,7 @@ class AsyncRawBillClient:
 
         Returns
         -------
-        AsyncHttpResponse[PayabliApiResponseBills]
+        AsyncHttpResponse[BillResponse]
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -1458,7 +1528,7 @@ class AsyncRawBillClient:
             json={
                 "accountingField1": accounting_field_1,
                 "accountingField2": accounting_field_2,
-                "AdditionalData": additional_data,
+                "additionalData": additional_data,
                 "attachments": convert_and_respect_annotation_metadata(
                     object_=attachments, annotation=Attachments, direction="write"
                 ),
@@ -1468,13 +1538,19 @@ class AsyncRawBillClient:
                 ),
                 "billNumber": bill_number,
                 "comments": comments,
+                "discount": discount,
                 "dueDate": due_date,
                 "endDate": end_date,
                 "frequency": frequency,
+                "lotNumber": lot_number,
                 "mode": mode,
                 "netAmount": net_amount,
+                "scheduledOptions": convert_and_respect_annotation_metadata(
+                    object_=scheduled_options, annotation=BillOutDataScheduledOptions, direction="write"
+                ),
                 "status": status,
                 "terms": terms,
+                "totalAmount": total_amount,
                 "vendor": convert_and_respect_annotation_metadata(
                     object_=vendor, annotation=VendorData, direction="write"
                 ),
@@ -1489,9 +1565,9 @@ class AsyncRawBillClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    PayabliApiResponseBills,
+                    BillResponse,
                     parse_obj_as(
-                        type_=PayabliApiResponseBills,  # type: ignore
+                        type_=BillResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1552,7 +1628,7 @@ class AsyncRawBillClient:
         *,
         return_object: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PayabliApiResponseBills]:
+    ) -> AsyncHttpResponse[BillResponse]:
         """
         Delete a file attached to a bill.
 
@@ -1587,7 +1663,7 @@ class AsyncRawBillClient:
 
         Returns
         -------
-        AsyncHttpResponse[PayabliApiResponseBills]
+        AsyncHttpResponse[BillResponse]
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -1601,9 +1677,9 @@ class AsyncRawBillClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    PayabliApiResponseBills,
+                    BillResponse,
                     parse_obj_as(
-                        type_=PayabliApiResponseBills,  # type: ignore
+                        type_=BillResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1659,7 +1735,7 @@ class AsyncRawBillClient:
 
     async def delete_bill(
         self, id_bill: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[PayabliApiResponseBills]:
+    ) -> AsyncHttpResponse[BillResponse]:
         """
         Deletes a bill by ID.
 
@@ -1673,7 +1749,7 @@ class AsyncRawBillClient:
 
         Returns
         -------
-        AsyncHttpResponse[PayabliApiResponseBills]
+        AsyncHttpResponse[BillResponse]
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -1684,9 +1760,9 @@ class AsyncRawBillClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    PayabliApiResponseBills,
+                    BillResponse,
                     parse_obj_as(
-                        type_=PayabliApiResponseBills,  # type: ignore
+                        type_=BillResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1752,13 +1828,17 @@ class AsyncRawBillClient:
         bill_items: typing.Optional[Billitems] = OMIT,
         bill_number: typing.Optional[str] = OMIT,
         comments: typing.Optional[Comments] = OMIT,
+        discount: typing.Optional[float] = OMIT,
         due_date: typing.Optional[Datenullable] = OMIT,
         end_date: typing.Optional[Datenullable] = OMIT,
         frequency: typing.Optional[Frequency] = OMIT,
+        lot_number: typing.Optional[str] = OMIT,
         mode: typing.Optional[int] = OMIT,
-        net_amount: typing.Optional[NetAmountstring] = OMIT,
+        net_amount: typing.Optional[float] = OMIT,
+        scheduled_options: typing.Optional[BillOutDataScheduledOptions] = OMIT,
         status: typing.Optional[Billstatus] = OMIT,
         terms: typing.Optional[Terms] = OMIT,
+        total_amount: typing.Optional[float] = OMIT,
         vendor: typing.Optional[VendorData] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[EditBillResponse]:
@@ -1789,6 +1869,9 @@ class AsyncRawBillClient:
 
         comments : typing.Optional[Comments]
 
+        discount : typing.Optional[float]
+            Discount amount applied to the bill.
+
         due_date : typing.Optional[Datenullable]
             Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
 
@@ -1798,15 +1881,24 @@ class AsyncRawBillClient:
         frequency : typing.Optional[Frequency]
             Frequency for scheduled bills. Applied only in `Mode` = 1.
 
+        lot_number : typing.Optional[str]
+            Lot number associated with the bill.
+
         mode : typing.Optional[int]
             Bill mode: value `0` for one-time bills, `1` for scheduled bills.
 
-        net_amount : typing.Optional[NetAmountstring]
+        net_amount : typing.Optional[float]
             Net Amount owed in bill. Required when adding a bill.
+
+        scheduled_options : typing.Optional[BillOutDataScheduledOptions]
+            Options for scheduled bills.
 
         status : typing.Optional[Billstatus]
 
         terms : typing.Optional[Terms]
+
+        total_amount : typing.Optional[float]
+            Total amount of the bill.
 
         vendor : typing.Optional[VendorData]
             The vendor associated with the bill. Although you can create a vendor in a create bill request, Payabli recommends creating a vendor separately and passing a valid `vendorNumber` here. At minimum, the `vendorNumber` is required.
@@ -1825,7 +1917,7 @@ class AsyncRawBillClient:
             json={
                 "accountingField1": accounting_field_1,
                 "accountingField2": accounting_field_2,
-                "AdditionalData": additional_data,
+                "additionalData": additional_data,
                 "attachments": convert_and_respect_annotation_metadata(
                     object_=attachments, annotation=Attachments, direction="write"
                 ),
@@ -1835,13 +1927,19 @@ class AsyncRawBillClient:
                 ),
                 "billNumber": bill_number,
                 "comments": comments,
+                "discount": discount,
                 "dueDate": due_date,
                 "endDate": end_date,
                 "frequency": frequency,
+                "lotNumber": lot_number,
                 "mode": mode,
                 "netAmount": net_amount,
+                "scheduledOptions": convert_and_respect_annotation_metadata(
+                    object_=scheduled_options, annotation=BillOutDataScheduledOptions, direction="write"
+                ),
                 "status": status,
                 "terms": terms,
+                "totalAmount": total_amount,
                 "vendor": convert_and_respect_annotation_metadata(
                     object_=vendor, annotation=VendorData, direction="write"
                 ),
@@ -2105,6 +2203,7 @@ class AsyncRawBillClient:
         self,
         entry: str,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -2112,12 +2211,14 @@ class AsyncRawBillClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[BillQueryResponse]:
         """
-        Retrieve a list of bills for an entrypoint. Use filters to limit results.
+        Retrieve a list of bills for an entrypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -2151,6 +2252,7 @@ class AsyncRawBillClient:
             - `approvalUserId` (`eq`, `ne`)
             - `parentOrgId` (`ne`, `eq`, `nin`, `in`)
             - `approvalUserEmail` (`eq`, `ne`)
+            - `scheduleId` (`ne`, `eq`)
 
             List of comparison accepted - enclosed between parentheses:
             - `eq` or empty => equal
@@ -2184,6 +2286,7 @@ class AsyncRawBillClient:
             f"Query/bills/{jsonable_encoder(entry)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -2254,6 +2357,7 @@ class AsyncRawBillClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -2261,12 +2365,14 @@ class AsyncRawBillClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[BillQueryResponse]:
         """
-        Retrieve a list of bills for an organization. Use filters to limit results.
+        Retrieve a list of bills for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -2334,6 +2440,7 @@ class AsyncRawBillClient:
             f"Query/bills/org/{jsonable_encoder(org_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -2498,7 +2605,7 @@ class AsyncRawBillClient:
         autocreate_user: typing.Optional[bool] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PayabliApiResponseBills]:
+    ) -> AsyncHttpResponse[BillResponse]:
         """
         Send a bill to a user or list of users to approve.
 
@@ -2519,7 +2626,7 @@ class AsyncRawBillClient:
 
         Returns
         -------
-        AsyncHttpResponse[PayabliApiResponseBills]
+        AsyncHttpResponse[BillResponse]
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -2539,9 +2646,9 @@ class AsyncRawBillClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    PayabliApiResponseBills,
+                    BillResponse,
                     parse_obj_as(
-                        type_=PayabliApiResponseBills,  # type: ignore
+                        type_=BillResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

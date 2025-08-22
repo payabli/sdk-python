@@ -23,8 +23,8 @@ class BaseClientWrapper:
     def get_headers(self) -> typing.Dict[str, str]:
         headers: typing.Dict[str, str] = {
             "X-Fern-Language": "Python",
-            "X-Fern-SDK-Name": "payabli-fern-api-sdk",
-            "X-Fern-SDK-Version": "0.0.212",
+            "X-Fern-SDK-Name": "payabli",
+            "X-Fern-SDK-Version": "0.0.0",
             **(self.get_custom_headers() or {}),
         }
         headers["requestToken"] = self.api_key

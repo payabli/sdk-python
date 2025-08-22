@@ -10,23 +10,28 @@ from .ach_holder_type import AchHolderType
 from .ach_sec_code import AchSecCode
 from .batch_number import BatchNumber
 from .bill_data import BillData
-from .datetimenullable import Datetimenullable
+from .datetime_nullable import DatetimeNullable
 from .dbaname import Dbaname
 from .device import Device
+from .entrypage_id import EntrypageId
 from .entrypointfield import Entrypointfield
 from .external_processor_information import ExternalProcessorInformation
+from .fee_amount import FeeAmount
 from .legalname import Legalname
 from .netamountnullable import Netamountnullable
 from .operation import Operation
 from .orderid import Orderid
 from .org_parent_name import OrgParentName
 from .orgid import Orgid
+from .payor_id import PayorId
 from .pending_fee_amount import PendingFeeAmount
 from .query_c_fee_transaction import QueryCFeeTransaction
 from .query_payment_data import QueryPaymentData
 from .query_response_data import QueryResponseData
 from .query_transaction_events import QueryTransactionEvents
 from .query_transaction_payor_data import QueryTransactionPayorData
+from .refund_id import RefundId
+from .returned_id import ReturnedId
 from .source import Source
 from .split_funding import SplitFunding
 
@@ -62,23 +67,11 @@ class TransactionQueryRecords(UniversalBaseModel):
         typing.Optional[QueryTransactionPayorData], FieldMetadata(alias="Customer")
     ] = None
     device_id: typing_extensions.Annotated[typing.Optional[Device], FieldMetadata(alias="DeviceId")] = None
-    entrypage_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="EntrypageId")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    If applicable, the internal reference ID to the payment page capturing the payment.
-    """
-
+    entrypage_id: typing_extensions.Annotated[typing.Optional[EntrypageId], FieldMetadata(alias="EntrypageId")] = None
     external_processor_information: typing_extensions.Annotated[
         typing.Optional[ExternalProcessorInformation], FieldMetadata(alias="ExternalProcessorInformation")
     ] = None
-    fee_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="FeeAmount")] = pydantic.Field(
-        default=None
-    )
-    """
-    Service fee or sub-charge applied.
-    """
-
+    fee_amount: typing_extensions.Annotated[typing.Optional[FeeAmount], FieldMetadata(alias="FeeAmount")] = None
     gateway_trans_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="GatewayTransId")] = (
         pydantic.Field(default=None)
     )
@@ -123,13 +116,7 @@ class TransactionQueryRecords(UniversalBaseModel):
     Unique Transaction ID.
     """
 
-    payor_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="PayorId")] = pydantic.Field(
-        default=None
-    )
-    """
-    Unique ID for customer linked to the transaction.
-    """
-
+    payor_id: typing_extensions.Annotated[typing.Optional[PayorId], FieldMetadata(alias="PayorId")] = None
     paypoint_dbaname: typing_extensions.Annotated[typing.Optional[Dbaname], FieldMetadata(alias="PaypointDbaname")] = (
         pydantic.Field(default=None)
     )
@@ -161,23 +148,11 @@ class TransactionQueryRecords(UniversalBaseModel):
     pending_fee_amount: typing_extensions.Annotated[
         typing.Optional[PendingFeeAmount], FieldMetadata(alias="PendingFeeAmount")
     ] = None
-    refund_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="RefundId")] = pydantic.Field(
-        default=None
-    )
-    """
-    Identifier of refund transaction linked to this payment.
-    """
-
+    refund_id: typing_extensions.Annotated[typing.Optional[RefundId], FieldMetadata(alias="RefundId")] = None
     response_data: typing_extensions.Annotated[
         typing.Optional[QueryResponseData], FieldMetadata(alias="ResponseData")
     ] = None
-    returned_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="ReturnedId")] = pydantic.Field(
-        default=None
-    )
-    """
-    Identifier of return/chargeback transaction linked to this payment.
-    """
-
+    returned_id: typing_extensions.Annotated[typing.Optional[ReturnedId], FieldMetadata(alias="ReturnedId")] = None
     schedule_reference: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="ScheduleReference")] = (
         pydantic.Field(default=None)
     )
@@ -211,7 +186,7 @@ class TransactionQueryRecords(UniversalBaseModel):
     """
 
     transaction_time: typing_extensions.Annotated[
-        typing.Optional[Datetimenullable], FieldMetadata(alias="TransactionTime")
+        typing.Optional[DatetimeNullable], FieldMetadata(alias="TransactionTime")
     ] = pydantic.Field(default=None)
     """
     Transaction date and time, in UTC.

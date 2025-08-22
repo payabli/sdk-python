@@ -15,12 +15,51 @@ from .type_account import TypeAccount
 
 
 class BillingDataResponse(UniversalBaseModel):
-    account_number: typing_extensions.Annotated[
-        typing.Optional[AccountNumber], FieldMetadata(alias="accountNumber")
+    """
+    Examples
+    --------
+    from payabli import BillingDataResponse
+
+    BillingDataResponse(
+        id=123456,
+        account_id="bank-account-001",
+        nickname="Main Checking Account",
+        bank_name="Example Bank",
+        routing_account="123456789",
+        account_number="9876543210",
+        type_account="Checking",
+        bank_account_holder_name="John Doe",
+        bank_account_holder_type="Business",
+        bank_account_function=2,
+        verified=True,
+        status=1,
+        services=[],
+        default=True,
+    )
+    """
+
+    id: int = pydantic.Field()
+    """
+    The bank's ID in Payabli.
+    """
+
+    account_id: typing_extensions.Annotated[
+        typing.Optional[typing.Optional[typing.Any]], FieldMetadata(alias="accountId")
     ] = None
-    bank_account_function: typing_extensions.Annotated[
-        typing.Optional[int], FieldMetadata(alias="bankAccountFunction")
-    ] = pydantic.Field(default=None)
+    nickname: str
+    bank_name: typing_extensions.Annotated[BankName, FieldMetadata(alias="bankName")]
+    routing_account: typing_extensions.Annotated[RoutingAccount, FieldMetadata(alias="routingAccount")]
+    account_number: typing_extensions.Annotated[AccountNumber, FieldMetadata(alias="accountNumber")]
+    type_account: typing_extensions.Annotated[TypeAccount, FieldMetadata(alias="typeAccount")]
+    bank_account_holder_name: typing_extensions.Annotated[
+        BankAccountHolderName, FieldMetadata(alias="bankAccountHolderName")
+    ]
+    bank_account_holder_type: typing_extensions.Annotated[
+        BankAccountHolderType, FieldMetadata(alias="bankAccountHolderType")
+    ]
+    bank_account_function: typing_extensions.Annotated[int, FieldMetadata(alias="bankAccountFunction")] = (
+        pydantic.Field()
+    )
     """
     Describes whether the bank account is used for deposits or withdrawals in Payabli:
       - `0`: Deposit
@@ -28,22 +67,10 @@ class BillingDataResponse(UniversalBaseModel):
       - `2`: Deposit and withdrawal
     """
 
-    bank_account_holder_name: typing_extensions.Annotated[
-        typing.Optional[BankAccountHolderName], FieldMetadata(alias="bankAccountHolderName")
-    ] = None
-    bank_account_holder_type: typing_extensions.Annotated[
-        typing.Optional[BankAccountHolderType], FieldMetadata(alias="bankAccountHolderType")
-    ] = None
-    bank_name: typing_extensions.Annotated[typing.Optional[BankName], FieldMetadata(alias="bankName")] = None
-    id: typing.Optional[int] = pydantic.Field(default=None)
-    """
-    The bank's ID in Payabli.
-    """
-
-    routing_account: typing_extensions.Annotated[
-        typing.Optional[RoutingAccount], FieldMetadata(alias="routingAccount")
-    ] = None
-    type_account: typing_extensions.Annotated[typing.Optional[TypeAccount], FieldMetadata(alias="typeAccount")] = None
+    verified: bool
+    status: int
+    services: typing.List[typing.Optional[typing.Any]]
+    default: bool
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

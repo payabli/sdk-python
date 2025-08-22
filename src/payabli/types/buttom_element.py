@@ -8,7 +8,7 @@ from .buttom_element_size import ButtomElementSize
 
 
 class ButtomElement(UniversalBaseModel):
-    label: typing.Optional[str] = pydantic.Field(default=None)
+    label: str = pydantic.Field()
     """
     Label for custom payment button
     """

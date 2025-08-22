@@ -15,6 +15,7 @@ from .email import Email
 from .location_code import LocationCode
 from .mcc import Mcc
 from .payee_name import PayeeName
+from .remit_email import RemitEmail
 from .remitaddress_1 import Remitaddress1
 from .remitaddress_2 import Remitaddress2
 from .remitcity import Remitcity
@@ -73,6 +74,20 @@ class VendorData(UniversalBaseModel):
     Vendor's country.
     """
 
+    custom_field_1: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="customField1")] = (
+        pydantic.Field(default=None)
+    )
+    """
+    Custom field 1 for vendor
+    """
+
+    custom_field_2: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="customField2")] = (
+        pydantic.Field(default=None)
+    )
+    """
+    Custom field 2 for vendor
+    """
+
     customer_vendor_account: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="customerVendorAccount")
     ] = pydantic.Field(default=None)
@@ -115,6 +130,7 @@ class VendorData(UniversalBaseModel):
     remit_country: typing_extensions.Annotated[typing.Optional[Remitcountry], FieldMetadata(alias="remitCountry")] = (
         None
     )
+    remit_email: typing_extensions.Annotated[typing.Optional[RemitEmail], FieldMetadata(alias="remitEmail")] = None
     remit_state: typing_extensions.Annotated[typing.Optional[Remitstate], FieldMetadata(alias="remitState")] = None
     remit_zip: typing_extensions.Annotated[typing.Optional[Remitzip], FieldMetadata(alias="remitZip")] = None
     state: typing.Optional[str] = pydantic.Field(default=None)

@@ -2,4 +2,4 @@
 
 import typing
 
-Identifierfields = typing.Optional[typing.List[typing.Optional[str]]]
+Identifierfields = typing.List[typing.Optional[str]]

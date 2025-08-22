@@ -14,7 +14,10 @@ from ..errors.internal_server_error import InternalServerError
 from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.entry import Entry
+from ..types.export_format import ExportFormat
+from ..types.orgid import Orgid
 from ..types.payabli_api_response import PayabliApiResponse
+from ..types.query_batches_detail_response import QueryBatchesDetailResponse
 from ..types.query_batches_out_response import QueryBatchesOutResponse
 from ..types.query_batches_response import QueryBatchesResponse
 from ..types.query_chargebacks_response import QueryChargebacksResponse
@@ -27,12 +30,12 @@ from ..types.query_response_settlements import QueryResponseSettlements
 from ..types.query_response_transactions import QueryResponseTransactions
 from ..types.query_response_vendors import QueryResponseVendors
 from ..types.query_subscription_response import QuerySubscriptionResponse
-from ..types.query_transfer_detail_response import QueryTransferDetailResponse
 from ..types.query_user_response import QueryUserResponse
 from ..types.transfer_query_response import TransferQueryResponse
 from ..types.v_card_query_response import VCardQueryResponse
 from .types.limit_record import LimitRecord
 from .types.list_organizations_response import ListOrganizationsResponse
+from .types.query_transfer_detail_response import QueryTransferDetailResponse
 
 
 class RawQueryClient:
@@ -43,18 +46,22 @@ class RawQueryClient:
         self,
         entry: Entry,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         sort_by: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[QueryResponseSettlements]:
+    ) -> HttpResponse[QueryBatchesDetailResponse]:
         """
-        Retrieve a list of batches and their details, including settled and unsettled transactions for a paypoint. Use filters to limit results.
+        Retrieve a list of batches and their details, including settled and
+        unsettled transactions for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         entry : Entry
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -148,13 +155,14 @@ class RawQueryClient:
 
         Returns
         -------
-        HttpResponse[QueryResponseSettlements]
+        HttpResponse[QueryBatchesDetailResponse]
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
             f"Query/batchDetails/{jsonable_encoder(entry)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -165,9 +173,9 @@ class RawQueryClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    QueryResponseSettlements,
+                    QueryBatchesDetailResponse,
                     parse_obj_as(
-                        type_=QueryResponseSettlements,  # type: ignore
+                        type_=QueryBatchesDetailResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -225,6 +233,7 @@ class RawQueryClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -232,12 +241,14 @@ class RawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[QueryResponseSettlements]:
         """
-        Retrieve a list of batches and their details, including settled and unsettled transactions for an organization. Use filters to limit results.
+        Retrieve a list of batches and their details, including settled and unsettled transactions for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -337,6 +348,7 @@ class RawQueryClient:
             f"Query/batchDetails/org/{jsonable_encoder(org_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -407,6 +419,7 @@ class RawQueryClient:
         self,
         entry: Entry,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -414,11 +427,13 @@ class RawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[QueryBatchesResponse]:
         """
-        Retrieve a list of batches for a paypoint. Use filters to limit results.
+        Retrieve a list of batches for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         entry : Entry
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -497,6 +512,7 @@ class RawQueryClient:
             f"Query/batches/{jsonable_encoder(entry)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -567,6 +583,7 @@ class RawQueryClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -574,12 +591,14 @@ class RawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[QueryBatchesResponse]:
         """
-        Retrieve a list of batches for an org. Use filters to limit results.
+        Retrieve a list of batches for an org. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -658,6 +677,7 @@ class RawQueryClient:
             f"Query/batches/org/{jsonable_encoder(org_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -728,6 +748,7 @@ class RawQueryClient:
         self,
         entry: Entry,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -735,11 +756,13 @@ class RawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[QueryBatchesOutResponse]:
         """
-        Retrieve a list of MoneyOut batches for a paypoint. Use filters to limit results.
+        Retrieve a list of MoneyOut batches for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         entry : Entry
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -780,6 +803,7 @@ class RawQueryClient:
             f"Query/batchesOut/{jsonable_encoder(entry)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -850,6 +874,7 @@ class RawQueryClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -857,12 +882,14 @@ class RawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[QueryBatchesOutResponse]:
         """
-        Retrieve a list of MoneyOut batches for an org. Use filters to limit results.
+        Retrieve a list of MoneyOut batches for an org. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -918,6 +945,7 @@ class RawQueryClient:
             f"Query/batchesOut/org/{jsonable_encoder(org_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -988,6 +1016,7 @@ class RawQueryClient:
         self,
         entry: Entry,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -995,11 +1024,13 @@ class RawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[QueryChargebacksResponse]:
         """
-        Retrieves a list of chargebacks and returned transactions for a paypoint. Use filters to limit results.
+        Retrieves a list of chargebacks and returned transactions for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         entry : Entry
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -1095,6 +1126,7 @@ class RawQueryClient:
             f"Query/chargebacks/{jsonable_encoder(entry)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -1165,6 +1197,7 @@ class RawQueryClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -1172,12 +1205,14 @@ class RawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[QueryChargebacksResponse]:
         """
-        Retrieve a list of chargebacks and returned transactions for an org. Use filters to limit results.
+        Retrieve a list of chargebacks and returned transactions for an org. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -1275,6 +1310,7 @@ class RawQueryClient:
             f"Query/chargebacks/org/{jsonable_encoder(org_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -1345,6 +1381,7 @@ class RawQueryClient:
         self,
         entry: Entry,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -1352,11 +1389,13 @@ class RawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[QueryCustomerResponse]:
         """
-        Retrieves a list of customers for a paypoint. Use filters to limit results.
+        Retrieves a list of customers for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         entry : Entry
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -1446,6 +1485,7 @@ class RawQueryClient:
             f"Query/customers/{jsonable_encoder(entry)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -1516,6 +1556,7 @@ class RawQueryClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -1523,12 +1564,14 @@ class RawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[QueryCustomerResponse]:
         """
-        Retrieves a list of customers for an org. Use filters to limit results.
+        Retrieves a list of customers for an org. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -1618,6 +1661,7 @@ class RawQueryClient:
             f"Query/customers/org/{jsonable_encoder(org_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -2268,6 +2312,7 @@ class RawQueryClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -2275,12 +2320,14 @@ class RawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ListOrganizationsResponse]:
         """
-        Retrieves a list of an organization's suborganizations and their full details such as orgId, users, and settings. Use filters to limit results.
+        Retrieves a list of an organization's suborganizations and their full details such as orgId, users, and settings. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -2357,6 +2404,7 @@ class RawQueryClient:
             f"Query/organizations/{jsonable_encoder(org_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -2427,6 +2475,7 @@ class RawQueryClient:
         self,
         entry: Entry,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -2434,11 +2483,13 @@ class RawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[QueryPayoutTransaction]:
         """
-        Retrieves a list of money out transactions (payouts) for a paypoint. Use filters to limit results.
+        Retrieves a list of money out transactions (payouts) for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         entry : Entry
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -2502,6 +2553,7 @@ class RawQueryClient:
               - `lotNumber` (ct, nct)
               - `customerVendorAccount` (ct, nct, eq, ne)
               - `batchId` (eq, ne)
+              - `payoutProgram`(eq, ne) the options are `managed` or `odp`. For example, `payoutProgram(eq)=managed` returns all records with a `payoutProgram` equal to `managed`.
 
               List of comparison accepted - enclosed between parentheses:
               - eq or empty => equal
@@ -2540,6 +2592,7 @@ class RawQueryClient:
             f"Query/payouts/{jsonable_encoder(entry)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -2610,6 +2663,7 @@ class RawQueryClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -2617,12 +2671,14 @@ class RawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[QueryPayoutTransaction]:
         """
-        Retrieves a list of money out transactions (payouts) for an organization. Use filters to limit results.
+        Retrieves a list of money out transactions (payouts) for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -2685,6 +2741,7 @@ class RawQueryClient:
               - `lotNumber` (ct, nct)
               - `customerVendorAccount` (ct, nct, eq, ne)
               - `batchId` (eq, ne)
+              - `payoutProgram`(eq, ne) the options are `managed` or `odp`. For example, `payoutProgram(eq)=managed` returns all records with a `payoutProgram` equal to `managed`.
 
               List of comparison accepted - enclosed between parentheses:
               - eq or empty => equal
@@ -2723,6 +2780,7 @@ class RawQueryClient:
             f"Query/payouts/org/{jsonable_encoder(org_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -2793,6 +2851,7 @@ class RawQueryClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -2800,12 +2859,14 @@ class RawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[QueryEntrypointResponse]:
         """
-        Returns a list of paypoints in an organization. Use filters to limit results.
+        Returns a list of paypoints in an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -2887,6 +2948,7 @@ class RawQueryClient:
             f"Query/paypoints/{jsonable_encoder(org_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -2957,6 +3019,7 @@ class RawQueryClient:
         self,
         entry: Entry,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -2964,11 +3027,13 @@ class RawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[QueryResponseSettlements]:
         """
-        Retrieve a list of settled transactions for a paypoint. Use filters to limit results.
+        Retrieve a list of settled transactions for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         entry : Entry
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -3069,6 +3134,7 @@ class RawQueryClient:
             f"Query/settlements/{jsonable_encoder(entry)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -3139,6 +3205,7 @@ class RawQueryClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -3146,12 +3213,14 @@ class RawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[QueryResponseSettlements]:
         """
-        Retrieve a list of settled transactions for an organization.
+        Retrieve a list of settled transactions for an organization. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -3252,6 +3321,7 @@ class RawQueryClient:
             f"Query/settlements/org/{jsonable_encoder(org_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -3322,6 +3392,7 @@ class RawQueryClient:
         self,
         entry: Entry,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -3329,11 +3400,13 @@ class RawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[QuerySubscriptionResponse]:
         """
-        Returns a list of subscriptions for a single paypoint. Use filters to limit results.
+        Returns a list of subscriptions for a single paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         entry : Entry
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -3434,6 +3507,7 @@ class RawQueryClient:
             f"Query/subscriptions/{jsonable_encoder(entry)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -3504,6 +3578,7 @@ class RawQueryClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -3511,12 +3586,14 @@ class RawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[QuerySubscriptionResponse]:
         """
-        Returns a list of subscriptions for a single org. Use filters to limit results.
+        Returns a list of subscriptions for a single org. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -3617,6 +3694,7 @@ class RawQueryClient:
             f"Query/subscriptions/org/{jsonable_encoder(org_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -3687,6 +3765,7 @@ class RawQueryClient:
         self,
         entry: Entry,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -3694,7 +3773,7 @@ class RawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[QueryResponseTransactions]:
         """
-        Retrieve a list of transactions for a paypoint. Use filters to limit results. 
+        Retrieve a list of transactions for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
         By default, this endpoint returns only transactions from the last 60 days. To query transactions outside of this period, include `transactionDate` filters.
         For example, this request parameters filter for transactions between April 01, 2024 and April 09, 2024. 
         ``` curl --request GET \
@@ -3706,6 +3785,8 @@ class RawQueryClient:
         Parameters
         ----------
         entry : Entry
+        
+        export_format : typing.Optional[ExportFormat]
         
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -3812,6 +3893,7 @@ class RawQueryClient:
             f"Query/transactions/{jsonable_encoder(entry)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -3882,6 +3964,7 @@ class RawQueryClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -3889,10 +3972,17 @@ class RawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[QueryResponseTransactions]:
         """
-        Retrieve a list of transactions for an organization. Use filters to limit results.
+        
+        Retrieve a list of transactions for an organization. Use filters to
+        limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
+        
+        
         By default, this endpoint returns only transactions from the last 60 days. To query transactions outside of this period, include `transactionDate` filters.
+        
         For example, this request parameters filter for transactions between April 01, 2024 and April 09, 2024. 
-        ``` curl --request GET \
+        
+        ```
+        curl --request GET \
           --url https://sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59\
           --header 'requestToken: <api-key>'
         
@@ -3902,6 +3992,8 @@ class RawQueryClient:
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+        
+        export_format : typing.Optional[ExportFormat]
         
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -4010,6 +4102,7 @@ class RawQueryClient:
             f"Query/transactions/org/{jsonable_encoder(org_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -4082,13 +4175,14 @@ class RawQueryClient:
         transfer_id: int,
         *,
         limit_record: LimitRecord,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         sort_by: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[QueryTransferDetailResponse]:
         """
-        Retrieve a list of transfer details records for a paypoint. Use filters to limit results.
+        Retrieve a list of transfer details records for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
@@ -4098,6 +4192,8 @@ class RawQueryClient:
             The numeric identifier for the transfer, assigned by Payabli.
 
         limit_record : LimitRecord
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -4158,6 +4254,7 @@ class RawQueryClient:
             f"Query/transferDetails/{jsonable_encoder(entry)}/{jsonable_encoder(transfer_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -4228,6 +4325,7 @@ class RawQueryClient:
         self,
         entry: Entry,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -4235,11 +4333,13 @@ class RawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[TransferQueryResponse]:
         """
-        Retrieve a list of transfers for a paypoint. Use filters to limit results.
+        Retrieve a list of transfers for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         entry : Entry
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -4276,6 +4376,10 @@ class RawQueryClient:
               - `transferStatus` (ne, eq, in, nin)
               - `batchNumber` (ne, eq, ct, nct)
               - `batchId` (ne, eq, in, nin)
+              - `transferId` (in, nin, eq, ne)
+              - `bankAccountNumber` (ct, nct, ne, eq)
+              - `bankRoutingNumber` (ct, nct, ne, eq)
+              - `batchCurrency` (in, nin, ne, eq)
 
         sort_by : typing.Optional[str]
             The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
@@ -4292,6 +4396,149 @@ class RawQueryClient:
             f"Query/transfers/{jsonable_encoder(entry)}",
             method="GET",
             params={
+                "exportFormat": export_format,
+                "fromRecord": from_record,
+                "limitRecord": limit_record,
+                "parameters": parameters,
+                "sortBy": sort_by,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    TransferQueryResponse,
+                    parse_obj_as(
+                        type_=TransferQueryResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def list_transfers_org(
+        self,
+        org_id: Orgid,
+        *,
+        export_format: typing.Optional[ExportFormat] = None,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[TransferQueryResponse]:
+        """
+        Retrieve a list of transfers for an org. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
+
+        Parameters
+        ----------
+        org_id : Orgid
+
+        export_format : typing.Optional[ExportFormat]
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Collection of field names, conditions, and values used to filter the query. See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
+            <Info>
+              **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+              For example:
+
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+              should become:
+
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+            </Info>
+            List of field names accepted:
+
+              - `transferDate` (gt, ge, lt, le, eq, ne)
+              - `grossAmount` (gt, ge, lt, le, eq, ne)
+              - `chargeBackAmount` (gt, ge, lt, le, eq, ne)
+              - `returnedAmount` (gt, ge, lt, le, eq, ne)
+              - `billingFeeAmount` (gt, ge, lt, le, eq, ne)
+              - `thirdPartyPaidAmount` (gt, ge, lt, le, eq, ne)
+              - `netFundedAmount` (gt, ge, lt, le, eq, ne)
+              - `adjustmentAmount` (gt, ge, lt, le, eq, ne)
+              - `processor` (ne, eq, ct, nct)
+              - `transferStatus` (ne, eq, in, nin)
+              - `batchNumber` (ne, eq, ct, nct)
+              - `batchId` (ne, eq, in, nin)
+              - `transferId` (in, nin, eq, ne)
+              - `bankAccountNumber` (ct, nct, ne, eq)
+              - `bankRoutingNumber` (ct, nct, ne, eq)
+              - `batchCurrency` (in, nin, ne, eq)
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[TransferQueryResponse]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"Query/transfers/org/{jsonable_encoder(org_id)}",
+            method="GET",
+            params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -4660,6 +4907,7 @@ class RawQueryClient:
         self,
         entry: str,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -4667,12 +4915,14 @@ class RawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[QueryResponseVendors]:
         """
-        Retrieve a list of vendors for an entrypoint. Use filters to limit results.
+        Retrieve a list of vendors for an entrypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -4751,6 +5001,7 @@ class RawQueryClient:
             f"Query/vendors/{jsonable_encoder(entry)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -4821,6 +5072,7 @@ class RawQueryClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -4828,12 +5080,14 @@ class RawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[QueryResponseVendors]:
         """
-        Retrieve a list of vendors for an organization. Use filters to limit results.
+        Retrieve a list of vendors for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -4912,6 +5166,7 @@ class RawQueryClient:
             f"Query/vendors/org/{jsonable_encoder(org_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -4982,6 +5237,7 @@ class RawQueryClient:
         self,
         entry: Entry,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -4989,11 +5245,13 @@ class RawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[VCardQueryResponse]:
         """
-        Retrieve a list of vcards (virtual credit cards) issued for an entrypoint. Use filters to limit results.
+        Retrieve a list of vcards (virtual credit cards) issued for an entrypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         entry : Entry
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -5066,6 +5324,7 @@ class RawQueryClient:
             f"Query/vcards/{jsonable_encoder(entry)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -5136,6 +5395,7 @@ class RawQueryClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -5143,12 +5403,14 @@ class RawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[VCardQueryResponse]:
         """
-        Retrieve a list of vcards (virtual credit cards) issued for an organization. Use filters to limit results.
+        Retrieve a list of vcards (virtual credit cards) issued for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -5221,6 +5483,7 @@ class RawQueryClient:
             f"Query/vcards/org/{jsonable_encoder(org_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -5296,18 +5559,22 @@ class AsyncRawQueryClient:
         self,
         entry: Entry,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         sort_by: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[QueryResponseSettlements]:
+    ) -> AsyncHttpResponse[QueryBatchesDetailResponse]:
         """
-        Retrieve a list of batches and their details, including settled and unsettled transactions for a paypoint. Use filters to limit results.
+        Retrieve a list of batches and their details, including settled and
+        unsettled transactions for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         entry : Entry
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -5401,13 +5668,14 @@ class AsyncRawQueryClient:
 
         Returns
         -------
-        AsyncHttpResponse[QueryResponseSettlements]
+        AsyncHttpResponse[QueryBatchesDetailResponse]
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/batchDetails/{jsonable_encoder(entry)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -5418,9 +5686,9 @@ class AsyncRawQueryClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    QueryResponseSettlements,
+                    QueryBatchesDetailResponse,
                     parse_obj_as(
-                        type_=QueryResponseSettlements,  # type: ignore
+                        type_=QueryBatchesDetailResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -5478,6 +5746,7 @@ class AsyncRawQueryClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -5485,12 +5754,14 @@ class AsyncRawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[QueryResponseSettlements]:
         """
-        Retrieve a list of batches and their details, including settled and unsettled transactions for an organization. Use filters to limit results.
+        Retrieve a list of batches and their details, including settled and unsettled transactions for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -5590,6 +5861,7 @@ class AsyncRawQueryClient:
             f"Query/batchDetails/org/{jsonable_encoder(org_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -5660,6 +5932,7 @@ class AsyncRawQueryClient:
         self,
         entry: Entry,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -5667,11 +5940,13 @@ class AsyncRawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[QueryBatchesResponse]:
         """
-        Retrieve a list of batches for a paypoint. Use filters to limit results.
+        Retrieve a list of batches for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         entry : Entry
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -5750,6 +6025,7 @@ class AsyncRawQueryClient:
             f"Query/batches/{jsonable_encoder(entry)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -5820,6 +6096,7 @@ class AsyncRawQueryClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -5827,12 +6104,14 @@ class AsyncRawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[QueryBatchesResponse]:
         """
-        Retrieve a list of batches for an org. Use filters to limit results.
+        Retrieve a list of batches for an org. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -5911,6 +6190,7 @@ class AsyncRawQueryClient:
             f"Query/batches/org/{jsonable_encoder(org_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -5981,6 +6261,7 @@ class AsyncRawQueryClient:
         self,
         entry: Entry,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -5988,11 +6269,13 @@ class AsyncRawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[QueryBatchesOutResponse]:
         """
-        Retrieve a list of MoneyOut batches for a paypoint. Use filters to limit results.
+        Retrieve a list of MoneyOut batches for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         entry : Entry
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -6033,6 +6316,7 @@ class AsyncRawQueryClient:
             f"Query/batchesOut/{jsonable_encoder(entry)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -6103,6 +6387,7 @@ class AsyncRawQueryClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -6110,12 +6395,14 @@ class AsyncRawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[QueryBatchesOutResponse]:
         """
-        Retrieve a list of MoneyOut batches for an org. Use filters to limit results.
+        Retrieve a list of MoneyOut batches for an org. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -6171,6 +6458,7 @@ class AsyncRawQueryClient:
             f"Query/batchesOut/org/{jsonable_encoder(org_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -6241,6 +6529,7 @@ class AsyncRawQueryClient:
         self,
         entry: Entry,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -6248,11 +6537,13 @@ class AsyncRawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[QueryChargebacksResponse]:
         """
-        Retrieves a list of chargebacks and returned transactions for a paypoint. Use filters to limit results.
+        Retrieves a list of chargebacks and returned transactions for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         entry : Entry
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -6348,6 +6639,7 @@ class AsyncRawQueryClient:
             f"Query/chargebacks/{jsonable_encoder(entry)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -6418,6 +6710,7 @@ class AsyncRawQueryClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -6425,12 +6718,14 @@ class AsyncRawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[QueryChargebacksResponse]:
         """
-        Retrieve a list of chargebacks and returned transactions for an org. Use filters to limit results.
+        Retrieve a list of chargebacks and returned transactions for an org. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -6528,6 +6823,7 @@ class AsyncRawQueryClient:
             f"Query/chargebacks/org/{jsonable_encoder(org_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -6598,6 +6894,7 @@ class AsyncRawQueryClient:
         self,
         entry: Entry,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -6605,11 +6902,13 @@ class AsyncRawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[QueryCustomerResponse]:
         """
-        Retrieves a list of customers for a paypoint. Use filters to limit results.
+        Retrieves a list of customers for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         entry : Entry
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -6699,6 +6998,7 @@ class AsyncRawQueryClient:
             f"Query/customers/{jsonable_encoder(entry)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -6769,6 +7069,7 @@ class AsyncRawQueryClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -6776,12 +7077,14 @@ class AsyncRawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[QueryCustomerResponse]:
         """
-        Retrieves a list of customers for an org. Use filters to limit results.
+        Retrieves a list of customers for an org. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -6871,6 +7174,7 @@ class AsyncRawQueryClient:
             f"Query/customers/org/{jsonable_encoder(org_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -7521,6 +7825,7 @@ class AsyncRawQueryClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -7528,12 +7833,14 @@ class AsyncRawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ListOrganizationsResponse]:
         """
-        Retrieves a list of an organization's suborganizations and their full details such as orgId, users, and settings. Use filters to limit results.
+        Retrieves a list of an organization's suborganizations and their full details such as orgId, users, and settings. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -7610,6 +7917,7 @@ class AsyncRawQueryClient:
             f"Query/organizations/{jsonable_encoder(org_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -7680,6 +7988,7 @@ class AsyncRawQueryClient:
         self,
         entry: Entry,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -7687,11 +7996,13 @@ class AsyncRawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[QueryPayoutTransaction]:
         """
-        Retrieves a list of money out transactions (payouts) for a paypoint. Use filters to limit results.
+        Retrieves a list of money out transactions (payouts) for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         entry : Entry
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -7755,6 +8066,7 @@ class AsyncRawQueryClient:
               - `lotNumber` (ct, nct)
               - `customerVendorAccount` (ct, nct, eq, ne)
               - `batchId` (eq, ne)
+              - `payoutProgram`(eq, ne) the options are `managed` or `odp`. For example, `payoutProgram(eq)=managed` returns all records with a `payoutProgram` equal to `managed`.
 
               List of comparison accepted - enclosed between parentheses:
               - eq or empty => equal
@@ -7793,6 +8105,7 @@ class AsyncRawQueryClient:
             f"Query/payouts/{jsonable_encoder(entry)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -7863,6 +8176,7 @@ class AsyncRawQueryClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -7870,12 +8184,14 @@ class AsyncRawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[QueryPayoutTransaction]:
         """
-        Retrieves a list of money out transactions (payouts) for an organization. Use filters to limit results.
+        Retrieves a list of money out transactions (payouts) for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -7938,6 +8254,7 @@ class AsyncRawQueryClient:
               - `lotNumber` (ct, nct)
               - `customerVendorAccount` (ct, nct, eq, ne)
               - `batchId` (eq, ne)
+              - `payoutProgram`(eq, ne) the options are `managed` or `odp`. For example, `payoutProgram(eq)=managed` returns all records with a `payoutProgram` equal to `managed`.
 
               List of comparison accepted - enclosed between parentheses:
               - eq or empty => equal
@@ -7976,6 +8293,7 @@ class AsyncRawQueryClient:
             f"Query/payouts/org/{jsonable_encoder(org_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -8046,6 +8364,7 @@ class AsyncRawQueryClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -8053,12 +8372,14 @@ class AsyncRawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[QueryEntrypointResponse]:
         """
-        Returns a list of paypoints in an organization. Use filters to limit results.
+        Returns a list of paypoints in an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -8140,6 +8461,7 @@ class AsyncRawQueryClient:
             f"Query/paypoints/{jsonable_encoder(org_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -8210,6 +8532,7 @@ class AsyncRawQueryClient:
         self,
         entry: Entry,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -8217,11 +8540,13 @@ class AsyncRawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[QueryResponseSettlements]:
         """
-        Retrieve a list of settled transactions for a paypoint. Use filters to limit results.
+        Retrieve a list of settled transactions for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         entry : Entry
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -8322,6 +8647,7 @@ class AsyncRawQueryClient:
             f"Query/settlements/{jsonable_encoder(entry)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -8392,6 +8718,7 @@ class AsyncRawQueryClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -8399,12 +8726,14 @@ class AsyncRawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[QueryResponseSettlements]:
         """
-        Retrieve a list of settled transactions for an organization.
+        Retrieve a list of settled transactions for an organization. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -8505,6 +8834,7 @@ class AsyncRawQueryClient:
             f"Query/settlements/org/{jsonable_encoder(org_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -8575,6 +8905,7 @@ class AsyncRawQueryClient:
         self,
         entry: Entry,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -8582,11 +8913,13 @@ class AsyncRawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[QuerySubscriptionResponse]:
         """
-        Returns a list of subscriptions for a single paypoint. Use filters to limit results.
+        Returns a list of subscriptions for a single paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         entry : Entry
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -8687,6 +9020,7 @@ class AsyncRawQueryClient:
             f"Query/subscriptions/{jsonable_encoder(entry)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -8757,6 +9091,7 @@ class AsyncRawQueryClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -8764,12 +9099,14 @@ class AsyncRawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[QuerySubscriptionResponse]:
         """
-        Returns a list of subscriptions for a single org. Use filters to limit results.
+        Returns a list of subscriptions for a single org. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -8870,6 +9207,7 @@ class AsyncRawQueryClient:
             f"Query/subscriptions/org/{jsonable_encoder(org_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -8940,6 +9278,7 @@ class AsyncRawQueryClient:
         self,
         entry: Entry,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -8947,7 +9286,7 @@ class AsyncRawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[QueryResponseTransactions]:
         """
-        Retrieve a list of transactions for a paypoint. Use filters to limit results. 
+        Retrieve a list of transactions for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
         By default, this endpoint returns only transactions from the last 60 days. To query transactions outside of this period, include `transactionDate` filters.
         For example, this request parameters filter for transactions between April 01, 2024 and April 09, 2024. 
         ``` curl --request GET \
@@ -8959,6 +9298,8 @@ class AsyncRawQueryClient:
         Parameters
         ----------
         entry : Entry
+        
+        export_format : typing.Optional[ExportFormat]
         
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -9065,6 +9406,7 @@ class AsyncRawQueryClient:
             f"Query/transactions/{jsonable_encoder(entry)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -9135,6 +9477,7 @@ class AsyncRawQueryClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -9142,10 +9485,17 @@ class AsyncRawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[QueryResponseTransactions]:
         """
-        Retrieve a list of transactions for an organization. Use filters to limit results.
+        
+        Retrieve a list of transactions for an organization. Use filters to
+        limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
+        
+        
         By default, this endpoint returns only transactions from the last 60 days. To query transactions outside of this period, include `transactionDate` filters.
+        
         For example, this request parameters filter for transactions between April 01, 2024 and April 09, 2024. 
-        ``` curl --request GET \
+        
+        ```
+        curl --request GET \
           --url https://sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59\
           --header 'requestToken: <api-key>'
         
@@ -9155,6 +9505,8 @@ class AsyncRawQueryClient:
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+        
+        export_format : typing.Optional[ExportFormat]
         
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -9263,6 +9615,7 @@ class AsyncRawQueryClient:
             f"Query/transactions/org/{jsonable_encoder(org_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -9335,13 +9688,14 @@ class AsyncRawQueryClient:
         transfer_id: int,
         *,
         limit_record: LimitRecord,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         sort_by: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[QueryTransferDetailResponse]:
         """
-        Retrieve a list of transfer details records for a paypoint. Use filters to limit results.
+        Retrieve a list of transfer details records for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
@@ -9351,6 +9705,8 @@ class AsyncRawQueryClient:
             The numeric identifier for the transfer, assigned by Payabli.
 
         limit_record : LimitRecord
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -9411,6 +9767,7 @@ class AsyncRawQueryClient:
             f"Query/transferDetails/{jsonable_encoder(entry)}/{jsonable_encoder(transfer_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -9481,6 +9838,7 @@ class AsyncRawQueryClient:
         self,
         entry: Entry,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -9488,11 +9846,13 @@ class AsyncRawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[TransferQueryResponse]:
         """
-        Retrieve a list of transfers for a paypoint. Use filters to limit results.
+        Retrieve a list of transfers for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         entry : Entry
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -9529,6 +9889,10 @@ class AsyncRawQueryClient:
               - `transferStatus` (ne, eq, in, nin)
               - `batchNumber` (ne, eq, ct, nct)
               - `batchId` (ne, eq, in, nin)
+              - `transferId` (in, nin, eq, ne)
+              - `bankAccountNumber` (ct, nct, ne, eq)
+              - `bankRoutingNumber` (ct, nct, ne, eq)
+              - `batchCurrency` (in, nin, ne, eq)
 
         sort_by : typing.Optional[str]
             The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
@@ -9545,6 +9909,149 @@ class AsyncRawQueryClient:
             f"Query/transfers/{jsonable_encoder(entry)}",
             method="GET",
             params={
+                "exportFormat": export_format,
+                "fromRecord": from_record,
+                "limitRecord": limit_record,
+                "parameters": parameters,
+                "sortBy": sort_by,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    TransferQueryResponse,
+                    parse_obj_as(
+                        type_=TransferQueryResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def list_transfers_org(
+        self,
+        org_id: Orgid,
+        *,
+        export_format: typing.Optional[ExportFormat] = None,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[TransferQueryResponse]:
+        """
+        Retrieve a list of transfers for an org. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
+
+        Parameters
+        ----------
+        org_id : Orgid
+
+        export_format : typing.Optional[ExportFormat]
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Collection of field names, conditions, and values used to filter the query. See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
+            <Info>
+              **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+              For example:
+
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+              should become:
+
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+            </Info>
+            List of field names accepted:
+
+              - `transferDate` (gt, ge, lt, le, eq, ne)
+              - `grossAmount` (gt, ge, lt, le, eq, ne)
+              - `chargeBackAmount` (gt, ge, lt, le, eq, ne)
+              - `returnedAmount` (gt, ge, lt, le, eq, ne)
+              - `billingFeeAmount` (gt, ge, lt, le, eq, ne)
+              - `thirdPartyPaidAmount` (gt, ge, lt, le, eq, ne)
+              - `netFundedAmount` (gt, ge, lt, le, eq, ne)
+              - `adjustmentAmount` (gt, ge, lt, le, eq, ne)
+              - `processor` (ne, eq, ct, nct)
+              - `transferStatus` (ne, eq, in, nin)
+              - `batchNumber` (ne, eq, ct, nct)
+              - `batchId` (ne, eq, in, nin)
+              - `transferId` (in, nin, eq, ne)
+              - `bankAccountNumber` (ct, nct, ne, eq)
+              - `bankRoutingNumber` (ct, nct, ne, eq)
+              - `batchCurrency` (in, nin, ne, eq)
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[TransferQueryResponse]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"Query/transfers/org/{jsonable_encoder(org_id)}",
+            method="GET",
+            params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -9913,6 +10420,7 @@ class AsyncRawQueryClient:
         self,
         entry: str,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -9920,12 +10428,14 @@ class AsyncRawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[QueryResponseVendors]:
         """
-        Retrieve a list of vendors for an entrypoint. Use filters to limit results.
+        Retrieve a list of vendors for an entrypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -10004,6 +10514,7 @@ class AsyncRawQueryClient:
             f"Query/vendors/{jsonable_encoder(entry)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -10074,6 +10585,7 @@ class AsyncRawQueryClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -10081,12 +10593,14 @@ class AsyncRawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[QueryResponseVendors]:
         """
-        Retrieve a list of vendors for an organization. Use filters to limit results.
+        Retrieve a list of vendors for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -10165,6 +10679,7 @@ class AsyncRawQueryClient:
             f"Query/vendors/org/{jsonable_encoder(org_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -10235,6 +10750,7 @@ class AsyncRawQueryClient:
         self,
         entry: Entry,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -10242,11 +10758,13 @@ class AsyncRawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[VCardQueryResponse]:
         """
-        Retrieve a list of vcards (virtual credit cards) issued for an entrypoint. Use filters to limit results.
+        Retrieve a list of vcards (virtual credit cards) issued for an entrypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         entry : Entry
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -10319,6 +10837,7 @@ class AsyncRawQueryClient:
             f"Query/vcards/{jsonable_encoder(entry)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
@@ -10389,6 +10908,7 @@ class AsyncRawQueryClient:
         self,
         org_id: int,
         *,
+        export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
         limit_record: typing.Optional[int] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
@@ -10396,12 +10916,14 @@ class AsyncRawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[VCardQueryResponse]:
         """
-        Retrieve a list of vcards (virtual credit cards) issued for an organization. Use filters to limit results.
+        Retrieve a list of vcards (virtual credit cards) issued for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
         org_id : int
             The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -10474,6 +10996,7 @@ class AsyncRawQueryClient:
             f"Query/vcards/org/{jsonable_encoder(org_id)}",
             method="GET",
             params={
+                "exportFormat": export_format,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,

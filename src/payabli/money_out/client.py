@@ -19,6 +19,7 @@ from ..types.subscriptionid import Subscriptionid
 from ..types.vendor_payment_method import VendorPaymentMethod
 from .raw_client import AsyncRawMoneyOutClient, RawMoneyOutClient
 from .types.capture_all_out_response import CaptureAllOutResponse
+from .types.operation_result import OperationResult
 from .types.request_out_authorize_payment_details import RequestOutAuthorizePaymentDetails
 from .types.request_out_authorize_vendor_data import RequestOutAuthorizeVendorData
 from .types.v_card_get_response import VCardGetResponse
@@ -113,7 +114,7 @@ class MoneyOutClient:
 
         Examples
         --------
-        from payabli import BillPayOutDataRequest, VendorPaymentMethod, payabli
+        from payabli import BillPayOutDataRequest, VendorPaymentMethod_Managed, payabli
         from payabli.money_out import (
             RequestOutAuthorizePaymentDetails,
             RequestOutAuthorizeVendorData,
@@ -126,16 +127,14 @@ class MoneyOutClient:
             entry_point="48acde49",
             invoice_data=[
                 BillPayOutDataRequest(
-                    bill_id=123,
+                    bill_id=54323,
                 )
             ],
             order_description="Window Painting",
             payment_details=RequestOutAuthorizePaymentDetails(
                 total_amount=47.0,
             ),
-            payment_method=VendorPaymentMethod(
-                method="managed",
-            ),
+            payment_method=VendorPaymentMethod_Managed(),
             vendor_data=RequestOutAuthorizeVendorData(
                 vendor_number="7895433",
             ),
@@ -373,6 +372,38 @@ class MoneyOutClient:
         _response = self._raw_client.v_card_get(card_token, request_options=request_options)
         return _response.data
 
+    def send_v_card_link(
+        self, *, trans_id: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> OperationResult:
+        """
+        Sends a virtual card link via email to the vendor associated with the `transId`.
+
+        Parameters
+        ----------
+        trans_id : str
+            The transaction ID of the virtual card payout. The ID is returned as `ReferenceId` in the response when you authorize a payout with POST /MoneyOut/authorize.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        OperationResult
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.money_out.send_v_card_link(
+            trans_id="01K33Z6YQZ6GD5QVKZ856MJBSC",
+        )
+        """
+        _response = self._raw_client.send_v_card_link(trans_id=trans_id, request_options=request_options)
+        return _response.data
+
     def get_check_image(self, asset_name: str, *, request_options: typing.Optional[RequestOptions] = None) -> str:
         """
         Retrieve the image of a check associated with a processed transaction.
@@ -504,7 +535,11 @@ class AsyncMoneyOutClient:
         --------
         import asyncio
 
-        from payabli import Asyncpayabli, BillPayOutDataRequest, VendorPaymentMethod
+        from payabli import (
+            Asyncpayabli,
+            BillPayOutDataRequest,
+            VendorPaymentMethod_Managed,
+        )
         from payabli.money_out import (
             RequestOutAuthorizePaymentDetails,
             RequestOutAuthorizeVendorData,
@@ -520,16 +555,14 @@ class AsyncMoneyOutClient:
                 entry_point="48acde49",
                 invoice_data=[
                     BillPayOutDataRequest(
-                        bill_id=123,
+                        bill_id=54323,
                     )
                 ],
                 order_description="Window Painting",
                 payment_details=RequestOutAuthorizePaymentDetails(
                     total_amount=47.0,
                 ),
-                payment_method=VendorPaymentMethod(
-                    method="managed",
-                ),
+                payment_method=VendorPaymentMethod_Managed(),
                 vendor_data=RequestOutAuthorizeVendorData(
                     vendor_number="7895433",
                 ),
@@ -816,6 +849,46 @@ class AsyncMoneyOutClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.v_card_get(card_token, request_options=request_options)
+        return _response.data
+
+    async def send_v_card_link(
+        self, *, trans_id: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> OperationResult:
+        """
+        Sends a virtual card link via email to the vendor associated with the `transId`.
+
+        Parameters
+        ----------
+        trans_id : str
+            The transaction ID of the virtual card payout. The ID is returned as `ReferenceId` in the response when you authorize a payout with POST /MoneyOut/authorize.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        OperationResult
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.money_out.send_v_card_link(
+                trans_id="01K33Z6YQZ6GD5QVKZ856MJBSC",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.send_v_card_link(trans_id=trans_id, request_options=request_options)
         return _response.data
 
     async def get_check_image(self, asset_name: str, *, request_options: typing.Optional[RequestOptions] = None) -> str:

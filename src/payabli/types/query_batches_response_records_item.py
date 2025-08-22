@@ -7,18 +7,36 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .ach_holder_type import AchHolderType
+from .ach_sec_code import AchSecCode
 from .batch_number import BatchNumber
+from .chargeback_id import ChargebackId
 from .dbaname import Dbaname
 from .deposit_date import DepositDate
+from .device_id import DeviceId
+from .entrypage_id import EntrypageId
 from .entrypointfield import Entrypointfield
 from .expected_deposit_date import ExpectedDepositDate
 from .external_paypoint_id import ExternalPaypointId
-from .legalname import Legalname
+from .fee_amount import FeeAmount
 from .org_parent_name import OrgParentName
+from .orgid import Orgid
+from .payor_id import PayorId
 from .paypoint_id import PaypointId
+from .paypoint_name import PaypointName
+from .pending_fee_amount import PendingFeeAmount
+from .query_c_fee_transaction import QueryCFeeTransaction
+from .refund_id import RefundId
+from .retrieval_id import RetrievalId
+from .returned_id import ReturnedId
+from .split_funding import SplitFunding
 
 
 class QueryBatchesResponseRecordsItem(UniversalBaseModel):
+    ach_holder_type: typing_extensions.Annotated[
+        typing.Optional[AchHolderType], FieldMetadata(alias="AchHolderType")
+    ] = None
+    ach_sec_code: typing_extensions.Annotated[typing.Optional[AchSecCode], FieldMetadata(alias="AchSecCode")] = None
     batch_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="BatchAmount")] = (
         pydantic.Field(default=None)
     )
@@ -97,6 +115,17 @@ class QueryBatchesResponseRecordsItem(UniversalBaseModel):
     The batch status. See [Batch Status](/developers/references/money-in-statuses#batch-status) for more.
     """
 
+    chargeback_id: typing_extensions.Annotated[typing.Optional[ChargebackId], FieldMetadata(alias="ChargebackId")] = (
+        None
+    )
+    cfee_transactions: typing_extensions.Annotated[
+        typing.Optional[typing.List[QueryCFeeTransaction]], FieldMetadata(alias="CfeeTransactions")
+    ] = pydantic.Field(default=None)
+    """
+    Service Fee or sub-charge transaction associated to the main
+    transaction.
+    """
+
     connector_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="ConnectorName")] = (
         pydantic.Field(default=None)
     )
@@ -105,13 +134,16 @@ class QueryBatchesResponseRecordsItem(UniversalBaseModel):
     """
 
     deposit_date: typing_extensions.Annotated[typing.Optional[DepositDate], FieldMetadata(alias="DepositDate")] = None
+    device_id: typing_extensions.Annotated[typing.Optional[DeviceId], FieldMetadata(alias="DeviceId")] = None
     entry_name: typing_extensions.Annotated[typing.Optional[Entrypointfield], FieldMetadata(alias="EntryName")] = None
+    entry_pageid: typing_extensions.Annotated[typing.Optional[EntrypageId], FieldMetadata(alias="EntryPageid")] = None
     expected_deposit_date: typing_extensions.Annotated[
         typing.Optional[ExpectedDepositDate], FieldMetadata(alias="ExpectedDepositDate")
     ] = None
     external_paypoint_id: typing_extensions.Annotated[
         typing.Optional[ExternalPaypointId], FieldMetadata(alias="externalPaypointID")
     ] = None
+    fee_amount: typing_extensions.Annotated[typing.Optional[FeeAmount], FieldMetadata(alias="FeeAmount")] = None
     id_batch: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="IdBatch")] = pydantic.Field(
         default=None
     )
@@ -126,6 +158,7 @@ class QueryBatchesResponseRecordsItem(UniversalBaseModel):
     The payment method used.
     """
 
+    org_id: typing_extensions.Annotated[typing.Optional[Orgid], FieldMetadata(alias="OrgId")] = None
     parent_org_name: typing_extensions.Annotated[
         typing.Optional[OrgParentName], FieldMetadata(alias="ParentOrgName")
     ] = pydantic.Field(default=None)
@@ -133,6 +166,14 @@ class QueryBatchesResponseRecordsItem(UniversalBaseModel):
     The entrypoint's parent org.
     """
 
+    payment_settlement_status: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="PaymentSettlementStatus")
+    ] = pydantic.Field(default=None)
+    """
+    The payment's settlement status.
+    """
+
+    payor_id: typing_extensions.Annotated[typing.Optional[PayorId], FieldMetadata(alias="PayorId")] = None
     paypoint_dba: typing_extensions.Annotated[typing.Optional[Dbaname], FieldMetadata(alias="PaypointDba")] = (
         pydantic.Field(default=None)
     )
@@ -141,11 +182,27 @@ class QueryBatchesResponseRecordsItem(UniversalBaseModel):
     """
 
     paypoint_id: typing_extensions.Annotated[typing.Optional[PaypointId], FieldMetadata(alias="PaypointId")] = None
-    paypoint_name: typing_extensions.Annotated[typing.Optional[Legalname], FieldMetadata(alias="PaypointName")] = (
+    paypoint_name: typing_extensions.Annotated[typing.Optional[PaypointName], FieldMetadata(alias="PaypointName")] = (
+        None
+    )
+    pending_fee_amount: typing_extensions.Annotated[
+        typing.Optional[PendingFeeAmount], FieldMetadata(alias="PendingFeeAmount")
+    ] = None
+    refund_id: typing_extensions.Annotated[typing.Optional[RefundId], FieldMetadata(alias="RefundId")] = None
+    retrieval_id: typing_extensions.Annotated[typing.Optional[RetrievalId], FieldMetadata(alias="RetrievalId")] = None
+    returned_id: typing_extensions.Annotated[typing.Optional[ReturnedId], FieldMetadata(alias="ReturnedId")] = None
+    split_funding_instructions: typing_extensions.Annotated[
+        typing.Optional[SplitFunding], FieldMetadata(alias="splitFundingInstructions")
+    ] = pydantic.Field(default=None)
+    """
+    Split funding instructions for the transaction
+    """
+
+    total_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="TotalAmount")] = (
         pydantic.Field(default=None)
     )
     """
-    Paypoint legal name.
+    Total amount of the batch.
     """
 
     transfer: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="Transfer")] = pydantic.Field(

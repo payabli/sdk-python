@@ -4,6 +4,7 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
+from ..types.entrypointfield import Entrypointfield
 from ..types.file_content_ftype import FileContentFtype
 from ..types.payabli_api_response_00_responsedatanonobject import PayabliApiResponse00Responsedatanonobject
 from ..types.payabli_api_response_generic_2_part import PayabliApiResponseGeneric2Part
@@ -13,6 +14,8 @@ from .raw_client import AsyncRawPaypointClient, RawPaypointClient
 from .types.get_basic_entry_by_id_response import GetBasicEntryByIdResponse
 from .types.get_basic_entry_response import GetBasicEntryResponse
 from .types.get_entry_config_response import GetEntryConfigResponse
+from .types.migrate_paypoint_response import MigratePaypointResponse
+from .types.notification_request import NotificationRequest
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -297,6 +300,65 @@ class PaypointClient:
         )
         """
         _response = self._raw_client.settings_page(entry, request_options=request_options)
+        return _response.data
+
+    def migrate(
+        self,
+        *,
+        entry_point: Entrypointfield,
+        new_parent_organization_id: int,
+        notification_request: typing.Optional[NotificationRequest] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> MigratePaypointResponse:
+        """
+        Migrates a paypoint to a new parent organization.
+
+        Parameters
+        ----------
+        entry_point : Entrypointfield
+
+        new_parent_organization_id : int
+            The ID for the paypoint's new parent organization.
+
+        notification_request : typing.Optional[NotificationRequest]
+            Optional notification request object for a webhook
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        MigratePaypointResponse
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+        from payabli.paypoint import NotificationRequest, WebHeaderParameter
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.paypoint.migrate(
+            entry_point="473abc123def",
+            new_parent_organization_id=123,
+            notification_request=NotificationRequest(
+                notification_url="https://webhook-test.yoursie.com",
+                web_header_parameters=[
+                    WebHeaderParameter(
+                        key="testheader",
+                        value="1234567890",
+                    )
+                ],
+            ),
+        )
+        """
+        _response = self._raw_client.migrate(
+            entry_point=entry_point,
+            new_parent_organization_id=new_parent_organization_id,
+            notification_request=notification_request,
+            request_options=request_options,
+        )
         return _response.data
 
 
@@ -637,4 +699,71 @@ class AsyncPaypointClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.settings_page(entry, request_options=request_options)
+        return _response.data
+
+    async def migrate(
+        self,
+        *,
+        entry_point: Entrypointfield,
+        new_parent_organization_id: int,
+        notification_request: typing.Optional[NotificationRequest] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> MigratePaypointResponse:
+        """
+        Migrates a paypoint to a new parent organization.
+
+        Parameters
+        ----------
+        entry_point : Entrypointfield
+
+        new_parent_organization_id : int
+            The ID for the paypoint's new parent organization.
+
+        notification_request : typing.Optional[NotificationRequest]
+            Optional notification request object for a webhook
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        MigratePaypointResponse
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+        from payabli.paypoint import NotificationRequest, WebHeaderParameter
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.paypoint.migrate(
+                entry_point="473abc123def",
+                new_parent_organization_id=123,
+                notification_request=NotificationRequest(
+                    notification_url="https://webhook-test.yoursie.com",
+                    web_header_parameters=[
+                        WebHeaderParameter(
+                            key="testheader",
+                            value="1234567890",
+                        )
+                    ],
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.migrate(
+            entry_point=entry_point,
+            new_parent_organization_id=new_parent_organization_id,
+            notification_request=notification_request,
+            request_options=request_options,
+        )
         return _response.data

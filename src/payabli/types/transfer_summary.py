@@ -6,12 +6,27 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .pagesize import Pagesize
+from .totalpages import Totalpages
+from .totalrecords import Totalrecords
 
 
 class TransferSummary(UniversalBaseModel):
-    total_pages: typing_extensions.Annotated[int, FieldMetadata(alias="totalPages")]
-    total_records: typing_extensions.Annotated[int, FieldMetadata(alias="totalRecords")]
-    page_size: typing_extensions.Annotated[int, FieldMetadata(alias="pageSize")]
+    """
+    Examples
+    --------
+    from payabli import TransferSummary
+
+    TransferSummary(
+        total_pages=1,
+        total_records=2,
+        page_size=20,
+    )
+    """
+
+    total_pages: typing_extensions.Annotated[Totalpages, FieldMetadata(alias="totalPages")]
+    total_records: typing_extensions.Annotated[Totalrecords, FieldMetadata(alias="totalRecords")]
+    page_size: typing_extensions.Annotated[Pagesize, FieldMetadata(alias="pageSize")]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
