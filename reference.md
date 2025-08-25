@@ -12185,7 +12185,7 @@ client.money_in.authorize(
 <dl>
 <dd>
 
-**order_id:** `typing.Optional[Orderid]` 
+**order_id:** `typing.Optional[OrderId]` 
     
 </dd>
 </dl>
@@ -12445,7 +12445,7 @@ client.money_in.credit(
 <dl>
 <dd>
 
-**order_id:** `typing.Optional[Orderid]` 
+**order_id:** `typing.Optional[OrderId]` 
     
 </dd>
 </dl>
@@ -12713,7 +12713,7 @@ client.money_in.getpaid(
 <dl>
 <dd>
 
-**order_id:** `typing.Optional[Orderid]` 
+**order_id:** `typing.Optional[OrderId]` 
     
 </dd>
 </dl>
@@ -13046,7 +13046,7 @@ An amount equal to zero will refund the total amount authorized minus any servic
 <dl>
 <dd>
 
-**order_id:** `typing.Optional[Orderid]` 
+**order_id:** `typing.Optional[OrderId]` 
     
 </dd>
 </dl>
@@ -13334,7 +13334,7 @@ client.money_in.validate(
 <dl>
 <dd>
 
-**order_id:** `typing.Optional[Orderid]` 
+**order_id:** `typing.Optional[OrderId]` 
     
 </dd>
 </dl>
@@ -13575,7 +13575,7 @@ client.money_out.authorize_out(
 <dl>
 <dd>
 
-**order_id:** `typing.Optional[Orderid]` 
+**order_id:** `typing.Optional[OrderId]` 
     
 </dd>
 </dl>
@@ -21984,14 +21984,6 @@ client.query.list_transfer_details(
 <dl>
 <dd>
 
-**limit_record:** `LimitRecord` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **export_format:** `typing.Optional[ExportFormat]` 
     
 </dd>
@@ -22001,6 +21993,14 @@ client.query.list_transfer_details(
 <dd>
 
 **from_record:** `typing.Optional[int]` — The number of records to skip before starting to collect the result set.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit_record:** `typing.Optional[LimitRecord]` 
     
 </dd>
 </dl>

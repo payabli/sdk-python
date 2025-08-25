@@ -12,7 +12,7 @@ from .dbaname import Dbaname
 from .entrypointfield import Entrypointfield
 from .external_paypoint_id import ExternalPaypointId
 from .legalname import Legalname
-from .orderid import Orderid
+from .order_id import OrderId
 from .org_parent_name import OrgParentName
 from .page_identifier import PageIdentifier
 from .query_payment_data import QueryPaymentData
@@ -77,7 +77,7 @@ class QueryChargebacksResponseRecordsItem(UniversalBaseModel):
     Net amount after deductions.
     """
 
-    order_id: typing_extensions.Annotated[typing.Optional[Orderid], FieldMetadata(alias="OrderId")] = None
+    order_id: typing_extensions.Annotated[typing.Optional[OrderId], FieldMetadata(alias="OrderId")] = None
     pageidentifier: typing.Optional[PageIdentifier] = None
     parent_org_name: typing_extensions.Annotated[
         typing.Optional[OrgParentName], FieldMetadata(alias="ParentOrgName")

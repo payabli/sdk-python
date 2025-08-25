@@ -14,7 +14,7 @@ from .dbaname import Dbaname
 from .entrypointfield import Entrypointfield
 from .legalname import Legalname
 from .netamountnullable import Netamountnullable
-from .orderid import Orderid
+from .order_id import OrderId
 from .org_parent_name import OrgParentName
 from .query_payment_data import QueryPaymentData
 from .query_transaction_payor_data import QueryTransactionPayorData
@@ -68,7 +68,7 @@ class ChargebackQueryRecords(UniversalBaseModel):
     Net amount in chargeback or ACH return.
     """
 
-    order_id: typing_extensions.Annotated[typing.Optional[Orderid], FieldMetadata(alias="orderId")] = None
+    order_id: typing_extensions.Annotated[typing.Optional[OrderId], FieldMetadata(alias="orderId")] = None
     parent_org_name: typing_extensions.Annotated[
         typing.Optional[OrgParentName], FieldMetadata(alias="parentOrgName")
     ] = None

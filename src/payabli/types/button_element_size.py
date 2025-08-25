@@ -2,4 +2,4 @@
 
 import typing
 
-BoardingProcessingRegion = typing.Union[typing.Literal["US", "CA"], typing.Any]
+ButtonElementSize = typing.Union[typing.Literal["sm", "md", "lg"], typing.Any]

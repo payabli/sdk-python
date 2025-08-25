@@ -22,8 +22,6 @@ from .binphone import Binphone
 from .binweb import Binweb
 from .boarding_average_bill_size import BoardingAverageBillSize
 from .boarding_avg_monthly_bill import BoardingAvgMonthlyBill
-from .boarding_credit_limit import BoardingCreditLimit
-from .boarding_processing_region import BoardingProcessingRegion
 from .bstate import Bstate
 from .bsummary import Bsummary
 from .busstartdate import Busstartdate
@@ -103,9 +101,13 @@ class ApplicationDataPayIn(UniversalBaseModel):
     List of contacts for the business.
     """
 
-    credit_limit: typing_extensions.Annotated[
-        typing.Optional[BoardingCreditLimit], FieldMetadata(alias="creditLimit")
-    ] = None
+    credit_limit: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="creditLimit")] = (
+        pydantic.Field(default=None)
+    )
+    """
+    The maximum amount of credit that our lending partner, has authorized to your business. It's the upper boundary on how much you can spend or owe on a credit account at any given time.
+    """
+
     dba_name: typing_extensions.Annotated[typing.Optional[Dbaname], FieldMetadata(alias="dbaName")] = pydantic.Field(
         default=None
     )
@@ -144,7 +146,11 @@ class ApplicationDataPayIn(UniversalBaseModel):
     The business's phone number.
     """
 
-    processing_region: typing_extensions.Annotated[BoardingProcessingRegion, FieldMetadata(alias="processingRegion")]
+    processing_region: typing_extensions.Annotated[str, FieldMetadata(alias="processingRegion")] = pydantic.Field()
+    """
+    The business's processing region, either `US` or `CA`.
+    """
+
     recipient_email: typing_extensions.Annotated[typing.Optional[Email], FieldMetadata(alias="recipientEmail")] = (
         pydantic.Field(default=None)
     )

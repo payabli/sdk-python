@@ -26,7 +26,7 @@ from .services import Services
 from .state_nullable import StateNullable
 from .timezone import Timezone
 from .website import Website
-from .zip_nullable import ZipNullable
+from .zip import Zip
 
 
 class PaypointData(UniversalBaseModel):
@@ -61,7 +61,7 @@ class PaypointData(UniversalBaseModel):
     summary: typing.Optional[PaypointSummary] = None
     time_zone: typing_extensions.Annotated[typing.Optional[Timezone], FieldMetadata(alias="timeZone")] = None
     website_address: typing_extensions.Annotated[typing.Optional[Website], FieldMetadata(alias="websiteAddress")] = None
-    zip: typing.Optional[ZipNullable] = None
+    zip: typing.Optional[Zip] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

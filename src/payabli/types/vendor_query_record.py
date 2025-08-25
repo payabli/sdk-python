@@ -40,7 +40,7 @@ from .vendor_response_stored_method import VendorResponseStoredMethod
 from .vendor_summary import VendorSummary
 from .vendorid import Vendorid
 from .vendorstatus import Vendorstatus
-from .zip_nullable import ZipNullable
+from .zip import Zip
 
 
 class VendorQueryRecord(UniversalBaseModel):
@@ -220,7 +220,7 @@ class VendorQueryRecord(UniversalBaseModel):
     vendor_status: typing_extensions.Annotated[typing.Optional[Vendorstatus], FieldMetadata(alias="VendorStatus")] = (
         None
     )
-    zip: typing_extensions.Annotated[typing.Optional[ZipNullable], FieldMetadata(alias="Zip")] = None
+    zip: typing_extensions.Annotated[typing.Optional[Zip], FieldMetadata(alias="Zip")] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

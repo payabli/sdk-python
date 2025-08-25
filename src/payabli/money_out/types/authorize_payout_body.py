@@ -9,8 +9,8 @@ from ...core.serialization import FieldMetadata
 from ...types.accountid import Accountid
 from ...types.bill_pay_out_data_request import BillPayOutDataRequest
 from ...types.entrypointfield import Entrypointfield
+from ...types.order_id import OrderId
 from ...types.orderdescription import Orderdescription
-from ...types.orderid import Orderid
 from ...types.source import Source
 from ...types.subdomain import Subdomain
 from ...types.subscriptionid import Subscriptionid
@@ -32,7 +32,7 @@ class AuthorizePayoutBody(UniversalBaseModel):
     order_description: typing_extensions.Annotated[
         typing.Optional[Orderdescription], FieldMetadata(alias="orderDescription")
     ] = None
-    order_id: typing_extensions.Annotated[typing.Optional[Orderid], FieldMetadata(alias="orderId")] = None
+    order_id: typing_extensions.Annotated[typing.Optional[OrderId], FieldMetadata(alias="orderId")] = None
     payment_details: typing_extensions.Annotated[
         RequestOutAuthorizePaymentDetails, FieldMetadata(alias="paymentDetails")
     ] = pydantic.Field()

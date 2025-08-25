@@ -13,11 +13,14 @@ from ..errors.bad_request_error import BadRequestError
 from ..errors.internal_server_error import InternalServerError
 from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.unauthorized_error import UnauthorizedError
+from ..query_types.types.limit_record import LimitRecord
+from ..query_types.types.list_organizations_response import ListOrganizationsResponse
+from ..query_types.types.query_batches_detail_response import QueryBatchesDetailResponse
+from ..query_types.types.query_transfer_detail_response import QueryTransferDetailResponse
 from ..types.entry import Entry
 from ..types.export_format import ExportFormat
 from ..types.orgid import Orgid
 from ..types.payabli_api_response import PayabliApiResponse
-from ..types.query_batches_detail_response import QueryBatchesDetailResponse
 from ..types.query_batches_out_response import QueryBatchesOutResponse
 from ..types.query_batches_response import QueryBatchesResponse
 from ..types.query_chargebacks_response import QueryChargebacksResponse
@@ -33,9 +36,6 @@ from ..types.query_subscription_response import QuerySubscriptionResponse
 from ..types.query_user_response import QueryUserResponse
 from ..types.transfer_query_response import TransferQueryResponse
 from ..types.v_card_query_response import VCardQueryResponse
-from .types.limit_record import LimitRecord
-from .types.list_organizations_response import ListOrganizationsResponse
-from .types.query_transfer_detail_response import QueryTransferDetailResponse
 
 
 class RawQueryClient:
@@ -4174,9 +4174,9 @@ class RawQueryClient:
         entry: Entry,
         transfer_id: int,
         *,
-        limit_record: LimitRecord,
         export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[LimitRecord] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         sort_by: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -4191,12 +4191,12 @@ class RawQueryClient:
         transfer_id : int
             The numeric identifier for the transfer, assigned by Payabli.
 
-        limit_record : LimitRecord
-
         export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[LimitRecord]
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
 
@@ -9687,9 +9687,9 @@ class AsyncRawQueryClient:
         entry: Entry,
         transfer_id: int,
         *,
-        limit_record: LimitRecord,
         export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[LimitRecord] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         sort_by: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -9704,12 +9704,12 @@ class AsyncRawQueryClient:
         transfer_id : int
             The numeric identifier for the transfer, assigned by Payabli.
 
-        limit_record : LimitRecord
-
         export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[LimitRecord]
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
 

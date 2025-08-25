@@ -2,16 +2,22 @@
 
 # isort: skip_file
 
+from .batch_detail_response_record import BatchDetailResponseRecord
+from .batch_detail_response_summary import BatchDetailResponseSummary
 from .limit_record import LimitRecord
 from .list_organizations_response import ListOrganizationsResponse
+from .query_batches_detail_response import QueryBatchesDetailResponse
 from .query_transfer_detail_response import QueryTransferDetailResponse
 from .query_transfer_response import QueryTransferResponse
 from .query_transfer_summary import QueryTransferSummary
 from .transfer_detail_record import TransferDetailRecord
 
 __all__ = [
+    "BatchDetailResponseRecord",
+    "BatchDetailResponseSummary",
     "LimitRecord",
     "ListOrganizationsResponse",
+    "QueryBatchesDetailResponse",
     "QueryTransferDetailResponse",
     "QueryTransferResponse",
     "QueryTransferSummary",

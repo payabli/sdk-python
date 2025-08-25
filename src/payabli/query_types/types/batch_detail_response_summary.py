@@ -4,12 +4,12 @@ import typing
 
 import pydantic
 import typing_extensions
-from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ..core.serialization import FieldMetadata
-from .page_identifier import PageIdentifier
-from .pagesize import Pagesize
-from .totalpages import Totalpages
-from .totalrecords import Totalrecords
+from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ...core.serialization import FieldMetadata
+from ...types.page_identifier import PageIdentifier
+from ...types.pagesize import Pagesize
+from ...types.totalpages import Totalpages
+from ...types.totalrecords import Totalrecords
 
 
 class BatchDetailResponseSummary(UniversalBaseModel):

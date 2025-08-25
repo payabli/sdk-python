@@ -5,44 +5,44 @@ import typing
 
 import pydantic
 import typing_extensions
-from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ..core.serialization import FieldMetadata
-from .ach_holder_type import AchHolderType
-from .ach_sec_code import AchSecCode
-from .batch_number import BatchNumber
-from .bill_data import BillData
-from .category import Category
-from .chargeback_id import ChargebackId
-from .created_at import CreatedAt
-from .dbaname import Dbaname
-from .deposit_date import DepositDate
-from .device import Device
-from .entrypage_id import EntrypageId
-from .entrypointfield import Entrypointfield
-from .expected_deposit_date import ExpectedDepositDate
-from .external_paypoint_id import ExternalPaypointId
-from .fee_amount import FeeAmount
-from .legalname import Legalname
-from .maskedaccount import Maskedaccount
-from .netamountnullable import Netamountnullable
-from .operation import Operation
-from .orderid import Orderid
-from .org_parent_name import OrgParentName
-from .orgid import Orgid
-from .payor_id import PayorId
-from .paypoint_id import PaypointId
-from .pending_fee_amount import PendingFeeAmount
-from .query_c_fee_transaction import QueryCFeeTransaction
-from .query_payment_data import QueryPaymentData
-from .query_response_data import QueryResponseData
-from .query_transaction_events import QueryTransactionEvents
-from .query_transaction_payor_data import QueryTransactionPayorData
-from .refund_id import RefundId
-from .retrieval_id import RetrievalId
-from .returned_id import ReturnedId
-from .source import Source
-from .split_funding import SplitFunding
-from .transaction_time import TransactionTime
+from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ...core.serialization import FieldMetadata
+from ...types.ach_holder_type import AchHolderType
+from ...types.ach_sec_code import AchSecCode
+from ...types.batch_number import BatchNumber
+from ...types.bill_data import BillData
+from ...types.category import Category
+from ...types.chargeback_id import ChargebackId
+from ...types.created_at import CreatedAt
+from ...types.dbaname import Dbaname
+from ...types.deposit_date import DepositDate
+from ...types.device import Device
+from ...types.entrypage_id import EntrypageId
+from ...types.entrypointfield import Entrypointfield
+from ...types.expected_deposit_date import ExpectedDepositDate
+from ...types.external_paypoint_id import ExternalPaypointId
+from ...types.fee_amount import FeeAmount
+from ...types.legalname import Legalname
+from ...types.maskedaccount import Maskedaccount
+from ...types.netamountnullable import Netamountnullable
+from ...types.operation import Operation
+from ...types.order_id import OrderId
+from ...types.org_parent_name import OrgParentName
+from ...types.orgid import Orgid
+from ...types.payor_id import PayorId
+from ...types.paypoint_id import PaypointId
+from ...types.pending_fee_amount import PendingFeeAmount
+from ...types.query_c_fee_transaction import QueryCFeeTransaction
+from ...types.query_payment_data import QueryPaymentData
+from ...types.query_response_data import QueryResponseData
+from ...types.query_transaction_events import QueryTransactionEvents
+from ...types.query_transaction_payor_data import QueryTransactionPayorData
+from ...types.refund_id import RefundId
+from ...types.retrieval_id import RetrievalId
+from ...types.returned_id import ReturnedId
+from ...types.source import Source
+from ...types.split_funding import SplitFunding
+from ...types.transaction_time import TransactionTime
 
 
 class BatchDetailResponseRecord(UniversalBaseModel):
@@ -57,7 +57,7 @@ class BatchDetailResponseRecord(UniversalBaseModel):
     payment_trans_status: typing_extensions.Annotated[int, FieldMetadata(alias="PaymentTransStatus")]
     schedule_reference: typing_extensions.Annotated[int, FieldMetadata(alias="ScheduleReference")]
     gateway_trans_id: typing_extensions.Annotated[str, FieldMetadata(alias="GatewayTransId")]
-    order_id: typing_extensions.Annotated[Orderid, FieldMetadata(alias="OrderId")]
+    order_id: typing_extensions.Annotated[OrderId, FieldMetadata(alias="OrderId")]
     trans_method: typing_extensions.Annotated[str, FieldMetadata(alias="TransMethod")]
     payment_data: typing_extensions.Annotated[typing.Optional[QueryPaymentData], FieldMetadata(alias="PaymentData")] = (
         None

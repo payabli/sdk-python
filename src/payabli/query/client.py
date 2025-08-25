@@ -4,10 +4,13 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
+from ..query_types.types.limit_record import LimitRecord
+from ..query_types.types.list_organizations_response import ListOrganizationsResponse
+from ..query_types.types.query_batches_detail_response import QueryBatchesDetailResponse
+from ..query_types.types.query_transfer_detail_response import QueryTransferDetailResponse
 from ..types.entry import Entry
 from ..types.export_format import ExportFormat
 from ..types.orgid import Orgid
-from ..types.query_batches_detail_response import QueryBatchesDetailResponse
 from ..types.query_batches_out_response import QueryBatchesOutResponse
 from ..types.query_batches_response import QueryBatchesResponse
 from ..types.query_chargebacks_response import QueryChargebacksResponse
@@ -24,9 +27,6 @@ from ..types.query_user_response import QueryUserResponse
 from ..types.transfer_query_response import TransferQueryResponse
 from ..types.v_card_query_response import VCardQueryResponse
 from .raw_client import AsyncRawQueryClient, RawQueryClient
-from .types.limit_record import LimitRecord
-from .types.list_organizations_response import ListOrganizationsResponse
-from .types.query_transfer_detail_response import QueryTransferDetailResponse
 
 
 class QueryClient:
@@ -3072,9 +3072,9 @@ class QueryClient:
         entry: Entry,
         transfer_id: int,
         *,
-        limit_record: LimitRecord,
         export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[LimitRecord] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         sort_by: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -3089,12 +3089,12 @@ class QueryClient:
         transfer_id : int
             The numeric identifier for the transfer, assigned by Payabli.
 
-        limit_record : LimitRecord
-
         export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[LimitRecord]
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
 
@@ -3163,9 +3163,9 @@ class QueryClient:
         _response = self._raw_client.list_transfer_details(
             entry,
             transfer_id,
-            limit_record=limit_record,
             export_format=export_format,
             from_record=from_record,
+            limit_record=limit_record,
             parameters=parameters,
             sort_by=sort_by,
             request_options=request_options,
@@ -7267,9 +7267,9 @@ class AsyncQueryClient:
         entry: Entry,
         transfer_id: int,
         *,
-        limit_record: LimitRecord,
         export_format: typing.Optional[ExportFormat] = None,
         from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[LimitRecord] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         sort_by: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -7284,12 +7284,12 @@ class AsyncQueryClient:
         transfer_id : int
             The numeric identifier for the transfer, assigned by Payabli.
 
-        limit_record : LimitRecord
-
         export_format : typing.Optional[ExportFormat]
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[LimitRecord]
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
 
@@ -7366,9 +7366,9 @@ class AsyncQueryClient:
         _response = await self._raw_client.list_transfer_details(
             entry,
             transfer_id,
-            limit_record=limit_record,
             export_format=export_format,
             from_record=from_record,
+            limit_record=limit_record,
             parameters=parameters,
             sort_by=sort_by,
             request_options=request_options,

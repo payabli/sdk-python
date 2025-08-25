@@ -88,8 +88,6 @@ from .bank_nickname import BankNickname
 from .bank_section import BankSection
 from .basic_table import BasicTable
 from .basic_template_element import BasicTemplateElement
-from .batch_detail_response_record import BatchDetailResponseRecord
-from .batch_detail_response_summary import BatchDetailResponseSummary
 from .batch_number import BatchNumber
 from .batch_summary import BatchSummary
 from .bcity import Bcity
@@ -118,7 +116,7 @@ from .billing_data import BillingData
 from .billing_data_response import BillingDataResponse
 from .billing_fee_detail import BillingFeeDetail
 from .billing_state_nullable import BillingStateNullable
-from .billing_zip_nullable import BillingZipNullable
+from .billing_zip import BillingZip
 from .billitems import Billitems
 from .billstatus import Billstatus
 from .bin_data import BinData
@@ -131,12 +129,10 @@ from .boarding_average_bill_size import BoardingAverageBillSize
 from .boarding_avg_monthly_bill import BoardingAvgMonthlyBill
 from .boarding_business_fax import BoardingBusinessFax
 from .boarding_business_phone import BoardingBusinessPhone
-from .boarding_credit_limit import BoardingCreditLimit
 from .boarding_id import BoardingId
 from .boarding_link_api_response import BoardingLinkApiResponse
 from .boarding_link_id import BoardingLinkId
 from .boarding_link_query_record import BoardingLinkQueryRecord
-from .boarding_processing_region import BoardingProcessingRegion
 from .boarding_query_links import BoardingQueryLinks
 from .boarding_status import BoardingStatus
 from .bphone import Bphone
@@ -145,8 +141,8 @@ from .bsummary import Bsummary
 from .builder_data import BuilderData
 from .business_section import BusinessSection
 from .busstartdate import Busstartdate
-from .buttom_element import ButtomElement
-from .buttom_element_size import ButtomElementSize
+from .button_element import ButtonElement
+from .button_element_size import ButtonElementSize
 from .bzip import Bzip
 from .c_list import CList
 from .card_acceptance_element import CardAcceptanceElement
@@ -320,7 +316,6 @@ from .notification_content import NotificationContent
 from .notification_content_event_type import NotificationContentEventType
 from .notification_content_file_format import NotificationContentFileFormat
 from .notification_content_report_name import NotificationContentReportName
-from .notification_data import NotificationData
 from .notification_id import NotificationId
 from .notification_query_record import NotificationQueryRecord
 from .notification_report_request import NotificationReportRequest
@@ -341,8 +336,8 @@ from .odp_setup_processing_region import OdpSetupProcessingRegion
 from .operation import Operation
 from .optin_status import OptinStatus
 from .order import Order
+from .order_id import OrderId
 from .orderdescription import Orderdescription
-from .orderid import Orderid
 from .org_data import OrgData
 from .org_parent_id import OrgParentId
 from .org_parent_name import OrgParentName
@@ -396,12 +391,9 @@ from .payabli_api_response_0_response_data import PayabliApiResponse0ResponseDat
 from .payabli_api_response_11 import PayabliApiResponse11
 from .payabli_api_response_11_response_data import PayabliApiResponse11ResponseData
 from .payabli_api_response_6 import PayabliApiResponse6
-from .payabli_api_response_cancel_list_payouts import PayabliApiResponseCancelListPayouts
 from .payabli_api_response_customer_query import PayabliApiResponseCustomerQuery
 from .payabli_api_response_error_400 import PayabliApiResponseError400
 from .payabli_api_response_error_400_response_data import PayabliApiResponseError400ResponseData
-from .payabli_api_response_error_400_tokenization import PayabliApiResponseError400Tokenization
-from .payabli_api_response_error_401 import PayabliApiResponseError401
 from .payabli_api_response_generic_2_part import PayabliApiResponseGeneric2Part
 from .payabli_api_response_import import PayabliApiResponseImport
 from .payabli_api_response_import_response_data import PayabliApiResponseImportResponseData
@@ -412,7 +404,6 @@ from .payabli_api_response_paylinks import PayabliApiResponsePaylinks
 from .payabli_api_response_payment_links import PayabliApiResponsePaymentLinks
 from .payabli_api_response_paymethod_delete import PayabliApiResponsePaymethodDelete
 from .payabli_api_response_paymethod_delete_response_data import PayabliApiResponsePaymethodDeleteResponseData
-from .payabli_api_response_response_data_money_in_lowercase import PayabliApiResponseResponseDataMoneyInLowercase
 from .payabli_api_response_template_id import PayabliApiResponseTemplateId
 from .payabli_api_response_user_mfa import PayabliApiResponseUserMfa
 from .payabli_api_response_vendors import PayabliApiResponseVendors
@@ -459,7 +450,6 @@ from .purchase_order import PurchaseOrder
 from .push_pay_link_request import PushPayLinkRequest, PushPayLinkRequest_Email, PushPayLinkRequest_Sms
 from .push_pay_link_request_email import PushPayLinkRequestEmail
 from .push_pay_link_request_sms import PushPayLinkRequestSms
-from .query_batches_detail_response import QueryBatchesDetailResponse
 from .query_batches_out_response import QueryBatchesOutResponse
 from .query_batches_out_response_records_item import QueryBatchesOutResponseRecordsItem
 from .query_batches_response import QueryBatchesResponse
@@ -617,7 +607,6 @@ from .transaction_query_records import TransactionQueryRecords
 from .transaction_time import TransactionTime
 from .transfer import Transfer
 from .transfer_bank_account import TransferBankAccount
-from .transfer_event import TransferEvent
 from .transfer_message import TransferMessage
 from .transfer_message_properties import TransferMessageProperties
 from .transfer_query_response import TransferQueryResponse
@@ -667,7 +656,7 @@ from .whencharged import Whencharged
 from .whendelivered import Whendelivered
 from .whenprovided import Whenprovided
 from .whenrefunded import Whenrefunded
-from .zip_nullable import ZipNullable
+from .zip import Zip
 
 __all__ = [
     "ASection",
@@ -756,8 +745,6 @@ __all__ = [
     "BankSection",
     "BasicTable",
     "BasicTemplateElement",
-    "BatchDetailResponseRecord",
-    "BatchDetailResponseSummary",
     "BatchNumber",
     "BatchSummary",
     "Bcity",
@@ -786,7 +773,7 @@ __all__ = [
     "BillingDataResponse",
     "BillingFeeDetail",
     "BillingStateNullable",
-    "BillingZipNullable",
+    "BillingZip",
     "Billitems",
     "Billstatus",
     "BinData",
@@ -799,12 +786,10 @@ __all__ = [
     "BoardingAvgMonthlyBill",
     "BoardingBusinessFax",
     "BoardingBusinessPhone",
-    "BoardingCreditLimit",
     "BoardingId",
     "BoardingLinkApiResponse",
     "BoardingLinkId",
     "BoardingLinkQueryRecord",
-    "BoardingProcessingRegion",
     "BoardingQueryLinks",
     "BoardingStatus",
     "Bphone",
@@ -813,8 +798,8 @@ __all__ = [
     "BuilderData",
     "BusinessSection",
     "Busstartdate",
-    "ButtomElement",
-    "ButtomElementSize",
+    "ButtonElement",
+    "ButtonElementSize",
     "Bzip",
     "CList",
     "CardAcceptanceElement",
@@ -988,7 +973,6 @@ __all__ = [
     "NotificationContentEventType",
     "NotificationContentFileFormat",
     "NotificationContentReportName",
-    "NotificationData",
     "NotificationId",
     "NotificationQueryRecord",
     "NotificationReportRequest",
@@ -1009,8 +993,8 @@ __all__ = [
     "Operation",
     "OptinStatus",
     "Order",
+    "OrderId",
     "Orderdescription",
-    "Orderid",
     "OrgData",
     "OrgParentId",
     "OrgParentName",
@@ -1064,12 +1048,9 @@ __all__ = [
     "PayabliApiResponse11",
     "PayabliApiResponse11ResponseData",
     "PayabliApiResponse6",
-    "PayabliApiResponseCancelListPayouts",
     "PayabliApiResponseCustomerQuery",
     "PayabliApiResponseError400",
     "PayabliApiResponseError400ResponseData",
-    "PayabliApiResponseError400Tokenization",
-    "PayabliApiResponseError401",
     "PayabliApiResponseGeneric2Part",
     "PayabliApiResponseImport",
     "PayabliApiResponseImportResponseData",
@@ -1080,7 +1061,6 @@ __all__ = [
     "PayabliApiResponsePaymentLinks",
     "PayabliApiResponsePaymethodDelete",
     "PayabliApiResponsePaymethodDeleteResponseData",
-    "PayabliApiResponseResponseDataMoneyInLowercase",
     "PayabliApiResponseTemplateId",
     "PayabliApiResponseUserMfa",
     "PayabliApiResponseVendors",
@@ -1129,7 +1109,6 @@ __all__ = [
     "PushPayLinkRequestSms",
     "PushPayLinkRequest_Email",
     "PushPayLinkRequest_Sms",
-    "QueryBatchesDetailResponse",
     "QueryBatchesOutResponse",
     "QueryBatchesOutResponseRecordsItem",
     "QueryBatchesResponse",
@@ -1287,7 +1266,6 @@ __all__ = [
     "TransactionTime",
     "Transfer",
     "TransferBankAccount",
-    "TransferEvent",
     "TransferMessage",
     "TransferMessageProperties",
     "TransferQueryResponse",
@@ -1335,5 +1313,5 @@ __all__ = [
     "Whendelivered",
     "Whenprovided",
     "Whenrefunded",
-    "ZipNullable",
+    "Zip",
 ]

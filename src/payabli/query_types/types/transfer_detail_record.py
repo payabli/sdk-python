@@ -23,7 +23,7 @@ from ...types.ip_address import IpAddress
 from ...types.legalname import Legalname
 from ...types.netamountnullable import Netamountnullable
 from ...types.operation import Operation
-from ...types.orderid import Orderid
+from ...types.order_id import OrderId
 from ...types.org_parent_name import OrgParentName
 from ...types.orgid import Orgid
 from ...types.payor_id import PayorId
@@ -206,7 +206,7 @@ class TransferDetailRecord(UniversalBaseModel):
     Internal identifier used for processing
     """
 
-    order_id: typing_extensions.Annotated[typing.Optional[Orderid], FieldMetadata(alias="OrderId")] = None
+    order_id: typing_extensions.Annotated[typing.Optional[OrderId], FieldMetadata(alias="OrderId")] = None
     method: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="Method")] = pydantic.Field(
         default=None
     )

@@ -12,7 +12,7 @@ from .billing_address_nullable import BillingAddressNullable
 from .billing_city_nullable import BillingCityNullable
 from .billing_country_nullable import BillingCountryNullable
 from .billing_state_nullable import BillingStateNullable
-from .billing_zip_nullable import BillingZipNullable
+from .billing_zip import BillingZip
 
 
 class Instrument(UniversalBaseModel):
@@ -30,9 +30,7 @@ class Instrument(UniversalBaseModel):
     billing_state: typing_extensions.Annotated[
         typing.Optional[BillingStateNullable], FieldMetadata(alias="billingState")
     ] = None
-    billing_zip: typing_extensions.Annotated[typing.Optional[BillingZipNullable], FieldMetadata(alias="billingZip")] = (
-        None
-    )
+    billing_zip: typing_extensions.Annotated[typing.Optional[BillingZip], FieldMetadata(alias="billingZip")] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

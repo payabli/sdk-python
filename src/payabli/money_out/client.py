@@ -9,8 +9,8 @@ from ..types.bill_detail_response import BillDetailResponse
 from ..types.bill_pay_out_data_request import BillPayOutDataRequest
 from ..types.entrypointfield import Entrypointfield
 from ..types.idempotency_key import IdempotencyKey
+from ..types.order_id import OrderId
 from ..types.orderdescription import Orderdescription
-from ..types.orderid import Orderid
 from ..types.payabli_api_response_0000 import PayabliApiResponse0000
 from ..types.payabli_api_response_11 import PayabliApiResponse11
 from ..types.source import Source
@@ -56,7 +56,7 @@ class MoneyOutClient:
         account_id: typing.Optional[Accountid] = OMIT,
         invoice_data: typing.Optional[typing.Sequence[BillPayOutDataRequest]] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
-        order_id: typing.Optional[Orderid] = OMIT,
+        order_id: typing.Optional[OrderId] = OMIT,
         payment_method: typing.Optional[VendorPaymentMethod] = OMIT,
         source: typing.Optional[Source] = OMIT,
         subdomain: typing.Optional[Subdomain] = OMIT,
@@ -94,7 +94,7 @@ class MoneyOutClient:
 
         order_description : typing.Optional[Orderdescription]
 
-        order_id : typing.Optional[Orderid]
+        order_id : typing.Optional[OrderId]
 
         payment_method : typing.Optional[VendorPaymentMethod]
 
@@ -475,7 +475,7 @@ class AsyncMoneyOutClient:
         account_id: typing.Optional[Accountid] = OMIT,
         invoice_data: typing.Optional[typing.Sequence[BillPayOutDataRequest]] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
-        order_id: typing.Optional[Orderid] = OMIT,
+        order_id: typing.Optional[OrderId] = OMIT,
         payment_method: typing.Optional[VendorPaymentMethod] = OMIT,
         source: typing.Optional[Source] = OMIT,
         subdomain: typing.Optional[Subdomain] = OMIT,
@@ -513,7 +513,7 @@ class AsyncMoneyOutClient:
 
         order_description : typing.Optional[Orderdescription]
 
-        order_id : typing.Optional[Orderid]
+        order_id : typing.Optional[OrderId]
 
         payment_method : typing.Optional[VendorPaymentMethod]
 

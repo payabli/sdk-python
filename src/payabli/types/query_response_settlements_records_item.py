@@ -16,7 +16,7 @@ from .expected_deposit_date import ExpectedDepositDate
 from .external_paypoint_id import ExternalPaypointId
 from .maskedaccount import Maskedaccount
 from .netamountnullable import Netamountnullable
-from .orderid import Orderid
+from .order_id import OrderId
 from .org_parent_name import OrgParentName
 from .query_payment_data import QueryPaymentData
 from .query_response_data import QueryResponseData
@@ -94,7 +94,7 @@ class QueryResponseSettlementsRecordsItem(UniversalBaseModel):
     The operation performed.
     """
 
-    order_id: typing_extensions.Annotated[typing.Optional[Orderid], FieldMetadata(alias="OrderId")] = None
+    order_id: typing_extensions.Annotated[typing.Optional[OrderId], FieldMetadata(alias="OrderId")] = None
     parent_org_name: typing_extensions.Annotated[
         typing.Optional[OrgParentName], FieldMetadata(alias="ParentOrgName")
     ] = None

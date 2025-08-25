@@ -11,8 +11,8 @@ from ..types.entrypointfield import Entrypointfield
 from ..types.force_customer_creation import ForceCustomerCreation
 from ..types.idempotency_key import IdempotencyKey
 from ..types.ip_address import IpAddress
+from ..types.order_id import OrderId
 from ..types.orderdescription import Orderdescription
-from ..types.orderid import Orderid
 from ..types.payabli_api_response import PayabliApiResponse
 from ..types.payabli_api_response_0 import PayabliApiResponse0
 from ..types.payment_detail import PaymentDetail
@@ -69,7 +69,7 @@ class MoneyInClient:
         invoice_data: typing.Optional[BillData] = OMIT,
         ipaddress: typing.Optional[IpAddress] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
-        order_id: typing.Optional[Orderid] = OMIT,
+        order_id: typing.Optional[OrderId] = OMIT,
         source: typing.Optional[Source] = OMIT,
         subdomain: typing.Optional[Subdomain] = OMIT,
         subscription_id: typing.Optional[Subscriptionid] = OMIT,
@@ -106,7 +106,7 @@ class MoneyInClient:
 
         order_description : typing.Optional[Orderdescription]
 
-        order_id : typing.Optional[Orderid]
+        order_id : typing.Optional[OrderId]
 
         source : typing.Optional[Source]
 
@@ -216,7 +216,7 @@ class MoneyInClient:
         account_id: typing.Optional[Accountid] = OMIT,
         entrypoint: typing.Optional[Entrypointfield] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
-        order_id: typing.Optional[Orderid] = OMIT,
+        order_id: typing.Optional[OrderId] = OMIT,
         source: typing.Optional[Source] = OMIT,
         subdomain: typing.Optional[Subdomain] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -246,7 +246,7 @@ class MoneyInClient:
 
         order_description : typing.Optional[Orderdescription]
 
-        order_id : typing.Optional[Orderid]
+        order_id : typing.Optional[OrderId]
 
         source : typing.Optional[Source]
 
@@ -353,7 +353,7 @@ class MoneyInClient:
         invoice_data: typing.Optional[BillData] = OMIT,
         ipaddress: typing.Optional[IpAddress] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
-        order_id: typing.Optional[Orderid] = OMIT,
+        order_id: typing.Optional[OrderId] = OMIT,
         source: typing.Optional[Source] = OMIT,
         subdomain: typing.Optional[Subdomain] = OMIT,
         subscription_id: typing.Optional[Subscriptionid] = OMIT,
@@ -393,7 +393,7 @@ class MoneyInClient:
 
         order_description : typing.Optional[Orderdescription]
 
-        order_id : typing.Optional[Orderid]
+        order_id : typing.Optional[OrderId]
 
         source : typing.Optional[Source]
 
@@ -549,7 +549,7 @@ class MoneyInClient:
         amount: typing.Optional[float] = OMIT,
         ipaddress: typing.Optional[IpAddress] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
-        order_id: typing.Optional[Orderid] = OMIT,
+        order_id: typing.Optional[OrderId] = OMIT,
         refund_details: typing.Optional[RefundDetail] = OMIT,
         source: typing.Optional[Source] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -576,7 +576,7 @@ class MoneyInClient:
 
         order_description : typing.Optional[Orderdescription]
 
-        order_id : typing.Optional[Orderid]
+        order_id : typing.Optional[OrderId]
 
         refund_details : typing.Optional[RefundDetail]
 
@@ -718,7 +718,7 @@ class MoneyInClient:
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         account_id: typing.Optional[Accountid] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
-        order_id: typing.Optional[Orderid] = OMIT,
+        order_id: typing.Optional[OrderId] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ValidateResponse:
         """
@@ -737,7 +737,7 @@ class MoneyInClient:
 
         order_description : typing.Optional[Orderdescription]
 
-        order_id : typing.Optional[Orderid]
+        order_id : typing.Optional[OrderId]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -838,7 +838,7 @@ class AsyncMoneyInClient:
         invoice_data: typing.Optional[BillData] = OMIT,
         ipaddress: typing.Optional[IpAddress] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
-        order_id: typing.Optional[Orderid] = OMIT,
+        order_id: typing.Optional[OrderId] = OMIT,
         source: typing.Optional[Source] = OMIT,
         subdomain: typing.Optional[Subdomain] = OMIT,
         subscription_id: typing.Optional[Subscriptionid] = OMIT,
@@ -875,7 +875,7 @@ class AsyncMoneyInClient:
 
         order_description : typing.Optional[Orderdescription]
 
-        order_id : typing.Optional[Orderid]
+        order_id : typing.Optional[OrderId]
 
         source : typing.Optional[Source]
 
@@ -1006,7 +1006,7 @@ class AsyncMoneyInClient:
         account_id: typing.Optional[Accountid] = OMIT,
         entrypoint: typing.Optional[Entrypointfield] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
-        order_id: typing.Optional[Orderid] = OMIT,
+        order_id: typing.Optional[OrderId] = OMIT,
         source: typing.Optional[Source] = OMIT,
         subdomain: typing.Optional[Subdomain] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1036,7 +1036,7 @@ class AsyncMoneyInClient:
 
         order_description : typing.Optional[Orderdescription]
 
-        order_id : typing.Optional[Orderid]
+        order_id : typing.Optional[OrderId]
 
         source : typing.Optional[Source]
 
@@ -1159,7 +1159,7 @@ class AsyncMoneyInClient:
         invoice_data: typing.Optional[BillData] = OMIT,
         ipaddress: typing.Optional[IpAddress] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
-        order_id: typing.Optional[Orderid] = OMIT,
+        order_id: typing.Optional[OrderId] = OMIT,
         source: typing.Optional[Source] = OMIT,
         subdomain: typing.Optional[Subdomain] = OMIT,
         subscription_id: typing.Optional[Subscriptionid] = OMIT,
@@ -1199,7 +1199,7 @@ class AsyncMoneyInClient:
 
         order_description : typing.Optional[Orderdescription]
 
-        order_id : typing.Optional[Orderid]
+        order_id : typing.Optional[OrderId]
 
         source : typing.Optional[Source]
 
@@ -1384,7 +1384,7 @@ class AsyncMoneyInClient:
         amount: typing.Optional[float] = OMIT,
         ipaddress: typing.Optional[IpAddress] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
-        order_id: typing.Optional[Orderid] = OMIT,
+        order_id: typing.Optional[OrderId] = OMIT,
         refund_details: typing.Optional[RefundDetail] = OMIT,
         source: typing.Optional[Source] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1411,7 +1411,7 @@ class AsyncMoneyInClient:
 
         order_description : typing.Optional[Orderdescription]
 
-        order_id : typing.Optional[Orderid]
+        order_id : typing.Optional[OrderId]
 
         refund_details : typing.Optional[RefundDetail]
 
@@ -1577,7 +1577,7 @@ class AsyncMoneyInClient:
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         account_id: typing.Optional[Accountid] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
-        order_id: typing.Optional[Orderid] = OMIT,
+        order_id: typing.Optional[OrderId] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ValidateResponse:
         """
@@ -1596,7 +1596,7 @@ class AsyncMoneyInClient:
 
         order_description : typing.Optional[Orderdescription]
 
-        order_id : typing.Optional[Orderid]
+        order_id : typing.Optional[OrderId]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

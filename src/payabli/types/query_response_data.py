@@ -5,7 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .authcode import Authcode
-from .orderid import Orderid
+from .order_id import OrderId
 
 
 class QueryResponseData(UniversalBaseModel):
@@ -39,7 +39,7 @@ class QueryResponseData(UniversalBaseModel):
     EMV authorization response data, applicable for card transactions.
     """
 
-    orderid: typing.Optional[Orderid] = None
+    orderid: typing.Optional[OrderId] = None
     response: typing.Optional[str] = pydantic.Field(default=None)
     """
     Response text for operation: 'Success' or 'Declined'.

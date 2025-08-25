@@ -6,7 +6,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .buttom_element import ButtomElement
+from .button_element import ButtonElement
 from .file_content import FileContent
 
 
@@ -36,7 +36,7 @@ class PageSetting(UniversalBaseModel):
     """
 
     payment_button: typing_extensions.Annotated[
-        typing.Optional[ButtomElement], FieldMetadata(alias="paymentButton")
+        typing.Optional[ButtonElement], FieldMetadata(alias="paymentButton")
     ] = None
     redirect_after_approve: typing_extensions.Annotated[
         typing.Optional[bool], FieldMetadata(alias="redirectAfterApprove")

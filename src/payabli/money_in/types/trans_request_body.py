@@ -10,8 +10,8 @@ from ...types.accountid import Accountid
 from ...types.bill_data import BillData
 from ...types.entrypointfield import Entrypointfield
 from ...types.ip_address import IpAddress
+from ...types.order_id import OrderId
 from ...types.orderdescription import Orderdescription
-from ...types.orderid import Orderid
 from ...types.payment_detail import PaymentDetail
 from ...types.payment_method import PaymentMethod
 from ...types.payor_data_request import PayorDataRequest
@@ -68,7 +68,7 @@ class TransRequestBody(UniversalBaseModel):
     order_description: typing_extensions.Annotated[
         typing.Optional[Orderdescription], FieldMetadata(alias="orderDescription")
     ] = None
-    order_id: typing_extensions.Annotated[typing.Optional[Orderid], FieldMetadata(alias="orderId")] = None
+    order_id: typing_extensions.Annotated[typing.Optional[OrderId], FieldMetadata(alias="orderId")] = None
     payment_details: typing_extensions.Annotated[PaymentDetail, FieldMetadata(alias="paymentDetails")] = (
         pydantic.Field()
     )

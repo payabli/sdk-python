@@ -12,7 +12,7 @@ from .billing_address_nullable import BillingAddressNullable
 from .billing_city_nullable import BillingCityNullable
 from .billing_country_nullable import BillingCountryNullable
 from .billing_state_nullable import BillingStateNullable
-from .billing_zip_nullable import BillingZipNullable
+from .billing_zip import BillingZip
 from .customer_id import CustomerId
 from .customer_number_nullable import CustomerNumberNullable
 from .customer_status import CustomerStatus
@@ -52,7 +52,7 @@ class PayorDataResponse(UniversalBaseModel):
     billing_state: typing_extensions.Annotated[
         typing.Optional[BillingStateNullable], FieldMetadata(alias="BillingState")
     ] = None
-    billing_zip: typing_extensions.Annotated[typing.Optional[BillingZipNullable], FieldMetadata(alias="BillingZip")] = (
+    billing_zip: typing_extensions.Annotated[typing.Optional[BillingZip], FieldMetadata(alias="BillingZip")] = (
         pydantic.Field(default=None)
     )
     """

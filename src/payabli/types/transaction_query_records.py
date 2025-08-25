@@ -20,7 +20,7 @@ from .fee_amount import FeeAmount
 from .legalname import Legalname
 from .netamountnullable import Netamountnullable
 from .operation import Operation
-from .orderid import Orderid
+from .order_id import OrderId
 from .org_parent_name import OrgParentName
 from .orgid import Orgid
 from .payor_id import PayorId
@@ -95,7 +95,7 @@ class TransactionQueryRecords(UniversalBaseModel):
     """
 
     operation: typing_extensions.Annotated[typing.Optional[Operation], FieldMetadata(alias="Operation")] = None
-    order_id: typing_extensions.Annotated[typing.Optional[Orderid], FieldMetadata(alias="OrderId")] = None
+    order_id: typing_extensions.Annotated[typing.Optional[OrderId], FieldMetadata(alias="OrderId")] = None
     org_id: typing_extensions.Annotated[typing.Optional[Orgid], FieldMetadata(alias="OrgId")] = pydantic.Field(
         default=None
     )

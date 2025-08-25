@@ -7,6 +7,7 @@ import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 from .additional_data_string import AdditionalDataString
+from .billing_zip import BillingZip
 from .customer_id import CustomerId
 from .customer_number_nullable import CustomerNumberNullable
 from .customer_status import CustomerStatus
@@ -76,8 +77,8 @@ class QueryTransactionPayorData(UniversalBaseModel):
     Customer's billing state. Must be 2-letter state code for address in US.
     """
 
-    billing_zip: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="BillingZip")] = pydantic.Field(
-        default=None
+    billing_zip: typing_extensions.Annotated[typing.Optional[BillingZip], FieldMetadata(alias="BillingZip")] = (
+        pydantic.Field(default=None)
     )
     """
     Customer's billing ZIP code.

@@ -3,17 +3,19 @@
 import typing
 
 import pydantic
-import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ..core.serialization import FieldMetadata
+from .button_element_size import ButtonElementSize
 
 
-class PayabliApiResponseError400Tokenization(UniversalBaseModel):
-    response_text: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="responseText")] = (
-        pydantic.Field(default=None)
-    )
+class ButtonElement(UniversalBaseModel):
+    label: str = pydantic.Field()
     """
-    Response text for request. Explains the reason for the error.
+    Label for custom payment button
+    """
+
+    size: typing.Optional[ButtonElementSize] = pydantic.Field(default=None)
+    """
+    Specify size of custom payment button
     """
 
     if IS_PYDANTIC_V2:
