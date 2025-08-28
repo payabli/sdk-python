@@ -12,6 +12,7 @@ from .general_events import GeneralEvents
 from .legalname import Legalname
 from .paypoint_id import PaypointId
 from .transfer_bank_account import TransferBankAccount
+from .transfer_identifier import TransferIdentifier
 from .transfer_message import TransferMessage
 
 
@@ -57,7 +58,6 @@ class Transfer(UniversalBaseModel):
                 event_time=datetime.datetime.fromisoformat(
                     "2024-11-16 08:15:33.436000+00:00",
                 ),
-                ref_data="",
                 source="worker",
             )
         ],
@@ -86,11 +86,7 @@ class Transfer(UniversalBaseModel):
     Number of records in the batch.
     """
 
-    transfer_identifier: typing_extensions.Annotated[str, FieldMetadata(alias="transferIdentifier")] = pydantic.Field()
-    """
-    Unique identifier for the transfer.
-    """
-
+    transfer_identifier: typing_extensions.Annotated[TransferIdentifier, FieldMetadata(alias="transferIdentifier")]
     batch_id: typing_extensions.Annotated[int, FieldMetadata(alias="batchId")] = pydantic.Field()
     """
     The ID of the batch the transfer belongs to.

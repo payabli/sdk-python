@@ -26,6 +26,7 @@ from ..types.subscriptionid import Subscriptionid
 from ..types.transaction_query_records import TransactionQueryRecords
 from .raw_client import AsyncRawMoneyInClient, RawMoneyInClient
 from .types.auth_response import AuthResponse
+from .types.capture_payment_details import CapturePaymentDetails
 from .types.capture_response import CaptureResponse
 from .types.payabli_api_response_get_paid import PayabliApiResponseGetPaid
 from .types.receipt_response import ReceiptResponse
@@ -172,12 +173,17 @@ class MoneyInClient:
         self, amount: float, trans_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> CaptureResponse:
         """
-        Capture an [authorized transaction](/api-reference/moneyin/authorize-a-transaction) to complete the transaction and move funds from the customer to merchant account.
+        <Warning>
+          This endpoint is deprecated and will be sunset on November 24, 2025. Migrate to [POST `/capture/{transId}`](/api-reference/moneyin/capture-an-authorized-transaction)`.
+        </Warning>
+
+          Capture an [authorized
+        transaction](/api-reference/moneyin/authorize-a-transaction) to complete the transaction and move funds from the customer to merchant account.
 
         Parameters
         ----------
         amount : float
-            Amount to be captured. The amount can't be greater the original total amount of the transaction. `0` captures the total amount authorized in the transaction.
+            Amount to be captured. The amount can't be greater the original total amount of the transaction. `0` captures the total amount authorized in the transaction. Partial captures aren't supported.
 
         trans_id : str
             ReferenceId for the transaction (PaymentId).
@@ -203,6 +209,54 @@ class MoneyInClient:
         )
         """
         _response = self._raw_client.capture(amount, trans_id, request_options=request_options)
+        return _response.data
+
+    def capture_auth(
+        self,
+        trans_id: str,
+        *,
+        payment_details: CapturePaymentDetails,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> CaptureResponse:
+        """
+        Capture an [authorized transaction](/api-reference/moneyin/authorize-a-transaction) to complete the transaction and move funds from the customer to merchant account.
+
+        You can use this endpoint to capture both full and partial amounts of the original authorized transaction. See [Capture an authorized transaction](/developers/developer-guides/pay-in-auth-and-capture) for more information about this endpoint.
+
+        Parameters
+        ----------
+        trans_id : str
+            ReferenceId for the transaction (PaymentId).
+
+        payment_details : CapturePaymentDetails
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CaptureResponse
+            Ok
+
+        Examples
+        --------
+        from payabli import payabli
+        from payabli.money_in import CapturePaymentDetails
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.money_in.capture_auth(
+            trans_id="10-7d9cd67d-2d5d-4cd7-a1b7-72b8b201ec13",
+            payment_details=CapturePaymentDetails(
+                total_amount=105.0,
+                service_fee=5.0,
+            ),
+        )
+        """
+        _response = self._raw_client.capture_auth(
+            trans_id, payment_details=payment_details, request_options=request_options
+        )
         return _response.data
 
     def credit(
@@ -954,12 +1008,17 @@ class AsyncMoneyInClient:
         self, amount: float, trans_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> CaptureResponse:
         """
-        Capture an [authorized transaction](/api-reference/moneyin/authorize-a-transaction) to complete the transaction and move funds from the customer to merchant account.
+        <Warning>
+          This endpoint is deprecated and will be sunset on November 24, 2025. Migrate to [POST `/capture/{transId}`](/api-reference/moneyin/capture-an-authorized-transaction)`.
+        </Warning>
+
+          Capture an [authorized
+        transaction](/api-reference/moneyin/authorize-a-transaction) to complete the transaction and move funds from the customer to merchant account.
 
         Parameters
         ----------
         amount : float
-            Amount to be captured. The amount can't be greater the original total amount of the transaction. `0` captures the total amount authorized in the transaction.
+            Amount to be captured. The amount can't be greater the original total amount of the transaction. `0` captures the total amount authorized in the transaction. Partial captures aren't supported.
 
         trans_id : str
             ReferenceId for the transaction (PaymentId).
@@ -993,6 +1052,62 @@ class AsyncMoneyInClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.capture(amount, trans_id, request_options=request_options)
+        return _response.data
+
+    async def capture_auth(
+        self,
+        trans_id: str,
+        *,
+        payment_details: CapturePaymentDetails,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> CaptureResponse:
+        """
+        Capture an [authorized transaction](/api-reference/moneyin/authorize-a-transaction) to complete the transaction and move funds from the customer to merchant account.
+
+        You can use this endpoint to capture both full and partial amounts of the original authorized transaction. See [Capture an authorized transaction](/developers/developer-guides/pay-in-auth-and-capture) for more information about this endpoint.
+
+        Parameters
+        ----------
+        trans_id : str
+            ReferenceId for the transaction (PaymentId).
+
+        payment_details : CapturePaymentDetails
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CaptureResponse
+            Ok
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+        from payabli.money_in import CapturePaymentDetails
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.money_in.capture_auth(
+                trans_id="10-7d9cd67d-2d5d-4cd7-a1b7-72b8b201ec13",
+                payment_details=CapturePaymentDetails(
+                    total_amount=105.0,
+                    service_fee=5.0,
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.capture_auth(
+            trans_id, payment_details=payment_details, request_options=request_options
+        )
         return _response.data
 
     async def credit(

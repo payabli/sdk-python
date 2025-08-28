@@ -3,13 +3,14 @@
 import typing
 
 import pydantic
-from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+import typing_extensions
+from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ...core.serialization import FieldMetadata
+from .capture_payment_details import CapturePaymentDetails
 
 
-class CheckPaymentMethod(UniversalBaseModel):
-    """
-    Check payment method.
-    """
+class CaptureRequest(UniversalBaseModel):
+    payment_details: typing_extensions.Annotated[CapturePaymentDetails, FieldMetadata(alias="paymentDetails")]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -13,6 +13,7 @@ from .types import (
     VCardGetResponseAssociatedVendor,
     VCardGetResponseAssociatedVendorBillingData,
     VCardGetResponseAssociatedVendorSummary,
+    VCardGetResponseContact,
 )
 
 __all__ = [
@@ -26,4 +27,5 @@ __all__ = [
     "VCardGetResponseAssociatedVendor",
     "VCardGetResponseAssociatedVendorBillingData",
     "VCardGetResponseAssociatedVendorSummary",
+    "VCardGetResponseContact",
 ]

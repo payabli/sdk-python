@@ -114,7 +114,7 @@ class MoneyOutClient:
 
         Examples
         --------
-        from payabli import BillPayOutDataRequest, VendorPaymentMethod_Managed, payabli
+        from payabli import BillPayOutDataRequest, VendorPaymentMethod, payabli
         from payabli.money_out import (
             RequestOutAuthorizePaymentDetails,
             RequestOutAuthorizeVendorData,
@@ -134,7 +134,9 @@ class MoneyOutClient:
             payment_details=RequestOutAuthorizePaymentDetails(
                 total_amount=47.0,
             ),
-            payment_method=VendorPaymentMethod_Managed(),
+            payment_method=VendorPaymentMethod(
+                method="managed",
+            ),
             vendor_data=RequestOutAuthorizeVendorData(
                 vendor_number="7895433",
             ),
@@ -535,11 +537,7 @@ class AsyncMoneyOutClient:
         --------
         import asyncio
 
-        from payabli import (
-            Asyncpayabli,
-            BillPayOutDataRequest,
-            VendorPaymentMethod_Managed,
-        )
+        from payabli import Asyncpayabli, BillPayOutDataRequest, VendorPaymentMethod
         from payabli.money_out import (
             RequestOutAuthorizePaymentDetails,
             RequestOutAuthorizeVendorData,
@@ -562,7 +560,9 @@ class AsyncMoneyOutClient:
                 payment_details=RequestOutAuthorizePaymentDetails(
                     total_amount=47.0,
                 ),
-                payment_method=VendorPaymentMethod_Managed(),
+                payment_method=VendorPaymentMethod(
+                    method="managed",
+                ),
                 vendor_data=RequestOutAuthorizeVendorData(
                     vendor_number="7895433",
                 ),

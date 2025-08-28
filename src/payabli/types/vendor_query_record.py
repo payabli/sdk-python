@@ -35,7 +35,7 @@ from .remitstate import Remitstate
 from .remitzip import Remitzip
 from .state_nullable import StateNullable
 from .vendor_number import VendorNumber
-from .vendor_payment_method import VendorPaymentMethod
+from .vendor_payment_method_string import VendorPaymentMethodString
 from .vendor_response_stored_method import VendorResponseStoredMethod
 from .vendor_summary import VendorSummary
 from .vendorid import Vendorid
@@ -183,7 +183,7 @@ class VendorQueryRecord(UniversalBaseModel):
     payee_name_1: typing_extensions.Annotated[typing.Optional[PayeeName], FieldMetadata(alias="payeeName1")] = None
     payee_name_2: typing_extensions.Annotated[typing.Optional[PayeeName], FieldMetadata(alias="payeeName2")] = None
     payment_method: typing_extensions.Annotated[
-        typing.Optional[VendorPaymentMethod], FieldMetadata(alias="PaymentMethod")
+        typing.Optional[VendorPaymentMethodString], FieldMetadata(alias="PaymentMethod")
     ] = None
     paypoint_dbaname: typing_extensions.Annotated[typing.Optional[Dbaname], FieldMetadata(alias="PaypointDbaname")] = (
         None

@@ -10,6 +10,7 @@ from ...types.authcode import Authcode
 from ...types.avsresponsetext import Avsresponsetext
 from ...types.customer_id import CustomerId
 from ...types.cvvresponsetext import Cvvresponsetext
+from ...types.expected_processing_date_time import ExpectedProcessingDateTime
 from ...types.method_reference_id import MethodReferenceId
 from ...types.referenceidtrans import Referenceidtrans
 from ...types.result_code import ResultCode
@@ -17,6 +18,9 @@ from ...types.result_code import ResultCode
 
 class ResponseDataRefunds(UniversalBaseModel):
     auth_code: typing_extensions.Annotated[Authcode, FieldMetadata(alias="authCode")]
+    expected_processing_date_time: typing_extensions.Annotated[
+        typing.Optional[ExpectedProcessingDateTime], FieldMetadata(alias="expectedProcessingDateTime")
+    ] = None
     avs_response_text: typing_extensions.Annotated[
         typing.Optional[Avsresponsetext], FieldMetadata(alias="avsResponseText")
     ] = pydantic.Field(default=None)

@@ -5,6 +5,8 @@
 from .types import (
     AuthResponse,
     AuthResponseResponseData,
+    CapturePaymentDetails,
+    CaptureRequest,
     CaptureResponse,
     CaptureResponseData,
     GetPaidResponseData,
@@ -25,11 +27,14 @@ from .types import (
     VoidResponse,
     VoidResponseData,
 )
-from .errors import InvalidTransStatusError
+from .errors import CaptureError, InvalidTransStatusError
 
 __all__ = [
     "AuthResponse",
     "AuthResponseResponseData",
+    "CaptureError",
+    "CapturePaymentDetails",
+    "CaptureRequest",
     "CaptureResponse",
     "CaptureResponseData",
     "GetPaidResponseData",

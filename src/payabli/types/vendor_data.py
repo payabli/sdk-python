@@ -26,7 +26,7 @@ from .vendor_ein import VendorEin
 from .vendor_name_1 import VendorName1
 from .vendor_name_2 import VendorName2
 from .vendor_number import VendorNumber
-from .vendor_payment_method import VendorPaymentMethod
+from .vendor_payment_method_string import VendorPaymentMethodString
 from .vendor_phone import VendorPhone
 from .vendorstatus import Vendorstatus
 
@@ -117,7 +117,7 @@ class VendorData(UniversalBaseModel):
     payee_name_1: typing_extensions.Annotated[typing.Optional[PayeeName], FieldMetadata(alias="payeeName1")] = None
     payee_name_2: typing_extensions.Annotated[typing.Optional[PayeeName], FieldMetadata(alias="payeeName2")] = None
     payment_method: typing_extensions.Annotated[
-        typing.Optional[VendorPaymentMethod], FieldMetadata(alias="paymentMethod")
+        typing.Optional[VendorPaymentMethodString], FieldMetadata(alias="paymentMethod")
     ] = None
     phone: typing.Optional[VendorPhone] = None
     remit_address_1: typing_extensions.Annotated[

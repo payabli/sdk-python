@@ -7,12 +7,12 @@ from ..core.request_options import RequestOptions
 from ..query_types.types.limit_record import LimitRecord
 from ..query_types.types.list_organizations_response import ListOrganizationsResponse
 from ..query_types.types.query_batches_detail_response import QueryBatchesDetailResponse
+from ..query_types.types.query_batches_response import QueryBatchesResponse
 from ..query_types.types.query_transfer_detail_response import QueryTransferDetailResponse
 from ..types.entry import Entry
 from ..types.export_format import ExportFormat
 from ..types.orgid import Orgid
 from ..types.query_batches_out_response import QueryBatchesOutResponse
-from ..types.query_batches_response import QueryBatchesResponse
 from ..types.query_chargebacks_response import QueryChargebacksResponse
 from ..types.query_customer_response import QueryCustomerResponse
 from ..types.query_entrypoint_response import QueryEntrypointResponse

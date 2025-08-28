@@ -17,6 +17,23 @@ from .capture_response_data import CaptureResponseData
 class CaptureResponse(UniversalBaseModel):
     """
     Response for MoneyIn/capture endpoint
+
+    Examples
+    --------
+    from payabli.money_in import CaptureResponse, CaptureResponseData
+
+    CaptureResponse(
+        response_code=1,
+        room_id=0,
+        is_success=True,
+        response_text="Success",
+        response_data=CaptureResponseData(
+            auth_code="123456",
+            reference_id="10-7d9cd67d-2d5d-4cd7-a1b7-72b8b201ec13",
+            result_code=1,
+            result_text="SUCCESS",
+        ),
+    )
     """
 
     response_code: typing_extensions.Annotated[Responsecode, FieldMetadata(alias="responseCode")]

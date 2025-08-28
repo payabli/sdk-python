@@ -25,7 +25,7 @@ from ..types.vendor_ein import VendorEin
 from ..types.vendor_name_1 import VendorName1
 from ..types.vendor_name_2 import VendorName2
 from ..types.vendor_number import VendorNumber
-from ..types.vendor_payment_method import VendorPaymentMethod
+from ..types.vendor_payment_method_string import VendorPaymentMethodString
 from ..types.vendor_phone import VendorPhone
 from ..types.vendor_query_record import VendorQueryRecord
 from ..types.vendorstatus import Vendorstatus
@@ -74,7 +74,7 @@ class VendorClient:
         name_2: typing.Optional[VendorName2] = OMIT,
         payee_name_1: typing.Optional[PayeeName] = OMIT,
         payee_name_2: typing.Optional[PayeeName] = OMIT,
-        payment_method: typing.Optional[VendorPaymentMethod] = OMIT,
+        payment_method: typing.Optional[VendorPaymentMethodString] = OMIT,
         phone: typing.Optional[VendorPhone] = OMIT,
         remit_address_1: typing.Optional[Remitaddress1] = OMIT,
         remit_address_2: typing.Optional[Remitaddress2] = OMIT,
@@ -147,7 +147,7 @@ class VendorClient:
 
         payee_name_2 : typing.Optional[PayeeName]
 
-        payment_method : typing.Optional[VendorPaymentMethod]
+        payment_method : typing.Optional[VendorPaymentMethodString]
 
         phone : typing.Optional[VendorPhone]
 
@@ -183,7 +183,7 @@ class VendorClient:
 
         Examples
         --------
-        from payabli import BillingData, Contacts, VendorPaymentMethod_Managed, payabli
+        from payabli import BillingData, Contacts, payabli
 
         client = payabli(
             api_key="YOUR_API_KEY",
@@ -222,7 +222,7 @@ class VendorClient:
                 bank_account_holder_type="Business",
                 bank_account_function=0,
             ),
-            payment_method=VendorPaymentMethod_Managed(),
+            payment_method="managed",
             vendor_status=1,
             remit_address_1="123 Walnut Street",
             remit_address_2="Suite 900",
@@ -331,7 +331,7 @@ class VendorClient:
         name_2: typing.Optional[VendorName2] = OMIT,
         payee_name_1: typing.Optional[PayeeName] = OMIT,
         payee_name_2: typing.Optional[PayeeName] = OMIT,
-        payment_method: typing.Optional[VendorPaymentMethod] = OMIT,
+        payment_method: typing.Optional[VendorPaymentMethodString] = OMIT,
         phone: typing.Optional[VendorPhone] = OMIT,
         remit_address_1: typing.Optional[Remitaddress1] = OMIT,
         remit_address_2: typing.Optional[Remitaddress2] = OMIT,
@@ -404,7 +404,7 @@ class VendorClient:
 
         payee_name_2 : typing.Optional[PayeeName]
 
-        payment_method : typing.Optional[VendorPaymentMethod]
+        payment_method : typing.Optional[VendorPaymentMethodString]
 
         phone : typing.Optional[VendorPhone]
 
@@ -561,7 +561,7 @@ class AsyncVendorClient:
         name_2: typing.Optional[VendorName2] = OMIT,
         payee_name_1: typing.Optional[PayeeName] = OMIT,
         payee_name_2: typing.Optional[PayeeName] = OMIT,
-        payment_method: typing.Optional[VendorPaymentMethod] = OMIT,
+        payment_method: typing.Optional[VendorPaymentMethodString] = OMIT,
         phone: typing.Optional[VendorPhone] = OMIT,
         remit_address_1: typing.Optional[Remitaddress1] = OMIT,
         remit_address_2: typing.Optional[Remitaddress2] = OMIT,
@@ -634,7 +634,7 @@ class AsyncVendorClient:
 
         payee_name_2 : typing.Optional[PayeeName]
 
-        payment_method : typing.Optional[VendorPaymentMethod]
+        payment_method : typing.Optional[VendorPaymentMethodString]
 
         phone : typing.Optional[VendorPhone]
 
@@ -672,12 +672,7 @@ class AsyncVendorClient:
         --------
         import asyncio
 
-        from payabli import (
-            Asyncpayabli,
-            BillingData,
-            Contacts,
-            VendorPaymentMethod_Managed,
-        )
+        from payabli import Asyncpayabli, BillingData, Contacts
 
         client = Asyncpayabli(
             api_key="YOUR_API_KEY",
@@ -719,7 +714,7 @@ class AsyncVendorClient:
                     bank_account_holder_type="Business",
                     bank_account_function=0,
                 ),
-                payment_method=VendorPaymentMethod_Managed(),
+                payment_method="managed",
                 vendor_status=1,
                 remit_address_1="123 Walnut Street",
                 remit_address_2="Suite 900",
@@ -839,7 +834,7 @@ class AsyncVendorClient:
         name_2: typing.Optional[VendorName2] = OMIT,
         payee_name_1: typing.Optional[PayeeName] = OMIT,
         payee_name_2: typing.Optional[PayeeName] = OMIT,
-        payment_method: typing.Optional[VendorPaymentMethod] = OMIT,
+        payment_method: typing.Optional[VendorPaymentMethodString] = OMIT,
         phone: typing.Optional[VendorPhone] = OMIT,
         remit_address_1: typing.Optional[Remitaddress1] = OMIT,
         remit_address_2: typing.Optional[Remitaddress2] = OMIT,
@@ -912,7 +907,7 @@ class AsyncVendorClient:
 
         payee_name_2 : typing.Optional[PayeeName]
 
-        payment_method : typing.Optional[VendorPaymentMethod]
+        payment_method : typing.Optional[VendorPaymentMethodString]
 
         phone : typing.Optional[VendorPhone]
 

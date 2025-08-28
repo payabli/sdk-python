@@ -12,6 +12,7 @@ from .v_card_get_response import VCardGetResponse
 from .v_card_get_response_associated_vendor import VCardGetResponseAssociatedVendor
 from .v_card_get_response_associated_vendor_billing_data import VCardGetResponseAssociatedVendorBillingData
 from .v_card_get_response_associated_vendor_summary import VCardGetResponseAssociatedVendorSummary
+from .v_card_get_response_contact import VCardGetResponseContact
 
 __all__ = [
     "AuthorizePayoutBody",
@@ -24,4 +25,5 @@ __all__ = [
     "VCardGetResponseAssociatedVendor",
     "VCardGetResponseAssociatedVendorBillingData",
     "VCardGetResponseAssociatedVendorSummary",
+    "VCardGetResponseContact",
 ]

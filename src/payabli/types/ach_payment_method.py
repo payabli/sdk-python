@@ -13,6 +13,11 @@ class AchPaymentMethod(UniversalBaseModel):
     ACH payment method.
     """
 
+    method: typing.Literal["ach"] = pydantic.Field(default="ach")
+    """
+    Payment method type
+    """
+
     stored_method_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="storedMethodId")] = (
         pydantic.Field(default=None)
     )

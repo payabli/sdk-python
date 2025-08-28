@@ -170,7 +170,6 @@ from .charge_back_response import ChargeBackResponse
 from .chargeback_id import ChargebackId
 from .chargeback_query_records import ChargebackQueryRecords
 from .check import Check
-from .check_payment_method import CheckPaymentMethod
 from .city_nullable import CityNullable
 from .cloud_query_api_response import CloudQueryApiResponse
 from .comments import Comments
@@ -286,7 +285,6 @@ from .link_row import LinkRow
 from .location_code import LocationCode
 from .maddress import Maddress
 from .maddress_1 import Maddress1
-from .managed_payment_method import ManagedPaymentMethod
 from .maskedaccount import Maskedaccount
 from .mcc import Mcc
 from .mcity import Mcity
@@ -452,8 +450,6 @@ from .push_pay_link_request_email import PushPayLinkRequestEmail
 from .push_pay_link_request_sms import PushPayLinkRequestSms
 from .query_batches_out_response import QueryBatchesOutResponse
 from .query_batches_out_response_records_item import QueryBatchesOutResponseRecordsItem
-from .query_batches_response import QueryBatchesResponse
-from .query_batches_response_records_item import QueryBatchesResponseRecordsItem
 from .query_boarding_apps_list_response import QueryBoardingAppsListResponse
 from .query_boarding_links_response import QueryBoardingLinksResponse
 from .query_boarding_links_response_records_item import QueryBoardingLinksResponseRecordsItem
@@ -607,6 +603,7 @@ from .transaction_query_records import TransactionQueryRecords
 from .transaction_time import TransactionTime
 from .transfer import Transfer
 from .transfer_bank_account import TransferBankAccount
+from .transfer_identifier import TransferIdentifier
 from .transfer_message import TransferMessage
 from .transfer_message_properties import TransferMessageProperties
 from .transfer_query_response import TransferQueryResponse
@@ -619,7 +616,6 @@ from .user_data import UserData
 from .user_query_record import UserQueryRecord
 from .usr_access import UsrAccess
 from .usr_status import UsrStatus
-from .v_card_payment_method import VCardPaymentMethod
 from .v_card_query_response import VCardQueryResponse
 from .v_card_record import VCardRecord
 from .v_card_summary import VCardSummary
@@ -633,13 +629,8 @@ from .vendor_name_1 import VendorName1
 from .vendor_name_2 import VendorName2
 from .vendor_number import VendorNumber
 from .vendor_out_data import VendorOutData
-from .vendor_payment_method import (
-    VendorPaymentMethod,
-    VendorPaymentMethod_Ach,
-    VendorPaymentMethod_Check,
-    VendorPaymentMethod_Managed,
-    VendorPaymentMethod_Vcard,
-)
+from .vendor_payment_method import VendorPaymentMethod
+from .vendor_payment_method_string import VendorPaymentMethodString
 from .vendor_phone import VendorPhone
 from .vendor_query_record import VendorQueryRecord
 from .vendor_response_billing_data import VendorResponseBillingData
@@ -827,7 +818,6 @@ __all__ = [
     "ChargebackId",
     "ChargebackQueryRecords",
     "Check",
-    "CheckPaymentMethod",
     "CityNullable",
     "CloudQueryApiResponse",
     "Comments",
@@ -943,7 +933,6 @@ __all__ = [
     "LocationCode",
     "Maddress",
     "Maddress1",
-    "ManagedPaymentMethod",
     "Maskedaccount",
     "Mcc",
     "Mcity",
@@ -1111,8 +1100,6 @@ __all__ = [
     "PushPayLinkRequest_Sms",
     "QueryBatchesOutResponse",
     "QueryBatchesOutResponseRecordsItem",
-    "QueryBatchesResponse",
-    "QueryBatchesResponseRecordsItem",
     "QueryBoardingAppsListResponse",
     "QueryBoardingLinksResponse",
     "QueryBoardingLinksResponseRecordsItem",
@@ -1266,6 +1253,7 @@ __all__ = [
     "TransactionTime",
     "Transfer",
     "TransferBankAccount",
+    "TransferIdentifier",
     "TransferMessage",
     "TransferMessageProperties",
     "TransferQueryResponse",
@@ -1278,7 +1266,6 @@ __all__ = [
     "UserQueryRecord",
     "UsrAccess",
     "UsrStatus",
-    "VCardPaymentMethod",
     "VCardQueryResponse",
     "VCardRecord",
     "VCardSummary",
@@ -1293,10 +1280,7 @@ __all__ = [
     "VendorNumber",
     "VendorOutData",
     "VendorPaymentMethod",
-    "VendorPaymentMethod_Ach",
-    "VendorPaymentMethod_Check",
-    "VendorPaymentMethod_Managed",
-    "VendorPaymentMethod_Vcard",
+    "VendorPaymentMethodString",
     "VendorPhone",
     "VendorQueryRecord",
     "VendorResponseBillingData",

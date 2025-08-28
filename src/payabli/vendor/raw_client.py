@@ -36,7 +36,7 @@ from ..types.vendor_ein import VendorEin
 from ..types.vendor_name_1 import VendorName1
 from ..types.vendor_name_2 import VendorName2
 from ..types.vendor_number import VendorNumber
-from ..types.vendor_payment_method import VendorPaymentMethod
+from ..types.vendor_payment_method_string import VendorPaymentMethodString
 from ..types.vendor_phone import VendorPhone
 from ..types.vendor_query_record import VendorQueryRecord
 from ..types.vendorstatus import Vendorstatus
@@ -73,7 +73,7 @@ class RawVendorClient:
         name_2: typing.Optional[VendorName2] = OMIT,
         payee_name_1: typing.Optional[PayeeName] = OMIT,
         payee_name_2: typing.Optional[PayeeName] = OMIT,
-        payment_method: typing.Optional[VendorPaymentMethod] = OMIT,
+        payment_method: typing.Optional[VendorPaymentMethodString] = OMIT,
         phone: typing.Optional[VendorPhone] = OMIT,
         remit_address_1: typing.Optional[Remitaddress1] = OMIT,
         remit_address_2: typing.Optional[Remitaddress2] = OMIT,
@@ -146,7 +146,7 @@ class RawVendorClient:
 
         payee_name_2 : typing.Optional[PayeeName]
 
-        payment_method : typing.Optional[VendorPaymentMethod]
+        payment_method : typing.Optional[VendorPaymentMethodString]
 
         phone : typing.Optional[VendorPhone]
 
@@ -208,9 +208,7 @@ class RawVendorClient:
                 "name2": name_2,
                 "payeeName1": payee_name_1,
                 "payeeName2": payee_name_2,
-                "paymentMethod": convert_and_respect_annotation_metadata(
-                    object_=payment_method, annotation=VendorPaymentMethod, direction="write"
-                ),
+                "paymentMethod": payment_method,
                 "phone": phone,
                 "remitAddress1": remit_address_1,
                 "remitAddress2": remit_address_2,
@@ -395,7 +393,7 @@ class RawVendorClient:
         name_2: typing.Optional[VendorName2] = OMIT,
         payee_name_1: typing.Optional[PayeeName] = OMIT,
         payee_name_2: typing.Optional[PayeeName] = OMIT,
-        payment_method: typing.Optional[VendorPaymentMethod] = OMIT,
+        payment_method: typing.Optional[VendorPaymentMethodString] = OMIT,
         phone: typing.Optional[VendorPhone] = OMIT,
         remit_address_1: typing.Optional[Remitaddress1] = OMIT,
         remit_address_2: typing.Optional[Remitaddress2] = OMIT,
@@ -468,7 +466,7 @@ class RawVendorClient:
 
         payee_name_2 : typing.Optional[PayeeName]
 
-        payment_method : typing.Optional[VendorPaymentMethod]
+        payment_method : typing.Optional[VendorPaymentMethodString]
 
         phone : typing.Optional[VendorPhone]
 
@@ -530,9 +528,7 @@ class RawVendorClient:
                 "name2": name_2,
                 "payeeName1": payee_name_1,
                 "payeeName2": payee_name_2,
-                "paymentMethod": convert_and_respect_annotation_metadata(
-                    object_=payment_method, annotation=VendorPaymentMethod, direction="write"
-                ),
+                "paymentMethod": payment_method,
                 "phone": phone,
                 "remitAddress1": remit_address_1,
                 "remitAddress2": remit_address_2,
@@ -722,7 +718,7 @@ class AsyncRawVendorClient:
         name_2: typing.Optional[VendorName2] = OMIT,
         payee_name_1: typing.Optional[PayeeName] = OMIT,
         payee_name_2: typing.Optional[PayeeName] = OMIT,
-        payment_method: typing.Optional[VendorPaymentMethod] = OMIT,
+        payment_method: typing.Optional[VendorPaymentMethodString] = OMIT,
         phone: typing.Optional[VendorPhone] = OMIT,
         remit_address_1: typing.Optional[Remitaddress1] = OMIT,
         remit_address_2: typing.Optional[Remitaddress2] = OMIT,
@@ -795,7 +791,7 @@ class AsyncRawVendorClient:
 
         payee_name_2 : typing.Optional[PayeeName]
 
-        payment_method : typing.Optional[VendorPaymentMethod]
+        payment_method : typing.Optional[VendorPaymentMethodString]
 
         phone : typing.Optional[VendorPhone]
 
@@ -857,9 +853,7 @@ class AsyncRawVendorClient:
                 "name2": name_2,
                 "payeeName1": payee_name_1,
                 "payeeName2": payee_name_2,
-                "paymentMethod": convert_and_respect_annotation_metadata(
-                    object_=payment_method, annotation=VendorPaymentMethod, direction="write"
-                ),
+                "paymentMethod": payment_method,
                 "phone": phone,
                 "remitAddress1": remit_address_1,
                 "remitAddress2": remit_address_2,
@@ -1044,7 +1038,7 @@ class AsyncRawVendorClient:
         name_2: typing.Optional[VendorName2] = OMIT,
         payee_name_1: typing.Optional[PayeeName] = OMIT,
         payee_name_2: typing.Optional[PayeeName] = OMIT,
-        payment_method: typing.Optional[VendorPaymentMethod] = OMIT,
+        payment_method: typing.Optional[VendorPaymentMethodString] = OMIT,
         phone: typing.Optional[VendorPhone] = OMIT,
         remit_address_1: typing.Optional[Remitaddress1] = OMIT,
         remit_address_2: typing.Optional[Remitaddress2] = OMIT,
@@ -1117,7 +1111,7 @@ class AsyncRawVendorClient:
 
         payee_name_2 : typing.Optional[PayeeName]
 
-        payment_method : typing.Optional[VendorPaymentMethod]
+        payment_method : typing.Optional[VendorPaymentMethodString]
 
         phone : typing.Optional[VendorPhone]
 
@@ -1179,9 +1173,7 @@ class AsyncRawVendorClient:
                 "name2": name_2,
                 "payeeName1": payee_name_1,
                 "payeeName2": payee_name_2,
-                "paymentMethod": convert_and_respect_annotation_metadata(
-                    object_=payment_method, annotation=VendorPaymentMethod, direction="write"
-                ),
+                "paymentMethod": payment_method,
                 "phone": phone,
                 "remitAddress1": remit_address_1,
                 "remitAddress2": remit_address_2,

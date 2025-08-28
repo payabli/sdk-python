@@ -60,7 +60,6 @@ class TransferQueryResponse(UniversalBaseModel):
                         event_time=datetime.datetime.fromisoformat(
                             "2024-11-16 08:15:33.436000+00:00",
                         ),
-                        ref_data="",
                         source="worker",
                     )
                 ],

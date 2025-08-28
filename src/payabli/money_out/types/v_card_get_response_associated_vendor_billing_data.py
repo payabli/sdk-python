@@ -13,6 +13,37 @@ class VCardGetResponseAssociatedVendorBillingData(UniversalBaseModel):
     Billing data for the vendor.
     """
 
+    id: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Unique identifier for billing data.
+    """
+
+    account_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="accountId")] = pydantic.Field(
+        default=None
+    )
+    """
+    Account identifier.
+    """
+
+    nickname: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Nickname for the account.
+    """
+
+    bank_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="bankName")] = pydantic.Field(
+        default=None
+    )
+    """
+    Name of the bank used for transactions.
+    """
+
+    routing_account: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="routingAccount")] = (
+        pydantic.Field(default=None)
+    )
+    """
+    Routing number for the bank account.
+    """
+
     account_number: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="accountNumber")] = (
         pydantic.Field(default=None)
     )
@@ -20,11 +51,11 @@ class VCardGetResponseAssociatedVendorBillingData(UniversalBaseModel):
     Masked account number for transactions.
     """
 
-    bank_account_function: typing_extensions.Annotated[
-        typing.Optional[int], FieldMetadata(alias="bankAccountFunction")
-    ] = pydantic.Field(default=None)
+    type_account: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="typeAccount")] = (
+        pydantic.Field(default=None)
+    )
     """
-    Function of the bank account.
+    Type of the bank account.
     """
 
     bank_account_holder_name: typing_extensions.Annotated[
@@ -41,30 +72,31 @@ class VCardGetResponseAssociatedVendorBillingData(UniversalBaseModel):
     Type of bank account holder.
     """
 
-    bank_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="bankName")] = pydantic.Field(
-        default=None
-    )
+    bank_account_function: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="bankAccountFunction")
+    ] = pydantic.Field(default=None)
     """
-    Name of the bank used for transactions.
-    """
-
-    id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    Unique identifier for billing data.
+    Function of the bank account.
     """
 
-    routing_account: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="routingAccount")] = (
-        pydantic.Field(default=None)
-    )
+    verified: typing.Optional[bool] = pydantic.Field(default=None)
     """
-    Routing number for the bank account.
+    Indicates if the account is verified.
     """
 
-    type_account: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="typeAccount")] = (
-        pydantic.Field(default=None)
-    )
+    status: typing.Optional[int] = pydantic.Field(default=None)
     """
-    Type of the bank account.
+    Status of the billing data.
+    """
+
+    services: typing.Optional[typing.List[typing.Optional[typing.Any]]] = pydantic.Field(default=None)
+    """
+    Services associated with the account.
+    """
+
+    default: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Indicates if this is the default billing account.
     """
 
     if IS_PYDANTIC_V2:

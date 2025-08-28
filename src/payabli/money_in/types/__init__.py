@@ -4,6 +4,8 @@
 
 from .auth_response import AuthResponse
 from .auth_response_response_data import AuthResponseResponseData
+from .capture_payment_details import CapturePaymentDetails
+from .capture_request import CaptureRequest
 from .capture_response import CaptureResponse
 from .capture_response_data import CaptureResponseData
 from .get_paid_response_data import GetPaidResponseData
@@ -27,6 +29,8 @@ from .void_response_data import VoidResponseData
 __all__ = [
     "AuthResponse",
     "AuthResponseResponseData",
+    "CapturePaymentDetails",
+    "CaptureRequest",
     "CaptureResponse",
     "CaptureResponseData",
     "GetPaidResponseData",

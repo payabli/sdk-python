@@ -2,6 +2,7 @@
 
 # isort: skip_file
 
+from .capture_error import CaptureError
 from .invalid_trans_status_error import InvalidTransStatusError
 
-__all__ = ["InvalidTransStatusError"]
+__all__ = ["CaptureError", "InvalidTransStatusError"]

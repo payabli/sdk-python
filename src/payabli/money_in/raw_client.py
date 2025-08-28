@@ -35,6 +35,7 @@ from ..types.subdomain import Subdomain
 from ..types.subscriptionid import Subscriptionid
 from ..types.transaction_query_records import TransactionQueryRecords
 from .types.auth_response import AuthResponse
+from .types.capture_payment_details import CapturePaymentDetails
 from .types.capture_response import CaptureResponse
 from .types.payabli_api_response_get_paid import PayabliApiResponseGetPaid
 from .types.receipt_response import ReceiptResponse
@@ -218,12 +219,17 @@ class RawMoneyInClient:
         self, amount: float, trans_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[CaptureResponse]:
         """
-        Capture an [authorized transaction](/api-reference/moneyin/authorize-a-transaction) to complete the transaction and move funds from the customer to merchant account.
+        <Warning>
+          This endpoint is deprecated and will be sunset on November 24, 2025. Migrate to [POST `/capture/{transId}`](/api-reference/moneyin/capture-an-authorized-transaction)`.
+        </Warning>
+
+          Capture an [authorized
+        transaction](/api-reference/moneyin/authorize-a-transaction) to complete the transaction and move funds from the customer to merchant account.
 
         Parameters
         ----------
         amount : float
-            Amount to be captured. The amount can't be greater the original total amount of the transaction. `0` captures the total amount authorized in the transaction.
+            Amount to be captured. The amount can't be greater the original total amount of the transaction. `0` captures the total amount authorized in the transaction. Partial captures aren't supported.
 
         trans_id : str
             ReferenceId for the transaction (PaymentId).
@@ -240,6 +246,103 @@ class RawMoneyInClient:
             f"MoneyIn/capture/{jsonable_encoder(trans_id)}/{jsonable_encoder(amount)}",
             method="GET",
             request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    CaptureResponse,
+                    parse_obj_as(
+                        type_=CaptureResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def capture_auth(
+        self,
+        trans_id: str,
+        *,
+        payment_details: CapturePaymentDetails,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[CaptureResponse]:
+        """
+        Capture an [authorized transaction](/api-reference/moneyin/authorize-a-transaction) to complete the transaction and move funds from the customer to merchant account.
+
+        You can use this endpoint to capture both full and partial amounts of the original authorized transaction. See [Capture an authorized transaction](/developers/developer-guides/pay-in-auth-and-capture) for more information about this endpoint.
+
+        Parameters
+        ----------
+        trans_id : str
+            ReferenceId for the transaction (PaymentId).
+
+        payment_details : CapturePaymentDetails
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[CaptureResponse]
+            Ok
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"MoneyIn/capture/{jsonable_encoder(trans_id)}",
+            method="POST",
+            json={
+                "paymentDetails": convert_and_respect_annotation_metadata(
+                    object_=payment_details, annotation=CapturePaymentDetails, direction="write"
+                ),
+            },
+            request_options=request_options,
+            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
@@ -1551,12 +1654,17 @@ class AsyncRawMoneyInClient:
         self, amount: float, trans_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[CaptureResponse]:
         """
-        Capture an [authorized transaction](/api-reference/moneyin/authorize-a-transaction) to complete the transaction and move funds from the customer to merchant account.
+        <Warning>
+          This endpoint is deprecated and will be sunset on November 24, 2025. Migrate to [POST `/capture/{transId}`](/api-reference/moneyin/capture-an-authorized-transaction)`.
+        </Warning>
+
+          Capture an [authorized
+        transaction](/api-reference/moneyin/authorize-a-transaction) to complete the transaction and move funds from the customer to merchant account.
 
         Parameters
         ----------
         amount : float
-            Amount to be captured. The amount can't be greater the original total amount of the transaction. `0` captures the total amount authorized in the transaction.
+            Amount to be captured. The amount can't be greater the original total amount of the transaction. `0` captures the total amount authorized in the transaction. Partial captures aren't supported.
 
         trans_id : str
             ReferenceId for the transaction (PaymentId).
@@ -1573,6 +1681,103 @@ class AsyncRawMoneyInClient:
             f"MoneyIn/capture/{jsonable_encoder(trans_id)}/{jsonable_encoder(amount)}",
             method="GET",
             request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    CaptureResponse,
+                    parse_obj_as(
+                        type_=CaptureResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def capture_auth(
+        self,
+        trans_id: str,
+        *,
+        payment_details: CapturePaymentDetails,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[CaptureResponse]:
+        """
+        Capture an [authorized transaction](/api-reference/moneyin/authorize-a-transaction) to complete the transaction and move funds from the customer to merchant account.
+
+        You can use this endpoint to capture both full and partial amounts of the original authorized transaction. See [Capture an authorized transaction](/developers/developer-guides/pay-in-auth-and-capture) for more information about this endpoint.
+
+        Parameters
+        ----------
+        trans_id : str
+            ReferenceId for the transaction (PaymentId).
+
+        payment_details : CapturePaymentDetails
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[CaptureResponse]
+            Ok
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"MoneyIn/capture/{jsonable_encoder(trans_id)}",
+            method="POST",
+            json={
+                "paymentDetails": convert_and_respect_annotation_metadata(
+                    object_=payment_details, annotation=CapturePaymentDetails, direction="write"
+                ),
+            },
+            request_options=request_options,
+            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:

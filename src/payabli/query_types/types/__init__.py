@@ -7,6 +7,9 @@ from .batch_detail_response_summary import BatchDetailResponseSummary
 from .limit_record import LimitRecord
 from .list_organizations_response import ListOrganizationsResponse
 from .query_batches_detail_response import QueryBatchesDetailResponse
+from .query_batches_response import QueryBatchesResponse
+from .query_batches_response_records_item import QueryBatchesResponseRecordsItem
+from .query_batches_transfer import QueryBatchesTransfer
 from .query_transfer_detail_response import QueryTransferDetailResponse
 from .query_transfer_response import QueryTransferResponse
 from .query_transfer_summary import QueryTransferSummary
@@ -18,6 +21,9 @@ __all__ = [
     "LimitRecord",
     "ListOrganizationsResponse",
     "QueryBatchesDetailResponse",
+    "QueryBatchesResponse",
+    "QueryBatchesResponseRecordsItem",
+    "QueryBatchesTransfer",
     "QueryTransferDetailResponse",
     "QueryTransferResponse",
     "QueryTransferSummary",

@@ -20,39 +20,11 @@ class VCardGetResponseAssociatedVendorSummary(UniversalBaseModel):
     Number of active bills.
     """
 
-    active_bills_amount: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="ActiveBillsAmount")
-    ] = pydantic.Field(default=None)
-    """
-    Total amount of active bills.
-    """
-
-    approved_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="ApprovedBills")] = (
+    pending_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="PendingBills")] = (
         pydantic.Field(default=None)
     )
     """
-    Number of bills that have been approved.
-    """
-
-    approved_bills_amount: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="ApprovedBillsAmount")
-    ] = pydantic.Field(default=None)
-    """
-    Total amount of approved bills.
-    """
-
-    disapproved_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="DisapprovedBills")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Number of bills that have been disapproved.
-    """
-
-    disapproved_bills_amount: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="DisapprovedBillsAmount")
-    ] = pydantic.Field(default=None)
-    """
-    Total amount of rejected bills.
+    Number of bills pending approval or payment.
     """
 
     in_transit_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="InTransitBills")] = (
@@ -62,11 +34,11 @@ class VCardGetResponseAssociatedVendorSummary(UniversalBaseModel):
     Number of bills in transit.
     """
 
-    in_transit_bills_amount: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="InTransitBillsAmount")
-    ] = pydantic.Field(default=None)
+    paid_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="PaidBills")] = pydantic.Field(
+        default=None
+    )
     """
-    Total amount of bills in transit.
+    Number of bills that have been paid.
     """
 
     overdue_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="OverdueBills")] = (
@@ -76,32 +48,32 @@ class VCardGetResponseAssociatedVendorSummary(UniversalBaseModel):
     Number of bills that are overdue.
     """
 
-    overdue_bills_amount: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="OverdueBillsAmount")
-    ] = pydantic.Field(default=None)
+    approved_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="ApprovedBills")] = (
+        pydantic.Field(default=None)
+    )
     """
-    Total amount of overdue bills.
+    Number of bills that have been approved.
     """
 
-    paid_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="PaidBills")] = pydantic.Field(
+    disapproved_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="DisapprovedBills")] = (
+        pydantic.Field(default=None)
+    )
+    """
+    Number of bills that have been disapproved.
+    """
+
+    total_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="TotalBills")] = pydantic.Field(
         default=None
     )
     """
-    Number of bills that have been paid.
+    Total number of bills.
     """
 
-    paid_bills_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="PaidBillsAmount")] = (
-        pydantic.Field(default=None)
-    )
+    active_bills_amount: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="ActiveBillsAmount")
+    ] = pydantic.Field(default=None)
     """
-    Total amount of paid bills.
-    """
-
-    pending_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="PendingBills")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Number of bills pending approval or payment.
+    Total amount of active bills.
     """
 
     pending_bills_amount: typing_extensions.Annotated[
@@ -111,11 +83,39 @@ class VCardGetResponseAssociatedVendorSummary(UniversalBaseModel):
     Total amount of pending bills.
     """
 
-    total_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="TotalBills")] = pydantic.Field(
-        default=None
+    in_transit_bills_amount: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="InTransitBillsAmount")
+    ] = pydantic.Field(default=None)
+    """
+    Total amount of bills in transit.
+    """
+
+    paid_bills_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="PaidBillsAmount")] = (
+        pydantic.Field(default=None)
     )
     """
-    Total number of bills.
+    Total amount of paid bills.
+    """
+
+    overdue_bills_amount: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="OverdueBillsAmount")
+    ] = pydantic.Field(default=None)
+    """
+    Total amount of overdue bills.
+    """
+
+    approved_bills_amount: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="ApprovedBillsAmount")
+    ] = pydantic.Field(default=None)
+    """
+    Total amount of approved bills.
+    """
+
+    disapproved_bills_amount: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="DisapprovedBillsAmount")
+    ] = pydantic.Field(default=None)
+    """
+    Total amount of rejected bills.
     """
 
     total_bills_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="TotalBillsAmount")] = (

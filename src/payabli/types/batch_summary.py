@@ -10,6 +10,20 @@ from .page_identifier import PageIdentifier
 
 
 class BatchSummary(UniversalBaseModel):
+    """
+    Examples
+    --------
+    from payabli import BatchSummary
+
+    BatchSummary(
+        page_size=20,
+        total_amount=0.0,
+        total_net_amount=0.0,
+        total_pages=411,
+        total_records=8203,
+    )
+    """
+
     pageidentifier: typing.Optional[PageIdentifier] = None
     page_size: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="pageSize")] = pydantic.Field(
         default=None
