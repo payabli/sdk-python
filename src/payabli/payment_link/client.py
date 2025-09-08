@@ -6,6 +6,7 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.contact_element import ContactElement
 from ..types.element import Element
+from ..types.entry import Entry
 from ..types.header_element import HeaderElement
 from ..types.idempotency_key import IdempotencyKey
 from ..types.invoice_element import InvoiceElement
@@ -14,11 +15,11 @@ from ..types.method_element import MethodElement
 from ..types.note_element import NoteElement
 from ..types.page_element import PageElement
 from ..types.pagelink_setting import PagelinkSetting
-from ..types.payabli_api_response_payment_links import PayabliApiResponsePaymentLinks
 from ..types.payor_element import PayorElement
 from ..types.push_pay_link_request import PushPayLinkRequest
 from .raw_client import AsyncRawPaymentLinkClient, RawPaymentLinkClient
 from .types.get_pay_link_from_id_response import GetPayLinkFromIdResponse
+from .types.payabli_api_response_payment_links import PayabliApiResponsePaymentLinks
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -254,6 +255,205 @@ class PaymentLinkClient:
         """
         _response = self._raw_client.add_pay_link_from_invoice(
             id_invoice,
+            amount_fixed=amount_fixed,
+            mail_2=mail_2,
+            idempotency_key=idempotency_key,
+            contact_us=contact_us,
+            invoices=invoices,
+            logo=logo,
+            message_before_paying=message_before_paying,
+            notes=notes,
+            page=page,
+            payment_button=payment_button,
+            payment_methods=payment_methods,
+            payor=payor,
+            review=review,
+            settings=settings,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def add_pay_link_from_bill(
+        self,
+        bill_id: int,
+        *,
+        amount_fixed: typing.Optional[bool] = None,
+        mail_2: typing.Optional[str] = None,
+        idempotency_key: typing.Optional[IdempotencyKey] = None,
+        contact_us: typing.Optional[ContactElement] = OMIT,
+        invoices: typing.Optional[InvoiceElement] = OMIT,
+        logo: typing.Optional[Element] = OMIT,
+        message_before_paying: typing.Optional[LabelElement] = OMIT,
+        notes: typing.Optional[NoteElement] = OMIT,
+        page: typing.Optional[PageElement] = OMIT,
+        payment_button: typing.Optional[LabelElement] = OMIT,
+        payment_methods: typing.Optional[MethodElement] = OMIT,
+        payor: typing.Optional[PayorElement] = OMIT,
+        review: typing.Optional[HeaderElement] = OMIT,
+        settings: typing.Optional[PagelinkSetting] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PayabliApiResponsePaymentLinks:
+        """
+        Generates a payment link for a bill from the bill ID.
+
+        Parameters
+        ----------
+        bill_id : int
+            The Payabli ID for the bill.
+
+        amount_fixed : typing.Optional[bool]
+            Indicates whether customer can modify the payment amount. A value of `true` means the amount isn't modifiable, a value `false` means the payor can modify the amount to pay.
+
+        mail_2 : typing.Optional[str]
+            List of recipient email addresses. When there is more than one, separate them by a semicolon (;).
+
+        idempotency_key : typing.Optional[IdempotencyKey]
+
+        contact_us : typing.Optional[ContactElement]
+            ContactUs section of payment link page
+
+        invoices : typing.Optional[InvoiceElement]
+            Invoices section of payment link page
+
+        logo : typing.Optional[Element]
+            Logo section of payment link page
+
+        message_before_paying : typing.Optional[LabelElement]
+            Message section of payment link page
+
+        notes : typing.Optional[NoteElement]
+            Notes section of payment link page
+
+        page : typing.Optional[PageElement]
+            Page header section of payment link page
+
+        payment_button : typing.Optional[LabelElement]
+            Payment button section of payment link page
+
+        payment_methods : typing.Optional[MethodElement]
+            Payment methods section of payment link page
+
+        payor : typing.Optional[PayorElement]
+            Customer/Payor section of payment link page
+
+        review : typing.Optional[HeaderElement]
+            Review section of payment link page
+
+        settings : typing.Optional[PagelinkSetting]
+            Settings section of payment link page
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayabliApiResponsePaymentLinks
+            Success
+
+        Examples
+        --------
+        from payabli import (
+            ContactElement,
+            Element,
+            HeaderElement,
+            LabelElement,
+            MethodElement,
+            MethodsList,
+            NoteElement,
+            PageElement,
+            PagelinkSetting,
+            PayorElement,
+            PayorFields,
+            payabli,
+        )
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.payment_link.add_pay_link_from_bill(
+            bill_id=23548884,
+            mail_2="jo@example.com; ceo@example.com",
+            contact_us=ContactElement(
+                email_label="Email",
+                enabled=True,
+                header="Contact Us",
+                order=0,
+                payment_icons=True,
+                phone_label="Phone",
+            ),
+            logo=Element(
+                enabled=True,
+                order=0,
+            ),
+            message_before_paying=LabelElement(
+                enabled=True,
+                label="Please review your payment details",
+                order=0,
+            ),
+            notes=NoteElement(
+                enabled=True,
+                header="Additional Notes",
+                order=0,
+                placeholder="Enter any additional notes here",
+                value="",
+            ),
+            page=PageElement(
+                description="Get paid securely",
+                enabled=True,
+                header="Payment Page",
+                order=0,
+            ),
+            payment_button=LabelElement(
+                enabled=True,
+                label="Pay Now",
+                order=0,
+            ),
+            payment_methods=MethodElement(
+                all_methods_checked=True,
+                enabled=True,
+                header="Payment Methods",
+                methods=MethodsList(
+                    amex=True,
+                    apple_pay=True,
+                    discover=True,
+                    e_check=True,
+                    mastercard=True,
+                    visa=True,
+                ),
+                order=0,
+            ),
+            payor=PayorElement(
+                enabled=True,
+                fields=[
+                    PayorFields(
+                        display=True,
+                        fixed=True,
+                        identifier=True,
+                        label="Full Name",
+                        name="fullName",
+                        order=0,
+                        required=True,
+                        validation="^[a-zA-Z ]+$",
+                        value="",
+                        width=0,
+                    )
+                ],
+                header="Payor Information",
+                order=0,
+            ),
+            review=HeaderElement(
+                enabled=True,
+                header="Review Payment",
+                order=0,
+            ),
+            settings=PagelinkSetting(
+                color="#000000",
+                language="en",
+            ),
+        )
+        """
+        _response = self._raw_client.add_pay_link_from_bill(
+            bill_id,
             amount_fixed=amount_fixed,
             mail_2=mail_2,
             idempotency_key=idempotency_key,
@@ -561,6 +761,213 @@ class PaymentLinkClient:
         )
         return _response.data
 
+    def add_pay_link_from_bill_lot_number(
+        self,
+        lot_number: str,
+        *,
+        entry_point: Entry,
+        vendor_number: str,
+        mail_2: typing.Optional[str] = None,
+        amount_fixed: typing.Optional[str] = None,
+        contact_us: typing.Optional[ContactElement] = OMIT,
+        invoices: typing.Optional[InvoiceElement] = OMIT,
+        logo: typing.Optional[Element] = OMIT,
+        message_before_paying: typing.Optional[LabelElement] = OMIT,
+        notes: typing.Optional[NoteElement] = OMIT,
+        page: typing.Optional[PageElement] = OMIT,
+        payment_button: typing.Optional[LabelElement] = OMIT,
+        payment_methods: typing.Optional[MethodElement] = OMIT,
+        payor: typing.Optional[PayorElement] = OMIT,
+        review: typing.Optional[HeaderElement] = OMIT,
+        settings: typing.Optional[PagelinkSetting] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PayabliApiResponsePaymentLinks:
+        """
+        Generates a vendor payment link for a specific bill lot number. This allows you to pay all bills with the same lot number for a vendor with a single payment link.
+
+        Parameters
+        ----------
+        lot_number : str
+            Lot number of the bills to pay. All bills with this lot number will be included.
+
+        entry_point : Entry
+
+        vendor_number : str
+            The vendor number for the vendor being paid with this payment link.
+
+        mail_2 : typing.Optional[str]
+            List of recipient email addresses. When there is more than one, separate them by a semicolon (;).
+
+        amount_fixed : typing.Optional[str]
+            Indicates whether customer can modify the payment amount. A value of `true` means the amount isn't modifiable, a value `false` means the payor can modify the amount to pay.
+
+        contact_us : typing.Optional[ContactElement]
+            ContactUs section of payment link page
+
+        invoices : typing.Optional[InvoiceElement]
+            Invoices section of payment link page
+
+        logo : typing.Optional[Element]
+            Logo section of payment link page
+
+        message_before_paying : typing.Optional[LabelElement]
+            Message section of payment link page
+
+        notes : typing.Optional[NoteElement]
+            Notes section of payment link page
+
+        page : typing.Optional[PageElement]
+            Page header section of payment link page
+
+        payment_button : typing.Optional[LabelElement]
+            Payment button section of payment link page
+
+        payment_methods : typing.Optional[MethodElement]
+            Payment methods section of payment link page
+
+        payor : typing.Optional[PayorElement]
+            Customer/Payor section of payment link page
+
+        review : typing.Optional[HeaderElement]
+            Review section of payment link page
+
+        settings : typing.Optional[PagelinkSetting]
+            Settings section of payment link page
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayabliApiResponsePaymentLinks
+            Success
+
+        Examples
+        --------
+        from payabli import (
+            ContactElement,
+            Element,
+            HeaderElement,
+            LabelElement,
+            MethodElement,
+            MethodsList,
+            NoteElement,
+            PageElement,
+            PagelinkSetting,
+            PayorElement,
+            PayorFields,
+            payabli,
+        )
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.payment_link.add_pay_link_from_bill_lot_number(
+            lot_number="LOT-2024-001",
+            entry_point="billing",
+            vendor_number="VENDOR-123",
+            mail_2="customer@example.com; billing@example.com",
+            amount_fixed="true",
+            contact_us=ContactElement(
+                email_label="Email",
+                enabled=True,
+                header="Contact Us",
+                order=0,
+                payment_icons=True,
+                phone_label="Phone",
+            ),
+            logo=Element(
+                enabled=True,
+                order=0,
+            ),
+            message_before_paying=LabelElement(
+                enabled=True,
+                label="Please review your payment details",
+                order=0,
+            ),
+            notes=NoteElement(
+                enabled=True,
+                header="Additional Notes",
+                order=0,
+                placeholder="Enter any additional notes here",
+                value="",
+            ),
+            page=PageElement(
+                description="Get paid securely",
+                enabled=True,
+                header="Payment Page",
+                order=0,
+            ),
+            payment_button=LabelElement(
+                enabled=True,
+                label="Pay Now",
+                order=0,
+            ),
+            payment_methods=MethodElement(
+                all_methods_checked=True,
+                enabled=True,
+                header="Payment Methods",
+                methods=MethodsList(
+                    amex=True,
+                    apple_pay=True,
+                    discover=True,
+                    e_check=True,
+                    mastercard=True,
+                    visa=True,
+                ),
+                order=0,
+            ),
+            payor=PayorElement(
+                enabled=True,
+                fields=[
+                    PayorFields(
+                        display=True,
+                        fixed=True,
+                        identifier=True,
+                        label="Full Name",
+                        name="fullName",
+                        order=0,
+                        required=True,
+                        validation="^[a-zA-Z ]+$",
+                        value="",
+                        width=0,
+                    )
+                ],
+                header="Payor Information",
+                order=0,
+            ),
+            review=HeaderElement(
+                enabled=True,
+                header="Review Payment",
+                order=0,
+            ),
+            settings=PagelinkSetting(
+                color="#000000",
+                language="en",
+            ),
+        )
+        """
+        _response = self._raw_client.add_pay_link_from_bill_lot_number(
+            lot_number,
+            entry_point=entry_point,
+            vendor_number=vendor_number,
+            mail_2=mail_2,
+            amount_fixed=amount_fixed,
+            contact_us=contact_us,
+            invoices=invoices,
+            logo=logo,
+            message_before_paying=message_before_paying,
+            notes=notes,
+            page=page,
+            payment_button=payment_button,
+            payment_methods=payment_methods,
+            payor=payor,
+            review=review,
+            settings=settings,
+            request_options=request_options,
+        )
+        return _response.data
+
 
 class AsyncPaymentLinkClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -800,6 +1207,213 @@ class AsyncPaymentLinkClient:
         """
         _response = await self._raw_client.add_pay_link_from_invoice(
             id_invoice,
+            amount_fixed=amount_fixed,
+            mail_2=mail_2,
+            idempotency_key=idempotency_key,
+            contact_us=contact_us,
+            invoices=invoices,
+            logo=logo,
+            message_before_paying=message_before_paying,
+            notes=notes,
+            page=page,
+            payment_button=payment_button,
+            payment_methods=payment_methods,
+            payor=payor,
+            review=review,
+            settings=settings,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def add_pay_link_from_bill(
+        self,
+        bill_id: int,
+        *,
+        amount_fixed: typing.Optional[bool] = None,
+        mail_2: typing.Optional[str] = None,
+        idempotency_key: typing.Optional[IdempotencyKey] = None,
+        contact_us: typing.Optional[ContactElement] = OMIT,
+        invoices: typing.Optional[InvoiceElement] = OMIT,
+        logo: typing.Optional[Element] = OMIT,
+        message_before_paying: typing.Optional[LabelElement] = OMIT,
+        notes: typing.Optional[NoteElement] = OMIT,
+        page: typing.Optional[PageElement] = OMIT,
+        payment_button: typing.Optional[LabelElement] = OMIT,
+        payment_methods: typing.Optional[MethodElement] = OMIT,
+        payor: typing.Optional[PayorElement] = OMIT,
+        review: typing.Optional[HeaderElement] = OMIT,
+        settings: typing.Optional[PagelinkSetting] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PayabliApiResponsePaymentLinks:
+        """
+        Generates a payment link for a bill from the bill ID.
+
+        Parameters
+        ----------
+        bill_id : int
+            The Payabli ID for the bill.
+
+        amount_fixed : typing.Optional[bool]
+            Indicates whether customer can modify the payment amount. A value of `true` means the amount isn't modifiable, a value `false` means the payor can modify the amount to pay.
+
+        mail_2 : typing.Optional[str]
+            List of recipient email addresses. When there is more than one, separate them by a semicolon (;).
+
+        idempotency_key : typing.Optional[IdempotencyKey]
+
+        contact_us : typing.Optional[ContactElement]
+            ContactUs section of payment link page
+
+        invoices : typing.Optional[InvoiceElement]
+            Invoices section of payment link page
+
+        logo : typing.Optional[Element]
+            Logo section of payment link page
+
+        message_before_paying : typing.Optional[LabelElement]
+            Message section of payment link page
+
+        notes : typing.Optional[NoteElement]
+            Notes section of payment link page
+
+        page : typing.Optional[PageElement]
+            Page header section of payment link page
+
+        payment_button : typing.Optional[LabelElement]
+            Payment button section of payment link page
+
+        payment_methods : typing.Optional[MethodElement]
+            Payment methods section of payment link page
+
+        payor : typing.Optional[PayorElement]
+            Customer/Payor section of payment link page
+
+        review : typing.Optional[HeaderElement]
+            Review section of payment link page
+
+        settings : typing.Optional[PagelinkSetting]
+            Settings section of payment link page
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayabliApiResponsePaymentLinks
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import (
+            Asyncpayabli,
+            ContactElement,
+            Element,
+            HeaderElement,
+            LabelElement,
+            MethodElement,
+            MethodsList,
+            NoteElement,
+            PageElement,
+            PagelinkSetting,
+            PayorElement,
+            PayorFields,
+        )
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.payment_link.add_pay_link_from_bill(
+                bill_id=23548884,
+                mail_2="jo@example.com; ceo@example.com",
+                contact_us=ContactElement(
+                    email_label="Email",
+                    enabled=True,
+                    header="Contact Us",
+                    order=0,
+                    payment_icons=True,
+                    phone_label="Phone",
+                ),
+                logo=Element(
+                    enabled=True,
+                    order=0,
+                ),
+                message_before_paying=LabelElement(
+                    enabled=True,
+                    label="Please review your payment details",
+                    order=0,
+                ),
+                notes=NoteElement(
+                    enabled=True,
+                    header="Additional Notes",
+                    order=0,
+                    placeholder="Enter any additional notes here",
+                    value="",
+                ),
+                page=PageElement(
+                    description="Get paid securely",
+                    enabled=True,
+                    header="Payment Page",
+                    order=0,
+                ),
+                payment_button=LabelElement(
+                    enabled=True,
+                    label="Pay Now",
+                    order=0,
+                ),
+                payment_methods=MethodElement(
+                    all_methods_checked=True,
+                    enabled=True,
+                    header="Payment Methods",
+                    methods=MethodsList(
+                        amex=True,
+                        apple_pay=True,
+                        discover=True,
+                        e_check=True,
+                        mastercard=True,
+                        visa=True,
+                    ),
+                    order=0,
+                ),
+                payor=PayorElement(
+                    enabled=True,
+                    fields=[
+                        PayorFields(
+                            display=True,
+                            fixed=True,
+                            identifier=True,
+                            label="Full Name",
+                            name="fullName",
+                            order=0,
+                            required=True,
+                            validation="^[a-zA-Z ]+$",
+                            value="",
+                            width=0,
+                        )
+                    ],
+                    header="Payor Information",
+                    order=0,
+                ),
+                review=HeaderElement(
+                    enabled=True,
+                    header="Review Payment",
+                    order=0,
+                ),
+                settings=PagelinkSetting(
+                    color="#000000",
+                    language="en",
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.add_pay_link_from_bill(
+            bill_id,
             amount_fixed=amount_fixed,
             mail_2=mail_2,
             idempotency_key=idempotency_key,
@@ -1149,6 +1763,221 @@ class AsyncPaymentLinkClient:
             page=page,
             payment_button=payment_button,
             payment_methods=payment_methods,
+            review=review,
+            settings=settings,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def add_pay_link_from_bill_lot_number(
+        self,
+        lot_number: str,
+        *,
+        entry_point: Entry,
+        vendor_number: str,
+        mail_2: typing.Optional[str] = None,
+        amount_fixed: typing.Optional[str] = None,
+        contact_us: typing.Optional[ContactElement] = OMIT,
+        invoices: typing.Optional[InvoiceElement] = OMIT,
+        logo: typing.Optional[Element] = OMIT,
+        message_before_paying: typing.Optional[LabelElement] = OMIT,
+        notes: typing.Optional[NoteElement] = OMIT,
+        page: typing.Optional[PageElement] = OMIT,
+        payment_button: typing.Optional[LabelElement] = OMIT,
+        payment_methods: typing.Optional[MethodElement] = OMIT,
+        payor: typing.Optional[PayorElement] = OMIT,
+        review: typing.Optional[HeaderElement] = OMIT,
+        settings: typing.Optional[PagelinkSetting] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PayabliApiResponsePaymentLinks:
+        """
+        Generates a vendor payment link for a specific bill lot number. This allows you to pay all bills with the same lot number for a vendor with a single payment link.
+
+        Parameters
+        ----------
+        lot_number : str
+            Lot number of the bills to pay. All bills with this lot number will be included.
+
+        entry_point : Entry
+
+        vendor_number : str
+            The vendor number for the vendor being paid with this payment link.
+
+        mail_2 : typing.Optional[str]
+            List of recipient email addresses. When there is more than one, separate them by a semicolon (;).
+
+        amount_fixed : typing.Optional[str]
+            Indicates whether customer can modify the payment amount. A value of `true` means the amount isn't modifiable, a value `false` means the payor can modify the amount to pay.
+
+        contact_us : typing.Optional[ContactElement]
+            ContactUs section of payment link page
+
+        invoices : typing.Optional[InvoiceElement]
+            Invoices section of payment link page
+
+        logo : typing.Optional[Element]
+            Logo section of payment link page
+
+        message_before_paying : typing.Optional[LabelElement]
+            Message section of payment link page
+
+        notes : typing.Optional[NoteElement]
+            Notes section of payment link page
+
+        page : typing.Optional[PageElement]
+            Page header section of payment link page
+
+        payment_button : typing.Optional[LabelElement]
+            Payment button section of payment link page
+
+        payment_methods : typing.Optional[MethodElement]
+            Payment methods section of payment link page
+
+        payor : typing.Optional[PayorElement]
+            Customer/Payor section of payment link page
+
+        review : typing.Optional[HeaderElement]
+            Review section of payment link page
+
+        settings : typing.Optional[PagelinkSetting]
+            Settings section of payment link page
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayabliApiResponsePaymentLinks
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import (
+            Asyncpayabli,
+            ContactElement,
+            Element,
+            HeaderElement,
+            LabelElement,
+            MethodElement,
+            MethodsList,
+            NoteElement,
+            PageElement,
+            PagelinkSetting,
+            PayorElement,
+            PayorFields,
+        )
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.payment_link.add_pay_link_from_bill_lot_number(
+                lot_number="LOT-2024-001",
+                entry_point="billing",
+                vendor_number="VENDOR-123",
+                mail_2="customer@example.com; billing@example.com",
+                amount_fixed="true",
+                contact_us=ContactElement(
+                    email_label="Email",
+                    enabled=True,
+                    header="Contact Us",
+                    order=0,
+                    payment_icons=True,
+                    phone_label="Phone",
+                ),
+                logo=Element(
+                    enabled=True,
+                    order=0,
+                ),
+                message_before_paying=LabelElement(
+                    enabled=True,
+                    label="Please review your payment details",
+                    order=0,
+                ),
+                notes=NoteElement(
+                    enabled=True,
+                    header="Additional Notes",
+                    order=0,
+                    placeholder="Enter any additional notes here",
+                    value="",
+                ),
+                page=PageElement(
+                    description="Get paid securely",
+                    enabled=True,
+                    header="Payment Page",
+                    order=0,
+                ),
+                payment_button=LabelElement(
+                    enabled=True,
+                    label="Pay Now",
+                    order=0,
+                ),
+                payment_methods=MethodElement(
+                    all_methods_checked=True,
+                    enabled=True,
+                    header="Payment Methods",
+                    methods=MethodsList(
+                        amex=True,
+                        apple_pay=True,
+                        discover=True,
+                        e_check=True,
+                        mastercard=True,
+                        visa=True,
+                    ),
+                    order=0,
+                ),
+                payor=PayorElement(
+                    enabled=True,
+                    fields=[
+                        PayorFields(
+                            display=True,
+                            fixed=True,
+                            identifier=True,
+                            label="Full Name",
+                            name="fullName",
+                            order=0,
+                            required=True,
+                            validation="^[a-zA-Z ]+$",
+                            value="",
+                            width=0,
+                        )
+                    ],
+                    header="Payor Information",
+                    order=0,
+                ),
+                review=HeaderElement(
+                    enabled=True,
+                    header="Review Payment",
+                    order=0,
+                ),
+                settings=PagelinkSetting(
+                    color="#000000",
+                    language="en",
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.add_pay_link_from_bill_lot_number(
+            lot_number,
+            entry_point=entry_point,
+            vendor_number=vendor_number,
+            mail_2=mail_2,
+            amount_fixed=amount_fixed,
+            contact_us=contact_us,
+            invoices=invoices,
+            logo=logo,
+            message_before_paying=message_before_paying,
+            notes=notes,
+            page=page,
+            payment_button=payment_button,
+            payment_methods=payment_methods,
+            payor=payor,
             review=review,
             settings=settings,
             request_options=request_options,

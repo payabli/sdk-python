@@ -11,7 +11,7 @@ from .additional_data_string import AdditionalDataString
 from .attachments import Attachments
 from .comments import Comments
 from .datenullable import Datenullable
-from .invoicenumber import Invoicenumber
+from .invoice_number import InvoiceNumber
 from .net_amountstring import NetAmountstring
 from .terms import Terms
 
@@ -44,7 +44,7 @@ class BillPayOutDataRequest(UniversalBaseModel):
     """
 
     invoice_number: typing_extensions.Annotated[
-        typing.Optional[Invoicenumber], FieldMetadata(alias="invoiceNumber")
+        typing.Optional[InvoiceNumber], FieldMetadata(alias="invoiceNumber")
     ] = pydantic.Field(default=None)
     """
     Custom number identifying the bill. Must be unique in paypoint. **Required** for new bill and when `billId` isn't provided.

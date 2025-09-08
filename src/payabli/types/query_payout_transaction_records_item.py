@@ -23,7 +23,7 @@ from .legalname import Legalname
 from .netamountnullable import Netamountnullable
 from .org_parent_id import OrgParentId
 from .org_parent_name import OrgParentName
-from .paymentid import Paymentid
+from .payment_id_string import PaymentIdString
 from .payout_program import PayoutProgram
 from .query_payout_transaction_records_item_payment_data import QueryPayoutTransactionRecordsItemPaymentData
 from .query_transaction_events import QueryTransactionEvents
@@ -131,7 +131,7 @@ class QueryPayoutTransactionRecordsItem(UniversalBaseModel):
     payment_data: typing_extensions.Annotated[
         typing.Optional[QueryPayoutTransactionRecordsItemPaymentData], FieldMetadata(alias="PaymentData")
     ] = None
-    payment_id: typing_extensions.Annotated[typing.Optional[Paymentid], FieldMetadata(alias="PaymentId")] = None
+    payment_id: typing_extensions.Annotated[typing.Optional[PaymentIdString], FieldMetadata(alias="PaymentId")] = None
     payment_method: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="PaymentMethod")] = (
         pydantic.Field(default=None)
     )

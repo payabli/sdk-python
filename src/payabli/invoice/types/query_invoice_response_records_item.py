@@ -23,8 +23,8 @@ from ...types.external_paypoint_id import ExternalPaypointId
 from ...types.freight_amount import FreightAmount
 from ...types.frequency import Frequency
 from ...types.invoice_amount import InvoiceAmount
+from ...types.invoice_number import InvoiceNumber
 from ...types.invoice_type import InvoiceType
-from ...types.invoicenumber import Invoicenumber
 from ...types.invoicestatus import Invoicestatus
 from ...types.legalname import Legalname
 from ...types.org_parent_name import OrgParentName
@@ -52,7 +52,7 @@ class QueryInvoiceResponseRecordsItem(UniversalBaseModel):
     invoice_id: typing_extensions.Annotated[InvoiceId, FieldMetadata(alias="invoiceId")]
     customer_id: typing_extensions.Annotated[CustomerId, FieldMetadata(alias="customerId")]
     paypoint_id: typing_extensions.Annotated[PaypointId, FieldMetadata(alias="paypointId")]
-    invoice_number: typing_extensions.Annotated[Invoicenumber, FieldMetadata(alias="invoiceNumber")]
+    invoice_number: typing_extensions.Annotated[InvoiceNumber, FieldMetadata(alias="invoiceNumber")]
     invoice_date: typing_extensions.Annotated[Datenullable, FieldMetadata(alias="invoiceDate")] = pydantic.Field()
     """
     Invoice date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY.

@@ -31,7 +31,7 @@ from ...types.vendorid import Vendorid
 from ...types.vendorstatus import Vendorstatus
 
 
-class RequestOutAuthorizeVendorData(UniversalBaseModel):
+class RequestOutAuthorizeVendorDataOld(UniversalBaseModel):
     """
     Object containing vendor data.
     """

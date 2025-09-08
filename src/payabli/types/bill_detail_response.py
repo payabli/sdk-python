@@ -22,7 +22,7 @@ from .legalname import Legalname
 from .netamountnullable import Netamountnullable
 from .org_parent_id import OrgParentId
 from .org_parent_name import OrgParentName
-from .paymentid import Paymentid
+from .payment_id_string import PaymentIdString
 from .query_payment_data import QueryPaymentData
 from .query_transaction_events import QueryTransactionEvents
 from .risk_action import RiskAction
@@ -112,7 +112,7 @@ class BillDetailResponse(UniversalBaseModel):
     Unique identifier for group or batch containing the transaction.
     """
 
-    payment_id: typing_extensions.Annotated[typing.Optional[Paymentid], FieldMetadata(alias="PaymentId")] = None
+    payment_id: typing_extensions.Annotated[typing.Optional[PaymentIdString], FieldMetadata(alias="PaymentId")] = None
     payment_method: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="PaymentMethod")] = (
         pydantic.Field(default=None)
     )

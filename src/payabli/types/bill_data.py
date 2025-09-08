@@ -17,8 +17,8 @@ from .email import Email
 from .freight_amount import FreightAmount
 from .frequency import Frequency
 from .invoice_amount import InvoiceAmount
+from .invoice_number import InvoiceNumber
 from .invoice_type import InvoiceType
-from .invoicenumber import Invoicenumber
 from .invoicestatus import Invoicestatus
 from .purchase_order import PurchaseOrder
 from .shipping_from_zip import ShippingFromZip
@@ -85,7 +85,7 @@ class BillData(UniversalBaseModel):
     """
 
     invoice_number: typing_extensions.Annotated[
-        typing.Optional[Invoicenumber], FieldMetadata(alias="invoiceNumber")
+        typing.Optional[InvoiceNumber], FieldMetadata(alias="invoiceNumber")
     ] = pydantic.Field(default=None)
     """
     Invoice number. Identifies the invoice under a paypoint.

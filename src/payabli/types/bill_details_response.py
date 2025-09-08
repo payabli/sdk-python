@@ -9,7 +9,7 @@ from ..core.serialization import FieldMetadata
 from .bill_id import BillId
 from .comments import Comments
 from .datenullable import Datenullable
-from .invoicenumber import Invoicenumber
+from .invoice_number import InvoiceNumber
 from .net_amountstring import NetAmountstring
 
 
@@ -27,7 +27,7 @@ class BillDetailsResponse(UniversalBaseModel):
     """
 
     invoice_number: typing_extensions.Annotated[
-        typing.Optional[Invoicenumber], FieldMetadata(alias="invoiceNumber")
+        typing.Optional[InvoiceNumber], FieldMetadata(alias="invoiceNumber")
     ] = pydantic.Field(default=None)
     """
     Custom number identifying the bill. 

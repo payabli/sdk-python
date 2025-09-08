@@ -4,10 +4,10 @@ import typing
 
 import pydantic
 import typing_extensions
-from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ..core.serialization import FieldMetadata
-from .is_success import IsSuccess
-from .response_text import ResponseText
+from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ...core.serialization import FieldMetadata
+from ...types.is_success import IsSuccess
+from ...types.response_text import ResponseText
 
 
 class PayabliApiResponsePaymentLinks(UniversalBaseModel):

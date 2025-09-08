@@ -20,6 +20,7 @@ from .frequency import Frequency
 from .general_events import GeneralEvents
 from .legalname import Legalname
 from .org_parent_name import OrgParentName
+from .payment_id_string import PaymentIdString
 from .terms import Terms
 from .transaction_out_query_record import TransactionOutQueryRecord
 from .vendor_out_data import VendorOutData
@@ -179,13 +180,7 @@ class BillQueryRecord2(UniversalBaseModel):
     parent_org_name: typing_extensions.Annotated[
         typing.Optional[OrgParentName], FieldMetadata(alias="ParentOrgName")
     ] = None
-    payment_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="PaymentId")] = pydantic.Field(
-        default=None
-    )
-    """
-    Payment identifier.
-    """
-
+    payment_id: typing_extensions.Annotated[typing.Optional[PaymentIdString], FieldMetadata(alias="PaymentId")] = None
     payment_method: typing_extensions.Annotated[
         typing.Optional[BillQueryRecord2PaymentMethod], FieldMetadata(alias="PaymentMethod")
     ] = pydantic.Field(default=None)

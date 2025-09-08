@@ -14,25 +14,25 @@ from ..errors.bad_request_error import BadRequestError
 from ..errors.internal_server_error import InternalServerError
 from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.unauthorized_error import UnauthorizedError
+from ..money_out_types.types.auth_capture_payout_response import AuthCapturePayoutResponse
+from ..money_out_types.types.capture_all_out_response import CaptureAllOutResponse
+from ..money_out_types.types.operation_result import OperationResult
+from ..money_out_types.types.request_out_authorize_invoice_data import RequestOutAuthorizeInvoiceData
+from ..money_out_types.types.request_out_authorize_payment_details import RequestOutAuthorizePaymentDetails
+from ..money_out_types.types.request_out_authorize_vendor_data import RequestOutAuthorizeVendorData
+from ..money_out_types.types.v_card_get_response import VCardGetResponse
 from ..types.accountid import Accountid
 from ..types.bill_detail_response import BillDetailResponse
-from ..types.bill_pay_out_data_request import BillPayOutDataRequest
 from ..types.entrypointfield import Entrypointfield
 from ..types.idempotency_key import IdempotencyKey
 from ..types.order_id import OrderId
 from ..types.orderdescription import Orderdescription
 from ..types.payabli_api_response import PayabliApiResponse
 from ..types.payabli_api_response_0000 import PayabliApiResponse0000
-from ..types.payabli_api_response_11 import PayabliApiResponse11
 from ..types.source import Source
 from ..types.subdomain import Subdomain
 from ..types.subscriptionid import Subscriptionid
 from ..types.vendor_payment_method import VendorPaymentMethod
-from .types.capture_all_out_response import CaptureAllOutResponse
-from .types.operation_result import OperationResult
-from .types.request_out_authorize_payment_details import RequestOutAuthorizePaymentDetails
-from .types.request_out_authorize_vendor_data import RequestOutAuthorizeVendorData
-from .types.v_card_get_response import VCardGetResponse
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -46,22 +46,22 @@ class RawMoneyOutClient:
         self,
         *,
         entry_point: Entrypointfield,
+        payment_method: VendorPaymentMethod,
         payment_details: RequestOutAuthorizePaymentDetails,
         vendor_data: RequestOutAuthorizeVendorData,
+        invoice_data: typing.Sequence[RequestOutAuthorizeInvoiceData],
         allow_duplicated_bills: typing.Optional[bool] = None,
         do_not_create_bills: typing.Optional[bool] = None,
         force_vendor_creation: typing.Optional[bool] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
-        account_id: typing.Optional[Accountid] = OMIT,
-        invoice_data: typing.Optional[typing.Sequence[BillPayOutDataRequest]] = OMIT,
-        order_description: typing.Optional[Orderdescription] = OMIT,
-        order_id: typing.Optional[OrderId] = OMIT,
-        payment_method: typing.Optional[VendorPaymentMethod] = OMIT,
         source: typing.Optional[Source] = OMIT,
+        order_id: typing.Optional[OrderId] = OMIT,
+        order_description: typing.Optional[Orderdescription] = OMIT,
+        account_id: typing.Optional[Accountid] = OMIT,
         subdomain: typing.Optional[Subdomain] = OMIT,
         subscription_id: typing.Optional[Subscriptionid] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PayabliApiResponse11]:
+    ) -> HttpResponse[AuthCapturePayoutResponse]:
         """
         Authorizes transaction for payout. Authorized transactions aren't flagged for settlement until captured. Use `referenceId` returned in the response to capture the transaction.
 
@@ -69,11 +69,21 @@ class RawMoneyOutClient:
         ----------
         entry_point : Entrypointfield
 
+        payment_method : VendorPaymentMethod
+
         payment_details : RequestOutAuthorizePaymentDetails
             Object containing payment details.
 
         vendor_data : RequestOutAuthorizeVendorData
             Object containing vendor data.
+            <Note>
+              When creating a new vendor in a payout authorization, the system first checks `billingData` for the vendor's billing information.
+              If `billingData` is empty, it falls back to the `paymentMethod` object information.
+              For existing vendors, `paymentMethod` is ignored unless a `storedMethodId` is provided.
+            </Note>
+
+        invoice_data : typing.Sequence[RequestOutAuthorizeInvoiceData]
+            Array of bills associated to the transaction
 
         allow_duplicated_bills : typing.Optional[bool]
             When `true`, the authorization bypasses the requirement for unique bills, identified by vendor invoice number. This allows you to make more than one payout authorization for a bill, like a split payment.
@@ -86,18 +96,13 @@ class RawMoneyOutClient:
 
         idempotency_key : typing.Optional[IdempotencyKey]
 
-        account_id : typing.Optional[Accountid]
-
-        invoice_data : typing.Optional[typing.Sequence[BillPayOutDataRequest]]
-            Array of bills associated to the transaction
-
-        order_description : typing.Optional[Orderdescription]
+        source : typing.Optional[Source]
 
         order_id : typing.Optional[OrderId]
 
-        payment_method : typing.Optional[VendorPaymentMethod]
+        order_description : typing.Optional[Orderdescription]
 
-        source : typing.Optional[Source]
+        account_id : typing.Optional[Accountid]
 
         subdomain : typing.Optional[Subdomain]
 
@@ -108,7 +113,7 @@ class RawMoneyOutClient:
 
         Returns
         -------
-        HttpResponse[PayabliApiResponse11]
+        HttpResponse[AuthCapturePayoutResponse]
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -120,25 +125,25 @@ class RawMoneyOutClient:
                 "forceVendorCreation": force_vendor_creation,
             },
             json={
-                "accountId": account_id,
                 "entryPoint": entry_point,
-                "invoiceData": convert_and_respect_annotation_metadata(
-                    object_=invoice_data, annotation=typing.Sequence[BillPayOutDataRequest], direction="write"
-                ),
-                "orderDescription": order_description,
+                "source": source,
                 "orderId": order_id,
-                "paymentDetails": convert_and_respect_annotation_metadata(
-                    object_=payment_details, annotation=RequestOutAuthorizePaymentDetails, direction="write"
-                ),
+                "orderDescription": order_description,
                 "paymentMethod": convert_and_respect_annotation_metadata(
                     object_=payment_method, annotation=VendorPaymentMethod, direction="write"
                 ),
-                "source": source,
-                "subdomain": subdomain,
-                "subscriptionId": subscription_id,
+                "paymentDetails": convert_and_respect_annotation_metadata(
+                    object_=payment_details, annotation=RequestOutAuthorizePaymentDetails, direction="write"
+                ),
                 "vendorData": convert_and_respect_annotation_metadata(
                     object_=vendor_data, annotation=RequestOutAuthorizeVendorData, direction="write"
                 ),
+                "invoiceData": convert_and_respect_annotation_metadata(
+                    object_=invoice_data, annotation=typing.Sequence[RequestOutAuthorizeInvoiceData], direction="write"
+                ),
+                "accountId": account_id,
+                "subdomain": subdomain,
+                "subscriptionId": subscription_id,
             },
             headers={
                 "content-type": "application/json",
@@ -150,9 +155,9 @@ class RawMoneyOutClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    PayabliApiResponse11,
+                    AuthCapturePayoutResponse,
                     parse_obj_as(
-                        type_=PayabliApiResponse11,  # type: ignore
+                        type_=AuthCapturePayoutResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -476,7 +481,7 @@ class RawMoneyOutClient:
         *,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PayabliApiResponse11]:
+    ) -> HttpResponse[AuthCapturePayoutResponse]:
         """
         Captures a single authorized payout transaction by ID.
 
@@ -492,7 +497,7 @@ class RawMoneyOutClient:
 
         Returns
         -------
-        HttpResponse[PayabliApiResponse11]
+        HttpResponse[AuthCapturePayoutResponse]
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -506,9 +511,9 @@ class RawMoneyOutClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    PayabliApiResponse11,
+                    AuthCapturePayoutResponse,
                     parse_obj_as(
-                        type_=PayabliApiResponse11,  # type: ignore
+                        type_=AuthCapturePayoutResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -917,22 +922,22 @@ class AsyncRawMoneyOutClient:
         self,
         *,
         entry_point: Entrypointfield,
+        payment_method: VendorPaymentMethod,
         payment_details: RequestOutAuthorizePaymentDetails,
         vendor_data: RequestOutAuthorizeVendorData,
+        invoice_data: typing.Sequence[RequestOutAuthorizeInvoiceData],
         allow_duplicated_bills: typing.Optional[bool] = None,
         do_not_create_bills: typing.Optional[bool] = None,
         force_vendor_creation: typing.Optional[bool] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
-        account_id: typing.Optional[Accountid] = OMIT,
-        invoice_data: typing.Optional[typing.Sequence[BillPayOutDataRequest]] = OMIT,
-        order_description: typing.Optional[Orderdescription] = OMIT,
-        order_id: typing.Optional[OrderId] = OMIT,
-        payment_method: typing.Optional[VendorPaymentMethod] = OMIT,
         source: typing.Optional[Source] = OMIT,
+        order_id: typing.Optional[OrderId] = OMIT,
+        order_description: typing.Optional[Orderdescription] = OMIT,
+        account_id: typing.Optional[Accountid] = OMIT,
         subdomain: typing.Optional[Subdomain] = OMIT,
         subscription_id: typing.Optional[Subscriptionid] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PayabliApiResponse11]:
+    ) -> AsyncHttpResponse[AuthCapturePayoutResponse]:
         """
         Authorizes transaction for payout. Authorized transactions aren't flagged for settlement until captured. Use `referenceId` returned in the response to capture the transaction.
 
@@ -940,11 +945,21 @@ class AsyncRawMoneyOutClient:
         ----------
         entry_point : Entrypointfield
 
+        payment_method : VendorPaymentMethod
+
         payment_details : RequestOutAuthorizePaymentDetails
             Object containing payment details.
 
         vendor_data : RequestOutAuthorizeVendorData
             Object containing vendor data.
+            <Note>
+              When creating a new vendor in a payout authorization, the system first checks `billingData` for the vendor's billing information.
+              If `billingData` is empty, it falls back to the `paymentMethod` object information.
+              For existing vendors, `paymentMethod` is ignored unless a `storedMethodId` is provided.
+            </Note>
+
+        invoice_data : typing.Sequence[RequestOutAuthorizeInvoiceData]
+            Array of bills associated to the transaction
 
         allow_duplicated_bills : typing.Optional[bool]
             When `true`, the authorization bypasses the requirement for unique bills, identified by vendor invoice number. This allows you to make more than one payout authorization for a bill, like a split payment.
@@ -957,18 +972,13 @@ class AsyncRawMoneyOutClient:
 
         idempotency_key : typing.Optional[IdempotencyKey]
 
-        account_id : typing.Optional[Accountid]
-
-        invoice_data : typing.Optional[typing.Sequence[BillPayOutDataRequest]]
-            Array of bills associated to the transaction
-
-        order_description : typing.Optional[Orderdescription]
+        source : typing.Optional[Source]
 
         order_id : typing.Optional[OrderId]
 
-        payment_method : typing.Optional[VendorPaymentMethod]
+        order_description : typing.Optional[Orderdescription]
 
-        source : typing.Optional[Source]
+        account_id : typing.Optional[Accountid]
 
         subdomain : typing.Optional[Subdomain]
 
@@ -979,7 +989,7 @@ class AsyncRawMoneyOutClient:
 
         Returns
         -------
-        AsyncHttpResponse[PayabliApiResponse11]
+        AsyncHttpResponse[AuthCapturePayoutResponse]
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -991,25 +1001,25 @@ class AsyncRawMoneyOutClient:
                 "forceVendorCreation": force_vendor_creation,
             },
             json={
-                "accountId": account_id,
                 "entryPoint": entry_point,
-                "invoiceData": convert_and_respect_annotation_metadata(
-                    object_=invoice_data, annotation=typing.Sequence[BillPayOutDataRequest], direction="write"
-                ),
-                "orderDescription": order_description,
+                "source": source,
                 "orderId": order_id,
-                "paymentDetails": convert_and_respect_annotation_metadata(
-                    object_=payment_details, annotation=RequestOutAuthorizePaymentDetails, direction="write"
-                ),
+                "orderDescription": order_description,
                 "paymentMethod": convert_and_respect_annotation_metadata(
                     object_=payment_method, annotation=VendorPaymentMethod, direction="write"
                 ),
-                "source": source,
-                "subdomain": subdomain,
-                "subscriptionId": subscription_id,
+                "paymentDetails": convert_and_respect_annotation_metadata(
+                    object_=payment_details, annotation=RequestOutAuthorizePaymentDetails, direction="write"
+                ),
                 "vendorData": convert_and_respect_annotation_metadata(
                     object_=vendor_data, annotation=RequestOutAuthorizeVendorData, direction="write"
                 ),
+                "invoiceData": convert_and_respect_annotation_metadata(
+                    object_=invoice_data, annotation=typing.Sequence[RequestOutAuthorizeInvoiceData], direction="write"
+                ),
+                "accountId": account_id,
+                "subdomain": subdomain,
+                "subscriptionId": subscription_id,
             },
             headers={
                 "content-type": "application/json",
@@ -1021,9 +1031,9 @@ class AsyncRawMoneyOutClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    PayabliApiResponse11,
+                    AuthCapturePayoutResponse,
                     parse_obj_as(
-                        type_=PayabliApiResponse11,  # type: ignore
+                        type_=AuthCapturePayoutResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1347,7 +1357,7 @@ class AsyncRawMoneyOutClient:
         *,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PayabliApiResponse11]:
+    ) -> AsyncHttpResponse[AuthCapturePayoutResponse]:
         """
         Captures a single authorized payout transaction by ID.
 
@@ -1363,7 +1373,7 @@ class AsyncRawMoneyOutClient:
 
         Returns
         -------
-        AsyncHttpResponse[PayabliApiResponse11]
+        AsyncHttpResponse[AuthCapturePayoutResponse]
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -1377,9 +1387,9 @@ class AsyncRawMoneyOutClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    PayabliApiResponse11,
+                    AuthCapturePayoutResponse,
                     parse_obj_as(
-                        type_=PayabliApiResponse11,  # type: ignore
+                        type_=AuthCapturePayoutResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

@@ -7,7 +7,6 @@ import typing_extensions
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ...core.serialization import FieldMetadata
 from ...types.accountid import Accountid
-from ...types.bill_pay_out_data_request import BillPayOutDataRequest
 from ...types.entrypointfield import Entrypointfield
 from ...types.order_id import OrderId
 from ...types.orderdescription import Orderdescription
@@ -15,24 +14,19 @@ from ...types.source import Source
 from ...types.subdomain import Subdomain
 from ...types.subscriptionid import Subscriptionid
 from ...types.vendor_payment_method import VendorPaymentMethod
+from .request_out_authorize_invoice_data import RequestOutAuthorizeInvoiceData
 from .request_out_authorize_payment_details import RequestOutAuthorizePaymentDetails
 from .request_out_authorize_vendor_data import RequestOutAuthorizeVendorData
 
 
 class AuthorizePayoutBody(UniversalBaseModel):
-    account_id: typing_extensions.Annotated[typing.Optional[Accountid], FieldMetadata(alias="accountId")] = None
     entry_point: typing_extensions.Annotated[Entrypointfield, FieldMetadata(alias="entryPoint")]
-    invoice_data: typing_extensions.Annotated[
-        typing.Optional[typing.List[BillPayOutDataRequest]], FieldMetadata(alias="invoiceData")
-    ] = pydantic.Field(default=None)
-    """
-    Array of bills associated to the transaction
-    """
-
+    source: typing.Optional[Source] = None
+    order_id: typing_extensions.Annotated[typing.Optional[OrderId], FieldMetadata(alias="orderId")] = None
     order_description: typing_extensions.Annotated[
         typing.Optional[Orderdescription], FieldMetadata(alias="orderDescription")
     ] = None
-    order_id: typing_extensions.Annotated[typing.Optional[OrderId], FieldMetadata(alias="orderId")] = None
+    payment_method: typing_extensions.Annotated[VendorPaymentMethod, FieldMetadata(alias="paymentMethod")]
     payment_details: typing_extensions.Annotated[
         RequestOutAuthorizePaymentDetails, FieldMetadata(alias="paymentDetails")
     ] = pydantic.Field()
@@ -40,20 +34,30 @@ class AuthorizePayoutBody(UniversalBaseModel):
     Object containing payment details.
     """
 
-    payment_method: typing_extensions.Annotated[
-        typing.Optional[VendorPaymentMethod], FieldMetadata(alias="paymentMethod")
-    ] = None
-    source: typing.Optional[Source] = None
-    subdomain: typing.Optional[Subdomain] = None
-    subscription_id: typing_extensions.Annotated[
-        typing.Optional[Subscriptionid], FieldMetadata(alias="subscriptionId")
-    ] = None
     vendor_data: typing_extensions.Annotated[RequestOutAuthorizeVendorData, FieldMetadata(alias="vendorData")] = (
         pydantic.Field()
     )
     """
     Object containing vendor data.
+    <Note>
+      When creating a new vendor in a payout authorization, the system first checks `billingData` for the vendor's billing information.
+      If `billingData` is empty, it falls back to the `paymentMethod` object information.
+      For existing vendors, `paymentMethod` is ignored unless a `storedMethodId` is provided.
+    </Note>
     """
+
+    invoice_data: typing_extensions.Annotated[
+        typing.List[RequestOutAuthorizeInvoiceData], FieldMetadata(alias="invoiceData")
+    ] = pydantic.Field()
+    """
+    Array of bills associated to the transaction
+    """
+
+    account_id: typing_extensions.Annotated[typing.Optional[Accountid], FieldMetadata(alias="accountId")] = None
+    subdomain: typing.Optional[Subdomain] = None
+    subscription_id: typing_extensions.Annotated[
+        typing.Optional[Subscriptionid], FieldMetadata(alias="subscriptionId")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

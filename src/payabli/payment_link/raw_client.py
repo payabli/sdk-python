@@ -16,6 +16,7 @@ from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.contact_element import ContactElement
 from ..types.element import Element
+from ..types.entry import Entry
 from ..types.header_element import HeaderElement
 from ..types.idempotency_key import IdempotencyKey
 from ..types.invoice_element import InvoiceElement
@@ -25,10 +26,10 @@ from ..types.note_element import NoteElement
 from ..types.page_element import PageElement
 from ..types.pagelink_setting import PagelinkSetting
 from ..types.payabli_api_response import PayabliApiResponse
-from ..types.payabli_api_response_payment_links import PayabliApiResponsePaymentLinks
 from ..types.payor_element import PayorElement
 from ..types.push_pay_link_request import PushPayLinkRequest
 from .types.get_pay_link_from_id_response import GetPayLinkFromIdResponse
+from .types.payabli_api_response_payment_links import PayabliApiResponsePaymentLinks
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -117,6 +118,189 @@ class RawPaymentLinkClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"PaymentLink/{jsonable_encoder(id_invoice)}",
+            method="POST",
+            params={
+                "amountFixed": amount_fixed,
+                "mail2": mail_2,
+            },
+            json={
+                "contactUs": convert_and_respect_annotation_metadata(
+                    object_=contact_us, annotation=ContactElement, direction="write"
+                ),
+                "invoices": convert_and_respect_annotation_metadata(
+                    object_=invoices, annotation=InvoiceElement, direction="write"
+                ),
+                "logo": convert_and_respect_annotation_metadata(object_=logo, annotation=Element, direction="write"),
+                "messageBeforePaying": convert_and_respect_annotation_metadata(
+                    object_=message_before_paying, annotation=LabelElement, direction="write"
+                ),
+                "notes": convert_and_respect_annotation_metadata(
+                    object_=notes, annotation=NoteElement, direction="write"
+                ),
+                "page": convert_and_respect_annotation_metadata(
+                    object_=page, annotation=PageElement, direction="write"
+                ),
+                "paymentButton": convert_and_respect_annotation_metadata(
+                    object_=payment_button, annotation=LabelElement, direction="write"
+                ),
+                "paymentMethods": convert_and_respect_annotation_metadata(
+                    object_=payment_methods, annotation=MethodElement, direction="write"
+                ),
+                "payor": convert_and_respect_annotation_metadata(
+                    object_=payor, annotation=PayorElement, direction="write"
+                ),
+                "review": convert_and_respect_annotation_metadata(
+                    object_=review, annotation=HeaderElement, direction="write"
+                ),
+                "settings": convert_and_respect_annotation_metadata(
+                    object_=settings, annotation=PagelinkSetting, direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+                "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PayabliApiResponsePaymentLinks,
+                    parse_obj_as(
+                        type_=PayabliApiResponsePaymentLinks,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def add_pay_link_from_bill(
+        self,
+        bill_id: int,
+        *,
+        amount_fixed: typing.Optional[bool] = None,
+        mail_2: typing.Optional[str] = None,
+        idempotency_key: typing.Optional[IdempotencyKey] = None,
+        contact_us: typing.Optional[ContactElement] = OMIT,
+        invoices: typing.Optional[InvoiceElement] = OMIT,
+        logo: typing.Optional[Element] = OMIT,
+        message_before_paying: typing.Optional[LabelElement] = OMIT,
+        notes: typing.Optional[NoteElement] = OMIT,
+        page: typing.Optional[PageElement] = OMIT,
+        payment_button: typing.Optional[LabelElement] = OMIT,
+        payment_methods: typing.Optional[MethodElement] = OMIT,
+        payor: typing.Optional[PayorElement] = OMIT,
+        review: typing.Optional[HeaderElement] = OMIT,
+        settings: typing.Optional[PagelinkSetting] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[PayabliApiResponsePaymentLinks]:
+        """
+        Generates a payment link for a bill from the bill ID.
+
+        Parameters
+        ----------
+        bill_id : int
+            The Payabli ID for the bill.
+
+        amount_fixed : typing.Optional[bool]
+            Indicates whether customer can modify the payment amount. A value of `true` means the amount isn't modifiable, a value `false` means the payor can modify the amount to pay.
+
+        mail_2 : typing.Optional[str]
+            List of recipient email addresses. When there is more than one, separate them by a semicolon (;).
+
+        idempotency_key : typing.Optional[IdempotencyKey]
+
+        contact_us : typing.Optional[ContactElement]
+            ContactUs section of payment link page
+
+        invoices : typing.Optional[InvoiceElement]
+            Invoices section of payment link page
+
+        logo : typing.Optional[Element]
+            Logo section of payment link page
+
+        message_before_paying : typing.Optional[LabelElement]
+            Message section of payment link page
+
+        notes : typing.Optional[NoteElement]
+            Notes section of payment link page
+
+        page : typing.Optional[PageElement]
+            Page header section of payment link page
+
+        payment_button : typing.Optional[LabelElement]
+            Payment button section of payment link page
+
+        payment_methods : typing.Optional[MethodElement]
+            Payment methods section of payment link page
+
+        payor : typing.Optional[PayorElement]
+            Customer/Payor section of payment link page
+
+        review : typing.Optional[HeaderElement]
+            Review section of payment link page
+
+        settings : typing.Optional[PagelinkSetting]
+            Settings section of payment link page
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[PayabliApiResponsePaymentLinks]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"PaymentLink/bill/{jsonable_encoder(bill_id)}",
             method="POST",
             params={
                 "amountFixed": amount_fixed,
@@ -823,6 +1007,194 @@ class RawPaymentLinkClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def add_pay_link_from_bill_lot_number(
+        self,
+        lot_number: str,
+        *,
+        entry_point: Entry,
+        vendor_number: str,
+        mail_2: typing.Optional[str] = None,
+        amount_fixed: typing.Optional[str] = None,
+        contact_us: typing.Optional[ContactElement] = OMIT,
+        invoices: typing.Optional[InvoiceElement] = OMIT,
+        logo: typing.Optional[Element] = OMIT,
+        message_before_paying: typing.Optional[LabelElement] = OMIT,
+        notes: typing.Optional[NoteElement] = OMIT,
+        page: typing.Optional[PageElement] = OMIT,
+        payment_button: typing.Optional[LabelElement] = OMIT,
+        payment_methods: typing.Optional[MethodElement] = OMIT,
+        payor: typing.Optional[PayorElement] = OMIT,
+        review: typing.Optional[HeaderElement] = OMIT,
+        settings: typing.Optional[PagelinkSetting] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[PayabliApiResponsePaymentLinks]:
+        """
+        Generates a vendor payment link for a specific bill lot number. This allows you to pay all bills with the same lot number for a vendor with a single payment link.
+
+        Parameters
+        ----------
+        lot_number : str
+            Lot number of the bills to pay. All bills with this lot number will be included.
+
+        entry_point : Entry
+
+        vendor_number : str
+            The vendor number for the vendor being paid with this payment link.
+
+        mail_2 : typing.Optional[str]
+            List of recipient email addresses. When there is more than one, separate them by a semicolon (;).
+
+        amount_fixed : typing.Optional[str]
+            Indicates whether customer can modify the payment amount. A value of `true` means the amount isn't modifiable, a value `false` means the payor can modify the amount to pay.
+
+        contact_us : typing.Optional[ContactElement]
+            ContactUs section of payment link page
+
+        invoices : typing.Optional[InvoiceElement]
+            Invoices section of payment link page
+
+        logo : typing.Optional[Element]
+            Logo section of payment link page
+
+        message_before_paying : typing.Optional[LabelElement]
+            Message section of payment link page
+
+        notes : typing.Optional[NoteElement]
+            Notes section of payment link page
+
+        page : typing.Optional[PageElement]
+            Page header section of payment link page
+
+        payment_button : typing.Optional[LabelElement]
+            Payment button section of payment link page
+
+        payment_methods : typing.Optional[MethodElement]
+            Payment methods section of payment link page
+
+        payor : typing.Optional[PayorElement]
+            Customer/Payor section of payment link page
+
+        review : typing.Optional[HeaderElement]
+            Review section of payment link page
+
+        settings : typing.Optional[PagelinkSetting]
+            Settings section of payment link page
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[PayabliApiResponsePaymentLinks]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"PaymentLink/bill/lotNumber/{jsonable_encoder(lot_number)}",
+            method="POST",
+            params={
+                "entryPoint": entry_point,
+                "vendorNumber": vendor_number,
+                "mail2": mail_2,
+                "amountFixed": amount_fixed,
+            },
+            json={
+                "contactUs": convert_and_respect_annotation_metadata(
+                    object_=contact_us, annotation=ContactElement, direction="write"
+                ),
+                "invoices": convert_and_respect_annotation_metadata(
+                    object_=invoices, annotation=InvoiceElement, direction="write"
+                ),
+                "logo": convert_and_respect_annotation_metadata(object_=logo, annotation=Element, direction="write"),
+                "messageBeforePaying": convert_and_respect_annotation_metadata(
+                    object_=message_before_paying, annotation=LabelElement, direction="write"
+                ),
+                "notes": convert_and_respect_annotation_metadata(
+                    object_=notes, annotation=NoteElement, direction="write"
+                ),
+                "page": convert_and_respect_annotation_metadata(
+                    object_=page, annotation=PageElement, direction="write"
+                ),
+                "paymentButton": convert_and_respect_annotation_metadata(
+                    object_=payment_button, annotation=LabelElement, direction="write"
+                ),
+                "paymentMethods": convert_and_respect_annotation_metadata(
+                    object_=payment_methods, annotation=MethodElement, direction="write"
+                ),
+                "payor": convert_and_respect_annotation_metadata(
+                    object_=payor, annotation=PayorElement, direction="write"
+                ),
+                "review": convert_and_respect_annotation_metadata(
+                    object_=review, annotation=HeaderElement, direction="write"
+                ),
+                "settings": convert_and_respect_annotation_metadata(
+                    object_=settings, annotation=PagelinkSetting, direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PayabliApiResponsePaymentLinks,
+                    parse_obj_as(
+                        type_=PayabliApiResponsePaymentLinks,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
 
 class AsyncRawPaymentLinkClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -907,6 +1279,189 @@ class AsyncRawPaymentLinkClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"PaymentLink/{jsonable_encoder(id_invoice)}",
+            method="POST",
+            params={
+                "amountFixed": amount_fixed,
+                "mail2": mail_2,
+            },
+            json={
+                "contactUs": convert_and_respect_annotation_metadata(
+                    object_=contact_us, annotation=ContactElement, direction="write"
+                ),
+                "invoices": convert_and_respect_annotation_metadata(
+                    object_=invoices, annotation=InvoiceElement, direction="write"
+                ),
+                "logo": convert_and_respect_annotation_metadata(object_=logo, annotation=Element, direction="write"),
+                "messageBeforePaying": convert_and_respect_annotation_metadata(
+                    object_=message_before_paying, annotation=LabelElement, direction="write"
+                ),
+                "notes": convert_and_respect_annotation_metadata(
+                    object_=notes, annotation=NoteElement, direction="write"
+                ),
+                "page": convert_and_respect_annotation_metadata(
+                    object_=page, annotation=PageElement, direction="write"
+                ),
+                "paymentButton": convert_and_respect_annotation_metadata(
+                    object_=payment_button, annotation=LabelElement, direction="write"
+                ),
+                "paymentMethods": convert_and_respect_annotation_metadata(
+                    object_=payment_methods, annotation=MethodElement, direction="write"
+                ),
+                "payor": convert_and_respect_annotation_metadata(
+                    object_=payor, annotation=PayorElement, direction="write"
+                ),
+                "review": convert_and_respect_annotation_metadata(
+                    object_=review, annotation=HeaderElement, direction="write"
+                ),
+                "settings": convert_and_respect_annotation_metadata(
+                    object_=settings, annotation=PagelinkSetting, direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+                "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PayabliApiResponsePaymentLinks,
+                    parse_obj_as(
+                        type_=PayabliApiResponsePaymentLinks,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def add_pay_link_from_bill(
+        self,
+        bill_id: int,
+        *,
+        amount_fixed: typing.Optional[bool] = None,
+        mail_2: typing.Optional[str] = None,
+        idempotency_key: typing.Optional[IdempotencyKey] = None,
+        contact_us: typing.Optional[ContactElement] = OMIT,
+        invoices: typing.Optional[InvoiceElement] = OMIT,
+        logo: typing.Optional[Element] = OMIT,
+        message_before_paying: typing.Optional[LabelElement] = OMIT,
+        notes: typing.Optional[NoteElement] = OMIT,
+        page: typing.Optional[PageElement] = OMIT,
+        payment_button: typing.Optional[LabelElement] = OMIT,
+        payment_methods: typing.Optional[MethodElement] = OMIT,
+        payor: typing.Optional[PayorElement] = OMIT,
+        review: typing.Optional[HeaderElement] = OMIT,
+        settings: typing.Optional[PagelinkSetting] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[PayabliApiResponsePaymentLinks]:
+        """
+        Generates a payment link for a bill from the bill ID.
+
+        Parameters
+        ----------
+        bill_id : int
+            The Payabli ID for the bill.
+
+        amount_fixed : typing.Optional[bool]
+            Indicates whether customer can modify the payment amount. A value of `true` means the amount isn't modifiable, a value `false` means the payor can modify the amount to pay.
+
+        mail_2 : typing.Optional[str]
+            List of recipient email addresses. When there is more than one, separate them by a semicolon (;).
+
+        idempotency_key : typing.Optional[IdempotencyKey]
+
+        contact_us : typing.Optional[ContactElement]
+            ContactUs section of payment link page
+
+        invoices : typing.Optional[InvoiceElement]
+            Invoices section of payment link page
+
+        logo : typing.Optional[Element]
+            Logo section of payment link page
+
+        message_before_paying : typing.Optional[LabelElement]
+            Message section of payment link page
+
+        notes : typing.Optional[NoteElement]
+            Notes section of payment link page
+
+        page : typing.Optional[PageElement]
+            Page header section of payment link page
+
+        payment_button : typing.Optional[LabelElement]
+            Payment button section of payment link page
+
+        payment_methods : typing.Optional[MethodElement]
+            Payment methods section of payment link page
+
+        payor : typing.Optional[PayorElement]
+            Customer/Payor section of payment link page
+
+        review : typing.Optional[HeaderElement]
+            Review section of payment link page
+
+        settings : typing.Optional[PagelinkSetting]
+            Settings section of payment link page
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[PayabliApiResponsePaymentLinks]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"PaymentLink/bill/{jsonable_encoder(bill_id)}",
             method="POST",
             params={
                 "amountFixed": amount_fixed,
@@ -1540,6 +2095,194 @@ class AsyncRawPaymentLinkClient:
                 ),
                 "paymentMethods": convert_and_respect_annotation_metadata(
                     object_=payment_methods, annotation=MethodElement, direction="write"
+                ),
+                "review": convert_and_respect_annotation_metadata(
+                    object_=review, annotation=HeaderElement, direction="write"
+                ),
+                "settings": convert_and_respect_annotation_metadata(
+                    object_=settings, annotation=PagelinkSetting, direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PayabliApiResponsePaymentLinks,
+                    parse_obj_as(
+                        type_=PayabliApiResponsePaymentLinks,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def add_pay_link_from_bill_lot_number(
+        self,
+        lot_number: str,
+        *,
+        entry_point: Entry,
+        vendor_number: str,
+        mail_2: typing.Optional[str] = None,
+        amount_fixed: typing.Optional[str] = None,
+        contact_us: typing.Optional[ContactElement] = OMIT,
+        invoices: typing.Optional[InvoiceElement] = OMIT,
+        logo: typing.Optional[Element] = OMIT,
+        message_before_paying: typing.Optional[LabelElement] = OMIT,
+        notes: typing.Optional[NoteElement] = OMIT,
+        page: typing.Optional[PageElement] = OMIT,
+        payment_button: typing.Optional[LabelElement] = OMIT,
+        payment_methods: typing.Optional[MethodElement] = OMIT,
+        payor: typing.Optional[PayorElement] = OMIT,
+        review: typing.Optional[HeaderElement] = OMIT,
+        settings: typing.Optional[PagelinkSetting] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[PayabliApiResponsePaymentLinks]:
+        """
+        Generates a vendor payment link for a specific bill lot number. This allows you to pay all bills with the same lot number for a vendor with a single payment link.
+
+        Parameters
+        ----------
+        lot_number : str
+            Lot number of the bills to pay. All bills with this lot number will be included.
+
+        entry_point : Entry
+
+        vendor_number : str
+            The vendor number for the vendor being paid with this payment link.
+
+        mail_2 : typing.Optional[str]
+            List of recipient email addresses. When there is more than one, separate them by a semicolon (;).
+
+        amount_fixed : typing.Optional[str]
+            Indicates whether customer can modify the payment amount. A value of `true` means the amount isn't modifiable, a value `false` means the payor can modify the amount to pay.
+
+        contact_us : typing.Optional[ContactElement]
+            ContactUs section of payment link page
+
+        invoices : typing.Optional[InvoiceElement]
+            Invoices section of payment link page
+
+        logo : typing.Optional[Element]
+            Logo section of payment link page
+
+        message_before_paying : typing.Optional[LabelElement]
+            Message section of payment link page
+
+        notes : typing.Optional[NoteElement]
+            Notes section of payment link page
+
+        page : typing.Optional[PageElement]
+            Page header section of payment link page
+
+        payment_button : typing.Optional[LabelElement]
+            Payment button section of payment link page
+
+        payment_methods : typing.Optional[MethodElement]
+            Payment methods section of payment link page
+
+        payor : typing.Optional[PayorElement]
+            Customer/Payor section of payment link page
+
+        review : typing.Optional[HeaderElement]
+            Review section of payment link page
+
+        settings : typing.Optional[PagelinkSetting]
+            Settings section of payment link page
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[PayabliApiResponsePaymentLinks]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"PaymentLink/bill/lotNumber/{jsonable_encoder(lot_number)}",
+            method="POST",
+            params={
+                "entryPoint": entry_point,
+                "vendorNumber": vendor_number,
+                "mail2": mail_2,
+                "amountFixed": amount_fixed,
+            },
+            json={
+                "contactUs": convert_and_respect_annotation_metadata(
+                    object_=contact_us, annotation=ContactElement, direction="write"
+                ),
+                "invoices": convert_and_respect_annotation_metadata(
+                    object_=invoices, annotation=InvoiceElement, direction="write"
+                ),
+                "logo": convert_and_respect_annotation_metadata(object_=logo, annotation=Element, direction="write"),
+                "messageBeforePaying": convert_and_respect_annotation_metadata(
+                    object_=message_before_paying, annotation=LabelElement, direction="write"
+                ),
+                "notes": convert_and_respect_annotation_metadata(
+                    object_=notes, annotation=NoteElement, direction="write"
+                ),
+                "page": convert_and_respect_annotation_metadata(
+                    object_=page, annotation=PageElement, direction="write"
+                ),
+                "paymentButton": convert_and_respect_annotation_metadata(
+                    object_=payment_button, annotation=LabelElement, direction="write"
+                ),
+                "paymentMethods": convert_and_respect_annotation_metadata(
+                    object_=payment_methods, annotation=MethodElement, direction="write"
+                ),
+                "payor": convert_and_respect_annotation_metadata(
+                    object_=payor, annotation=PayorElement, direction="write"
                 ),
                 "review": convert_and_respect_annotation_metadata(
                     object_=review, annotation=HeaderElement, direction="write"

@@ -22,7 +22,7 @@ from .legalname import Legalname
 from .netamountnullable import Netamountnullable
 from .org_parent_name import OrgParentName
 from .orgid import Orgid
-from .paymentid import Paymentid
+from .payment_id_string import PaymentIdString
 from .payout_program import PayoutProgram
 from .query_payment_data import QueryPaymentData
 from .query_transaction_events import QueryTransactionEvents
@@ -131,7 +131,7 @@ class TransactionOutQueryRecord(UniversalBaseModel):
     Object referencing to paper check image.
     """
 
-    payment_id: typing_extensions.Annotated[typing.Optional[Paymentid], FieldMetadata(alias="PaymentId")] = None
+    payment_id: typing_extensions.Annotated[typing.Optional[PaymentIdString], FieldMetadata(alias="PaymentId")] = None
     payment_data: typing_extensions.Annotated[typing.Optional[QueryPaymentData], FieldMetadata(alias="PaymentData")] = (
         None
     )

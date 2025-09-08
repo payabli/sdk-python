@@ -13526,7 +13526,7 @@ client.money_in.void(
 <dl>
 <dd>
 
-Authorizes transaction for payout. Authorized transactions aren't flagged for settlement until captured. Use `referenceId` returned in the response to capture the transaction.
+Authorizes transaction for payout. Authorized transactions aren't flagged for settlement until captured. Use `referenceId` returned in the response to capture the transaction. 
 </dd>
 </dl>
 </dd>
@@ -13541,9 +13541,13 @@ Authorizes transaction for payout. Authorized transactions aren't flagged for se
 <dd>
 
 ```python
-from payabli import BillPayOutDataRequest, VendorPaymentMethod, payabli
-from payabli.money_out import (
+import datetime
+
+from payabli import Contacts, VendorPaymentMethod, payabli
+from payabli.money_out_types import (
+    RequestOutAuthorizeInvoiceData,
     RequestOutAuthorizePaymentDetails,
+    RequestOutAuthorizeVendorBillingData,
     RequestOutAuthorizeVendorData,
 )
 
@@ -13551,24 +13555,62 @@ client = payabli(
     api_key="YOUR_API_KEY",
 )
 client.money_out.authorize_out(
-    entry_point="48acde49",
-    source="api",
-    invoice_data=[
-        BillPayOutDataRequest(
-            bill_id=54323,
-        )
-    ],
-    order_description="Window Painting",
+    entry_point="47ced57b",
     payment_method=VendorPaymentMethod(
         method="ach",
-        stored_method_id="4c6a4b78-72de-4bdd-9455-b9d30f991001-XXXX",
     ),
     payment_details=RequestOutAuthorizePaymentDetails(
-        total_amount=47.0,
+        total_amount=978.32,
     ),
     vendor_data=RequestOutAuthorizeVendorData(
-        vendor_number="7895433",
+        vendor_number="Vendor3800638299609471",
+        name_1="Heritage Pro Company",
+        name_2="",
+        ein="473771889",
+        phone="7868342364",
+        email="contact570@heritagepro.com",
+        address_1="478 Mittie Roads",
+        city="Jakubowskifield",
+        state="WI",
+        zip="45993",
+        country="US",
+        mcc="0763",
+        location_code="tpa",
+        contacts=[
+            Contacts(
+                contact_name="Dax",
+                contact_email="Mandy65@heritagepro.com",
+                contact_phone="996-325-5420 x31028",
+            )
+        ],
+        billing_data=RequestOutAuthorizeVendorBillingData(
+            bank_name="Chase",
+            routing_account="011401533",
+            account_number="1237658922",
+            type_account="Savings",
+            bank_account_holder_name="Payabli",
+        ),
+        vendor_status=1,
+        remit_address_1="727 Terrell Streets",
+        remit_address_2="Apt. 773",
+        remit_city="South Nicholeside",
+        remit_state="ID",
+        remit_zip="72951-9790",
+        remit_country="US",
     ),
+    invoice_data=[
+        RequestOutAuthorizeInvoiceData(
+            invoice_number="VI3BvwTG",
+            net_amount="1",
+            invoice_date=datetime.date.fromisoformat(
+                "2026-09-03",
+            ),
+            due_date=datetime.date.fromisoformat(
+                "2026-11-04",
+            ),
+            comments="Building Repairs - Community event setup (System updates)",
+        )
+    ],
 )
 
 ```
@@ -13593,6 +13635,14 @@ client.money_out.authorize_out(
 <dl>
 <dd>
 
+**payment_method:** `VendorPaymentMethod` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **payment_details:** `RequestOutAuthorizePaymentDetails` — Object containing payment details.
     
 </dd>
@@ -13601,7 +13651,22 @@ client.money_out.authorize_out(
 <dl>
 <dd>
 
-**vendor_data:** `RequestOutAuthorizeVendorData` — Object containing vendor data.
+**vendor_data:** `RequestOutAuthorizeVendorData` 
+
+Object containing vendor data.
+<Note>
+  When creating a new vendor in a payout authorization, the system first checks `billingData` for the vendor's billing information.
+  If `billingData` is empty, it falls back to the `paymentMethod` object information.
+  For existing vendors, `paymentMethod` is ignored unless a `storedMethodId` is provided.
+</Note>
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**invoice_data:** `typing.Sequence[RequestOutAuthorizeInvoiceData]` — Array of bills associated to the transaction
     
 </dd>
 </dl>
@@ -13641,23 +13706,7 @@ client.money_out.authorize_out(
 <dl>
 <dd>
 
-**account_id:** `typing.Optional[Accountid]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**invoice_data:** `typing.Optional[typing.Sequence[BillPayOutDataRequest]]` — Array of bills associated to the transaction
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**order_description:** `typing.Optional[Orderdescription]` 
+**source:** `typing.Optional[Source]` 
     
 </dd>
 </dl>
@@ -13673,7 +13722,7 @@ client.money_out.authorize_out(
 <dl>
 <dd>
 
-**payment_method:** `typing.Optional[VendorPaymentMethod]` 
+**order_description:** `typing.Optional[Orderdescription]` 
     
 </dd>
 </dl>
@@ -13681,7 +13730,7 @@ client.money_out.authorize_out(
 <dl>
 <dd>
 
-**source:** `typing.Optional[Source]` 
+**account_id:** `typing.Optional[Accountid]` 
     
 </dd>
 </dl>
@@ -16034,6 +16083,279 @@ client.payment_link.add_pay_link_from_invoice(
 </dl>
 </details>
 
+<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">add_pay_link_from_bill</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Generates a payment link for a bill from the bill ID. 
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import (
+    ContactElement,
+    Element,
+    HeaderElement,
+    LabelElement,
+    MethodElement,
+    MethodsList,
+    NoteElement,
+    PageElement,
+    PagelinkSetting,
+    PayorElement,
+    PayorFields,
+    payabli,
+)
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.payment_link.add_pay_link_from_bill(
+    bill_id=23548884,
+    mail_2="jo@example.com; ceo@example.com",
+    contact_us=ContactElement(
+        email_label="Email",
+        enabled=True,
+        header="Contact Us",
+        order=0,
+        payment_icons=True,
+        phone_label="Phone",
+    ),
+    logo=Element(
+        enabled=True,
+        order=0,
+    ),
+    message_before_paying=LabelElement(
+        enabled=True,
+        label="Please review your payment details",
+        order=0,
+    ),
+    notes=NoteElement(
+        enabled=True,
+        header="Additional Notes",
+        order=0,
+        placeholder="Enter any additional notes here",
+        value="",
+    ),
+    page=PageElement(
+        description="Get paid securely",
+        enabled=True,
+        header="Payment Page",
+        order=0,
+    ),
+    payment_button=LabelElement(
+        enabled=True,
+        label="Pay Now",
+        order=0,
+    ),
+    payment_methods=MethodElement(
+        all_methods_checked=True,
+        enabled=True,
+        header="Payment Methods",
+        methods=MethodsList(
+            amex=True,
+            apple_pay=True,
+            discover=True,
+            e_check=True,
+            mastercard=True,
+            visa=True,
+        ),
+        order=0,
+    ),
+    payor=PayorElement(
+        enabled=True,
+        fields=[
+            PayorFields(
+                display=True,
+                fixed=True,
+                identifier=True,
+                label="Full Name",
+                name="fullName",
+                order=0,
+                required=True,
+                validation="^[a-zA-Z ]+$",
+                value="",
+                width=0,
+            )
+        ],
+        header="Payor Information",
+        order=0,
+    ),
+    review=HeaderElement(
+        enabled=True,
+        header="Review Payment",
+        order=0,
+    ),
+    settings=PagelinkSetting(
+        color="#000000",
+        language="en",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**bill_id:** `int` — The Payabli ID for the bill.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**amount_fixed:** `typing.Optional[bool]` — Indicates whether customer can modify the payment amount. A value of `true` means the amount isn't modifiable, a value `false` means the payor can modify the amount to pay.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**mail_2:** `typing.Optional[str]` — List of recipient email addresses. When there is more than one, separate them by a semicolon (;).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotency_key:** `typing.Optional[IdempotencyKey]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**contact_us:** `typing.Optional[ContactElement]` — ContactUs section of payment link page
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**invoices:** `typing.Optional[InvoiceElement]` — Invoices section of payment link page
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**logo:** `typing.Optional[Element]` — Logo section of payment link page
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**message_before_paying:** `typing.Optional[LabelElement]` — Message section of payment link page
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**notes:** `typing.Optional[NoteElement]` — Notes section of payment link page
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page:** `typing.Optional[PageElement]` — Page header section of payment link page
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payment_button:** `typing.Optional[LabelElement]` — Payment button section of payment link page
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payment_methods:** `typing.Optional[MethodElement]` — Payment methods section of payment link page
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payor:** `typing.Optional[PayorElement]` — Customer/Payor section of payment link page
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**review:** `typing.Optional[HeaderElement]` — Review section of payment link page
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**settings:** `typing.Optional[PagelinkSetting]` — Settings section of payment link page
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">delete_pay_link_from_id</a>(...)</code></summary>
 <dl>
 <dd>
@@ -16540,6 +16862,290 @@ client.payment_link.update_pay_link_from_id(
 <dd>
 
 **payment_methods:** `typing.Optional[MethodElement]` — Payment methods section of payment link page
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**review:** `typing.Optional[HeaderElement]` — Review section of payment link page
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**settings:** `typing.Optional[PagelinkSetting]` — Settings section of payment link page
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">add_pay_link_from_bill_lot_number</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Generates a vendor payment link for a specific bill lot number. This allows you to pay all bills with the same lot number for a vendor with a single payment link.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import (
+    ContactElement,
+    Element,
+    HeaderElement,
+    LabelElement,
+    MethodElement,
+    MethodsList,
+    NoteElement,
+    PageElement,
+    PagelinkSetting,
+    PayorElement,
+    PayorFields,
+    payabli,
+)
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.payment_link.add_pay_link_from_bill_lot_number(
+    lot_number="LOT-2024-001",
+    entry_point="billing",
+    vendor_number="VENDOR-123",
+    mail_2="customer@example.com; billing@example.com",
+    amount_fixed="true",
+    contact_us=ContactElement(
+        email_label="Email",
+        enabled=True,
+        header="Contact Us",
+        order=0,
+        payment_icons=True,
+        phone_label="Phone",
+    ),
+    logo=Element(
+        enabled=True,
+        order=0,
+    ),
+    message_before_paying=LabelElement(
+        enabled=True,
+        label="Please review your payment details",
+        order=0,
+    ),
+    notes=NoteElement(
+        enabled=True,
+        header="Additional Notes",
+        order=0,
+        placeholder="Enter any additional notes here",
+        value="",
+    ),
+    page=PageElement(
+        description="Get paid securely",
+        enabled=True,
+        header="Payment Page",
+        order=0,
+    ),
+    payment_button=LabelElement(
+        enabled=True,
+        label="Pay Now",
+        order=0,
+    ),
+    payment_methods=MethodElement(
+        all_methods_checked=True,
+        enabled=True,
+        header="Payment Methods",
+        methods=MethodsList(
+            amex=True,
+            apple_pay=True,
+            discover=True,
+            e_check=True,
+            mastercard=True,
+            visa=True,
+        ),
+        order=0,
+    ),
+    payor=PayorElement(
+        enabled=True,
+        fields=[
+            PayorFields(
+                display=True,
+                fixed=True,
+                identifier=True,
+                label="Full Name",
+                name="fullName",
+                order=0,
+                required=True,
+                validation="^[a-zA-Z ]+$",
+                value="",
+                width=0,
+            )
+        ],
+        header="Payor Information",
+        order=0,
+    ),
+    review=HeaderElement(
+        enabled=True,
+        header="Review Payment",
+        order=0,
+    ),
+    settings=PagelinkSetting(
+        color="#000000",
+        language="en",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**lot_number:** `str` — Lot number of the bills to pay. All bills with this lot number will be included.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**entry_point:** `Entry` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**vendor_number:** `str` — The vendor number for the vendor being paid with this payment link.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**mail_2:** `typing.Optional[str]` — List of recipient email addresses. When there is more than one, separate them by a semicolon (;).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**amount_fixed:** `typing.Optional[str]` — Indicates whether customer can modify the payment amount. A value of `true` means the amount isn't modifiable, a value `false` means the payor can modify the amount to pay.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**contact_us:** `typing.Optional[ContactElement]` — ContactUs section of payment link page
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**invoices:** `typing.Optional[InvoiceElement]` — Invoices section of payment link page
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**logo:** `typing.Optional[Element]` — Logo section of payment link page
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**message_before_paying:** `typing.Optional[LabelElement]` — Message section of payment link page
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**notes:** `typing.Optional[NoteElement]` — Notes section of payment link page
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page:** `typing.Optional[PageElement]` — Page header section of payment link page
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payment_button:** `typing.Optional[LabelElement]` — Payment button section of payment link page
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payment_methods:** `typing.Optional[MethodElement]` — Payment methods section of payment link page
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payor:** `typing.Optional[PayorElement]` — Customer/Payor section of payment link page
     
 </dd>
 </dl>

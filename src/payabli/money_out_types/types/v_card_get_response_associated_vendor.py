@@ -9,6 +9,7 @@ from ...core.serialization import FieldMetadata
 from ...types.dbaname import Dbaname
 from ...types.external_paypoint_id import ExternalPaypointId
 from ...types.legalname import Legalname
+from ...types.location_code import LocationCode
 from ...types.org_parent_name import OrgParentName
 from ...types.remitaddress_1 import Remitaddress1
 from ...types.remitaddress_2 import Remitaddress2
@@ -116,13 +117,9 @@ class VCardGetResponseAssociatedVendor(UniversalBaseModel):
     Merchant Category Code for the vendor.
     """
 
-    location_code: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="LocationCode")] = (
-        pydantic.Field(default=None)
+    location_code: typing_extensions.Annotated[typing.Optional[LocationCode], FieldMetadata(alias="LocationCode")] = (
+        None
     )
-    """
-    Unique location code for the vendor.
-    """
-
     contacts: typing_extensions.Annotated[
         typing.Optional[typing.List[VCardGetResponseContact]], FieldMetadata(alias="Contacts")
     ] = pydantic.Field(default=None)
