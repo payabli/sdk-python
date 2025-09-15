@@ -17,6 +17,7 @@ from ..errors.unauthorized_error import UnauthorizedError
 from ..types.attachments import Attachments
 from ..types.chargeback_query_records import ChargebackQueryRecords
 from ..types.email import Email
+from ..types.idempotency_key import IdempotencyKey
 from ..types.payabli_api_response import PayabliApiResponse
 from .types.add_response_response import AddResponseResponse
 
@@ -32,7 +33,7 @@ class RawChargeBacksClient:
         self,
         id: int,
         *,
-        idempotency_key: typing.Optional[str] = None,
+        idempotency_key: typing.Optional[IdempotencyKey] = None,
         attachments: typing.Optional[Attachments] = OMIT,
         contact_email: typing.Optional[Email] = OMIT,
         contact_name: typing.Optional[str] = OMIT,
@@ -47,8 +48,7 @@ class RawChargeBacksClient:
         id : int
             ID of the chargeback or return record.
 
-        idempotency_key : typing.Optional[str]
-            A unique ID you can include to prevent duplicating objects or transactions if a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself.
+        idempotency_key : typing.Optional[IdempotencyKey]
 
         attachments : typing.Optional[Attachments]
             Array of attached files to response.
@@ -316,7 +316,7 @@ class AsyncRawChargeBacksClient:
         self,
         id: int,
         *,
-        idempotency_key: typing.Optional[str] = None,
+        idempotency_key: typing.Optional[IdempotencyKey] = None,
         attachments: typing.Optional[Attachments] = OMIT,
         contact_email: typing.Optional[Email] = OMIT,
         contact_name: typing.Optional[str] = OMIT,
@@ -331,8 +331,7 @@ class AsyncRawChargeBacksClient:
         id : int
             ID of the chargeback or return record.
 
-        idempotency_key : typing.Optional[str]
-            A unique ID you can include to prevent duplicating objects or transactions if a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself.
+        idempotency_key : typing.Optional[IdempotencyKey]
 
         attachments : typing.Optional[Attachments]
             Array of attached files to response.

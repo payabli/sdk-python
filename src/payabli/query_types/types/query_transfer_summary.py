@@ -72,6 +72,14 @@ class QueryTransferSummary(UniversalBaseModel):
     Service fees are any pass-through fees charged to the customer at the time of payment.  These aren't transferred to the merchant when the batch is transferred and funded.
     """
 
+    net_batch_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="netBatchAmount")] = (
+        pydantic.Field(default=None)
+    )
+    """
+    The net batch amount is the gross batch amount minus any returns, refunds, 
+    billing and fees items, chargebacks, adjustments, and third party payments.
+    """
+
     transfer_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="transferAmount")] = (
         pydantic.Field(default=None)
     )

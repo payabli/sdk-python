@@ -6,6 +6,7 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.contacts_field import ContactsField
 from ..types.file_content import FileContent
+from ..types.idempotency_key import IdempotencyKey
 from ..types.instrument import Instrument
 from ..types.org_parent_id import OrgParentId
 from ..types.orgaddress import Orgaddress
@@ -53,7 +54,7 @@ class OrganizationClient:
         org_name: Orgname,
         org_type: Orgtype,
         reply_to_email: ReplyToEmail,
-        idempotency_key: typing.Optional[str] = None,
+        idempotency_key: typing.Optional[IdempotencyKey] = None,
         services: typing.Optional[typing.Sequence[ServiceCost]] = OMIT,
         billing_info: typing.Optional[Instrument] = OMIT,
         contacts: typing.Optional[ContactsField] = OMIT,
@@ -83,8 +84,7 @@ class OrganizationClient:
 
         reply_to_email : ReplyToEmail
 
-        idempotency_key : typing.Optional[str]
-            A unique ID you can include to prevent duplicating objects or transactions if a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself.
+        idempotency_key : typing.Optional[IdempotencyKey]
 
         services : typing.Optional[typing.Sequence[ServiceCost]]
 
@@ -521,7 +521,7 @@ class AsyncOrganizationClient:
         org_name: Orgname,
         org_type: Orgtype,
         reply_to_email: ReplyToEmail,
-        idempotency_key: typing.Optional[str] = None,
+        idempotency_key: typing.Optional[IdempotencyKey] = None,
         services: typing.Optional[typing.Sequence[ServiceCost]] = OMIT,
         billing_info: typing.Optional[Instrument] = OMIT,
         contacts: typing.Optional[ContactsField] = OMIT,
@@ -551,8 +551,7 @@ class AsyncOrganizationClient:
 
         reply_to_email : ReplyToEmail
 
-        idempotency_key : typing.Optional[str]
-            A unique ID you can include to prevent duplicating objects or transactions if a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself.
+        idempotency_key : typing.Optional[IdempotencyKey]
 
         services : typing.Optional[typing.Sequence[ServiceCost]]
 

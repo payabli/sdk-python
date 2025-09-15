@@ -5,6 +5,7 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..money_out_types.types.auth_capture_payout_response import AuthCapturePayoutResponse
+from ..money_out_types.types.authorize_payment_method import AuthorizePaymentMethod
 from ..money_out_types.types.capture_all_out_response import CaptureAllOutResponse
 from ..money_out_types.types.operation_result import OperationResult
 from ..money_out_types.types.request_out_authorize_invoice_data import RequestOutAuthorizeInvoiceData
@@ -21,7 +22,6 @@ from ..types.payabli_api_response_0000 import PayabliApiResponse0000
 from ..types.source import Source
 from ..types.subdomain import Subdomain
 from ..types.subscriptionid import Subscriptionid
-from ..types.vendor_payment_method import VendorPaymentMethod
 from .raw_client import AsyncRawMoneyOutClient, RawMoneyOutClient
 
 # this is used as the default value for optional parameters
@@ -47,7 +47,7 @@ class MoneyOutClient:
         self,
         *,
         entry_point: Entrypointfield,
-        payment_method: VendorPaymentMethod,
+        payment_method: AuthorizePaymentMethod,
         payment_details: RequestOutAuthorizePaymentDetails,
         vendor_data: RequestOutAuthorizeVendorData,
         invoice_data: typing.Sequence[RequestOutAuthorizeInvoiceData],
@@ -70,18 +70,13 @@ class MoneyOutClient:
         ----------
         entry_point : Entrypointfield
 
-        payment_method : VendorPaymentMethod
+        payment_method : AuthorizePaymentMethod
 
         payment_details : RequestOutAuthorizePaymentDetails
             Object containing payment details.
 
         vendor_data : RequestOutAuthorizeVendorData
             Object containing vendor data.
-            <Note>
-              When creating a new vendor in a payout authorization, the system first checks `billingData` for the vendor's billing information.
-              If `billingData` is empty, it falls back to the `paymentMethod` object information.
-              For existing vendors, `paymentMethod` is ignored unless a `storedMethodId` is provided.
-            </Note>
 
         invoice_data : typing.Sequence[RequestOutAuthorizeInvoiceData]
             Array of bills associated to the transaction
@@ -119,8 +114,9 @@ class MoneyOutClient:
 
         Examples
         --------
-        from payabli import VendorPaymentMethod, payabli
+        from payabli import payabli
         from payabli.money_out_types import (
+            AuthorizePaymentMethod,
             RequestOutAuthorizeInvoiceData,
             RequestOutAuthorizePaymentDetails,
             RequestOutAuthorizeVendorData,
@@ -140,7 +136,7 @@ class MoneyOutClient:
             payment_details=RequestOutAuthorizePaymentDetails(
                 total_amount=47.0,
             ),
-            payment_method=VendorPaymentMethod(
+            payment_method=AuthorizePaymentMethod(
                 method="managed",
             ),
             vendor_data=RequestOutAuthorizeVendorData(
@@ -474,7 +470,7 @@ class AsyncMoneyOutClient:
         self,
         *,
         entry_point: Entrypointfield,
-        payment_method: VendorPaymentMethod,
+        payment_method: AuthorizePaymentMethod,
         payment_details: RequestOutAuthorizePaymentDetails,
         vendor_data: RequestOutAuthorizeVendorData,
         invoice_data: typing.Sequence[RequestOutAuthorizeInvoiceData],
@@ -497,18 +493,13 @@ class AsyncMoneyOutClient:
         ----------
         entry_point : Entrypointfield
 
-        payment_method : VendorPaymentMethod
+        payment_method : AuthorizePaymentMethod
 
         payment_details : RequestOutAuthorizePaymentDetails
             Object containing payment details.
 
         vendor_data : RequestOutAuthorizeVendorData
             Object containing vendor data.
-            <Note>
-              When creating a new vendor in a payout authorization, the system first checks `billingData` for the vendor's billing information.
-              If `billingData` is empty, it falls back to the `paymentMethod` object information.
-              For existing vendors, `paymentMethod` is ignored unless a `storedMethodId` is provided.
-            </Note>
 
         invoice_data : typing.Sequence[RequestOutAuthorizeInvoiceData]
             Array of bills associated to the transaction
@@ -548,8 +539,9 @@ class AsyncMoneyOutClient:
         --------
         import asyncio
 
-        from payabli import Asyncpayabli, VendorPaymentMethod
+        from payabli import Asyncpayabli
         from payabli.money_out_types import (
+            AuthorizePaymentMethod,
             RequestOutAuthorizeInvoiceData,
             RequestOutAuthorizePaymentDetails,
             RequestOutAuthorizeVendorData,
@@ -572,7 +564,7 @@ class AsyncMoneyOutClient:
                 payment_details=RequestOutAuthorizePaymentDetails(
                     total_amount=47.0,
                 ),
-                payment_method=VendorPaymentMethod(
+                payment_method=AuthorizePaymentMethod(
                     method="managed",
                 ),
                 vendor_data=RequestOutAuthorizeVendorData(

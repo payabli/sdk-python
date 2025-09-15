@@ -15,7 +15,7 @@ from ...types.type_account import TypeAccount
 
 class RequestOutAuthorizeVendorBillingData(UniversalBaseModel):
     """
-    Object containing vendor's bank information.
+    Object containing vendor's bank information. This object is deprecated for this endpoint. Use the `paymentMethod` object in payout authorize requests instead.
     """
 
     bank_name: typing_extensions.Annotated[typing.Optional[BankName], FieldMetadata(alias="bankName")] = None

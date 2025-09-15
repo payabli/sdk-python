@@ -3043,7 +3043,7 @@ client.charge_backs.add_response(
 <dl>
 <dd>
 
-**idempotency_key:** `typing.Optional[str]` — A unique ID you can include to prevent duplicating objects or transactions if a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. 
+**idempotency_key:** `typing.Optional[IdempotencyKey]` 
     
 </dd>
 </dl>
@@ -13543,11 +13543,11 @@ Authorizes transaction for payout. Authorized transactions aren't flagged for se
 ```python
 import datetime
 
-from payabli import Contacts, VendorPaymentMethod, payabli
+from payabli import Contacts, payabli
 from payabli.money_out_types import (
+    AuthorizePaymentMethod,
     RequestOutAuthorizeInvoiceData,
     RequestOutAuthorizePaymentDetails,
-    RequestOutAuthorizeVendorBillingData,
     RequestOutAuthorizeVendorData,
 )
 
@@ -13556,8 +13556,13 @@ client = payabli(
 )
 client.money_out.authorize_out(
     entry_point="47ced57b",
-    payment_method=VendorPaymentMethod(
+    payment_method=AuthorizePaymentMethod(
         method="ach",
+        ach_holder="John Doe",
+        ach_routing="011401533",
+        ach_account="123456789",
+        ach_account_type="checking",
+        ach_holder_type="business",
     ),
     payment_details=RequestOutAuthorizePaymentDetails(
         total_amount=978.32,
@@ -13583,13 +13588,6 @@ client.money_out.authorize_out(
                 contact_phone="996-325-5420 x31028",
             )
         ],
-        billing_data=RequestOutAuthorizeVendorBillingData(
-            bank_name="Chase",
-            routing_account="011401533",
-            account_number="1237658922",
-            type_account="Savings",
-            bank_account_holder_name="Payabli",
-        ),
         vendor_status=1,
         remit_address_1="727 Terrell Streets",
         remit_address_2="Apt. 773",
@@ -13635,7 +13633,7 @@ client.money_out.authorize_out(
 <dl>
 <dd>
 
-**payment_method:** `VendorPaymentMethod` 
+**payment_method:** `AuthorizePaymentMethod` 
     
 </dd>
 </dl>
@@ -13651,14 +13649,7 @@ client.money_out.authorize_out(
 <dl>
 <dd>
 
-**vendor_data:** `RequestOutAuthorizeVendorData` 
-
-Object containing vendor data.
-<Note>
-  When creating a new vendor in a payout authorization, the system first checks `billingData` for the vendor's billing information.
-  If `billingData` is empty, it falls back to the `paymentMethod` object information.
-  For existing vendors, `paymentMethod` is ignored unless a `storedMethodId` is provided.
-</Note>
+**vendor_data:** `RequestOutAuthorizeVendorData` — Object containing vendor data.
     
 </dd>
 </dl>
@@ -15036,7 +15027,7 @@ client.organization.add_organization(
 <dl>
 <dd>
 
-**idempotency_key:** `typing.Optional[str]` — A unique ID you can include to prevent duplicating objects or transactions if a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. 
+**idempotency_key:** `typing.Optional[IdempotencyKey]` 
     
 </dd>
 </dl>
@@ -22890,6 +22881,9 @@ List of field names accepted:
   - `bankAccountNumber` (ct, nct, ne, eq)
   - `bankRoutingNumber` (ct, nct, ne, eq)
   - `batchCurrency` (in, nin, ne, eq)
+  - `parentOrgName` (ct, nct, ne, eq)
+  - `parentOrgId` (ct, nct, ne, eq)
+  - `externalPaypointID` (ct, nct)
     
 </dd>
 </dl>
@@ -23802,9 +23796,7 @@ List of field names accepted:
   - `cardToken` (ct, nct, eq, ne)  
   - `lastFour` (ct, nct, eq, ne)  
   - `expirationDate` (ct, nct, eq, ne)  
-  - `mcc` (ct, nct, eq, ne)  
   - `payoutId` (ct, nct, eq, ne, in, nin)  
-  - `customerId` (ct, nct, eq, ne, in, nin)  
   - `vendorId` (ct, nct, eq, ne, in, nin)  
   - `miscData1` (ct, nct, eq, ne)  
   - `miscData2` (ct, nct, eq, ne)  
@@ -23964,9 +23956,7 @@ List of field names accepted:
   - `cardToken` (ct, nct, eq, ne)  
   - `lastFour` (ct, nct, eq, ne)  
   - `expirationDate` (ct, nct, eq, ne)  
-  - `mcc` (ct, nct, eq, ne)  
   - `payoutId` (ct, nct, eq, ne, in, nin)  
-  - `customerId` (ct, nct, eq, ne, in, nin)  
   - `vendorId` (ct, nct, eq, ne, in, nin)  
   - `miscData1` (ct, nct, eq, ne)  
   - `miscData2` (ct, nct, eq, ne)  

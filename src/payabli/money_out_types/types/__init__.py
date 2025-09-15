@@ -8,6 +8,7 @@ from importlib import import_module
 if typing.TYPE_CHECKING:
     from .auth_capture_payout_response import AuthCapturePayoutResponse
     from .auth_capture_payout_response_data import AuthCapturePayoutResponseData
+    from .authorize_payment_method import AuthorizePaymentMethod
     from .authorize_payout_body import AuthorizePayoutBody
     from .capture_all_out_response import CaptureAllOutResponse
     from .capture_all_out_response_response_data_item import CaptureAllOutResponseResponseDataItem
@@ -26,6 +27,7 @@ if typing.TYPE_CHECKING:
 _dynamic_imports: typing.Dict[str, str] = {
     "AuthCapturePayoutResponse": ".auth_capture_payout_response",
     "AuthCapturePayoutResponseData": ".auth_capture_payout_response_data",
+    "AuthorizePaymentMethod": ".authorize_payment_method",
     "AuthorizePayoutBody": ".authorize_payout_body",
     "CaptureAllOutResponse": ".capture_all_out_response",
     "CaptureAllOutResponseResponseDataItem": ".capture_all_out_response_response_data_item",
@@ -66,6 +68,7 @@ def __dir__():
 __all__ = [
     "AuthCapturePayoutResponse",
     "AuthCapturePayoutResponseData",
+    "AuthorizePaymentMethod",
     "AuthorizePayoutBody",
     "CaptureAllOutResponse",
     "CaptureAllOutResponseResponseDataItem",

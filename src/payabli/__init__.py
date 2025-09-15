@@ -752,6 +752,7 @@ if typing.TYPE_CHECKING:
     from .money_out_types import (
         AuthCapturePayoutResponse,
         AuthCapturePayoutResponseData,
+        AuthorizePaymentMethod,
         AuthorizePayoutBody,
         CaptureAllOutResponse,
         CaptureAllOutResponseResponseDataItem,
@@ -937,6 +938,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AuthResponse": ".money_in",
     "AuthResponseResponseData": ".money_in",
     "Authcode": ".types",
+    "AuthorizePaymentMethod": ".money_out_types",
     "AuthorizePayoutBody": ".money_out_types",
     "AutoElement": ".types",
     "Avgmonthly": ".types",
@@ -1784,6 +1786,7 @@ __all__ = [
     "AuthResponse",
     "AuthResponseResponseData",
     "Authcode",
+    "AuthorizePaymentMethod",
     "AuthorizePayoutBody",
     "AutoElement",
     "Avgmonthly",

@@ -9,6 +9,7 @@ if typing.TYPE_CHECKING:
     from .types import (
         AuthCapturePayoutResponse,
         AuthCapturePayoutResponseData,
+        AuthorizePaymentMethod,
         AuthorizePayoutBody,
         CaptureAllOutResponse,
         CaptureAllOutResponseResponseDataItem,
@@ -28,6 +29,7 @@ if typing.TYPE_CHECKING:
 _dynamic_imports: typing.Dict[str, str] = {
     "AuthCapturePayoutResponse": ".types",
     "AuthCapturePayoutResponseData": ".types",
+    "AuthorizePaymentMethod": ".types",
     "AuthorizePayoutBody": ".types",
     "CaptureAllOutResponse": ".types",
     "CaptureAllOutResponseResponseDataItem": ".types",
@@ -68,6 +70,7 @@ def __dir__():
 __all__ = [
     "AuthCapturePayoutResponse",
     "AuthCapturePayoutResponseData",
+    "AuthorizePaymentMethod",
     "AuthorizePayoutBody",
     "CaptureAllOutResponse",
     "CaptureAllOutResponseResponseDataItem",

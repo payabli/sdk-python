@@ -15,6 +15,7 @@ from ..errors.internal_server_error import InternalServerError
 from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..money_out_types.types.auth_capture_payout_response import AuthCapturePayoutResponse
+from ..money_out_types.types.authorize_payment_method import AuthorizePaymentMethod
 from ..money_out_types.types.capture_all_out_response import CaptureAllOutResponse
 from ..money_out_types.types.operation_result import OperationResult
 from ..money_out_types.types.request_out_authorize_invoice_data import RequestOutAuthorizeInvoiceData
@@ -32,7 +33,6 @@ from ..types.payabli_api_response_0000 import PayabliApiResponse0000
 from ..types.source import Source
 from ..types.subdomain import Subdomain
 from ..types.subscriptionid import Subscriptionid
-from ..types.vendor_payment_method import VendorPaymentMethod
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -46,7 +46,7 @@ class RawMoneyOutClient:
         self,
         *,
         entry_point: Entrypointfield,
-        payment_method: VendorPaymentMethod,
+        payment_method: AuthorizePaymentMethod,
         payment_details: RequestOutAuthorizePaymentDetails,
         vendor_data: RequestOutAuthorizeVendorData,
         invoice_data: typing.Sequence[RequestOutAuthorizeInvoiceData],
@@ -69,18 +69,13 @@ class RawMoneyOutClient:
         ----------
         entry_point : Entrypointfield
 
-        payment_method : VendorPaymentMethod
+        payment_method : AuthorizePaymentMethod
 
         payment_details : RequestOutAuthorizePaymentDetails
             Object containing payment details.
 
         vendor_data : RequestOutAuthorizeVendorData
             Object containing vendor data.
-            <Note>
-              When creating a new vendor in a payout authorization, the system first checks `billingData` for the vendor's billing information.
-              If `billingData` is empty, it falls back to the `paymentMethod` object information.
-              For existing vendors, `paymentMethod` is ignored unless a `storedMethodId` is provided.
-            </Note>
 
         invoice_data : typing.Sequence[RequestOutAuthorizeInvoiceData]
             Array of bills associated to the transaction
@@ -130,7 +125,7 @@ class RawMoneyOutClient:
                 "orderId": order_id,
                 "orderDescription": order_description,
                 "paymentMethod": convert_and_respect_annotation_metadata(
-                    object_=payment_method, annotation=VendorPaymentMethod, direction="write"
+                    object_=payment_method, annotation=AuthorizePaymentMethod, direction="write"
                 ),
                 "paymentDetails": convert_and_respect_annotation_metadata(
                     object_=payment_details, annotation=RequestOutAuthorizePaymentDetails, direction="write"
@@ -922,7 +917,7 @@ class AsyncRawMoneyOutClient:
         self,
         *,
         entry_point: Entrypointfield,
-        payment_method: VendorPaymentMethod,
+        payment_method: AuthorizePaymentMethod,
         payment_details: RequestOutAuthorizePaymentDetails,
         vendor_data: RequestOutAuthorizeVendorData,
         invoice_data: typing.Sequence[RequestOutAuthorizeInvoiceData],
@@ -945,18 +940,13 @@ class AsyncRawMoneyOutClient:
         ----------
         entry_point : Entrypointfield
 
-        payment_method : VendorPaymentMethod
+        payment_method : AuthorizePaymentMethod
 
         payment_details : RequestOutAuthorizePaymentDetails
             Object containing payment details.
 
         vendor_data : RequestOutAuthorizeVendorData
             Object containing vendor data.
-            <Note>
-              When creating a new vendor in a payout authorization, the system first checks `billingData` for the vendor's billing information.
-              If `billingData` is empty, it falls back to the `paymentMethod` object information.
-              For existing vendors, `paymentMethod` is ignored unless a `storedMethodId` is provided.
-            </Note>
 
         invoice_data : typing.Sequence[RequestOutAuthorizeInvoiceData]
             Array of bills associated to the transaction
@@ -1006,7 +996,7 @@ class AsyncRawMoneyOutClient:
                 "orderId": order_id,
                 "orderDescription": order_description,
                 "paymentMethod": convert_and_respect_annotation_metadata(
-                    object_=payment_method, annotation=VendorPaymentMethod, direction="write"
+                    object_=payment_method, annotation=AuthorizePaymentMethod, direction="write"
                 ),
                 "paymentDetails": convert_and_respect_annotation_metadata(
                     object_=payment_details, annotation=RequestOutAuthorizePaymentDetails, direction="write"

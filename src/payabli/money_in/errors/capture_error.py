@@ -8,4 +8,4 @@ from ...types.payabli_api_response_error_400 import PayabliApiResponseError400
 
 class CaptureError(ApiError):
     def __init__(self, body: PayabliApiResponseError400, headers: typing.Optional[typing.Dict[str, str]] = None):
-        super().__init__(status_code=423, headers=headers, body=body)
+        super().__init__(status_code=400, headers=headers, body=body)

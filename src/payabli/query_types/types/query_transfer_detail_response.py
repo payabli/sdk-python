@@ -11,16 +11,14 @@ from .transfer_detail_record import TransferDetailRecord
 
 
 class QueryTransferDetailResponse(UniversalBaseModel):
-    records: typing_extensions.Annotated[
-        typing.Optional[typing.List[TransferDetailRecord]], FieldMetadata(alias="Records")
-    ] = pydantic.Field(default=None)
+    records: typing_extensions.Annotated[typing.List[TransferDetailRecord], FieldMetadata(alias="Records")] = (
+        pydantic.Field()
+    )
     """
     List of transfer detail records
     """
 
-    summary: typing_extensions.Annotated[typing.Optional[QueryTransferSummary], FieldMetadata(alias="Summary")] = (
-        pydantic.Field(default=None)
-    )
+    summary: typing_extensions.Annotated[QueryTransferSummary, FieldMetadata(alias="Summary")] = pydantic.Field()
     """
     Summary of the transfer details query
     """

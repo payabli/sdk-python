@@ -3231,6 +3231,9 @@ class QueryClient:
               - `bankAccountNumber` (ct, nct, ne, eq)
               - `bankRoutingNumber` (ct, nct, ne, eq)
               - `batchCurrency` (in, nin, ne, eq)
+              - `parentOrgName` (ct, nct, ne, eq)
+              - `parentOrgId` (ct, nct, ne, eq)
+              - `externalPaypointID` (ct, nct)
 
         sort_by : typing.Optional[str]
             The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
@@ -3854,9 +3857,7 @@ class QueryClient:
               - `cardToken` (ct, nct, eq, ne)
               - `lastFour` (ct, nct, eq, ne)
               - `expirationDate` (ct, nct, eq, ne)
-              - `mcc` (ct, nct, eq, ne)
               - `payoutId` (ct, nct, eq, ne, in, nin)
-              - `customerId` (ct, nct, eq, ne, in, nin)
               - `vendorId` (ct, nct, eq, ne, in, nin)
               - `miscData1` (ct, nct, eq, ne)
               - `miscData2` (ct, nct, eq, ne)
@@ -3967,9 +3968,7 @@ class QueryClient:
               - `cardToken` (ct, nct, eq, ne)
               - `lastFour` (ct, nct, eq, ne)
               - `expirationDate` (ct, nct, eq, ne)
-              - `mcc` (ct, nct, eq, ne)
               - `payoutId` (ct, nct, eq, ne, in, nin)
-              - `customerId` (ct, nct, eq, ne, in, nin)
               - `vendorId` (ct, nct, eq, ne, in, nin)
               - `miscData1` (ct, nct, eq, ne)
               - `miscData2` (ct, nct, eq, ne)
@@ -7434,6 +7433,9 @@ class AsyncQueryClient:
               - `bankAccountNumber` (ct, nct, ne, eq)
               - `bankRoutingNumber` (ct, nct, ne, eq)
               - `batchCurrency` (in, nin, ne, eq)
+              - `parentOrgName` (ct, nct, ne, eq)
+              - `parentOrgId` (ct, nct, ne, eq)
+              - `externalPaypointID` (ct, nct)
 
         sort_by : typing.Optional[str]
             The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
@@ -8105,9 +8107,7 @@ class AsyncQueryClient:
               - `cardToken` (ct, nct, eq, ne)
               - `lastFour` (ct, nct, eq, ne)
               - `expirationDate` (ct, nct, eq, ne)
-              - `mcc` (ct, nct, eq, ne)
               - `payoutId` (ct, nct, eq, ne, in, nin)
-              - `customerId` (ct, nct, eq, ne, in, nin)
               - `vendorId` (ct, nct, eq, ne, in, nin)
               - `miscData1` (ct, nct, eq, ne)
               - `miscData2` (ct, nct, eq, ne)
@@ -8226,9 +8226,7 @@ class AsyncQueryClient:
               - `cardToken` (ct, nct, eq, ne)
               - `lastFour` (ct, nct, eq, ne)
               - `expirationDate` (ct, nct, eq, ne)
-              - `mcc` (ct, nct, eq, ne)
               - `payoutId` (ct, nct, eq, ne, in, nin)
-              - `customerId` (ct, nct, eq, ne, in, nin)
               - `vendorId` (ct, nct, eq, ne, in, nin)
               - `miscData1` (ct, nct, eq, ne)
               - `miscData2` (ct, nct, eq, ne)

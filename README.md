@@ -1,9 +1,15 @@
 # Payabli Python Library
 
+![](https://files.buildwithfern.com/payabli.docs.buildwithfern.com/2025-09-15T12:20:56.870Z/assets/logo-light-mode.svg)
+
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fpayabli%2Fsdk-python)
 [![pypi](https://img.shields.io/pypi/v/payabli)](https://pypi.python.org/pypi/payabli)
 
-The Payabli Python library provides convenient access to the Payabli APIs from Python.
+If you’re a software company, you’re a payments company™
+
+## Documentation
+
+API reference documentation is available [here](https://docs.payabli.com/).
 
 ## Installation
 
@@ -175,7 +181,7 @@ from payabli import payabli
 client = payabli(
     ...,
     httpx_client=httpx.Client(
-        proxies="http://my.test.proxy.example.com",
+        proxy="http://my.test.proxy.example.com",
         transport=httpx.HTTPTransport(local_address="0.0.0.0"),
     ),
 )

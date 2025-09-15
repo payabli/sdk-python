@@ -13,7 +13,7 @@ from ...types.orderdescription import Orderdescription
 from ...types.source import Source
 from ...types.subdomain import Subdomain
 from ...types.subscriptionid import Subscriptionid
-from ...types.vendor_payment_method import VendorPaymentMethod
+from .authorize_payment_method import AuthorizePaymentMethod
 from .request_out_authorize_invoice_data import RequestOutAuthorizeInvoiceData
 from .request_out_authorize_payment_details import RequestOutAuthorizePaymentDetails
 from .request_out_authorize_vendor_data import RequestOutAuthorizeVendorData
@@ -26,7 +26,7 @@ class AuthorizePayoutBody(UniversalBaseModel):
     order_description: typing_extensions.Annotated[
         typing.Optional[Orderdescription], FieldMetadata(alias="orderDescription")
     ] = None
-    payment_method: typing_extensions.Annotated[VendorPaymentMethod, FieldMetadata(alias="paymentMethod")]
+    payment_method: typing_extensions.Annotated[AuthorizePaymentMethod, FieldMetadata(alias="paymentMethod")]
     payment_details: typing_extensions.Annotated[
         RequestOutAuthorizePaymentDetails, FieldMetadata(alias="paymentDetails")
     ] = pydantic.Field()
@@ -39,11 +39,6 @@ class AuthorizePayoutBody(UniversalBaseModel):
     )
     """
     Object containing vendor data.
-    <Note>
-      When creating a new vendor in a payout authorization, the system first checks `billingData` for the vendor's billing information.
-      If `billingData` is empty, it falls back to the `paymentMethod` object information.
-      For existing vendors, `paymentMethod` is ignored unless a `storedMethodId` is provided.
-    </Note>
     """
 
     invoice_data: typing_extensions.Annotated[

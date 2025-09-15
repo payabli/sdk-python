@@ -11,10 +11,8 @@ from ...types.query_summary import QuerySummary
 
 
 class ListOrganizationsResponse(UniversalBaseModel):
-    records: typing_extensions.Annotated[
-        typing.Optional[typing.List[OrganizationQueryRecord]], FieldMetadata(alias="Records")
-    ] = None
-    summary: typing_extensions.Annotated[typing.Optional[QuerySummary], FieldMetadata(alias="Summary")] = None
+    records: typing_extensions.Annotated[typing.List[OrganizationQueryRecord], FieldMetadata(alias="Records")]
+    summary: typing_extensions.Annotated[QuerySummary, FieldMetadata(alias="Summary")]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
