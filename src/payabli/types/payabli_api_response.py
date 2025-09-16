@@ -16,9 +16,7 @@ class PayabliApiResponse(UniversalBaseModel):
     response_data: typing_extensions.Annotated[typing.Optional[Responsedata], FieldMetadata(alias="responseData")] = (
         None
     )
-    response_text: typing_extensions.Annotated[typing.Optional[ResponseText], FieldMetadata(alias="responseText")] = (
-        None
-    )
+    response_text: typing_extensions.Annotated[ResponseText, FieldMetadata(alias="responseText")]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

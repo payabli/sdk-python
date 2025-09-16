@@ -5,11 +5,11 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.attachments import Attachments
-from ..types.chargeback_query_records import ChargebackQueryRecords
 from ..types.email import Email
 from ..types.idempotency_key import IdempotencyKey
 from .raw_client import AsyncRawChargeBacksClient, RawChargeBacksClient
 from .types.add_response_response import AddResponseResponse
+from .types.chargeback_query_records import ChargebackQueryRecords
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)

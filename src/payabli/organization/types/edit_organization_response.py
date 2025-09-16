@@ -18,9 +18,7 @@ class EditOrganizationResponse(UniversalBaseModel):
     page_identifier: typing_extensions.Annotated[
         typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier")
     ] = None
-    response_code: typing_extensions.Annotated[typing.Optional[Responsecode], FieldMetadata(alias="responseCode")] = (
-        None
-    )
+    response_code: typing_extensions.Annotated[Responsecode, FieldMetadata(alias="responseCode")]
     response_data: typing_extensions.Annotated[
         typing.Optional[Responsedatanonobject], FieldMetadata(alias="responseData")
     ] = pydantic.Field(default=None)
@@ -28,9 +26,7 @@ class EditOrganizationResponse(UniversalBaseModel):
     Returns the organization ID.
     """
 
-    response_text: typing_extensions.Annotated[typing.Optional[ResponseText], FieldMetadata(alias="responseText")] = (
-        None
-    )
+    response_text: typing_extensions.Annotated[ResponseText, FieldMetadata(alias="responseText")]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

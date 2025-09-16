@@ -24,9 +24,7 @@ class ConfigureApplePaypointApiResponse(UniversalBaseModel):
     response_data: typing_extensions.Annotated[
         typing.Optional[ApplePayPaypointRegistrationData], FieldMetadata(alias="responseData")
     ] = None
-    response_text: typing_extensions.Annotated[typing.Optional[ResponseText], FieldMetadata(alias="responseText")] = (
-        None
-    )
+    response_text: typing_extensions.Annotated[ResponseText, FieldMetadata(alias="responseText")]
     room_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="roomId")] = pydantic.Field(
         default=None
     )

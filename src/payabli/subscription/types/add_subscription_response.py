@@ -28,9 +28,7 @@ class AddSubscriptionResponse(UniversalBaseModel):
     """
 
     customer_id: typing_extensions.Annotated[typing.Optional[CustomerId], FieldMetadata(alias="customerId")] = None
-    response_text: typing_extensions.Annotated[typing.Optional[ResponseText], FieldMetadata(alias="responseText")] = (
-        None
-    )
+    response_text: typing_extensions.Annotated[ResponseText, FieldMetadata(alias="responseText")]
     is_success: typing_extensions.Annotated[typing.Optional[IsSuccess], FieldMetadata(alias="isSuccess")] = None
     response_data: typing_extensions.Annotated[int, FieldMetadata(alias="responseData")] = pydantic.Field()
     """

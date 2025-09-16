@@ -6,12 +6,19 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .types import AddResponseResponse, ChargeBackResponse, ChargebackMessage, ChargebackQueryRecords
+    from .bulk_retry_request import BulkRetryRequest
+    from .key_value_array import KeyValueArray
+    from .notification_log import NotificationLog
+    from .notification_log_detail import NotificationLogDetail
+    from .notification_log_search_request import NotificationLogSearchRequest
+    from .string_string_key_value_pair import StringStringKeyValuePair
 _dynamic_imports: typing.Dict[str, str] = {
-    "AddResponseResponse": ".types",
-    "ChargeBackResponse": ".types",
-    "ChargebackMessage": ".types",
-    "ChargebackQueryRecords": ".types",
+    "BulkRetryRequest": ".bulk_retry_request",
+    "KeyValueArray": ".key_value_array",
+    "NotificationLog": ".notification_log",
+    "NotificationLogDetail": ".notification_log_detail",
+    "NotificationLogSearchRequest": ".notification_log_search_request",
+    "StringStringKeyValuePair": ".string_string_key_value_pair",
 }
 
 
@@ -34,4 +41,11 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["AddResponseResponse", "ChargeBackResponse", "ChargebackMessage", "ChargebackQueryRecords"]
+__all__ = [
+    "BulkRetryRequest",
+    "KeyValueArray",
+    "NotificationLog",
+    "NotificationLogDetail",
+    "NotificationLogSearchRequest",
+    "StringStringKeyValuePair",
+]

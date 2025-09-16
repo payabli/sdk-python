@@ -11,7 +11,7 @@ from ...types.response_text import ResponseText
 
 
 class PayabliApiResponsePaymentLinks(UniversalBaseModel):
-    is_success: typing_extensions.Annotated[typing.Optional[IsSuccess], FieldMetadata(alias="isSuccess")] = None
+    is_success: typing_extensions.Annotated[IsSuccess, FieldMetadata(alias="isSuccess")]
     response_data: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="responseData")] = (
         pydantic.Field(default=None)
     )
@@ -19,9 +19,7 @@ class PayabliApiResponsePaymentLinks(UniversalBaseModel):
     If `isSuccess` = true, this contains the payment link identifier. If `isSuccess` = false, this contains the reason of the error.
     """
 
-    response_text: typing_extensions.Annotated[typing.Optional[ResponseText], FieldMetadata(alias="responseText")] = (
-        None
-    )
+    response_text: typing_extensions.Annotated[ResponseText, FieldMetadata(alias="responseText")]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

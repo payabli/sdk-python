@@ -19,9 +19,7 @@ class PayabliApiResponse0000(UniversalBaseModel):
     """
 
     is_success: typing_extensions.Annotated[typing.Optional[IsSuccess], FieldMetadata(alias="isSuccess")] = None
-    response_text: typing_extensions.Annotated[typing.Optional[ResponseText], FieldMetadata(alias="responseText")] = (
-        None
-    )
+    response_text: typing_extensions.Annotated[ResponseText, FieldMetadata(alias="responseText")]
     page_identifier: typing_extensions.Annotated[
         typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier")
     ] = None

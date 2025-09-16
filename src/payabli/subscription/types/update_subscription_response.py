@@ -27,9 +27,7 @@ class UpdateSubscriptionResponse(UniversalBaseModel):
     If `isSuccess` = false, this contains the reason for the failure.
     """
 
-    response_text: typing_extensions.Annotated[typing.Optional[ResponseText], FieldMetadata(alias="responseText")] = (
-        None
-    )
+    response_text: typing_extensions.Annotated[ResponseText, FieldMetadata(alias="responseText")]
     customer_id: typing_extensions.Annotated[typing.Optional[CustomerId], FieldMetadata(alias="customerId")] = None
 
     if IS_PYDANTIC_V2:

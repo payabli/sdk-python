@@ -28,9 +28,7 @@ class PayabliApiResponse00Responsedatanonobject(UniversalBaseModel):
     """
 
     is_success: typing_extensions.Annotated[typing.Optional[IsSuccess], FieldMetadata(alias="isSuccess")] = None
-    response_text: typing_extensions.Annotated[typing.Optional[ResponseText], FieldMetadata(alias="responseText")] = (
-        None
-    )
+    response_text: typing_extensions.Annotated[ResponseText, FieldMetadata(alias="responseText")]
     response_data: typing_extensions.Annotated[
         typing.Optional[Responsedatanonobject], FieldMetadata(alias="responseData")
     ] = None

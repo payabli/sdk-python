@@ -4,11 +4,11 @@ import typing
 
 import pydantic
 import typing_extensions
-from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ..core.serialization import FieldMetadata
-from .boarding_application_attachments import BoardingApplicationAttachments
-from .created_at import CreatedAt
-from .email import Email
+from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ...core.serialization import FieldMetadata
+from ...types.boarding_application_attachments import BoardingApplicationAttachments
+from ...types.created_at import CreatedAt
+from ...types.email import Email
 
 
 class ChargeBackResponse(UniversalBaseModel):

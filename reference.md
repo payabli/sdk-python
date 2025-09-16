@@ -14737,6 +14737,384 @@ client.notification.get_report_file(
 </dl>
 </details>
 
+## Notificationlogs
+<details><summary><code>client.notificationlogs.<a href="src/payabli/notificationlogs/client.py">search_notification_logs</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Search notification logs with filtering and pagination.
+  - Start date and end date cannot be more than 30 days apart
+  - Either `orgId` or `paypointId` must be provided
+
+This endpoint requires the `notifications_create` OR `notifications_read` permission.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import datetime
+
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.notificationlogs.search_notification_logs(
+    page_size=20,
+    start_date=datetime.datetime.fromisoformat(
+        "2024-01-01 00:00:00+00:00",
+    ),
+    end_date=datetime.datetime.fromisoformat(
+        "2024-01-31 23:59:59+00:00",
+    ),
+    org_id=12345,
+    notification_event="ActivatedMerchant",
+    succeeded=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**start_date:** `dt.datetime` — The start date for the search.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_date:** `dt.datetime` — The end date for the search.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[Pagesize]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**skip:** `typing.Optional[int]` — The number of records to skip before starting to collect the result set. 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**notification_event:** `typing.Optional[str]` — The type of notification event to filter by.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**succeeded:** `typing.Optional[bool]` — Indicates whether the notification was successful.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**org_id:** `typing.Optional[int]` — The ID of the organization to filter by.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**paypoint_id:** `typing.Optional[int]` — The ID of the paypoint to filter by.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.notificationlogs.<a href="src/payabli/notificationlogs/client.py">get_notification_log</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get detailed information for a specific notification log entry.
+This endpoint requires the `notifications_create` OR `notifications_read` permission.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import uuid
+
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.notificationlogs.get_notification_log(
+    uuid_=uuid.UUID(
+        "550e8400-e29b-41d4-a716-446655440000",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**uuid_:** `uuid.UUID` — The notification log entry.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.notificationlogs.<a href="src/payabli/notificationlogs/client.py">retry_notification_log</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retry sending a specific notification.
+
+**Permissions:** notifications_create
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import uuid
+
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.notificationlogs.retry_notification_log(
+    uuid_=uuid.UUID(
+        "550e8400-e29b-41d4-a716-446655440000",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**uuid_:** `uuid.UUID` — Unique id
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.notificationlogs.<a href="src/payabli/notificationlogs/client.py">bulk_retry_notification_logs</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retry sending multiple notifications (maximum 50 IDs).
+This is an async process, so use the search endpoint again to check the notification status.
+
+This endpoint requires the `notifications_create` permission.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import uuid
+
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.notificationlogs.bulk_retry_notification_logs(
+    request=[
+        uuid.UUID(
+            "550e8400-e29b-41d4-a716-446655440000",
+        ),
+        uuid.UUID(
+            "550e8400-e29b-41d4-a716-446655440001",
+        ),
+        uuid.UUID(
+            "550e8400-e29b-41d4-a716-446655440002",
+        ),
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `BulkRetryRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Ocr
 <details><summary><code>client.ocr.<a href="src/payabli/ocr/client.py">ocr_document_form</a>(...)</code></summary>
 <dl>

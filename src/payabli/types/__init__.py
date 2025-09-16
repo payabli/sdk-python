@@ -170,9 +170,7 @@ if typing.TYPE_CHECKING:
     from .cascade_job_details import CascadeJobDetails
     from .cash import Cash
     from .category import Category
-    from .charge_back_response import ChargeBackResponse
     from .chargeback_id import ChargebackId
-    from .chargeback_query_records import ChargebackQueryRecords
     from .check import Check
     from .city_nullable import CityNullable
     from .cloud_query_api_response import CloudQueryApiResponse
@@ -817,9 +815,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CascadeJobDetails": ".cascade_job_details",
     "Cash": ".cash",
     "Category": ".category",
-    "ChargeBackResponse": ".charge_back_response",
     "ChargebackId": ".chargeback_id",
-    "ChargebackQueryRecords": ".chargeback_query_records",
     "Check": ".check",
     "CityNullable": ".city_nullable",
     "CloudQueryApiResponse": ".cloud_query_api_response",
@@ -1486,9 +1482,7 @@ __all__ = [
     "CascadeJobDetails",
     "Cash",
     "Category",
-    "ChargeBackResponse",
     "ChargebackId",
-    "ChargebackQueryRecords",
     "Check",
     "CityNullable",
     "CloudQueryApiResponse",

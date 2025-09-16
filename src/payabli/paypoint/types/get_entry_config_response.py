@@ -14,7 +14,7 @@ from ...types.responsecode import Responsecode
 
 
 class GetEntryConfigResponse(UniversalBaseModel):
-    is_success: typing_extensions.Annotated[typing.Optional[IsSuccess], FieldMetadata(alias="isSuccess")] = None
+    is_success: typing_extensions.Annotated[IsSuccess, FieldMetadata(alias="isSuccess")]
     page_identifier: typing_extensions.Annotated[
         typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier")
     ] = None
@@ -24,9 +24,7 @@ class GetEntryConfigResponse(UniversalBaseModel):
     response_data: typing_extensions.Annotated[
         typing.Optional[PaypointEntryConfig], FieldMetadata(alias="responseData")
     ] = None
-    response_text: typing_extensions.Annotated[typing.Optional[ResponseText], FieldMetadata(alias="responseText")] = (
-        None
-    )
+    response_text: typing_extensions.Annotated[ResponseText, FieldMetadata(alias="responseText")]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

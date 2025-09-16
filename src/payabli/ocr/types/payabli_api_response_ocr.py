@@ -13,13 +13,9 @@ from .ocr_response_data import OcrResponseData
 
 
 class PayabliApiResponseOcr(UniversalBaseModel):
-    is_success: typing_extensions.Annotated[typing.Optional[IsSuccess], FieldMetadata(alias="isSuccess")] = None
-    response_text: typing_extensions.Annotated[typing.Optional[ResponseText], FieldMetadata(alias="responseText")] = (
-        None
-    )
-    response_code: typing_extensions.Annotated[typing.Optional[Responsecode], FieldMetadata(alias="responseCode")] = (
-        None
-    )
+    is_success: typing_extensions.Annotated[IsSuccess, FieldMetadata(alias="isSuccess")]
+    response_text: typing_extensions.Annotated[ResponseText, FieldMetadata(alias="responseText")]
+    response_code: typing_extensions.Annotated[Responsecode, FieldMetadata(alias="responseCode")]
     response_data: typing_extensions.Annotated[
         typing.Optional[OcrResponseData], FieldMetadata(alias="responseData")
     ] = pydantic.Field(default=None)

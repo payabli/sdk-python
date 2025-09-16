@@ -7,7 +7,15 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .add_response_response import AddResponseResponse
-_dynamic_imports: typing.Dict[str, str] = {"AddResponseResponse": ".add_response_response"}
+    from .charge_back_response import ChargeBackResponse
+    from .chargeback_message import ChargebackMessage
+    from .chargeback_query_records import ChargebackQueryRecords
+_dynamic_imports: typing.Dict[str, str] = {
+    "AddResponseResponse": ".add_response_response",
+    "ChargeBackResponse": ".charge_back_response",
+    "ChargebackMessage": ".chargeback_message",
+    "ChargebackQueryRecords": ".chargeback_query_records",
+}
 
 
 def __getattr__(attr_name: str) -> typing.Any:
@@ -29,4 +37,4 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["AddResponseResponse"]
+__all__ = ["AddResponseResponse", "ChargeBackResponse", "ChargebackMessage", "ChargebackQueryRecords"]

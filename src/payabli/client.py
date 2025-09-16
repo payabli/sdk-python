@@ -23,6 +23,7 @@ if typing.TYPE_CHECKING:
     from .money_in.client import AsyncMoneyInClient, MoneyInClient
     from .money_out.client import AsyncMoneyOutClient, MoneyOutClient
     from .notification.client import AsyncNotificationClient, NotificationClient
+    from .notificationlogs.client import AsyncNotificationlogsClient, NotificationlogsClient
     from .ocr.client import AsyncOcrClient, OcrClient
     from .organization.client import AsyncOrganizationClient, OrganizationClient
     from .payment_link.client import AsyncPaymentLinkClient, PaymentLinkClient
@@ -117,6 +118,7 @@ class payabli:
         self._money_in: typing.Optional[MoneyInClient] = None
         self._money_out: typing.Optional[MoneyOutClient] = None
         self._notification: typing.Optional[NotificationClient] = None
+        self._notificationlogs: typing.Optional[NotificationlogsClient] = None
         self._ocr: typing.Optional[OcrClient] = None
         self._organization: typing.Optional[OrganizationClient] = None
         self._payment_link: typing.Optional[PaymentLinkClient] = None
@@ -242,6 +244,14 @@ class payabli:
 
             self._notification = NotificationClient(client_wrapper=self._client_wrapper)
         return self._notification
+
+    @property
+    def notificationlogs(self):
+        if self._notificationlogs is None:
+            from .notificationlogs.client import NotificationlogsClient  # noqa: E402
+
+            self._notificationlogs = NotificationlogsClient(client_wrapper=self._client_wrapper)
+        return self._notificationlogs
 
     @property
     def ocr(self):
@@ -427,6 +437,7 @@ class Asyncpayabli:
         self._money_in: typing.Optional[AsyncMoneyInClient] = None
         self._money_out: typing.Optional[AsyncMoneyOutClient] = None
         self._notification: typing.Optional[AsyncNotificationClient] = None
+        self._notificationlogs: typing.Optional[AsyncNotificationlogsClient] = None
         self._ocr: typing.Optional[AsyncOcrClient] = None
         self._organization: typing.Optional[AsyncOrganizationClient] = None
         self._payment_link: typing.Optional[AsyncPaymentLinkClient] = None
@@ -552,6 +563,14 @@ class Asyncpayabli:
 
             self._notification = AsyncNotificationClient(client_wrapper=self._client_wrapper)
         return self._notification
+
+    @property
+    def notificationlogs(self):
+        if self._notificationlogs is None:
+            from .notificationlogs.client import AsyncNotificationlogsClient  # noqa: E402
+
+            self._notificationlogs = AsyncNotificationlogsClient(client_wrapper=self._client_wrapper)
+        return self._notificationlogs
 
     @property
     def ocr(self):
