@@ -18,6 +18,57 @@ from .org_parent_name import OrgParentName
 
 
 class VCardRecord(UniversalBaseModel):
+    """
+    Examples
+    --------
+    import datetime
+
+    from payabli import AssociatedVendor, CustomerData, VCardRecord
+
+    VCardRecord(
+        vcard_sent=True,
+        card_token="vcrd_5Ty8NrBzXjKuqHm9DwElfP",
+        card_number="44XX XXXX XXXX 1234",
+        cvc="XXX",
+        expiration_date="2025-12",
+        status="Active",
+        amount=500.0,
+        current_balance=375.25,
+        expense_limit=100.0,
+        expense_limit_period="monthly",
+        max_number_of_uses=10,
+        current_number_of_uses=3,
+        exact_amount=False,
+        mcc="5812",
+        tcc="T01",
+        misc_1="Invoice #12345",
+        misc_2="Project: Office Supplies",
+        date_created=datetime.datetime.fromisoformat(
+            "2023-01-15 09:30:00+00:00",
+        ),
+        date_modified=datetime.datetime.fromisoformat(
+            "2023-02-20 14:15:22+00:00",
+        ),
+        associated_vendor=AssociatedVendor(
+            vendor_number="V-12345",
+            name_1="Office Supply Co.",
+            ein="XXXXX6789",
+            email="billing@officesupply.example.com",
+            vendor_id=1542,
+        ),
+        associated_customer=CustomerData(
+            firstname="Acme",
+            lastname="Corporation",
+        ),
+        paypoint_dbaname="Global Factory LLC",
+        paypoint_legalname="Global Factory LLC",
+        paypoint_entryname="4872acb376a",
+        external_paypoint_id="pay-10",
+        parent_org_name="SupplyPro",
+        paypoint_id=236,
+    )
+    """
+
     vcard_sent: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="vcardSent")] = pydantic.Field(
         default=None
     )
@@ -128,6 +179,12 @@ class VCardRecord(UniversalBaseModel):
     external_paypoint_id: typing_extensions.Annotated[
         typing.Optional[ExternalPaypointId], FieldMetadata(alias="externalPaypointID")
     ] = None
+    paypoint_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="paypointId")] = pydantic.Field(
+        default=None
+    )
+    """
+    The paypoint's unique identifier.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -13,7 +13,16 @@ from ...types.resulttext import Resulttext
 
 
 class AddMethodResponseResponseData(UniversalBaseModel):
-    customer_id: typing_extensions.Annotated[typing.Optional[CustomerId], FieldMetadata(alias="CustomerId")] = (
+    reference_id: typing_extensions.Annotated[
+        typing.Optional[MethodReferenceId], FieldMetadata(alias="referenceId")
+    ] = pydantic.Field(default=None)
+    """
+    Stored method identifier in Payabli platform. This ID is used to manage the stored method.
+    """
+
+    result_code: typing_extensions.Annotated[typing.Optional[ResultCode], FieldMetadata(alias="resultCode")] = None
+    result_text: typing_extensions.Annotated[typing.Optional[Resulttext], FieldMetadata(alias="resultText")] = None
+    customer_id: typing_extensions.Annotated[typing.Optional[CustomerId], FieldMetadata(alias="customerId")] = (
         pydantic.Field(default=None)
     )
     """
@@ -25,15 +34,6 @@ class AddMethodResponseResponseData(UniversalBaseModel):
     method_reference_id: typing_extensions.Annotated[
         typing.Optional[MethodReferenceId], FieldMetadata(alias="methodReferenceId")
     ] = None
-    reference_id: typing_extensions.Annotated[
-        typing.Optional[MethodReferenceId], FieldMetadata(alias="ReferenceId")
-    ] = pydantic.Field(default=None)
-    """
-    Stored method identifier in Payabli platform. This ID is used to manage the stored method.
-    """
-
-    result_code: typing_extensions.Annotated[typing.Optional[ResultCode], FieldMetadata(alias="ResultCode")] = None
-    result_text: typing_extensions.Annotated[typing.Optional[Resulttext], FieldMetadata(alias="ResultText")] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

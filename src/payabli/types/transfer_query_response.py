@@ -40,6 +40,7 @@ class TransferQueryResponse(UniversalBaseModel):
                 paypoint_logo="https://example.com/logo.png",
                 parent_org_name="Pilgrim Planner",
                 parent_org_id=12345,
+                parent_org_entry_name="43aebc000",
                 parent_org_logo="https://example.com/parent-logo.png",
                 external_paypoint_id="ext-12345",
                 bank_account=TransferBankAccount(

@@ -48,7 +48,7 @@ class QueryBatchesResponse(UniversalBaseModel):
                 ],
                 connector_name="GP",
                 batch_date=datetime.datetime.fromisoformat(
-                    "2025-08-25 20:00:00+00:00",
+                    "2025-08-26 00:00:00+00:00",
                 ),
                 batch_amount=0.0,
                 batch_fees_amount=0.0,

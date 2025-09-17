@@ -179,6 +179,12 @@ class VCardGetResponse(UniversalBaseModel):
     external_paypoint_id: typing_extensions.Annotated[
         typing.Optional[ExternalPaypointId], FieldMetadata(alias="externalPaypointID")
     ] = None
+    paypoint_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="paypointId")] = pydantic.Field(
+        default=None
+    )
+    """
+    The unique identifier for the paypoint.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

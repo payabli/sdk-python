@@ -38,6 +38,7 @@ class Transfer(UniversalBaseModel):
         paypoint_logo="https://example.com/logo.png",
         parent_org_name="Pilgrim Planner",
         parent_org_id=12345,
+        parent_org_entry_name="43aebc000",
         parent_org_logo="https://example.com/parent-logo.png",
         external_paypoint_id="ext-12345",
         bank_account=TransferBankAccount(
@@ -100,7 +101,7 @@ class Transfer(UniversalBaseModel):
         pydantic.Field(default=None)
     )
     """
-    The paypoint entry name.
+    The paypoint entryname.
     """
 
     paypoint_legal_name: typing_extensions.Annotated[
@@ -138,6 +139,13 @@ class Transfer(UniversalBaseModel):
     The parent organization ID.
     """
 
+    parent_org_entry_name: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="parentOrgEntryName")
+    ] = pydantic.Field(default=None)
+    """
+    The parent organization entryname.
+    """
+
     parent_org_logo: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="parentOrgLogo")] = (
         pydantic.Field(default=None)
     )
@@ -146,7 +154,7 @@ class Transfer(UniversalBaseModel):
     """
 
     external_paypoint_id: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="externalPaypointId")
+        typing.Optional[str], FieldMetadata(alias="externalPaypointID")
     ] = pydantic.Field(default=None)
     """
     The external paypoint ID.
