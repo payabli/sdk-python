@@ -7,7 +7,7 @@ The Payabli Python library provides convenient access to the Payabli APIs from P
 
 ## Documentation
 
-API reference documentation is available [here](https://docs.payabli.com/).
+API reference documentation is available [here](https://docs.payabli.com).
 
 ## Installation
 
