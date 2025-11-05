@@ -14,11 +14,19 @@ from ...types.method_reference_id import MethodReferenceId
 from ...types.referenceidtrans import Referenceidtrans
 from ...types.result_code import ResultCode
 from ...types.resulttext import Resulttext
+from .transaction_detail_record import TransactionDetailRecord
 
 
 class GetPaidResponseData(UniversalBaseModel):
     """
     Response data for GetPaid transactions
+    """
+
+    transaction_details: typing_extensions.Annotated[
+        typing.Optional[TransactionDetailRecord], FieldMetadata(alias="transactionDetails")
+    ] = pydantic.Field(default=None)
+    """
+    Details of the transaction. Present only if `includeDetails` query parameter is set to `true` in the request.
     """
 
     auth_code: typing_extensions.Annotated[typing.Optional[Authcode], FieldMetadata(alias="authCode")] = None

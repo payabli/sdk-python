@@ -33,7 +33,7 @@ from ..types.refund_detail import RefundDetail
 from ..types.source import Source
 from ..types.subdomain import Subdomain
 from ..types.subscriptionid import Subscriptionid
-from ..types.transaction_query_records import TransactionQueryRecords
+from ..types.transaction_query_records_customer import TransactionQueryRecordsCustomer
 from .types.auth_response import AuthResponse
 from .types.capture_payment_details import CapturePaymentDetails
 from .types.capture_response import CaptureResponse
@@ -551,7 +551,7 @@ class RawMoneyInClient:
 
     def details(
         self, trans_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[TransactionQueryRecords]:
+    ) -> HttpResponse[TransactionQueryRecordsCustomer]:
         """
         Retrieve a processed transaction's details.
 
@@ -565,7 +565,7 @@ class RawMoneyInClient:
 
         Returns
         -------
-        HttpResponse[TransactionQueryRecords]
+        HttpResponse[TransactionQueryRecordsCustomer]
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -576,9 +576,9 @@ class RawMoneyInClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    TransactionQueryRecords,
+                    TransactionQueryRecordsCustomer,
                     parse_obj_as(
-                        type_=TransactionQueryRecords,  # type: ignore
+                        type_=TransactionQueryRecordsCustomer,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -639,6 +639,7 @@ class RawMoneyInClient:
         payment_method: PaymentMethod,
         ach_validation: typing.Optional[AchValidation] = None,
         force_customer_creation: typing.Optional[ForceCustomerCreation] = None,
+        include_details: typing.Optional[bool] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         validation_code: typing.Optional[str] = None,
         account_id: typing.Optional[Accountid] = OMIT,
@@ -667,6 +668,9 @@ class RawMoneyInClient:
         ach_validation : typing.Optional[AchValidation]
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+
+        include_details : typing.Optional[bool]
+            When `true`, transactionDetails object is returned in the response. See a full example of the `transactionDetails` object in the [Transaction integration guide](/developers/developer-guides/money-in-transaction-add#includedetailstrue-response).
 
         idempotency_key : typing.Optional[IdempotencyKey]
 
@@ -709,6 +713,7 @@ class RawMoneyInClient:
             params={
                 "achValidation": ach_validation,
                 "forceCustomerCreation": force_customer_creation,
+                "includeDetails": include_details,
             },
             json={
                 "accountId": account_id,
@@ -902,7 +907,7 @@ class RawMoneyInClient:
 
             Amount to refund from original transaction, minus any service fees charged on the original transaction.
 
-            The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was $90 plus a $10 service fee, you can refund up to $90.
+            The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was \$90 plus a \$10 service fee, you can refund up to \$90.
 
             An amount equal to zero will refund the total amount authorized minus any service fee.
 
@@ -1986,7 +1991,7 @@ class AsyncRawMoneyInClient:
 
     async def details(
         self, trans_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[TransactionQueryRecords]:
+    ) -> AsyncHttpResponse[TransactionQueryRecordsCustomer]:
         """
         Retrieve a processed transaction's details.
 
@@ -2000,7 +2005,7 @@ class AsyncRawMoneyInClient:
 
         Returns
         -------
-        AsyncHttpResponse[TransactionQueryRecords]
+        AsyncHttpResponse[TransactionQueryRecordsCustomer]
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -2011,9 +2016,9 @@ class AsyncRawMoneyInClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    TransactionQueryRecords,
+                    TransactionQueryRecordsCustomer,
                     parse_obj_as(
-                        type_=TransactionQueryRecords,  # type: ignore
+                        type_=TransactionQueryRecordsCustomer,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -2074,6 +2079,7 @@ class AsyncRawMoneyInClient:
         payment_method: PaymentMethod,
         ach_validation: typing.Optional[AchValidation] = None,
         force_customer_creation: typing.Optional[ForceCustomerCreation] = None,
+        include_details: typing.Optional[bool] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         validation_code: typing.Optional[str] = None,
         account_id: typing.Optional[Accountid] = OMIT,
@@ -2102,6 +2108,9 @@ class AsyncRawMoneyInClient:
         ach_validation : typing.Optional[AchValidation]
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+
+        include_details : typing.Optional[bool]
+            When `true`, transactionDetails object is returned in the response. See a full example of the `transactionDetails` object in the [Transaction integration guide](/developers/developer-guides/money-in-transaction-add#includedetailstrue-response).
 
         idempotency_key : typing.Optional[IdempotencyKey]
 
@@ -2144,6 +2153,7 @@ class AsyncRawMoneyInClient:
             params={
                 "achValidation": ach_validation,
                 "forceCustomerCreation": force_customer_creation,
+                "includeDetails": include_details,
             },
             json={
                 "accountId": account_id,
@@ -2337,7 +2347,7 @@ class AsyncRawMoneyInClient:
 
             Amount to refund from original transaction, minus any service fees charged on the original transaction.
 
-            The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was $90 plus a $10 service fee, you can refund up to $90.
+            The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was \$90 plus a \$10 service fee, you can refund up to \$90.
 
             An amount equal to zero will refund the total amount authorized minus any service fee.
 

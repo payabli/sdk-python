@@ -23,7 +23,7 @@ from ..types.refund_detail import RefundDetail
 from ..types.source import Source
 from ..types.subdomain import Subdomain
 from ..types.subscriptionid import Subscriptionid
-from ..types.transaction_query_records import TransactionQueryRecords
+from ..types.transaction_query_records_customer import TransactionQueryRecordsCustomer
 from .raw_client import AsyncRawMoneyInClient, RawMoneyInClient
 from .types.auth_response import AuthResponse
 from .types.capture_payment_details import CapturePaymentDetails
@@ -361,7 +361,7 @@ class MoneyInClient:
 
     def details(
         self, trans_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> TransactionQueryRecords:
+    ) -> TransactionQueryRecordsCustomer:
         """
         Retrieve a processed transaction's details.
 
@@ -375,7 +375,7 @@ class MoneyInClient:
 
         Returns
         -------
-        TransactionQueryRecords
+        TransactionQueryRecordsCustomer
             Success
 
         Examples
@@ -399,6 +399,7 @@ class MoneyInClient:
         payment_method: PaymentMethod,
         ach_validation: typing.Optional[AchValidation] = None,
         force_customer_creation: typing.Optional[ForceCustomerCreation] = None,
+        include_details: typing.Optional[bool] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         validation_code: typing.Optional[str] = None,
         account_id: typing.Optional[Accountid] = OMIT,
@@ -427,6 +428,9 @@ class MoneyInClient:
         ach_validation : typing.Optional[AchValidation]
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+
+        include_details : typing.Optional[bool]
+            When `true`, transactionDetails object is returned in the response. See a full example of the `transactionDetails` object in the [Transaction integration guide](/developers/developer-guides/money-in-transaction-add#includedetailstrue-response).
 
         idempotency_key : typing.Optional[IdempotencyKey]
 
@@ -495,6 +499,7 @@ class MoneyInClient:
             payment_method=payment_method,
             ach_validation=ach_validation,
             force_customer_creation=force_customer_creation,
+            include_details=include_details,
             idempotency_key=idempotency_key,
             validation_code=validation_code,
             account_id=account_id,
@@ -565,7 +570,7 @@ class MoneyInClient:
 
             Amount to refund from original transaction, minus any service fees charged on the original transaction.
 
-            The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was $90 plus a $10 service fee, you can refund up to $90.
+            The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was \$90 plus a \$10 service fee, you can refund up to \$90.
 
             An amount equal to zero will refund the total amount authorized minus any service fee.
 
@@ -1220,7 +1225,7 @@ class AsyncMoneyInClient:
 
     async def details(
         self, trans_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> TransactionQueryRecords:
+    ) -> TransactionQueryRecordsCustomer:
         """
         Retrieve a processed transaction's details.
 
@@ -1234,7 +1239,7 @@ class AsyncMoneyInClient:
 
         Returns
         -------
-        TransactionQueryRecords
+        TransactionQueryRecordsCustomer
             Success
 
         Examples
@@ -1266,6 +1271,7 @@ class AsyncMoneyInClient:
         payment_method: PaymentMethod,
         ach_validation: typing.Optional[AchValidation] = None,
         force_customer_creation: typing.Optional[ForceCustomerCreation] = None,
+        include_details: typing.Optional[bool] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         validation_code: typing.Optional[str] = None,
         account_id: typing.Optional[Accountid] = OMIT,
@@ -1294,6 +1300,9 @@ class AsyncMoneyInClient:
         ach_validation : typing.Optional[AchValidation]
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+
+        include_details : typing.Optional[bool]
+            When `true`, transactionDetails object is returned in the response. See a full example of the `transactionDetails` object in the [Transaction integration guide](/developers/developer-guides/money-in-transaction-add#includedetailstrue-response).
 
         idempotency_key : typing.Optional[IdempotencyKey]
 
@@ -1375,6 +1384,7 @@ class AsyncMoneyInClient:
             payment_method=payment_method,
             ach_validation=ach_validation,
             force_customer_creation=force_customer_creation,
+            include_details=include_details,
             idempotency_key=idempotency_key,
             validation_code=validation_code,
             account_id=account_id,
@@ -1453,7 +1463,7 @@ class AsyncMoneyInClient:
 
             Amount to refund from original transaction, minus any service fees charged on the original transaction.
 
-            The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was $90 plus a $10 service fee, you can refund up to $90.
+            The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was \$90 plus a \$10 service fee, you can refund up to \$90.
 
             An amount equal to zero will refund the total amount authorized minus any service fee.
 

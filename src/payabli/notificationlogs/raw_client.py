@@ -35,7 +35,7 @@ class RawNotificationlogsClient:
         start_date: dt.datetime,
         end_date: dt.datetime,
         page_size: typing.Optional[Pagesize] = None,
-        skip: typing.Optional[int] = None,
+        page: typing.Optional[int] = None,
         notification_event: typing.Optional[str] = OMIT,
         succeeded: typing.Optional[bool] = OMIT,
         org_id: typing.Optional[int] = OMIT,
@@ -59,8 +59,8 @@ class RawNotificationlogsClient:
 
         page_size : typing.Optional[Pagesize]
 
-        skip : typing.Optional[int]
-            The number of records to skip before starting to collect the result set.
+        page : typing.Optional[int]
+            The page number to retrieve. Defaults to 1 if not provided.
 
         notification_event : typing.Optional[str]
             The type of notification event to filter by.
@@ -86,7 +86,7 @@ class RawNotificationlogsClient:
             method="POST",
             params={
                 "PageSize": page_size,
-                "Skip": skip,
+                "Page": page,
             },
             json={
                 "startDate": start_date,
@@ -415,7 +415,7 @@ class AsyncRawNotificationlogsClient:
         start_date: dt.datetime,
         end_date: dt.datetime,
         page_size: typing.Optional[Pagesize] = None,
-        skip: typing.Optional[int] = None,
+        page: typing.Optional[int] = None,
         notification_event: typing.Optional[str] = OMIT,
         succeeded: typing.Optional[bool] = OMIT,
         org_id: typing.Optional[int] = OMIT,
@@ -439,8 +439,8 @@ class AsyncRawNotificationlogsClient:
 
         page_size : typing.Optional[Pagesize]
 
-        skip : typing.Optional[int]
-            The number of records to skip before starting to collect the result set.
+        page : typing.Optional[int]
+            The page number to retrieve. Defaults to 1 if not provided.
 
         notification_event : typing.Optional[str]
             The type of notification event to filter by.
@@ -466,7 +466,7 @@ class AsyncRawNotificationlogsClient:
             method="POST",
             params={
                 "PageSize": page_size,
-                "Skip": skip,
+                "Page": page,
             },
             json={
                 "startDate": start_date,

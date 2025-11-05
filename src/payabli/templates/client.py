@@ -5,17 +5,10 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.boarding_link_api_response import BoardingLinkApiResponse
-from ..types.orgid import Orgid
 from ..types.payabli_api_response_template_id import PayabliApiResponseTemplateId
-from ..types.template_code import TemplateCode
-from ..types.template_content import TemplateContent
-from ..types.template_name import TemplateName
 from ..types.template_query_record import TemplateQueryRecord
 from ..types.template_query_response import TemplateQueryResponse
 from .raw_client import AsyncRawTemplatesClient, RawTemplatesClient
-
-# this is used as the default value for optional parameters
-OMIT = typing.cast(typing.Any, ...)
 
 
 class TemplatesClient:
@@ -32,71 +25,6 @@ class TemplatesClient:
         RawTemplatesClient
         """
         return self._raw_client
-
-    def add_template(
-        self,
-        org_id_: int,
-        *,
-        org_id: typing.Optional[Orgid] = OMIT,
-        pricing_id: typing.Optional[int] = OMIT,
-        template_code: typing.Optional[TemplateCode] = OMIT,
-        template_content: typing.Optional[TemplateContent] = OMIT,
-        template_description: typing.Optional[str] = OMIT,
-        template_name: typing.Optional[TemplateName] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> PayabliApiResponseTemplateId:
-        """
-        Creates a boarding template in an organization.
-
-        Parameters
-        ----------
-        org_id_ : int
-            The numeric identifier for organization, assigned by Payabli.
-
-        org_id : typing.Optional[Orgid]
-            The ID of the organization the template belongs to.
-
-        pricing_id : typing.Optional[int]
-
-        template_code : typing.Optional[TemplateCode]
-
-        template_content : typing.Optional[TemplateContent]
-
-        template_description : typing.Optional[str]
-            A description for the template.
-
-        template_name : typing.Optional[TemplateName]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        PayabliApiResponseTemplateId
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.templates.add_template(
-            org_id_=123,
-        )
-        """
-        _response = self._raw_client.add_template(
-            org_id_,
-            org_id=org_id,
-            pricing_id=pricing_id,
-            template_code=template_code,
-            template_content=template_content,
-            template_description=template_description,
-            template_name=template_name,
-            request_options=request_options,
-        )
-        return _response.data
 
     def delete_template(
         self, template_id: float, *, request_options: typing.Optional[RequestOptions] = None
@@ -306,71 +234,6 @@ class TemplatesClient:
         )
         return _response.data
 
-    def update_template(
-        self,
-        template_id: float,
-        *,
-        org_id: typing.Optional[Orgid] = OMIT,
-        pricing_id: typing.Optional[int] = OMIT,
-        template_code: typing.Optional[TemplateCode] = OMIT,
-        template_content: typing.Optional[TemplateContent] = OMIT,
-        template_description: typing.Optional[str] = OMIT,
-        template_name: typing.Optional[TemplateName] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> PayabliApiResponseTemplateId:
-        """
-        Updates a boarding template by ID.
-
-        Parameters
-        ----------
-        template_id : float
-            The boarding template ID. Can be found at the end of the boarding template URL in PartnerHub. Example: `https://partner-sandbox.payabli.com/myorganization/boarding/edittemplate/80`. Here, the template ID is `80`.
-
-        org_id : typing.Optional[Orgid]
-            The ID of the organization the template belongs to.
-
-        pricing_id : typing.Optional[int]
-
-        template_code : typing.Optional[TemplateCode]
-
-        template_content : typing.Optional[TemplateContent]
-
-        template_description : typing.Optional[str]
-            A description for the template.
-
-        template_name : typing.Optional[TemplateName]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        PayabliApiResponseTemplateId
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.templates.update_template(
-            template_id=80.0,
-        )
-        """
-        _response = self._raw_client.update_template(
-            template_id,
-            org_id=org_id,
-            pricing_id=pricing_id,
-            template_code=template_code,
-            template_content=template_content,
-            template_description=template_description,
-            template_name=template_name,
-            request_options=request_options,
-        )
-        return _response.data
-
 
 class AsyncTemplatesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -386,79 +249,6 @@ class AsyncTemplatesClient:
         AsyncRawTemplatesClient
         """
         return self._raw_client
-
-    async def add_template(
-        self,
-        org_id_: int,
-        *,
-        org_id: typing.Optional[Orgid] = OMIT,
-        pricing_id: typing.Optional[int] = OMIT,
-        template_code: typing.Optional[TemplateCode] = OMIT,
-        template_content: typing.Optional[TemplateContent] = OMIT,
-        template_description: typing.Optional[str] = OMIT,
-        template_name: typing.Optional[TemplateName] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> PayabliApiResponseTemplateId:
-        """
-        Creates a boarding template in an organization.
-
-        Parameters
-        ----------
-        org_id_ : int
-            The numeric identifier for organization, assigned by Payabli.
-
-        org_id : typing.Optional[Orgid]
-            The ID of the organization the template belongs to.
-
-        pricing_id : typing.Optional[int]
-
-        template_code : typing.Optional[TemplateCode]
-
-        template_content : typing.Optional[TemplateContent]
-
-        template_description : typing.Optional[str]
-            A description for the template.
-
-        template_name : typing.Optional[TemplateName]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        PayabliApiResponseTemplateId
-            Success
-
-        Examples
-        --------
-        import asyncio
-
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.templates.add_template(
-                org_id_=123,
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.add_template(
-            org_id_,
-            org_id=org_id,
-            pricing_id=pricing_id,
-            template_code=template_code,
-            template_content=template_content,
-            template_description=template_description,
-            template_name=template_name,
-            request_options=request_options,
-        )
-        return _response.data
 
     async def delete_template(
         self, template_id: float, *, request_options: typing.Optional[RequestOptions] = None
@@ -696,79 +486,6 @@ class AsyncTemplatesClient:
             limit_record=limit_record,
             parameters=parameters,
             sort_by=sort_by,
-            request_options=request_options,
-        )
-        return _response.data
-
-    async def update_template(
-        self,
-        template_id: float,
-        *,
-        org_id: typing.Optional[Orgid] = OMIT,
-        pricing_id: typing.Optional[int] = OMIT,
-        template_code: typing.Optional[TemplateCode] = OMIT,
-        template_content: typing.Optional[TemplateContent] = OMIT,
-        template_description: typing.Optional[str] = OMIT,
-        template_name: typing.Optional[TemplateName] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> PayabliApiResponseTemplateId:
-        """
-        Updates a boarding template by ID.
-
-        Parameters
-        ----------
-        template_id : float
-            The boarding template ID. Can be found at the end of the boarding template URL in PartnerHub. Example: `https://partner-sandbox.payabli.com/myorganization/boarding/edittemplate/80`. Here, the template ID is `80`.
-
-        org_id : typing.Optional[Orgid]
-            The ID of the organization the template belongs to.
-
-        pricing_id : typing.Optional[int]
-
-        template_code : typing.Optional[TemplateCode]
-
-        template_content : typing.Optional[TemplateContent]
-
-        template_description : typing.Optional[str]
-            A description for the template.
-
-        template_name : typing.Optional[TemplateName]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        PayabliApiResponseTemplateId
-            Success
-
-        Examples
-        --------
-        import asyncio
-
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.templates.update_template(
-                template_id=80.0,
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.update_template(
-            template_id,
-            org_id=org_id,
-            pricing_id=pricing_id,
-            template_code=template_code,
-            template_content=template_content,
-            template_description=template_description,
-            template_name=template_name,
             request_options=request_options,
         )
         return _response.data

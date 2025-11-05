@@ -37,7 +37,7 @@ class NotificationlogsClient:
         start_date: dt.datetime,
         end_date: dt.datetime,
         page_size: typing.Optional[Pagesize] = None,
-        skip: typing.Optional[int] = None,
+        page: typing.Optional[int] = None,
         notification_event: typing.Optional[str] = OMIT,
         succeeded: typing.Optional[bool] = OMIT,
         org_id: typing.Optional[int] = OMIT,
@@ -61,8 +61,8 @@ class NotificationlogsClient:
 
         page_size : typing.Optional[Pagesize]
 
-        skip : typing.Optional[int]
-            The number of records to skip before starting to collect the result set.
+        page : typing.Optional[int]
+            The page number to retrieve. Defaults to 1 if not provided.
 
         notification_event : typing.Optional[str]
             The type of notification event to filter by.
@@ -109,7 +109,7 @@ class NotificationlogsClient:
             start_date=start_date,
             end_date=end_date,
             page_size=page_size,
-            skip=skip,
+            page=page,
             notification_event=notification_event,
             succeeded=succeeded,
             org_id=org_id,
@@ -261,7 +261,7 @@ class AsyncNotificationlogsClient:
         start_date: dt.datetime,
         end_date: dt.datetime,
         page_size: typing.Optional[Pagesize] = None,
-        skip: typing.Optional[int] = None,
+        page: typing.Optional[int] = None,
         notification_event: typing.Optional[str] = OMIT,
         succeeded: typing.Optional[bool] = OMIT,
         org_id: typing.Optional[int] = OMIT,
@@ -285,8 +285,8 @@ class AsyncNotificationlogsClient:
 
         page_size : typing.Optional[Pagesize]
 
-        skip : typing.Optional[int]
-            The number of records to skip before starting to collect the result set.
+        page : typing.Optional[int]
+            The page number to retrieve. Defaults to 1 if not provided.
 
         notification_event : typing.Optional[str]
             The type of notification event to filter by.
@@ -340,7 +340,7 @@ class AsyncNotificationlogsClient:
             start_date=start_date,
             end_date=end_date,
             page_size=page_size,
-            skip=skip,
+            page=page,
             notification_event=notification_event,
             succeeded=succeeded,
             org_id=org_id,

@@ -42,7 +42,7 @@ client.money_in.getpaid(
     payment_method=PayMethodCredit(
         cardcvv="999",
         cardexp="02/27",
-        card_holder="Kassiane Cassian",
+        card_holder="John Cassian",
         cardnumber="4111111111111111",
         cardzip="12345",
         initiator="payor",
@@ -52,7 +52,7 @@ client.money_in.getpaid(
 
 ## Async Client
 
-The SDK also exports an `async` client so that you can make non-blocking calls to our API.
+The SDK also exports an `async` client so that you can make non-blocking calls to our API. Note that if you are constructing an Async httpx client class to pass into this client, use `httpx.AsyncClient()` instead of `httpx.Client()` (e.g. for the `httpx_client` parameter of this client).
 
 ```python
 import asyncio
@@ -83,7 +83,7 @@ async def main() -> None:
         payment_method=PayMethodCredit(
             cardcvv="999",
             cardexp="02/27",
-            card_holder="Kassiane Cassian",
+            card_holder="John Cassian",
             cardnumber="4111111111111111",
             cardzip="12345",
             initiator="payor",

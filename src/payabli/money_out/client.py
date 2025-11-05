@@ -237,7 +237,7 @@ class MoneyOutClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CaptureAllOutResponse:
         """
-        Captures an array of authorized payout transactions for settlement.
+        Captures an array of authorized payout transactions for settlement. The maximum number of transactions that can be captured in a single request is 500.
 
         Parameters
         ----------
@@ -684,7 +684,7 @@ class AsyncMoneyOutClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CaptureAllOutResponse:
         """
-        Captures an array of authorized payout transactions for settlement.
+        Captures an array of authorized payout transactions for settlement. The maximum number of transactions that can be captured in a single request is 500.
 
         Parameters
         ----------

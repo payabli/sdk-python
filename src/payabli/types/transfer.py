@@ -57,6 +57,7 @@ class Transfer(UniversalBaseModel):
         third_party_paid_amount=0.0,
         adjustments_amount=0.0,
         net_transfer_amount=1004.0,
+        split_amount=650.22,
         events_data=[
             GeneralEvents(
                 description="Transfer Created",
@@ -227,6 +228,13 @@ class Transfer(UniversalBaseModel):
     net_transfer_amount: typing_extensions.Annotated[float, FieldMetadata(alias="netTransferAmount")] = pydantic.Field()
     """
     The net transfer amount after all deductions and additions.
+    """
+
+    split_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="splitAmount")] = (
+        pydantic.Field(default=None)
+    )
+    """
+    The sum of each splitFundingAmount of each record in the transfer.
     """
 
     events_data: typing_extensions.Annotated[

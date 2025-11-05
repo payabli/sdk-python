@@ -65,6 +65,13 @@ class QueryTransferSummary(UniversalBaseModel):
     The gross batch amount minus service fees.
     """
 
+    split_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="splitAmount")] = (
+        pydantic.Field(default=None)
+    )
+    """
+    The sum of each splitFundingAmount of each record in the transfer.
+    """
+
     service_fees: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="serviceFees")] = (
         pydantic.Field(default=None)
     )

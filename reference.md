@@ -12685,7 +12685,7 @@ client.money_in.getpaid(
     payment_method=PayMethodCredit(
         cardcvv="999",
         cardexp="02/27",
-        card_holder="Kassiane Cassian",
+        card_holder="John Cassian",
         cardnumber="4111111111111111",
         cardzip="12345",
         initiator="payor",
@@ -12731,6 +12731,14 @@ client.money_in.getpaid(
 <dd>
 
 **force_customer_creation:** `typing.Optional[ForceCustomerCreation]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_details:** `typing.Optional[bool]` — When `true`, transactionDetails object is returned in the response. See a full example of the `transactionDetails` object in the [Transaction integration guide](/developers/developer-guides/money-in-transaction-add#includedetailstrue-response).
     
 </dd>
 </dl>
@@ -12988,7 +12996,7 @@ client.money_in.refund(
 
 Amount to refund from original transaction, minus any service fees charged on the original transaction. 
 
-The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was $90 plus a $10 service fee, you can refund up to $90. 
+The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was \$90 plus a \$10 service fee, you can refund up to \$90.
 
 An amount equal to zero will refund the total amount authorized minus any service fee.
     
@@ -13909,7 +13917,7 @@ client.money_out.cancel_out(
 <dl>
 <dd>
 
-Captures an array of authorized payout transactions for settlement.
+Captures an array of authorized payout transactions for settlement. The maximum number of transactions that can be captured in a single request is 500.
 </dd>
 </dl>
 </dd>
@@ -14827,7 +14835,7 @@ client.notificationlogs.search_notification_logs(
 <dl>
 <dd>
 
-**skip:** `typing.Optional[int]` — The number of records to skip before starting to collect the result set. 
+**page:** `typing.Optional[int]` — The page number to retrieve. Defaults to 1 if not provided.
     
 </dd>
 </dl>
@@ -22730,7 +22738,8 @@ See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-repo
 - `deviceId` (ct, nct, in, nin, eq, ne)
 - `AchSecCode` ( ct, nct, in, nin, eq, ne)
 - `AchHolderType` (ct, nct, in, nin, eq, and ne)
-- `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name related to customer data - 'invoiceAdditional-xxx' (ne, eq, ct, nct) where xxx is the additional field name related to invoice data
+- `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name related to customer data
+- 'invoiceAdditional-xxx' (ne, eq, ct, nct) where xxx is the additional field name related to invoice data
 
 **List of comparison operators accepted:**
 - `eq` or empty => equal
@@ -25314,124 +25323,6 @@ client.subscription.update_subscription(
 </details>
 
 ## Templates
-<details><summary><code>client.templates.<a href="src/payabli/templates/client.py">add_template</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates a boarding template in an organization.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from payabli import payabli
-
-client = payabli(
-    api_key="YOUR_API_KEY",
-)
-client.templates.add_template(
-    org_id_=123,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**org_id_:** `int` — The numeric identifier for organization, assigned by Payabli.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**org_id:** `typing.Optional[Orgid]` — The ID of the organization the template belongs to. 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**pricing_id:** `typing.Optional[int]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**template_code:** `typing.Optional[TemplateCode]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**template_content:** `typing.Optional[TemplateContent]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**template_description:** `typing.Optional[str]` — A description for the template.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**template_name:** `typing.Optional[TemplateName]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.templates.<a href="src/payabli/templates/client.py">delete_template</a>(...)</code></summary>
 <dl>
 <dd>
@@ -25782,124 +25673,6 @@ Example: title(ct)=hoa return all records with title containing "hoa"
 <dd>
 
 **sort_by:** `typing.Optional[str]` — The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.templates.<a href="src/payabli/templates/client.py">update_template</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates a boarding template by ID.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from payabli import payabli
-
-client = payabli(
-    api_key="YOUR_API_KEY",
-)
-client.templates.update_template(
-    template_id=80.0,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**template_id:** `float` — The boarding template ID. Can be found at the end of the boarding template URL in PartnerHub. Example: `https://partner-sandbox.payabli.com/myorganization/boarding/edittemplate/80`. Here, the template ID is `80`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**org_id:** `typing.Optional[Orgid]` — The ID of the organization the template belongs to. 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**pricing_id:** `typing.Optional[int]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**template_code:** `typing.Optional[TemplateCode]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**template_content:** `typing.Optional[TemplateContent]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**template_description:** `typing.Optional[str]` — A description for the template.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**template_name:** `typing.Optional[TemplateName]` 
     
 </dd>
 </dl>

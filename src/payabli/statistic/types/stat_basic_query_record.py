@@ -26,6 +26,18 @@ class StatBasicQueryRecord(UniversalBaseModel):
     Volume of incoming transactions
     """
 
+    in_wallet_transactions: typing_extensions.Annotated[int, FieldMetadata(alias="inWalletTransactions")] = (
+        pydantic.Field()
+    )
+    """
+    Number of incoming wallet transactions
+    """
+
+    in_wallet_volume: typing_extensions.Annotated[float, FieldMetadata(alias="inWalletVolume")] = pydantic.Field()
+    """
+    Volume of incoming wallet transactions
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

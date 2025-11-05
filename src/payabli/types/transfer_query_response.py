@@ -59,6 +59,7 @@ class TransferQueryResponse(UniversalBaseModel):
                 third_party_paid_amount=0.0,
                 adjustments_amount=0.0,
                 net_transfer_amount=1004.0,
+                split_amount=650.22,
                 events_data=[
                     GeneralEvents(
                         description="Transfer Created",

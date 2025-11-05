@@ -485,6 +485,7 @@ if typing.TYPE_CHECKING:
     from .query_transaction_events import QueryTransactionEvents
     from .query_transaction_events_event_data import QueryTransactionEventsEventData
     from .query_transaction_payor_data import QueryTransactionPayorData
+    from .query_transaction_payor_data_customer import QueryTransactionPayorDataCustomer
     from .query_user_response import QueryUserResponse
     from .read_only import ReadOnly
     from .receipt_content import ReceiptContent
@@ -602,6 +603,7 @@ if typing.TYPE_CHECKING:
     from .trans_status import TransStatus
     from .transaction_out_query_record import TransactionOutQueryRecord
     from .transaction_query_records import TransactionQueryRecords
+    from .transaction_query_records_customer import TransactionQueryRecordsCustomer
     from .transaction_time import TransactionTime
     from .transfer import Transfer
     from .transfer_bank_account import TransferBankAccount
@@ -1130,6 +1132,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "QueryTransactionEvents": ".query_transaction_events",
     "QueryTransactionEventsEventData": ".query_transaction_events_event_data",
     "QueryTransactionPayorData": ".query_transaction_payor_data",
+    "QueryTransactionPayorDataCustomer": ".query_transaction_payor_data_customer",
     "QueryUserResponse": ".query_user_response",
     "ReadOnly": ".read_only",
     "ReceiptContent": ".receipt_content",
@@ -1247,6 +1250,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "TransStatus": ".trans_status",
     "TransactionOutQueryRecord": ".transaction_out_query_record",
     "TransactionQueryRecords": ".transaction_query_records",
+    "TransactionQueryRecordsCustomer": ".transaction_query_records_customer",
     "TransactionTime": ".transaction_time",
     "Transfer": ".transfer",
     "TransferBankAccount": ".transfer_bank_account",
@@ -1304,8 +1308,10 @@ def __getattr__(attr_name: str) -> typing.Any:
         raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
     try:
         module = import_module(module_name, __package__)
-        result = getattr(module, attr_name)
-        return result
+        if module_name == f".{attr_name}":
+            return module
+        else:
+            return getattr(module, attr_name)
     except ImportError as e:
         raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
     except AttributeError as e:
@@ -1797,6 +1803,7 @@ __all__ = [
     "QueryTransactionEvents",
     "QueryTransactionEventsEventData",
     "QueryTransactionPayorData",
+    "QueryTransactionPayorDataCustomer",
     "QueryUserResponse",
     "ReadOnly",
     "ReceiptContent",
@@ -1914,6 +1921,7 @@ __all__ = [
     "TransStatus",
     "TransactionOutQueryRecord",
     "TransactionQueryRecords",
+    "TransactionQueryRecordsCustomer",
     "TransactionTime",
     "Transfer",
     "TransferBankAccount",

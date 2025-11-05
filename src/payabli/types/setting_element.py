@@ -30,7 +30,7 @@ class SettingElement(UniversalBaseModel):
         default=None
     )
     """
-    When `true`, you must send the reciept to the payor manually using the [/MoneyIn/sendreceipt/\{transId\}](/api-reference/moneyin/send-receipt-for-transaction) endpoint.
+    When `true`, you must send the reciept to the payor manually using the [/MoneyIn/sendreceipt/\\{transId\\}](/api-reference/moneyin/send-receipt-for-transaction) endpoint.
     """
 
     if IS_PYDANTIC_V2:

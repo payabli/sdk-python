@@ -25,6 +25,14 @@ if typing.TYPE_CHECKING:
     from .response_data_refunds import ResponseDataRefunds
     from .reverse_response import ReverseResponse
     from .trans_request_body import TransRequestBody
+    from .transaction_detail_customer import TransactionDetailCustomer
+    from .transaction_detail_event import TransactionDetailEvent
+    from .transaction_detail_invoice_data import TransactionDetailInvoiceData
+    from .transaction_detail_payment_data import TransactionDetailPaymentData
+    from .transaction_detail_payment_details import TransactionDetailPaymentDetails
+    from .transaction_detail_record import TransactionDetailRecord
+    from .transaction_detail_record_method import TransactionDetailRecordMethod
+    from .transaction_detail_response_data import TransactionDetailResponseData
     from .validate_response import ValidateResponse
     from .validate_response_data import ValidateResponseData
     from .void_response import VoidResponse
@@ -49,6 +57,14 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ResponseDataRefunds": ".response_data_refunds",
     "ReverseResponse": ".reverse_response",
     "TransRequestBody": ".trans_request_body",
+    "TransactionDetailCustomer": ".transaction_detail_customer",
+    "TransactionDetailEvent": ".transaction_detail_event",
+    "TransactionDetailInvoiceData": ".transaction_detail_invoice_data",
+    "TransactionDetailPaymentData": ".transaction_detail_payment_data",
+    "TransactionDetailPaymentDetails": ".transaction_detail_payment_details",
+    "TransactionDetailRecord": ".transaction_detail_record",
+    "TransactionDetailRecordMethod": ".transaction_detail_record_method",
+    "TransactionDetailResponseData": ".transaction_detail_response_data",
     "ValidateResponse": ".validate_response",
     "ValidateResponseData": ".validate_response_data",
     "VoidResponse": ".void_response",
@@ -62,8 +78,10 @@ def __getattr__(attr_name: str) -> typing.Any:
         raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
     try:
         module = import_module(module_name, __package__)
-        result = getattr(module, attr_name)
-        return result
+        if module_name == f".{attr_name}":
+            return module
+        else:
+            return getattr(module, attr_name)
     except ImportError as e:
         raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
     except AttributeError as e:
@@ -95,6 +113,14 @@ __all__ = [
     "ResponseDataRefunds",
     "ReverseResponse",
     "TransRequestBody",
+    "TransactionDetailCustomer",
+    "TransactionDetailEvent",
+    "TransactionDetailInvoiceData",
+    "TransactionDetailPaymentData",
+    "TransactionDetailPaymentDetails",
+    "TransactionDetailRecord",
+    "TransactionDetailRecordMethod",
+    "TransactionDetailResponseData",
     "ValidateResponse",
     "ValidateResponseData",
     "VoidResponse",
