@@ -2,4 +2,4 @@
 
 import typing
 
-AdditionalData = typing.Dict[str, typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]]
+AdditionalData = typing.Dict[str, typing.Optional[typing.Dict[str, typing.Any]]]

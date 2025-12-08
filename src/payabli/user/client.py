@@ -64,6 +64,8 @@ class UserClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AddUserResponse:
         """
+        Use this endpoint to add a new user to an organization.
+
         Parameters
         ----------
         access : typing.Optional[typing.Sequence[UsrAccess]]
@@ -127,6 +129,8 @@ class UserClient:
         self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> PayabliApiResponseUserMfa:
         """
+        Use this endpoint to refresh the authentication token for a user within an organization.
+
         Parameters
         ----------
         request_options : typing.Optional[RequestOptions]
@@ -158,6 +162,8 @@ class UserClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AuthResetUserResponse:
         """
+        Use this endpoint to initiate a password reset for a user within an organization.
+
         Parameters
         ----------
         email : typing.Optional[Email]
@@ -260,6 +266,8 @@ class UserClient:
         self, *, psw: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
     ) -> ChangePswUserResponse:
         """
+        Use this endpoint to change the password for a user within an organization.
+
         Parameters
         ----------
         psw : typing.Optional[str]
@@ -289,6 +297,8 @@ class UserClient:
         self, user_id: int, *, request_options: typing.Optional[RequestOptions] = None
     ) -> DeleteUserResponse:
         """
+        Use this endpoint to delete a specific user within an organization.
+
         Parameters
         ----------
         user_id : int
@@ -325,6 +335,8 @@ class UserClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> EditMfaUserResponse:
         """
+        Use this endpoint to enable or disable multi-factor authentication (MFA) for a user within an organization.
+
         Parameters
         ----------
         user_id : int
@@ -374,6 +386,8 @@ class UserClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PayabliApiResponse:
         """
+        Use this endpoint to modify the details of a specific user within an organization.
+
         Parameters
         ----------
         user_id : int
@@ -448,6 +462,8 @@ class UserClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UserQueryRecord:
         """
+        Use this endpoint to retrieve information about a specific user within an organization.
+
         Parameters
         ----------
         user_id : int
@@ -484,6 +500,8 @@ class UserClient:
 
     def logout_user(self, *, request_options: typing.Optional[RequestOptions] = None) -> LogoutUserResponse:
         """
+        Use this endpoint to log a user out from the system.
+
         Parameters
         ----------
         request_options : typing.Optional[RequestOptions]
@@ -507,18 +525,20 @@ class UserClient:
         return _response.data
 
     def resend_mfa_code(
-        self, entry: str, entry_type: int, usrname: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, usrname: str, entry: str, entry_type: int, *, request_options: typing.Optional[RequestOptions] = None
     ) -> PayabliApiResponseMfaBasic:
         """
+        Resends the MFA code to the user via the selected MFA mode (email or SMS).
+
         Parameters
         ----------
+        usrname : str
+
+
         entry : str
 
 
         entry_type : int
-
-
-        usrname : str
 
 
         request_options : typing.Optional[RequestOptions]
@@ -542,7 +562,7 @@ class UserClient:
             usrname="usrname",
         )
         """
-        _response = self._raw_client.resend_mfa_code(entry, entry_type, usrname, request_options=request_options)
+        _response = self._raw_client.resend_mfa_code(usrname, entry, entry_type, request_options=request_options)
         return _response.data
 
     def validate_mfa_user(
@@ -553,6 +573,8 @@ class UserClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PayabliApiResponseUserMfa:
         """
+        Use this endpoint to validate the multi-factor authentication (MFA) code for a user within an organization.
+
         Parameters
         ----------
         mfa_code : typing.Optional[str]
@@ -614,6 +636,8 @@ class AsyncUserClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AddUserResponse:
         """
+        Use this endpoint to add a new user to an organization.
+
         Parameters
         ----------
         access : typing.Optional[typing.Sequence[UsrAccess]]
@@ -685,6 +709,8 @@ class AsyncUserClient:
         self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> PayabliApiResponseUserMfa:
         """
+        Use this endpoint to refresh the authentication token for a user within an organization.
+
         Parameters
         ----------
         request_options : typing.Optional[RequestOptions]
@@ -724,6 +750,8 @@ class AsyncUserClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AuthResetUserResponse:
         """
+        Use this endpoint to initiate a password reset for a user within an organization.
+
         Parameters
         ----------
         email : typing.Optional[Email]
@@ -842,6 +870,8 @@ class AsyncUserClient:
         self, *, psw: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
     ) -> ChangePswUserResponse:
         """
+        Use this endpoint to change the password for a user within an organization.
+
         Parameters
         ----------
         psw : typing.Optional[str]
@@ -879,6 +909,8 @@ class AsyncUserClient:
         self, user_id: int, *, request_options: typing.Optional[RequestOptions] = None
     ) -> DeleteUserResponse:
         """
+        Use this endpoint to delete a specific user within an organization.
+
         Parameters
         ----------
         user_id : int
@@ -923,6 +955,8 @@ class AsyncUserClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> EditMfaUserResponse:
         """
+        Use this endpoint to enable or disable multi-factor authentication (MFA) for a user within an organization.
+
         Parameters
         ----------
         user_id : int
@@ -982,6 +1016,8 @@ class AsyncUserClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PayabliApiResponse:
         """
+        Use this endpoint to modify the details of a specific user within an organization.
+
         Parameters
         ----------
         user_id : int
@@ -1064,6 +1100,8 @@ class AsyncUserClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UserQueryRecord:
         """
+        Use this endpoint to retrieve information about a specific user within an organization.
+
         Parameters
         ----------
         user_id : int
@@ -1108,6 +1146,8 @@ class AsyncUserClient:
 
     async def logout_user(self, *, request_options: typing.Optional[RequestOptions] = None) -> LogoutUserResponse:
         """
+        Use this endpoint to log a user out from the system.
+
         Parameters
         ----------
         request_options : typing.Optional[RequestOptions]
@@ -1139,18 +1179,20 @@ class AsyncUserClient:
         return _response.data
 
     async def resend_mfa_code(
-        self, entry: str, entry_type: int, usrname: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, usrname: str, entry: str, entry_type: int, *, request_options: typing.Optional[RequestOptions] = None
     ) -> PayabliApiResponseMfaBasic:
         """
+        Resends the MFA code to the user via the selected MFA mode (email or SMS).
+
         Parameters
         ----------
+        usrname : str
+
+
         entry : str
 
 
         entry_type : int
-
-
-        usrname : str
 
 
         request_options : typing.Optional[RequestOptions]
@@ -1182,7 +1224,7 @@ class AsyncUserClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.resend_mfa_code(entry, entry_type, usrname, request_options=request_options)
+        _response = await self._raw_client.resend_mfa_code(usrname, entry, entry_type, request_options=request_options)
         return _response.data
 
     async def validate_mfa_user(
@@ -1193,6 +1235,8 @@ class AsyncUserClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PayabliApiResponseUserMfa:
         """
+        Use this endpoint to validate the multi-factor authentication (MFA) code for a user within an organization.
+
         Parameters
         ----------
         mfa_code : typing.Optional[str]

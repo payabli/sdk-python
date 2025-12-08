@@ -85,7 +85,7 @@ class TransactionDetailRecord(UniversalBaseModel):
     chargeback_id: typing_extensions.Annotated[ChargebackId, FieldMetadata(alias="chargebackId")]
     retrieval_id: typing_extensions.Annotated[RetrievalId, FieldMetadata(alias="retrievalId")]
     trans_additional_data: typing_extensions.Annotated[
-        typing.Optional[typing.Optional[typing.Any]], FieldMetadata(alias="transAdditionalData")
+        typing.Optional[typing.Any], FieldMetadata(alias="transAdditionalData")
     ] = None
     invoice_data: typing_extensions.Annotated[TransactionDetailInvoiceData, FieldMetadata(alias="invoiceData")]
     entrypage_id: typing_extensions.Annotated[EntrypageId, FieldMetadata(alias="entrypageId")]

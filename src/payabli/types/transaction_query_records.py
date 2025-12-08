@@ -193,7 +193,7 @@ class TransactionQueryRecords(UniversalBaseModel):
     """
 
     trans_additional_data: typing_extensions.Annotated[
-        typing.Optional[typing.Optional[typing.Any]], FieldMetadata(alias="TransAdditionalData")
+        typing.Optional[typing.Any], FieldMetadata(alias="TransAdditionalData")
     ] = None
     trans_status: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="TransStatus")] = (
         pydantic.Field(default=None)

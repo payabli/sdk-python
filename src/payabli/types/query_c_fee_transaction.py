@@ -15,7 +15,7 @@ class QueryCFeeTransaction(UniversalBaseModel):
     operation: typing.Optional[str] = None
     refund_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="refundId")] = None
     response_data: typing_extensions.Annotated[
-        typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]], FieldMetadata(alias="responseData")
+        typing.Optional[typing.Dict[str, typing.Any]], FieldMetadata(alias="responseData")
     ] = None
     settlement_status: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="settlementStatus")] = None
     transaction_time: typing_extensions.Annotated[

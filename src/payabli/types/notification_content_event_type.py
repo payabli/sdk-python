@@ -33,6 +33,7 @@ NotificationContentEventType = typing.Union[
         "ApprovedApplication",
         "FailedBoardingApplication",
         "SubmittedApplication",
+        "UnderWritingApplication",
         "ActivatedMerchant",
         "ReceivedChargeBack",
         "ChargebackUpdated",

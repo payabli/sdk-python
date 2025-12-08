@@ -24,7 +24,7 @@ class GeneralEvents(UniversalBaseModel):
     """
 
     extra_data: typing_extensions.Annotated[
-        typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]], FieldMetadata(alias="extraData")
+        typing.Optional[typing.Dict[str, typing.Any]], FieldMetadata(alias="extraData")
     ] = pydantic.Field(default=None)
     """
     Extra data.

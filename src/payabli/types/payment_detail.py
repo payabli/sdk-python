@@ -22,7 +22,7 @@ class PaymentDetail(UniversalBaseModel):
     """
 
     check_image: typing_extensions.Annotated[
-        typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]], FieldMetadata(alias="checkImage")
+        typing.Optional[typing.Dict[str, typing.Any]], FieldMetadata(alias="checkImage")
     ] = pydantic.Field(default=None)
     """
     Object containing image of paper check.

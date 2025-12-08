@@ -14,6 +14,7 @@ from ..errors.internal_server_error import InternalServerError
 from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.payabli_api_response import PayabliApiResponse
+from .types.stat_basic_extended_query_record import StatBasicExtendedQueryRecord
 from .types.stat_basic_query_record import StatBasicQueryRecord
 from .types.statistics_vendor_query_record import StatisticsVendorQueryRecord
 from .types.subscription_stats_query_record import SubscriptionStatsQueryRecord
@@ -25,39 +26,21 @@ class RawStatisticClient:
 
     def basic_stats(
         self,
-        entry_id: int,
+        mode: str,
         freq: str,
         level: int,
-        mode: str,
+        entry_id: int,
         *,
         end_date: typing.Optional[str] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         start_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[typing.List[StatBasicQueryRecord]]:
+    ) -> HttpResponse[typing.List[StatBasicExtendedQueryRecord]]:
         """
         Retrieves the basic statistics for an organization or a paypoint, for a given time period, grouped by a particular frequency.
 
         Parameters
         ----------
-        entry_id : int
-            Identifier in Payabli for the entity.
-
-        freq : str
-            Frequency to group series. Allowed values:
-
-            - `m` - monthly
-            - `w` - weekly
-            - `d` - daily
-            - `h` - hourly
-
-            For example, `w` groups the results by week.
-
-        level : int
-            The entry level for the request:
-              - 0 for Organization
-              - 2 for Paypoint
-
         mode : str
             Mode for the request. Allowed values:
 
@@ -74,6 +57,24 @@ class RawStatisticClient:
             - `lastw` - Last Week
             - `yesterday` - Last Day
 
+
+        freq : str
+            Frequency to group series. Allowed values:
+
+            - `m` - monthly
+            - `w` - weekly
+            - `d` - daily
+            - `h` - hourly
+
+            For example, `w` groups the results by week.
+
+        level : int
+            The entry level for the request:
+              - 0 for Organization
+              - 2 for Paypoint
+
+        entry_id : int
+            Identifier in Payabli for the entity.
 
         end_date : typing.Optional[str]
             Used with `custom` mode. The end date for the range.
@@ -99,7 +100,7 @@ class RawStatisticClient:
 
         Returns
         -------
-        HttpResponse[typing.List[StatBasicQueryRecord]]
+        HttpResponse[typing.List[StatBasicExtendedQueryRecord]]
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -115,9 +116,9 @@ class RawStatisticClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    typing.List[StatBasicQueryRecord],
+                    typing.List[StatBasicExtendedQueryRecord],
                     parse_obj_as(
-                        type_=typing.List[StatBasicQueryRecord],  # type: ignore
+                        type_=typing.List[StatBasicExtendedQueryRecord],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -126,9 +127,9 @@ class RawStatisticClient:
                 raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Optional[typing.Any],
+                        typing.Any,
                         parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -137,9 +138,9 @@ class RawStatisticClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Optional[typing.Any],
+                        typing.Any,
                         parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -148,9 +149,9 @@ class RawStatisticClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Optional[typing.Any],
+                        typing.Any,
                         parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -173,9 +174,9 @@ class RawStatisticClient:
 
     def customer_basic_stats(
         self,
-        customer_id: int,
-        freq: str,
         mode: str,
+        freq: str,
+        customer_id: int,
         *,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -185,19 +186,6 @@ class RawStatisticClient:
 
         Parameters
         ----------
-        customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
-
-        freq : str
-            Frequency to group series. Allowed values:
-
-            - `m` - monthly
-            - `w` - weekly
-            - `d` - daily
-            - `h` - hourly
-
-            For example, `w` groups the results by week.
-
         mode : str
             Mode for request. Allowed values:
 
@@ -212,6 +200,19 @@ class RawStatisticClient:
             - `lastm` - Last Month
             - `lastw` - Last Week
             - `yesterday` - Last Day
+
+        freq : str
+            Frequency to group series. Allowed values:
+
+            - `m` - monthly
+            - `w` - weekly
+            - `d` - daily
+            - `h` - hourly
+
+            For example, `w` groups the results by week.
+
+        customer_id : int
+            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             List of parameters.
@@ -246,9 +247,9 @@ class RawStatisticClient:
                 raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Optional[typing.Any],
+                        typing.Any,
                         parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -257,9 +258,9 @@ class RawStatisticClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Optional[typing.Any],
+                        typing.Any,
                         parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -268,9 +269,9 @@ class RawStatisticClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Optional[typing.Any],
+                        typing.Any,
                         parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -293,9 +294,9 @@ class RawStatisticClient:
 
     def sub_stats(
         self,
-        entry_id: int,
         interval: str,
         level: int,
+        entry_id: int,
         *,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -305,9 +306,6 @@ class RawStatisticClient:
 
         Parameters
         ----------
-        entry_id : int
-            Identifier in Payabli for the entity.
-
         interval : str
             Interval to get the data. Allowed values:
 
@@ -321,6 +319,9 @@ class RawStatisticClient:
             The entry level for the request:
               - 0 for Organization
               - 2 for Paypoint
+
+        entry_id : int
+            Identifier in Payabli for the entity.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             List of parameters
@@ -355,9 +356,9 @@ class RawStatisticClient:
                 raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Optional[typing.Any],
+                        typing.Any,
                         parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -366,9 +367,9 @@ class RawStatisticClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Optional[typing.Any],
+                        typing.Any,
                         parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -377,9 +378,9 @@ class RawStatisticClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Optional[typing.Any],
+                        typing.Any,
                         parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -402,9 +403,9 @@ class RawStatisticClient:
 
     def vendor_basic_stats(
         self,
+        mode: str,
         freq: str,
         id_vendor: int,
-        mode: str,
         *,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -414,19 +415,6 @@ class RawStatisticClient:
 
         Parameters
         ----------
-        freq : str
-            Frequency to group series. Allowed values:
-
-            - `m` - monthly
-            - `w` - weekly
-            - `d` - daily
-            - `h` - hourly
-
-            For example, `w` groups the results by week.
-
-        id_vendor : int
-            Vendor ID.
-
         mode : str
             Mode for request. Allowed values:
 
@@ -441,6 +429,19 @@ class RawStatisticClient:
             - `lastm` - Last Month
             - `lastw` - Last Week
             - `yesterday` - Last Day
+
+        freq : str
+            Frequency to group series. Allowed values:
+
+            - `m` - monthly
+            - `w` - weekly
+            - `d` - daily
+            - `h` - hourly
+
+            For example, `w` groups the results by week.
+
+        id_vendor : int
+            Vendor ID.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             List of parameters
@@ -475,9 +476,9 @@ class RawStatisticClient:
                 raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Optional[typing.Any],
+                        typing.Any,
                         parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -486,9 +487,9 @@ class RawStatisticClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Optional[typing.Any],
+                        typing.Any,
                         parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -497,9 +498,9 @@ class RawStatisticClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Optional[typing.Any],
+                        typing.Any,
                         parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -527,39 +528,21 @@ class AsyncRawStatisticClient:
 
     async def basic_stats(
         self,
-        entry_id: int,
+        mode: str,
         freq: str,
         level: int,
-        mode: str,
+        entry_id: int,
         *,
         end_date: typing.Optional[str] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         start_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[typing.List[StatBasicQueryRecord]]:
+    ) -> AsyncHttpResponse[typing.List[StatBasicExtendedQueryRecord]]:
         """
         Retrieves the basic statistics for an organization or a paypoint, for a given time period, grouped by a particular frequency.
 
         Parameters
         ----------
-        entry_id : int
-            Identifier in Payabli for the entity.
-
-        freq : str
-            Frequency to group series. Allowed values:
-
-            - `m` - monthly
-            - `w` - weekly
-            - `d` - daily
-            - `h` - hourly
-
-            For example, `w` groups the results by week.
-
-        level : int
-            The entry level for the request:
-              - 0 for Organization
-              - 2 for Paypoint
-
         mode : str
             Mode for the request. Allowed values:
 
@@ -576,6 +559,24 @@ class AsyncRawStatisticClient:
             - `lastw` - Last Week
             - `yesterday` - Last Day
 
+
+        freq : str
+            Frequency to group series. Allowed values:
+
+            - `m` - monthly
+            - `w` - weekly
+            - `d` - daily
+            - `h` - hourly
+
+            For example, `w` groups the results by week.
+
+        level : int
+            The entry level for the request:
+              - 0 for Organization
+              - 2 for Paypoint
+
+        entry_id : int
+            Identifier in Payabli for the entity.
 
         end_date : typing.Optional[str]
             Used with `custom` mode. The end date for the range.
@@ -601,7 +602,7 @@ class AsyncRawStatisticClient:
 
         Returns
         -------
-        AsyncHttpResponse[typing.List[StatBasicQueryRecord]]
+        AsyncHttpResponse[typing.List[StatBasicExtendedQueryRecord]]
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -617,9 +618,9 @@ class AsyncRawStatisticClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    typing.List[StatBasicQueryRecord],
+                    typing.List[StatBasicExtendedQueryRecord],
                     parse_obj_as(
-                        type_=typing.List[StatBasicQueryRecord],  # type: ignore
+                        type_=typing.List[StatBasicExtendedQueryRecord],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -628,9 +629,9 @@ class AsyncRawStatisticClient:
                 raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Optional[typing.Any],
+                        typing.Any,
                         parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -639,9 +640,9 @@ class AsyncRawStatisticClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Optional[typing.Any],
+                        typing.Any,
                         parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -650,9 +651,9 @@ class AsyncRawStatisticClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Optional[typing.Any],
+                        typing.Any,
                         parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -675,9 +676,9 @@ class AsyncRawStatisticClient:
 
     async def customer_basic_stats(
         self,
-        customer_id: int,
-        freq: str,
         mode: str,
+        freq: str,
+        customer_id: int,
         *,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -687,19 +688,6 @@ class AsyncRawStatisticClient:
 
         Parameters
         ----------
-        customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
-
-        freq : str
-            Frequency to group series. Allowed values:
-
-            - `m` - monthly
-            - `w` - weekly
-            - `d` - daily
-            - `h` - hourly
-
-            For example, `w` groups the results by week.
-
         mode : str
             Mode for request. Allowed values:
 
@@ -714,6 +702,19 @@ class AsyncRawStatisticClient:
             - `lastm` - Last Month
             - `lastw` - Last Week
             - `yesterday` - Last Day
+
+        freq : str
+            Frequency to group series. Allowed values:
+
+            - `m` - monthly
+            - `w` - weekly
+            - `d` - daily
+            - `h` - hourly
+
+            For example, `w` groups the results by week.
+
+        customer_id : int
+            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             List of parameters.
@@ -748,9 +749,9 @@ class AsyncRawStatisticClient:
                 raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Optional[typing.Any],
+                        typing.Any,
                         parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -759,9 +760,9 @@ class AsyncRawStatisticClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Optional[typing.Any],
+                        typing.Any,
                         parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -770,9 +771,9 @@ class AsyncRawStatisticClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Optional[typing.Any],
+                        typing.Any,
                         parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -795,9 +796,9 @@ class AsyncRawStatisticClient:
 
     async def sub_stats(
         self,
-        entry_id: int,
         interval: str,
         level: int,
+        entry_id: int,
         *,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -807,9 +808,6 @@ class AsyncRawStatisticClient:
 
         Parameters
         ----------
-        entry_id : int
-            Identifier in Payabli for the entity.
-
         interval : str
             Interval to get the data. Allowed values:
 
@@ -823,6 +821,9 @@ class AsyncRawStatisticClient:
             The entry level for the request:
               - 0 for Organization
               - 2 for Paypoint
+
+        entry_id : int
+            Identifier in Payabli for the entity.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             List of parameters
@@ -857,9 +858,9 @@ class AsyncRawStatisticClient:
                 raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Optional[typing.Any],
+                        typing.Any,
                         parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -868,9 +869,9 @@ class AsyncRawStatisticClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Optional[typing.Any],
+                        typing.Any,
                         parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -879,9 +880,9 @@ class AsyncRawStatisticClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Optional[typing.Any],
+                        typing.Any,
                         parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -904,9 +905,9 @@ class AsyncRawStatisticClient:
 
     async def vendor_basic_stats(
         self,
+        mode: str,
         freq: str,
         id_vendor: int,
-        mode: str,
         *,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -916,19 +917,6 @@ class AsyncRawStatisticClient:
 
         Parameters
         ----------
-        freq : str
-            Frequency to group series. Allowed values:
-
-            - `m` - monthly
-            - `w` - weekly
-            - `d` - daily
-            - `h` - hourly
-
-            For example, `w` groups the results by week.
-
-        id_vendor : int
-            Vendor ID.
-
         mode : str
             Mode for request. Allowed values:
 
@@ -943,6 +931,19 @@ class AsyncRawStatisticClient:
             - `lastm` - Last Month
             - `lastw` - Last Week
             - `yesterday` - Last Day
+
+        freq : str
+            Frequency to group series. Allowed values:
+
+            - `m` - monthly
+            - `w` - weekly
+            - `d` - daily
+            - `h` - hourly
+
+            For example, `w` groups the results by week.
+
+        id_vendor : int
+            Vendor ID.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             List of parameters
@@ -977,9 +978,9 @@ class AsyncRawStatisticClient:
                 raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Optional[typing.Any],
+                        typing.Any,
                         parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -988,9 +989,9 @@ class AsyncRawStatisticClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Optional[typing.Any],
+                        typing.Any,
                         parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -999,9 +1000,9 @@ class AsyncRawStatisticClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Optional[typing.Any],
+                        typing.Any,
                         parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

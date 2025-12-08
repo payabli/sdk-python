@@ -48,4 +48,6 @@ class PushPayLinkRequest_Sms(UniversalBaseModel):
             extra = pydantic.Extra.allow
 
 
-PushPayLinkRequest = typing.Union[PushPayLinkRequest_Email, PushPayLinkRequest_Sms]
+PushPayLinkRequest = typing_extensions.Annotated[
+    typing.Union[PushPayLinkRequest_Email, PushPayLinkRequest_Sms], pydantic.Field(discriminator="channel")
+]

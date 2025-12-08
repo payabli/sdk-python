@@ -9,7 +9,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 class QueryResponse(UniversalBaseModel):
     """ """
 
-    records: typing.Optional[typing.List[typing.Optional[typing.Any]]] = None
+    records: typing.Optional[typing.List[typing.Any]] = None
     summary: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:

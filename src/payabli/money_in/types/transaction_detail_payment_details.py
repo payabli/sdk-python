@@ -19,9 +19,7 @@ class TransactionDetailPaymentDetails(UniversalBaseModel):
     total_amount: typing_extensions.Annotated[float, FieldMetadata(alias="totalAmount")]
     service_fee: typing_extensions.Annotated[float, FieldMetadata(alias="serviceFee")]
     check_number: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="checkNumber")] = None
-    check_image: typing_extensions.Annotated[
-        typing.Optional[typing.Optional[typing.Any]], FieldMetadata(alias="checkImage")
-    ] = None
+    check_image: typing_extensions.Annotated[typing.Optional[typing.Any], FieldMetadata(alias="checkImage")] = None
     check_unique_id: typing_extensions.Annotated[str, FieldMetadata(alias="checkUniqueId")]
     currency: str
     order_description: typing_extensions.Annotated[
@@ -37,11 +35,9 @@ class TransactionDetailPaymentDetails(UniversalBaseModel):
     group_number: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="groupNumber")] = None
     source: typing.Optional[Source] = None
     payabli_trans_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="payabliTransId")] = None
-    unbundled: typing.Optional[typing.Optional[typing.Any]] = None
-    categories: typing.List[typing.Optional[typing.Any]]
-    split_funding: typing_extensions.Annotated[
-        typing.List[typing.Optional[typing.Any]], FieldMetadata(alias="splitFunding")
-    ]
+    unbundled: typing.Optional[typing.Any] = None
+    categories: typing.List[typing.Any]
+    split_funding: typing_extensions.Annotated[typing.List[typing.Any], FieldMetadata(alias="splitFunding")]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

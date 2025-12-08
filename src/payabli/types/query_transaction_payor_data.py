@@ -22,7 +22,7 @@ from .shippingzip import Shippingzip
 
 class QueryTransactionPayorData(UniversalBaseModel):
     identifiers: typing_extensions.Annotated[
-        typing.Optional[typing.List[typing.Optional[typing.Any]]], FieldMetadata(alias="Identifiers")
+        typing.Optional[typing.List[typing.Any]], FieldMetadata(alias="Identifiers")
     ] = pydantic.Field(default=None)
     """
     Array of field names to be used as identifiers.

@@ -2,4 +2,4 @@
 
 import typing
 
-QueryTransactionEventsEventData = typing.Union[typing.Dict[str, typing.Optional[typing.Any]], str]
+QueryTransactionEventsEventData = typing.Union[typing.Dict[str, typing.Any], str]

@@ -43,9 +43,7 @@ class BillingDataResponse(UniversalBaseModel):
     The bank's ID in Payabli.
     """
 
-    account_id: typing_extensions.Annotated[
-        typing.Optional[typing.Optional[typing.Any]], FieldMetadata(alias="accountId")
-    ] = None
+    account_id: typing_extensions.Annotated[typing.Optional[typing.Any], FieldMetadata(alias="accountId")] = None
     nickname: str
     bank_name: typing_extensions.Annotated[BankName, FieldMetadata(alias="bankName")]
     routing_account: typing_extensions.Annotated[RoutingAccount, FieldMetadata(alias="routingAccount")]
@@ -69,7 +67,7 @@ class BillingDataResponse(UniversalBaseModel):
 
     verified: bool
     status: int
-    services: typing.List[typing.Optional[typing.Any]]
+    services: typing.List[typing.Any]
     default: bool
 
     if IS_PYDANTIC_V2:

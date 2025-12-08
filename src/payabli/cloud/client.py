@@ -89,18 +89,18 @@ class CloudClient:
         return _response.data
 
     def history_device(
-        self, device_id: str, entry: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, entry: str, device_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> CloudQueryApiResponse:
         """
         Retrieve the registration history for a device.
 
         Parameters
         ----------
-        device_id : str
-            ID of the cloud device.
-
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+
+        device_id : str
+            ID of the cloud device.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -122,7 +122,7 @@ class CloudClient:
             entry="8cfec329267",
         )
         """
-        _response = self._raw_client.history_device(device_id, entry, request_options=request_options)
+        _response = self._raw_client.history_device(entry, device_id, request_options=request_options)
         return _response.data
 
     def list_device(
@@ -166,18 +166,18 @@ class CloudClient:
         return _response.data
 
     def remove_device(
-        self, device_id: str, entry: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, entry: str, device_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> RemoveDeviceResponse:
         """
         Remove a cloud device from an entrypoint.
 
         Parameters
         ----------
-        device_id : str
-            ID of the cloud device.
-
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+
+        device_id : str
+            ID of the cloud device.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -199,7 +199,7 @@ class CloudClient:
             entry="8cfec329267",
         )
         """
-        _response = self._raw_client.remove_device(device_id, entry, request_options=request_options)
+        _response = self._raw_client.remove_device(entry, device_id, request_options=request_options)
         return _response.data
 
 
@@ -286,18 +286,18 @@ class AsyncCloudClient:
         return _response.data
 
     async def history_device(
-        self, device_id: str, entry: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, entry: str, device_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> CloudQueryApiResponse:
         """
         Retrieve the registration history for a device.
 
         Parameters
         ----------
-        device_id : str
-            ID of the cloud device.
-
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+
+        device_id : str
+            ID of the cloud device.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -327,7 +327,7 @@ class AsyncCloudClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.history_device(device_id, entry, request_options=request_options)
+        _response = await self._raw_client.history_device(entry, device_id, request_options=request_options)
         return _response.data
 
     async def list_device(
@@ -381,18 +381,18 @@ class AsyncCloudClient:
         return _response.data
 
     async def remove_device(
-        self, device_id: str, entry: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, entry: str, device_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> RemoveDeviceResponse:
         """
         Remove a cloud device from an entrypoint.
 
         Parameters
         ----------
-        device_id : str
-            ID of the cloud device.
-
         entry : str
             The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+
+        device_id : str
+            ID of the cloud device.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -422,5 +422,5 @@ class AsyncCloudClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.remove_device(device_id, entry, request_options=request_options)
+        _response = await self._raw_client.remove_device(entry, device_id, request_options=request_options)
         return _response.data

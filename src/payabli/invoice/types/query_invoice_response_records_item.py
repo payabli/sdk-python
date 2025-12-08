@@ -184,7 +184,7 @@ class QueryInvoiceResponseRecordsItem(UniversalBaseModel):
     parent_org_id: typing_extensions.Annotated[Orgid, FieldMetadata(alias="ParentOrgId")]
     parent_org_name: typing_extensions.Annotated[OrgParentName, FieldMetadata(alias="ParentOrgName")]
     additional_data: typing_extensions.Annotated[
-        typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]], FieldMetadata(alias="AdditionalData")
+        typing.Optional[typing.Dict[str, typing.Any]], FieldMetadata(alias="AdditionalData")
     ] = pydantic.Field(default=None)
     """
     Custom list of key:value pairs. This field is used to store any data related to the invoice or for your system.

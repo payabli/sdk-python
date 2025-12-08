@@ -334,6 +334,14 @@ client.bill.delete_attached_from_bill(
 <dl>
 <dd>
 
+**id_bill:** `int` — Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **filename:** `str` 
 
 The filename in Payabli. Filename is `zipName` in response to a
@@ -352,14 +360,6 @@ request to `/api/Invoice/{idInvoice}`. Here, the filename is
     ]
   }
   ```
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**id_bill:** `int` — Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
     
 </dd>
 </dl>
@@ -745,6 +745,14 @@ client.bill.get_attached_from_bill(
 <dl>
 <dd>
 
+**id_bill:** `int` — Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **filename:** `str` 
 
 The filename in Payabli. Filename is `zipName` in response to a request to `/api/Invoice/{idInvoice}`. Here, the filename is `0_Bill.pdf``. 
@@ -758,14 +766,6 @@ The filename in Payabli. Filename is `zipName` in response to a request to `/api
     }
   ]
 }
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**id_bill:** `int` — Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
     
 </dd>
 </dl>
@@ -1403,7 +1403,7 @@ client.bill.set_approved_bill(
 <dl>
 <dd>
 
-**approved:** `str` — String representing the approved status. Accepted values: 'true' or 'false'.
+**id_bill:** `int` — Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
     
 </dd>
 </dl>
@@ -1411,7 +1411,7 @@ client.bill.set_approved_bill(
 <dl>
 <dd>
 
-**id_bill:** `int` — Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
+**approved:** `str` — String representing the approved status. Accepted values: 'true' or 'false'.
     
 </dd>
 </dl>
@@ -3169,6 +3169,20 @@ client.charge_backs.get_chargeback(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a chargeback attachment file by its file name.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -3184,8 +3198,8 @@ client = payabli(
     api_key="YOUR_API_KEY",
 )
 client.charge_backs.get_chargeback_attachment(
-    file_name="fileName",
     id=1000000,
+    file_name="fileName",
 )
 
 ```
@@ -3202,7 +3216,7 @@ client.charge_backs.get_chargeback_attachment(
 <dl>
 <dd>
 
-**file_name:** `str` — The chargeback attachment's file name.
+**id:** `int` — The ID of chargeback or return record.
     
 </dd>
 </dl>
@@ -3210,7 +3224,7 @@ client.charge_backs.get_chargeback_attachment(
 <dl>
 <dd>
 
-**id:** `int` — The ID of chargeback or return record.
+**file_name:** `str` — The chargeback attachment's file name.
     
 </dd>
 </dl>
@@ -3482,7 +3496,7 @@ client.cloud.history_device(
 <dl>
 <dd>
 
-**device_id:** `str` — ID of the cloud device. 
+**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
     
 </dd>
 </dl>
@@ -3490,7 +3504,7 @@ client.cloud.history_device(
 <dl>
 <dd>
 
-**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+**device_id:** `str` — ID of the cloud device. 
     
 </dd>
 </dl>
@@ -3639,7 +3653,7 @@ client.cloud.remove_device(
 <dl>
 <dd>
 
-**device_id:** `str` — ID of the cloud device. 
+**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
     
 </dd>
 </dl>
@@ -3647,7 +3661,7 @@ client.cloud.remove_device(
 <dl>
 <dd>
 
-**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+**device_id:** `str` — ID of the cloud device. 
     
 </dd>
 </dl>
@@ -4728,6 +4742,20 @@ Example: `dbaname(ct)=hoa` returns all records with a `dbaname` containing "hoa"
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+This endpoint is deprecated. Export batch details for a paypoint. Use filters to limit results.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -4764,7 +4792,7 @@ client.export.export_batch_details(
 <dl>
 <dd>
 
-**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -4772,7 +4800,7 @@ client.export.export_batch_details(
 <dl>
 <dd>
 
-**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
+**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
     
 </dd>
 </dl>
@@ -4891,6 +4919,20 @@ Example: `amount(gt)=20` return all records with amount greater than 20.00
 <details><summary><code>client.export.<a href="src/payabli/export/client.py">export_batch_details_org</a>(...)</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+This endpoint is deprecated. Export batch details for an organization. Use filters to limit results.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -5106,7 +5148,7 @@ client.export.export_batches(
 <dl>
 <dd>
 
-**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -5114,7 +5156,7 @@ client.export.export_batches(
 <dl>
 <dd>
 
-**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
+**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
     
 </dd>
 </dl>
@@ -5440,7 +5482,7 @@ client.export.export_batches_out(
 <dl>
 <dd>
 
-**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -5448,7 +5490,7 @@ client.export.export_batches_out(
 <dl>
 <dd>
 
-**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
+**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
     
 </dd>
 </dl>
@@ -5736,7 +5778,7 @@ client.export.export_bills(
 <dl>
 <dd>
 
-**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -5744,7 +5786,7 @@ client.export.export_bills(
 <dl>
 <dd>
 
-**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
+**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
     
 </dd>
 </dl>
@@ -6068,7 +6110,7 @@ client.export.export_chargebacks(
 <dl>
 <dd>
 
-**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -6076,7 +6118,7 @@ client.export.export_chargebacks(
 <dl>
 <dd>
 
-**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
+**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
     
 </dd>
 </dl>
@@ -6442,7 +6484,7 @@ client.export.export_customers(
 <dl>
 <dd>
 
-**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -6450,7 +6492,7 @@ client.export.export_customers(
 <dl>
 <dd>
 
-**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
+**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
     
 </dd>
 </dl>
@@ -6802,7 +6844,7 @@ client.export.export_invoices(
 <dl>
 <dd>
 
-**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -6810,7 +6852,7 @@ client.export.export_invoices(
 <dl>
 <dd>
 
-**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
+**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
     
 </dd>
 </dl>
@@ -7347,7 +7389,7 @@ client.export.export_payout(
 <dl>
 <dd>
 
-**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -7355,7 +7397,7 @@ client.export.export_payout(
 <dl>
 <dd>
 
-**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
+**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
     
 </dd>
 </dl>
@@ -7841,7 +7883,7 @@ client.export.export_settlements(
 <dl>
 <dd>
 
-**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -7849,7 +7891,7 @@ client.export.export_settlements(
 <dl>
 <dd>
 
-**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
+**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
     
 </dd>
 </dl>
@@ -8213,7 +8255,7 @@ client.export.export_subscriptions(
 <dl>
 <dd>
 
-**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -8221,7 +8263,7 @@ client.export.export_subscriptions(
 <dl>
 <dd>
 
-**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
+**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
     
 </dd>
 </dl>
@@ -8589,7 +8631,7 @@ client.export.export_transactions(
 <dl>
 <dd>
 
-**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -8597,7 +8639,7 @@ client.export.export_transactions(
 <dl>
 <dd>
 
-**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
+**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
     
 </dd>
 </dl>
@@ -8975,7 +9017,7 @@ client.export.export_transfer_details(
 <dl>
 <dd>
 
-**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -8983,7 +9025,7 @@ client.export.export_transfer_details(
 <dl>
 <dd>
 
-**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
+**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
     
 </dd>
 </dl>
@@ -9304,7 +9346,7 @@ client.export.export_vendors(
 <dl>
 <dd>
 
-**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
     
 </dd>
 </dl>
@@ -9312,7 +9354,7 @@ client.export.export_vendors(
 <dl>
 <dd>
 
-**format:** `ExportFormat1` — Format for the export, either XLSX or CSV. 
+**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
     
 </dd>
 </dl>
@@ -10450,6 +10492,14 @@ client.invoice.delete_attached_from_invoice(
 <dl>
 <dd>
 
+**id_invoice:** `int` — Invoice ID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **filename:** `str` 
 
 The filename in Payabli. Filename is `zipName` in response to a request to `/api/Invoice/{idInvoice}`. Here, the filename is `0_Bill.pdf``. 
@@ -10463,14 +10513,6 @@ The filename in Payabli. Filename is `zipName` in response to a request to `/api
     }
   ]
 }
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**id_invoice:** `int` — Invoice ID
     
 </dd>
 </dl>
@@ -10712,8 +10754,8 @@ client = payabli(
     api_key="YOUR_API_KEY",
 )
 client.invoice.get_attached_file_from_invoice(
-    filename="filename",
     id_invoice=1,
+    filename="filename",
 )
 
 ```
@@ -10726,6 +10768,14 @@ client.invoice.get_attached_file_from_invoice(
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**id_invoice:** `int` — Invoice ID
+    
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -10745,14 +10795,6 @@ The filename in Payabli. Filename is `zipName` in the response to a request to `
     ]
   }
   ```
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**id_invoice:** `int` — Invoice ID
     
 </dd>
 </dl>
@@ -12285,7 +12327,7 @@ client.money_in.capture(
 <dl>
 <dd>
 
-**amount:** `float` — Amount to be captured. The amount can't be greater the original total amount of the transaction. `0` captures the total amount authorized in the transaction. Partial captures aren't supported.
+**trans_id:** `str` — ReferenceId for the transaction (PaymentId).
     
 </dd>
 </dl>
@@ -12293,7 +12335,7 @@ client.money_in.capture(
 <dl>
 <dd>
 
-**trans_id:** `str` — ReferenceId for the transaction (PaymentId).
+**amount:** `float` — Amount to be captured. The amount can't be greater the original total amount of the transaction. `0` captures the total amount authorized in the transaction. Partial captures aren't supported.
     
 </dd>
 </dl>
@@ -12905,6 +12947,14 @@ client.money_in.reverse(
 <dl>
 <dd>
 
+**trans_id:** `str` — ReferenceId for the transaction (PaymentId).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **amount:** `float` 
 
 
@@ -12913,14 +12963,6 @@ Amount to reverse from original transaction, minus any service fees charged on t
 The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was $90 plus a $10 service fee, you can reverse up to $90. 
 
 An amount equal to zero will refunds the total amount authorized minus any service fee.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**trans_id:** `str` — ReferenceId for the transaction (PaymentId).
     
 </dd>
 </dl>
@@ -12991,6 +13033,14 @@ client.money_in.refund(
 <dl>
 <dd>
 
+**trans_id:** `str` — ReferenceId for the transaction (PaymentId).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **amount:** `float` 
 
 
@@ -12999,14 +13049,6 @@ Amount to refund from original transaction, minus any service fees charged on th
 The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was \$90 plus a \$10 service fee, you can refund up to \$90.
 
 An amount equal to zero will refund the total amount authorized minus any service fee.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**trans_id:** `str` — ReferenceId for the transaction (PaymentId).
     
 </dd>
 </dl>
@@ -13835,7 +13877,7 @@ client.money_out.cancel_all_out(
 </dl>
 </details>
 
-<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">cancel_out</a>(...)</code></summary>
+<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">cancel_out_get</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -13867,7 +13909,77 @@ from payabli import payabli
 client = payabli(
     api_key="YOUR_API_KEY",
 )
-client.money_out.cancel_out(
+client.money_out.cancel_out_get(
+    reference_id="129-219",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**reference_id:** `str` — The ID for the payout transaction. 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">cancel_out_delete</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Cancel a payout transaction by ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.money_out.cancel_out_delete(
     reference_id="129-219",
 )
 
@@ -15128,6 +15240,20 @@ client.notificationlogs.bulk_retry_notification_logs(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Use this endpoint to upload an image file for OCR processing. The accepted file formats include PDF, JPG, JPEG, PNG, and GIF. Specify the desired type of result (either 'bill' or 'invoice') in the path parameter `typeResult`. The response will contain the OCR processing results, including extracted data such as bill number, vendor information, bill items, and more.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -15215,6 +15341,20 @@ client.ocr.ocr_document_form(
 <details><summary><code>client.ocr.<a href="src/payabli/ocr/client.py">ocr_document_json</a>(...)</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Use this endpoint to submit a Base64-encoded image file for OCR processing. The accepted file formats include PDF, JPG, JPEG, PNG, and GIF. Specify the desired type of result (either 'bill' or 'invoice') in the path parameter `typeResult`. The response will contain the OCR processing results, including extracted data such as bill number, vendor information, bill items, and more.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -21403,6 +21543,7 @@ List of field names accepted:
   - `lotNumber` (ct, nct)
   - `customerVendorAccount` (ct, nct, eq, ne)
   - `batchId` (eq, ne)
+  - `AchTraceNumber` (eq, ne)
   - `payoutProgram`(eq, ne) the options are `managed` or `odp`. For example, `payoutProgram(eq)=managed` returns all records with a `payoutProgram` equal to `managed`. 
 
   List of comparison accepted - enclosed between parentheses:
@@ -21594,6 +21735,7 @@ List of field names accepted:
   - `lotNumber` (ct, nct)
   - `customerVendorAccount` (ct, nct, eq, ne)
   - `batchId` (eq, ne)
+  - `AchTraceNumber` (eq, ne)
   - `payoutProgram`(eq, ne) the options are `managed` or `odp`. For example, `payoutProgram(eq)=managed` returns all records with a `payoutProgram` equal to `managed`.
 
   List of comparison accepted - enclosed between parentheses:
@@ -22712,6 +22854,7 @@ See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-repo
 - `settlementStatus` (in, nin, eq, ne)
 - `batchNumber` (nct, ct)
 - `invoiceNumber` (ct, nct)
+- `ipAddress` (eq, ne)
 - `authCode` (ct, nct)
 - `orderDescription` (ct, nct)
 - `payaccountLastfour` (nct, ct)
@@ -24433,8 +24576,8 @@ client.statistic.basic_stats(
     freq="m",
     level=1,
     mode="ytd",
-    end_date="2023-05-23",
-    start_date="2023-03-23",
+    end_date="2025-11-01",
+    start_date="2025-11-30",
 )
 
 ```
@@ -24451,7 +24594,23 @@ client.statistic.basic_stats(
 <dl>
 <dd>
 
-**entry_id:** `int` — Identifier in Payabli for the entity.
+**mode:** `str` 
+
+Mode for the request. Allowed values:
+
+- `custom` - Allows you to set a custom date range
+- `ytd` - Year To Date
+- `mtd` - Month To Date
+- `wtd` - Week To Date
+- `today` - All current day
+- `m12` - Last 12 months
+- `d30` - Last 30 days
+- `h24` - Last 24 hours
+- `lasty` - Last Year
+- `lastm` - Last Month
+- `lastw` - Last Week
+- `yesterday` - Last Day
+  
     
 </dd>
 </dl>
@@ -24488,23 +24647,7 @@ The entry level for the request:
 <dl>
 <dd>
 
-**mode:** `str` 
-
-Mode for the request. Allowed values:
-
-- `custom` - Allows you to set a custom date range
-- `ytd` - Year To Date
-- `mtd` - Month To Date
-- `wtd` - Week To Date
-- `today` - All current day
-- `m12` - Last 12 months
-- `d30` - Last 30 days
-- `h24` - Last 24 hours
-- `lasty` - Last Year
-- `lastm` - Last Month
-- `lastw` - Last Week
-- `yesterday` - Last Day
-  
+**entry_id:** `int` — Identifier in Payabli for the entity.
     
 </dd>
 </dl>
@@ -24614,7 +24757,21 @@ client.statistic.customer_basic_stats(
 <dl>
 <dd>
 
-**customer_id:** `int` — Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub. 
+**mode:** `str` 
+
+Mode for request. Allowed values:
+
+- `ytd` - Year To Date
+- `mtd` - Month To Date
+- `wtd` - Week To Date
+- `today` - All current day
+- `m12` - Last 12 months
+- `d30` - Last 30 days
+- `h24` - Last 24 hours
+- `lasty` - Last Year
+- `lastm` - Last Month
+- `lastw` - Last Week
+- `yesterday` - Last Day
     
 </dd>
 </dl>
@@ -24639,21 +24796,7 @@ For example, `w` groups the results by week.
 <dl>
 <dd>
 
-**mode:** `str` 
-
-Mode for request. Allowed values:
-
-- `ytd` - Year To Date
-- `mtd` - Month To Date
-- `wtd` - Week To Date
-- `today` - All current day
-- `m12` - Last 12 months
-- `d30` - Last 30 days
-- `h24` - Last 24 hours
-- `lasty` - Last Year
-- `lastm` - Last Month
-- `lastw` - Last Week
-- `yesterday` - Last Day
+**customer_id:** `int` — Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub. 
     
 </dd>
 </dl>
@@ -24733,14 +24876,6 @@ client.statistic.sub_stats(
 <dl>
 <dd>
 
-**entry_id:** `int` — Identifier in Payabli for the entity.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **interval:** `str` 
 
 Interval to get the data. Allowed values:
@@ -24762,6 +24897,14 @@ Interval to get the data. Allowed values:
 The entry level for the request: 
   - 0 for Organization
   - 2 for Paypoint
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**entry_id:** `int` — Identifier in Payabli for the entity.
     
 </dd>
 </dl>
@@ -24841,6 +24984,28 @@ client.statistic.vendor_basic_stats(
 <dl>
 <dd>
 
+**mode:** `str` 
+
+Mode for request. Allowed values:
+
+- `ytd` - Year To Date
+- `mtd` - Month To Date
+- `wtd` - Week To Date
+- `today` - All current day
+- `m12` - Last 12 months
+- `d30` - Last 30 days
+- `h24` - Last 24 hours
+- `lasty` - Last Year
+- `lastm` - Last Month
+- `lastw` - Last Week
+- `yesterday` - Last Day
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **freq:** `str` 
 
 Frequency to group series. Allowed values:
@@ -24859,28 +25024,6 @@ For example, `w` groups the results by week.
 <dd>
 
 **id_vendor:** `int` — Vendor ID.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**mode:** `str` 
-
-Mode for request. Allowed values:
-
-- `ytd` - Year To Date
-- `mtd` - Month To Date
-- `wtd` - Week To Date
-- `today` - All current day
-- `m12` - Last 12 months
-- `d30` - Last 30 days
-- `h24` - Last 24 hours
-- `lasty` - Last Year
-- `lastm` - Last Month
-- `lastw` - Last Week
-- `yesterday` - Last Day
     
 </dd>
 </dl>
@@ -25444,7 +25587,7 @@ client.templates.getlink_template(
 <dl>
 <dd>
 
-**ignore_empty:** `bool` — Ignore read-only and empty fields Default is `false`. If `ignoreEmpty` = `false` and any field is empty, then the request returns a failure response. If `ignoreEmpty` = `true`, the request returns the boarding link name regardless of whether fields are empty.
+**template_id:** `float` — The boarding template ID. Can be found at the end of the boarding template URL in PartnerHub. Example: `https://partner-sandbox.payabli.com/myorganization/boarding/edittemplate/80`. Here, the template ID is `80`.
     
 </dd>
 </dl>
@@ -25452,7 +25595,7 @@ client.templates.getlink_template(
 <dl>
 <dd>
 
-**template_id:** `float` — The boarding template ID. Can be found at the end of the boarding template URL in PartnerHub. Example: `https://partner-sandbox.payabli.com/myorganization/boarding/edittemplate/80`. Here, the template ID is `80`.
+**ignore_empty:** `bool` — Ignore read-only and empty fields Default is `false`. If `ignoreEmpty` = `false` and any field is empty, then the request returns a failure response. If `ignoreEmpty` = `true`, the request returns the boarding link name regardless of whether fields are empty.
     
 </dd>
 </dl>
@@ -26202,6 +26345,20 @@ client.token_storage.update_method(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Use this endpoint to add a new user to an organization.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -26336,6 +26493,20 @@ client.user.add_user()
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Use this endpoint to refresh the authentication token for a user within an organization.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -26381,6 +26552,20 @@ client.user.auth_refresh_user()
 <details><summary><code>client.user.<a href="src/payabli/user/client.py">auth_reset_user</a>(...)</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Use this endpoint to initiate a password reset for a user within an organization.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -26570,6 +26755,20 @@ client.user.auth_user(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Use this endpoint to change the password for a user within an organization.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -26623,6 +26822,20 @@ client.user.change_psw_user()
 <details><summary><code>client.user.<a href="src/payabli/user/client.py">delete_user</a>(...)</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Use this endpoint to delete a specific user within an organization.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -26679,6 +26892,20 @@ client.user.delete_user(
 <details><summary><code>client.user.<a href="src/payabli/user/client.py">edit_mfa_user</a>(...)</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Use this endpoint to enable or disable multi-factor authentication (MFA) for a user within an organization.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -26751,6 +26978,20 @@ client.user.edit_mfa_user(
 <details><summary><code>client.user.<a href="src/payabli/user/client.py">edit_user</a>(...)</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Use this endpoint to modify the details of a specific user within an organization.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -26896,6 +27137,20 @@ client.user.edit_user(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Use this endpoint to retrieve information about a specific user within an organization.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -26969,6 +27224,20 @@ client.user.get_user(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Use this endpoint to log a user out from the system.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -27015,6 +27284,20 @@ client.user.logout_user()
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Resends the MFA code to the user via the selected MFA mode (email or SMS).
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -27049,6 +27332,14 @@ client.user.resend_mfa_code(
 <dl>
 <dd>
 
+**usrname:** `str` —  
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **entry:** `str` —  
     
 </dd>
@@ -27058,14 +27349,6 @@ client.user.resend_mfa_code(
 <dd>
 
 **entry_type:** `int` —  
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**usrname:** `str` —  
     
 </dd>
 </dl>
@@ -27088,6 +27371,20 @@ client.user.resend_mfa_code(
 <details><summary><code>client.user.<a href="src/payabli/user/client.py">validate_mfa_user</a>(...)</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Use this endpoint to validate the multi-factor authentication (MFA) code for a user within an organization.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 

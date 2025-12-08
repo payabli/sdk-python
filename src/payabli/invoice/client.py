@@ -134,13 +134,16 @@ class InvoiceClient:
         return _response.data
 
     def delete_attached_from_invoice(
-        self, filename: str, id_invoice: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, id_invoice: int, filename: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> InvoiceResponseWithoutData:
         """
         Deletes an invoice that's attached to a file.
 
         Parameters
         ----------
+        id_invoice : int
+            Invoice ID
+
         filename : str
             The filename in Payabli. Filename is `zipName` in response to a request to `/api/Invoice/{idInvoice}`. Here, the filename is `0_Bill.pdf``.
             "DocumentsRef": {
@@ -153,9 +156,6 @@ class InvoiceClient:
                 }
               ]
             }
-
-        id_invoice : int
-            Invoice ID
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -177,7 +177,7 @@ class InvoiceClient:
             id_invoice=23548884,
         )
         """
-        _response = self._raw_client.delete_attached_from_invoice(filename, id_invoice, request_options=request_options)
+        _response = self._raw_client.delete_attached_from_invoice(id_invoice, filename, request_options=request_options)
         return _response.data
 
     def delete_invoice(
@@ -291,8 +291,8 @@ class InvoiceClient:
 
     def get_attached_file_from_invoice(
         self,
-        filename: str,
         id_invoice: int,
+        filename: str,
         *,
         return_object: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -302,6 +302,9 @@ class InvoiceClient:
 
         Parameters
         ----------
+        id_invoice : int
+            Invoice ID
+
         filename : str
             The filename in Payabli. Filename is `zipName` in the response to a request to `/api/Invoice/{idInvoice}`. Here, the filename is `0_Bill.pdf``.
             ```
@@ -316,9 +319,6 @@ class InvoiceClient:
                 ]
               }
               ```
-
-        id_invoice : int
-            Invoice ID
 
         return_object : typing.Optional[bool]
             When `true`, the request returns the file content as a Base64-encoded string.
@@ -339,12 +339,12 @@ class InvoiceClient:
             api_key="YOUR_API_KEY",
         )
         client.invoice.get_attached_file_from_invoice(
-            filename="filename",
             id_invoice=1,
+            filename="filename",
         )
         """
         _response = self._raw_client.get_attached_file_from_invoice(
-            filename, id_invoice, return_object=return_object, request_options=request_options
+            id_invoice, filename, return_object=return_object, request_options=request_options
         )
         return _response.data
 
@@ -868,13 +868,16 @@ class AsyncInvoiceClient:
         return _response.data
 
     async def delete_attached_from_invoice(
-        self, filename: str, id_invoice: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, id_invoice: int, filename: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> InvoiceResponseWithoutData:
         """
         Deletes an invoice that's attached to a file.
 
         Parameters
         ----------
+        id_invoice : int
+            Invoice ID
+
         filename : str
             The filename in Payabli. Filename is `zipName` in response to a request to `/api/Invoice/{idInvoice}`. Here, the filename is `0_Bill.pdf``.
             "DocumentsRef": {
@@ -887,9 +890,6 @@ class AsyncInvoiceClient:
                 }
               ]
             }
-
-        id_invoice : int
-            Invoice ID
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -920,7 +920,7 @@ class AsyncInvoiceClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.delete_attached_from_invoice(
-            filename, id_invoice, request_options=request_options
+            id_invoice, filename, request_options=request_options
         )
         return _response.data
 
@@ -1050,8 +1050,8 @@ class AsyncInvoiceClient:
 
     async def get_attached_file_from_invoice(
         self,
-        filename: str,
         id_invoice: int,
+        filename: str,
         *,
         return_object: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1061,6 +1061,9 @@ class AsyncInvoiceClient:
 
         Parameters
         ----------
+        id_invoice : int
+            Invoice ID
+
         filename : str
             The filename in Payabli. Filename is `zipName` in the response to a request to `/api/Invoice/{idInvoice}`. Here, the filename is `0_Bill.pdf``.
             ```
@@ -1075,9 +1078,6 @@ class AsyncInvoiceClient:
                 ]
               }
               ```
-
-        id_invoice : int
-            Invoice ID
 
         return_object : typing.Optional[bool]
             When `true`, the request returns the file content as a Base64-encoded string.
@@ -1103,15 +1103,15 @@ class AsyncInvoiceClient:
 
         async def main() -> None:
             await client.invoice.get_attached_file_from_invoice(
-                filename="filename",
                 id_invoice=1,
+                filename="filename",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._raw_client.get_attached_file_from_invoice(
-            filename, id_invoice, return_object=return_object, request_options=request_options
+            id_invoice, filename, return_object=return_object, request_options=request_options
         )
         return _response.data
 

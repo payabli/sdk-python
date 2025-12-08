@@ -170,7 +170,7 @@ class MoneyInClient:
         return _response.data
 
     def capture(
-        self, amount: float, trans_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, trans_id: str, amount: float, *, request_options: typing.Optional[RequestOptions] = None
     ) -> CaptureResponse:
         """
         <Warning>
@@ -182,11 +182,11 @@ class MoneyInClient:
 
         Parameters
         ----------
-        amount : float
-            Amount to be captured. The amount can't be greater the original total amount of the transaction. `0` captures the total amount authorized in the transaction. Partial captures aren't supported.
-
         trans_id : str
             ReferenceId for the transaction (PaymentId).
+
+        amount : float
+            Amount to be captured. The amount can't be greater the original total amount of the transaction. `0` captures the total amount authorized in the transaction. Partial captures aren't supported.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -208,7 +208,7 @@ class MoneyInClient:
             amount=0.0,
         )
         """
-        _response = self._raw_client.capture(amount, trans_id, request_options=request_options)
+        _response = self._raw_client.capture(trans_id, amount, request_options=request_options)
         return _response.data
 
     def capture_auth(
@@ -517,13 +517,16 @@ class MoneyInClient:
         return _response.data
 
     def reverse(
-        self, amount: float, trans_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, trans_id: str, amount: float, *, request_options: typing.Optional[RequestOptions] = None
     ) -> ReverseResponse:
         """
         A reversal either refunds or voids a transaction independent of the transaction's settlement status. Send a reversal request for a transaction, and Payabli automatically determines whether it's a refund or void. You don't need to know whether the transaction is settled or not.
 
         Parameters
         ----------
+        trans_id : str
+            ReferenceId for the transaction (PaymentId).
+
         amount : float
 
             Amount to reverse from original transaction, minus any service fees charged on the original transaction.
@@ -531,9 +534,6 @@ class MoneyInClient:
             The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was $90 plus a $10 service fee, you can reverse up to $90.
 
             An amount equal to zero will refunds the total amount authorized minus any service fee.
-
-        trans_id : str
-            ReferenceId for the transaction (PaymentId).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -555,27 +555,27 @@ class MoneyInClient:
             trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
         )
         """
-        _response = self._raw_client.reverse(amount, trans_id, request_options=request_options)
+        _response = self._raw_client.reverse(trans_id, amount, request_options=request_options)
         return _response.data
 
     def refund(
-        self, amount: float, trans_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, trans_id: str, amount: float, *, request_options: typing.Optional[RequestOptions] = None
     ) -> RefundResponse:
         """
         Refund a transaction that has settled and send money back to the account holder. If a transaction hasn't been settled, void it instead.
 
         Parameters
         ----------
+        trans_id : str
+            ReferenceId for the transaction (PaymentId).
+
         amount : float
 
             Amount to refund from original transaction, minus any service fees charged on the original transaction.
 
-            The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was \$90 plus a \$10 service fee, you can refund up to \$90.
+            The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was \\$90 plus a \\$10 service fee, you can refund up to \\$90.
 
             An amount equal to zero will refund the total amount authorized minus any service fee.
-
-        trans_id : str
-            ReferenceId for the transaction (PaymentId).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -597,7 +597,7 @@ class MoneyInClient:
             trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
         )
         """
-        _response = self._raw_client.refund(amount, trans_id, request_options=request_options)
+        _response = self._raw_client.refund(trans_id, amount, request_options=request_options)
         return _response.data
 
     def refund_with_instructions(
@@ -1010,7 +1010,7 @@ class AsyncMoneyInClient:
         return _response.data
 
     async def capture(
-        self, amount: float, trans_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, trans_id: str, amount: float, *, request_options: typing.Optional[RequestOptions] = None
     ) -> CaptureResponse:
         """
         <Warning>
@@ -1022,11 +1022,11 @@ class AsyncMoneyInClient:
 
         Parameters
         ----------
-        amount : float
-            Amount to be captured. The amount can't be greater the original total amount of the transaction. `0` captures the total amount authorized in the transaction. Partial captures aren't supported.
-
         trans_id : str
             ReferenceId for the transaction (PaymentId).
+
+        amount : float
+            Amount to be captured. The amount can't be greater the original total amount of the transaction. `0` captures the total amount authorized in the transaction. Partial captures aren't supported.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1056,7 +1056,7 @@ class AsyncMoneyInClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.capture(amount, trans_id, request_options=request_options)
+        _response = await self._raw_client.capture(trans_id, amount, request_options=request_options)
         return _response.data
 
     async def capture_auth(
@@ -1402,13 +1402,16 @@ class AsyncMoneyInClient:
         return _response.data
 
     async def reverse(
-        self, amount: float, trans_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, trans_id: str, amount: float, *, request_options: typing.Optional[RequestOptions] = None
     ) -> ReverseResponse:
         """
         A reversal either refunds or voids a transaction independent of the transaction's settlement status. Send a reversal request for a transaction, and Payabli automatically determines whether it's a refund or void. You don't need to know whether the transaction is settled or not.
 
         Parameters
         ----------
+        trans_id : str
+            ReferenceId for the transaction (PaymentId).
+
         amount : float
 
             Amount to reverse from original transaction, minus any service fees charged on the original transaction.
@@ -1416,9 +1419,6 @@ class AsyncMoneyInClient:
             The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was $90 plus a $10 service fee, you can reverse up to $90.
 
             An amount equal to zero will refunds the total amount authorized minus any service fee.
-
-        trans_id : str
-            ReferenceId for the transaction (PaymentId).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1448,27 +1448,27 @@ class AsyncMoneyInClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.reverse(amount, trans_id, request_options=request_options)
+        _response = await self._raw_client.reverse(trans_id, amount, request_options=request_options)
         return _response.data
 
     async def refund(
-        self, amount: float, trans_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, trans_id: str, amount: float, *, request_options: typing.Optional[RequestOptions] = None
     ) -> RefundResponse:
         """
         Refund a transaction that has settled and send money back to the account holder. If a transaction hasn't been settled, void it instead.
 
         Parameters
         ----------
+        trans_id : str
+            ReferenceId for the transaction (PaymentId).
+
         amount : float
 
             Amount to refund from original transaction, minus any service fees charged on the original transaction.
 
-            The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was \$90 plus a \$10 service fee, you can refund up to \$90.
+            The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was \\$90 plus a \\$10 service fee, you can refund up to \\$90.
 
             An amount equal to zero will refund the total amount authorized minus any service fee.
-
-        trans_id : str
-            ReferenceId for the transaction (PaymentId).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1498,7 +1498,7 @@ class AsyncMoneyInClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.refund(amount, trans_id, request_options=request_options)
+        _response = await self._raw_client.refund(trans_id, amount, request_options=request_options)
         return _response.data
 
     async def refund_with_instructions(

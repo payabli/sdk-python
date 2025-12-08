@@ -6,10 +6,12 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .stat_basic_extended_query_record import StatBasicExtendedQueryRecord
     from .stat_basic_query_record import StatBasicQueryRecord
     from .statistics_vendor_query_record import StatisticsVendorQueryRecord
     from .subscription_stats_query_record import SubscriptionStatsQueryRecord
 _dynamic_imports: typing.Dict[str, str] = {
+    "StatBasicExtendedQueryRecord": ".stat_basic_extended_query_record",
     "StatBasicQueryRecord": ".stat_basic_query_record",
     "StatisticsVendorQueryRecord": ".statistics_vendor_query_record",
     "SubscriptionStatsQueryRecord": ".subscription_stats_query_record",
@@ -37,4 +39,9 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["StatBasicQueryRecord", "StatisticsVendorQueryRecord", "SubscriptionStatsQueryRecord"]
+__all__ = [
+    "StatBasicExtendedQueryRecord",
+    "StatBasicQueryRecord",
+    "StatisticsVendorQueryRecord",
+    "SubscriptionStatsQueryRecord",
+]

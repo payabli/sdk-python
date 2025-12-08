@@ -284,7 +284,7 @@ class TransferDetailRecord(UniversalBaseModel):
     )
     retrieval_id: typing_extensions.Annotated[typing.Optional[RetrievalId], FieldMetadata(alias="RetrievalId")] = None
     trans_additional_data: typing_extensions.Annotated[
-        typing.Optional[typing.Optional[typing.Any]], FieldMetadata(alias="TransAdditionalData")
+        typing.Optional[typing.Any], FieldMetadata(alias="TransAdditionalData")
     ] = pydantic.Field(default=None)
     """
     Additional transaction data

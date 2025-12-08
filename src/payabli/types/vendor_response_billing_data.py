@@ -31,7 +31,7 @@ class VendorResponseBillingData(UniversalBaseModel):
     ] = None
     verified: typing.Optional[bool] = None
     status: typing.Optional[int] = None
-    services: typing.Optional[typing.List[typing.Optional[typing.Any]]] = None
+    services: typing.Optional[typing.List[typing.Any]] = None
     default: typing.Optional[bool] = None
 
     if IS_PYDANTIC_V2:

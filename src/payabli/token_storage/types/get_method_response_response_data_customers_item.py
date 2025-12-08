@@ -30,7 +30,7 @@ class GetMethodResponseResponseDataCustomersItem(PayorDataRequest):
     """
 
     customer_consent: typing_extensions.Annotated[
-        typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]], FieldMetadata(alias="customerConsent")
+        typing.Optional[typing.Dict[str, typing.Any]], FieldMetadata(alias="customerConsent")
     ] = pydantic.Field(default=None)
     """
     Customer consent information
@@ -100,7 +100,7 @@ class GetMethodResponseResponseDataCustomersItem(PayorDataRequest):
         typing.Optional[Legalname], FieldMetadata(alias="paypointLegalname")
     ] = None
     sn_data: typing_extensions.Annotated[
-        typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]], FieldMetadata(alias="snData")
+        typing.Optional[typing.Dict[str, typing.Any]], FieldMetadata(alias="snData")
     ] = pydantic.Field(default=None)
     """
     Social network data

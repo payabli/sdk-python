@@ -39,6 +39,8 @@ class OcrClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PayabliApiResponseOcr:
         """
+        Use this endpoint to upload an image file for OCR processing. The accepted file formats include PDF, JPG, JPEG, PNG, and GIF. Specify the desired type of result (either 'bill' or 'invoice') in the path parameter `typeResult`. The response will contain the OCR processing results, including extracted data such as bill number, vendor information, bill items, and more.
+
         Parameters
         ----------
         type_result : TypeResult
@@ -89,6 +91,8 @@ class OcrClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PayabliApiResponseOcr:
         """
+        Use this endpoint to submit a Base64-encoded image file for OCR processing. The accepted file formats include PDF, JPG, JPEG, PNG, and GIF. Specify the desired type of result (either 'bill' or 'invoice') in the path parameter `typeResult`. The response will contain the OCR processing results, including extracted data such as bill number, vendor information, bill items, and more.
+
         Parameters
         ----------
         type_result : TypeResult
@@ -155,6 +159,8 @@ class AsyncOcrClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PayabliApiResponseOcr:
         """
+        Use this endpoint to upload an image file for OCR processing. The accepted file formats include PDF, JPG, JPEG, PNG, and GIF. Specify the desired type of result (either 'bill' or 'invoice') in the path parameter `typeResult`. The response will contain the OCR processing results, including extracted data such as bill number, vendor information, bill items, and more.
+
         Parameters
         ----------
         type_result : TypeResult
@@ -213,6 +219,8 @@ class AsyncOcrClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PayabliApiResponseOcr:
         """
+        Use this endpoint to submit a Base64-encoded image file for OCR processing. The accepted file formats include PDF, JPG, JPEG, PNG, and GIF. Specify the desired type of result (either 'bill' or 'invoice') in the path parameter `typeResult`. The response will contain the OCR processing results, including extracted data such as bill number, vendor information, bill items, and more.
+
         Parameters
         ----------
         type_result : TypeResult

@@ -6,8 +6,14 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .types import StatBasicQueryRecord, StatisticsVendorQueryRecord, SubscriptionStatsQueryRecord
+    from .types import (
+        StatBasicExtendedQueryRecord,
+        StatBasicQueryRecord,
+        StatisticsVendorQueryRecord,
+        SubscriptionStatsQueryRecord,
+    )
 _dynamic_imports: typing.Dict[str, str] = {
+    "StatBasicExtendedQueryRecord": ".types",
     "StatBasicQueryRecord": ".types",
     "StatisticsVendorQueryRecord": ".types",
     "SubscriptionStatsQueryRecord": ".types",
@@ -35,4 +41,9 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["StatBasicQueryRecord", "StatisticsVendorQueryRecord", "SubscriptionStatsQueryRecord"]
+__all__ = [
+    "StatBasicExtendedQueryRecord",
+    "StatBasicQueryRecord",
+    "StatisticsVendorQueryRecord",
+    "SubscriptionStatsQueryRecord",
+]

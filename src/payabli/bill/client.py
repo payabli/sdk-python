@@ -228,8 +228,8 @@ class BillClient:
 
     def delete_attached_from_bill(
         self,
-        filename: str,
         id_bill: int,
+        filename: str,
         *,
         return_object: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -239,6 +239,9 @@ class BillClient:
 
         Parameters
         ----------
+        id_bill : int
+            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
+
         filename : str
             The filename in Payabli. Filename is `zipName` in response to a
             request to `/api/Invoice/{idInvoice}`. Here, the filename is
@@ -256,9 +259,6 @@ class BillClient:
                 ]
               }
               ```
-
-        id_bill : int
-            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
 
         return_object : typing.Optional[bool]
             When `true`, the request returns the file content as a Base64-encoded string.
@@ -284,7 +284,7 @@ class BillClient:
         )
         """
         _response = self._raw_client.delete_attached_from_bill(
-            filename, id_bill, return_object=return_object, request_options=request_options
+            id_bill, filename, return_object=return_object, request_options=request_options
         )
         return _response.data
 
@@ -459,8 +459,8 @@ class BillClient:
 
     def get_attached_from_bill(
         self,
-        filename: str,
         id_bill: int,
+        filename: str,
         *,
         return_object: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -470,6 +470,9 @@ class BillClient:
 
         Parameters
         ----------
+        id_bill : int
+            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
+
         filename : str
             The filename in Payabli. Filename is `zipName` in response to a request to `/api/Invoice/{idInvoice}`. Here, the filename is `0_Bill.pdf``.
             "DocumentsRef": {
@@ -482,9 +485,6 @@ class BillClient:
                 }
               ]
             }
-
-        id_bill : int
-            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
 
         return_object : typing.Optional[bool]
             When `true`, the request returns the file content as a Base64-encoded string.
@@ -511,7 +511,7 @@ class BillClient:
         )
         """
         _response = self._raw_client.get_attached_from_bill(
-            filename, id_bill, return_object=return_object, request_options=request_options
+            id_bill, filename, return_object=return_object, request_options=request_options
         )
         return _response.data
 
@@ -854,8 +854,8 @@ class BillClient:
 
     def set_approved_bill(
         self,
-        approved: str,
         id_bill: int,
+        approved: str,
         *,
         email: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -865,11 +865,11 @@ class BillClient:
 
         Parameters
         ----------
-        approved : str
-            String representing the approved status. Accepted values: 'true' or 'false'.
-
         id_bill : int
             Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
+
+        approved : str
+            String representing the approved status. Accepted values: 'true' or 'false'.
 
         email : typing.Optional[str]
             Email or username of user modifying approval status.
@@ -894,7 +894,7 @@ class BillClient:
             id_bill=285,
         )
         """
-        _response = self._raw_client.set_approved_bill(approved, id_bill, email=email, request_options=request_options)
+        _response = self._raw_client.set_approved_bill(id_bill, approved, email=email, request_options=request_options)
         return _response.data
 
 
@@ -1103,8 +1103,8 @@ class AsyncBillClient:
 
     async def delete_attached_from_bill(
         self,
-        filename: str,
         id_bill: int,
+        filename: str,
         *,
         return_object: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1114,6 +1114,9 @@ class AsyncBillClient:
 
         Parameters
         ----------
+        id_bill : int
+            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
+
         filename : str
             The filename in Payabli. Filename is `zipName` in response to a
             request to `/api/Invoice/{idInvoice}`. Here, the filename is
@@ -1131,9 +1134,6 @@ class AsyncBillClient:
                 ]
               }
               ```
-
-        id_bill : int
-            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
 
         return_object : typing.Optional[bool]
             When `true`, the request returns the file content as a Base64-encoded string.
@@ -1167,7 +1167,7 @@ class AsyncBillClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.delete_attached_from_bill(
-            filename, id_bill, return_object=return_object, request_options=request_options
+            id_bill, filename, return_object=return_object, request_options=request_options
         )
         return _response.data
 
@@ -1359,8 +1359,8 @@ class AsyncBillClient:
 
     async def get_attached_from_bill(
         self,
-        filename: str,
         id_bill: int,
+        filename: str,
         *,
         return_object: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1370,6 +1370,9 @@ class AsyncBillClient:
 
         Parameters
         ----------
+        id_bill : int
+            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
+
         filename : str
             The filename in Payabli. Filename is `zipName` in response to a request to `/api/Invoice/{idInvoice}`. Here, the filename is `0_Bill.pdf``.
             "DocumentsRef": {
@@ -1382,9 +1385,6 @@ class AsyncBillClient:
                 }
               ]
             }
-
-        id_bill : int
-            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
 
         return_object : typing.Optional[bool]
             When `true`, the request returns the file content as a Base64-encoded string.
@@ -1419,7 +1419,7 @@ class AsyncBillClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.get_attached_from_bill(
-            filename, id_bill, return_object=return_object, request_options=request_options
+            id_bill, filename, return_object=return_object, request_options=request_options
         )
         return _response.data
 
@@ -1806,8 +1806,8 @@ class AsyncBillClient:
 
     async def set_approved_bill(
         self,
-        approved: str,
         id_bill: int,
+        approved: str,
         *,
         email: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1817,11 +1817,11 @@ class AsyncBillClient:
 
         Parameters
         ----------
-        approved : str
-            String representing the approved status. Accepted values: 'true' or 'false'.
-
         id_bill : int
             Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
+
+        approved : str
+            String representing the approved status. Accepted values: 'true' or 'false'.
 
         email : typing.Optional[str]
             Email or username of user modifying approval status.
@@ -1855,6 +1855,6 @@ class AsyncBillClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.set_approved_bill(
-            approved, id_bill, email=email, request_options=request_options
+            id_bill, approved, email=email, request_options=request_options
         )
         return _response.data

@@ -89,7 +89,7 @@ class VCardGetResponseAssociatedVendorBillingData(UniversalBaseModel):
     Status of the billing data.
     """
 
-    services: typing.Optional[typing.List[typing.Optional[typing.Any]]] = pydantic.Field(default=None)
+    services: typing.Optional[typing.List[typing.Any]] = pydantic.Field(default=None)
     """
     Services associated with the account.
     """

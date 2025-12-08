@@ -60,18 +60,18 @@ class TemplatesClient:
         return _response.data
 
     def getlink_template(
-        self, ignore_empty: bool, template_id: float, *, request_options: typing.Optional[RequestOptions] = None
+        self, template_id: float, ignore_empty: bool, *, request_options: typing.Optional[RequestOptions] = None
     ) -> BoardingLinkApiResponse:
         """
         Generates a boarding link from a boarding template.
 
         Parameters
         ----------
-        ignore_empty : bool
-            Ignore read-only and empty fields Default is `false`. If `ignoreEmpty` = `false` and any field is empty, then the request returns a failure response. If `ignoreEmpty` = `true`, the request returns the boarding link name regardless of whether fields are empty.
-
         template_id : float
             The boarding template ID. Can be found at the end of the boarding template URL in PartnerHub. Example: `https://partner-sandbox.payabli.com/myorganization/boarding/edittemplate/80`. Here, the template ID is `80`.
+
+        ignore_empty : bool
+            Ignore read-only and empty fields Default is `false`. If `ignoreEmpty` = `false` and any field is empty, then the request returns a failure response. If `ignoreEmpty` = `true`, the request returns the boarding link name regardless of whether fields are empty.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -93,7 +93,7 @@ class TemplatesClient:
             template_id=80.0,
         )
         """
-        _response = self._raw_client.getlink_template(ignore_empty, template_id, request_options=request_options)
+        _response = self._raw_client.getlink_template(template_id, ignore_empty, request_options=request_options)
         return _response.data
 
     def get_template(
@@ -292,18 +292,18 @@ class AsyncTemplatesClient:
         return _response.data
 
     async def getlink_template(
-        self, ignore_empty: bool, template_id: float, *, request_options: typing.Optional[RequestOptions] = None
+        self, template_id: float, ignore_empty: bool, *, request_options: typing.Optional[RequestOptions] = None
     ) -> BoardingLinkApiResponse:
         """
         Generates a boarding link from a boarding template.
 
         Parameters
         ----------
-        ignore_empty : bool
-            Ignore read-only and empty fields Default is `false`. If `ignoreEmpty` = `false` and any field is empty, then the request returns a failure response. If `ignoreEmpty` = `true`, the request returns the boarding link name regardless of whether fields are empty.
-
         template_id : float
             The boarding template ID. Can be found at the end of the boarding template URL in PartnerHub. Example: `https://partner-sandbox.payabli.com/myorganization/boarding/edittemplate/80`. Here, the template ID is `80`.
+
+        ignore_empty : bool
+            Ignore read-only and empty fields Default is `false`. If `ignoreEmpty` = `false` and any field is empty, then the request returns a failure response. If `ignoreEmpty` = `true`, the request returns the boarding link name regardless of whether fields are empty.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -333,7 +333,7 @@ class AsyncTemplatesClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.getlink_template(ignore_empty, template_id, request_options=request_options)
+        _response = await self._raw_client.getlink_template(template_id, ignore_empty, request_options=request_options)
         return _response.data
 
     async def get_template(

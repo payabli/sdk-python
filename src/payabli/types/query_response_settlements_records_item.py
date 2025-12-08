@@ -153,7 +153,7 @@ class QueryResponseSettlementsRecordsItem(UniversalBaseModel):
         typing.Optional[dt.datetime], FieldMetadata(alias="SettlementDate")
     ] = pydantic.Field(default=None)
     """
-     
+    The date and time when the transaction was settled. This field is null when the transaction's `SettlementStatus` is -1, -5, or -6 (Exception, Held, or Released).
     """
 
     source: typing_extensions.Annotated[typing.Optional[Source], FieldMetadata(alias="Source")] = None

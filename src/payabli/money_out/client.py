@@ -135,6 +135,7 @@ class MoneyOutClient:
             order_description="Window Painting",
             payment_details=RequestOutAuthorizePaymentDetails(
                 total_amount=47.0,
+                unbundled=False,
             ),
             payment_method=AuthorizePaymentMethod(
                 method="managed",
@@ -196,7 +197,7 @@ class MoneyOutClient:
         _response = self._raw_client.cancel_all_out(request=request, request_options=request_options)
         return _response.data
 
-    def cancel_out(
+    def cancel_out_get(
         self, reference_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> PayabliApiResponse0000:
         """
@@ -222,11 +223,44 @@ class MoneyOutClient:
         client = payabli(
             api_key="YOUR_API_KEY",
         )
-        client.money_out.cancel_out(
+        client.money_out.cancel_out_get(
             reference_id="129-219",
         )
         """
-        _response = self._raw_client.cancel_out(reference_id, request_options=request_options)
+        _response = self._raw_client.cancel_out_get(reference_id, request_options=request_options)
+        return _response.data
+
+    def cancel_out_delete(
+        self, reference_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> PayabliApiResponse0000:
+        """
+        Cancel a payout transaction by ID.
+
+        Parameters
+        ----------
+        reference_id : str
+            The ID for the payout transaction.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayabliApiResponse0000
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.money_out.cancel_out_delete(
+            reference_id="129-219",
+        )
+        """
+        _response = self._raw_client.cancel_out_delete(reference_id, request_options=request_options)
         return _response.data
 
     def capture_all_out(
@@ -563,6 +597,7 @@ class AsyncMoneyOutClient:
                 order_description="Window Painting",
                 payment_details=RequestOutAuthorizePaymentDetails(
                     total_amount=47.0,
+                    unbundled=False,
                 ),
                 payment_method=AuthorizePaymentMethod(
                     method="managed",
@@ -635,7 +670,7 @@ class AsyncMoneyOutClient:
         _response = await self._raw_client.cancel_all_out(request=request, request_options=request_options)
         return _response.data
 
-    async def cancel_out(
+    async def cancel_out_get(
         self, reference_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> PayabliApiResponse0000:
         """
@@ -666,14 +701,55 @@ class AsyncMoneyOutClient:
 
 
         async def main() -> None:
-            await client.money_out.cancel_out(
+            await client.money_out.cancel_out_get(
                 reference_id="129-219",
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.cancel_out(reference_id, request_options=request_options)
+        _response = await self._raw_client.cancel_out_get(reference_id, request_options=request_options)
+        return _response.data
+
+    async def cancel_out_delete(
+        self, reference_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> PayabliApiResponse0000:
+        """
+        Cancel a payout transaction by ID.
+
+        Parameters
+        ----------
+        reference_id : str
+            The ID for the payout transaction.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayabliApiResponse0000
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.money_out.cancel_out_delete(
+                reference_id="129-219",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.cancel_out_delete(reference_id, request_options=request_options)
         return _response.data
 
     async def capture_all_out(

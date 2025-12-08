@@ -2,4 +2,4 @@
 
 import typing
 
-File = typing.Dict[str, typing.Optional[typing.Any]]
+File = typing.Dict[str, typing.Any]

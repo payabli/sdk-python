@@ -5,6 +5,7 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from .raw_client import AsyncRawStatisticClient, RawStatisticClient
+from .types.stat_basic_extended_query_record import StatBasicExtendedQueryRecord
 from .types.stat_basic_query_record import StatBasicQueryRecord
 from .types.statistics_vendor_query_record import StatisticsVendorQueryRecord
 from .types.subscription_stats_query_record import SubscriptionStatsQueryRecord
@@ -27,39 +28,21 @@ class StatisticClient:
 
     def basic_stats(
         self,
-        entry_id: int,
+        mode: str,
         freq: str,
         level: int,
-        mode: str,
+        entry_id: int,
         *,
         end_date: typing.Optional[str] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         start_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[StatBasicQueryRecord]:
+    ) -> typing.List[StatBasicExtendedQueryRecord]:
         """
         Retrieves the basic statistics for an organization or a paypoint, for a given time period, grouped by a particular frequency.
 
         Parameters
         ----------
-        entry_id : int
-            Identifier in Payabli for the entity.
-
-        freq : str
-            Frequency to group series. Allowed values:
-
-            - `m` - monthly
-            - `w` - weekly
-            - `d` - daily
-            - `h` - hourly
-
-            For example, `w` groups the results by week.
-
-        level : int
-            The entry level for the request:
-              - 0 for Organization
-              - 2 for Paypoint
-
         mode : str
             Mode for the request. Allowed values:
 
@@ -76,6 +59,24 @@ class StatisticClient:
             - `lastw` - Last Week
             - `yesterday` - Last Day
 
+
+        freq : str
+            Frequency to group series. Allowed values:
+
+            - `m` - monthly
+            - `w` - weekly
+            - `d` - daily
+            - `h` - hourly
+
+            For example, `w` groups the results by week.
+
+        level : int
+            The entry level for the request:
+              - 0 for Organization
+              - 2 for Paypoint
+
+        entry_id : int
+            Identifier in Payabli for the entity.
 
         end_date : typing.Optional[str]
             Used with `custom` mode. The end date for the range.
@@ -101,7 +102,7 @@ class StatisticClient:
 
         Returns
         -------
-        typing.List[StatBasicQueryRecord]
+        typing.List[StatBasicExtendedQueryRecord]
             Success
 
         Examples
@@ -116,15 +117,15 @@ class StatisticClient:
             freq="m",
             level=1,
             mode="ytd",
-            end_date="2023-05-23",
-            start_date="2023-03-23",
+            end_date="2025-11-01",
+            start_date="2025-11-30",
         )
         """
         _response = self._raw_client.basic_stats(
-            entry_id,
+            mode,
             freq,
             level,
-            mode,
+            entry_id,
             end_date=end_date,
             parameters=parameters,
             start_date=start_date,
@@ -134,9 +135,9 @@ class StatisticClient:
 
     def customer_basic_stats(
         self,
-        customer_id: int,
-        freq: str,
         mode: str,
+        freq: str,
+        customer_id: int,
         *,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -146,19 +147,6 @@ class StatisticClient:
 
         Parameters
         ----------
-        customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
-
-        freq : str
-            Frequency to group series. Allowed values:
-
-            - `m` - monthly
-            - `w` - weekly
-            - `d` - daily
-            - `h` - hourly
-
-            For example, `w` groups the results by week.
-
         mode : str
             Mode for request. Allowed values:
 
@@ -173,6 +161,19 @@ class StatisticClient:
             - `lastm` - Last Month
             - `lastw` - Last Week
             - `yesterday` - Last Day
+
+        freq : str
+            Frequency to group series. Allowed values:
+
+            - `m` - monthly
+            - `w` - weekly
+            - `d` - daily
+            - `h` - hourly
+
+            For example, `w` groups the results by week.
+
+        customer_id : int
+            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             List of parameters.
@@ -199,15 +200,15 @@ class StatisticClient:
         )
         """
         _response = self._raw_client.customer_basic_stats(
-            customer_id, freq, mode, parameters=parameters, request_options=request_options
+            mode, freq, customer_id, parameters=parameters, request_options=request_options
         )
         return _response.data
 
     def sub_stats(
         self,
-        entry_id: int,
         interval: str,
         level: int,
+        entry_id: int,
         *,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -217,9 +218,6 @@ class StatisticClient:
 
         Parameters
         ----------
-        entry_id : int
-            Identifier in Payabli for the entity.
-
         interval : str
             Interval to get the data. Allowed values:
 
@@ -233,6 +231,9 @@ class StatisticClient:
             The entry level for the request:
               - 0 for Organization
               - 2 for Paypoint
+
+        entry_id : int
+            Identifier in Payabli for the entity.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             List of parameters
@@ -259,15 +260,15 @@ class StatisticClient:
         )
         """
         _response = self._raw_client.sub_stats(
-            entry_id, interval, level, parameters=parameters, request_options=request_options
+            interval, level, entry_id, parameters=parameters, request_options=request_options
         )
         return _response.data
 
     def vendor_basic_stats(
         self,
+        mode: str,
         freq: str,
         id_vendor: int,
-        mode: str,
         *,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -277,19 +278,6 @@ class StatisticClient:
 
         Parameters
         ----------
-        freq : str
-            Frequency to group series. Allowed values:
-
-            - `m` - monthly
-            - `w` - weekly
-            - `d` - daily
-            - `h` - hourly
-
-            For example, `w` groups the results by week.
-
-        id_vendor : int
-            Vendor ID.
-
         mode : str
             Mode for request. Allowed values:
 
@@ -304,6 +292,19 @@ class StatisticClient:
             - `lastm` - Last Month
             - `lastw` - Last Week
             - `yesterday` - Last Day
+
+        freq : str
+            Frequency to group series. Allowed values:
+
+            - `m` - monthly
+            - `w` - weekly
+            - `d` - daily
+            - `h` - hourly
+
+            For example, `w` groups the results by week.
+
+        id_vendor : int
+            Vendor ID.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             List of parameters
@@ -330,7 +331,7 @@ class StatisticClient:
         )
         """
         _response = self._raw_client.vendor_basic_stats(
-            freq, id_vendor, mode, parameters=parameters, request_options=request_options
+            mode, freq, id_vendor, parameters=parameters, request_options=request_options
         )
         return _response.data
 
@@ -352,39 +353,21 @@ class AsyncStatisticClient:
 
     async def basic_stats(
         self,
-        entry_id: int,
+        mode: str,
         freq: str,
         level: int,
-        mode: str,
+        entry_id: int,
         *,
         end_date: typing.Optional[str] = None,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         start_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[StatBasicQueryRecord]:
+    ) -> typing.List[StatBasicExtendedQueryRecord]:
         """
         Retrieves the basic statistics for an organization or a paypoint, for a given time period, grouped by a particular frequency.
 
         Parameters
         ----------
-        entry_id : int
-            Identifier in Payabli for the entity.
-
-        freq : str
-            Frequency to group series. Allowed values:
-
-            - `m` - monthly
-            - `w` - weekly
-            - `d` - daily
-            - `h` - hourly
-
-            For example, `w` groups the results by week.
-
-        level : int
-            The entry level for the request:
-              - 0 for Organization
-              - 2 for Paypoint
-
         mode : str
             Mode for the request. Allowed values:
 
@@ -401,6 +384,24 @@ class AsyncStatisticClient:
             - `lastw` - Last Week
             - `yesterday` - Last Day
 
+
+        freq : str
+            Frequency to group series. Allowed values:
+
+            - `m` - monthly
+            - `w` - weekly
+            - `d` - daily
+            - `h` - hourly
+
+            For example, `w` groups the results by week.
+
+        level : int
+            The entry level for the request:
+              - 0 for Organization
+              - 2 for Paypoint
+
+        entry_id : int
+            Identifier in Payabli for the entity.
 
         end_date : typing.Optional[str]
             Used with `custom` mode. The end date for the range.
@@ -426,7 +427,7 @@ class AsyncStatisticClient:
 
         Returns
         -------
-        typing.List[StatBasicQueryRecord]
+        typing.List[StatBasicExtendedQueryRecord]
             Success
 
         Examples
@@ -446,18 +447,18 @@ class AsyncStatisticClient:
                 freq="m",
                 level=1,
                 mode="ytd",
-                end_date="2023-05-23",
-                start_date="2023-03-23",
+                end_date="2025-11-01",
+                start_date="2025-11-30",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._raw_client.basic_stats(
-            entry_id,
+            mode,
             freq,
             level,
-            mode,
+            entry_id,
             end_date=end_date,
             parameters=parameters,
             start_date=start_date,
@@ -467,9 +468,9 @@ class AsyncStatisticClient:
 
     async def customer_basic_stats(
         self,
-        customer_id: int,
-        freq: str,
         mode: str,
+        freq: str,
+        customer_id: int,
         *,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -479,19 +480,6 @@ class AsyncStatisticClient:
 
         Parameters
         ----------
-        customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
-
-        freq : str
-            Frequency to group series. Allowed values:
-
-            - `m` - monthly
-            - `w` - weekly
-            - `d` - daily
-            - `h` - hourly
-
-            For example, `w` groups the results by week.
-
         mode : str
             Mode for request. Allowed values:
 
@@ -506,6 +494,19 @@ class AsyncStatisticClient:
             - `lastm` - Last Month
             - `lastw` - Last Week
             - `yesterday` - Last Day
+
+        freq : str
+            Frequency to group series. Allowed values:
+
+            - `m` - monthly
+            - `w` - weekly
+            - `d` - daily
+            - `h` - hourly
+
+            For example, `w` groups the results by week.
+
+        customer_id : int
+            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             List of parameters.
@@ -540,15 +541,15 @@ class AsyncStatisticClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.customer_basic_stats(
-            customer_id, freq, mode, parameters=parameters, request_options=request_options
+            mode, freq, customer_id, parameters=parameters, request_options=request_options
         )
         return _response.data
 
     async def sub_stats(
         self,
-        entry_id: int,
         interval: str,
         level: int,
+        entry_id: int,
         *,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -558,9 +559,6 @@ class AsyncStatisticClient:
 
         Parameters
         ----------
-        entry_id : int
-            Identifier in Payabli for the entity.
-
         interval : str
             Interval to get the data. Allowed values:
 
@@ -574,6 +572,9 @@ class AsyncStatisticClient:
             The entry level for the request:
               - 0 for Organization
               - 2 for Paypoint
+
+        entry_id : int
+            Identifier in Payabli for the entity.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             List of parameters
@@ -608,15 +609,15 @@ class AsyncStatisticClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.sub_stats(
-            entry_id, interval, level, parameters=parameters, request_options=request_options
+            interval, level, entry_id, parameters=parameters, request_options=request_options
         )
         return _response.data
 
     async def vendor_basic_stats(
         self,
+        mode: str,
         freq: str,
         id_vendor: int,
-        mode: str,
         *,
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -626,19 +627,6 @@ class AsyncStatisticClient:
 
         Parameters
         ----------
-        freq : str
-            Frequency to group series. Allowed values:
-
-            - `m` - monthly
-            - `w` - weekly
-            - `d` - daily
-            - `h` - hourly
-
-            For example, `w` groups the results by week.
-
-        id_vendor : int
-            Vendor ID.
-
         mode : str
             Mode for request. Allowed values:
 
@@ -653,6 +641,19 @@ class AsyncStatisticClient:
             - `lastm` - Last Month
             - `lastw` - Last Week
             - `yesterday` - Last Day
+
+        freq : str
+            Frequency to group series. Allowed values:
+
+            - `m` - monthly
+            - `w` - weekly
+            - `d` - daily
+            - `h` - hourly
+
+            For example, `w` groups the results by week.
+
+        id_vendor : int
+            Vendor ID.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             List of parameters
@@ -687,6 +688,6 @@ class AsyncStatisticClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.vendor_basic_stats(
-            freq, id_vendor, mode, parameters=parameters, request_options=request_options
+            mode, freq, id_vendor, parameters=parameters, request_options=request_options
         )
         return _response.data

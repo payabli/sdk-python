@@ -128,16 +128,18 @@ class ChargeBacksClient:
         return _response.data
 
     def get_chargeback_attachment(
-        self, file_name: str, id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, id: int, file_name: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> str:
         """
+        Retrieves a chargeback attachment file by its file name.
+
         Parameters
         ----------
-        file_name : str
-            The chargeback attachment's file name.
-
         id : int
             The ID of chargeback or return record.
+
+        file_name : str
+            The chargeback attachment's file name.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -155,11 +157,11 @@ class ChargeBacksClient:
             api_key="YOUR_API_KEY",
         )
         client.charge_backs.get_chargeback_attachment(
-            file_name="fileName",
             id=1000000,
+            file_name="fileName",
         )
         """
-        _response = self._raw_client.get_chargeback_attachment(file_name, id, request_options=request_options)
+        _response = self._raw_client.get_chargeback_attachment(id, file_name, request_options=request_options)
         return _response.data
 
 
@@ -292,16 +294,18 @@ class AsyncChargeBacksClient:
         return _response.data
 
     async def get_chargeback_attachment(
-        self, file_name: str, id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, id: int, file_name: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> str:
         """
+        Retrieves a chargeback attachment file by its file name.
+
         Parameters
         ----------
-        file_name : str
-            The chargeback attachment's file name.
-
         id : int
             The ID of chargeback or return record.
+
+        file_name : str
+            The chargeback attachment's file name.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -324,12 +328,12 @@ class AsyncChargeBacksClient:
 
         async def main() -> None:
             await client.charge_backs.get_chargeback_attachment(
-                file_name="fileName",
                 id=1000000,
+                file_name="fileName",
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.get_chargeback_attachment(file_name, id, request_options=request_options)
+        _response = await self._raw_client.get_chargeback_attachment(id, file_name, request_options=request_options)
         return _response.data

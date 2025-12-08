@@ -837,7 +837,12 @@ if typing.TYPE_CHECKING:
         QueryTransferSummary,
         TransferDetailRecord,
     )
-    from .statistic import StatBasicQueryRecord, StatisticsVendorQueryRecord, SubscriptionStatsQueryRecord
+    from .statistic import (
+        StatBasicExtendedQueryRecord,
+        StatBasicQueryRecord,
+        StatisticsVendorQueryRecord,
+        SubscriptionStatsQueryRecord,
+    )
     from .subscription import (
         AddSubscriptionResponse,
         RemoveSubscriptionResponse,
@@ -1563,6 +1568,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SplitFunding": ".types",
     "SplitFundingContent": ".types",
     "SplitFundingRefundContent": ".types",
+    "StatBasicExtendedQueryRecord": ".statistic",
     "StatBasicQueryRecord": ".statistic",
     "StateNullable": ".types",
     "StatisticsVendorQueryRecord": ".statistic",
@@ -2431,6 +2437,7 @@ __all__ = [
     "SplitFunding",
     "SplitFundingContent",
     "SplitFundingRefundContent",
+    "StatBasicExtendedQueryRecord",
     "StatBasicQueryRecord",
     "StateNullable",
     "StatisticsVendorQueryRecord",

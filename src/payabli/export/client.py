@@ -144,8 +144,8 @@ class ExportClient:
 
     def export_batch_details(
         self,
-        entry: str,
         format: ExportFormat1,
+        entry: str,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -154,13 +154,15 @@ class ExportClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> File:
         """
+        This endpoint is deprecated. Export batch details for a paypoint. Use filters to limit results.
+
         Parameters
         ----------
-        entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
-
         format : ExportFormat1
             Format for the export, either XLSX or CSV.
+
+        entry : str
+            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -259,8 +261,8 @@ class ExportClient:
         )
         """
         _response = self._raw_client.export_batch_details(
-            entry,
             format,
+            entry,
             columns_export=columns_export,
             from_record=from_record,
             limit_record=limit_record,
@@ -281,6 +283,8 @@ class ExportClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> File:
         """
+        This endpoint is deprecated. Export batch details for an organization. Use filters to limit results.
+
         Parameters
         ----------
         format : ExportFormat1
@@ -398,8 +402,8 @@ class ExportClient:
 
     def export_batches(
         self,
-        entry: str,
         format: ExportFormat1,
+        entry: str,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -412,11 +416,11 @@ class ExportClient:
 
         Parameters
         ----------
-        entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
-
         format : ExportFormat1
             Format for the export, either XLSX or CSV.
+
+        entry : str
+            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -505,8 +509,8 @@ class ExportClient:
         )
         """
         _response = self._raw_client.export_batches(
-            entry,
             format,
+            entry,
             columns_export=columns_export,
             from_record=from_record,
             limit_record=limit_record,
@@ -634,8 +638,8 @@ class ExportClient:
 
     def export_batches_out(
         self,
-        entry: str,
         format: ExportFormat1,
+        entry: str,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -648,11 +652,11 @@ class ExportClient:
 
         Parameters
         ----------
-        entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
-
         format : ExportFormat1
             Format for the export, either XLSX or CSV.
+
+        entry : str
+            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -721,8 +725,8 @@ class ExportClient:
         )
         """
         _response = self._raw_client.export_batches_out(
-            entry,
             format,
+            entry,
             columns_export=columns_export,
             from_record=from_record,
             limit_record=limit_record,
@@ -832,8 +836,8 @@ class ExportClient:
 
     def export_bills(
         self,
-        entry: str,
         format: ExportFormat1,
+        entry: str,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -846,11 +850,11 @@ class ExportClient:
 
         Parameters
         ----------
-        entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
-
         format : ExportFormat1
             Format for the export, either XLSX or CSV.
+
+        entry : str
+            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -937,8 +941,8 @@ class ExportClient:
         )
         """
         _response = self._raw_client.export_bills(
-            entry,
             format,
+            entry,
             columns_export=columns_export,
             from_record=from_record,
             limit_record=limit_record,
@@ -1066,8 +1070,8 @@ class ExportClient:
 
     def export_chargebacks(
         self,
-        entry: str,
         format: ExportFormat1,
+        entry: str,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -1080,11 +1084,11 @@ class ExportClient:
 
         Parameters
         ----------
-        entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
-
         format : ExportFormat1
             Format for the export, either XLSX or CSV.
+
+        entry : str
+            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -1192,8 +1196,8 @@ class ExportClient:
         )
         """
         _response = self._raw_client.export_chargebacks(
-            entry,
             format,
+            entry,
             columns_export=columns_export,
             from_record=from_record,
             limit_record=limit_record,
@@ -1342,8 +1346,8 @@ class ExportClient:
 
     def export_customers(
         self,
-        entry: str,
         format: ExportFormat1,
+        entry: str,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -1356,11 +1360,11 @@ class ExportClient:
 
         Parameters
         ----------
-        entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
-
         format : ExportFormat1
             Format for the export, either XLSX or CSV.
+
+        entry : str
+            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -1461,8 +1465,8 @@ class ExportClient:
         )
         """
         _response = self._raw_client.export_customers(
-            entry,
             format,
+            entry,
             columns_export=columns_export,
             from_record=from_record,
             limit_record=limit_record,
@@ -1604,8 +1608,8 @@ class ExportClient:
 
     def export_invoices(
         self,
-        entry: str,
         format: ExportFormat1,
+        entry: str,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -1618,11 +1622,11 @@ class ExportClient:
 
         Parameters
         ----------
-        entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
-
         format : ExportFormat1
             Format for the export, either XLSX or CSV.
+
+        entry : str
+            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -1733,8 +1737,8 @@ class ExportClient:
         )
         """
         _response = self._raw_client.export_invoices(
-            entry,
             format,
+            entry,
             columns_export=columns_export,
             from_record=from_record,
             limit_record=limit_record,
@@ -2002,8 +2006,8 @@ class ExportClient:
 
     def export_payout(
         self,
-        entry: str,
         format: ExportFormat1,
+        entry: str,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -2016,11 +2020,11 @@ class ExportClient:
 
         Parameters
         ----------
-        entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
-
         format : ExportFormat1
             Format for the export, either XLSX or CSV.
+
+        entry : str
+            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -2105,8 +2109,8 @@ class ExportClient:
         )
         """
         _response = self._raw_client.export_payout(
-            entry,
             format,
+            entry,
             columns_export=columns_export,
             from_record=from_record,
             limit_record=limit_record,
@@ -2349,8 +2353,8 @@ class ExportClient:
 
     def export_settlements(
         self,
-        entry: str,
         format: ExportFormat1,
+        entry: str,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -2363,11 +2367,11 @@ class ExportClient:
 
         Parameters
         ----------
-        entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
-
         format : ExportFormat1
             Format for the export, either XLSX or CSV.
+
+        entry : str
+            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -2474,8 +2478,8 @@ class ExportClient:
         )
         """
         _response = self._raw_client.export_settlements(
-            entry,
             format,
+            entry,
             columns_export=columns_export,
             from_record=from_record,
             limit_record=limit_record,
@@ -2623,8 +2627,8 @@ class ExportClient:
 
     def export_subscriptions(
         self,
-        entry: str,
         format: ExportFormat1,
+        entry: str,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -2637,11 +2641,11 @@ class ExportClient:
 
         Parameters
         ----------
-        entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
-
         format : ExportFormat1
             Format for the export, either XLSX or CSV.
+
+        entry : str
+            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -2750,8 +2754,8 @@ class ExportClient:
         )
         """
         _response = self._raw_client.export_subscriptions(
-            entry,
             format,
+            entry,
             columns_export=columns_export,
             from_record=from_record,
             limit_record=limit_record,
@@ -2901,8 +2905,8 @@ class ExportClient:
 
     def export_transactions(
         self,
-        entry: str,
         format: ExportFormat1,
+        entry: str,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -2915,11 +2919,11 @@ class ExportClient:
 
         Parameters
         ----------
-        entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
-
         format : ExportFormat1
             Format for the export, either XLSX or CSV.
+
+        entry : str
+            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -3032,8 +3036,8 @@ class ExportClient:
         )
         """
         _response = self._raw_client.export_transactions(
-            entry,
             format,
+            entry,
             columns_export=columns_export,
             from_record=from_record,
             limit_record=limit_record,
@@ -3187,8 +3191,8 @@ class ExportClient:
 
     def export_transfer_details(
         self,
-        entry: str,
         format: ExportFormat1,
+        entry: str,
         transfer_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -3203,11 +3207,11 @@ class ExportClient:
 
         Parameters
         ----------
-        entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
-
         format : ExportFormat1
             Format for the export, either XLSX or CSV.
+
+        entry : str
+            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
         transfer_id : int
             Transfer identifier.
@@ -3292,8 +3296,8 @@ class ExportClient:
         )
         """
         _response = self._raw_client.export_transfer_details(
-            entry,
             format,
+            entry,
             transfer_id,
             columns_export=columns_export,
             from_record=from_record,
@@ -3414,8 +3418,8 @@ class ExportClient:
 
     def export_vendors(
         self,
-        entry: str,
         format: ExportFormat1,
+        entry: str,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -3428,11 +3432,11 @@ class ExportClient:
 
         Parameters
         ----------
-        entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
-
         format : ExportFormat1
             Format for the export, either XLSX or CSV.
+
+        entry : str
+            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -3523,8 +3527,8 @@ class ExportClient:
         )
         """
         _response = self._raw_client.export_vendors(
-            entry,
             format,
+            entry,
             columns_export=columns_export,
             from_record=from_record,
             limit_record=limit_record,
@@ -3798,8 +3802,8 @@ class AsyncExportClient:
 
     async def export_batch_details(
         self,
-        entry: str,
         format: ExportFormat1,
+        entry: str,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -3808,13 +3812,15 @@ class AsyncExportClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> File:
         """
+        This endpoint is deprecated. Export batch details for a paypoint. Use filters to limit results.
+
         Parameters
         ----------
-        entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
-
         format : ExportFormat1
             Format for the export, either XLSX or CSV.
+
+        entry : str
+            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -3921,8 +3927,8 @@ class AsyncExportClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.export_batch_details(
-            entry,
             format,
+            entry,
             columns_export=columns_export,
             from_record=from_record,
             limit_record=limit_record,
@@ -3943,6 +3949,8 @@ class AsyncExportClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> File:
         """
+        This endpoint is deprecated. Export batch details for an organization. Use filters to limit results.
+
         Parameters
         ----------
         format : ExportFormat1
@@ -4068,8 +4076,8 @@ class AsyncExportClient:
 
     async def export_batches(
         self,
-        entry: str,
         format: ExportFormat1,
+        entry: str,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -4082,11 +4090,11 @@ class AsyncExportClient:
 
         Parameters
         ----------
-        entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
-
         format : ExportFormat1
             Format for the export, either XLSX or CSV.
+
+        entry : str
+            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -4183,8 +4191,8 @@ class AsyncExportClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.export_batches(
-            entry,
             format,
+            entry,
             columns_export=columns_export,
             from_record=from_record,
             limit_record=limit_record,
@@ -4320,8 +4328,8 @@ class AsyncExportClient:
 
     async def export_batches_out(
         self,
-        entry: str,
         format: ExportFormat1,
+        entry: str,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -4334,11 +4342,11 @@ class AsyncExportClient:
 
         Parameters
         ----------
-        entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
-
         format : ExportFormat1
             Format for the export, either XLSX or CSV.
+
+        entry : str
+            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -4415,8 +4423,8 @@ class AsyncExportClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.export_batches_out(
-            entry,
             format,
+            entry,
             columns_export=columns_export,
             from_record=from_record,
             limit_record=limit_record,
@@ -4534,8 +4542,8 @@ class AsyncExportClient:
 
     async def export_bills(
         self,
-        entry: str,
         format: ExportFormat1,
+        entry: str,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -4548,11 +4556,11 @@ class AsyncExportClient:
 
         Parameters
         ----------
-        entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
-
         format : ExportFormat1
             Format for the export, either XLSX or CSV.
+
+        entry : str
+            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -4647,8 +4655,8 @@ class AsyncExportClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.export_bills(
-            entry,
             format,
+            entry,
             columns_export=columns_export,
             from_record=from_record,
             limit_record=limit_record,
@@ -4784,8 +4792,8 @@ class AsyncExportClient:
 
     async def export_chargebacks(
         self,
-        entry: str,
         format: ExportFormat1,
+        entry: str,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -4798,11 +4806,11 @@ class AsyncExportClient:
 
         Parameters
         ----------
-        entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
-
         format : ExportFormat1
             Format for the export, either XLSX or CSV.
+
+        entry : str
+            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -4918,8 +4926,8 @@ class AsyncExportClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.export_chargebacks(
-            entry,
             format,
+            entry,
             columns_export=columns_export,
             from_record=from_record,
             limit_record=limit_record,
@@ -5076,8 +5084,8 @@ class AsyncExportClient:
 
     async def export_customers(
         self,
-        entry: str,
         format: ExportFormat1,
+        entry: str,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -5090,11 +5098,11 @@ class AsyncExportClient:
 
         Parameters
         ----------
-        entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
-
         format : ExportFormat1
             Format for the export, either XLSX or CSV.
+
+        entry : str
+            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -5203,8 +5211,8 @@ class AsyncExportClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.export_customers(
-            entry,
             format,
+            entry,
             columns_export=columns_export,
             from_record=from_record,
             limit_record=limit_record,
@@ -5354,8 +5362,8 @@ class AsyncExportClient:
 
     async def export_invoices(
         self,
-        entry: str,
         format: ExportFormat1,
+        entry: str,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -5368,11 +5376,11 @@ class AsyncExportClient:
 
         Parameters
         ----------
-        entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
-
         format : ExportFormat1
             Format for the export, either XLSX or CSV.
+
+        entry : str
+            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -5491,8 +5499,8 @@ class AsyncExportClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.export_invoices(
-            entry,
             format,
+            entry,
             columns_export=columns_export,
             from_record=from_record,
             limit_record=limit_record,
@@ -5776,8 +5784,8 @@ class AsyncExportClient:
 
     async def export_payout(
         self,
-        entry: str,
         format: ExportFormat1,
+        entry: str,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -5790,11 +5798,11 @@ class AsyncExportClient:
 
         Parameters
         ----------
-        entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
-
         format : ExportFormat1
             Format for the export, either XLSX or CSV.
+
+        entry : str
+            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -5887,8 +5895,8 @@ class AsyncExportClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.export_payout(
-            entry,
             format,
+            entry,
             columns_export=columns_export,
             from_record=from_record,
             limit_record=limit_record,
@@ -6147,8 +6155,8 @@ class AsyncExportClient:
 
     async def export_settlements(
         self,
-        entry: str,
         format: ExportFormat1,
+        entry: str,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -6161,11 +6169,11 @@ class AsyncExportClient:
 
         Parameters
         ----------
-        entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
-
         format : ExportFormat1
             Format for the export, either XLSX or CSV.
+
+        entry : str
+            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -6280,8 +6288,8 @@ class AsyncExportClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.export_settlements(
-            entry,
             format,
+            entry,
             columns_export=columns_export,
             from_record=from_record,
             limit_record=limit_record,
@@ -6437,8 +6445,8 @@ class AsyncExportClient:
 
     async def export_subscriptions(
         self,
-        entry: str,
         format: ExportFormat1,
+        entry: str,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -6451,11 +6459,11 @@ class AsyncExportClient:
 
         Parameters
         ----------
-        entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
-
         format : ExportFormat1
             Format for the export, either XLSX or CSV.
+
+        entry : str
+            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -6572,8 +6580,8 @@ class AsyncExportClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.export_subscriptions(
-            entry,
             format,
+            entry,
             columns_export=columns_export,
             from_record=from_record,
             limit_record=limit_record,
@@ -6731,8 +6739,8 @@ class AsyncExportClient:
 
     async def export_transactions(
         self,
-        entry: str,
         format: ExportFormat1,
+        entry: str,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -6745,11 +6753,11 @@ class AsyncExportClient:
 
         Parameters
         ----------
-        entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
-
         format : ExportFormat1
             Format for the export, either XLSX or CSV.
+
+        entry : str
+            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -6870,8 +6878,8 @@ class AsyncExportClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.export_transactions(
-            entry,
             format,
+            entry,
             columns_export=columns_export,
             from_record=from_record,
             limit_record=limit_record,
@@ -7033,8 +7041,8 @@ class AsyncExportClient:
 
     async def export_transfer_details(
         self,
-        entry: str,
         format: ExportFormat1,
+        entry: str,
         transfer_id: int,
         *,
         columns_export: typing.Optional[str] = None,
@@ -7049,11 +7057,11 @@ class AsyncExportClient:
 
         Parameters
         ----------
-        entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
-
         format : ExportFormat1
             Format for the export, either XLSX or CSV.
+
+        entry : str
+            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
         transfer_id : int
             Transfer identifier.
@@ -7146,8 +7154,8 @@ class AsyncExportClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.export_transfer_details(
-            entry,
             format,
+            entry,
             transfer_id,
             columns_export=columns_export,
             from_record=from_record,
@@ -7276,8 +7284,8 @@ class AsyncExportClient:
 
     async def export_vendors(
         self,
-        entry: str,
         format: ExportFormat1,
+        entry: str,
         *,
         columns_export: typing.Optional[str] = None,
         from_record: typing.Optional[int] = None,
@@ -7290,11 +7298,11 @@ class AsyncExportClient:
 
         Parameters
         ----------
-        entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
-
         format : ExportFormat1
             Format for the export, either XLSX or CSV.
+
+        entry : str
+            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -7393,8 +7401,8 @@ class AsyncExportClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.export_vendors(
-            entry,
             format,
+            entry,
             columns_export=columns_export,
             from_record=from_record,
             limit_record=limit_record,

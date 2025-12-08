@@ -33,7 +33,6 @@ from .created_at import CreatedAt
 from .dbaname import Dbaname
 from .ein import Ein
 from .external_paypoint_id import ExternalPaypointId
-from .file_content import FileContent
 from .general_events import GeneralEvents
 from .highticketamt import Highticketamt
 from .last_modified import LastModified
@@ -134,9 +133,9 @@ class ApplicationDetailsRecord(UniversalBaseModel):
     license_state: typing_extensions.Annotated[typing.Optional[Licensestate], FieldMetadata(alias="licenseState")] = (
         None
     )
-    logo: typing.Optional[FileContent] = pydantic.Field(default=None)
+    logo: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Object containing logo file.
+    A URL pointing to a logo file.
     """
 
     m_address_1: typing_extensions.Annotated[typing.Optional[Maddress], FieldMetadata(alias="mAddress1")] = None
