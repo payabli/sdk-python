@@ -40,9 +40,7 @@ class FrequencyList(UniversalBaseModel):
     Enable or disable frequency
     """
 
-    one_time: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="one-time")] = pydantic.Field(
-        default=None
-    )
+    onetime: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Enable or disable frequency
     """

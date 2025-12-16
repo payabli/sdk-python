@@ -123,7 +123,7 @@ class PaymentPageRequestBody(UniversalBaseModel):
                     name="fullName",
                     order=0,
                     required=True,
-                    validation="^[a-zA-Z ]+$",
+                    validation="alpha",
                     value="",
                     width=0,
                 )

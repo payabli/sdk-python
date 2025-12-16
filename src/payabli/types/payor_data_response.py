@@ -6,7 +6,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .additional_data import AdditionalData
+from .additional_data_map import AdditionalDataMap
 from .billing_address_addtl_nullable import BillingAddressAddtlNullable
 from .billing_address_nullable import BillingAddressNullable
 from .billing_city_nullable import BillingCityNullable
@@ -33,7 +33,7 @@ class PayorDataResponse(UniversalBaseModel):
     """
 
     additional_data: typing_extensions.Annotated[
-        typing.Optional[AdditionalData], FieldMetadata(alias="AdditionalData")
+        typing.Optional[AdditionalDataMap], FieldMetadata(alias="AdditionalData")
     ] = None
     billing_address_1: typing_extensions.Annotated[
         typing.Optional[BillingAddressNullable], FieldMetadata(alias="BillingAddress1")

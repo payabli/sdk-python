@@ -116,7 +116,7 @@ class BillQueryResponse(UniversalBaseModel):
                     "2025-03-10",
                 ),
                 external_paypoint_id="micasa-10",
-                frequency="one-time",
+                frequency="onetime",
                 id_bill=6104,
                 last_updated=datetime.datetime.fromisoformat(
                     "2024-03-13 10:54:26+00:00",

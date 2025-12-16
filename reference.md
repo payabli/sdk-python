@@ -10347,12 +10347,14 @@ client.invoice.add_invoice(
                 item_cost=100.0,
                 item_qty=1,
                 item_mode=1,
+                item_total_amount=1.0,
             ),
             BillItem(
                 item_product_name="Deposit ",
                 item_description="Deposit for trip planning",
                 item_cost=882.37,
                 item_qty=1,
+                item_total_amount=1.0,
             ),
         ],
         invoice_date=datetime.date.fromisoformat(
@@ -10360,7 +10362,7 @@ client.invoice.add_invoice(
         ),
         invoice_type=0,
         invoice_status=1,
-        frequency="one-time",
+        frequency="onetime",
         invoice_amount=982.37,
         discount=10.0,
         invoice_number="INV-3",
@@ -16426,7 +16428,7 @@ client.payment_link.add_pay_link_from_invoice(
                 name="fullName",
                 order=0,
                 required=True,
-                validation="^[a-zA-Z ]+$",
+                validation="alpha",
                 value="",
                 width=0,
             )
@@ -16708,7 +16710,7 @@ client.payment_link.add_pay_link_from_bill(
                 name="fullName",
                 order=0,
                 required=True,
-                validation="^[a-zA-Z ]+$",
+                validation="alpha",
                 value="",
                 width=0,
             )
@@ -17525,7 +17527,7 @@ client.payment_link.add_pay_link_from_bill_lot_number(
                 name="fullName",
                 order=0,
                 required=True,
-                validation="^[a-zA-Z ]+$",
+                validation="alpha",
                 value="",
                 width=0,
             )

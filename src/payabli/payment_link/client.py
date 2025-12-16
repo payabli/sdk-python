@@ -225,7 +225,7 @@ class PaymentLinkClient:
                         name="fullName",
                         order=0,
                         required=True,
-                        validation="^[a-zA-Z ]+$",
+                        validation="alpha",
                         value="",
                         width=0,
                     )
@@ -433,7 +433,7 @@ class PaymentLinkClient:
                         name="fullName",
                         order=0,
                         required=True,
-                        validation="^[a-zA-Z ]+$",
+                        validation="alpha",
                         value="",
                         width=0,
                     )
@@ -928,7 +928,7 @@ class PaymentLinkClient:
                         name="fullName",
                         order=0,
                         required=True,
-                        validation="^[a-zA-Z ]+$",
+                        validation="alpha",
                         value="",
                         width=0,
                     )
@@ -1174,7 +1174,7 @@ class AsyncPaymentLinkClient:
                             name="fullName",
                             order=0,
                             required=True,
-                            validation="^[a-zA-Z ]+$",
+                            validation="alpha",
                             value="",
                             width=0,
                         )
@@ -1390,7 +1390,7 @@ class AsyncPaymentLinkClient:
                             name="fullName",
                             order=0,
                             required=True,
-                            validation="^[a-zA-Z ]+$",
+                            validation="alpha",
                             value="",
                             width=0,
                         )
@@ -1941,7 +1941,7 @@ class AsyncPaymentLinkClient:
                             name="fullName",
                             order=0,
                             required=True,
-                            validation="^[a-zA-Z ]+$",
+                            validation="alpha",
                             value="",
                             width=0,
                         )
