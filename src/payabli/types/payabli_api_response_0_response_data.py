@@ -7,9 +7,9 @@ import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 from .authcode import Authcode
-from .avsresponsetext import Avsresponsetext
+from .avs_response_text import AvsResponseText
 from .customeridtrans import Customeridtrans
-from .cvvresponsetext import Cvvresponsetext
+from .cvv_response_text import CvvResponseText
 from .method_reference_id import MethodReferenceId
 from .referenceidtrans import Referenceidtrans
 from .result_code import ResultCode
@@ -19,11 +19,11 @@ from .resulttext import Resulttext
 class PayabliApiResponse0ResponseData(UniversalBaseModel):
     auth_code: typing_extensions.Annotated[typing.Optional[Authcode], FieldMetadata(alias="AuthCode")] = None
     avs_response_text: typing_extensions.Annotated[
-        typing.Optional[Avsresponsetext], FieldMetadata(alias="avsResponseText")
+        typing.Optional[AvsResponseText], FieldMetadata(alias="avsResponseText")
     ] = None
     customer_id: typing_extensions.Annotated[typing.Optional[Customeridtrans], FieldMetadata(alias="CustomerId")] = None
     cvv_response_text: typing_extensions.Annotated[
-        typing.Optional[Cvvresponsetext], FieldMetadata(alias="cvvResponseText")
+        typing.Optional[CvvResponseText], FieldMetadata(alias="cvvResponseText")
     ] = None
     method_reference_id: typing_extensions.Annotated[
         typing.Optional[MethodReferenceId], FieldMetadata(alias="methodReferenceId")

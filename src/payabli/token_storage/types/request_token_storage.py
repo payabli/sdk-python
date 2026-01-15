@@ -11,6 +11,7 @@ from ...types.payor_data_request import PayorDataRequest
 from ...types.source import Source
 from ...types.subdomain import Subdomain
 from .request_token_storage_payment_method import RequestTokenStoragePaymentMethod
+from .vendor_data_request import VendorDataRequest
 
 
 class RequestTokenStorage(UniversalBaseModel):
@@ -56,6 +57,9 @@ class RequestTokenStorage(UniversalBaseModel):
     Information about the payment method for the transaction.
     """
 
+    vendor_data: typing_extensions.Annotated[typing.Optional[VendorDataRequest], FieldMetadata(alias="vendorData")] = (
+        None
+    )
     source: typing.Optional[Source] = pydantic.Field(default=None)
     """
     Custom identifier to indicate the source for the request

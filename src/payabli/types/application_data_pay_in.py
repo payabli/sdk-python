@@ -42,6 +42,7 @@ from .mcity import Mcity
 from .mcountry import Mcountry
 from .mstate import Mstate
 from .mzip import Mzip
+from .on_create import OnCreate
 from .orgid import Orgid
 from .own_type import OwnType
 from .phone_number import PhoneNumber
@@ -184,6 +185,7 @@ class ApplicationDataPayIn(UniversalBaseModel):
     rep_code: typing_extensions.Annotated[typing.Optional[RepCode], FieldMetadata(alias="RepCode")] = None
     rep_name: typing_extensions.Annotated[typing.Optional[RepName], FieldMetadata(alias="RepName")] = None
     rep_office: typing_extensions.Annotated[typing.Optional[RepOffice], FieldMetadata(alias="RepOffice")] = None
+    on_create: typing_extensions.Annotated[typing.Optional[OnCreate], FieldMetadata(alias="onCreate")] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -13,11 +13,13 @@ if typing.TYPE_CHECKING:
     from .get_method_response import GetMethodResponse
     from .get_method_response_response_data import GetMethodResponseResponseData
     from .get_method_response_response_data_customers_item import GetMethodResponseResponseDataCustomersItem
+    from .get_method_response_response_data_vendors_item import GetMethodResponseResponseDataVendorsItem
     from .request_token_storage import RequestTokenStorage
     from .request_token_storage_payment_method import RequestTokenStoragePaymentMethod
     from .temporary import Temporary
     from .tokenize_ach import TokenizeAch
     from .tokenize_card import TokenizeCard
+    from .vendor_data_request import VendorDataRequest
 _dynamic_imports: typing.Dict[str, str] = {
     "AddMethodResponse": ".add_method_response",
     "AddMethodResponseResponseData": ".add_method_response_response_data",
@@ -26,11 +28,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "GetMethodResponse": ".get_method_response",
     "GetMethodResponseResponseData": ".get_method_response_response_data",
     "GetMethodResponseResponseDataCustomersItem": ".get_method_response_response_data_customers_item",
+    "GetMethodResponseResponseDataVendorsItem": ".get_method_response_response_data_vendors_item",
     "RequestTokenStorage": ".request_token_storage",
     "RequestTokenStoragePaymentMethod": ".request_token_storage_payment_method",
     "Temporary": ".temporary",
     "TokenizeAch": ".tokenize_ach",
     "TokenizeCard": ".tokenize_card",
+    "VendorDataRequest": ".vendor_data_request",
 }
 
 
@@ -63,9 +67,11 @@ __all__ = [
     "GetMethodResponse",
     "GetMethodResponseResponseData",
     "GetMethodResponseResponseDataCustomersItem",
+    "GetMethodResponseResponseDataVendorsItem",
     "RequestTokenStorage",
     "RequestTokenStoragePaymentMethod",
     "Temporary",
     "TokenizeAch",
     "TokenizeCard",
+    "VendorDataRequest",
 ]

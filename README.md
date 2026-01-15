@@ -10,6 +10,7 @@ The Payabli Python library provides convenient access to the Payabli APIs from P
 - [Documentation](#documentation)
 - [Installation](#installation)
 - [Reference](#reference)
+- [Passing Query Parameters](#passing-query-parameters)
 - [Usage](#usage)
 - [Async Client](#async-client)
 - [Exception Handling](#exception-handling)
@@ -33,6 +34,23 @@ pip install payabli
 ## Reference
 
 A full reference for this library is available [here](https://github.com/payabli/sdk-python/blob/HEAD/./reference.md).
+
+## Passing Query Parameters
+
+```python
+client = payabli(api_key="API_KEY")
+
+options = dict(
+    additional_query_parameters = {
+        "email(ct)": "test@example.com",
+    }
+)
+
+result = client.query.list_customers("ENTRYPOINT", request_options=options)
+
+print(result)
+```
+
 
 ## Usage
 

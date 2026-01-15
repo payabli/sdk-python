@@ -7,9 +7,9 @@ import typing_extensions
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ...core.serialization import FieldMetadata
 from ...types.authcode import Authcode
-from ...types.avsresponsetext import Avsresponsetext
+from ...types.avs_response_text import AvsResponseText
 from ...types.customer_id import CustomerId
-from ...types.cvvresponsetext import Cvvresponsetext
+from ...types.cvv_response_text import CvvResponseText
 from ...types.expected_processing_date_time import ExpectedProcessingDateTime
 from ...types.method_reference_id import MethodReferenceId
 from ...types.referenceidtrans import Referenceidtrans
@@ -22,7 +22,7 @@ class ResponseDataRefunds(UniversalBaseModel):
         typing.Optional[ExpectedProcessingDateTime], FieldMetadata(alias="expectedProcessingDateTime")
     ] = None
     avs_response_text: typing_extensions.Annotated[
-        typing.Optional[Avsresponsetext], FieldMetadata(alias="avsResponseText")
+        typing.Optional[AvsResponseText], FieldMetadata(alias="avsResponseText")
     ] = pydantic.Field(default=None)
     """
     This field isn't applicable to refund operations.
@@ -30,7 +30,7 @@ class ResponseDataRefunds(UniversalBaseModel):
 
     customer_id: typing_extensions.Annotated[typing.Optional[CustomerId], FieldMetadata(alias="customerId")] = None
     cvv_response_text: typing_extensions.Annotated[
-        typing.Optional[Cvvresponsetext], FieldMetadata(alias="cvvResponseText")
+        typing.Optional[CvvResponseText], FieldMetadata(alias="cvvResponseText")
     ] = pydantic.Field(default=None)
     """
     This field isn't applicable to refund operations.

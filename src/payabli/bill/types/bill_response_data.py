@@ -13,7 +13,6 @@ from ...types.bill_events import BillEvents
 from ...types.bill_id import BillId
 from ...types.billitems import Billitems
 from ...types.billstatus import Billstatus
-from ...types.comments import Comments
 from ...types.created_at import CreatedAt
 from ...types.datenullable import Datenullable
 from ...types.dbaname import Dbaname
@@ -76,7 +75,13 @@ class BillResponseData(UniversalBaseModel):
     Due Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY
     """
 
-    comments: typing_extensions.Annotated[typing.Optional[Comments], FieldMetadata(alias="Comments")] = None
+    comments: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="Comments")] = pydantic.Field(
+        default=None
+    )
+    """
+    Comments associated with the bill. For managed payables, the character limit is 200. For on demand payouts, the characters limit is 250.
+    """
+
     batch_number: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="BatchNumber")] = (
         pydantic.Field(default=None)
     )

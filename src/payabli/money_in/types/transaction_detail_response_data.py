@@ -3,10 +3,13 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ...core.serialization import FieldMetadata
 from ...types.authcode import Authcode
-from ...types.avsresponsetext import Avsresponsetext
-from ...types.cvvresponsetext import Cvvresponsetext
+from ...types.avs_response_text import AvsResponseText
+from ...types.cvv_response_text import CvvResponseText
+from ...types.emv_auth_response_data import EmvAuthResponseData
 from ...types.order_id import OrderId
 from ...types.resulttext import Resulttext
 
@@ -16,20 +19,34 @@ class TransactionDetailResponseData(UniversalBaseModel):
     Response data from payment processor
     """
 
+    result_code: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="resultCode")] = pydantic.Field(
+        default=None
+    )
+    """
+    Unified result code for the transaction. See [Pay In unified response codes](/developers/references/pay-in-unified-response-codes) for more information.
+    """
+
+    result_code_text: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="resultCodeText")] = (
+        pydantic.Field(default=None)
+    )
+    """
+    Description of the result code. See [Pay In unified response codes](/developers/references/pay-in-unified-response-codes) for more information.
+    """
+
     response: typing.Optional[str] = None
     responsetext: Resulttext
     authcode: typing.Optional[Authcode] = None
     transactionid: str
     avsresponse: typing.Optional[str] = None
-    avsresponse_text: typing.Optional[Avsresponsetext] = None
+    avsresponse_text: typing.Optional[AvsResponseText] = None
     cvvresponse: typing.Optional[str] = None
-    cvvresponse_text: typing.Optional[Cvvresponsetext] = None
+    cvvresponse_text: typing.Optional[CvvResponseText] = None
     orderid: typing.Optional[OrderId] = None
     type: typing.Optional[str] = None
     response_code: str
     response_code_text: str
     customer_vault_id: typing.Optional[str] = None
-    emv_auth_response_data: typing.Optional[str] = None
+    emv_auth_response_data: typing.Optional[EmvAuthResponseData] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

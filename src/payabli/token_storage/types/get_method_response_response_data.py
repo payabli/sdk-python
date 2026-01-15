@@ -14,6 +14,7 @@ from ...types.descriptor import Descriptor
 from ...types.holdername import Holdername
 from ...types.maskedaccount import Maskedaccount
 from .get_method_response_response_data_customers_item import GetMethodResponseResponseDataCustomersItem
+from .get_method_response_response_data_vendors_item import GetMethodResponseResponseDataVendorsItem
 
 
 class GetMethodResponseResponseData(UniversalBaseModel):
@@ -32,6 +33,13 @@ class GetMethodResponseResponseData(UniversalBaseModel):
     """
 
     bin_data: typing_extensions.Annotated[typing.Optional[BinData], FieldMetadata(alias="binData")] = None
+    card_updated_on: typing_extensions.Annotated[typing.Optional[dt.datetime], FieldMetadata(alias="cardUpdatedOn")] = (
+        pydantic.Field(default=None)
+    )
+    """
+    Timestamp for when card was last updated
+    """
+
     customers: typing.Optional[typing.List[GetMethodResponseResponseDataCustomersItem]] = None
     descriptor: typing.Optional[Descriptor] = None
     exp_date: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="expDate")] = pydantic.Field(
@@ -55,6 +63,13 @@ class GetMethodResponseResponseData(UniversalBaseModel):
     The stored payment method's identifier in Payabli
     """
 
+    is_validated_ach: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="isValidatedACH")] = (
+        pydantic.Field(default=None)
+    )
+    """
+    Whether the ACH account has been validated
+    """
+
     last_updated: typing_extensions.Annotated[typing.Optional[dt.datetime], FieldMetadata(alias="lastUpdated")] = (
         pydantic.Field(default=None)
     )
@@ -67,7 +82,7 @@ class GetMethodResponseResponseData(UniversalBaseModel):
     ] = None
     method: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The saved method's type: `card` or `ach`. 
+    The saved method's type: `card` or `ach`.
     """
 
     method_type: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="methodType")] = pydantic.Field(
@@ -83,6 +98,8 @@ class GetMethodResponseResponseData(UniversalBaseModel):
     """
     The payment method postal code
     """
+
+    vendors: typing.Optional[typing.List[GetMethodResponseResponseDataVendorsItem]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

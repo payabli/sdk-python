@@ -14,11 +14,13 @@ if typing.TYPE_CHECKING:
         GetMethodResponse,
         GetMethodResponseResponseData,
         GetMethodResponseResponseDataCustomersItem,
+        GetMethodResponseResponseDataVendorsItem,
         RequestTokenStorage,
         RequestTokenStoragePaymentMethod,
         Temporary,
         TokenizeAch,
         TokenizeCard,
+        VendorDataRequest,
     )
 _dynamic_imports: typing.Dict[str, str] = {
     "AddMethodResponse": ".types",
@@ -28,11 +30,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "GetMethodResponse": ".types",
     "GetMethodResponseResponseData": ".types",
     "GetMethodResponseResponseDataCustomersItem": ".types",
+    "GetMethodResponseResponseDataVendorsItem": ".types",
     "RequestTokenStorage": ".types",
     "RequestTokenStoragePaymentMethod": ".types",
     "Temporary": ".types",
     "TokenizeAch": ".types",
     "TokenizeCard": ".types",
+    "VendorDataRequest": ".types",
 }
 
 
@@ -65,9 +69,11 @@ __all__ = [
     "GetMethodResponse",
     "GetMethodResponseResponseData",
     "GetMethodResponseResponseDataCustomersItem",
+    "GetMethodResponseResponseDataVendorsItem",
     "RequestTokenStorage",
     "RequestTokenStoragePaymentMethod",
     "Temporary",
     "TokenizeAch",
     "TokenizeCard",
+    "VendorDataRequest",
 ]

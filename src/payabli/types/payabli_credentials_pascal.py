@@ -6,13 +6,15 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .max_ticket import MaxTicket
+from .min_ticket import MinTicket
 
 
 class PayabliCredentialsPascal(UniversalBaseModel):
     service: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="Service")] = None
     mode: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="Mode")] = None
-    min_ticket: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="MinTicket")] = None
-    max_ticket: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="MaxTicket")] = None
+    min_ticket: typing_extensions.Annotated[MinTicket, FieldMetadata(alias="MinTicket")]
+    max_ticket: typing_extensions.Annotated[MaxTicket, FieldMetadata(alias="MaxTicket")]
     cfee_fix: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="CfeeFix")] = None
     cfee_float: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="CfeeFloat")] = None
     cfee_min: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="CfeeMin")] = None

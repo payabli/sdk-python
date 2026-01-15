@@ -76,7 +76,8 @@ if typing.TYPE_CHECKING:
     from .auto_element import AutoElement
     from .avgmonthly import Avgmonthly
     from .avgticketamt import Avgticketamt
-    from .avsresponsetext import Avsresponsetext
+    from .avs_response import AvsResponse
+    from .avs_response_text import AvsResponseText
     from .b_address import BAddress
     from .b_details import BDetails
     from .b_section import BSection
@@ -195,8 +196,10 @@ if typing.TYPE_CHECKING:
     from .customer_query_records_customer_consent_sms import CustomerQueryRecordsCustomerConsentSms
     from .customer_status import CustomerStatus
     from .customer_summary_record import CustomerSummaryRecord
+    from .customer_vault_id import CustomerVaultId
     from .customeridtrans import Customeridtrans
-    from .cvvresponsetext import Cvvresponsetext
+    from .cvv_response import CvvResponse
+    from .cvv_response_text import CvvResponseText
     from .d_section import DSection
     from .datenullable import Datenullable
     from .datetime_nullable import DatetimeNullable
@@ -216,6 +219,7 @@ if typing.TYPE_CHECKING:
     from .ein import Ein
     from .element import Element
     from .email import Email
+    from .emv_auth_response_data import EmvAuthResponseData
     from .enabled import Enabled
     from .enrollment_status import EnrollmentStatus
     from .entity_id import EntityId
@@ -290,6 +294,7 @@ if typing.TYPE_CHECKING:
     from .maddress import Maddress
     from .maddress_1 import Maddress1
     from .maskedaccount import Maskedaccount
+    from .max_ticket import MaxTicket
     from .mcc import Mcc
     from .mcity import Mcity
     from .mcountry import Mcountry
@@ -308,6 +313,7 @@ if typing.TYPE_CHECKING:
     from .mfa_data import MfaData
     from .mfa_mode import MfaMode
     from .mfa_validation_code import MfaValidationCode
+    from .min_ticket import MinTicket
     from .mstate import Mstate
     from .mzip import Mzip
     from .name_user import NameUser
@@ -335,6 +341,7 @@ if typing.TYPE_CHECKING:
     from .o_section import OSection
     from .odp_setup import OdpSetup
     from .odp_setup_processing_region import OdpSetupProcessingRegion
+    from .on_create import OnCreate
     from .operation import Operation
     from .optin_status import OptinStatus
     from .order import Order
@@ -513,6 +520,8 @@ if typing.TYPE_CHECKING:
     from .responsedata import Responsedata
     from .responsedatanonobject import Responsedatanonobject
     from .result_code import ResultCode
+    from .result_code_text import ResultCodeText
+    from .result_codev_2 import ResultCodev2
     from .resulttext import Resulttext
     from .resumable import Resumable
     from .retrieval_id import RetrievalId
@@ -723,7 +732,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AutoElement": ".auto_element",
     "Avgmonthly": ".avgmonthly",
     "Avgticketamt": ".avgticketamt",
-    "Avsresponsetext": ".avsresponsetext",
+    "AvsResponse": ".avs_response",
+    "AvsResponseText": ".avs_response_text",
     "BAddress": ".b_address",
     "BDetails": ".b_details",
     "BSection": ".b_section",
@@ -840,8 +850,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CustomerQueryRecordsCustomerConsentSms": ".customer_query_records_customer_consent_sms",
     "CustomerStatus": ".customer_status",
     "CustomerSummaryRecord": ".customer_summary_record",
+    "CustomerVaultId": ".customer_vault_id",
     "Customeridtrans": ".customeridtrans",
-    "Cvvresponsetext": ".cvvresponsetext",
+    "CvvResponse": ".cvv_response",
+    "CvvResponseText": ".cvv_response_text",
     "DSection": ".d_section",
     "Datenullable": ".datenullable",
     "DatetimeNullable": ".datetime_nullable",
@@ -861,6 +873,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Ein": ".ein",
     "Element": ".element",
     "Email": ".email",
+    "EmvAuthResponseData": ".emv_auth_response_data",
     "Enabled": ".enabled",
     "EnrollmentStatus": ".enrollment_status",
     "EntityId": ".entity_id",
@@ -935,6 +948,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Maddress": ".maddress",
     "Maddress1": ".maddress_1",
     "Maskedaccount": ".maskedaccount",
+    "MaxTicket": ".max_ticket",
     "Mcc": ".mcc",
     "Mcity": ".mcity",
     "Mcountry": ".mcountry",
@@ -953,6 +967,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "MfaData": ".mfa_data",
     "MfaMode": ".mfa_mode",
     "MfaValidationCode": ".mfa_validation_code",
+    "MinTicket": ".min_ticket",
     "Mstate": ".mstate",
     "Mzip": ".mzip",
     "NameUser": ".name_user",
@@ -980,6 +995,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "OSection": ".o_section",
     "OdpSetup": ".odp_setup",
     "OdpSetupProcessingRegion": ".odp_setup_processing_region",
+    "OnCreate": ".on_create",
     "Operation": ".operation",
     "OptinStatus": ".optin_status",
     "Order": ".order",
@@ -1160,6 +1176,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Responsedata": ".responsedata",
     "Responsedatanonobject": ".responsedatanonobject",
     "ResultCode": ".result_code",
+    "ResultCodeText": ".result_code_text",
+    "ResultCodev2": ".result_codev_2",
     "Resulttext": ".resulttext",
     "Resumable": ".resumable",
     "RetrievalId": ".retrieval_id",
@@ -1394,7 +1412,8 @@ __all__ = [
     "AutoElement",
     "Avgmonthly",
     "Avgticketamt",
-    "Avsresponsetext",
+    "AvsResponse",
+    "AvsResponseText",
     "BAddress",
     "BDetails",
     "BSection",
@@ -1511,8 +1530,10 @@ __all__ = [
     "CustomerQueryRecordsCustomerConsentSms",
     "CustomerStatus",
     "CustomerSummaryRecord",
+    "CustomerVaultId",
     "Customeridtrans",
-    "Cvvresponsetext",
+    "CvvResponse",
+    "CvvResponseText",
     "DSection",
     "Datenullable",
     "DatetimeNullable",
@@ -1532,6 +1553,7 @@ __all__ = [
     "Ein",
     "Element",
     "Email",
+    "EmvAuthResponseData",
     "Enabled",
     "EnrollmentStatus",
     "EntityId",
@@ -1606,6 +1628,7 @@ __all__ = [
     "Maddress",
     "Maddress1",
     "Maskedaccount",
+    "MaxTicket",
     "Mcc",
     "Mcity",
     "Mcountry",
@@ -1624,6 +1647,7 @@ __all__ = [
     "MfaData",
     "MfaMode",
     "MfaValidationCode",
+    "MinTicket",
     "Mstate",
     "Mzip",
     "NameUser",
@@ -1651,6 +1675,7 @@ __all__ = [
     "OSection",
     "OdpSetup",
     "OdpSetupProcessingRegion",
+    "OnCreate",
     "Operation",
     "OptinStatus",
     "Order",
@@ -1831,6 +1856,8 @@ __all__ = [
     "Responsedata",
     "Responsedatanonobject",
     "ResultCode",
+    "ResultCodeText",
+    "ResultCodev2",
     "Resulttext",
     "Resumable",
     "RetrievalId",

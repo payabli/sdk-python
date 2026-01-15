@@ -15,9 +15,9 @@ class QuerySubscriptionResponse(UniversalBaseModel):
     Subscription query response body.
     """
 
-    records: typing_extensions.Annotated[typing.Optional[SubscriptionQueryRecords], FieldMetadata(alias="Records")] = (
-        None
-    )
+    records: typing_extensions.Annotated[
+        typing.Optional[typing.List[SubscriptionQueryRecords]], FieldMetadata(alias="Records")
+    ] = None
     summary: typing_extensions.Annotated[typing.Optional[QuerySummary], FieldMetadata(alias="Summary")] = None
 
     if IS_PYDANTIC_V2:

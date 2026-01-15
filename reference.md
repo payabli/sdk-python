@@ -2971,6 +2971,14 @@ client.boarding.update_application(
 <dl>
 <dd>
 
+**on_create:** `typing.Optional[OnCreate]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -12094,8 +12102,10 @@ client.line_item.update_item(
 <dd>
 
 Authorize a card transaction. This returns an authorization code and reserves funds for the merchant. Authorized transactions aren't flagged for settlement until [captured](/api-reference/moneyin/capture-an-authorized-transaction).
-
-**Note**: Only card transactions can be authorized. This endpoint can't be used for ACH transactions.
+Only card transactions can be authorized. This endpoint can't be used for ACH transactions.
+<Tip>
+  Consider migrating to the [v2 Authorize endpoint](/developers/api-reference/moneyinV2/authorize-a-transaction) to take advantage of unified response codes and improved response consistency.
+</Tip>
 </dd>
 </dl>
 </dd>
@@ -12372,6 +12382,10 @@ client.money_in.capture(
 Capture an [authorized transaction](/api-reference/moneyin/authorize-a-transaction) to complete the transaction and move funds from the customer to merchant account. 
 
 You can use this endpoint to capture both full and partial amounts of the original authorized transaction. See [Capture an authorized transaction](/developers/developer-guides/pay-in-auth-and-capture) for more information about this endpoint.
+
+<Tip>
+Consider migrating to the [v2 Capture endpoint](/developers/api-reference/moneyinV2/capture-an-authorized-transaction) to take advantage of unified response codes and improved response consistency.
+</Tip>
 </dd>
 </dl>
 </dd>
@@ -12697,6 +12711,10 @@ client.money_in.details(
 <dd>
 
 Make a single transaction. This method authorizes and captures a payment in one step.
+
+  <Tip>
+  Consider migrating to the [v2 Make a transaction endpoint](/developers/api-reference/moneyinV2/make-a-transaction) to take advantage of unified response codes and improved response consistency.
+  </Tip>
 </dd>
 </dl>
 </dd>
@@ -12997,6 +13015,10 @@ An amount equal to zero will refunds the total amount authorized minus any servi
 <dd>
 
 Refund a transaction that has settled and send money back to the account holder. If a transaction hasn't been settled, void it instead.
+
+  <Tip>
+  Consider migrating to the [v2 Refund endpoint](/developers/api-reference/moneyinV2/refund-a-settled-transaction) to take advantage of unified response codes and improved response consistency.
+  </Tip>
 </dd>
 </dl>
 </dd>
@@ -13508,6 +13530,10 @@ client.money_in.validate(
 <dd>
 
 Cancel a transaction that hasn't been settled yet. Voiding non-captured authorizations prevents future captures. If a transaction has been settled, refund it instead.
+
+  <Tip>
+  Consider migrating to the [v2 Void endpoint](/developers/api-reference/moneyinV2/void-a-transaction) to take advantage of unified response codes and improved response consistency.
+  </Tip>
 </dd>
 </dl>
 </dd>
@@ -13528,6 +13554,706 @@ client = payabli(
     api_key="YOUR_API_KEY",
 )
 client.money_in.void(
+    trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**trans_id:** `str` — ReferenceId for the transaction (PaymentId).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">getpaidv_2</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Make a single transaction. This method authorizes and captures a payment in one step. This is the v2 version of the `api/MoneyIn/getpaid` endpoint, and returns the unified response format. See [Pay In unified response codes reference](/developers/references/pay-in-unified-response-codes) for more information.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import PaymentDetail, PayMethodCloud, PayorDataRequest, payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.money_in.getpaidv_2(
+    customer_data=PayorDataRequest(
+        customer_id=4440,
+    ),
+    entry_point="f743aed24a",
+    ipaddress="255.255.255.255",
+    payment_details=PaymentDetail(
+        service_fee=0.0,
+        total_amount=100.0,
+    ),
+    payment_method=PayMethodCloud(
+        device="6c361c7d-674c-44cc-b790-382b75d1xxx",
+        save_if_success=True,
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**payment_details:** `PaymentDetail` — Object describing details of the payment. Required.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payment_method:** `PaymentMethod` — Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ach_validation:** `typing.Optional[AchValidation]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**force_customer_creation:** `typing.Optional[ForceCustomerCreation]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotency_key:** `typing.Optional[IdempotencyKey]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**validation_code:** `typing.Optional[str]` — Value obtained from user when an API generated CAPTCHA is used in payment page
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[Accountid]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**customer_data:** `typing.Optional[PayorDataRequest]` — Object describing the Customer/Payor. Which fields are required depends on the paypoint's custom identifier settings. 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**entry_point:** `typing.Optional[Entrypointfield]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**invoice_data:** `typing.Optional[BillData]` — Object describing an Invoice linked to the transaction.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ipaddress:** `typing.Optional[IpAddress]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_description:** `typing.Optional[Orderdescription]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_id:** `typing.Optional[OrderId]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**source:** `typing.Optional[Source]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**subdomain:** `typing.Optional[Subdomain]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**subscription_id:** `typing.Optional[Subscriptionid]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">authorizev_2</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Authorize a card transaction. This returns an authorization code and reserves funds for the merchant. Authorized transactions aren't flagged for settlement until captured. This is the v2 version of the `api/MoneyIn/authorize` endpoint, and returns the unified response format. See [Pay In unified response codes reference](/developers/references/pay-in-unified-response-codes) for more information.
+
+**Note**: Only card transactions can be authorized. This endpoint can't be used for ACH transactions.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import PaymentDetail, PayMethodCredit, PayorDataRequest, payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.money_in.authorizev_2(
+    customer_data=PayorDataRequest(
+        customer_id=4440,
+    ),
+    entry_point="f743aed24a",
+    ipaddress="255.255.255.255",
+    payment_details=PaymentDetail(
+        service_fee=0.0,
+        total_amount=100.0,
+    ),
+    payment_method=PayMethodCredit(
+        cardcvv="999",
+        cardexp="02/27",
+        card_holder="John Cassian",
+        cardnumber="4111111111111111",
+        cardzip="12345",
+        initiator="payor",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**payment_details:** `PaymentDetail` — Object describing details of the payment. Required.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payment_method:** `PaymentMethod` — Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**force_customer_creation:** `typing.Optional[ForceCustomerCreation]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotency_key:** `typing.Optional[IdempotencyKey]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[Accountid]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**customer_data:** `typing.Optional[PayorDataRequest]` — Object describing the Customer/Payor. Which fields are required depends on the paypoint's custom identifier settings. 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**entry_point:** `typing.Optional[Entrypointfield]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**invoice_data:** `typing.Optional[BillData]` — Object describing an Invoice linked to the transaction.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ipaddress:** `typing.Optional[IpAddress]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_description:** `typing.Optional[Orderdescription]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_id:** `typing.Optional[OrderId]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**source:** `typing.Optional[Source]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**subdomain:** `typing.Optional[Subdomain]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**subscription_id:** `typing.Optional[Subscriptionid]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">capturev_2</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Capture an authorized transaction to complete the transaction and move funds from the customer to merchant account. This is the v2 version of the `api/MoneyIn/capture/{transId}` endpoint, and returns the unified response format. See [Pay In unified response codes reference](/developers/references/pay-in-unified-response-codes) for more information.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.money_in import CapturePaymentDetails
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.money_in.capturev_2(
+    trans_id="10-7d9cd67d-2d5d-4cd7-a1b7-72b8b201ec13",
+    payment_details=CapturePaymentDetails(
+        total_amount=89.0,
+        service_fee=4.0,
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**trans_id:** `str` — ReferenceId for the transaction (PaymentId).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payment_details:** `CapturePaymentDetails` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">refundv_2</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Give a full refund for a transaction that has settled and send money back to the account holder. To perform a partial refund, see [Partially refund a transaction](developers/api-reference/moneyinV2/partial-refund-a-settled-transaction).
+
+This is the v2 version of the refund endpoint, and returns the unified response format. See [Pay In unified response codes reference](/developers/references/pay-in-unified-response-codes) for more information.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.money_in.refundv_2(
+    trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**trans_id:** `str` — ReferenceId for the transaction (PaymentId).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">refundv_2_amount</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Refund a transaction that has settled and send money back to the account holder. If `amount` is omitted or set to 0, performs a full refund. When a non-zero `amount` is provided, this endpoint performs a partial refund.
+
+This is the v2 version of the refund endpoint, and returns the unified response format. See [Pay In unified response codes reference](/developers/references/pay-in-unified-response-codes) for more information.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.money_in.refundv_2_amount(
+    trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
+    amount=100.99,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**trans_id:** `str` — ReferenceId for the transaction (PaymentId).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**amount:** `float` — Amount to refund from original transaction, minus any service fees charged on the original transaction. If omitted or set to 0, performs a full refund.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">voidv_2</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Cancel a transaction that hasn't been settled yet. Voiding non-captured authorizations prevents future captures. This is the v2 version of the `api/MoneyIn/void/{transId}` endpoint, and returns the unified response format. See [Pay In unified response codes reference](/developers/references/pay-in-unified-response-codes) for more information.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.money_in.voidv_2(
     trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
 )
 
@@ -25866,7 +26592,7 @@ Saves a payment method for reuse. This call exchanges sensitive payment informat
 
 ```python
 from payabli import PayorDataRequest, payabli
-from payabli.token_storage import TokenizeAch
+from payabli.token_storage import TokenizeAch, VendorDataRequest
 
 client = payabli(
     api_key="YOUR_API_KEY",
@@ -25885,6 +26611,9 @@ client.token_storage.add_method(
         ach_holder_type="personal",
         ach_routing="123456780",
         method="ach",
+    ),
+    vendor_data=VendorDataRequest(
+        vendor_id=7890,
     ),
 )
 
@@ -25990,6 +26719,14 @@ client.token_storage.add_method(
 <dl>
 <dd>
 
+**vendor_data:** `typing.Optional[VendorDataRequest]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **source:** `typing.Optional[Source]` — Custom identifier to indicate the source for the request
     
 </dd>
@@ -26051,7 +26788,7 @@ client = payabli(
     api_key="YOUR_API_KEY",
 )
 client.token_storage.get_method(
-    method_id="32-8877drt00045632-678",
+    method_id="749e236c-59a3-49c7-ab47-73e06f9e94aa-199689",
     card_expiration_format=1,
     include_temporary=False,
 )
@@ -26214,7 +26951,7 @@ Updates a saved payment method.
 
 ```python
 from payabli import PayorDataRequest, payabli
-from payabli.token_storage import TokenizeAch
+from payabli.token_storage import TokenizeAch, VendorDataRequest
 
 client = payabli(
     api_key="YOUR_API_KEY",
@@ -26233,6 +26970,9 @@ client.token_storage.update_method(
         ach_holder_type="personal",
         ach_routing="123456780",
         method="ach",
+    ),
+    vendor_data=VendorDataRequest(
+        vendor_id=7890,
     ),
 )
 
@@ -26307,6 +27047,14 @@ client.token_storage.update_method(
 <dd>
 
 **payment_method:** `typing.Optional[RequestTokenStoragePaymentMethod]` — Information about the payment method for the transaction.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**vendor_data:** `typing.Optional[VendorDataRequest]` 
     
 </dd>
 </dl>

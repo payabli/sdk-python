@@ -51,6 +51,7 @@ from ..types.mcity import Mcity
 from ..types.mcountry import Mcountry
 from ..types.mstate import Mstate
 from ..types.mzip import Mzip
+from ..types.on_create import OnCreate
 from ..types.orgid import Orgid
 from ..types.own_type import OwnType
 from ..types.ownership import Ownership
@@ -1134,6 +1135,7 @@ class RawBoardingClient:
         rep_code: typing.Optional[RepCode] = OMIT,
         rep_name: typing.Optional[RepName] = OMIT,
         rep_office: typing.Optional[RepOffice] = OMIT,
+        on_create: typing.Optional[OnCreate] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PayabliApiResponse00Responsedatanonobject]:
         """
@@ -1255,6 +1257,8 @@ class RawBoardingClient:
 
         rep_office : typing.Optional[RepOffice]
 
+        on_create : typing.Optional[OnCreate]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1334,6 +1338,7 @@ class RawBoardingClient:
                 "RepCode": rep_code,
                 "RepName": rep_name,
                 "RepOffice": rep_office,
+                "onCreate": on_create,
             },
             headers={
                 "content-type": "application/json",
@@ -2451,6 +2456,7 @@ class AsyncRawBoardingClient:
         rep_code: typing.Optional[RepCode] = OMIT,
         rep_name: typing.Optional[RepName] = OMIT,
         rep_office: typing.Optional[RepOffice] = OMIT,
+        on_create: typing.Optional[OnCreate] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]:
         """
@@ -2572,6 +2578,8 @@ class AsyncRawBoardingClient:
 
         rep_office : typing.Optional[RepOffice]
 
+        on_create : typing.Optional[OnCreate]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -2651,6 +2659,7 @@ class AsyncRawBoardingClient:
                 "RepCode": rep_code,
                 "RepName": rep_name,
                 "RepOffice": rep_office,
+                "onCreate": on_create,
             },
             headers={
                 "content-type": "application/json",

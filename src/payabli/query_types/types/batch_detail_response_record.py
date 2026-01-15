@@ -46,6 +46,191 @@ from ...types.transaction_time import TransactionTime
 
 
 class BatchDetailResponseRecord(UniversalBaseModel):
+    """
+    Examples
+    --------
+    import datetime
+
+    from payabli import (
+        PaymentCategories,
+        PaymentDetail,
+        QueryPaymentData,
+        QueryResponseData,
+        QueryTransactionEvents,
+        QueryTransactionPayorData,
+        SplitFundingContent,
+    )
+    from payabli.query_types import BatchDetailResponseRecord
+
+    BatchDetailResponseRecord(
+        id=25048,
+        method="ach",
+        settled_amount=0.5,
+        type="credit",
+        batch_number="batch-100-20-2024",
+        batch_amount=32.0,
+        payment_trans_id="245-9e4072eef77e45979ea0e49f680000X",
+        payment_trans_status=1,
+        schedule_reference=0,
+        gateway_trans_id="TRN_XXXXX",
+        order_id="",
+        trans_method="ach",
+        payment_data=QueryPaymentData(
+            account_type="Checking",
+            holder_name="Lydia Marshall",
+            masked_account="1XXXXXX5678",
+            payment_details=PaymentDetail(
+                categories=[
+                    PaymentCategories(
+                        amount=1000.0,
+                        label="Deposit",
+                    )
+                ],
+                currency="USD",
+                service_fee=0.0,
+                split_funding=[SplitFundingContent()],
+                total_amount=2.0,
+            ),
+        ),
+        net_amount=2.0,
+        operation="Sale",
+        category="auth",
+        source="api",
+        status=1,
+        transaction_time=datetime.datetime.fromisoformat(
+            "2024-11-19 15:58:01+00:00",
+        ),
+        customer=QueryTransactionPayorData(
+            billing_address_1="100 Golden Ridge Drive",
+            billing_address_2="STE 100",
+            billing_city="Mendota",
+            billing_country="US",
+            billing_email="lydia@example.com",
+            billing_phone="+12345678",
+            billing_state="VA",
+            billing_zip="20147",
+            customer_id=2707,
+            customer_number="901102",
+            customer_status=1,
+            first_name="Lydia",
+            last_name="Marshall",
+        ),
+        settlement_date=datetime.datetime.fromisoformat(
+            "2024-11-20 00:00:00+00:00",
+        ),
+        payment_settlement_status=1,
+        batch_status=1,
+        deposit_date=datetime.datetime.fromisoformat(
+            "2024-11-22 00:00:00+00:00",
+        ),
+        expected_deposit_date=datetime.datetime.fromisoformat(
+            "2024-11-22 00:00:00+00:00",
+        ),
+        masked_account="1XXXXXX5678",
+        created_at=datetime.datetime.fromisoformat(
+            "2024-11-19 15:58:01+00:00",
+        ),
+        paypoint_legalname="Gruzya Adventure Outfitters, LLC",
+        response_data=QueryResponseData(
+            authcode=" ",
+            avsresponse=" ",
+            avsresponse_text="",
+            cvvresponse=" ",
+            cvvresponse_text=" ",
+            emv_auth_response_data=" ",
+            response="Success",
+            response_code="100",
+            response_code_text="Transaction was approved.",
+            responsetext="CAPTURED",
+            result_code="A0000",
+            result_code_text="Approved",
+            transactionid="TRN_xwCAjQorWAYX1nAhAoHZVfN8iYHbI0",
+        ),
+        paypoint_dbaname="Gruzya Adventure Outfitters, LLC",
+        parent_org_name="Pilgrim Planner",
+        parent_org_id=123,
+        paypoint_entryname="7f1a3816XX",
+        device_id="",
+        retrieval_id=0,
+        chargeback_id=0,
+        ach_holder_type="personal",
+        ach_sec_code="PPD",
+        connector_name="DefaultConnector",
+        entrypage_id=0,
+        fee_amount=0.0,
+        org_id=123,
+        payor_id=2707,
+        paypoint_id=123,
+        pending_fee_amount=0.0,
+        refund_id=0,
+        returned_id=0,
+        split_funding_instructions=[],
+        total_amount=2.0,
+        cfee_transactions=[],
+        transaction_events=[
+            QueryTransactionEvents(
+                event_time=datetime.datetime.fromisoformat(
+                    "2024-11-19 15:57:40+00:00",
+                ),
+                trans_event="Created",
+            ),
+            QueryTransactionEvents(
+                event_data={
+                    "account_id": "TRA_XXXXX",
+                    "account_name": "123456",
+                    "action": {
+                        "app_id": "XXXXX",
+                        "app_name": "PayAbli",
+                        "id": "ACT_XXXXX",
+                        "result_code": "SUCCESS",
+                        "time_created": "2024-11-19T20:58:01.583Z",
+                        "type": "AUTHORIZE",
+                    },
+                    "amount": "200",
+                    "batch_id": "",
+                    "capture_mode": "AUTO",
+                    "channel": "CNP",
+                    "country": "US",
+                    "currency": "USD",
+                    "fees": {"amount": "0", "rate": "0.00", "total_amount": "0"},
+                    "id": "TRN_XXXXX",
+                    "merchant_amount": "200",
+                    "merchant_id": "MER_XXXXX",
+                    "merchant_name": "Henriette97",
+                    "order": {"reference": ""},
+                    "payment_method": {
+                        "bank_transfer": {
+                            "account_type": "CHECKING",
+                            "bank": {"name": ""},
+                            "masked_account_number_last4": "XXXX5678",
+                        },
+                        "entry_mode": "ECOM",
+                        "message": "Success",
+                        "narrative": "Lydia Marshall",
+                        "result": "00",
+                    },
+                    "reference": "245-XXXXX",
+                    "status": "CAPTURED",
+                    "time_created": "2024-11-19T20:58:01.583Z",
+                    "type": "SALE",
+                },
+                event_time=datetime.datetime.fromisoformat(
+                    "2024-11-19 20:58:01+00:00",
+                ),
+                trans_event="Approved",
+            ),
+            QueryTransactionEvents(
+                event_time=datetime.datetime.fromisoformat(
+                    "2024-11-20 03:05:10+00:00",
+                ),
+                trans_event="ClosedBatch",
+            ),
+        ],
+        external_paypoint_id="ext-paypoint-123",
+        is_hold=0,
+    )
+    """
+
     id: typing_extensions.Annotated[int, FieldMetadata(alias="Id")]
     method: typing_extensions.Annotated[str, FieldMetadata(alias="Method")]
     wallet_type: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="WalletType")] = None

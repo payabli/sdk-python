@@ -3,42 +3,51 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.serialization import FieldMetadata
 from .authcode import Authcode
+from .avs_response import AvsResponse
+from .avs_response_text import AvsResponseText
+from .cvv_response import CvvResponse
+from .cvv_response_text import CvvResponseText
+from .emv_auth_response_data import EmvAuthResponseData
 from .order_id import OrderId
+from .result_code_text import ResultCodeText
+from .result_codev_2 import ResultCodev2
 
 
 class QueryResponseData(UniversalBaseModel):
     """
     The transaction's response data.
+
+    Examples
+    --------
+    from payabli import QueryResponseData
+
+    QueryResponseData(
+        authcode="123456",
+        avsresponse="N",
+        avsresponse_text="No address or ZIP match only",
+        cvvresponse="M",
+        cvvresponse_text="CVV2/CVC2 match",
+        orderid="10-bfcd5a17861d4a8690ca53c00000X",
+        response="Success",
+        response_code="100",
+        response_code_text="Transaction was approved.",
+        responsetext="SUCCESS",
+        result_code="A0000",
+        result_code_text="Approved",
+        transactionid="8082800000",
+    )
     """
 
     authcode: typing.Optional[Authcode] = None
-    avsresponse: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    Text code describing the result for address validation (applies only for card transactions).
-    """
-
-    avsresponse_text: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    Text code describing the result for address validation (applies only for card transactions).
-    """
-
-    cvvresponse: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    Text code describing the result for CVV validation (applies only for card transactions).
-    """
-
-    cvvresponse_text: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    Text code describing the result for CVV validation (applies only for card transactions).
-    """
-
-    emv_auth_response_data: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    EMV authorization response data, applicable for card transactions.
-    """
-
+    avsresponse: typing.Optional[AvsResponse] = None
+    avsresponse_text: typing.Optional[AvsResponseText] = None
+    cvvresponse: typing.Optional[CvvResponse] = None
+    cvvresponse_text: typing.Optional[CvvResponseText] = None
+    emv_auth_response_data: typing.Optional[EmvAuthResponseData] = None
     orderid: typing.Optional[OrderId] = None
     response: typing.Optional[str] = pydantic.Field(default=None)
     """
@@ -60,6 +69,10 @@ class QueryResponseData(UniversalBaseModel):
     Text describing the result. If resultCode = 1, will return 'Approved' or a general success message. If resultCode = 2 or 3, will contain the cause of the decline.
     """
 
+    result_code: typing_extensions.Annotated[typing.Optional[ResultCodev2], FieldMetadata(alias="resultCode")] = None
+    result_code_text: typing_extensions.Annotated[
+        typing.Optional[ResultCodeText], FieldMetadata(alias="resultCodeText")
+    ] = None
     transactionid: typing.Optional[str] = pydantic.Field(default=None)
     """
     The transaction identifier in Payabli.

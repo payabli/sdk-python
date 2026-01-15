@@ -18,6 +18,7 @@ from .types.create_anonymous import CreateAnonymous
 from .types.get_method_response import GetMethodResponse
 from .types.request_token_storage_payment_method import RequestTokenStoragePaymentMethod
 from .types.temporary import Temporary
+from .types.vendor_data_request import VendorDataRequest
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -52,6 +53,7 @@ class TokenStorageClient:
         fallback_auth_amount: typing.Optional[int] = OMIT,
         method_description: typing.Optional[str] = OMIT,
         payment_method: typing.Optional[RequestTokenStoragePaymentMethod] = OMIT,
+        vendor_data: typing.Optional[VendorDataRequest] = OMIT,
         source: typing.Optional[Source] = OMIT,
         subdomain: typing.Optional[Subdomain] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -88,6 +90,8 @@ class TokenStorageClient:
 
         payment_method : typing.Optional[RequestTokenStoragePaymentMethod]
             Information about the payment method for the transaction.
+
+        vendor_data : typing.Optional[VendorDataRequest]
 
         source : typing.Optional[Source]
             Custom identifier to indicate the source for the request
@@ -138,6 +142,7 @@ class TokenStorageClient:
             fallback_auth_amount=fallback_auth_amount,
             method_description=method_description,
             payment_method=payment_method,
+            vendor_data=vendor_data,
             source=source,
             subdomain=subdomain,
             request_options=request_options,
@@ -247,6 +252,7 @@ class TokenStorageClient:
         fallback_auth_amount: typing.Optional[int] = OMIT,
         method_description: typing.Optional[str] = OMIT,
         payment_method: typing.Optional[RequestTokenStoragePaymentMethod] = OMIT,
+        vendor_data: typing.Optional[VendorDataRequest] = OMIT,
         source: typing.Optional[Source] = OMIT,
         subdomain: typing.Optional[Subdomain] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -278,6 +284,8 @@ class TokenStorageClient:
 
         payment_method : typing.Optional[RequestTokenStoragePaymentMethod]
             Information about the payment method for the transaction.
+
+        vendor_data : typing.Optional[VendorDataRequest]
 
         source : typing.Optional[Source]
             Custom identifier to indicate the source for the request
@@ -326,6 +334,7 @@ class TokenStorageClient:
             fallback_auth_amount=fallback_auth_amount,
             method_description=method_description,
             payment_method=payment_method,
+            vendor_data=vendor_data,
             source=source,
             subdomain=subdomain,
             request_options=request_options,
@@ -362,6 +371,7 @@ class AsyncTokenStorageClient:
         fallback_auth_amount: typing.Optional[int] = OMIT,
         method_description: typing.Optional[str] = OMIT,
         payment_method: typing.Optional[RequestTokenStoragePaymentMethod] = OMIT,
+        vendor_data: typing.Optional[VendorDataRequest] = OMIT,
         source: typing.Optional[Source] = OMIT,
         subdomain: typing.Optional[Subdomain] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -398,6 +408,8 @@ class AsyncTokenStorageClient:
 
         payment_method : typing.Optional[RequestTokenStoragePaymentMethod]
             Information about the payment method for the transaction.
+
+        vendor_data : typing.Optional[VendorDataRequest]
 
         source : typing.Optional[Source]
             Custom identifier to indicate the source for the request
@@ -456,6 +468,7 @@ class AsyncTokenStorageClient:
             fallback_auth_amount=fallback_auth_amount,
             method_description=method_description,
             payment_method=payment_method,
+            vendor_data=vendor_data,
             source=source,
             subdomain=subdomain,
             request_options=request_options,
@@ -581,6 +594,7 @@ class AsyncTokenStorageClient:
         fallback_auth_amount: typing.Optional[int] = OMIT,
         method_description: typing.Optional[str] = OMIT,
         payment_method: typing.Optional[RequestTokenStoragePaymentMethod] = OMIT,
+        vendor_data: typing.Optional[VendorDataRequest] = OMIT,
         source: typing.Optional[Source] = OMIT,
         subdomain: typing.Optional[Subdomain] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -612,6 +626,8 @@ class AsyncTokenStorageClient:
 
         payment_method : typing.Optional[RequestTokenStoragePaymentMethod]
             Information about the payment method for the transaction.
+
+        vendor_data : typing.Optional[VendorDataRequest]
 
         source : typing.Optional[Source]
             Custom identifier to indicate the source for the request
@@ -668,6 +684,7 @@ class AsyncTokenStorageClient:
             fallback_auth_amount=fallback_auth_amount,
             method_description=method_description,
             payment_method=payment_method,
+            vendor_data=vendor_data,
             source=source,
             subdomain=subdomain,
             request_options=request_options,

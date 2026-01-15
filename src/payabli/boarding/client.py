@@ -41,6 +41,7 @@ from ..types.mcity import Mcity
 from ..types.mcountry import Mcountry
 from ..types.mstate import Mstate
 from ..types.mzip import Mzip
+from ..types.on_create import OnCreate
 from ..types.orgid import Orgid
 from ..types.own_type import OwnType
 from ..types.ownership import Ownership
@@ -743,6 +744,7 @@ class BoardingClient:
         rep_code: typing.Optional[RepCode] = OMIT,
         rep_name: typing.Optional[RepName] = OMIT,
         rep_office: typing.Optional[RepOffice] = OMIT,
+        on_create: typing.Optional[OnCreate] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PayabliApiResponse00Responsedatanonobject:
         """
@@ -864,6 +866,8 @@ class BoardingClient:
 
         rep_office : typing.Optional[RepOffice]
 
+        on_create : typing.Optional[OnCreate]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -940,6 +944,7 @@ class BoardingClient:
             rep_code=rep_code,
             rep_name=rep_name,
             rep_office=rep_office,
+            on_create=on_create,
             request_options=request_options,
         )
         return _response.data
@@ -1698,6 +1703,7 @@ class AsyncBoardingClient:
         rep_code: typing.Optional[RepCode] = OMIT,
         rep_name: typing.Optional[RepName] = OMIT,
         rep_office: typing.Optional[RepOffice] = OMIT,
+        on_create: typing.Optional[OnCreate] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PayabliApiResponse00Responsedatanonobject:
         """
@@ -1819,6 +1825,8 @@ class AsyncBoardingClient:
 
         rep_office : typing.Optional[RepOffice]
 
+        on_create : typing.Optional[OnCreate]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1903,6 +1911,7 @@ class AsyncBoardingClient:
             rep_code=rep_code,
             rep_name=rep_name,
             rep_office=rep_office,
+            on_create=on_create,
             request_options=request_options,
         )
         return _response.data

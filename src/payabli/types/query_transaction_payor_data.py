@@ -6,7 +6,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .additional_data_string import AdditionalDataString
+from .additional_data_map import AdditionalDataMap
 from .billing_zip import BillingZip
 from .customer_id import CustomerId
 from .customer_number_nullable import CustomerNumberNullable
@@ -129,7 +129,7 @@ class QueryTransactionPayorData(UniversalBaseModel):
         typing.Optional[CustomerStatus], FieldMetadata(alias="customerStatus")
     ] = None
     additional_data: typing_extensions.Annotated[
-        typing.Optional[AdditionalDataString], FieldMetadata(alias="AdditionalData")
+        typing.Optional[AdditionalDataMap], FieldMetadata(alias="AdditionalData")
     ] = None
 
     if IS_PYDANTIC_V2:

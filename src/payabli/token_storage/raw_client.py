@@ -28,6 +28,7 @@ from .types.create_anonymous import CreateAnonymous
 from .types.get_method_response import GetMethodResponse
 from .types.request_token_storage_payment_method import RequestTokenStoragePaymentMethod
 from .types.temporary import Temporary
+from .types.vendor_data_request import VendorDataRequest
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -51,6 +52,7 @@ class RawTokenStorageClient:
         fallback_auth_amount: typing.Optional[int] = OMIT,
         method_description: typing.Optional[str] = OMIT,
         payment_method: typing.Optional[RequestTokenStoragePaymentMethod] = OMIT,
+        vendor_data: typing.Optional[VendorDataRequest] = OMIT,
         source: typing.Optional[Source] = OMIT,
         subdomain: typing.Optional[Subdomain] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -88,6 +90,8 @@ class RawTokenStorageClient:
         payment_method : typing.Optional[RequestTokenStoragePaymentMethod]
             Information about the payment method for the transaction.
 
+        vendor_data : typing.Optional[VendorDataRequest]
+
         source : typing.Optional[Source]
             Custom identifier to indicate the source for the request
 
@@ -120,6 +124,9 @@ class RawTokenStorageClient:
                 "methodDescription": method_description,
                 "paymentMethod": convert_and_respect_annotation_metadata(
                     object_=payment_method, annotation=RequestTokenStoragePaymentMethod, direction="write"
+                ),
+                "vendorData": convert_and_respect_annotation_metadata(
+                    object_=vendor_data, annotation=VendorDataRequest, direction="write"
                 ),
                 "source": source,
                 "subdomain": subdomain,
@@ -390,6 +397,7 @@ class RawTokenStorageClient:
         fallback_auth_amount: typing.Optional[int] = OMIT,
         method_description: typing.Optional[str] = OMIT,
         payment_method: typing.Optional[RequestTokenStoragePaymentMethod] = OMIT,
+        vendor_data: typing.Optional[VendorDataRequest] = OMIT,
         source: typing.Optional[Source] = OMIT,
         subdomain: typing.Optional[Subdomain] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -422,6 +430,8 @@ class RawTokenStorageClient:
         payment_method : typing.Optional[RequestTokenStoragePaymentMethod]
             Information about the payment method for the transaction.
 
+        vendor_data : typing.Optional[VendorDataRequest]
+
         source : typing.Optional[Source]
             Custom identifier to indicate the source for the request
 
@@ -452,6 +462,9 @@ class RawTokenStorageClient:
                 "paymentMethod": convert_and_respect_annotation_metadata(
                     object_=payment_method, annotation=RequestTokenStoragePaymentMethod, direction="write"
                 ),
+                "vendorData": convert_and_respect_annotation_metadata(
+                    object_=vendor_data, annotation=VendorDataRequest, direction="write"
+                ),
                 "source": source,
                 "subdomain": subdomain,
             },
@@ -471,50 +484,6 @@ class RawTokenStorageClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -539,6 +508,7 @@ class AsyncRawTokenStorageClient:
         fallback_auth_amount: typing.Optional[int] = OMIT,
         method_description: typing.Optional[str] = OMIT,
         payment_method: typing.Optional[RequestTokenStoragePaymentMethod] = OMIT,
+        vendor_data: typing.Optional[VendorDataRequest] = OMIT,
         source: typing.Optional[Source] = OMIT,
         subdomain: typing.Optional[Subdomain] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -576,6 +546,8 @@ class AsyncRawTokenStorageClient:
         payment_method : typing.Optional[RequestTokenStoragePaymentMethod]
             Information about the payment method for the transaction.
 
+        vendor_data : typing.Optional[VendorDataRequest]
+
         source : typing.Optional[Source]
             Custom identifier to indicate the source for the request
 
@@ -608,6 +580,9 @@ class AsyncRawTokenStorageClient:
                 "methodDescription": method_description,
                 "paymentMethod": convert_and_respect_annotation_metadata(
                     object_=payment_method, annotation=RequestTokenStoragePaymentMethod, direction="write"
+                ),
+                "vendorData": convert_and_respect_annotation_metadata(
+                    object_=vendor_data, annotation=VendorDataRequest, direction="write"
                 ),
                 "source": source,
                 "subdomain": subdomain,
@@ -878,6 +853,7 @@ class AsyncRawTokenStorageClient:
         fallback_auth_amount: typing.Optional[int] = OMIT,
         method_description: typing.Optional[str] = OMIT,
         payment_method: typing.Optional[RequestTokenStoragePaymentMethod] = OMIT,
+        vendor_data: typing.Optional[VendorDataRequest] = OMIT,
         source: typing.Optional[Source] = OMIT,
         subdomain: typing.Optional[Subdomain] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -910,6 +886,8 @@ class AsyncRawTokenStorageClient:
         payment_method : typing.Optional[RequestTokenStoragePaymentMethod]
             Information about the payment method for the transaction.
 
+        vendor_data : typing.Optional[VendorDataRequest]
+
         source : typing.Optional[Source]
             Custom identifier to indicate the source for the request
 
@@ -940,6 +918,9 @@ class AsyncRawTokenStorageClient:
                 "paymentMethod": convert_and_respect_annotation_metadata(
                     object_=payment_method, annotation=RequestTokenStoragePaymentMethod, direction="write"
                 ),
+                "vendorData": convert_and_respect_annotation_metadata(
+                    object_=vendor_data, annotation=VendorDataRequest, direction="write"
+                ),
                 "source": source,
                 "subdomain": subdomain,
             },
@@ -959,50 +940,6 @@ class AsyncRawTokenStorageClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)

@@ -7,9 +7,9 @@ import typing_extensions
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ...core.serialization import FieldMetadata
 from ...types.authcode import Authcode
-from ...types.avsresponsetext import Avsresponsetext
+from ...types.avs_response_text import AvsResponseText
 from ...types.customeridtrans import Customeridtrans
-from ...types.cvvresponsetext import Cvvresponsetext
+from ...types.cvv_response_text import CvvResponseText
 from ...types.method_reference_id import MethodReferenceId
 from ...types.referenceidtrans import Referenceidtrans
 from ...types.result_code import ResultCode
@@ -22,6 +22,7 @@ class GetPaidResponseData(UniversalBaseModel):
     Response data for GetPaid transactions
     """
 
+    auth_code: typing_extensions.Annotated[typing.Optional[Authcode], FieldMetadata(alias="authCode")] = None
     transaction_details: typing_extensions.Annotated[
         typing.Optional[TransactionDetailRecord], FieldMetadata(alias="transactionDetails")
     ] = pydantic.Field(default=None)
@@ -29,12 +30,11 @@ class GetPaidResponseData(UniversalBaseModel):
     Details of the transaction. Present only if `includeDetails` query parameter is set to `true` in the request.
     """
 
-    auth_code: typing_extensions.Annotated[typing.Optional[Authcode], FieldMetadata(alias="authCode")] = None
     reference_id: typing_extensions.Annotated[Referenceidtrans, FieldMetadata(alias="referenceId")]
     result_code: typing_extensions.Annotated[ResultCode, FieldMetadata(alias="resultCode")]
     result_text: typing_extensions.Annotated[Resulttext, FieldMetadata(alias="resultText")]
-    avs_response_text: typing_extensions.Annotated[Avsresponsetext, FieldMetadata(alias="avsResponseText")]
-    cvv_response_text: typing_extensions.Annotated[Cvvresponsetext, FieldMetadata(alias="cvvResponseText")]
+    avs_response_text: typing_extensions.Annotated[AvsResponseText, FieldMetadata(alias="avsResponseText")]
+    cvv_response_text: typing_extensions.Annotated[CvvResponseText, FieldMetadata(alias="cvvResponseText")]
     customer_id: typing_extensions.Annotated[Customeridtrans, FieldMetadata(alias="customerId")]
     method_reference_id: typing_extensions.Annotated[
         typing.Optional[MethodReferenceId], FieldMetadata(alias="methodReferenceId")
