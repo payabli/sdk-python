@@ -6,7 +6,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .additional_data_string import AdditionalDataString
+from .additional_data_map import AdditionalDataMap
 from .attachments import Attachments
 from .bill_data_payment_terms import BillDataPaymentTerms
 from .bill_item import BillItem
@@ -35,7 +35,7 @@ from .terms_conditions import TermsConditions
 
 class BillData(UniversalBaseModel):
     additional_data: typing_extensions.Annotated[
-        typing.Optional[AdditionalDataString], FieldMetadata(alias="AdditionalData")
+        typing.Optional[AdditionalDataMap], FieldMetadata(alias="AdditionalData")
     ] = None
     attachments: typing.Optional[Attachments] = None
     company: typing.Optional[str] = pydantic.Field(default=None)
