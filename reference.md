@@ -26591,7 +26591,7 @@ Saves a payment method for reuse. This call exchanges sensitive payment informat
 <dd>
 
 ```python
-from payabli import PayorDataRequest, payabli
+from payabli import payabli
 from payabli.token_storage import TokenizeAch, VendorDataRequest
 
 client = payabli(
@@ -26599,9 +26599,6 @@ client = payabli(
 )
 client.token_storage.add_method(
     ach_validation=True,
-    customer_data=PayorDataRequest(
-        customer_id=4440,
-    ),
     entry_point="f743aed24a",
     payment_method=TokenizeAch(
         ach_account="1111111111111",

@@ -6,7 +6,7 @@ import pydantic
 import typing_extensions
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ...core.serialization import FieldMetadata
-from ...types.additional_data_string import AdditionalDataString
+from ...types.additional_data_map import AdditionalDataMap
 from ...types.bill_events import BillEvents
 from ...types.bill_item import BillItem
 from ...types.bill_options import BillOptions
@@ -114,7 +114,7 @@ class GetInvoiceRecord(UniversalBaseModel):
     paypoint_entryname: typing_extensions.Annotated[Entrypointfield, FieldMetadata(alias="PaypointEntryname")]
     parent_org_name: typing_extensions.Annotated[OrgParentName, FieldMetadata(alias="ParentOrgName")]
     additional_data: typing_extensions.Annotated[
-        typing.Optional[AdditionalDataString], FieldMetadata(alias="AdditionalData")
+        typing.Optional[AdditionalDataMap], FieldMetadata(alias="AdditionalData")
     ] = None
     documents_ref: typing_extensions.Annotated[DocumentsRef, FieldMetadata(alias="DocumentsRef")]
     external_paypoint_id: typing_extensions.Annotated[
