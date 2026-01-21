@@ -79,7 +79,7 @@ class TransactionQueryRecordsCustomer(UniversalBaseModel):
     Internal identifier used for processing.
     """
 
-    invoice_data: typing_extensions.Annotated[typing.Optional[BillData], FieldMetadata(alias="InvoiceData")] = None
+    invoice_data: typing_extensions.Annotated[typing.Optional[BillData], FieldMetadata(alias="invoiceData")] = None
     method: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="Method")] = pydantic.Field(
         default=None
     )
