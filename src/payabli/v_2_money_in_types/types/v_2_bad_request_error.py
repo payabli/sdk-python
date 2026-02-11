@@ -39,7 +39,7 @@ class V2BadRequestError(UniversalBaseModel):
 
     code: str = pydantic.Field()
     """
-    Payabli's unified response code for validation errors. Starts with 'E'. See [Pay In unified response codes reference](/developers/references/pay-in-unified-response-codes) for more information.
+    Payabli's unified response code for validation errors. Starts with 'E'. See [Pay In unified response codes reference](/guides/pay-in-unified-response-codes-reference) for more information.
     """
 
     errors: typing.Dict[str, typing.List[V2BadRequestErrorDetail]] = pydantic.Field()

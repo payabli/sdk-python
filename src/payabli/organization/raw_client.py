@@ -491,7 +491,7 @@ class RawOrganizationClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1219,7 +1219,7 @@ class AsyncRawOrganizationClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

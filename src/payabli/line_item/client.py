@@ -56,7 +56,7 @@ class LineItemClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         item_cost : float
             Item or product price per unit.
@@ -208,7 +208,7 @@ class LineItemClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -427,7 +427,7 @@ class AsyncLineItemClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         item_cost : float
             Item or product price per unit.
@@ -603,7 +603,7 @@ class AsyncLineItemClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.

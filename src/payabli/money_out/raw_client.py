@@ -14,6 +14,7 @@ from ..errors.bad_request_error import BadRequestError
 from ..errors.internal_server_error import InternalServerError
 from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.unauthorized_error import UnauthorizedError
+from ..money_out_types.types.allowed_check_payment_status import AllowedCheckPaymentStatus
 from ..money_out_types.types.auth_capture_payout_response import AuthCapturePayoutResponse
 from ..money_out_types.types.authorize_payment_method import AuthorizePaymentMethod
 from ..money_out_types.types.capture_all_out_response import CaptureAllOutResponse
@@ -29,6 +30,7 @@ from ..types.idempotency_key import IdempotencyKey
 from ..types.order_id import OrderId
 from ..types.orderdescription import Orderdescription
 from ..types.payabli_api_response import PayabliApiResponse
+from ..types.payabli_api_response_00_responsedatanonobject import PayabliApiResponse00Responsedatanonobject
 from ..types.payabli_api_response_0000 import PayabliApiResponse0000
 from ..types.source import Source
 from ..types.subdomain import Subdomain
@@ -991,6 +993,107 @@ class RawMoneyOutClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def update_check_payment_status(
+        self,
+        trans_id: str,
+        check_payment_status: AllowedCheckPaymentStatus,
+        *,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[PayabliApiResponse00Responsedatanonobject]:
+        """
+        Updates the status of a processed check payment transaction. This endpoint handles the status transition, updates related bills, creates audit events, and triggers notifications.
+
+        The transaction must meet all of the following criteria:
+        - **Status**: Must be in Processing or Processed status.
+        - **Payment method**: Must be a check payment method.
+
+        ### Allowed status values
+
+        | Value | Status | Description |
+        |-------|--------|-------------|
+        | `0` | Cancelled/Voided | Cancels the check transaction. Reverts associated bills to their previous state (Approved or Active), creates "Cancelled" events, and sends a `payout_transaction_voidedcancelled` notification if the notification is enabled. |
+        | `5` | Paid | Marks the check transaction as paid. Updates associated bills to "Paid" status, creates "Paid" events, and sends a `payout_transaction_paid` notification if the notification is enabled. |
+
+        Parameters
+        ----------
+        trans_id : str
+            The Payabli transaction ID for the check payment.
+
+        check_payment_status : AllowedCheckPaymentStatus
+            The new status to apply to the check transaction. To mark a check as `Paid`, send 5. To mark a check as `Cancelled`, send 0.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[PayabliApiResponse00Responsedatanonobject]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"MoneyOut/status/{jsonable_encoder(trans_id)}/{jsonable_encoder(check_payment_status)}",
+            method="PATCH",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PayabliApiResponse00Responsedatanonobject,
+                    parse_obj_as(
+                        type_=PayabliApiResponse00Responsedatanonobject,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
 
 class AsyncRawMoneyOutClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -1892,6 +1995,107 @@ class AsyncRawMoneyOutClient:
                     str,
                     parse_obj_as(
                         type_=str,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def update_check_payment_status(
+        self,
+        trans_id: str,
+        check_payment_status: AllowedCheckPaymentStatus,
+        *,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]:
+        """
+        Updates the status of a processed check payment transaction. This endpoint handles the status transition, updates related bills, creates audit events, and triggers notifications.
+
+        The transaction must meet all of the following criteria:
+        - **Status**: Must be in Processing or Processed status.
+        - **Payment method**: Must be a check payment method.
+
+        ### Allowed status values
+
+        | Value | Status | Description |
+        |-------|--------|-------------|
+        | `0` | Cancelled/Voided | Cancels the check transaction. Reverts associated bills to their previous state (Approved or Active), creates "Cancelled" events, and sends a `payout_transaction_voidedcancelled` notification if the notification is enabled. |
+        | `5` | Paid | Marks the check transaction as paid. Updates associated bills to "Paid" status, creates "Paid" events, and sends a `payout_transaction_paid` notification if the notification is enabled. |
+
+        Parameters
+        ----------
+        trans_id : str
+            The Payabli transaction ID for the check payment.
+
+        check_payment_status : AllowedCheckPaymentStatus
+            The new status to apply to the check transaction. To mark a check as `Paid`, send 5. To mark a check as `Cancelled`, send 0.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"MoneyOut/status/{jsonable_encoder(trans_id)}/{jsonable_encoder(check_payment_status)}",
+            method="PATCH",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PayabliApiResponse00Responsedatanonobject,
+                    parse_obj_as(
+                        type_=PayabliApiResponse00Responsedatanonobject,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

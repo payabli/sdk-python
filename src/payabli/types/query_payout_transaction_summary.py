@@ -42,14 +42,14 @@ class QueryPayoutTransactionSummary(UniversalBaseModel):
         pydantic.Field(default=None)
     )
     """
-    Total number of transactions that are currently on hold. 
+    Total number of transactions that are currently on hold.
     """
 
     total_on_hold_amount: typing_extensions.Annotated[
         typing.Optional[float], FieldMetadata(alias="totalOnHoldAmount")
     ] = pydantic.Field(default=None)
     """
-    Total amount of transactions that are currently on hold. 
+    Total amount of transactions that are currently on hold.
     """
 
     total_processing: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="totalProcessing")] = None

@@ -54,7 +54,7 @@ class RawInvoiceClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
 
@@ -660,7 +660,7 @@ class RawInvoiceClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -751,7 +751,7 @@ class RawInvoiceClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
 
@@ -1285,7 +1285,7 @@ class AsyncRawInvoiceClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
 
@@ -1891,7 +1891,7 @@ class AsyncRawInvoiceClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1982,7 +1982,7 @@ class AsyncRawInvoiceClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
 

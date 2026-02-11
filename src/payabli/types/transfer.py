@@ -44,6 +44,7 @@ class Transfer(UniversalBaseModel):
         bank_account=TransferBankAccount(
             account_number="****1234",
             routing_number="123456789",
+            bank_name="Riverdale Community Bank",
         ),
         transfer_date="2024-11-17T08:20:07.288+00:00",
         processor="gp",

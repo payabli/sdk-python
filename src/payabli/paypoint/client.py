@@ -45,7 +45,7 @@ class PaypointClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -115,7 +115,7 @@ class PaypointClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         entrypages : typing.Optional[str]
 
@@ -150,7 +150,7 @@ class PaypointClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         subdomain : str
             Payment page identifier. The subdomain value is the last portion of the payment page URL. For example, in`https://paypages-sandbox.payabli.com/513823dc10/pay-your-fees-1`, the subdomain is `pay-your-fees-1`.
@@ -187,7 +187,7 @@ class PaypointClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         subdomain : str
             Payment page identifier. The subdomain value is the last portion of the payment page URL. For example, in`https://paypages-sandbox.payabli.com/513823dc10/pay-your-fees-1`, the subdomain is `pay-your-fees-1`.
@@ -231,7 +231,7 @@ class PaypointClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         f_content : typing.Optional[str]
             Content of file, Base64-encoded. Ignored if furl is specified. Max upload size is 30 MB.
@@ -278,7 +278,7 @@ class PaypointClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -386,7 +386,7 @@ class AsyncPaypointClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -472,7 +472,7 @@ class AsyncPaypointClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         entrypages : typing.Optional[str]
 
@@ -517,7 +517,7 @@ class AsyncPaypointClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         subdomain : str
             Payment page identifier. The subdomain value is the last portion of the payment page URL. For example, in`https://paypages-sandbox.payabli.com/513823dc10/pay-your-fees-1`, the subdomain is `pay-your-fees-1`.
@@ -562,7 +562,7 @@ class AsyncPaypointClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         subdomain : str
             Payment page identifier. The subdomain value is the last portion of the payment page URL. For example, in`https://paypages-sandbox.payabli.com/513823dc10/pay-your-fees-1`, the subdomain is `pay-your-fees-1`.
@@ -614,7 +614,7 @@ class AsyncPaypointClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         f_content : typing.Optional[str]
             Content of file, Base64-encoded. Ignored if furl is specified. Max upload size is 30 MB.
@@ -669,7 +669,7 @@ class AsyncPaypointClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

@@ -6,6 +6,7 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .allowed_check_payment_status import AllowedCheckPaymentStatus
     from .auth_capture_payout_response import AuthCapturePayoutResponse
     from .auth_capture_payout_response_data import AuthCapturePayoutResponseData
     from .authorize_payment_method import AuthorizePaymentMethod
@@ -25,6 +26,7 @@ if typing.TYPE_CHECKING:
     from .v_card_get_response_associated_vendor_summary import VCardGetResponseAssociatedVendorSummary
     from .v_card_get_response_contact import VCardGetResponseContact
 _dynamic_imports: typing.Dict[str, str] = {
+    "AllowedCheckPaymentStatus": ".allowed_check_payment_status",
     "AuthCapturePayoutResponse": ".auth_capture_payout_response",
     "AuthCapturePayoutResponseData": ".auth_capture_payout_response_data",
     "AuthorizePaymentMethod": ".authorize_payment_method",
@@ -68,6 +70,7 @@ def __dir__():
 
 
 __all__ = [
+    "AllowedCheckPaymentStatus",
     "AuthCapturePayoutResponse",
     "AuthCapturePayoutResponseData",
     "AuthorizePaymentMethod",

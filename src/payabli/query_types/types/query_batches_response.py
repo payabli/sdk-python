@@ -66,6 +66,7 @@ class QueryBatchesResponse(UniversalBaseModel):
                 parent_org_name="Pilgrim Planner",
                 parent_org_id=105,
                 entry_name="47f4f8c7e1",
+                bank_name="Riverdale Community Bank",
                 batch_type=0,
                 method="combined",
                 expected_deposit_date=datetime.datetime.fromisoformat(
@@ -97,6 +98,7 @@ class QueryBatchesResponse(UniversalBaseModel):
                 parent_org_name="Pilgrim Planner",
                 parent_org_id=105,
                 entry_name="d193cf9a46",
+                bank_name="Riverdale Community Bank",
                 batch_type=0,
                 method="card",
                 expected_deposit_date=datetime.datetime.fromisoformat(
@@ -147,6 +149,7 @@ class QueryBatchesResponse(UniversalBaseModel):
                 parent_org_name="Pilgrim Planner",
                 parent_org_id=105,
                 entry_name="d193cf9a46",
+                bank_name="Riverdale Community Bank",
                 batch_type=0,
                 method="card",
                 expected_deposit_date=datetime.datetime.fromisoformat(

@@ -74,7 +74,7 @@ class PayorDataResponse(UniversalBaseModel):
         typing.Optional[CustomerStatus], FieldMetadata(alias="customerStatus")
     ] = pydantic.Field(default=None)
     """
-    Customer status. This is used to determine if the customer is active or inactive. 
+    Customer status. This is used to determine if the customer is active or inactive.
     """
 
     first_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="FirstName")] = pydantic.Field(

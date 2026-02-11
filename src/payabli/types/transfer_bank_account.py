@@ -7,12 +7,14 @@ import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 from .account_number import AccountNumber
+from .bank_name import BankName
 from .routing_account import RoutingAccount
 
 
 class TransferBankAccount(UniversalBaseModel):
     account_number: typing_extensions.Annotated[AccountNumber, FieldMetadata(alias="accountNumber")]
     routing_number: typing_extensions.Annotated[RoutingAccount, FieldMetadata(alias="routingNumber")]
+    bank_name: typing_extensions.Annotated[BankName, FieldMetadata(alias="bankName")]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

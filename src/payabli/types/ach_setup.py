@@ -20,7 +20,7 @@ class AchSetup(UniversalBaseModel):
         default=None
     )
     """
-    PPD is an ACH SEC Code that can be used in ACH transactions by the user that indicates the transaction is a Prearranged Payment and Deposit. 
+    PPD is an ACH SEC Code that can be used in ACH transactions by the user that indicates the transaction is a Prearranged Payment and Deposit.
     """
 
     accept_web: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="acceptWeb")] = pydantic.Field(

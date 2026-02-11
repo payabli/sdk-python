@@ -77,7 +77,7 @@ class RawBillClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         idempotency_key : typing.Optional[IdempotencyKey]
 
@@ -836,7 +836,7 @@ class RawBillClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
 
@@ -1457,7 +1457,7 @@ class AsyncRawBillClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         idempotency_key : typing.Optional[IdempotencyKey]
 
@@ -2216,7 +2216,7 @@ class AsyncRawBillClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
 

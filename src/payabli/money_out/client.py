@@ -4,6 +4,7 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
+from ..money_out_types.types.allowed_check_payment_status import AllowedCheckPaymentStatus
 from ..money_out_types.types.auth_capture_payout_response import AuthCapturePayoutResponse
 from ..money_out_types.types.authorize_payment_method import AuthorizePaymentMethod
 from ..money_out_types.types.capture_all_out_response import CaptureAllOutResponse
@@ -18,6 +19,7 @@ from ..types.entrypointfield import Entrypointfield
 from ..types.idempotency_key import IdempotencyKey
 from ..types.order_id import OrderId
 from ..types.orderdescription import Orderdescription
+from ..types.payabli_api_response_00_responsedatanonobject import PayabliApiResponse00Responsedatanonobject
 from ..types.payabli_api_response_0000 import PayabliApiResponse0000
 from ..types.source import Source
 from ..types.subdomain import Subdomain
@@ -482,6 +484,60 @@ class MoneyOutClient:
         )
         """
         _response = self._raw_client.get_check_image(asset_name, request_options=request_options)
+        return _response.data
+
+    def update_check_payment_status(
+        self,
+        trans_id: str,
+        check_payment_status: AllowedCheckPaymentStatus,
+        *,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PayabliApiResponse00Responsedatanonobject:
+        """
+        Updates the status of a processed check payment transaction. This endpoint handles the status transition, updates related bills, creates audit events, and triggers notifications.
+
+        The transaction must meet all of the following criteria:
+        - **Status**: Must be in Processing or Processed status.
+        - **Payment method**: Must be a check payment method.
+
+        ### Allowed status values
+
+        | Value | Status | Description |
+        |-------|--------|-------------|
+        | `0` | Cancelled/Voided | Cancels the check transaction. Reverts associated bills to their previous state (Approved or Active), creates "Cancelled" events, and sends a `payout_transaction_voidedcancelled` notification if the notification is enabled. |
+        | `5` | Paid | Marks the check transaction as paid. Updates associated bills to "Paid" status, creates "Paid" events, and sends a `payout_transaction_paid` notification if the notification is enabled. |
+
+        Parameters
+        ----------
+        trans_id : str
+            The Payabli transaction ID for the check payment.
+
+        check_payment_status : AllowedCheckPaymentStatus
+            The new status to apply to the check transaction. To mark a check as `Paid`, send 5. To mark a check as `Cancelled`, send 0.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayabliApiResponse00Responsedatanonobject
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.money_out.update_check_payment_status(
+            trans_id="TRANS123456",
+            check_payment_status="5",
+        )
+        """
+        _response = self._raw_client.update_check_payment_status(
+            trans_id, check_payment_status, request_options=request_options
+        )
         return _response.data
 
 
@@ -1019,4 +1075,66 @@ class AsyncMoneyOutClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.get_check_image(asset_name, request_options=request_options)
+        return _response.data
+
+    async def update_check_payment_status(
+        self,
+        trans_id: str,
+        check_payment_status: AllowedCheckPaymentStatus,
+        *,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PayabliApiResponse00Responsedatanonobject:
+        """
+        Updates the status of a processed check payment transaction. This endpoint handles the status transition, updates related bills, creates audit events, and triggers notifications.
+
+        The transaction must meet all of the following criteria:
+        - **Status**: Must be in Processing or Processed status.
+        - **Payment method**: Must be a check payment method.
+
+        ### Allowed status values
+
+        | Value | Status | Description |
+        |-------|--------|-------------|
+        | `0` | Cancelled/Voided | Cancels the check transaction. Reverts associated bills to their previous state (Approved or Active), creates "Cancelled" events, and sends a `payout_transaction_voidedcancelled` notification if the notification is enabled. |
+        | `5` | Paid | Marks the check transaction as paid. Updates associated bills to "Paid" status, creates "Paid" events, and sends a `payout_transaction_paid` notification if the notification is enabled. |
+
+        Parameters
+        ----------
+        trans_id : str
+            The Payabli transaction ID for the check payment.
+
+        check_payment_status : AllowedCheckPaymentStatus
+            The new status to apply to the check transaction. To mark a check as `Paid`, send 5. To mark a check as `Cancelled`, send 0.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayabliApiResponse00Responsedatanonobject
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.money_out.update_check_payment_status(
+                trans_id="TRANS123456",
+                check_payment_status="5",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.update_check_payment_status(
+            trans_id, check_payment_status, request_options=request_options
+        )
         return _response.data

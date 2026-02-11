@@ -162,7 +162,7 @@ class ExportClient:
             Format for the export, either XLSX or CSV.
 
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -420,7 +420,7 @@ class ExportClient:
             Format for the export, either XLSX or CSV.
 
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -656,7 +656,7 @@ class ExportClient:
             Format for the export, either XLSX or CSV.
 
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -854,7 +854,7 @@ class ExportClient:
             Format for the export, either XLSX or CSV.
 
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -1088,7 +1088,7 @@ class ExportClient:
             Format for the export, either XLSX or CSV.
 
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -1364,7 +1364,7 @@ class ExportClient:
             Format for the export, either XLSX or CSV.
 
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -1626,7 +1626,7 @@ class ExportClient:
             Format for the export, either XLSX or CSV.
 
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -2024,7 +2024,7 @@ class ExportClient:
             Format for the export, either XLSX or CSV.
 
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -2371,7 +2371,7 @@ class ExportClient:
             Format for the export, either XLSX or CSV.
 
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -2645,7 +2645,7 @@ class ExportClient:
             Format for the export, either XLSX or CSV.
 
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -2923,7 +2923,7 @@ class ExportClient:
             Format for the export, either XLSX or CSV.
 
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -3211,7 +3211,7 @@ class ExportClient:
             Format for the export, either XLSX or CSV.
 
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         transfer_id : int
             Transfer identifier.
@@ -3325,7 +3325,7 @@ class ExportClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -3436,7 +3436,7 @@ class ExportClient:
             Format for the export, either XLSX or CSV.
 
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -3820,7 +3820,7 @@ class AsyncExportClient:
             Format for the export, either XLSX or CSV.
 
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -4094,7 +4094,7 @@ class AsyncExportClient:
             Format for the export, either XLSX or CSV.
 
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -4346,7 +4346,7 @@ class AsyncExportClient:
             Format for the export, either XLSX or CSV.
 
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -4560,7 +4560,7 @@ class AsyncExportClient:
             Format for the export, either XLSX or CSV.
 
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -4810,7 +4810,7 @@ class AsyncExportClient:
             Format for the export, either XLSX or CSV.
 
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -5102,7 +5102,7 @@ class AsyncExportClient:
             Format for the export, either XLSX or CSV.
 
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -5380,7 +5380,7 @@ class AsyncExportClient:
             Format for the export, either XLSX or CSV.
 
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -5802,7 +5802,7 @@ class AsyncExportClient:
             Format for the export, either XLSX or CSV.
 
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -6173,7 +6173,7 @@ class AsyncExportClient:
             Format for the export, either XLSX or CSV.
 
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -6463,7 +6463,7 @@ class AsyncExportClient:
             Format for the export, either XLSX or CSV.
 
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -6757,7 +6757,7 @@ class AsyncExportClient:
             Format for the export, either XLSX or CSV.
 
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -7061,7 +7061,7 @@ class AsyncExportClient:
             Format for the export, either XLSX or CSV.
 
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         transfer_id : int
             Transfer identifier.
@@ -7183,7 +7183,7 @@ class AsyncExportClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 
@@ -7302,7 +7302,7 @@ class AsyncExportClient:
             Format for the export, either XLSX or CSV.
 
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         columns_export : typing.Optional[str]
 

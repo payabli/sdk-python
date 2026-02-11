@@ -18,6 +18,8 @@ from ..query_types.types.list_organizations_response import ListOrganizationsRes
 from ..query_types.types.query_batches_detail_response import QueryBatchesDetailResponse
 from ..query_types.types.query_batches_response import QueryBatchesResponse
 from ..query_types.types.query_transfer_detail_response import QueryTransferDetailResponse
+from ..query_types.types.transfer_out_detail_query_response import TransferOutDetailQueryResponse
+from ..query_types.types.transfer_out_query_response import TransferOutQueryResponse
 from ..types.entry import Entry
 from ..types.export_format import ExportFormat
 from ..types.orgid import Orgid
@@ -3880,7 +3882,7 @@ class RawQueryClient:
             - `ct` => contains
             - `nct` => not contains
             - `in` => inside array
-            - `nin` => not inside array      
+            - `nin` => not inside array
         
         sort_by : typing.Optional[str]
             The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
@@ -4089,7 +4091,6 @@ class RawQueryClient:
             - `nct` => not contains
             - `in` => inside array
             - `nin` => not inside array
-              
         
         sort_by : typing.Optional[str]
             The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
@@ -4241,7 +4242,6 @@ class RawQueryClient:
               - `category` (eq, ne, ct, nct)
               - `type` (eq, ne, in, nin)
               - `method` (eq, ne, in, nin)
-
 
         sort_by : typing.Optional[str]
             The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
@@ -4612,6 +4612,412 @@ class RawQueryClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def list_transfers_out_org(
+        self,
+        org_id: int,
+        *,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[TransferOutQueryResponse]:
+        """
+        Retrieve a list of outbound transfers for an organization. Use filters to limit results.
+
+        Parameters
+        ----------
+        org_id : int
+            The numeric identifier for organization, assigned by Payabli.
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Collection of field names, conditions, and values used to filter the query. See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
+            <Info>
+              **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+              For example:
+
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+              should become:
+
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+            </Info>
+            List of field names accepted:
+
+              - `transferDate` (gt, ge, lt, le, eq, ne)
+              - `grossAmount` (gt, ge, lt, le, eq, ne)
+              - `returnedAmount` (gt, ge, lt, le, eq, ne)
+              - `billingFeeAmount` (gt, ge, lt, le, eq, ne)
+              - `netFundedAmount` (gt, ge, lt, le, eq, ne)
+              - `processor` (ne, eq, ct, nct)
+              - `transferStatus` (ne, eq, in, nin)
+              - `transferId` (ne, eq, in, nin)
+              - `paypointLegalName` (ne, eq, ct, nct)
+              - `paypointDbaName` (ne, eq, ct, nct)
+              - `batchNumber` (ne, eq, ct, nct)
+              - `batchId` (ne, eq, in, nin)
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[TransferOutQueryResponse]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"Query/transfersOut/org/{jsonable_encoder(org_id)}",
+            method="GET",
+            params={
+                "fromRecord": from_record,
+                "limitRecord": limit_record,
+                "parameters": parameters,
+                "sortBy": sort_by,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    TransferOutQueryResponse,
+                    parse_obj_as(
+                        type_=TransferOutQueryResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def list_transfers_out_paypoint(
+        self,
+        entry: Entry,
+        *,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[TransferOutQueryResponse]:
+        """
+        Retrieve a list of outbound transfers for a paypoint. Use filters to limit results.
+
+        Parameters
+        ----------
+        entry : Entry
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Collection of field names, conditions, and values used to filter the query. See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
+            <Info>
+              **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+              For example:
+
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+              should become:
+
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+            </Info>
+            List of field names accepted:
+
+              - `transferDate` (gt, ge, lt, le, eq, ne)
+              - `grossAmount` (gt, ge, lt, le, eq, ne)
+              - `returnedAmount` (gt, ge, lt, le, eq, ne)
+              - `billingFeeAmount` (gt, ge, lt, le, eq, ne)
+              - `netFundedAmount` (gt, ge, lt, le, eq, ne)
+              - `processor` (ne, eq, ct, nct)
+              - `transferStatus` (ne, eq, in, nin)
+              - `transferId` (ne, eq, in, nin)
+              - `paypointLegalName` (ne, eq, ct, nct)
+              - `paypointDbaName` (ne, eq, ct, nct)
+              - `batchNumber` (ne, eq, ct, nct)
+              - `batchId` (ne, eq, in, nin)
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[TransferOutQueryResponse]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"Query/transfersOut/{jsonable_encoder(entry)}",
+            method="GET",
+            params={
+                "fromRecord": from_record,
+                "limitRecord": limit_record,
+                "parameters": parameters,
+                "sortBy": sort_by,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    TransferOutQueryResponse,
+                    parse_obj_as(
+                        type_=TransferOutQueryResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def list_transfer_details_out(
+        self,
+        entry: Entry,
+        transfer_id: int,
+        *,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[TransferOutDetailQueryResponse]:
+        """
+        Retrieve details for a specific outbound transfer. Use filters to limit results.
+
+        Parameters
+        ----------
+        entry : Entry
+
+        transfer_id : int
+            The numeric identifier for the transfer, assigned by Payabli.
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Collection of field names, conditions, and values used to filter the query. See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
+            <Info>
+              **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+              For example:
+
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+              should become:
+
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+            </Info>
+            List of field names accepted:
+
+              - `grossAmount` (gt, ge, lt, le, eq, ne)
+              - `returnedAmount` (gt, ge, lt, le, eq, ne)
+              - `billingFeeAmount` (gt, ge, lt, le, eq, ne)
+              - `netFundedAmount` (gt, ge, lt, le, eq, ne)
+              - `adjustmentAmount` (gt, ge, lt, le, eq, ne)
+              - `transactionId` (eq, ne, in, nin)
+              - `category` (eq, ne, ct, nct)
+              - `type` (eq, ne, in, nin)
+              - `method` (eq, ne, in, nin)
+              - `walletType` (eq, ne, in, nin)
+              - `splitFundingAmount` (gt, ge, lt, le, eq, ne)
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[TransferOutDetailQueryResponse]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"Query/transferDetailsOut/{jsonable_encoder(entry)}/{jsonable_encoder(transfer_id)}",
+            method="GET",
+            params={
+                "fromRecord": from_record,
+                "limitRecord": limit_record,
+                "parameters": parameters,
+                "sortBy": sort_by,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    TransferOutDetailQueryResponse,
+                    parse_obj_as(
+                        type_=TransferOutDetailQueryResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     def list_users_org(
         self,
         org_id: int,
@@ -4777,7 +5183,7 @@ class RawQueryClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -4927,7 +5333,7 @@ class RawQueryClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
 
@@ -9352,7 +9758,7 @@ class AsyncRawQueryClient:
             - `ct` => contains
             - `nct` => not contains
             - `in` => inside array
-            - `nin` => not inside array      
+            - `nin` => not inside array
         
         sort_by : typing.Optional[str]
             The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
@@ -9561,7 +9967,6 @@ class AsyncRawQueryClient:
             - `nct` => not contains
             - `in` => inside array
             - `nin` => not inside array
-              
         
         sort_by : typing.Optional[str]
             The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
@@ -9713,7 +10118,6 @@ class AsyncRawQueryClient:
               - `category` (eq, ne, ct, nct)
               - `type` (eq, ne, in, nin)
               - `method` (eq, ne, in, nin)
-
 
         sort_by : typing.Optional[str]
             The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
@@ -10084,6 +10488,412 @@ class AsyncRawQueryClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    async def list_transfers_out_org(
+        self,
+        org_id: int,
+        *,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[TransferOutQueryResponse]:
+        """
+        Retrieve a list of outbound transfers for an organization. Use filters to limit results.
+
+        Parameters
+        ----------
+        org_id : int
+            The numeric identifier for organization, assigned by Payabli.
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Collection of field names, conditions, and values used to filter the query. See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
+            <Info>
+              **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+              For example:
+
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+              should become:
+
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+            </Info>
+            List of field names accepted:
+
+              - `transferDate` (gt, ge, lt, le, eq, ne)
+              - `grossAmount` (gt, ge, lt, le, eq, ne)
+              - `returnedAmount` (gt, ge, lt, le, eq, ne)
+              - `billingFeeAmount` (gt, ge, lt, le, eq, ne)
+              - `netFundedAmount` (gt, ge, lt, le, eq, ne)
+              - `processor` (ne, eq, ct, nct)
+              - `transferStatus` (ne, eq, in, nin)
+              - `transferId` (ne, eq, in, nin)
+              - `paypointLegalName` (ne, eq, ct, nct)
+              - `paypointDbaName` (ne, eq, ct, nct)
+              - `batchNumber` (ne, eq, ct, nct)
+              - `batchId` (ne, eq, in, nin)
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[TransferOutQueryResponse]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"Query/transfersOut/org/{jsonable_encoder(org_id)}",
+            method="GET",
+            params={
+                "fromRecord": from_record,
+                "limitRecord": limit_record,
+                "parameters": parameters,
+                "sortBy": sort_by,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    TransferOutQueryResponse,
+                    parse_obj_as(
+                        type_=TransferOutQueryResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def list_transfers_out_paypoint(
+        self,
+        entry: Entry,
+        *,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[TransferOutQueryResponse]:
+        """
+        Retrieve a list of outbound transfers for a paypoint. Use filters to limit results.
+
+        Parameters
+        ----------
+        entry : Entry
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Collection of field names, conditions, and values used to filter the query. See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
+            <Info>
+              **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+              For example:
+
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+              should become:
+
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+            </Info>
+            List of field names accepted:
+
+              - `transferDate` (gt, ge, lt, le, eq, ne)
+              - `grossAmount` (gt, ge, lt, le, eq, ne)
+              - `returnedAmount` (gt, ge, lt, le, eq, ne)
+              - `billingFeeAmount` (gt, ge, lt, le, eq, ne)
+              - `netFundedAmount` (gt, ge, lt, le, eq, ne)
+              - `processor` (ne, eq, ct, nct)
+              - `transferStatus` (ne, eq, in, nin)
+              - `transferId` (ne, eq, in, nin)
+              - `paypointLegalName` (ne, eq, ct, nct)
+              - `paypointDbaName` (ne, eq, ct, nct)
+              - `batchNumber` (ne, eq, ct, nct)
+              - `batchId` (ne, eq, in, nin)
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[TransferOutQueryResponse]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"Query/transfersOut/{jsonable_encoder(entry)}",
+            method="GET",
+            params={
+                "fromRecord": from_record,
+                "limitRecord": limit_record,
+                "parameters": parameters,
+                "sortBy": sort_by,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    TransferOutQueryResponse,
+                    parse_obj_as(
+                        type_=TransferOutQueryResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def list_transfer_details_out(
+        self,
+        entry: Entry,
+        transfer_id: int,
+        *,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[TransferOutDetailQueryResponse]:
+        """
+        Retrieve details for a specific outbound transfer. Use filters to limit results.
+
+        Parameters
+        ----------
+        entry : Entry
+
+        transfer_id : int
+            The numeric identifier for the transfer, assigned by Payabli.
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Collection of field names, conditions, and values used to filter the query. See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
+            <Info>
+              **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+              For example:
+
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+              should become:
+
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+            </Info>
+            List of field names accepted:
+
+              - `grossAmount` (gt, ge, lt, le, eq, ne)
+              - `returnedAmount` (gt, ge, lt, le, eq, ne)
+              - `billingFeeAmount` (gt, ge, lt, le, eq, ne)
+              - `netFundedAmount` (gt, ge, lt, le, eq, ne)
+              - `adjustmentAmount` (gt, ge, lt, le, eq, ne)
+              - `transactionId` (eq, ne, in, nin)
+              - `category` (eq, ne, ct, nct)
+              - `type` (eq, ne, in, nin)
+              - `method` (eq, ne, in, nin)
+              - `walletType` (eq, ne, in, nin)
+              - `splitFundingAmount` (gt, ge, lt, le, eq, ne)
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[TransferOutDetailQueryResponse]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"Query/transferDetailsOut/{jsonable_encoder(entry)}/{jsonable_encoder(transfer_id)}",
+            method="GET",
+            params={
+                "fromRecord": from_record,
+                "limitRecord": limit_record,
+                "parameters": parameters,
+                "sortBy": sort_by,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    TransferOutDetailQueryResponse,
+                    parse_obj_as(
+                        type_=TransferOutDetailQueryResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     async def list_users_org(
         self,
         org_id: int,
@@ -10249,7 +11059,7 @@ class AsyncRawQueryClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -10399,7 +11209,7 @@ class AsyncRawQueryClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
 

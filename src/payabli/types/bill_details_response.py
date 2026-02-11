@@ -30,7 +30,7 @@ class BillDetailsResponse(UniversalBaseModel):
         typing.Optional[InvoiceNumber], FieldMetadata(alias="invoiceNumber")
     ] = pydantic.Field(default=None)
     """
-    Custom number identifying the bill. 
+    Custom number identifying the bill.
     """
 
     net_amount: typing_extensions.Annotated[typing.Optional[NetAmountstring], FieldMetadata(alias="netAmount")] = (

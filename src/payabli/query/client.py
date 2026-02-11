@@ -9,6 +9,8 @@ from ..query_types.types.list_organizations_response import ListOrganizationsRes
 from ..query_types.types.query_batches_detail_response import QueryBatchesDetailResponse
 from ..query_types.types.query_batches_response import QueryBatchesResponse
 from ..query_types.types.query_transfer_detail_response import QueryTransferDetailResponse
+from ..query_types.types.transfer_out_detail_query_response import TransferOutDetailQueryResponse
+from ..query_types.types.transfer_out_query_response import TransferOutQueryResponse
 from ..types.entry import Entry
 from ..types.export_format import ExportFormat
 from ..types.orgid import Orgid
@@ -2870,7 +2872,7 @@ class QueryClient:
             - `ct` => contains
             - `nct` => not contains
             - `in` => inside array
-            - `nin` => not inside array      
+            - `nin` => not inside array
         
         sort_by : typing.Optional[str]
             The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
@@ -3033,7 +3035,6 @@ class QueryClient:
             - `nct` => not contains
             - `in` => inside array
             - `nin` => not inside array
-              
         
         sort_by : typing.Optional[str]
             The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
@@ -3139,7 +3140,6 @@ class QueryClient:
               - `category` (eq, ne, ct, nct)
               - `type` (eq, ne, in, nin)
               - `method` (eq, ne, in, nin)
-
 
         sort_by : typing.Optional[str]
             The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
@@ -3369,6 +3369,273 @@ class QueryClient:
         )
         return _response.data
 
+    def list_transfers_out_org(
+        self,
+        org_id: int,
+        *,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> TransferOutQueryResponse:
+        """
+        Retrieve a list of outbound transfers for an organization. Use filters to limit results.
+
+        Parameters
+        ----------
+        org_id : int
+            The numeric identifier for organization, assigned by Payabli.
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Collection of field names, conditions, and values used to filter the query. See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
+            <Info>
+              **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+              For example:
+
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+              should become:
+
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+            </Info>
+            List of field names accepted:
+
+              - `transferDate` (gt, ge, lt, le, eq, ne)
+              - `grossAmount` (gt, ge, lt, le, eq, ne)
+              - `returnedAmount` (gt, ge, lt, le, eq, ne)
+              - `billingFeeAmount` (gt, ge, lt, le, eq, ne)
+              - `netFundedAmount` (gt, ge, lt, le, eq, ne)
+              - `processor` (ne, eq, ct, nct)
+              - `transferStatus` (ne, eq, in, nin)
+              - `transferId` (ne, eq, in, nin)
+              - `paypointLegalName` (ne, eq, ct, nct)
+              - `paypointDbaName` (ne, eq, ct, nct)
+              - `batchNumber` (ne, eq, ct, nct)
+              - `batchId` (ne, eq, in, nin)
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TransferOutQueryResponse
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.query.list_transfers_out_org(
+            org_id=77,
+            from_record=0,
+            limit_record=20,
+        )
+        """
+        _response = self._raw_client.list_transfers_out_org(
+            org_id,
+            from_record=from_record,
+            limit_record=limit_record,
+            parameters=parameters,
+            sort_by=sort_by,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def list_transfers_out_paypoint(
+        self,
+        entry: Entry,
+        *,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> TransferOutQueryResponse:
+        """
+        Retrieve a list of outbound transfers for a paypoint. Use filters to limit results.
+
+        Parameters
+        ----------
+        entry : Entry
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Collection of field names, conditions, and values used to filter the query. See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
+            <Info>
+              **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+              For example:
+
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+              should become:
+
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+            </Info>
+            List of field names accepted:
+
+              - `transferDate` (gt, ge, lt, le, eq, ne)
+              - `grossAmount` (gt, ge, lt, le, eq, ne)
+              - `returnedAmount` (gt, ge, lt, le, eq, ne)
+              - `billingFeeAmount` (gt, ge, lt, le, eq, ne)
+              - `netFundedAmount` (gt, ge, lt, le, eq, ne)
+              - `processor` (ne, eq, ct, nct)
+              - `transferStatus` (ne, eq, in, nin)
+              - `transferId` (ne, eq, in, nin)
+              - `paypointLegalName` (ne, eq, ct, nct)
+              - `paypointDbaName` (ne, eq, ct, nct)
+              - `batchNumber` (ne, eq, ct, nct)
+              - `batchId` (ne, eq, in, nin)
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TransferOutQueryResponse
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.query.list_transfers_out_paypoint(
+            entry="47cade237",
+            from_record=0,
+            limit_record=20,
+        )
+        """
+        _response = self._raw_client.list_transfers_out_paypoint(
+            entry,
+            from_record=from_record,
+            limit_record=limit_record,
+            parameters=parameters,
+            sort_by=sort_by,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def list_transfer_details_out(
+        self,
+        entry: Entry,
+        transfer_id: int,
+        *,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> TransferOutDetailQueryResponse:
+        """
+        Retrieve details for a specific outbound transfer. Use filters to limit results.
+
+        Parameters
+        ----------
+        entry : Entry
+
+        transfer_id : int
+            The numeric identifier for the transfer, assigned by Payabli.
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Collection of field names, conditions, and values used to filter the query. See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
+            <Info>
+              **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+              For example:
+
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+              should become:
+
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+            </Info>
+            List of field names accepted:
+
+              - `grossAmount` (gt, ge, lt, le, eq, ne)
+              - `returnedAmount` (gt, ge, lt, le, eq, ne)
+              - `billingFeeAmount` (gt, ge, lt, le, eq, ne)
+              - `netFundedAmount` (gt, ge, lt, le, eq, ne)
+              - `adjustmentAmount` (gt, ge, lt, le, eq, ne)
+              - `transactionId` (eq, ne, in, nin)
+              - `category` (eq, ne, ct, nct)
+              - `type` (eq, ne, in, nin)
+              - `method` (eq, ne, in, nin)
+              - `walletType` (eq, ne, in, nin)
+              - `splitFundingAmount` (gt, ge, lt, le, eq, ne)
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TransferOutDetailQueryResponse
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.query.list_transfer_details_out(
+            entry="47ace2b25",
+            transfer_id=4521,
+            from_record=0,
+            limit_record=20,
+        )
+        """
+        _response = self._raw_client.list_transfer_details_out(
+            entry,
+            transfer_id,
+            from_record=from_record,
+            limit_record=limit_record,
+            parameters=parameters,
+            sort_by=sort_by,
+            request_options=request_options,
+        )
+        return _response.data
+
     def list_users_org(
         self,
         org_id: int,
@@ -3488,7 +3755,7 @@ class QueryClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -3592,7 +3859,7 @@ class QueryClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
 
@@ -7052,7 +7319,7 @@ class AsyncQueryClient:
             - `ct` => contains
             - `nct` => not contains
             - `in` => inside array
-            - `nin` => not inside array      
+            - `nin` => not inside array
         
         sort_by : typing.Optional[str]
             The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
@@ -7223,7 +7490,6 @@ class AsyncQueryClient:
             - `nct` => not contains
             - `in` => inside array
             - `nin` => not inside array
-              
         
         sort_by : typing.Optional[str]
             The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
@@ -7337,7 +7603,6 @@ class AsyncQueryClient:
               - `category` (eq, ne, ct, nct)
               - `type` (eq, ne, in, nin)
               - `method` (eq, ne, in, nin)
-
 
         sort_by : typing.Optional[str]
             The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
@@ -7591,6 +7856,297 @@ class AsyncQueryClient:
         )
         return _response.data
 
+    async def list_transfers_out_org(
+        self,
+        org_id: int,
+        *,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> TransferOutQueryResponse:
+        """
+        Retrieve a list of outbound transfers for an organization. Use filters to limit results.
+
+        Parameters
+        ----------
+        org_id : int
+            The numeric identifier for organization, assigned by Payabli.
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Collection of field names, conditions, and values used to filter the query. See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
+            <Info>
+              **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+              For example:
+
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+              should become:
+
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+            </Info>
+            List of field names accepted:
+
+              - `transferDate` (gt, ge, lt, le, eq, ne)
+              - `grossAmount` (gt, ge, lt, le, eq, ne)
+              - `returnedAmount` (gt, ge, lt, le, eq, ne)
+              - `billingFeeAmount` (gt, ge, lt, le, eq, ne)
+              - `netFundedAmount` (gt, ge, lt, le, eq, ne)
+              - `processor` (ne, eq, ct, nct)
+              - `transferStatus` (ne, eq, in, nin)
+              - `transferId` (ne, eq, in, nin)
+              - `paypointLegalName` (ne, eq, ct, nct)
+              - `paypointDbaName` (ne, eq, ct, nct)
+              - `batchNumber` (ne, eq, ct, nct)
+              - `batchId` (ne, eq, in, nin)
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TransferOutQueryResponse
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.query.list_transfers_out_org(
+                org_id=77,
+                from_record=0,
+                limit_record=20,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_transfers_out_org(
+            org_id,
+            from_record=from_record,
+            limit_record=limit_record,
+            parameters=parameters,
+            sort_by=sort_by,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def list_transfers_out_paypoint(
+        self,
+        entry: Entry,
+        *,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> TransferOutQueryResponse:
+        """
+        Retrieve a list of outbound transfers for a paypoint. Use filters to limit results.
+
+        Parameters
+        ----------
+        entry : Entry
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Collection of field names, conditions, and values used to filter the query. See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
+            <Info>
+              **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+              For example:
+
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+              should become:
+
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+            </Info>
+            List of field names accepted:
+
+              - `transferDate` (gt, ge, lt, le, eq, ne)
+              - `grossAmount` (gt, ge, lt, le, eq, ne)
+              - `returnedAmount` (gt, ge, lt, le, eq, ne)
+              - `billingFeeAmount` (gt, ge, lt, le, eq, ne)
+              - `netFundedAmount` (gt, ge, lt, le, eq, ne)
+              - `processor` (ne, eq, ct, nct)
+              - `transferStatus` (ne, eq, in, nin)
+              - `transferId` (ne, eq, in, nin)
+              - `paypointLegalName` (ne, eq, ct, nct)
+              - `paypointDbaName` (ne, eq, ct, nct)
+              - `batchNumber` (ne, eq, ct, nct)
+              - `batchId` (ne, eq, in, nin)
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TransferOutQueryResponse
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.query.list_transfers_out_paypoint(
+                entry="47cade237",
+                from_record=0,
+                limit_record=20,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_transfers_out_paypoint(
+            entry,
+            from_record=from_record,
+            limit_record=limit_record,
+            parameters=parameters,
+            sort_by=sort_by,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def list_transfer_details_out(
+        self,
+        entry: Entry,
+        transfer_id: int,
+        *,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> TransferOutDetailQueryResponse:
+        """
+        Retrieve details for a specific outbound transfer. Use filters to limit results.
+
+        Parameters
+        ----------
+        entry : Entry
+
+        transfer_id : int
+            The numeric identifier for the transfer, assigned by Payabli.
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Collection of field names, conditions, and values used to filter the query. See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
+            <Info>
+              **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+              For example:
+
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+              should become:
+
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+            </Info>
+            List of field names accepted:
+
+              - `grossAmount` (gt, ge, lt, le, eq, ne)
+              - `returnedAmount` (gt, ge, lt, le, eq, ne)
+              - `billingFeeAmount` (gt, ge, lt, le, eq, ne)
+              - `netFundedAmount` (gt, ge, lt, le, eq, ne)
+              - `adjustmentAmount` (gt, ge, lt, le, eq, ne)
+              - `transactionId` (eq, ne, in, nin)
+              - `category` (eq, ne, ct, nct)
+              - `type` (eq, ne, in, nin)
+              - `method` (eq, ne, in, nin)
+              - `walletType` (eq, ne, in, nin)
+              - `splitFundingAmount` (gt, ge, lt, le, eq, ne)
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TransferOutDetailQueryResponse
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.query.list_transfer_details_out(
+                entry="47ace2b25",
+                transfer_id=4521,
+                from_record=0,
+                limit_record=20,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_transfer_details_out(
+            entry,
+            transfer_id,
+            from_record=from_record,
+            limit_record=limit_record,
+            parameters=parameters,
+            sort_by=sort_by,
+            request_options=request_options,
+        )
+        return _response.data
+
     async def list_users_org(
         self,
         org_id: int,
@@ -7718,7 +8274,7 @@ class AsyncQueryClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -7830,7 +8386,7 @@ class AsyncQueryClient:
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/api-reference/api-overview#entrypoint-vs-entry)
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
 

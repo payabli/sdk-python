@@ -23,14 +23,14 @@ class TransactionDetailResponseData(UniversalBaseModel):
         default=None
     )
     """
-    Unified result code for the transaction. See [Pay In unified response codes](/developers/references/pay-in-unified-response-codes) for more information.
+    Unified result code for the transaction. See [Pay In unified response codes](/guides/pay-in-unified-response-codes-reference) for more information.
     """
 
     result_code_text: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="resultCodeText")] = (
         pydantic.Field(default=None)
     )
     """
-    Description of the result code. See [Pay In unified response codes](/developers/references/pay-in-unified-response-codes) for more information.
+    Description of the result code. See [Pay In unified response codes](/guides/pay-in-unified-response-codes-reference) for more information.
     """
 
     response: typing.Optional[str] = None

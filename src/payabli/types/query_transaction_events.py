@@ -29,7 +29,7 @@ class QueryTransactionEvents(UniversalBaseModel):
         default=None
     )
     """
-    Event descriptor. See [TransEvent Reference](/developers/references/transevents) for more details.
+    Event descriptor. See [TransEvent Reference](/guides/pay-in-transevents-reference) for more details.
     """
 
     if IS_PYDANTIC_V2:
