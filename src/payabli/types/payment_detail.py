@@ -22,42 +22,55 @@ class PaymentDetail(UniversalBaseModel):
     """
 
     check_image: typing_extensions.Annotated[
-        typing.Optional[typing.Dict[str, typing.Any]], FieldMetadata(alias="checkImage")
-    ] = pydantic.Field(default=None)
-    """
-    Object containing image of paper check.
-    """
-
-    check_number: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="checkNumber")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    A check number to be used in the ach transaction. **Required** for payment method = 'check'.
-    """
-
+        typing.Optional[typing.Dict[str, typing.Any]],
+        FieldMetadata(alias="checkImage"),
+        pydantic.Field(alias="checkImage", description="Object containing image of paper check."),
+    ] = None
+    check_number: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="checkNumber"),
+        pydantic.Field(
+            alias="checkNumber",
+            description="A check number to be used in the ach transaction. **Required** for payment method = 'check'.",
+        ),
+    ] = None
     currency: typing.Optional[str] = pydantic.Field(default=None)
     """
     The currency for the transaction, `USD` or `CAD`. If your paypoint is configured for CAD, you must send the `CAD` value in this field, otherwise it defaults to USD, which will cause the transaction to fail.
     """
 
-    service_fee: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="serviceFee")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Service fee to be deducted from the total amount. This amount must be a number, percentages aren't accepted. If you are using a percentage-based fee schedule, you must calculate the value manually.
-    """
-
-    split_funding: typing_extensions.Annotated[typing.Optional[SplitFunding], FieldMetadata(alias="splitFunding")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Split funding instructions for the transaction. See [Split a Transaction](/developers/developer-guides/money-in-split-funding) for more.
-    """
-
-    total_amount: typing_extensions.Annotated[float, FieldMetadata(alias="totalAmount")] = pydantic.Field()
-    """
-    Total amount to be charged. If a service fee is sent, then this amount should include the service fee."
-    """
+    service_fee: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="serviceFee"),
+        pydantic.Field(
+            alias="serviceFee",
+            description="Service fee to be deducted from the total amount. This amount must be a number, percentages aren't accepted. If you are using a percentage-based fee schedule, you must calculate the value manually.",
+        ),
+    ] = None
+    split_funding: typing_extensions.Annotated[
+        typing.Optional[SplitFunding],
+        FieldMetadata(alias="splitFunding"),
+        pydantic.Field(
+            alias="splitFunding",
+            description="Split funding instructions for the transaction. See [Split a Transaction](/developers/developer-guides/money-in-split-funding) for more.",
+        ),
+    ] = None
+    check_unique_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="checkUniqueId"),
+        pydantic.Field(
+            alias="checkUniqueId",
+            description="Unique identifier for a processed check image. Required for RDC (Remote Deposit Capture) transactions where `achCode` is `BOC`. Use the `id` value from the [check processing](/developers/api-reference/checkcapture/process-a-check-image) response.",
+        ),
+    ] = None
+    total_amount: typing_extensions.Annotated[
+        float,
+        FieldMetadata(alias="totalAmount"),
+        pydantic.Field(
+            alias="totalAmount",
+            description='Total amount to be charged. If a service fee is sent, then this amount should include the service fee."',
+        ),
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -14,12 +14,11 @@ class Finishtype(UniversalBaseModel):
     Flag to enable 'calendar' option
     """
 
-    until_cancelled: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="untilCancelled")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Flag to enable 'untilCancelled' option
-    """
+    until_cancelled: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="untilCancelled"),
+        pydantic.Field(alias="untilCancelled", description="Flag to enable 'untilCancelled' option"),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

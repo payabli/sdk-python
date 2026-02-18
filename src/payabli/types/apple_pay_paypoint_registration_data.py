@@ -13,15 +13,19 @@ from .is_enabled import IsEnabled
 
 class ApplePayPaypointRegistrationData(UniversalBaseModel):
     entry: typing.Optional[Entry] = None
-    is_enabled: typing_extensions.Annotated[typing.Optional[IsEnabled], FieldMetadata(alias="isEnabled")] = None
-    wallet_type: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="walletType")] = pydantic.Field(
-        default=None
-    )
-    """
-    The wallet type. In this context it will always be `applePay`.
-    """
-
-    wallet_data: typing_extensions.Annotated[typing.Optional[AppleWalletData], FieldMetadata(alias="walletData")] = None
+    is_enabled: typing_extensions.Annotated[
+        typing.Optional[IsEnabled], FieldMetadata(alias="isEnabled"), pydantic.Field(alias="isEnabled")
+    ] = None
+    wallet_type: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="walletType"),
+        pydantic.Field(
+            alias="walletType", description="The wallet type. In this context it will always be `applePay`."
+        ),
+    ] = None
+    wallet_data: typing_extensions.Annotated[
+        typing.Optional[AppleWalletData], FieldMetadata(alias="walletData"), pydantic.Field(alias="walletData")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

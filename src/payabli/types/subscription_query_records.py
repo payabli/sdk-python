@@ -25,170 +25,140 @@ from .source import Source
 
 
 class SubscriptionQueryRecords(UniversalBaseModel):
-    created_at: typing_extensions.Annotated[typing.Optional[CreatedAt], FieldMetadata(alias="CreatedAt")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Timestamp of when the subscription ws created, in UTC.
-    """
-
+    created_at: typing_extensions.Annotated[
+        typing.Optional[CreatedAt],
+        FieldMetadata(alias="CreatedAt"),
+        pydantic.Field(alias="CreatedAt", description="Timestamp of when the subscription ws created, in UTC."),
+    ] = None
     customer: typing_extensions.Annotated[
-        typing.Optional[QueryTransactionPayorData], FieldMetadata(alias="Customer")
+        typing.Optional[QueryTransactionPayorData], FieldMetadata(alias="Customer"), pydantic.Field(alias="Customer")
     ] = None
-    end_date: typing_extensions.Annotated[typing.Optional[DatetimeNullable], FieldMetadata(alias="EndDate")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The subscription's end date.
-    """
-
-    entrypage_id: typing_extensions.Annotated[typing.Optional[EntrypageId], FieldMetadata(alias="EntrypageId")] = None
+    end_date: typing_extensions.Annotated[
+        typing.Optional[DatetimeNullable],
+        FieldMetadata(alias="EndDate"),
+        pydantic.Field(alias="EndDate", description="The subscription's end date."),
+    ] = None
+    entrypage_id: typing_extensions.Annotated[
+        typing.Optional[EntrypageId], FieldMetadata(alias="EntrypageId"), pydantic.Field(alias="EntrypageId")
+    ] = None
     external_paypoint_id: typing_extensions.Annotated[
-        typing.Optional[ExternalPaypointId], FieldMetadata(alias="ExternalPaypointID")
+        typing.Optional[ExternalPaypointId],
+        FieldMetadata(alias="ExternalPaypointID"),
+        pydantic.Field(alias="ExternalPaypointID"),
     ] = None
-    fee_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="FeeAmount")] = pydantic.Field(
-        default=None
-    )
-    """
-    Fee applied to the subscription.
-    """
-
-    frequency: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="Frequency")] = pydantic.Field(
-        default=None
-    )
-    """
-    The subscription's frequency.
-    """
-
-    id_sub: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="IdSub")] = pydantic.Field(
-        default=None
-    )
-    """
-    The subscription's ID.
-    """
-
-    invoice_data: typing_extensions.Annotated[typing.Optional[BillData], FieldMetadata(alias="InvoiceData")] = None
-    last_run: typing_extensions.Annotated[typing.Optional[DatetimeNullable], FieldMetadata(alias="LastRun")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The last time the subscription was processed.
-    """
-
-    last_updated: typing_extensions.Annotated[typing.Optional[LastModified], FieldMetadata(alias="LastUpdated")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The last date and time the subscription was updated.
-    """
-
-    left_cycles: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="LeftCycles")] = pydantic.Field(
-        default=None
-    )
-    """
-    The number of cycles the subscription has left.
-    """
-
-    method: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="Method")] = pydantic.Field(
-        default=None
-    )
-    """
-    The subscription's payment method.
-    """
-
-    net_amount: typing_extensions.Annotated[typing.Optional[Netamountnullable], FieldMetadata(alias="NetAmount")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The subscription amount, minus any fees.
-    """
-
-    next_date: typing_extensions.Annotated[typing.Optional[DatetimeNullable], FieldMetadata(alias="NextDate")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The next date the subscription will be processed.
-    """
-
+    fee_amount: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="FeeAmount"),
+        pydantic.Field(alias="FeeAmount", description="Fee applied to the subscription."),
+    ] = None
+    frequency: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="Frequency"),
+        pydantic.Field(alias="Frequency", description="The subscription's frequency."),
+    ] = None
+    id_sub: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="IdSub"),
+        pydantic.Field(alias="IdSub", description="The subscription's ID."),
+    ] = None
+    invoice_data: typing_extensions.Annotated[
+        typing.Optional[BillData], FieldMetadata(alias="InvoiceData"), pydantic.Field(alias="InvoiceData")
+    ] = None
+    last_run: typing_extensions.Annotated[
+        typing.Optional[DatetimeNullable],
+        FieldMetadata(alias="LastRun"),
+        pydantic.Field(alias="LastRun", description="The last time the subscription was processed."),
+    ] = None
+    last_updated: typing_extensions.Annotated[
+        typing.Optional[LastModified],
+        FieldMetadata(alias="LastUpdated"),
+        pydantic.Field(alias="LastUpdated", description="The last date and time the subscription was updated."),
+    ] = None
+    left_cycles: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="LeftCycles"),
+        pydantic.Field(alias="LeftCycles", description="The number of cycles the subscription has left."),
+    ] = None
+    method: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="Method"),
+        pydantic.Field(alias="Method", description="The subscription's payment method."),
+    ] = None
+    net_amount: typing_extensions.Annotated[
+        typing.Optional[Netamountnullable],
+        FieldMetadata(alias="NetAmount"),
+        pydantic.Field(alias="NetAmount", description="The subscription amount, minus any fees."),
+    ] = None
+    next_date: typing_extensions.Annotated[
+        typing.Optional[DatetimeNullable],
+        FieldMetadata(alias="NextDate"),
+        pydantic.Field(alias="NextDate", description="The next date the subscription will be processed."),
+    ] = None
     parent_org_name: typing_extensions.Annotated[
-        typing.Optional[OrgParentName], FieldMetadata(alias="ParentOrgName")
+        typing.Optional[OrgParentName], FieldMetadata(alias="ParentOrgName"), pydantic.Field(alias="ParentOrgName")
     ] = None
-    payment_data: typing_extensions.Annotated[typing.Optional[QueryPaymentData], FieldMetadata(alias="PaymentData")] = (
-        None
-    )
-    paypoint_dbaname: typing_extensions.Annotated[typing.Optional[Dbaname], FieldMetadata(alias="PaypointDbaname")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The paypoint's DBA name.
-    """
-
+    payment_data: typing_extensions.Annotated[
+        typing.Optional[QueryPaymentData], FieldMetadata(alias="PaymentData"), pydantic.Field(alias="PaymentData")
+    ] = None
+    paypoint_dbaname: typing_extensions.Annotated[
+        typing.Optional[Dbaname],
+        FieldMetadata(alias="PaypointDbaname"),
+        pydantic.Field(alias="PaypointDbaname", description="The paypoint's DBA name."),
+    ] = None
     paypoint_entryname: typing_extensions.Annotated[
-        typing.Optional[Entrypointfield], FieldMetadata(alias="PaypointEntryname")
-    ] = pydantic.Field(default=None)
-    """
-    The paypoint's entryname.
-    """
-
-    paypoint_id: typing_extensions.Annotated[typing.Optional[PaypointId], FieldMetadata(alias="PaypointId")] = None
+        typing.Optional[Entrypointfield],
+        FieldMetadata(alias="PaypointEntryname"),
+        pydantic.Field(alias="PaypointEntryname", description="The paypoint's entryname."),
+    ] = None
+    paypoint_id: typing_extensions.Annotated[
+        typing.Optional[PaypointId], FieldMetadata(alias="PaypointId"), pydantic.Field(alias="PaypointId")
+    ] = None
     paypoint_legalname: typing_extensions.Annotated[
-        typing.Optional[Legalname], FieldMetadata(alias="PaypointLegalname")
-    ] = pydantic.Field(default=None)
-    """
-    The paypoint's legal name.
-    """
-
-    plan_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="PlanId")] = pydantic.Field(
-        default=None
-    )
-    """
-    Payment plan ID.
-    """
-
-    source: typing_extensions.Annotated[typing.Optional[Source], FieldMetadata(alias="Source")] = None
-    start_date: typing_extensions.Annotated[typing.Optional[DatetimeNullable], FieldMetadata(alias="StartDate")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The subscription start date.
-    """
-
+        typing.Optional[Legalname],
+        FieldMetadata(alias="PaypointLegalname"),
+        pydantic.Field(alias="PaypointLegalname", description="The paypoint's legal name."),
+    ] = None
+    plan_id: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="PlanId"),
+        pydantic.Field(alias="PlanId", description="Payment plan ID."),
+    ] = None
+    source: typing_extensions.Annotated[
+        typing.Optional[Source], FieldMetadata(alias="Source"), pydantic.Field(alias="Source")
+    ] = None
+    start_date: typing_extensions.Annotated[
+        typing.Optional[DatetimeNullable],
+        FieldMetadata(alias="StartDate"),
+        pydantic.Field(alias="StartDate", description="The subscription start date."),
+    ] = None
     sub_events: typing_extensions.Annotated[
-        typing.Optional[typing.List[GeneralEvents]], FieldMetadata(alias="SubEvents")
-    ] = pydantic.Field(default=None)
-    """
-    Events associated with the subscription.
-    """
-
-    sub_status: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="SubStatus")] = pydantic.Field(
-        default=None
-    )
-    """
-    The subscription's status.
-    - 0: Paused
-    - 1: Active
-    """
-
-    total_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="TotalAmount")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The subscription amount, including any fees.
-    """
-
-    total_cycles: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="TotalCycles")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The total number of cycles the subscription is set to run.
-    """
-
-    until_cancelled: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="UntilCancelled")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    When `true`, the subscription has no explicit end date and will run until canceled.
-    """
+        typing.Optional[typing.List[GeneralEvents]],
+        FieldMetadata(alias="SubEvents"),
+        pydantic.Field(alias="SubEvents", description="Events associated with the subscription."),
+    ] = None
+    sub_status: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="SubStatus"),
+        pydantic.Field(alias="SubStatus", description="The subscription's status.\n- 0: Paused\n- 1: Active"),
+    ] = None
+    total_amount: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="TotalAmount"),
+        pydantic.Field(alias="TotalAmount", description="The subscription amount, including any fees."),
+    ] = None
+    total_cycles: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="TotalCycles"),
+        pydantic.Field(alias="TotalCycles", description="The total number of cycles the subscription is set to run."),
+    ] = None
+    until_cancelled: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="UntilCancelled"),
+        pydantic.Field(
+            alias="UntilCancelled",
+            description="When `true`, the subscription has no explicit end date and will run until canceled.",
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

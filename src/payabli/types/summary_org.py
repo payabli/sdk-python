@@ -9,12 +9,24 @@ from ..core.serialization import FieldMetadata
 
 
 class SummaryOrg(UniversalBaseModel):
-    amount_subs: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="amountSubs")] = None
-    amount_tx: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="amountTx")] = None
-    child_orgs: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="childOrgs")] = None
-    child_paypoints: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="childPaypoints")] = None
-    count_subs: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="countSubs")] = None
-    count_tx: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="countTx")] = None
+    amount_subs: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="amountSubs"), pydantic.Field(alias="amountSubs")
+    ] = None
+    amount_tx: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="amountTx"), pydantic.Field(alias="amountTx")
+    ] = None
+    child_orgs: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="childOrgs"), pydantic.Field(alias="childOrgs")
+    ] = None
+    child_paypoints: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="childPaypoints"), pydantic.Field(alias="childPaypoints")
+    ] = None
+    count_subs: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="countSubs"), pydantic.Field(alias="countSubs")
+    ] = None
+    count_tx: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="countTx"), pydantic.Field(alias="countTx")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

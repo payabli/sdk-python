@@ -21,36 +21,48 @@ from .lot_number import LotNumber
 
 class RequestOutAuthorizeInvoiceData(UniversalBaseModel):
     invoice_number: typing_extensions.Annotated[
-        typing.Optional[InvoiceNumber], FieldMetadata(alias="invoiceNumber")
+        typing.Optional[InvoiceNumber], FieldMetadata(alias="invoiceNumber"), pydantic.Field(alias="invoiceNumber")
     ] = None
-    net_amount: typing_extensions.Annotated[typing.Optional[NetAmountstring], FieldMetadata(alias="netAmount")] = None
-    invoice_date: typing_extensions.Annotated[typing.Optional[Datenullable], FieldMetadata(alias="invoiceDate")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Invoice date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY.
-    """
-
-    due_date: typing_extensions.Annotated[typing.Optional[Datenullable], FieldMetadata(alias="dueDate")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Invoice due date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY.
-    """
-
+    net_amount: typing_extensions.Annotated[
+        typing.Optional[NetAmountstring], FieldMetadata(alias="netAmount"), pydantic.Field(alias="netAmount")
+    ] = None
+    invoice_date: typing_extensions.Annotated[
+        typing.Optional[Datenullable],
+        FieldMetadata(alias="invoiceDate"),
+        pydantic.Field(
+            alias="invoiceDate", description="Invoice date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY."
+        ),
+    ] = None
+    due_date: typing_extensions.Annotated[
+        typing.Optional[Datenullable],
+        FieldMetadata(alias="dueDate"),
+        pydantic.Field(
+            alias="dueDate", description="Invoice due date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY."
+        ),
+    ] = None
     comments: typing.Optional[Comments] = None
-    lot_number: typing_extensions.Annotated[typing.Optional[LotNumber], FieldMetadata(alias="lotNumber")] = None
-    bill_id: typing_extensions.Annotated[typing.Optional[BillId], FieldMetadata(alias="billId")] = None
+    lot_number: typing_extensions.Annotated[
+        typing.Optional[LotNumber], FieldMetadata(alias="lotNumber"), pydantic.Field(alias="lotNumber")
+    ] = None
+    bill_id: typing_extensions.Annotated[
+        typing.Optional[BillId], FieldMetadata(alias="billId"), pydantic.Field(alias="billId")
+    ] = None
     discount: typing.Optional[Discount] = None
     terms: typing.Optional[Terms] = None
     accounting_field_1: typing_extensions.Annotated[
-        typing.Optional[AccountingField], FieldMetadata(alias="accountingField1")
+        typing.Optional[AccountingField],
+        FieldMetadata(alias="accountingField1"),
+        pydantic.Field(alias="accountingField1"),
     ] = None
     accounting_field_2: typing_extensions.Annotated[
-        typing.Optional[AccountingField], FieldMetadata(alias="accountingField2")
+        typing.Optional[AccountingField],
+        FieldMetadata(alias="accountingField2"),
+        pydantic.Field(alias="accountingField2"),
     ] = None
     additional_data: typing_extensions.Annotated[
-        typing.Optional[AdditionalDataString], FieldMetadata(alias="additionalData")
+        typing.Optional[AdditionalDataString],
+        FieldMetadata(alias="additionalData"),
+        pydantic.Field(alias="additionalData"),
     ] = None
     attachments: typing.Optional[Attachments] = None
 

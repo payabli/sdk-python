@@ -13,25 +13,23 @@ from ...types.payor_data_request import PayorDataRequest
 
 class InvoiceDataRequest(UniversalBaseModel):
     customer_data: typing_extensions.Annotated[
-        typing.Optional[PayorDataRequest], FieldMetadata(alias="customerData")
-    ] = pydantic.Field(default=None)
-    """
-    Object describing the customer/payor. Required for POST requests. Which fields are required depends on the paypoint's custom identifier settings. 
-    """
-
-    invoice_data: typing_extensions.Annotated[typing.Optional[BillData], FieldMetadata(alias="invoiceData")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Object describing the invoice. Required for POST requests.
-    """
-
+        typing.Optional[PayorDataRequest],
+        FieldMetadata(alias="customerData"),
+        pydantic.Field(
+            alias="customerData",
+            description="Object describing the customer/payor. Required for POST requests. Which fields are required depends on the paypoint's custom identifier settings. ",
+        ),
+    ] = None
+    invoice_data: typing_extensions.Annotated[
+        typing.Optional[BillData],
+        FieldMetadata(alias="invoiceData"),
+        pydantic.Field(alias="invoiceData", description="Object describing the invoice. Required for POST requests."),
+    ] = None
     scheduled_options: typing_extensions.Annotated[
-        typing.Optional[BillOptions], FieldMetadata(alias="scheduledOptions")
-    ] = pydantic.Field(default=None)
-    """
-    Object with options for scheduled invoices.
-    """
+        typing.Optional[BillOptions],
+        FieldMetadata(alias="scheduledOptions"),
+        pydantic.Field(alias="scheduledOptions", description="Object with options for scheduled invoices."),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

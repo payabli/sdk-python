@@ -9,25 +9,41 @@ from ...core.serialization import FieldMetadata
 
 
 class OcrBillItem(UniversalBaseModel):
-    item_total_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="itemTotalAmount")] = (
-        None
-    )
-    item_tax_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="itemTaxAmount")] = None
-    item_tax_rate: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="itemTaxRate")] = None
-    item_product_code: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="itemProductCode")] = None
-    item_product_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="itemProductName")] = None
-    item_description: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="itemDescription")] = None
-    item_commodity_code: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="itemCommodityCode")] = (
-        None
-    )
-    item_unit_of_measure: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="itemUnitOfMeasure")
+    item_total_amount: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="itemTotalAmount"), pydantic.Field(alias="itemTotalAmount")
     ] = None
-    item_cost: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="itemCost")] = None
-    item_qty: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="itemQty")] = None
-    item_mode: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="itemMode")] = None
+    item_tax_amount: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="itemTaxAmount"), pydantic.Field(alias="itemTaxAmount")
+    ] = None
+    item_tax_rate: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="itemTaxRate"), pydantic.Field(alias="itemTaxRate")
+    ] = None
+    item_product_code: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="itemProductCode"), pydantic.Field(alias="itemProductCode")
+    ] = None
+    item_product_name: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="itemProductName"), pydantic.Field(alias="itemProductName")
+    ] = None
+    item_description: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="itemDescription"), pydantic.Field(alias="itemDescription")
+    ] = None
+    item_commodity_code: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="itemCommodityCode"), pydantic.Field(alias="itemCommodityCode")
+    ] = None
+    item_unit_of_measure: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="itemUnitOfMeasure"), pydantic.Field(alias="itemUnitOfMeasure")
+    ] = None
+    item_cost: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="itemCost"), pydantic.Field(alias="itemCost")
+    ] = None
+    item_qty: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="itemQty"), pydantic.Field(alias="itemQty")
+    ] = None
+    item_mode: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="itemMode"), pydantic.Field(alias="itemMode")
+    ] = None
     item_categories: typing_extensions.Annotated[
-        typing.Optional[typing.List[str]], FieldMetadata(alias="itemCategories")
+        typing.Optional[typing.List[str]], FieldMetadata(alias="itemCategories"), pydantic.Field(alias="itemCategories")
     ] = None
 
     if IS_PYDANTIC_V2:

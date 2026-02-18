@@ -17,23 +17,31 @@ from .organization_updates import OrganizationUpdates
 
 
 class ApplePayOrganizationUpdateData(UniversalBaseModel):
-    created_at: typing_extensions.Annotated[typing.Optional[CreatedAt], FieldMetadata(alias="createdAt")] = None
+    created_at: typing_extensions.Annotated[
+        typing.Optional[CreatedAt], FieldMetadata(alias="createdAt"), pydantic.Field(alias="createdAt")
+    ] = None
     id: typing.Optional[ApplePayId] = pydantic.Field(default=None)
     """
     Internal ID for the Apple Pay organization update.
     """
 
-    job_id: typing_extensions.Annotated[typing.Optional[JobId], FieldMetadata(alias="jobId")] = None
-    job_status: typing_extensions.Annotated[typing.Optional[JobStatus], FieldMetadata(alias="jobStatus")] = None
+    job_id: typing_extensions.Annotated[
+        typing.Optional[JobId], FieldMetadata(alias="jobId"), pydantic.Field(alias="jobId")
+    ] = None
+    job_status: typing_extensions.Annotated[
+        typing.Optional[JobStatus], FieldMetadata(alias="jobStatus"), pydantic.Field(alias="jobStatus")
+    ] = None
     organization_id: typing_extensions.Annotated[
-        typing.Optional[OrganizationId], FieldMetadata(alias="organizationId")
+        typing.Optional[OrganizationId], FieldMetadata(alias="organizationId"), pydantic.Field(alias="organizationId")
     ] = None
     type: typing.Optional[ApplePayType] = pydantic.Field(default=None)
     """
     The record type, in this context it will always be `ApplePayOrganizationUpdate`.
     """
 
-    updated_at: typing_extensions.Annotated[typing.Optional[LastModified], FieldMetadata(alias="updatedAt")] = None
+    updated_at: typing_extensions.Annotated[
+        typing.Optional[LastModified], FieldMetadata(alias="updatedAt"), pydantic.Field(alias="updatedAt")
+    ] = None
     updates: typing.Optional[OrganizationUpdates] = None
 
     if IS_PYDANTIC_V2:

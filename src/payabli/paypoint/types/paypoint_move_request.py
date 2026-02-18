@@ -11,20 +11,21 @@ from .notification_request import NotificationRequest
 
 
 class PaypointMoveRequest(UniversalBaseModel):
-    entry_point: typing_extensions.Annotated[Entrypointfield, FieldMetadata(alias="entryPoint")]
-    new_parent_organization_id: typing_extensions.Annotated[int, FieldMetadata(alias="newParentOrganizationId")] = (
-        pydantic.Field()
-    )
-    """
-    The ID for the paypoint's new parent organization.
-    """
-
+    entry_point: typing_extensions.Annotated[
+        Entrypointfield, FieldMetadata(alias="entryPoint"), pydantic.Field(alias="entryPoint")
+    ]
+    new_parent_organization_id: typing_extensions.Annotated[
+        int,
+        FieldMetadata(alias="newParentOrganizationId"),
+        pydantic.Field(
+            alias="newParentOrganizationId", description="The ID for the paypoint's new parent organization."
+        ),
+    ]
     notification_request: typing_extensions.Annotated[
-        typing.Optional[NotificationRequest], FieldMetadata(alias="notificationRequest")
-    ] = pydantic.Field(default=None)
-    """
-    Optional notification request object for a webhook
-    """
+        typing.Optional[NotificationRequest],
+        FieldMetadata(alias="notificationRequest"),
+        pydantic.Field(alias="notificationRequest", description="Optional notification request object for a webhook"),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

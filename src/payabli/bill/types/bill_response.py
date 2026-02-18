@@ -15,21 +15,29 @@ from ...types.room_id_not_in_use import RoomIdNotInUse
 
 
 class BillResponse(UniversalBaseModel):
-    response_code: typing_extensions.Annotated[typing.Optional[Responsecode], FieldMetadata(alias="responseCode")] = (
-        None
-    )
-    page_identifier: typing_extensions.Annotated[
-        typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier")
+    response_code: typing_extensions.Annotated[
+        typing.Optional[Responsecode], FieldMetadata(alias="responseCode"), pydantic.Field(alias="responseCode")
     ] = None
-    room_id: typing_extensions.Annotated[typing.Optional[RoomIdNotInUse], FieldMetadata(alias="roomId")] = None
-    is_success: typing_extensions.Annotated[typing.Optional[IsSuccess], FieldMetadata(alias="isSuccess")] = None
-    response_text: typing_extensions.Annotated[ResponseText, FieldMetadata(alias="responseText")]
+    page_identifier: typing_extensions.Annotated[
+        typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier"), pydantic.Field(alias="pageIdentifier")
+    ] = None
+    room_id: typing_extensions.Annotated[
+        typing.Optional[RoomIdNotInUse], FieldMetadata(alias="roomId"), pydantic.Field(alias="roomId")
+    ] = None
+    is_success: typing_extensions.Annotated[
+        typing.Optional[IsSuccess], FieldMetadata(alias="isSuccess"), pydantic.Field(alias="isSuccess")
+    ] = None
+    response_text: typing_extensions.Annotated[
+        ResponseText, FieldMetadata(alias="responseText"), pydantic.Field(alias="responseText")
+    ]
     response_data: typing_extensions.Annotated[
-        typing.Optional[Responsedatanonobject], FieldMetadata(alias="responseData")
-    ] = pydantic.Field(default=None)
-    """
-    If `isSuccess` = true, this contains the bill identifier. If `isSuccess` = false, this contains the reason for the error.  
-    """
+        typing.Optional[Responsedatanonobject],
+        FieldMetadata(alias="responseData"),
+        pydantic.Field(
+            alias="responseData",
+            description="If `isSuccess` = true, this contains the bill identifier. If `isSuccess` = false, this contains the reason for the error.  ",
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

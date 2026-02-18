@@ -14,18 +14,22 @@ from .totalrecords import Totalrecords
 
 class BillQueryResponseSummary(UniversalBaseModel):
     pageidentifier: typing.Optional[PageIdentifier] = None
-    page_size: typing_extensions.Annotated[typing.Optional[Pagesize], FieldMetadata(alias="pageSize")] = None
-    total_2_approval: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="total2approval")] = None
+    page_size: typing_extensions.Annotated[
+        typing.Optional[Pagesize], FieldMetadata(alias="pageSize"), pydantic.Field(alias="pageSize")
+    ] = None
+    total_2_approval: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="total2approval"), pydantic.Field(alias="total2approval")
+    ] = None
     totalactive: typing.Optional[int] = None
-    total_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="totalAmount")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Total amount of bills in response.
-    """
-
+    total_amount: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="totalAmount"),
+        pydantic.Field(alias="totalAmount", description="Total amount of bills in response."),
+    ] = None
     totalamount_2_approval: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="totalamount2approval")
+        typing.Optional[float],
+        FieldMetadata(alias="totalamount2approval"),
+        pydantic.Field(alias="totalamount2approval"),
     ] = None
     totalamountactive: typing.Optional[float] = None
     totalamountapproved: typing.Optional[float] = pydantic.Field(default=None)
@@ -51,7 +55,9 @@ class BillQueryResponseSummary(UniversalBaseModel):
     """
 
     totalamountsent_2_approval: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="totalamountsent2approval")
+        typing.Optional[float],
+        FieldMetadata(alias="totalamountsent2approval"),
+        pydantic.Field(alias="totalamountsent2approval"),
     ] = None
     totalapproved: typing.Optional[int] = pydantic.Field(default=None)
     """
@@ -70,17 +76,19 @@ class BillQueryResponseSummary(UniversalBaseModel):
     The number of bills that are overdue.
     """
 
-    total_pages: typing_extensions.Annotated[typing.Optional[Totalpages], FieldMetadata(alias="totalPages")] = None
+    total_pages: typing_extensions.Annotated[
+        typing.Optional[Totalpages], FieldMetadata(alias="totalPages"), pydantic.Field(alias="totalPages")
+    ] = None
     totalpaid: typing.Optional[int] = pydantic.Field(default=None)
     """
     The total number of paid bills.
     """
 
-    total_records: typing_extensions.Annotated[typing.Optional[Totalrecords], FieldMetadata(alias="totalRecords")] = (
-        None
-    )
+    total_records: typing_extensions.Annotated[
+        typing.Optional[Totalrecords], FieldMetadata(alias="totalRecords"), pydantic.Field(alias="totalRecords")
+    ] = None
     totalsent_2_approval: typing_extensions.Annotated[
-        typing.Optional[int], FieldMetadata(alias="totalsent2approval")
+        typing.Optional[int], FieldMetadata(alias="totalsent2approval"), pydantic.Field(alias="totalsent2approval")
     ] = None
 
     if IS_PYDANTIC_V2:

@@ -18,10 +18,18 @@ class PSection(UniversalBaseModel):
     highticketamt: typing.Optional[LinkData] = None
     mcc: typing.Optional[LinkData] = None
     ticketamt: typing.Optional[LinkData] = None
-    when_charged: typing_extensions.Annotated[typing.Optional[LinkData], FieldMetadata(alias="whenCharged")] = None
-    when_delivered: typing_extensions.Annotated[typing.Optional[LinkData], FieldMetadata(alias="whenDelivered")] = None
-    when_provided: typing_extensions.Annotated[typing.Optional[LinkData], FieldMetadata(alias="whenProvided")] = None
-    when_refunded: typing_extensions.Annotated[typing.Optional[LinkData], FieldMetadata(alias="whenRefunded")] = None
+    when_charged: typing_extensions.Annotated[
+        typing.Optional[LinkData], FieldMetadata(alias="whenCharged"), pydantic.Field(alias="whenCharged")
+    ] = None
+    when_delivered: typing_extensions.Annotated[
+        typing.Optional[LinkData], FieldMetadata(alias="whenDelivered"), pydantic.Field(alias="whenDelivered")
+    ] = None
+    when_provided: typing_extensions.Annotated[
+        typing.Optional[LinkData], FieldMetadata(alias="whenProvided"), pydantic.Field(alias="whenProvided")
+    ] = None
+    when_refunded: typing_extensions.Annotated[
+        typing.Optional[LinkData], FieldMetadata(alias="whenRefunded"), pydantic.Field(alias="whenRefunded")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

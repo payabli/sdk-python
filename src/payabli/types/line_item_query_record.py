@@ -21,92 +21,88 @@ from .page_identifier import PageIdentifier
 
 
 class LineItemQueryRecord(UniversalBaseModel):
-    created_at: typing_extensions.Annotated[typing.Optional[CreatedAt], FieldMetadata(alias="createdAt")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Timestamp of when line item was created, in UTC.
-    """
-
+    created_at: typing_extensions.Annotated[
+        typing.Optional[CreatedAt],
+        FieldMetadata(alias="createdAt"),
+        pydantic.Field(alias="createdAt", description="Timestamp of when line item was created, in UTC."),
+    ] = None
     id: typing.Optional[int] = pydantic.Field(default=None)
     """
     Identifier of line item.
     """
 
     item_categories: typing_extensions.Annotated[
-        typing.Optional[typing.List[typing.Optional[str]]], FieldMetadata(alias="itemCategories")
-    ] = pydantic.Field(default=None)
-    """
-    Array of tags classifying item or product.
-    """
-
+        typing.Optional[typing.List[typing.Optional[str]]],
+        FieldMetadata(alias="itemCategories"),
+        pydantic.Field(alias="itemCategories", description="Array of tags classifying item or product."),
+    ] = None
     item_commodity_code: typing_extensions.Annotated[
-        typing.Optional[ItemCommodityCode], FieldMetadata(alias="itemCommodityCode")
+        typing.Optional[ItemCommodityCode],
+        FieldMetadata(alias="itemCommodityCode"),
+        pydantic.Field(alias="itemCommodityCode"),
     ] = None
-    item_cost: typing_extensions.Annotated[float, FieldMetadata(alias="itemCost")] = pydantic.Field()
-    """
-    Item or product price per unit.
-    """
-
+    item_cost: typing_extensions.Annotated[
+        float,
+        FieldMetadata(alias="itemCost"),
+        pydantic.Field(alias="itemCost", description="Item or product price per unit."),
+    ]
     item_description: typing_extensions.Annotated[
-        typing.Optional[ItemDescription], FieldMetadata(alias="itemDescription")
+        typing.Optional[ItemDescription],
+        FieldMetadata(alias="itemDescription"),
+        pydantic.Field(alias="itemDescription"),
     ] = None
-    item_mode: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="itemMode")] = pydantic.Field(
-        default=None
-    )
-    """
-    Internal class of item or product: value '0' is only for invoices , '1' for bills, and '2' common for both.
-    """
-
+    item_mode: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="itemMode"),
+        pydantic.Field(
+            alias="itemMode",
+            description="Internal class of item or product: value '0' is only for invoices , '1' for bills, and '2' common for both.",
+        ),
+    ] = None
     item_product_code: typing_extensions.Annotated[
-        typing.Optional[ItemProductCode], FieldMetadata(alias="itemProductCode")
+        typing.Optional[ItemProductCode],
+        FieldMetadata(alias="itemProductCode"),
+        pydantic.Field(alias="itemProductCode"),
     ] = None
     item_product_name: typing_extensions.Annotated[
-        typing.Optional[ItemProductName], FieldMetadata(alias="itemProductName")
+        typing.Optional[ItemProductName],
+        FieldMetadata(alias="itemProductName"),
+        pydantic.Field(alias="itemProductName"),
     ] = None
-    item_qty: typing_extensions.Annotated[int, FieldMetadata(alias="itemQty")] = pydantic.Field()
-    """
-    Quantity of item or product.
-    """
-
+    item_qty: typing_extensions.Annotated[
+        int, FieldMetadata(alias="itemQty"), pydantic.Field(alias="itemQty", description="Quantity of item or product.")
+    ]
     item_unit_of_measure: typing_extensions.Annotated[
-        typing.Optional[ItemUnitofMeasure], FieldMetadata(alias="itemUnitOfMeasure")
+        typing.Optional[ItemUnitofMeasure],
+        FieldMetadata(alias="itemUnitOfMeasure"),
+        pydantic.Field(alias="itemUnitOfMeasure"),
     ] = None
-    last_updated: typing_extensions.Annotated[typing.Optional[LastModified], FieldMetadata(alias="lastUpdated")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Timestamp of when the line item was updated, in UTC.
-    """
-
+    last_updated: typing_extensions.Annotated[
+        typing.Optional[LastModified],
+        FieldMetadata(alias="lastUpdated"),
+        pydantic.Field(alias="lastUpdated", description="Timestamp of when the line item was updated, in UTC."),
+    ] = None
     pageidentifier: typing.Optional[PageIdentifier] = None
     parent_org_name: typing_extensions.Annotated[
-        typing.Optional[OrgParentName], FieldMetadata(alias="ParentOrgName")
-    ] = pydantic.Field(default=None)
-    """
-    The name of the paypoint's parent organization.
-    """
-
-    paypoint_dbaname: typing_extensions.Annotated[typing.Optional[Dbaname], FieldMetadata(alias="PaypointDbaname")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The paypoint's DBA name.
-    """
-
+        typing.Optional[OrgParentName],
+        FieldMetadata(alias="ParentOrgName"),
+        pydantic.Field(alias="ParentOrgName", description="The name of the paypoint's parent organization."),
+    ] = None
+    paypoint_dbaname: typing_extensions.Annotated[
+        typing.Optional[Dbaname],
+        FieldMetadata(alias="PaypointDbaname"),
+        pydantic.Field(alias="PaypointDbaname", description="The paypoint's DBA name."),
+    ] = None
     paypoint_entryname: typing_extensions.Annotated[
-        typing.Optional[Entrypointfield], FieldMetadata(alias="PaypointEntryname")
-    ] = pydantic.Field(default=None)
-    """
-    The paypoint's entryname (entrypoint) value.
-    """
-
+        typing.Optional[Entrypointfield],
+        FieldMetadata(alias="PaypointEntryname"),
+        pydantic.Field(alias="PaypointEntryname", description="The paypoint's entryname (entrypoint) value."),
+    ] = None
     paypoint_legalname: typing_extensions.Annotated[
-        typing.Optional[Legalname], FieldMetadata(alias="PaypointLegalname")
-    ] = pydantic.Field(default=None)
-    """
-    The paypoint's legal name.
-    """
+        typing.Optional[Legalname],
+        FieldMetadata(alias="PaypointLegalname"),
+        pydantic.Field(alias="PaypointLegalname", description="The paypoint's legal name."),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

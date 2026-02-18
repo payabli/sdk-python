@@ -11,8 +11,12 @@ from .orgtype import Orgtype
 
 
 class OrgScope(UniversalBaseModel):
-    org_id: typing_extensions.Annotated[typing.Optional[Orgid], FieldMetadata(alias="orgId")] = None
-    org_type: typing_extensions.Annotated[typing.Optional[Orgtype], FieldMetadata(alias="orgType")] = None
+    org_id: typing_extensions.Annotated[
+        typing.Optional[Orgid], FieldMetadata(alias="orgId"), pydantic.Field(alias="orgId")
+    ] = None
+    org_type: typing_extensions.Annotated[
+        typing.Optional[Orgtype], FieldMetadata(alias="orgType"), pydantic.Field(alias="orgType")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

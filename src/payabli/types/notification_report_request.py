@@ -26,8 +26,12 @@ class NotificationReportRequest(UniversalBaseModel):
     Automated reporting lets you gather critical reports without manually filtering and exporting the data. Get automated daily, weekly, and monthly report for daily sales, ACH returns, settlements, and more. You can send these reports via email or via webhook. See [Automated Reports](/developers/developer-guides/notifications-and-webhooks-overview#automated-reports) for more.
     """
 
-    owner_id: typing_extensions.Annotated[typing.Optional[Ownerid], FieldMetadata(alias="ownerId")] = None
-    owner_type: typing_extensions.Annotated[Ownertype, FieldMetadata(alias="ownerType")]
+    owner_id: typing_extensions.Annotated[
+        typing.Optional[Ownerid], FieldMetadata(alias="ownerId"), pydantic.Field(alias="ownerId")
+    ] = None
+    owner_type: typing_extensions.Annotated[
+        Ownertype, FieldMetadata(alias="ownerType"), pydantic.Field(alias="ownerType")
+    ]
     status: typing.Optional[Statusnotification] = None
     target: str = pydantic.Field()
     """

@@ -12,7 +12,9 @@ from .visible import Visible
 
 
 class BasicTemplateElement(UniversalBaseModel):
-    read_only: typing_extensions.Annotated[typing.Optional[ReadOnly], FieldMetadata(alias="readOnly")] = None
+    read_only: typing_extensions.Annotated[
+        typing.Optional[ReadOnly], FieldMetadata(alias="readOnly"), pydantic.Field(alias="readOnly")
+    ] = None
     required: typing.Optional[RequiredElement] = None
     visible: typing.Optional[Visible] = None
 

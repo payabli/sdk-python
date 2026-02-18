@@ -13,15 +13,29 @@ from ...types.totalrecords import Totalrecords
 
 
 class BatchDetailResponseSummary(UniversalBaseModel):
-    service_fees: typing_extensions.Annotated[float, FieldMetadata(alias="serviceFees")]
-    transfer_amount: typing_extensions.Annotated[float, FieldMetadata(alias="transferAmount")]
+    service_fees: typing_extensions.Annotated[
+        float, FieldMetadata(alias="serviceFees"), pydantic.Field(alias="serviceFees")
+    ]
+    transfer_amount: typing_extensions.Annotated[
+        float, FieldMetadata(alias="transferAmount"), pydantic.Field(alias="transferAmount")
+    ]
     refunds: float
-    held_amount: typing_extensions.Annotated[float, FieldMetadata(alias="heldAmount")]
-    total_records: typing_extensions.Annotated[Totalrecords, FieldMetadata(alias="totalRecords")]
-    total_amount: typing_extensions.Annotated[float, FieldMetadata(alias="totalAmount")]
-    total_net_amount: typing_extensions.Annotated[float, FieldMetadata(alias="totalNetAmount")]
-    total_pages: typing_extensions.Annotated[Totalpages, FieldMetadata(alias="totalPages")]
-    page_size: typing_extensions.Annotated[Pagesize, FieldMetadata(alias="pageSize")]
+    held_amount: typing_extensions.Annotated[
+        float, FieldMetadata(alias="heldAmount"), pydantic.Field(alias="heldAmount")
+    ]
+    total_records: typing_extensions.Annotated[
+        Totalrecords, FieldMetadata(alias="totalRecords"), pydantic.Field(alias="totalRecords")
+    ]
+    total_amount: typing_extensions.Annotated[
+        float, FieldMetadata(alias="totalAmount"), pydantic.Field(alias="totalAmount")
+    ]
+    total_net_amount: typing_extensions.Annotated[
+        float, FieldMetadata(alias="totalNetAmount"), pydantic.Field(alias="totalNetAmount")
+    ]
+    total_pages: typing_extensions.Annotated[
+        Totalpages, FieldMetadata(alias="totalPages"), pydantic.Field(alias="totalPages")
+    ]
+    page_size: typing_extensions.Annotated[Pagesize, FieldMetadata(alias="pageSize"), pydantic.Field(alias="pageSize")]
     pageidentifier: typing.Optional[PageIdentifier] = None
 
     if IS_PYDANTIC_V2:

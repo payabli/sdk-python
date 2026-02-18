@@ -9,11 +9,15 @@ from ..core.serialization import FieldMetadata
 
 
 class ASection(UniversalBaseModel):
-    minimum_documents: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="minimumDocuments")] = None
-    multiple_contacts: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="multipleContacts")] = (
-        None
-    )
-    multiple_owners: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="multipleOwners")] = None
+    minimum_documents: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="minimumDocuments"), pydantic.Field(alias="minimumDocuments")
+    ] = None
+    multiple_contacts: typing_extensions.Annotated[
+        typing.Optional[bool], FieldMetadata(alias="multipleContacts"), pydantic.Field(alias="multipleContacts")
+    ] = None
+    multiple_owners: typing_extensions.Annotated[
+        typing.Optional[bool], FieldMetadata(alias="multipleOwners"), pydantic.Field(alias="multipleOwners")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

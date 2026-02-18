@@ -14,30 +14,44 @@ from .ocr_vendor import OcrVendor
 
 
 class OcrResultData(UniversalBaseModel):
-    bill_number: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="billNumber")] = None
-    net_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="netAmount")] = None
-    bill_date: typing_extensions.Annotated[typing.Optional[dt.datetime], FieldMetadata(alias="billDate")] = None
-    due_date: typing_extensions.Annotated[typing.Optional[dt.datetime], FieldMetadata(alias="dueDate")] = None
+    bill_number: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="billNumber"), pydantic.Field(alias="billNumber")
+    ] = None
+    net_amount: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="netAmount"), pydantic.Field(alias="netAmount")
+    ] = None
+    bill_date: typing_extensions.Annotated[
+        typing.Optional[dt.datetime], FieldMetadata(alias="billDate"), pydantic.Field(alias="billDate")
+    ] = None
+    due_date: typing_extensions.Annotated[
+        typing.Optional[dt.datetime], FieldMetadata(alias="dueDate"), pydantic.Field(alias="dueDate")
+    ] = None
     comments: typing.Optional[str] = None
     bill_items: typing_extensions.Annotated[
-        typing.Optional[typing.List[OcrBillItem]], FieldMetadata(alias="billItems")
+        typing.Optional[typing.List[OcrBillItem]], FieldMetadata(alias="billItems"), pydantic.Field(alias="billItems")
     ] = None
     mode: typing.Optional[int] = None
-    accounting_field_1: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="accountingField1")] = (
-        None
-    )
-    accounting_field_2: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="accountingField2")] = (
-        None
-    )
+    accounting_field_1: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="accountingField1"), pydantic.Field(alias="accountingField1")
+    ] = None
+    accounting_field_2: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="accountingField2"), pydantic.Field(alias="accountingField2")
+    ] = None
     additional_data: typing_extensions.Annotated[
-        typing.Optional[OcrBillItemAdditionalData], FieldMetadata(alias="additionalData")
+        typing.Optional[OcrBillItemAdditionalData],
+        FieldMetadata(alias="additionalData"),
+        pydantic.Field(alias="additionalData"),
     ] = None
     vendor: typing.Optional[OcrVendor] = None
-    end_date: typing_extensions.Annotated[typing.Optional[dt.datetime], FieldMetadata(alias="endDate")] = None
+    end_date: typing_extensions.Annotated[
+        typing.Optional[dt.datetime], FieldMetadata(alias="endDate"), pydantic.Field(alias="endDate")
+    ] = None
     frequency: typing.Optional[str] = None
     terms: typing.Optional[str] = None
     status: typing.Optional[int] = None
-    lot_number: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="lotNumber")] = None
+    lot_number: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="lotNumber"), pydantic.Field(alias="lotNumber")
+    ] = None
     attachments: typing.Optional[typing.List[OcrAttachment]] = None
 
     if IS_PYDANTIC_V2:

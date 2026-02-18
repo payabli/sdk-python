@@ -13,26 +13,26 @@ class GooglePayMetadata(UniversalBaseModel):
     This metadata appears only when the domain verification check fails. It gives more information about why the check failed.
     """
 
-    status_code: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="statusCode")] = pydantic.Field(
-        default=None
-    )
-    """
-    The status code return by the domain verification URL.
-    """
-
-    redirect_url: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="redirectUrl")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    If the domain verification URL is redirected, this is the URL it's redirected to.  For example, www.partner.com could redirect to www.partners-new-home-page.com. In this case, you should add www.partners-new-home-page.com as a domain instead of www.partner.com.
-    """
-
+    status_code: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="statusCode"),
+        pydantic.Field(alias="statusCode", description="The status code return by the domain verification URL."),
+    ] = None
+    redirect_url: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="redirectUrl"),
+        pydantic.Field(
+            alias="redirectUrl",
+            description="If the domain verification URL is redirected, this is the URL it's redirected to.  For example, www.partner.com could redirect to www.partners-new-home-page.com. In this case, you should add www.partners-new-home-page.com as a domain instead of www.partner.com.",
+        ),
+    ] = None
     redirect_domain_name: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="redirectDomainName")
-    ] = pydantic.Field(default=None)
-    """
-    The domain name if the domain verification URL returns a redirect.
-    """
+        typing.Optional[str],
+        FieldMetadata(alias="redirectDomainName"),
+        pydantic.Field(
+            alias="redirectDomainName", description="The domain name if the domain verification URL returns a redirect."
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

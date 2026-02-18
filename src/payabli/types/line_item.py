@@ -15,43 +15,50 @@ from .item_unitof_measure import ItemUnitofMeasure
 
 class LineItem(UniversalBaseModel):
     item_categories: typing_extensions.Annotated[
-        typing.Optional[typing.List[typing.Optional[str]]], FieldMetadata(alias="itemCategories")
-    ] = pydantic.Field(default=None)
-    """
-    Array of tags classifying item or product.
-    """
-
+        typing.Optional[typing.List[typing.Optional[str]]],
+        FieldMetadata(alias="itemCategories"),
+        pydantic.Field(alias="itemCategories", description="Array of tags classifying item or product."),
+    ] = None
     item_commodity_code: typing_extensions.Annotated[
-        typing.Optional[ItemCommodityCode], FieldMetadata(alias="itemCommodityCode")
+        typing.Optional[ItemCommodityCode],
+        FieldMetadata(alias="itemCommodityCode"),
+        pydantic.Field(alias="itemCommodityCode"),
     ] = None
-    item_cost: typing_extensions.Annotated[float, FieldMetadata(alias="itemCost")] = pydantic.Field()
-    """
-    Item or product price per unit.
-    """
-
+    item_cost: typing_extensions.Annotated[
+        float,
+        FieldMetadata(alias="itemCost"),
+        pydantic.Field(alias="itemCost", description="Item or product price per unit."),
+    ]
     item_description: typing_extensions.Annotated[
-        typing.Optional[ItemDescription], FieldMetadata(alias="itemDescription")
+        typing.Optional[ItemDescription],
+        FieldMetadata(alias="itemDescription"),
+        pydantic.Field(alias="itemDescription"),
     ] = None
-    item_mode: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="itemMode")] = pydantic.Field(
-        default=None
-    )
-    """
-    Internal class of item or product: value '0' is only for invoices, '1' for bills, and '2' is common for both.
-    """
-
+    item_mode: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="itemMode"),
+        pydantic.Field(
+            alias="itemMode",
+            description="Internal class of item or product: value '0' is only for invoices, '1' for bills, and '2' is common for both.",
+        ),
+    ] = None
     item_product_code: typing_extensions.Annotated[
-        typing.Optional[ItemProductCode], FieldMetadata(alias="itemProductCode")
+        typing.Optional[ItemProductCode],
+        FieldMetadata(alias="itemProductCode"),
+        pydantic.Field(alias="itemProductCode"),
     ] = None
     item_product_name: typing_extensions.Annotated[
-        typing.Optional[ItemProductName], FieldMetadata(alias="itemProductName")
+        typing.Optional[ItemProductName],
+        FieldMetadata(alias="itemProductName"),
+        pydantic.Field(alias="itemProductName"),
     ] = None
-    item_qty: typing_extensions.Annotated[int, FieldMetadata(alias="itemQty")] = pydantic.Field()
-    """
-    Quantity of item or product.
-    """
-
+    item_qty: typing_extensions.Annotated[
+        int, FieldMetadata(alias="itemQty"), pydantic.Field(alias="itemQty", description="Quantity of item or product.")
+    ]
     item_unit_of_measure: typing_extensions.Annotated[
-        typing.Optional[ItemUnitofMeasure], FieldMetadata(alias="itemUnitOfMeasure")
+        typing.Optional[ItemUnitofMeasure],
+        FieldMetadata(alias="itemUnitOfMeasure"),
+        pydantic.Field(alias="itemUnitOfMeasure"),
     ] = None
 
     if IS_PYDANTIC_V2:

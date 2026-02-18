@@ -15,7 +15,9 @@ class MethodElementSettings(UniversalBaseModel):
     """
 
     apple_pay: typing_extensions.Annotated[
-        typing.Optional[MethodElementSettingsApplePay], FieldMetadata(alias="applePay")
+        typing.Optional[MethodElementSettingsApplePay],
+        FieldMetadata(alias="applePay"),
+        pydantic.Field(alias="applePay"),
     ] = None
 
     if IS_PYDANTIC_V2:

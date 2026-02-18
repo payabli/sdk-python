@@ -17,38 +17,41 @@ from ...types.result_code import ResultCode
 
 
 class ResponseDataRefunds(UniversalBaseModel):
-    auth_code: typing_extensions.Annotated[Authcode, FieldMetadata(alias="authCode")]
+    auth_code: typing_extensions.Annotated[Authcode, FieldMetadata(alias="authCode"), pydantic.Field(alias="authCode")]
     expected_processing_date_time: typing_extensions.Annotated[
-        typing.Optional[ExpectedProcessingDateTime], FieldMetadata(alias="expectedProcessingDateTime")
+        typing.Optional[ExpectedProcessingDateTime],
+        FieldMetadata(alias="expectedProcessingDateTime"),
+        pydantic.Field(alias="expectedProcessingDateTime"),
     ] = None
     avs_response_text: typing_extensions.Annotated[
-        typing.Optional[AvsResponseText], FieldMetadata(alias="avsResponseText")
-    ] = pydantic.Field(default=None)
-    """
-    This field isn't applicable to refund operations.
-    """
-
-    customer_id: typing_extensions.Annotated[typing.Optional[CustomerId], FieldMetadata(alias="customerId")] = None
+        typing.Optional[AvsResponseText],
+        FieldMetadata(alias="avsResponseText"),
+        pydantic.Field(alias="avsResponseText", description="This field isn't applicable to refund operations."),
+    ] = None
+    customer_id: typing_extensions.Annotated[
+        typing.Optional[CustomerId], FieldMetadata(alias="customerId"), pydantic.Field(alias="customerId")
+    ] = None
     cvv_response_text: typing_extensions.Annotated[
-        typing.Optional[CvvResponseText], FieldMetadata(alias="cvvResponseText")
-    ] = pydantic.Field(default=None)
-    """
-    This field isn't applicable to refund operations.
-    """
-
+        typing.Optional[CvvResponseText],
+        FieldMetadata(alias="cvvResponseText"),
+        pydantic.Field(alias="cvvResponseText", description="This field isn't applicable to refund operations."),
+    ] = None
     method_reference_id: typing_extensions.Annotated[
-        typing.Optional[MethodReferenceId], FieldMetadata(alias="methodReferenceId")
-    ] = pydantic.Field(default=None)
-    """
-    This field isn't applicable to refund operations.
-    """
-
-    reference_id: typing_extensions.Annotated[Referenceidtrans, FieldMetadata(alias="referenceId")]
-    result_code: typing_extensions.Annotated[ResultCode, FieldMetadata(alias="resultCode")]
-    result_text: typing_extensions.Annotated[str, FieldMetadata(alias="resultText")] = pydantic.Field()
-    """
-    Text description of the transaction result
-    """
+        typing.Optional[MethodReferenceId],
+        FieldMetadata(alias="methodReferenceId"),
+        pydantic.Field(alias="methodReferenceId", description="This field isn't applicable to refund operations."),
+    ] = None
+    reference_id: typing_extensions.Annotated[
+        Referenceidtrans, FieldMetadata(alias="referenceId"), pydantic.Field(alias="referenceId")
+    ]
+    result_code: typing_extensions.Annotated[
+        ResultCode, FieldMetadata(alias="resultCode"), pydantic.Field(alias="resultCode")
+    ]
+    result_text: typing_extensions.Annotated[
+        str,
+        FieldMetadata(alias="resultText"),
+        pydantic.Field(alias="resultText", description="Text description of the transaction result"),
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

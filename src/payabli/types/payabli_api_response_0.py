@@ -17,14 +17,20 @@ class PayabliApiResponse0(UniversalBaseModel):
     General response for certain `moneyIn` and `moneyOut` endpoints.
     """
 
-    is_success: typing_extensions.Annotated[typing.Optional[IsSuccess], FieldMetadata(alias="isSuccess")] = None
+    is_success: typing_extensions.Annotated[
+        typing.Optional[IsSuccess], FieldMetadata(alias="isSuccess"), pydantic.Field(alias="isSuccess")
+    ] = None
     page_identifier: typing_extensions.Annotated[
-        typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier")
+        typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier"), pydantic.Field(alias="pageIdentifier")
     ] = None
     response_data: typing_extensions.Annotated[
-        typing.Optional[PayabliApiResponse0ResponseData], FieldMetadata(alias="responseData")
+        typing.Optional[PayabliApiResponse0ResponseData],
+        FieldMetadata(alias="responseData"),
+        pydantic.Field(alias="responseData"),
     ] = None
-    response_text: typing_extensions.Annotated[ResponseText, FieldMetadata(alias="responseText")]
+    response_text: typing_extensions.Annotated[
+        ResponseText, FieldMetadata(alias="responseText"), pydantic.Field(alias="responseText")
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -9,9 +9,13 @@ from ..core.serialization import FieldMetadata
 
 
 class BillingFeeDetail(UniversalBaseModel):
-    billable_event: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="billableEvent")] = None
+    billable_event: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="billableEvent"), pydantic.Field(alias="billableEvent")
+    ] = None
     service: typing.Optional[str] = None
-    event_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="eventId")] = None
+    event_id: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="eventId"), pydantic.Field(alias="eventId")
+    ] = None
     description: typing.Optional[str] = pydantic.Field(default=None)
     """
     Description of the billing fee
@@ -22,36 +26,30 @@ class BillingFeeDetail(UniversalBaseModel):
     Category of the billing fee
     """
 
-    fix_price: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="fixPrice")] = pydantic.Field(
-        default=None
-    )
-    """
-    Fixed price component of the fee
-    """
-
-    float_price: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="floatPrice")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Percentage component of the fee
-    """
-
-    billable_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="billableAmount")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Amount eligible for the fee
-    """
-
-    bill_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="billAmount")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Total fee amount charged
-    """
-
+    fix_price: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="fixPrice"),
+        pydantic.Field(alias="fixPrice", description="Fixed price component of the fee"),
+    ] = None
+    float_price: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="floatPrice"),
+        pydantic.Field(alias="floatPrice", description="Percentage component of the fee"),
+    ] = None
+    billable_amount: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="billableAmount"),
+        pydantic.Field(alias="billableAmount", description="Amount eligible for the fee"),
+    ] = None
+    bill_amount: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="billAmount"),
+        pydantic.Field(alias="billAmount", description="Total fee amount charged"),
+    ] = None
     frequency: typing.Optional[str] = None
-    service_group: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="serviceGroup")] = None
+    service_group: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="serviceGroup"), pydantic.Field(alias="serviceGroup")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

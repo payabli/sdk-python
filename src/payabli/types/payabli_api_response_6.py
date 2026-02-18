@@ -17,18 +17,23 @@ class PayabliApiResponse6(UniversalBaseModel):
     Response schema for line item operations.
     """
 
-    is_success: typing_extensions.Annotated[typing.Optional[IsSuccess], FieldMetadata(alias="isSuccess")] = None
+    is_success: typing_extensions.Annotated[
+        typing.Optional[IsSuccess], FieldMetadata(alias="isSuccess"), pydantic.Field(alias="isSuccess")
+    ] = None
     page_identifier: typing_extensions.Annotated[
-        typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier")
+        typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier"), pydantic.Field(alias="pageIdentifier")
     ] = None
     response_data: typing_extensions.Annotated[
-        typing.Optional[Responsedatanonobject], FieldMetadata(alias="responseData")
-    ] = pydantic.Field(default=None)
-    """
-    If `isSuccess` = true, this contains the line item identifier. If `isSuccess` = false, this contains the reason of the error.
-    """
-
-    response_text: typing_extensions.Annotated[ResponseText, FieldMetadata(alias="responseText")]
+        typing.Optional[Responsedatanonobject],
+        FieldMetadata(alias="responseData"),
+        pydantic.Field(
+            alias="responseData",
+            description="If `isSuccess` = true, this contains the line item identifier. If `isSuccess` = false, this contains the reason of the error.",
+        ),
+    ] = None
+    response_text: typing_extensions.Annotated[
+        ResponseText, FieldMetadata(alias="responseText"), pydantic.Field(alias="responseText")
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -20,8 +20,12 @@ class OList(UniversalBaseModel):
     owneremail: typing.Optional[LinkData] = None
     ownername: typing.Optional[LinkData] = None
     ownerpercent: typing.Optional[LinkData] = None
-    ownerphone_1: typing_extensions.Annotated[typing.Optional[LinkData], FieldMetadata(alias="ownerphone1")] = None
-    ownerphone_2: typing_extensions.Annotated[typing.Optional[LinkData], FieldMetadata(alias="ownerphone2")] = None
+    ownerphone_1: typing_extensions.Annotated[
+        typing.Optional[LinkData], FieldMetadata(alias="ownerphone1"), pydantic.Field(alias="ownerphone1")
+    ] = None
+    ownerphone_2: typing_extensions.Annotated[
+        typing.Optional[LinkData], FieldMetadata(alias="ownerphone2"), pydantic.Field(alias="ownerphone2")
+    ] = None
     ownerssn: typing.Optional[LinkData] = None
     ownertitle: typing.Optional[LinkData] = None
     ozip: typing.Optional[LinkData] = None

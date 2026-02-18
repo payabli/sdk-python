@@ -35,7 +35,9 @@ from .terms_conditions import TermsConditions
 
 class BillData(UniversalBaseModel):
     additional_data: typing_extensions.Annotated[
-        typing.Optional[AdditionalDataMap], FieldMetadata(alias="AdditionalData")
+        typing.Optional[AdditionalDataMap],
+        FieldMetadata(alias="AdditionalData"),
+        pydantic.Field(alias="AdditionalData"),
     ] = None
     attachments: typing.Optional[Attachments] = None
     company: typing.Optional[str] = pydantic.Field(default=None)
@@ -44,16 +46,16 @@ class BillData(UniversalBaseModel):
     """
 
     discount: typing.Optional[Discount] = None
-    duty_amount: typing_extensions.Annotated[typing.Optional[DutyAmount], FieldMetadata(alias="dutyAmount")] = None
-    first_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="firstName")] = pydantic.Field(
-        default=None
-    )
-    """
-    First name of the recipient of the invoice.
-    """
-
+    duty_amount: typing_extensions.Annotated[
+        typing.Optional[DutyAmount], FieldMetadata(alias="dutyAmount"), pydantic.Field(alias="dutyAmount")
+    ] = None
+    first_name: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="firstName"),
+        pydantic.Field(alias="firstName", description="First name of the recipient of the invoice."),
+    ] = None
     freight_amount: typing_extensions.Annotated[
-        typing.Optional[FreightAmount], FieldMetadata(alias="freightAmount")
+        typing.Optional[FreightAmount], FieldMetadata(alias="freightAmount"), pydantic.Field(alias="freightAmount")
     ] = None
     frequency: typing.Optional[Frequency] = pydantic.Field(default=None)
     """
@@ -61,102 +63,112 @@ class BillData(UniversalBaseModel):
     """
 
     invoice_amount: typing_extensions.Annotated[
-        typing.Optional[InvoiceAmount], FieldMetadata(alias="invoiceAmount")
+        typing.Optional[InvoiceAmount], FieldMetadata(alias="invoiceAmount"), pydantic.Field(alias="invoiceAmount")
     ] = None
-    invoice_date: typing_extensions.Annotated[typing.Optional[Datenullable], FieldMetadata(alias="invoiceDate")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Invoice date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY.
-    """
-
+    invoice_date: typing_extensions.Annotated[
+        typing.Optional[Datenullable],
+        FieldMetadata(alias="invoiceDate"),
+        pydantic.Field(
+            alias="invoiceDate", description="Invoice date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY."
+        ),
+    ] = None
     invoice_due_date: typing_extensions.Annotated[
-        typing.Optional[Datenullable], FieldMetadata(alias="invoiceDueDate")
-    ] = pydantic.Field(default=None)
-    """
-    Invoice due date in one of the accepted formats: YYYY-MM-DD, MM/DD/YYYY.
-    """
-
-    invoice_end_date: typing_extensions.Annotated[
-        typing.Optional[Datenullable], FieldMetadata(alias="invoiceEndDate")
-    ] = pydantic.Field(default=None)
-    """
-    Indicate the date to finish a scheduled invoice cycle (`invoiceType`` = 1) in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY.
-    """
-
-    invoice_number: typing_extensions.Annotated[
-        typing.Optional[InvoiceNumber], FieldMetadata(alias="invoiceNumber")
-    ] = pydantic.Field(default=None)
-    """
-    Invoice number. Identifies the invoice under a paypoint.
-    """
-
-    invoice_status: typing_extensions.Annotated[
-        typing.Optional[Invoicestatus], FieldMetadata(alias="invoiceStatus")
+        typing.Optional[Datenullable],
+        FieldMetadata(alias="invoiceDueDate"),
+        pydantic.Field(
+            alias="invoiceDueDate",
+            description="Invoice due date in one of the accepted formats: YYYY-MM-DD, MM/DD/YYYY.",
+        ),
     ] = None
-    invoice_type: typing_extensions.Annotated[typing.Optional[InvoiceType], FieldMetadata(alias="invoiceType")] = None
+    invoice_end_date: typing_extensions.Annotated[
+        typing.Optional[Datenullable],
+        FieldMetadata(alias="invoiceEndDate"),
+        pydantic.Field(
+            alias="invoiceEndDate",
+            description="Indicate the date to finish a scheduled invoice cycle (`invoiceType`` = 1) in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY.",
+        ),
+    ] = None
+    invoice_number: typing_extensions.Annotated[
+        typing.Optional[InvoiceNumber],
+        FieldMetadata(alias="invoiceNumber"),
+        pydantic.Field(alias="invoiceNumber", description="Invoice number. Identifies the invoice under a paypoint."),
+    ] = None
+    invoice_status: typing_extensions.Annotated[
+        typing.Optional[Invoicestatus], FieldMetadata(alias="invoiceStatus"), pydantic.Field(alias="invoiceStatus")
+    ] = None
+    invoice_type: typing_extensions.Annotated[
+        typing.Optional[InvoiceType], FieldMetadata(alias="invoiceType"), pydantic.Field(alias="invoiceType")
+    ] = None
     items: typing.Optional[typing.List[BillItem]] = pydantic.Field(default=None)
     """
     Array of line items included in the invoice.
     """
 
-    last_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="lastName")] = pydantic.Field(
-        default=None
-    )
-    """
-    Last name of the recipient of the invoice.
-    """
-
+    last_name: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="lastName"),
+        pydantic.Field(alias="lastName", description="Last name of the recipient of the invoice."),
+    ] = None
     notes: typing.Optional[str] = pydantic.Field(default=None)
     """
     Notes included in the invoice.
     """
 
     payment_terms: typing_extensions.Annotated[
-        typing.Optional[BillDataPaymentTerms], FieldMetadata(alias="paymentTerms")
+        typing.Optional[BillDataPaymentTerms], FieldMetadata(alias="paymentTerms"), pydantic.Field(alias="paymentTerms")
     ] = None
     purchase_order: typing_extensions.Annotated[
-        typing.Optional[PurchaseOrder], FieldMetadata(alias="purchaseOrder")
+        typing.Optional[PurchaseOrder], FieldMetadata(alias="purchaseOrder"), pydantic.Field(alias="purchaseOrder")
     ] = None
     shipping_address_1: typing_extensions.Annotated[
-        typing.Optional[Shippingaddress], FieldMetadata(alias="shippingAddress1")
+        typing.Optional[Shippingaddress],
+        FieldMetadata(alias="shippingAddress1"),
+        pydantic.Field(alias="shippingAddress1"),
     ] = None
     shipping_address_2: typing_extensions.Annotated[
-        typing.Optional[Shippingaddressadditional], FieldMetadata(alias="shippingAddress2")
+        typing.Optional[Shippingaddressadditional],
+        FieldMetadata(alias="shippingAddress2"),
+        pydantic.Field(alias="shippingAddress2"),
     ] = None
-    shipping_city: typing_extensions.Annotated[typing.Optional[Shippingcity], FieldMetadata(alias="shippingCity")] = (
-        None
-    )
+    shipping_city: typing_extensions.Annotated[
+        typing.Optional[Shippingcity], FieldMetadata(alias="shippingCity"), pydantic.Field(alias="shippingCity")
+    ] = None
     shipping_country: typing_extensions.Annotated[
-        typing.Optional[Shippingcountry], FieldMetadata(alias="shippingCountry")
+        typing.Optional[Shippingcountry],
+        FieldMetadata(alias="shippingCountry"),
+        pydantic.Field(alias="shippingCountry"),
     ] = None
-    shipping_email: typing_extensions.Annotated[typing.Optional[Email], FieldMetadata(alias="shippingEmail")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Shipping recipient's contact email address.
-    """
-
+    shipping_email: typing_extensions.Annotated[
+        typing.Optional[Email],
+        FieldMetadata(alias="shippingEmail"),
+        pydantic.Field(alias="shippingEmail", description="Shipping recipient's contact email address."),
+    ] = None
     shipping_from_zip: typing_extensions.Annotated[
-        typing.Optional[ShippingFromZip], FieldMetadata(alias="shippingFromZip")
+        typing.Optional[ShippingFromZip],
+        FieldMetadata(alias="shippingFromZip"),
+        pydantic.Field(alias="shippingFromZip"),
     ] = None
-    shipping_phone: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="shippingPhone")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Recipient phone number.
-    """
-
+    shipping_phone: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="shippingPhone"),
+        pydantic.Field(alias="shippingPhone", description="Recipient phone number."),
+    ] = None
     shipping_state: typing_extensions.Annotated[
-        typing.Optional[Shippingstate], FieldMetadata(alias="shippingState")
+        typing.Optional[Shippingstate], FieldMetadata(alias="shippingState"), pydantic.Field(alias="shippingState")
     ] = None
-    shipping_zip: typing_extensions.Annotated[typing.Optional[Shippingzip], FieldMetadata(alias="shippingZip")] = None
+    shipping_zip: typing_extensions.Annotated[
+        typing.Optional[Shippingzip], FieldMetadata(alias="shippingZip"), pydantic.Field(alias="shippingZip")
+    ] = None
     summary_commodity_code: typing_extensions.Annotated[
-        typing.Optional[SummaryCommodityCode], FieldMetadata(alias="summaryCommodityCode")
+        typing.Optional[SummaryCommodityCode],
+        FieldMetadata(alias="summaryCommodityCode"),
+        pydantic.Field(alias="summaryCommodityCode"),
     ] = None
     tax: typing.Optional[Tax] = None
     terms_conditions: typing_extensions.Annotated[
-        typing.Optional[TermsConditions], FieldMetadata(alias="termsConditions")
+        typing.Optional[TermsConditions],
+        FieldMetadata(alias="termsConditions"),
+        pydantic.Field(alias="termsConditions"),
     ] = None
 
     if IS_PYDANTIC_V2:

@@ -14,21 +14,25 @@ from .responsecode import Responsecode
 
 
 class PayabliApiResponseImport(UniversalBaseModel):
-    is_success: typing_extensions.Annotated[typing.Optional[IsSuccess], FieldMetadata(alias="isSuccess")] = None
-    page_identifier: typing_extensions.Annotated[
-        typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier")
+    is_success: typing_extensions.Annotated[
+        typing.Optional[IsSuccess], FieldMetadata(alias="isSuccess"), pydantic.Field(alias="isSuccess")
     ] = None
-    response_code: typing_extensions.Annotated[typing.Optional[Responsecode], FieldMetadata(alias="responseCode")] = (
-        None
-    )
+    page_identifier: typing_extensions.Annotated[
+        typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier"), pydantic.Field(alias="pageIdentifier")
+    ] = None
+    response_code: typing_extensions.Annotated[
+        typing.Optional[Responsecode], FieldMetadata(alias="responseCode"), pydantic.Field(alias="responseCode")
+    ] = None
     response_data: typing_extensions.Annotated[
-        typing.Optional[PayabliApiResponseImportResponseData], FieldMetadata(alias="responseData")
-    ] = pydantic.Field(default=None)
-    """
-    The response data containing the result of the import operation.
-    """
-
-    response_text: typing_extensions.Annotated[ResponseText, FieldMetadata(alias="responseText")]
+        typing.Optional[PayabliApiResponseImportResponseData],
+        FieldMetadata(alias="responseData"),
+        pydantic.Field(
+            alias="responseData", description="The response data containing the result of the import operation."
+        ),
+    ] = None
+    response_text: typing_extensions.Annotated[
+        ResponseText, FieldMetadata(alias="responseText"), pydantic.Field(alias="responseText")
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

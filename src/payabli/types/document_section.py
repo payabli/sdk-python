@@ -16,31 +16,43 @@ from .visible import Visible
 
 class DocumentSection(UniversalBaseModel):
     visble: typing.Optional[Visible] = None
-    sub_footer: typing_extensions.Annotated[typing.Optional[SubFooter], FieldMetadata(alias="subFooter")] = None
-    sub_header: typing_extensions.Annotated[typing.Optional[SubHeader], FieldMetadata(alias="subHeader")] = None
-    deposit_bank: typing_extensions.Annotated[typing.Optional[BankSection], FieldMetadata(alias="depositBank")] = None
-    minimum_documents: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="minimumDocuments")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The minimum number of documents the applicant must upload with the application.
-    """
-
-    upload_documents: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="uploadDocuments")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    When `true`, allows the applicant to upload documents to the application.
-    """
-
-    bank_data: typing_extensions.Annotated[typing.Optional[BankSection], FieldMetadata(alias="bankData")] = None
+    sub_footer: typing_extensions.Annotated[
+        typing.Optional[SubFooter], FieldMetadata(alias="subFooter"), pydantic.Field(alias="subFooter")
+    ] = None
+    sub_header: typing_extensions.Annotated[
+        typing.Optional[SubHeader], FieldMetadata(alias="subHeader"), pydantic.Field(alias="subHeader")
+    ] = None
+    deposit_bank: typing_extensions.Annotated[
+        typing.Optional[BankSection], FieldMetadata(alias="depositBank"), pydantic.Field(alias="depositBank")
+    ] = None
+    minimum_documents: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="minimumDocuments"),
+        pydantic.Field(
+            alias="minimumDocuments",
+            description="The minimum number of documents the applicant must upload with the application.",
+        ),
+    ] = None
+    upload_documents: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="uploadDocuments"),
+        pydantic.Field(
+            alias="uploadDocuments",
+            description="When `true`, allows the applicant to upload documents to the application.",
+        ),
+    ] = None
+    bank_data: typing_extensions.Annotated[
+        typing.Optional[BankSection], FieldMetadata(alias="bankData"), pydantic.Field(alias="bankData")
+    ] = None
     terms_and_conditions: typing_extensions.Annotated[
-        typing.Optional[DocumentSectionTermsAndConditions], FieldMetadata(alias="termsAndConditions")
+        typing.Optional[DocumentSectionTermsAndConditions],
+        FieldMetadata(alias="termsAndConditions"),
+        pydantic.Field(alias="termsAndConditions"),
     ] = None
     signer: typing.Optional[SignerSection] = None
     visible: typing.Optional[Visible] = None
     withdrawal_bank: typing_extensions.Annotated[
-        typing.Optional[BankSection], FieldMetadata(alias="withdrawalBank")
+        typing.Optional[BankSection], FieldMetadata(alias="withdrawalBank"), pydantic.Field(alias="withdrawalBank")
     ] = None
 
     if IS_PYDANTIC_V2:

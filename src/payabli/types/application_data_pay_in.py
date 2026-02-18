@@ -69,30 +69,39 @@ class ApplicationDataPayIn(UniversalBaseModel):
 
     services: ApplicationDataPayInServices
     annual_revenue: typing_extensions.Annotated[
-        typing.Optional[Annualrevenue], FieldMetadata(alias="annualRevenue")
+        typing.Optional[Annualrevenue], FieldMetadata(alias="annualRevenue"), pydantic.Field(alias="annualRevenue")
     ] = None
     average_bill_size: typing_extensions.Annotated[
-        typing.Optional[BoardingAverageBillSize], FieldMetadata(alias="averageBillSize")
+        typing.Optional[BoardingAverageBillSize],
+        FieldMetadata(alias="averageBillSize"),
+        pydantic.Field(alias="averageBillSize"),
     ] = None
     average_monthly_bill: typing_extensions.Annotated[
-        typing.Optional[BoardingAvgMonthlyBill], FieldMetadata(alias="averageMonthlyBill")
+        typing.Optional[BoardingAvgMonthlyBill],
+        FieldMetadata(alias="averageMonthlyBill"),
+        pydantic.Field(alias="averageMonthlyBill"),
     ] = None
     avgmonthly: typing.Optional[Avgmonthly] = None
     baddress: typing.Optional[Baddress1] = None
-    baddress_1: typing_extensions.Annotated[typing.Optional[Baddress2], FieldMetadata(alias="baddress1")] = None
-    bank_data: typing_extensions.Annotated[ApplicationDataPayInBankData, FieldMetadata(alias="bankData")]
+    baddress_1: typing_extensions.Annotated[
+        typing.Optional[Baddress2], FieldMetadata(alias="baddress1"), pydantic.Field(alias="baddress1")
+    ] = None
+    bank_data: typing_extensions.Annotated[
+        ApplicationDataPayInBankData, FieldMetadata(alias="bankData"), pydantic.Field(alias="bankData")
+    ]
     bcity: typing.Optional[Bcity] = None
     bcountry: typing.Optional[Bcountry] = None
     binperson: typing.Optional[Binperson] = None
     binphone: typing.Optional[Binphone] = None
     binweb: typing.Optional[Binweb] = None
-    boarding_link_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="boardingLinkId")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Boarding link ID for the application. Either `templateId` or `boardingLinkId` are required.
-    """
-
+    boarding_link_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="boardingLinkId"),
+        pydantic.Field(
+            alias="boardingLinkId",
+            description="Boarding link ID for the application. Either `templateId` or `boardingLinkId` are required.",
+        ),
+    ] = None
     bstate: typing.Optional[Bstate] = None
     bsummary: typing.Optional[Bsummary] = None
     btype: typing.Optional[OwnType] = None
@@ -102,23 +111,27 @@ class ApplicationDataPayIn(UniversalBaseModel):
     List of contacts for the business.
     """
 
-    credit_limit: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="creditLimit")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The maximum amount of credit that our lending partner, has authorized to your business. It's the upper boundary on how much you can spend or owe on a credit account at any given time.
-    """
-
-    dba_name: typing_extensions.Annotated[typing.Optional[Dbaname], FieldMetadata(alias="dbaName")] = pydantic.Field(
-        default=None
-    )
-    """
-    The alternate or common name that this business is doing business under usually referred to as a DBA name. Payabli strongly recommends including this information.
-    """
-
+    credit_limit: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="creditLimit"),
+        pydantic.Field(
+            alias="creditLimit",
+            description="The maximum amount of credit that our lending partner, has authorized to your business. It's the upper boundary on how much you can spend or owe on a credit account at any given time.",
+        ),
+    ] = None
+    dba_name: typing_extensions.Annotated[
+        typing.Optional[Dbaname],
+        FieldMetadata(alias="dbaName"),
+        pydantic.Field(
+            alias="dbaName",
+            description="The alternate or common name that this business is doing business under usually referred to as a DBA name. Payabli strongly recommends including this information.",
+        ),
+    ] = None
     ein: typing.Optional[Ein] = None
     externalpaypoint_id: typing_extensions.Annotated[
-        typing.Optional[ExternalPaypointId], FieldMetadata(alias="externalpaypointID")
+        typing.Optional[ExternalPaypointId],
+        FieldMetadata(alias="externalpaypointID"),
+        pydantic.Field(alias="externalpaypointID"),
     ] = None
     faxnumber: typing.Optional[FaxNumber] = pydantic.Field(default=None)
     """
@@ -126,17 +139,23 @@ class ApplicationDataPayIn(UniversalBaseModel):
     """
 
     highticketamt: typing.Optional[Highticketamt] = None
-    legal_name: typing_extensions.Annotated[typing.Optional[Legalname], FieldMetadata(alias="legalName")] = None
+    legal_name: typing_extensions.Annotated[
+        typing.Optional[Legalname], FieldMetadata(alias="legalName"), pydantic.Field(alias="legalName")
+    ] = None
     license: typing.Optional[License] = None
     licstate: typing.Optional[Licensestate] = None
     maddress: typing.Optional[Maddress] = None
-    maddress_1: typing_extensions.Annotated[typing.Optional[Maddress1], FieldMetadata(alias="maddress1")] = None
+    maddress_1: typing_extensions.Annotated[
+        typing.Optional[Maddress1], FieldMetadata(alias="maddress1"), pydantic.Field(alias="maddress1")
+    ] = None
     mcc: typing.Optional[Mcc] = None
     mcity: typing.Optional[Mcity] = None
     mcountry: typing.Optional[Mcountry] = None
     mstate: typing.Optional[Mstate] = None
     mzip: typing.Optional[Mzip] = None
-    org_id: typing_extensions.Annotated[typing.Optional[Orgid], FieldMetadata(alias="orgId")] = None
+    org_id: typing_extensions.Annotated[
+        typing.Optional[Orgid], FieldMetadata(alias="orgId"), pydantic.Field(alias="orgId")
+    ] = None
     ownership: typing.Optional[typing.List[ApplicationDataPayInOwnershipItem]] = pydantic.Field(default=None)
     """
     List of Owners with at least a 25% ownership.
@@ -147,45 +166,69 @@ class ApplicationDataPayIn(UniversalBaseModel):
     The business's phone number.
     """
 
-    processing_region: typing_extensions.Annotated[str, FieldMetadata(alias="processingRegion")] = pydantic.Field()
-    """
-    The business's processing region, either `US` or `CA`.
-    """
-
-    recipient_email: typing_extensions.Annotated[typing.Optional[Email], FieldMetadata(alias="recipientEmail")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Email address for the applicant. This is used to send the applicant a boarding link.
-    """
-
+    processing_region: typing_extensions.Annotated[
+        str,
+        FieldMetadata(alias="processingRegion"),
+        pydantic.Field(alias="processingRegion", description="The business's processing region, either `US` or `CA`."),
+    ]
+    recipient_email: typing_extensions.Annotated[
+        typing.Optional[Email],
+        FieldMetadata(alias="recipientEmail"),
+        pydantic.Field(
+            alias="recipientEmail",
+            description="Email address for the applicant. This is used to send the applicant a boarding link.",
+        ),
+    ] = None
     recipient_email_notification: typing_extensions.Annotated[
-        typing.Optional[RecipientEmailNotification], FieldMetadata(alias="recipientEmailNotification")
+        typing.Optional[RecipientEmailNotification],
+        FieldMetadata(alias="recipientEmailNotification"),
+        pydantic.Field(alias="recipientEmailNotification"),
     ] = None
     resumable: typing.Optional[Resumable] = None
     signer: SignerDataRequest
     startdate: typing.Optional[Busstartdate] = None
-    tax_fill_name: typing_extensions.Annotated[typing.Optional[Taxfillname], FieldMetadata(alias="taxFillName")] = None
-    template_id: typing_extensions.Annotated[typing.Optional[TemplateId], FieldMetadata(alias="templateId")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The associated boarding template's ID in Payabli. Either `templateId` or `boardingLinkId` are required.
-    """
-
+    tax_fill_name: typing_extensions.Annotated[
+        typing.Optional[Taxfillname], FieldMetadata(alias="taxFillName"), pydantic.Field(alias="taxFillName")
+    ] = None
+    template_id: typing_extensions.Annotated[
+        typing.Optional[TemplateId],
+        FieldMetadata(alias="templateId"),
+        pydantic.Field(
+            alias="templateId",
+            description="The associated boarding template's ID in Payabli. Either `templateId` or `boardingLinkId` are required.",
+        ),
+    ] = None
     ticketamt: typing.Optional[Ticketamt] = None
     website: typing.Optional[Website] = None
-    when_charged: typing_extensions.Annotated[Whencharged, FieldMetadata(alias="whenCharged")]
-    when_delivered: typing_extensions.Annotated[Whendelivered, FieldMetadata(alias="whenDelivered")]
-    when_provided: typing_extensions.Annotated[Whenprovided, FieldMetadata(alias="whenProvided")]
-    when_refunded: typing_extensions.Annotated[Whenrefunded, FieldMetadata(alias="whenRefunded")]
+    when_charged: typing_extensions.Annotated[
+        Whencharged, FieldMetadata(alias="whenCharged"), pydantic.Field(alias="whenCharged")
+    ]
+    when_delivered: typing_extensions.Annotated[
+        Whendelivered, FieldMetadata(alias="whenDelivered"), pydantic.Field(alias="whenDelivered")
+    ]
+    when_provided: typing_extensions.Annotated[
+        Whenprovided, FieldMetadata(alias="whenProvided"), pydantic.Field(alias="whenProvided")
+    ]
+    when_refunded: typing_extensions.Annotated[
+        Whenrefunded, FieldMetadata(alias="whenRefunded"), pydantic.Field(alias="whenRefunded")
+    ]
     additional_data: typing_extensions.Annotated[
-        typing.Optional[AdditionalDataString], FieldMetadata(alias="additionalData")
+        typing.Optional[AdditionalDataString],
+        FieldMetadata(alias="additionalData"),
+        pydantic.Field(alias="additionalData"),
     ] = None
-    rep_code: typing_extensions.Annotated[typing.Optional[RepCode], FieldMetadata(alias="RepCode")] = None
-    rep_name: typing_extensions.Annotated[typing.Optional[RepName], FieldMetadata(alias="RepName")] = None
-    rep_office: typing_extensions.Annotated[typing.Optional[RepOffice], FieldMetadata(alias="RepOffice")] = None
-    on_create: typing_extensions.Annotated[typing.Optional[OnCreate], FieldMetadata(alias="onCreate")] = None
+    rep_code: typing_extensions.Annotated[
+        typing.Optional[RepCode], FieldMetadata(alias="RepCode"), pydantic.Field(alias="RepCode")
+    ] = None
+    rep_name: typing_extensions.Annotated[
+        typing.Optional[RepName], FieldMetadata(alias="RepName"), pydantic.Field(alias="RepName")
+    ] = None
+    rep_office: typing_extensions.Annotated[
+        typing.Optional[RepOffice], FieldMetadata(alias="RepOffice"), pydantic.Field(alias="RepOffice")
+    ] = None
+    on_create: typing_extensions.Annotated[
+        typing.Optional[OnCreate], FieldMetadata(alias="onCreate"), pydantic.Field(alias="onCreate")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

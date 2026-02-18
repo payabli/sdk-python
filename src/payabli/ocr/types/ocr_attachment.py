@@ -11,9 +11,13 @@ from ...core.serialization import FieldMetadata
 class OcrAttachment(UniversalBaseModel):
     ftype: typing.Optional[str] = None
     filename: typing.Optional[str] = None
-    file_descriptor: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="fileDescriptor")] = None
+    file_descriptor: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="fileDescriptor"), pydantic.Field(alias="fileDescriptor")
+    ] = None
     furl: typing.Optional[str] = None
-    f_content: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="fContent")] = None
+    f_content: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="fContent"), pydantic.Field(alias="fContent")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

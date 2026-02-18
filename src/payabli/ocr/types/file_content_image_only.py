@@ -21,12 +21,11 @@ class FileContentImageOnly(UniversalBaseModel):
     Optional URL link to the file
     """
 
-    f_content: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="fContent")] = pydantic.Field(
-        default=None
-    )
-    """
-    Base64-encoded file content
-    """
+    f_content: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="fContent"),
+        pydantic.Field(alias="fContent", description="Base64-encoded file content"),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

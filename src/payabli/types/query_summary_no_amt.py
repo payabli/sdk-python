@@ -13,13 +13,17 @@ from .totalrecords import Totalrecords
 
 class QuerySummaryNoAmt(UniversalBaseModel):
     page_identifier: typing_extensions.Annotated[
-        typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier")
+        typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier"), pydantic.Field(alias="pageIdentifier")
     ] = None
-    page_size: typing_extensions.Annotated[typing.Optional[Pagesize], FieldMetadata(alias="pageSize")] = None
-    total_pages: typing_extensions.Annotated[typing.Optional[Totalrecords], FieldMetadata(alias="totalPages")] = None
-    total_records: typing_extensions.Annotated[typing.Optional[Totalrecords], FieldMetadata(alias="totalRecords")] = (
-        None
-    )
+    page_size: typing_extensions.Annotated[
+        typing.Optional[Pagesize], FieldMetadata(alias="pageSize"), pydantic.Field(alias="pageSize")
+    ] = None
+    total_pages: typing_extensions.Annotated[
+        typing.Optional[Totalrecords], FieldMetadata(alias="totalPages"), pydantic.Field(alias="totalPages")
+    ] = None
+    total_records: typing_extensions.Annotated[
+        typing.Optional[Totalrecords], FieldMetadata(alias="totalRecords"), pydantic.Field(alias="totalRecords")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

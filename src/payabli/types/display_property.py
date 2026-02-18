@@ -14,13 +14,11 @@ class DisplayProperty(UniversalBaseModel):
     When `true`, the field is displayed on the receipt.
     """
 
-    fixed: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="Fixed")] = pydantic.Field(
-        default=None
-    )
-    """
-    This field is unused.
-    """
-
+    fixed: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="Fixed"),
+        pydantic.Field(alias="Fixed", description="This field is unused."),
+    ] = None
     name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The field's name.

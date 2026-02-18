@@ -11,7 +11,9 @@ from .mfa_mode import MfaMode
 
 class MfaData(UniversalBaseModel):
     mfa: typing.Optional[bool] = None
-    mfa_mode: typing_extensions.Annotated[typing.Optional[MfaMode], FieldMetadata(alias="mfaMode")] = None
+    mfa_mode: typing_extensions.Annotated[
+        typing.Optional[MfaMode], FieldMetadata(alias="mfaMode"), pydantic.Field(alias="mfaMode")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

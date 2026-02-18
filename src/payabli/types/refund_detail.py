@@ -21,11 +21,12 @@ class RefundDetail(UniversalBaseModel):
     """
 
     split_refunding: typing_extensions.Annotated[
-        typing.Optional[typing.List[SplitFundingRefundContent]], FieldMetadata(alias="splitRefunding")
-    ] = pydantic.Field(default=None)
-    """
-    Array of objects containing split instructions for the refund.
-    """
+        typing.Optional[typing.List[SplitFundingRefundContent]],
+        FieldMetadata(alias="splitRefunding"),
+        pydantic.Field(
+            alias="splitRefunding", description="Array of objects containing split instructions for the refund."
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

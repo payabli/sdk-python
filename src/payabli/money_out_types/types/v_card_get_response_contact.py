@@ -13,33 +13,26 @@ class VCardGetResponseContact(UniversalBaseModel):
     Contact information structure.
     """
 
-    contact_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="ContactName")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Name of the contact.
-    """
-
-    contact_email: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="ContactEmail")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Email of the contact.
-    """
-
-    contact_title: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="ContactTitle")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Title of the contact.
-    """
-
-    contact_phone: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="ContactPhone")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Phone number of the contact.
-    """
+    contact_name: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="ContactName"),
+        pydantic.Field(alias="ContactName", description="Name of the contact."),
+    ] = None
+    contact_email: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="ContactEmail"),
+        pydantic.Field(alias="ContactEmail", description="Email of the contact."),
+    ] = None
+    contact_title: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="ContactTitle"),
+        pydantic.Field(alias="ContactTitle", description="Title of the contact."),
+    ] = None
+    contact_phone: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="ContactPhone"),
+        pydantic.Field(alias="ContactPhone", description="Phone number of the contact."),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

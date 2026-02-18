@@ -32,167 +32,168 @@ from ...types.vendor_data_response import VendorDataResponse
 
 
 class BillResponseData(UniversalBaseModel):
-    id_bill: typing_extensions.Annotated[typing.Optional[BillId], FieldMetadata(alias="IdBill")] = None
-    bill_number: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="BillNumber")] = pydantic.Field(
-        default=None
-    )
-    """
-    Unique identifier for the bill.
-    """
-
-    net_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="NetAmount")] = pydantic.Field(
-        default=None
-    )
-    """
-    Net amount owed in bill.
-    """
-
-    discount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="Discount")] = pydantic.Field(
-        default=None
-    )
-    """
-    Bill discount amount.
-    """
-
-    total_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="TotalAmount")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Total amount for the bill.
-    """
-
-    bill_date: typing_extensions.Annotated[typing.Optional[Datenullable], FieldMetadata(alias="BillDate")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY
-    """
-
-    due_date: typing_extensions.Annotated[typing.Optional[Datenullable], FieldMetadata(alias="DueDate")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Due Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY
-    """
-
-    comments: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="Comments")] = pydantic.Field(
-        default=None
-    )
-    """
-    Comments associated with the bill. For managed payables, the character limit is 200. For on demand payouts, the characters limit is 250.
-    """
-
-    batch_number: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="BatchNumber")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The batch number that the bill belongs to.
-    """
-
-    bill_items: typing_extensions.Annotated[typing.Optional[Billitems], FieldMetadata(alias="BillItems")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Array of `LineItems` contained in bill.
-    """
-
-    mode: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="Mode")] = pydantic.Field(default=None)
-    """
-    Bill mode: value `0` for single/one-time bills, `1` for scheduled bills.
-    """
-
-    payment_method: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="PaymentMethod")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Payment method used for the bill.
-    """
-
-    payment_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="PaymentId")] = pydantic.Field(
-        default=None
-    )
-    """
-    Payment ID associated with the bill.
-    """
-
+    id_bill: typing_extensions.Annotated[
+        typing.Optional[BillId], FieldMetadata(alias="IdBill"), pydantic.Field(alias="IdBill")
+    ] = None
+    bill_number: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="BillNumber"),
+        pydantic.Field(alias="BillNumber", description="Unique identifier for the bill."),
+    ] = None
+    net_amount: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="NetAmount"),
+        pydantic.Field(alias="NetAmount", description="Net amount owed in bill."),
+    ] = None
+    discount: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="Discount"),
+        pydantic.Field(alias="Discount", description="Bill discount amount."),
+    ] = None
+    total_amount: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="TotalAmount"),
+        pydantic.Field(alias="TotalAmount", description="Total amount for the bill."),
+    ] = None
+    bill_date: typing_extensions.Annotated[
+        typing.Optional[Datenullable],
+        FieldMetadata(alias="BillDate"),
+        pydantic.Field(alias="BillDate", description="Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY"),
+    ] = None
+    due_date: typing_extensions.Annotated[
+        typing.Optional[Datenullable],
+        FieldMetadata(alias="DueDate"),
+        pydantic.Field(alias="DueDate", description="Due Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY"),
+    ] = None
+    comments: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="Comments"),
+        pydantic.Field(
+            alias="Comments",
+            description="Comments associated with the bill. For managed payables, the character limit is 200. For on demand payouts, the characters limit is 250.",
+        ),
+    ] = None
+    batch_number: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="BatchNumber"),
+        pydantic.Field(alias="BatchNumber", description="The batch number that the bill belongs to."),
+    ] = None
+    bill_items: typing_extensions.Annotated[
+        typing.Optional[Billitems],
+        FieldMetadata(alias="BillItems"),
+        pydantic.Field(alias="BillItems", description="Array of `LineItems` contained in bill."),
+    ] = None
+    mode: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="Mode"),
+        pydantic.Field(
+            alias="Mode", description="Bill mode: value `0` for single/one-time bills, `1` for scheduled bills."
+        ),
+    ] = None
+    payment_method: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="PaymentMethod"),
+        pydantic.Field(alias="PaymentMethod", description="Payment method used for the bill."),
+    ] = None
+    payment_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="PaymentId"),
+        pydantic.Field(alias="PaymentId", description="Payment ID associated with the bill."),
+    ] = None
     accounting_field_1: typing_extensions.Annotated[
-        typing.Optional[AccountingField], FieldMetadata(alias="AccountingField1")
+        typing.Optional[AccountingField],
+        FieldMetadata(alias="AccountingField1"),
+        pydantic.Field(alias="AccountingField1"),
     ] = None
     accounting_field_2: typing_extensions.Annotated[
-        typing.Optional[AccountingField], FieldMetadata(alias="AccountingField2")
+        typing.Optional[AccountingField],
+        FieldMetadata(alias="AccountingField2"),
+        pydantic.Field(alias="AccountingField2"),
     ] = None
-    terms: typing_extensions.Annotated[typing.Optional[Terms], FieldMetadata(alias="Terms")] = None
-    source: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="Source")] = pydantic.Field(
-        default=None
-    )
-    """
-    The source of the bill, such as "API" or "UI".
-    """
-
+    terms: typing_extensions.Annotated[
+        typing.Optional[Terms], FieldMetadata(alias="Terms"), pydantic.Field(alias="Terms")
+    ] = None
+    source: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="Source"),
+        pydantic.Field(alias="Source", description='The source of the bill, such as "API" or "UI".'),
+    ] = None
     additional_data: typing_extensions.Annotated[
-        typing.Optional[AdditionalDataString], FieldMetadata(alias="AdditionalData")
+        typing.Optional[AdditionalDataString],
+        FieldMetadata(alias="AdditionalData"),
+        pydantic.Field(alias="AdditionalData"),
     ] = None
-    vendor: typing_extensions.Annotated[typing.Optional[VendorDataResponse], FieldMetadata(alias="Vendor")] = None
-    status: typing_extensions.Annotated[typing.Optional[Billstatus], FieldMetadata(alias="Status")] = None
-    created_at: typing_extensions.Annotated[typing.Optional[CreatedAt], FieldMetadata(alias="CreatedAt")] = None
-    end_date: typing_extensions.Annotated[typing.Optional[Datenullable], FieldMetadata(alias="EndDate")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    End date for scheduled bills. Applied only in `Mode` = 1.
-    """
-
-    last_updated: typing_extensions.Annotated[typing.Optional[LastModified], FieldMetadata(alias="LastUpdated")] = None
-    frequency: typing_extensions.Annotated[typing.Optional[Frequency], FieldMetadata(alias="Frequency")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Frequency for scheduled bills. Applied only in `Mode` = 1.
-    """
-
+    vendor: typing_extensions.Annotated[
+        typing.Optional[VendorDataResponse], FieldMetadata(alias="Vendor"), pydantic.Field(alias="Vendor")
+    ] = None
+    status: typing_extensions.Annotated[
+        typing.Optional[Billstatus], FieldMetadata(alias="Status"), pydantic.Field(alias="Status")
+    ] = None
+    created_at: typing_extensions.Annotated[
+        typing.Optional[CreatedAt], FieldMetadata(alias="CreatedAt"), pydantic.Field(alias="CreatedAt")
+    ] = None
+    end_date: typing_extensions.Annotated[
+        typing.Optional[Datenullable],
+        FieldMetadata(alias="EndDate"),
+        pydantic.Field(alias="EndDate", description="End date for scheduled bills. Applied only in `Mode` = 1."),
+    ] = None
+    last_updated: typing_extensions.Annotated[
+        typing.Optional[LastModified], FieldMetadata(alias="LastUpdated"), pydantic.Field(alias="LastUpdated")
+    ] = None
+    frequency: typing_extensions.Annotated[
+        typing.Optional[Frequency],
+        FieldMetadata(alias="Frequency"),
+        pydantic.Field(alias="Frequency", description="Frequency for scheduled bills. Applied only in `Mode` = 1."),
+    ] = None
     transaction: typing_extensions.Annotated[
-        typing.Optional[TransactionOutQueryRecord], FieldMetadata(alias="Transaction")
-    ] = pydantic.Field(default=None)
-    """
-    MoneyOut transaction associated to the bill
-    """
-
-    bill_events: typing_extensions.Annotated[typing.Optional[BillEvents], FieldMetadata(alias="billEvents")] = None
+        typing.Optional[TransactionOutQueryRecord],
+        FieldMetadata(alias="Transaction"),
+        pydantic.Field(alias="Transaction", description="MoneyOut transaction associated to the bill"),
+    ] = None
+    bill_events: typing_extensions.Annotated[
+        typing.Optional[BillEvents], FieldMetadata(alias="billEvents"), pydantic.Field(alias="billEvents")
+    ] = None
     bill_approvals: typing_extensions.Annotated[
-        typing.Optional[BillApprovals], FieldMetadata(alias="billApprovals")
+        typing.Optional[BillApprovals], FieldMetadata(alias="billApprovals"), pydantic.Field(alias="billApprovals")
     ] = None
     paypoint_legalname: typing_extensions.Annotated[
-        typing.Optional[Legalname], FieldMetadata(alias="PaypointLegalname")
+        typing.Optional[Legalname], FieldMetadata(alias="PaypointLegalname"), pydantic.Field(alias="PaypointLegalname")
     ] = None
-    paypoint_dbaname: typing_extensions.Annotated[typing.Optional[Dbaname], FieldMetadata(alias="PaypointDbaname")] = (
-        None
-    )
-    parent_org_id: typing_extensions.Annotated[typing.Optional[OrgParentId], FieldMetadata(alias="ParentOrgId")] = None
+    paypoint_dbaname: typing_extensions.Annotated[
+        typing.Optional[Dbaname], FieldMetadata(alias="PaypointDbaname"), pydantic.Field(alias="PaypointDbaname")
+    ] = None
+    parent_org_id: typing_extensions.Annotated[
+        typing.Optional[OrgParentId], FieldMetadata(alias="ParentOrgId"), pydantic.Field(alias="ParentOrgId")
+    ] = None
     parent_org_name: typing_extensions.Annotated[
-        typing.Optional[OrgParentName], FieldMetadata(alias="ParentOrgName")
+        typing.Optional[OrgParentName], FieldMetadata(alias="ParentOrgName"), pydantic.Field(alias="ParentOrgName")
     ] = None
     paypoint_entryname: typing_extensions.Annotated[
-        typing.Optional[Entrypointfield], FieldMetadata(alias="PaypointEntryname")
+        typing.Optional[Entrypointfield],
+        FieldMetadata(alias="PaypointEntryname"),
+        pydantic.Field(alias="PaypointEntryname"),
     ] = None
-    paylink_id: typing_extensions.Annotated[typing.Optional[PaylinkId], FieldMetadata(alias="paylinkId")] = None
-    documents_ref: typing_extensions.Annotated[typing.Optional[DocumentsRef], FieldMetadata(alias="DocumentsRef")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Object with the attached documents.
-    """
-
+    paylink_id: typing_extensions.Annotated[
+        typing.Optional[PaylinkId], FieldMetadata(alias="paylinkId"), pydantic.Field(alias="paylinkId")
+    ] = None
+    documents_ref: typing_extensions.Annotated[
+        typing.Optional[DocumentsRef],
+        FieldMetadata(alias="DocumentsRef"),
+        pydantic.Field(alias="DocumentsRef", description="Object with the attached documents."),
+    ] = None
     external_paypoint_id: typing_extensions.Annotated[
-        typing.Optional[ExternalPaypointId], FieldMetadata(alias="externalPaypointID")
+        typing.Optional[ExternalPaypointId],
+        FieldMetadata(alias="externalPaypointID"),
+        pydantic.Field(alias="externalPaypointID"),
     ] = None
-    lot_number: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="LotNumber")] = pydantic.Field(
-        default=None
-    )
-    """
-    Lot number of the bill.
-    """
-
-    entity_id: typing_extensions.Annotated[typing.Optional[EntityId], FieldMetadata(alias="EntityID")] = None
+    lot_number: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="LotNumber"),
+        pydantic.Field(alias="LotNumber", description="Lot number of the bill."),
+    ] = None
+    entity_id: typing_extensions.Annotated[
+        typing.Optional[EntityId], FieldMetadata(alias="EntityID"), pydantic.Field(alias="EntityID")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

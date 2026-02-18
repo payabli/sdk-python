@@ -12,32 +12,33 @@ from .notification_standard_request_content_event_type import NotificationStanda
 
 class NotificationStandardRequestContent(UniversalBaseModel):
     event_type: typing_extensions.Annotated[
-        typing.Optional[NotificationStandardRequestContentEventType], FieldMetadata(alias="eventType")
-    ] = pydantic.Field(default=None)
-    """
-    The notification's event name.
-    """
-
+        typing.Optional[NotificationStandardRequestContentEventType],
+        FieldMetadata(alias="eventType"),
+        pydantic.Field(alias="eventType", description="The notification's event name."),
+    ] = None
     internal_data: typing_extensions.Annotated[
-        typing.Optional[typing.List[KeyValueDuo]], FieldMetadata(alias="internalData")
-    ] = pydantic.Field(default=None)
-    """
-    Array of pairs key:value to insert in request body to target in **method** = *web*.
-    """
-
-    transaction_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="transactionId")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Used internally to reference the entity or object generating the event.
-    """
-
+        typing.Optional[typing.List[KeyValueDuo]],
+        FieldMetadata(alias="internalData"),
+        pydantic.Field(
+            alias="internalData",
+            description="Array of pairs key:value to insert in request body to target in **method** = *web*.",
+        ),
+    ] = None
+    transaction_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="transactionId"),
+        pydantic.Field(
+            alias="transactionId", description="Used internally to reference the entity or object generating the event."
+        ),
+    ] = None
     web_header_parameters: typing_extensions.Annotated[
-        typing.Optional[typing.List[KeyValueDuo]], FieldMetadata(alias="webHeaderParameters")
-    ] = pydantic.Field(default=None)
-    """
-    Array of pairs key:value to insert in header of request to target in **method** = *web*.
-    """
+        typing.Optional[typing.List[KeyValueDuo]],
+        FieldMetadata(alias="webHeaderParameters"),
+        pydantic.Field(
+            alias="webHeaderParameters",
+            description="Array of pairs key:value to insert in header of request to target in **method** = *web*.",
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

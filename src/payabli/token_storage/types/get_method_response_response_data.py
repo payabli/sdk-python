@@ -24,81 +24,69 @@ class GetMethodResponseResponseData(UniversalBaseModel):
     """
 
     ach_holder_type: typing_extensions.Annotated[
-        typing.Optional[AchHolderType], FieldMetadata(alias="achHolderType")
+        typing.Optional[AchHolderType], FieldMetadata(alias="achHolderType"), pydantic.Field(alias="achHolderType")
     ] = None
-    ach_sec_code: typing_extensions.Annotated[typing.Optional[AchSecCode], FieldMetadata(alias="achSecCode")] = None
+    ach_sec_code: typing_extensions.Annotated[
+        typing.Optional[AchSecCode], FieldMetadata(alias="achSecCode"), pydantic.Field(alias="achSecCode")
+    ] = None
     bin: typing.Optional[str] = pydantic.Field(default=None)
     """
     The bank identification number (BIN)
     """
 
-    bin_data: typing_extensions.Annotated[typing.Optional[BinData], FieldMetadata(alias="binData")] = None
-    card_updated_on: typing_extensions.Annotated[typing.Optional[dt.datetime], FieldMetadata(alias="cardUpdatedOn")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Timestamp for when card was last updated
-    """
-
+    bin_data: typing_extensions.Annotated[
+        typing.Optional[BinData], FieldMetadata(alias="binData"), pydantic.Field(alias="binData")
+    ] = None
+    card_updated_on: typing_extensions.Annotated[
+        typing.Optional[dt.datetime],
+        FieldMetadata(alias="cardUpdatedOn"),
+        pydantic.Field(alias="cardUpdatedOn", description="Timestamp for when card was last updated"),
+    ] = None
     customers: typing.Optional[typing.List[GetMethodResponseResponseDataCustomersItem]] = None
     descriptor: typing.Optional[Descriptor] = None
-    exp_date: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="expDate")] = pydantic.Field(
-        default=None
-    )
-    """
-    Expiration date for card in stored method in format MM/YY
-    """
-
-    holder_name: typing_extensions.Annotated[typing.Optional[Holdername], FieldMetadata(alias="holderName")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Account holder name in stored method
-    """
-
-    id_pmethod: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="idPmethod")] = pydantic.Field(
-        default=None
-    )
-    """
-    The stored payment method's identifier in Payabli
-    """
-
-    is_validated_ach: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="isValidatedACH")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Whether the ACH account has been validated
-    """
-
-    last_updated: typing_extensions.Annotated[typing.Optional[dt.datetime], FieldMetadata(alias="lastUpdated")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Timestamp for last update of stored method, in UTC
-    """
-
+    exp_date: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="expDate"),
+        pydantic.Field(alias="expDate", description="Expiration date for card in stored method in format MM/YY"),
+    ] = None
+    holder_name: typing_extensions.Annotated[
+        typing.Optional[Holdername],
+        FieldMetadata(alias="holderName"),
+        pydantic.Field(alias="holderName", description="Account holder name in stored method"),
+    ] = None
+    id_pmethod: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="idPmethod"),
+        pydantic.Field(alias="idPmethod", description="The stored payment method's identifier in Payabli"),
+    ] = None
+    is_validated_ach: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="isValidatedACH"),
+        pydantic.Field(alias="isValidatedACH", description="Whether the ACH account has been validated"),
+    ] = None
+    last_updated: typing_extensions.Annotated[
+        typing.Optional[dt.datetime],
+        FieldMetadata(alias="lastUpdated"),
+        pydantic.Field(alias="lastUpdated", description="Timestamp for last update of stored method, in UTC"),
+    ] = None
     masked_account: typing_extensions.Annotated[
-        typing.Optional[Maskedaccount], FieldMetadata(alias="maskedAccount")
+        typing.Optional[Maskedaccount], FieldMetadata(alias="maskedAccount"), pydantic.Field(alias="maskedAccount")
     ] = None
     method: typing.Optional[str] = pydantic.Field(default=None)
     """
     The saved method's type: `card` or `ach`.
     """
 
-    method_type: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="methodType")] = pydantic.Field(
-        default=None
-    )
-    """
-    The payment method's token type
-    """
-
-    postal_code: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="postalCode")] = pydantic.Field(
-        default=None
-    )
-    """
-    The payment method postal code
-    """
-
+    method_type: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="methodType"),
+        pydantic.Field(alias="methodType", description="The payment method's token type"),
+    ] = None
+    postal_code: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="postalCode"),
+        pydantic.Field(alias="postalCode", description="The payment method postal code"),
+    ] = None
     vendors: typing.Optional[typing.List[GetMethodResponseResponseDataVendorsItem]] = None
 
     if IS_PYDANTIC_V2:

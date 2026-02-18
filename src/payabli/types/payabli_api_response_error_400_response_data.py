@@ -18,12 +18,11 @@ class PayabliApiResponseError400ResponseData(UniversalBaseModel):
     Describes the reason the operation failed.
     """
 
-    todo_action: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="todoAction")] = pydantic.Field(
-        default=None
-    )
-    """
-    Describes how to resolve the error.
-    """
+    todo_action: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="todoAction"),
+        pydantic.Field(alias="todoAction", description="Describes how to resolve the error."),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

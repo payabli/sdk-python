@@ -20,38 +20,42 @@ from .request_out_authorize_vendor_data import RequestOutAuthorizeVendorData
 
 
 class AuthorizePayoutBody(UniversalBaseModel):
-    entry_point: typing_extensions.Annotated[Entrypointfield, FieldMetadata(alias="entryPoint")]
+    entry_point: typing_extensions.Annotated[
+        Entrypointfield, FieldMetadata(alias="entryPoint"), pydantic.Field(alias="entryPoint")
+    ]
     source: typing.Optional[Source] = None
-    order_id: typing_extensions.Annotated[typing.Optional[OrderId], FieldMetadata(alias="orderId")] = None
-    order_description: typing_extensions.Annotated[
-        typing.Optional[Orderdescription], FieldMetadata(alias="orderDescription")
+    order_id: typing_extensions.Annotated[
+        typing.Optional[OrderId], FieldMetadata(alias="orderId"), pydantic.Field(alias="orderId")
     ] = None
-    payment_method: typing_extensions.Annotated[AuthorizePaymentMethod, FieldMetadata(alias="paymentMethod")]
+    order_description: typing_extensions.Annotated[
+        typing.Optional[Orderdescription],
+        FieldMetadata(alias="orderDescription"),
+        pydantic.Field(alias="orderDescription"),
+    ] = None
+    payment_method: typing_extensions.Annotated[
+        AuthorizePaymentMethod, FieldMetadata(alias="paymentMethod"), pydantic.Field(alias="paymentMethod")
+    ]
     payment_details: typing_extensions.Annotated[
-        RequestOutAuthorizePaymentDetails, FieldMetadata(alias="paymentDetails")
-    ] = pydantic.Field()
-    """
-    Object containing payment details.
-    """
-
-    vendor_data: typing_extensions.Annotated[RequestOutAuthorizeVendorData, FieldMetadata(alias="vendorData")] = (
-        pydantic.Field()
-    )
-    """
-    Object containing vendor data.
-    """
-
+        RequestOutAuthorizePaymentDetails,
+        FieldMetadata(alias="paymentDetails"),
+        pydantic.Field(alias="paymentDetails", description="Object containing payment details."),
+    ]
+    vendor_data: typing_extensions.Annotated[
+        RequestOutAuthorizeVendorData,
+        FieldMetadata(alias="vendorData"),
+        pydantic.Field(alias="vendorData", description="Object containing vendor data."),
+    ]
     invoice_data: typing_extensions.Annotated[
-        typing.List[RequestOutAuthorizeInvoiceData], FieldMetadata(alias="invoiceData")
-    ] = pydantic.Field()
-    """
-    Array of bills associated to the transaction
-    """
-
-    account_id: typing_extensions.Annotated[typing.Optional[Accountid], FieldMetadata(alias="accountId")] = None
+        typing.List[RequestOutAuthorizeInvoiceData],
+        FieldMetadata(alias="invoiceData"),
+        pydantic.Field(alias="invoiceData", description="Array of bills associated to the transaction"),
+    ]
+    account_id: typing_extensions.Annotated[
+        typing.Optional[Accountid], FieldMetadata(alias="accountId"), pydantic.Field(alias="accountId")
+    ] = None
     subdomain: typing.Optional[Subdomain] = None
     subscription_id: typing_extensions.Annotated[
-        typing.Optional[Subscriptionid], FieldMetadata(alias="subscriptionId")
+        typing.Optional[Subscriptionid], FieldMetadata(alias="subscriptionId"), pydantic.Field(alias="subscriptionId")
     ] = None
 
     if IS_PYDANTIC_V2:

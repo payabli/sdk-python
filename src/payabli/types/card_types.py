@@ -13,7 +13,7 @@ class CardTypes(UniversalBaseModel):
     amex: typing.Optional[BasicTemplateElement] = None
     discover: typing.Optional[BasicTemplateElement] = None
     master_card: typing_extensions.Annotated[
-        typing.Optional[BasicTemplateElement], FieldMetadata(alias="masterCard")
+        typing.Optional[BasicTemplateElement], FieldMetadata(alias="masterCard"), pydantic.Field(alias="masterCard")
     ] = None
     visa: typing.Optional[BasicTemplateElement] = None
 

@@ -27,48 +27,57 @@ class AuthorizePaymentMethod(UniversalBaseModel):
     Payment method type - "managed", "vcard", "check", or "ach"
     """
 
-    ach_holder: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="achHolder")] = pydantic.Field(
-        default=None
-    )
-    """
-    Account holder name for ACH payments. Required when method is "ach" and not using `storedMethodId`.
-    """
-
-    ach_routing: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="achRouting")] = pydantic.Field(
-        default=None
-    )
-    """
-    Bank routing number for ACH payments. Required when method is "ach" and not using `storedMethodId`.
-    """
-
-    ach_account: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="achAccount")] = pydantic.Field(
-        default=None
-    )
-    """
-    Bank account number for ACH payments. Required when method is "ach" and not using `storedMethodId`.
-    """
-
-    ach_account_type: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="achAccountType")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Account type for ACH payments ("checking" or "savings"). Required when method is "ach" and not using `storedMethodId`.
-    """
-
-    ach_code: typing_extensions.Annotated[typing.Optional[AchSecCode], FieldMetadata(alias="achCode")] = None
-    ach_holder_type: typing_extensions.Annotated[
-        typing.Optional[AchHolderType], FieldMetadata(alias="achHolderType")
+    ach_holder: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="achHolder"),
+        pydantic.Field(
+            alias="achHolder",
+            description='Account holder name for ACH payments. Required when method is "ach" and not using `storedMethodId`.',
+        ),
     ] = None
-    stored_method_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="storedMethodId")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    ID of the stored ACH payment method. Only applicable when method is `ach`. Use this to reference a previously saved ACH method instead of providing bank details directly.
-    """
-
+    ach_routing: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="achRouting"),
+        pydantic.Field(
+            alias="achRouting",
+            description='Bank routing number for ACH payments. Required when method is "ach" and not using `storedMethodId`.',
+        ),
+    ] = None
+    ach_account: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="achAccount"),
+        pydantic.Field(
+            alias="achAccount",
+            description='Bank account number for ACH payments. Required when method is "ach" and not using `storedMethodId`.',
+        ),
+    ] = None
+    ach_account_type: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="achAccountType"),
+        pydantic.Field(
+            alias="achAccountType",
+            description='Account type for ACH payments ("checking" or "savings"). Required when method is "ach" and not using `storedMethodId`.',
+        ),
+    ] = None
+    ach_code: typing_extensions.Annotated[
+        typing.Optional[AchSecCode], FieldMetadata(alias="achCode"), pydantic.Field(alias="achCode")
+    ] = None
+    ach_holder_type: typing_extensions.Annotated[
+        typing.Optional[AchHolderType], FieldMetadata(alias="achHolderType"), pydantic.Field(alias="achHolderType")
+    ] = None
+    stored_method_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="storedMethodId"),
+        pydantic.Field(
+            alias="storedMethodId",
+            description="ID of the stored ACH payment method. Only applicable when method is `ach`. Use this to reference a previously saved ACH method instead of providing bank details directly.",
+        ),
+    ] = None
     initiator: typing.Optional[Initiator] = None
     stored_method_usage_type: typing_extensions.Annotated[
-        typing.Optional[StoredMethodUsageType], FieldMetadata(alias="storedMethodUsageType")
+        typing.Optional[StoredMethodUsageType],
+        FieldMetadata(alias="storedMethodUsageType"),
+        pydantic.Field(alias="storedMethodUsageType"),
     ] = None
 
     if IS_PYDANTIC_V2:

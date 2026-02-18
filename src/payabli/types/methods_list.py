@@ -14,32 +14,26 @@ class MethodsList(UniversalBaseModel):
     When `true`, American Express is accepted.
     """
 
-    apple_pay: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="applePay")] = pydantic.Field(
-        default=None
-    )
-    """
-    When `true`, Apple Pay is accepted.
-    """
-
-    google_pay: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="googlePay")] = pydantic.Field(
-        default=None
-    )
-    """
-    When `true`, Google Pay is accepted.
-    """
-
+    apple_pay: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="applePay"),
+        pydantic.Field(alias="applePay", description="When `true`, Apple Pay is accepted."),
+    ] = None
+    google_pay: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="googlePay"),
+        pydantic.Field(alias="googlePay", description="When `true`, Google Pay is accepted."),
+    ] = None
     discover: typing.Optional[bool] = pydantic.Field(default=None)
     """
     When `true`, Discover is accepted.
     """
 
-    e_check: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="eCheck")] = pydantic.Field(
-        default=None
-    )
-    """
-    When `true`, ACH is accepted.
-    """
-
+    e_check: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="eCheck"),
+        pydantic.Field(alias="eCheck", description="When `true`, ACH is accepted."),
+    ] = None
     mastercard: typing.Optional[bool] = pydantic.Field(default=None)
     """
     When `true`, Mastercard is accepted.

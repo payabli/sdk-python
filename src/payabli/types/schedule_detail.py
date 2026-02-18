@@ -10,31 +10,35 @@ from .frequency import Frequency
 
 
 class ScheduleDetail(UniversalBaseModel):
-    end_date: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="endDate")] = pydantic.Field(
-        default=None
-    )
-    """
-    Subscription end date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY or the value `untilcancelled` to indicate a scheduled payment with infinite cycle.
-    """
-
+    end_date: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="endDate"),
+        pydantic.Field(
+            alias="endDate",
+            description="Subscription end date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY or the value `untilcancelled` to indicate a scheduled payment with infinite cycle.",
+        ),
+    ] = None
     frequency: typing.Optional[Frequency] = pydantic.Field(default=None)
     """
     Frequency of the subscription.
     """
 
-    plan_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="planId")] = pydantic.Field(
-        default=None
-    )
-    """
-    This field is for future development, leave null. Identifier of subscription plan applied in the scheduled payment/subscription.
-    """
-
-    start_date: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="startDate")] = pydantic.Field(
-        default=None
-    )
-    """
-    Subscription start date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY. This must be a future date.
-    """
+    plan_id: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="planId"),
+        pydantic.Field(
+            alias="planId",
+            description="This field is for future development, leave null. Identifier of subscription plan applied in the scheduled payment/subscription.",
+        ),
+    ] = None
+    start_date: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="startDate"),
+        pydantic.Field(
+            alias="startDate",
+            description="Subscription start date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY. This must be a future date.",
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -16,28 +16,37 @@ from .device import Device
 
 
 class PayMethodAch(UniversalBaseModel):
-    ach_account: typing_extensions.Annotated[Achaccount, FieldMetadata(alias="achAccount")] = pydantic.Field()
-    """
-    Bank account number. This field is **required** when method = 'ach'.
-    """
-
+    ach_account: typing_extensions.Annotated[
+        Achaccount,
+        FieldMetadata(alias="achAccount"),
+        pydantic.Field(
+            alias="achAccount", description="Bank account number. This field is **required** when method = 'ach'."
+        ),
+    ]
     ach_account_type: typing_extensions.Annotated[
-        typing.Optional[Achaccounttype], FieldMetadata(alias="achAccountType")
-    ] = pydantic.Field(default=None)
-    """
-    Bank account type. This field is **required** when method = 'ach'.
-    """
-
-    ach_code: typing_extensions.Annotated[typing.Optional[AchSecCode], FieldMetadata(alias="achCode")] = None
-    ach_holder: typing_extensions.Annotated[AchHolder, FieldMetadata(alias="achHolder")]
-    ach_holder_type: typing_extensions.Annotated[
-        typing.Optional[AchHolderType], FieldMetadata(alias="achHolderType")
+        typing.Optional[Achaccounttype],
+        FieldMetadata(alias="achAccountType"),
+        pydantic.Field(
+            alias="achAccountType", description="Bank account type. This field is **required** when method = 'ach'."
+        ),
     ] = None
-    ach_routing: typing_extensions.Annotated[Achrouting, FieldMetadata(alias="achRouting")] = pydantic.Field()
-    """
-    ABA/routing number of bank account. This field is **required** when method = 'ach'.
-    """
-
+    ach_code: typing_extensions.Annotated[
+        typing.Optional[AchSecCode], FieldMetadata(alias="achCode"), pydantic.Field(alias="achCode")
+    ] = None
+    ach_holder: typing_extensions.Annotated[
+        AchHolder, FieldMetadata(alias="achHolder"), pydantic.Field(alias="achHolder")
+    ]
+    ach_holder_type: typing_extensions.Annotated[
+        typing.Optional[AchHolderType], FieldMetadata(alias="achHolderType"), pydantic.Field(alias="achHolderType")
+    ] = None
+    ach_routing: typing_extensions.Annotated[
+        Achrouting,
+        FieldMetadata(alias="achRouting"),
+        pydantic.Field(
+            alias="achRouting",
+            description="ABA/routing number of bank account. This field is **required** when method = 'ach'.",
+        ),
+    ]
     device: typing.Optional[Device] = None
     method: typing.Literal["ach"] = "ach"
 

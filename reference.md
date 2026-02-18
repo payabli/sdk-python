@@ -1,6 +1,6 @@
 # Reference
 ## Bill
-<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">add_bill</a>(...)</code></summary>
+<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">add_bill</a>(...) -&gt; AsyncHttpResponse[BillResponse]</code></summary>
 <dl>
 <dd>
 
@@ -283,7 +283,7 @@ client.bill.add_bill(
 </dl>
 </details>
 
-<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">delete_attached_from_bill</a>(...)</code></summary>
+<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">delete_attached_from_bill</a>(...) -&gt; AsyncHttpResponse[BillResponse]</code></summary>
 <dl>
 <dd>
 
@@ -387,7 +387,7 @@ request to `/api/Invoice/{idInvoice}`. Here, the filename is
 </dl>
 </details>
 
-<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">delete_bill</a>(...)</code></summary>
+<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">delete_bill</a>(...) -&gt; AsyncHttpResponse[BillResponse]</code></summary>
 <dl>
 <dd>
 
@@ -457,7 +457,7 @@ client.bill.delete_bill(
 </dl>
 </details>
 
-<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">edit_bill</a>(...)</code></summary>
+<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">edit_bill</a>(...) -&gt; AsyncHttpResponse[EditBillResponse]</code></summary>
 <dl>
 <dd>
 
@@ -693,7 +693,7 @@ client.bill.edit_bill(
 </dl>
 </details>
 
-<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">get_attached_from_bill</a>(...)</code></summary>
+<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">get_attached_from_bill</a>(...) -&gt; AsyncHttpResponse[FileContent]</code></summary>
 <dl>
 <dd>
 
@@ -793,7 +793,7 @@ The filename in Payabli. Filename is `zipName` in response to a request to `/api
 </dl>
 </details>
 
-<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">get_bill</a>(...)</code></summary>
+<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">get_bill</a>(...) -&gt; AsyncHttpResponse[GetBillResponse]</code></summary>
 <dl>
 <dd>
 
@@ -863,7 +863,7 @@ client.bill.get_bill(
 </dl>
 </details>
 
-<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">list_bills</a>(...)</code></summary>
+<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">list_bills</a>(...) -&gt; AsyncHttpResponse[BillQueryResponse]</code></summary>
 <dl>
 <dd>
 
@@ -1020,7 +1020,7 @@ Example: `totalAmount(gt)=20` returns all records with a `totalAmount` that's gr
 </dl>
 </details>
 
-<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">list_bills_org</a>(...)</code></summary>
+<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">list_bills_org</a>(...) -&gt; AsyncHttpResponse[BillQueryResponse]</code></summary>
 <dl>
 <dd>
 
@@ -1177,7 +1177,7 @@ Example: totalAmount(gt)=20 return all records with totalAmount greater than 20.
 </dl>
 </details>
 
-<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">modify_approval_bill</a>(...)</code></summary>
+<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">modify_approval_bill</a>(...) -&gt; AsyncHttpResponse[ModifyApprovalBillResponse]</code></summary>
 <dl>
 <dd>
 
@@ -1256,7 +1256,7 @@ client.bill.modify_approval_bill(
 </dl>
 </details>
 
-<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">send_to_approval_bill</a>(...)</code></summary>
+<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">send_to_approval_bill</a>(...) -&gt; AsyncHttpResponse[BillResponse]</code></summary>
 <dl>
 <dd>
 
@@ -1352,7 +1352,7 @@ client.bill.send_to_approval_bill(
 </dl>
 </details>
 
-<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">set_approved_bill</a>(...)</code></summary>
+<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">set_approved_bill</a>(...) -&gt; AsyncHttpResponse[SetApprovedBillResponse]</code></summary>
 <dl>
 <dd>
 
@@ -1440,7 +1440,7 @@ client.bill.set_approved_bill(
 </details>
 
 ## Boarding
-<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">add_application</a>(...)</code></summary>
+<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">add_application</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]</code></summary>
 <dl>
 <dd>
 
@@ -1662,7 +1662,7 @@ client.boarding.add_application(
 </dl>
 </details>
 
-<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">delete_application</a>(...)</code></summary>
+<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">delete_application</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]</code></summary>
 <dl>
 <dd>
 
@@ -1732,7 +1732,7 @@ client.boarding.delete_application(
 </dl>
 </details>
 
-<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">get_application</a>(...)</code></summary>
+<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">get_application</a>(...) -&gt; AsyncHttpResponse[ApplicationDetailsRecord]</code></summary>
 <dl>
 <dd>
 
@@ -1802,7 +1802,7 @@ client.boarding.get_application(
 </dl>
 </details>
 
-<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">get_application_by_auth</a>(...)</code></summary>
+<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">get_application_by_auth</a>(...) -&gt; AsyncHttpResponse[ApplicationQueryRecord]</code></summary>
 <dl>
 <dd>
 
@@ -1890,7 +1890,7 @@ client.boarding.get_application_by_auth(
 </dl>
 </details>
 
-<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">get_by_id_link_application</a>(...)</code></summary>
+<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">get_by_id_link_application</a>(...) -&gt; AsyncHttpResponse[BoardingLinkQueryRecord]</code></summary>
 <dl>
 <dd>
 
@@ -1960,7 +1960,7 @@ client.boarding.get_by_id_link_application(
 </dl>
 </details>
 
-<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">get_by_template_id_link_application</a>(...)</code></summary>
+<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">get_by_template_id_link_application</a>(...) -&gt; AsyncHttpResponse[BoardingLinkQueryRecord]</code></summary>
 <dl>
 <dd>
 
@@ -2030,7 +2030,7 @@ client.boarding.get_by_template_id_link_application(
 </dl>
 </details>
 
-<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">get_external_application</a>(...)</code></summary>
+<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">get_external_application</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse00]</code></summary>
 <dl>
 <dd>
 
@@ -2117,7 +2117,7 @@ client.boarding.get_external_application(
 </dl>
 </details>
 
-<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">get_link_application</a>(...)</code></summary>
+<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">get_link_application</a>(...) -&gt; AsyncHttpResponse[BoardingLinkQueryRecord]</code></summary>
 <dl>
 <dd>
 
@@ -2187,7 +2187,7 @@ client.boarding.get_link_application(
 </dl>
 </details>
 
-<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">list_applications</a>(...)</code></summary>
+<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">list_applications</a>(...) -&gt; AsyncHttpResponse[QueryBoardingAppsListResponse]</code></summary>
 <dl>
 <dd>
 
@@ -2336,7 +2336,7 @@ List of comparison accepted - enclosed between parentheses:
 </dl>
 </details>
 
-<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">list_boarding_links</a>(...)</code></summary>
+<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">list_boarding_links</a>(...) -&gt; AsyncHttpResponse[QueryBoardingLinksResponse]</code></summary>
 <dl>
 <dd>
 
@@ -2473,7 +2473,7 @@ Example: templateName(ct)=hoa return all records with template title containing 
 </dl>
 </details>
 
-<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">update_application</a>(...)</code></summary>
+<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">update_application</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]</code></summary>
 <dl>
 <dd>
 
@@ -2992,7 +2992,7 @@ client.boarding.update_application(
 </details>
 
 ## ChargeBacks
-<details><summary><code>client.charge_backs.<a href="src/payabli/charge_backs/client.py">add_response</a>(...)</code></summary>
+<details><summary><code>client.charge_backs.<a href="src/payabli/charge_backs/client.py">add_response</a>(...) -&gt; AsyncHttpResponse[AddResponseResponse]</code></summary>
 <dl>
 <dd>
 
@@ -3103,7 +3103,7 @@ client.charge_backs.add_response(
 </dl>
 </details>
 
-<details><summary><code>client.charge_backs.<a href="src/payabli/charge_backs/client.py">get_chargeback</a>(...)</code></summary>
+<details><summary><code>client.charge_backs.<a href="src/payabli/charge_backs/client.py">get_chargeback</a>(...) -&gt; AsyncHttpResponse[ChargebackQueryRecords]</code></summary>
 <dl>
 <dd>
 
@@ -3173,7 +3173,7 @@ client.charge_backs.get_chargeback(
 </dl>
 </details>
 
-<details><summary><code>client.charge_backs.<a href="src/payabli/charge_backs/client.py">get_chargeback_attachment</a>(...)</code></summary>
+<details><summary><code>client.charge_backs.<a href="src/payabli/charge_backs/client.py">get_chargeback_attachment</a>(...) -&gt; AsyncHttpResponse[str]</code></summary>
 <dl>
 <dd>
 
@@ -3253,7 +3253,7 @@ client.charge_backs.get_chargeback_attachment(
 </details>
 
 ## CheckCapture
-<details><summary><code>client.check_capture.<a href="src/payabli/check_capture/client.py">check_processing</a>(...)</code></summary>
+<details><summary><code>client.check_capture.<a href="src/payabli/check_capture/client.py">check_processing</a>(...) -&gt; AsyncHttpResponse[CheckCaptureResponse]</code></summary>
 <dl>
 <dd>
 
@@ -3351,7 +3351,7 @@ client.check_capture.check_processing(
 </details>
 
 ## Cloud
-<details><summary><code>client.cloud.<a href="src/payabli/cloud/client.py">add_device</a>(...)</code></summary>
+<details><summary><code>client.cloud.<a href="src/payabli/cloud/client.py">add_device</a>(...) -&gt; AsyncHttpResponse[AddDeviceResponse]</code></summary>
 <dl>
 <dd>
 
@@ -3453,7 +3453,7 @@ The device registration code or serial number, depending on the model.
 </dl>
 </details>
 
-<details><summary><code>client.cloud.<a href="src/payabli/cloud/client.py">history_device</a>(...)</code></summary>
+<details><summary><code>client.cloud.<a href="src/payabli/cloud/client.py">history_device</a>(...) -&gt; AsyncHttpResponse[CloudQueryApiResponse]</code></summary>
 <dl>
 <dd>
 
@@ -3532,7 +3532,7 @@ client.cloud.history_device(
 </dl>
 </details>
 
-<details><summary><code>client.cloud.<a href="src/payabli/cloud/client.py">list_device</a>(...)</code></summary>
+<details><summary><code>client.cloud.<a href="src/payabli/cloud/client.py">list_device</a>(...) -&gt; AsyncHttpResponse[CloudQueryApiResponse]</code></summary>
 <dl>
 <dd>
 
@@ -3610,7 +3610,7 @@ client.cloud.list_device(
 </dl>
 </details>
 
-<details><summary><code>client.cloud.<a href="src/payabli/cloud/client.py">remove_device</a>(...)</code></summary>
+<details><summary><code>client.cloud.<a href="src/payabli/cloud/client.py">remove_device</a>(...) -&gt; AsyncHttpResponse[RemoveDeviceResponse]</code></summary>
 <dl>
 <dd>
 
@@ -3690,7 +3690,7 @@ client.cloud.remove_device(
 </details>
 
 ## Customer
-<details><summary><code>client.customer.<a href="src/payabli/customer/client.py">add_customer</a>(...)</code></summary>
+<details><summary><code>client.customer.<a href="src/payabli/customer/client.py">add_customer</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseCustomerQuery]</code></summary>
 <dl>
 <dd>
 
@@ -4004,7 +4004,7 @@ client.customer.add_customer(
 </dl>
 </details>
 
-<details><summary><code>client.customer.<a href="src/payabli/customer/client.py">delete_customer</a>(...)</code></summary>
+<details><summary><code>client.customer.<a href="src/payabli/customer/client.py">delete_customer</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]</code></summary>
 <dl>
 <dd>
 
@@ -4074,7 +4074,7 @@ client.customer.delete_customer(
 </dl>
 </details>
 
-<details><summary><code>client.customer.<a href="src/payabli/customer/client.py">get_customer</a>(...)</code></summary>
+<details><summary><code>client.customer.<a href="src/payabli/customer/client.py">get_customer</a>(...) -&gt; AsyncHttpResponse[CustomerQueryRecords]</code></summary>
 <dl>
 <dd>
 
@@ -4144,7 +4144,7 @@ client.customer.get_customer(
 </dl>
 </details>
 
-<details><summary><code>client.customer.<a href="src/payabli/customer/client.py">link_customer_transaction</a>(...)</code></summary>
+<details><summary><code>client.customer.<a href="src/payabli/customer/client.py">link_customer_transaction</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]</code></summary>
 <dl>
 <dd>
 
@@ -4223,7 +4223,7 @@ client.customer.link_customer_transaction(
 </dl>
 </details>
 
-<details><summary><code>client.customer.<a href="src/payabli/customer/client.py">request_consent</a>(...)</code></summary>
+<details><summary><code>client.customer.<a href="src/payabli/customer/client.py">request_consent</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]</code></summary>
 <dl>
 <dd>
 
@@ -4293,7 +4293,7 @@ client.customer.request_consent(
 </dl>
 </details>
 
-<details><summary><code>client.customer.<a href="src/payabli/customer/client.py">update_customer</a>(...)</code></summary>
+<details><summary><code>client.customer.<a href="src/payabli/customer/client.py">update_customer</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]</code></summary>
 <dl>
 <dd>
 
@@ -4579,7 +4579,7 @@ client.customer.update_customer(
 </details>
 
 ## Export
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_applications</a>(...)</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_applications</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
 <dl>
 <dd>
 
@@ -4746,7 +4746,7 @@ Example: `dbaname(ct)=hoa` returns all records with a `dbaname` containing "hoa"
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_batch_details</a>(...)</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_batch_details</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
 <dl>
 <dd>
 
@@ -4924,7 +4924,7 @@ Example: `amount(gt)=20` return all records with amount greater than 20.00
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_batch_details_org</a>(...)</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_batch_details_org</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
 <dl>
 <dd>
 
@@ -5102,7 +5102,7 @@ Example: `amount(gt)=20` return all records with amount greater than 20.00
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_batches</a>(...)</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_batches</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
 <dl>
 <dd>
 
@@ -5270,7 +5270,7 @@ Example: `batchAmount(gt)=20` returns all records with a `batchAmount` greater t
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_batches_org</a>(...)</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_batches_org</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
 <dl>
 <dd>
 
@@ -5436,7 +5436,7 @@ Example: `batchAmount(gt)=20` returns all records with a `batchAmount` greater t
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_batches_out</a>(...)</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_batches_out</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
 <dl>
 <dd>
 
@@ -5584,7 +5584,7 @@ Example: `batchAmount(gt)=20` returns all records with a `batchAmount` greater t
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_batches_out_org</a>(...)</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_batches_out_org</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
 <dl>
 <dd>
 
@@ -5732,7 +5732,7 @@ Example: `batchAmount(gt)=20` returns all records with a `batchAmount` greater t
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_bills</a>(...)</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_bills</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
 <dl>
 <dd>
 
@@ -5898,7 +5898,7 @@ Example: totalAmount(gt)=20  return all records with totalAmount greater than 20
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_bills_org</a>(...)</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_bills_org</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
 <dl>
 <dd>
 
@@ -6064,7 +6064,7 @@ Example: totalAmount(gt)=20  return all records with totalAmount greater than 20
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_chargebacks</a>(...)</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_chargebacks</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
 <dl>
 <dd>
 
@@ -6251,7 +6251,7 @@ Example: `netAmount(gt)=20` returns all records with a `netAmount` greater than 
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_chargebacks_org</a>(...)</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_chargebacks_org</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
 <dl>
 <dd>
 
@@ -6438,7 +6438,7 @@ Example: `netAmount(gt)=20` returns all records with a `netAmount` greater than 
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_customers</a>(...)</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_customers</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
 <dl>
 <dd>
 
@@ -6618,7 +6618,7 @@ balance(gt)=20 return all records with balance greater than 20.00
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_customers_org</a>(...)</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_customers_org</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
 <dl>
 <dd>
 
@@ -6798,7 +6798,7 @@ balance(gt)=20 return all records with balance greater than 20.00
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_invoices</a>(...)</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_invoices</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
 <dl>
 <dd>
 
@@ -6988,7 +6988,7 @@ Example: `totalAmount(gt)=20` returns all records with `totalAmount` greater tha
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_invoices_org</a>(...)</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_invoices_org</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
 <dl>
 <dd>
 
@@ -7178,7 +7178,7 @@ Example: totalAmount(gt)=20  return all records with totalAmount greater than 20
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_organizations</a>(...)</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_organizations</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
 <dl>
 <dd>
 
@@ -7343,7 +7343,7 @@ Example: name(ct)=hoa  return all records where name contains "hoa"
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_payout</a>(...)</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_payout</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
 <dl>
 <dd>
 
@@ -7507,7 +7507,7 @@ Example: totalAmount(gt)=20 return all records with totalAmount greater than 20.
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_payout_org</a>(...)</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_payout_org</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
 <dl>
 <dd>
 
@@ -7671,7 +7671,7 @@ Example: totalAmount(gt)=20 return all records with totalAmount greater than 20.
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_paypoints</a>(...)</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_paypoints</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
 <dl>
 <dd>
 
@@ -7837,7 +7837,7 @@ Example: `dbaname(ct)=hoa` returns all records with `dbaname` containing "hoa"
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_settlements</a>(...)</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_settlements</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
 <dl>
 <dd>
 
@@ -8023,7 +8023,7 @@ Example: `settledAmount(gt)=20` returns all records with a `settledAmount` great
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_settlements_org</a>(...)</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_settlements_org</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
 <dl>
 <dd>
 
@@ -8209,7 +8209,7 @@ Example: `settledAmount(gt)=20` returns all records with a `settledAmount` great
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_subscriptions</a>(...)</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_subscriptions</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
 <dl>
 <dd>
 
@@ -8397,7 +8397,7 @@ Example: `netAmount(gt)=20` returns all records with a `netAmount` greater than 
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_subscriptions_org</a>(...)</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_subscriptions_org</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
 <dl>
 <dd>
 
@@ -8585,7 +8585,7 @@ Example: `netAmount(gt)=20` returns all records with a `netAmount` greater than 
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_transactions</a>(...)</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_transactions</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
 <dl>
 <dd>
 
@@ -8777,7 +8777,7 @@ Example: `netAmount(gt)=20` returns all records with a `netAmount` greater than 
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_transactions_org</a>(...)</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_transactions_org</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
 <dl>
 <dd>
 
@@ -8969,7 +8969,7 @@ Example: `netAmount(gt)=20` returns all records with a `netAmount` greater than 
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_transfer_details</a>(...)</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_transfer_details</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
 <dl>
 <dd>
 
@@ -9143,7 +9143,7 @@ List of field names accepted:
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_transfers</a>(...)</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_transfers</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
 <dl>
 <dd>
 
@@ -9300,7 +9300,7 @@ List of field names accepted:
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_vendors</a>(...)</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_vendors</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
 <dl>
 <dd>
 
@@ -9470,7 +9470,7 @@ Example: `netAmount(gt)=20` returns all records with a `netAmount` greater than 
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_vendors_org</a>(...)</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_vendors_org</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
 <dl>
 <dd>
 
@@ -9641,7 +9641,7 @@ Example: `netAmount(gt)=20` returns all records with a `netAmount` greater than 
 </details>
 
 ## HostedPaymentPages
-<details><summary><code>client.hosted_payment_pages.<a href="src/payabli/hosted_payment_pages/client.py">load_page</a>(...)</code></summary>
+<details><summary><code>client.hosted_payment_pages.<a href="src/payabli/hosted_payment_pages/client.py">load_page</a>(...) -&gt; AsyncHttpResponse[PayabliPages]</code></summary>
 <dl>
 <dd>
 
@@ -9720,7 +9720,7 @@ client.hosted_payment_pages.load_page(
 </dl>
 </details>
 
-<details><summary><code>client.hosted_payment_pages.<a href="src/payabli/hosted_payment_pages/client.py">new_page</a>(...)</code></summary>
+<details><summary><code>client.hosted_payment_pages.<a href="src/payabli/hosted_payment_pages/client.py">new_page</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]</code></summary>
 <dl>
 <dd>
 
@@ -9889,7 +9889,7 @@ client.hosted_payment_pages.new_page(
 </dl>
 </details>
 
-<details><summary><code>client.hosted_payment_pages.<a href="src/payabli/hosted_payment_pages/client.py">save_page</a>(...)</code></summary>
+<details><summary><code>client.hosted_payment_pages.<a href="src/payabli/hosted_payment_pages/client.py">save_page</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]</code></summary>
 <dl>
 <dd>
 
@@ -10057,7 +10057,7 @@ client.hosted_payment_pages.save_page(
 </details>
 
 ## Import
-<details><summary><code>client.import_.<a href="src/payabli/import_/client.py">import_bills</a>(...)</code></summary>
+<details><summary><code>client.import_.<a href="src/payabli/import_/client.py">import_bills</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseImport]</code></summary>
 <dl>
 <dd>
 
@@ -10137,7 +10137,7 @@ core.File` — See core.File for more documentation
 </dl>
 </details>
 
-<details><summary><code>client.import_.<a href="src/payabli/import_/client.py">import_customer</a>(...)</code></summary>
+<details><summary><code>client.import_.<a href="src/payabli/import_/client.py">import_customer</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseImport]</code></summary>
 <dl>
 <dd>
 
@@ -10225,7 +10225,7 @@ core.File` — See core.File for more documentation
 </dl>
 </details>
 
-<details><summary><code>client.import_.<a href="src/payabli/import_/client.py">import_vendor</a>(...)</code></summary>
+<details><summary><code>client.import_.<a href="src/payabli/import_/client.py">import_vendor</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseImport]</code></summary>
 <dl>
 <dd>
 
@@ -10306,7 +10306,7 @@ core.File` — See core.File for more documentation
 </details>
 
 ## Invoice
-<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">add_invoice</a>(...)</code></summary>
+<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">add_invoice</a>(...) -&gt; AsyncHttpResponse[InvoiceResponseWithoutData]</code></summary>
 <dl>
 <dd>
 
@@ -10451,7 +10451,7 @@ client.invoice.add_invoice(
 </dl>
 </details>
 
-<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">delete_attached_from_invoice</a>(...)</code></summary>
+<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">delete_attached_from_invoice</a>(...) -&gt; AsyncHttpResponse[InvoiceResponseWithoutData]</code></summary>
 <dl>
 <dd>
 
@@ -10542,7 +10542,7 @@ The filename in Payabli. Filename is `zipName` in response to a request to `/api
 </dl>
 </details>
 
-<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">delete_invoice</a>(...)</code></summary>
+<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">delete_invoice</a>(...) -&gt; AsyncHttpResponse[InvoiceResponseWithoutData]</code></summary>
 <dl>
 <dd>
 
@@ -10612,7 +10612,7 @@ client.invoice.delete_invoice(
 </dl>
 </details>
 
-<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">edit_invoice</a>(...)</code></summary>
+<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">edit_invoice</a>(...) -&gt; AsyncHttpResponse[InvoiceResponseWithoutData]</code></summary>
 <dl>
 <dd>
 
@@ -10731,7 +10731,7 @@ client.invoice.edit_invoice(
 </dl>
 </details>
 
-<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">get_attached_file_from_invoice</a>(...)</code></summary>
+<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">get_attached_file_from_invoice</a>(...) -&gt; AsyncHttpResponse[FileContent]</code></summary>
 <dl>
 <dd>
 
@@ -10832,7 +10832,7 @@ The filename in Payabli. Filename is `zipName` in the response to a request to `
 </dl>
 </details>
 
-<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">get_invoice</a>(...)</code></summary>
+<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">get_invoice</a>(...) -&gt; AsyncHttpResponse[GetInvoiceRecord]</code></summary>
 <dl>
 <dd>
 
@@ -10902,7 +10902,7 @@ client.invoice.get_invoice(
 </dl>
 </details>
 
-<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">get_invoice_number</a>(...)</code></summary>
+<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">get_invoice_number</a>(...) -&gt; AsyncHttpResponse[InvoiceNumberResponse]</code></summary>
 <dl>
 <dd>
 
@@ -10972,7 +10972,7 @@ client.invoice.get_invoice_number(
 </dl>
 </details>
 
-<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">list_invoices</a>(...)</code></summary>
+<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">list_invoices</a>(...) -&gt; AsyncHttpResponse[QueryInvoiceResponse]</code></summary>
 <dl>
 <dd>
 
@@ -11149,7 +11149,7 @@ Example: totalAmount(gt)=20 return all records with totalAmount greater than 20.
 </dl>
 </details>
 
-<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">list_invoices_org</a>(...)</code></summary>
+<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">list_invoices_org</a>(...) -&gt; AsyncHttpResponse[QueryInvoiceResponse]</code></summary>
 <dl>
 <dd>
 
@@ -11326,7 +11326,7 @@ Example: totalAmount(gt)=20 return all records with totalAmount greater than 20.
 </dl>
 </details>
 
-<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">send_invoice</a>(...)</code></summary>
+<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">send_invoice</a>(...) -&gt; AsyncHttpResponse[SendInvoiceResponse]</code></summary>
 <dl>
 <dd>
 
@@ -11414,7 +11414,7 @@ client.invoice.send_invoice(
 </dl>
 </details>
 
-<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">get_invoice_pdf</a>(...)</code></summary>
+<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">get_invoice_pdf</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
 <dl>
 <dd>
 
@@ -11485,7 +11485,7 @@ client.invoice.get_invoice_pdf(
 </details>
 
 ## LineItem
-<details><summary><code>client.line_item.<a href="src/payabli/line_item/client.py">add_item</a>(...)</code></summary>
+<details><summary><code>client.line_item.<a href="src/payabli/line_item/client.py">add_item</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse6]</code></summary>
 <dl>
 <dd>
 
@@ -11643,7 +11643,7 @@ client.line_item.add_item(
 </dl>
 </details>
 
-<details><summary><code>client.line_item.<a href="src/payabli/line_item/client.py">delete_item</a>(...)</code></summary>
+<details><summary><code>client.line_item.<a href="src/payabli/line_item/client.py">delete_item</a>(...) -&gt; AsyncHttpResponse[DeleteItemResponse]</code></summary>
 <dl>
 <dd>
 
@@ -11713,7 +11713,7 @@ client.line_item.delete_item(
 </dl>
 </details>
 
-<details><summary><code>client.line_item.<a href="src/payabli/line_item/client.py">get_item</a>(...)</code></summary>
+<details><summary><code>client.line_item.<a href="src/payabli/line_item/client.py">get_item</a>(...) -&gt; AsyncHttpResponse[LineItemQueryRecord]</code></summary>
 <dl>
 <dd>
 
@@ -11783,7 +11783,7 @@ client.line_item.get_item(
 </dl>
 </details>
 
-<details><summary><code>client.line_item.<a href="src/payabli/line_item/client.py">list_line_items</a>(...)</code></summary>
+<details><summary><code>client.line_item.<a href="src/payabli/line_item/client.py">list_line_items</a>(...) -&gt; AsyncHttpResponse[QueryResponseItems]</code></summary>
 <dl>
 <dd>
 
@@ -11944,7 +11944,7 @@ Example: name(ct)=john return all records with name containing john
 </dl>
 </details>
 
-<details><summary><code>client.line_item.<a href="src/payabli/line_item/client.py">update_item</a>(...)</code></summary>
+<details><summary><code>client.line_item.<a href="src/payabli/line_item/client.py">update_item</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse6]</code></summary>
 <dl>
 <dd>
 
@@ -12089,7 +12089,7 @@ client.line_item.update_item(
 </details>
 
 ## MoneyIn
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">authorize</a>(...)</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">authorize</a>(...) -&gt; AsyncHttpResponse[AuthResponse]</code></summary>
 <dl>
 <dd>
 
@@ -12283,7 +12283,7 @@ client.money_in.authorize(
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">capture</a>(...)</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">capture</a>(...) -&gt; AsyncHttpResponse[CaptureResponse]</code></summary>
 <dl>
 <dd>
 
@@ -12367,7 +12367,7 @@ client.money_in.capture(
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">capture_auth</a>(...)</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">capture_auth</a>(...) -&gt; AsyncHttpResponse[CaptureResponse]</code></summary>
 <dl>
 <dd>
 
@@ -12455,7 +12455,7 @@ client.money_in.capture_auth(
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">credit</a>(...)</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">credit</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse0]</code></summary>
 <dl>
 <dd>
 
@@ -12628,7 +12628,7 @@ client.money_in.credit(
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">details</a>(...)</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">details</a>(...) -&gt; AsyncHttpResponse[TransactionQueryRecordsCustomer]</code></summary>
 <dl>
 <dd>
 
@@ -12698,7 +12698,7 @@ client.money_in.details(
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">getpaid</a>(...)</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">getpaid</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseGetPaid]</code></summary>
 <dl>
 <dd>
 
@@ -12916,7 +12916,7 @@ client.money_in.getpaid(
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">reverse</a>(...)</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">reverse</a>(...) -&gt; AsyncHttpResponse[ReverseResponse]</code></summary>
 <dl>
 <dd>
 
@@ -13002,7 +13002,7 @@ An amount equal to zero will refunds the total amount authorized minus any servi
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">refund</a>(...)</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">refund</a>(...) -&gt; AsyncHttpResponse[RefundResponse]</code></summary>
 <dl>
 <dd>
 
@@ -13092,7 +13092,7 @@ An amount equal to zero will refund the total amount authorized minus any servic
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">refund_with_instructions</a>(...)</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">refund_with_instructions</a>(...) -&gt; AsyncHttpResponse[RefundWithInstructionsResponse]</code></summary>
 <dl>
 <dd>
 
@@ -13245,7 +13245,7 @@ An amount equal to zero will refund the total amount authorized minus any servic
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">reverse_credit</a>(...)</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">reverse_credit</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse]</code></summary>
 <dl>
 <dd>
 
@@ -13315,7 +13315,7 @@ client.money_in.reverse_credit(
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">send_receipt_2_trans</a>(...)</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">send_receipt_2_trans</a>(...) -&gt; AsyncHttpResponse[ReceiptResponse]</code></summary>
 <dl>
 <dd>
 
@@ -13398,7 +13398,7 @@ If not provided, the email address on file for the user owner of the transaction
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">validate</a>(...)</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">validate</a>(...) -&gt; AsyncHttpResponse[ValidateResponse]</code></summary>
 <dl>
 <dd>
 
@@ -13517,7 +13517,7 @@ client.money_in.validate(
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">void</a>(...)</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">void</a>(...) -&gt; AsyncHttpResponse[VoidResponse]</code></summary>
 <dl>
 <dd>
 
@@ -13591,7 +13591,7 @@ client.money_in.void(
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">getpaidv_2</a>(...)</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">getpaidv_2</a>(...) -&gt; AsyncHttpResponse[V2TransactionResponseWrapper]</code></summary>
 <dl>
 <dd>
 
@@ -13793,7 +13793,7 @@ client.money_in.getpaidv_2(
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">authorizev_2</a>(...)</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">authorizev_2</a>(...) -&gt; AsyncHttpResponse[V2TransactionResponseWrapper]</code></summary>
 <dl>
 <dd>
 
@@ -13985,7 +13985,7 @@ client.money_in.authorizev_2(
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">capturev_2</a>(...)</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">capturev_2</a>(...) -&gt; AsyncHttpResponse[V2TransactionResponseWrapper]</code></summary>
 <dl>
 <dd>
 
@@ -14068,7 +14068,7 @@ client.money_in.capturev_2(
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">refundv_2</a>(...)</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">refundv_2</a>(...) -&gt; AsyncHttpResponse[V2TransactionResponseWrapper]</code></summary>
 <dl>
 <dd>
 
@@ -14140,7 +14140,7 @@ client.money_in.refundv_2(
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">refundv_2_amount</a>(...)</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">refundv_2_amount</a>(...) -&gt; AsyncHttpResponse[V2TransactionResponseWrapper]</code></summary>
 <dl>
 <dd>
 
@@ -14221,7 +14221,7 @@ client.money_in.refundv_2_amount(
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">voidv_2</a>(...)</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">voidv_2</a>(...) -&gt; AsyncHttpResponse[V2TransactionResponseWrapper]</code></summary>
 <dl>
 <dd>
 
@@ -14292,7 +14292,7 @@ client.money_in.voidv_2(
 </details>
 
 ## MoneyOut
-<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">authorize_out</a>(...)</code></summary>
+<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">authorize_out</a>(...) -&gt; AsyncHttpResponse[AuthCapturePayoutResponse]</code></summary>
 <dl>
 <dd>
 
@@ -14535,7 +14535,7 @@ client.money_out.authorize_out(
 </dl>
 </details>
 
-<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">cancel_all_out</a>(...)</code></summary>
+<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">cancel_all_out</a>(...) -&gt; AsyncHttpResponse[CaptureAllOutResponse]</code></summary>
 <dl>
 <dd>
 
@@ -14605,7 +14605,7 @@ client.money_out.cancel_all_out(
 </dl>
 </details>
 
-<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">cancel_out_get</a>(...)</code></summary>
+<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">cancel_out_get</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse0000]</code></summary>
 <dl>
 <dd>
 
@@ -14675,7 +14675,7 @@ client.money_out.cancel_out_get(
 </dl>
 </details>
 
-<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">cancel_out_delete</a>(...)</code></summary>
+<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">cancel_out_delete</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse0000]</code></summary>
 <dl>
 <dd>
 
@@ -14745,7 +14745,7 @@ client.money_out.cancel_out_delete(
 </dl>
 </details>
 
-<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">capture_all_out</a>(...)</code></summary>
+<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">capture_all_out</a>(...) -&gt; AsyncHttpResponse[CaptureAllOutResponse]</code></summary>
 <dl>
 <dd>
 
@@ -14823,7 +14823,7 @@ client.money_out.capture_all_out(
 </dl>
 </details>
 
-<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">capture_out</a>(...)</code></summary>
+<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">capture_out</a>(...) -&gt; AsyncHttpResponse[AuthCapturePayoutResponse]</code></summary>
 <dl>
 <dd>
 
@@ -14901,7 +14901,7 @@ client.money_out.capture_out(
 </dl>
 </details>
 
-<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">payout_details</a>(...)</code></summary>
+<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">payout_details</a>(...) -&gt; AsyncHttpResponse[BillDetailResponse]</code></summary>
 <dl>
 <dd>
 
@@ -14971,7 +14971,7 @@ client.money_out.payout_details(
 </dl>
 </details>
 
-<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">v_card_get</a>(...)</code></summary>
+<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">v_card_get</a>(...) -&gt; AsyncHttpResponse[VCardGetResponse]</code></summary>
 <dl>
 <dd>
 
@@ -15041,7 +15041,7 @@ client.money_out.v_card_get(
 </dl>
 </details>
 
-<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">send_v_card_link</a>(...)</code></summary>
+<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">send_v_card_link</a>(...) -&gt; AsyncHttpResponse[OperationResult]</code></summary>
 <dl>
 <dd>
 
@@ -15111,7 +15111,7 @@ client.money_out.send_v_card_link(
 </dl>
 </details>
 
-<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">get_check_image</a>(...)</code></summary>
+<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">get_check_image</a>(...) -&gt; AsyncHttpResponse[str]</code></summary>
 <dl>
 <dd>
 
@@ -15194,7 +15194,7 @@ in the response when you make a GET request to `/MoneyOut/details/{transId}`.
 </dl>
 </details>
 
-<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">update_check_payment_status</a>(...)</code></summary>
+<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">update_check_payment_status</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]</code></summary>
 <dl>
 <dd>
 
@@ -15285,7 +15285,7 @@ client.money_out.update_check_payment_status(
 </details>
 
 ## Notification
-<details><summary><code>client.notification.<a href="src/payabli/notification/client.py">add_notification</a>(...)</code></summary>
+<details><summary><code>client.notification.<a href="src/payabli/notification/client.py">add_notification</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseNotifications]</code></summary>
 <dl>
 <dd>
 
@@ -15372,7 +15372,7 @@ client.notification.add_notification(
 </dl>
 </details>
 
-<details><summary><code>client.notification.<a href="src/payabli/notification/client.py">delete_notification</a>(...)</code></summary>
+<details><summary><code>client.notification.<a href="src/payabli/notification/client.py">delete_notification</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseNotifications]</code></summary>
 <dl>
 <dd>
 
@@ -15442,7 +15442,7 @@ client.notification.delete_notification(
 </dl>
 </details>
 
-<details><summary><code>client.notification.<a href="src/payabli/notification/client.py">get_notification</a>(...)</code></summary>
+<details><summary><code>client.notification.<a href="src/payabli/notification/client.py">get_notification</a>(...) -&gt; AsyncHttpResponse[NotificationQueryRecord]</code></summary>
 <dl>
 <dd>
 
@@ -15512,7 +15512,7 @@ client.notification.get_notification(
 </dl>
 </details>
 
-<details><summary><code>client.notification.<a href="src/payabli/notification/client.py">update_notification</a>(...)</code></summary>
+<details><summary><code>client.notification.<a href="src/payabli/notification/client.py">update_notification</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseNotifications]</code></summary>
 <dl>
 <dd>
 
@@ -15605,7 +15605,7 @@ client.notification.update_notification(
 </dl>
 </details>
 
-<details><summary><code>client.notification.<a href="src/payabli/notification/client.py">get_report_file</a>(...)</code></summary>
+<details><summary><code>client.notification.<a href="src/payabli/notification/client.py">get_report_file</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
 <dl>
 <dd>
 
@@ -15676,7 +15676,7 @@ client.notification.get_report_file(
 </details>
 
 ## Notificationlogs
-<details><summary><code>client.notificationlogs.<a href="src/payabli/notificationlogs/client.py">search_notification_logs</a>(...)</code></summary>
+<details><summary><code>client.notificationlogs.<a href="src/payabli/notificationlogs/client.py">search_notification_logs</a>(...) -&gt; AsyncHttpResponse[typing.List[NotificationLog]]</code></summary>
 <dl>
 <dd>
 
@@ -15817,7 +15817,7 @@ client.notificationlogs.search_notification_logs(
 </dl>
 </details>
 
-<details><summary><code>client.notificationlogs.<a href="src/payabli/notificationlogs/client.py">get_notification_log</a>(...)</code></summary>
+<details><summary><code>client.notificationlogs.<a href="src/payabli/notificationlogs/client.py">get_notification_log</a>(...) -&gt; AsyncHttpResponse[NotificationLogDetail]</code></summary>
 <dl>
 <dd>
 
@@ -15892,7 +15892,7 @@ client.notificationlogs.get_notification_log(
 </dl>
 </details>
 
-<details><summary><code>client.notificationlogs.<a href="src/payabli/notificationlogs/client.py">retry_notification_log</a>(...)</code></summary>
+<details><summary><code>client.notificationlogs.<a href="src/payabli/notificationlogs/client.py">retry_notification_log</a>(...) -&gt; AsyncHttpResponse[NotificationLogDetail]</code></summary>
 <dl>
 <dd>
 
@@ -15968,7 +15968,7 @@ client.notificationlogs.retry_notification_log(
 </dl>
 </details>
 
-<details><summary><code>client.notificationlogs.<a href="src/payabli/notificationlogs/client.py">bulk_retry_notification_logs</a>(...)</code></summary>
+<details><summary><code>client.notificationlogs.<a href="src/payabli/notificationlogs/client.py">bulk_retry_notification_logs</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -16054,7 +16054,7 @@ client.notificationlogs.bulk_retry_notification_logs(
 </details>
 
 ## Ocr
-<details><summary><code>client.ocr.<a href="src/payabli/ocr/client.py">ocr_document_form</a>(...)</code></summary>
+<details><summary><code>client.ocr.<a href="src/payabli/ocr/client.py">ocr_document_form</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseOcr]</code></summary>
 <dl>
 <dd>
 
@@ -16156,7 +16156,7 @@ client.ocr.ocr_document_form(
 </dl>
 </details>
 
-<details><summary><code>client.ocr.<a href="src/payabli/ocr/client.py">ocr_document_json</a>(...)</code></summary>
+<details><summary><code>client.ocr.<a href="src/payabli/ocr/client.py">ocr_document_json</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseOcr]</code></summary>
 <dl>
 <dd>
 
@@ -16259,7 +16259,7 @@ client.ocr.ocr_document_json(
 </details>
 
 ## Organization
-<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">add_organization</a>(...)</code></summary>
+<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">add_organization</a>(...) -&gt; AsyncHttpResponse[AddOrganizationResponse]</code></summary>
 <dl>
 <dd>
 
@@ -16519,7 +16519,7 @@ client.organization.add_organization(
 </dl>
 </details>
 
-<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">delete_organization</a>(...)</code></summary>
+<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">delete_organization</a>(...) -&gt; AsyncHttpResponse[DeleteOrganizationResponse]</code></summary>
 <dl>
 <dd>
 
@@ -16589,7 +16589,7 @@ client.organization.delete_organization(
 </dl>
 </details>
 
-<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">edit_organization</a>(...)</code></summary>
+<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">edit_organization</a>(...) -&gt; AsyncHttpResponse[EditOrganizationResponse]</code></summary>
 <dl>
 <dd>
 
@@ -16830,7 +16830,7 @@ client.organization.edit_organization(
 </dl>
 </details>
 
-<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">get_basic_organization</a>(...)</code></summary>
+<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">get_basic_organization</a>(...) -&gt; AsyncHttpResponse[OrganizationQueryRecord]</code></summary>
 <dl>
 <dd>
 
@@ -16900,7 +16900,7 @@ client.organization.get_basic_organization(
 </dl>
 </details>
 
-<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">get_basic_organization_by_id</a>(...)</code></summary>
+<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">get_basic_organization_by_id</a>(...) -&gt; AsyncHttpResponse[OrganizationQueryRecord]</code></summary>
 <dl>
 <dd>
 
@@ -16970,7 +16970,7 @@ client.organization.get_basic_organization_by_id(
 </dl>
 </details>
 
-<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">get_organization</a>(...)</code></summary>
+<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">get_organization</a>(...) -&gt; AsyncHttpResponse[OrganizationQueryRecord]</code></summary>
 <dl>
 <dd>
 
@@ -17040,7 +17040,7 @@ client.organization.get_organization(
 </dl>
 </details>
 
-<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">get_settings_organization</a>(...)</code></summary>
+<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">get_settings_organization</a>(...) -&gt; AsyncHttpResponse[SettingsQueryRecord]</code></summary>
 <dl>
 <dd>
 
@@ -17111,7 +17111,7 @@ client.organization.get_settings_organization(
 </details>
 
 ## PaymentLink
-<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">add_pay_link_from_invoice</a>(...)</code></summary>
+<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">add_pay_link_from_invoice</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponsePaymentLinks]</code></summary>
 <dl>
 <dd>
 
@@ -17418,7 +17418,7 @@ client.payment_link.add_pay_link_from_invoice(
 </dl>
 </details>
 
-<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">add_pay_link_from_bill</a>(...)</code></summary>
+<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">add_pay_link_from_bill</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponsePaymentLinks]</code></summary>
 <dl>
 <dd>
 
@@ -17691,7 +17691,7 @@ client.payment_link.add_pay_link_from_bill(
 </dl>
 </details>
 
-<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">delete_pay_link_from_id</a>(...)</code></summary>
+<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">delete_pay_link_from_id</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponsePaymentLinks]</code></summary>
 <dl>
 <dd>
 
@@ -17761,7 +17761,7 @@ client.payment_link.delete_pay_link_from_id(
 </dl>
 </details>
 
-<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">get_pay_link_from_id</a>(...)</code></summary>
+<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">get_pay_link_from_id</a>(...) -&gt; AsyncHttpResponse[GetPayLinkFromIdResponse]</code></summary>
 <dl>
 <dd>
 
@@ -17831,7 +17831,7 @@ client.payment_link.get_pay_link_from_id(
 </dl>
 </details>
 
-<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">push_pay_link_from_id</a>(...)</code></summary>
+<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">push_pay_link_from_id</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponsePaymentLinks]</code></summary>
 <dl>
 <dd>
 
@@ -17913,7 +17913,7 @@ client.payment_link.push_pay_link_from_id(
 </dl>
 </details>
 
-<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">refresh_pay_link_from_id</a>(...)</code></summary>
+<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">refresh_pay_link_from_id</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponsePaymentLinks]</code></summary>
 <dl>
 <dd>
 
@@ -17991,7 +17991,7 @@ client.payment_link.refresh_pay_link_from_id(
 </dl>
 </details>
 
-<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">send_pay_link_from_id</a>(...)</code></summary>
+<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">send_pay_link_from_id</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponsePaymentLinks]</code></summary>
 <dl>
 <dd>
 
@@ -18078,7 +18078,7 @@ client.payment_link.send_pay_link_from_id(
 </dl>
 </details>
 
-<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">update_pay_link_from_id</a>(...)</code></summary>
+<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">update_pay_link_from_id</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponsePaymentLinks]</code></summary>
 <dl>
 <dd>
 
@@ -18232,7 +18232,7 @@ client.payment_link.update_pay_link_from_id(
 </dl>
 </details>
 
-<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">add_pay_link_from_bill_lot_number</a>(...)</code></summary>
+<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">add_pay_link_from_bill_lot_number</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponsePaymentLinks]</code></summary>
 <dl>
 <dd>
 
@@ -18517,7 +18517,7 @@ client.payment_link.add_pay_link_from_bill_lot_number(
 </details>
 
 ## PaymentMethodDomain
-<details><summary><code>client.payment_method_domain.<a href="src/payabli/payment_method_domain/client.py">add_payment_method_domain</a>(...)</code></summary>
+<details><summary><code>client.payment_method_domain.<a href="src/payabli/payment_method_domain/client.py">add_payment_method_domain</a>(...) -&gt; AsyncHttpResponse[AddPaymentMethodDomainApiResponse]</code></summary>
 <dl>
 <dd>
 
@@ -18631,7 +18631,7 @@ client.payment_method_domain.add_payment_method_domain(
 </dl>
 </details>
 
-<details><summary><code>client.payment_method_domain.<a href="src/payabli/payment_method_domain/client.py">cascade_payment_method_domain</a>(...)</code></summary>
+<details><summary><code>client.payment_method_domain.<a href="src/payabli/payment_method_domain/client.py">cascade_payment_method_domain</a>(...) -&gt; AsyncHttpResponse[PaymentMethodDomainGeneralResponse]</code></summary>
 <dl>
 <dd>
 
@@ -18701,7 +18701,7 @@ client.payment_method_domain.cascade_payment_method_domain(
 </dl>
 </details>
 
-<details><summary><code>client.payment_method_domain.<a href="src/payabli/payment_method_domain/client.py">delete_payment_method_domain</a>(...)</code></summary>
+<details><summary><code>client.payment_method_domain.<a href="src/payabli/payment_method_domain/client.py">delete_payment_method_domain</a>(...) -&gt; AsyncHttpResponse[DeletePaymentMethodDomainResponse]</code></summary>
 <dl>
 <dd>
 
@@ -18771,7 +18771,7 @@ client.payment_method_domain.delete_payment_method_domain(
 </dl>
 </details>
 
-<details><summary><code>client.payment_method_domain.<a href="src/payabli/payment_method_domain/client.py">get_payment_method_domain</a>(...)</code></summary>
+<details><summary><code>client.payment_method_domain.<a href="src/payabli/payment_method_domain/client.py">get_payment_method_domain</a>(...) -&gt; AsyncHttpResponse[PaymentMethodDomainApiResponse]</code></summary>
 <dl>
 <dd>
 
@@ -18841,7 +18841,7 @@ client.payment_method_domain.get_payment_method_domain(
 </dl>
 </details>
 
-<details><summary><code>client.payment_method_domain.<a href="src/payabli/payment_method_domain/client.py">list_payment_method_domains</a>(...)</code></summary>
+<details><summary><code>client.payment_method_domain.<a href="src/payabli/payment_method_domain/client.py">list_payment_method_domains</a>(...) -&gt; AsyncHttpResponse[ListPaymentMethodDomainsResponse]</code></summary>
 <dl>
 <dd>
 
@@ -18944,7 +18944,7 @@ The type of entity. Valid values:
 </dl>
 </details>
 
-<details><summary><code>client.payment_method_domain.<a href="src/payabli/payment_method_domain/client.py">update_payment_method_domain</a>(...)</code></summary>
+<details><summary><code>client.payment_method_domain.<a href="src/payabli/payment_method_domain/client.py">update_payment_method_domain</a>(...) -&gt; AsyncHttpResponse[PaymentMethodDomainGeneralResponse]</code></summary>
 <dl>
 <dd>
 
@@ -19037,7 +19037,7 @@ client.payment_method_domain.update_payment_method_domain(
 </dl>
 </details>
 
-<details><summary><code>client.payment_method_domain.<a href="src/payabli/payment_method_domain/client.py">verify_payment_method_domain</a>(...)</code></summary>
+<details><summary><code>client.payment_method_domain.<a href="src/payabli/payment_method_domain/client.py">verify_payment_method_domain</a>(...) -&gt; AsyncHttpResponse[PaymentMethodDomainGeneralResponse]</code></summary>
 <dl>
 <dd>
 
@@ -19108,7 +19108,7 @@ client.payment_method_domain.verify_payment_method_domain(
 </details>
 
 ## Paypoint
-<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">get_basic_entry</a>(...)</code></summary>
+<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">get_basic_entry</a>(...) -&gt; AsyncHttpResponse[GetBasicEntryResponse]</code></summary>
 <dl>
 <dd>
 
@@ -19178,7 +19178,7 @@ client.paypoint.get_basic_entry(
 </dl>
 </details>
 
-<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">get_basic_entry_by_id</a>(...)</code></summary>
+<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">get_basic_entry_by_id</a>(...) -&gt; AsyncHttpResponse[GetBasicEntryByIdResponse]</code></summary>
 <dl>
 <dd>
 
@@ -19248,7 +19248,7 @@ client.paypoint.get_basic_entry_by_id(
 </dl>
 </details>
 
-<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">get_entry_config</a>(...)</code></summary>
+<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">get_entry_config</a>(...) -&gt; AsyncHttpResponse[GetEntryConfigResponse]</code></summary>
 <dl>
 <dd>
 
@@ -19326,7 +19326,7 @@ client.paypoint.get_entry_config(
 </dl>
 </details>
 
-<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">get_page</a>(...)</code></summary>
+<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">get_page</a>(...) -&gt; AsyncHttpResponse[PayabliPages]</code></summary>
 <dl>
 <dd>
 
@@ -19405,7 +19405,7 @@ client.paypoint.get_page(
 </dl>
 </details>
 
-<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">remove_page</a>(...)</code></summary>
+<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">remove_page</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseGeneric2Part]</code></summary>
 <dl>
 <dd>
 
@@ -19484,7 +19484,7 @@ client.paypoint.remove_page(
 </dl>
 </details>
 
-<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">save_logo</a>(...)</code></summary>
+<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">save_logo</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]</code></summary>
 <dl>
 <dd>
 
@@ -19586,7 +19586,7 @@ client.paypoint.save_logo(
 </dl>
 </details>
 
-<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">settings_page</a>(...)</code></summary>
+<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">settings_page</a>(...) -&gt; AsyncHttpResponse[SettingsQueryRecord]</code></summary>
 <dl>
 <dd>
 
@@ -19656,7 +19656,7 @@ client.paypoint.settings_page(
 </dl>
 </details>
 
-<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">migrate</a>(...)</code></summary>
+<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">migrate</a>(...) -&gt; AsyncHttpResponse[MigratePaypointResponse]</code></summary>
 <dl>
 <dd>
 
@@ -19754,7 +19754,7 @@ client.paypoint.migrate(
 </details>
 
 ## Query
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_batch_details</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_batch_details</a>(...) -&gt; AsyncHttpResponse[QueryBatchesDetailResponse]</code></summary>
 <dl>
 <dd>
 
@@ -19945,7 +19945,7 @@ Example: `settledAmount(gt)=20` returns all records with a `settledAmount` great
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_batch_details_org</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_batch_details_org</a>(...) -&gt; AsyncHttpResponse[QueryResponseSettlements]</code></summary>
 <dl>
 <dd>
 
@@ -20134,7 +20134,7 @@ Example: `settledAmount(gt)=20` returns all records with a `settledAmount` great
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_batches</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_batches</a>(...) -&gt; AsyncHttpResponse[QueryBatchesResponse]</code></summary>
 <dl>
 <dd>
 
@@ -20302,7 +20302,7 @@ Example: `batchAmount(gt)=20` returns all records with a `batchAmount` greater t
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_batches_org</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_batches_org</a>(...) -&gt; AsyncHttpResponse[QueryBatchesResponse]</code></summary>
 <dl>
 <dd>
 
@@ -20470,7 +20470,7 @@ Example: `batchAmount(gt)=20` returns all records with a `batchAmount` greater t
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_batches_out</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_batches_out</a>(...) -&gt; AsyncHttpResponse[QueryBatchesOutResponse]</code></summary>
 <dl>
 <dd>
 
@@ -20600,7 +20600,7 @@ Collection of field names, conditions, and values used to filter the query. See 
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_batches_out_org</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_batches_out_org</a>(...) -&gt; AsyncHttpResponse[QueryBatchesOutResponse]</code></summary>
 <dl>
 <dd>
 
@@ -20745,7 +20745,7 @@ See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-repo
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_chargebacks</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_chargebacks</a>(...) -&gt; AsyncHttpResponse[QueryChargebacksResponse]</code></summary>
 <dl>
 <dd>
 
@@ -20930,7 +20930,7 @@ Example: `netAmount(gt)=20` returns all records with a `netAmount` greater than 
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_chargebacks_org</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_chargebacks_org</a>(...) -&gt; AsyncHttpResponse[QueryChargebacksResponse]</code></summary>
 <dl>
 <dd>
 
@@ -21117,7 +21117,7 @@ Example: `netAmount(gt)=20` returns all records with a `netAmount` greater than 
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_customers</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_customers</a>(...) -&gt; AsyncHttpResponse[QueryCustomerResponse]</code></summary>
 <dl>
 <dd>
 
@@ -21296,7 +21296,7 @@ See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-repo
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_customers_org</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_customers_org</a>(...) -&gt; AsyncHttpResponse[QueryCustomerResponse]</code></summary>
 <dl>
 <dd>
 
@@ -21475,7 +21475,7 @@ See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-repo
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_notification_reports</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_notification_reports</a>(...) -&gt; AsyncHttpResponse[QueryResponseNotificationReports]</code></summary>
 <dl>
 <dd>
 
@@ -21619,7 +21619,7 @@ Example: reportName(ct)=tr  return all records containing the string "tr"
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_notification_reports_org</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_notification_reports_org</a>(...) -&gt; AsyncHttpResponse[QueryResponseNotificationReports]</code></summary>
 <dl>
 <dd>
 
@@ -21761,7 +21761,7 @@ Example: reportName(ct)=tr  return all records containing the string "tr"
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_notifications</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_notifications</a>(...) -&gt; AsyncHttpResponse[QueryResponseNotifications]</code></summary>
 <dl>
 <dd>
 
@@ -21907,7 +21907,7 @@ Example: totalAmount(gt)=20  return all records with totalAmount greater than 20
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_notifications_org</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_notifications_org</a>(...) -&gt; AsyncHttpResponse[QueryResponseNotifications]</code></summary>
 <dl>
 <dd>
 
@@ -22053,7 +22053,7 @@ Example: totalAmount(gt)=20  return all records with totalAmount greater than 20
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_organizations</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_organizations</a>(...) -&gt; AsyncHttpResponse[ListOrganizationsResponse]</code></summary>
 <dl>
 <dd>
 
@@ -22219,7 +22219,7 @@ Example: `dbaname(ct)=hoa` returns all records with a `dbaname` containing "hoa"
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_payout</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_payout</a>(...) -&gt; AsyncHttpResponse[QueryPayoutTransaction]</code></summary>
 <dl>
 <dd>
 
@@ -22412,7 +22412,7 @@ List of field names accepted:
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_payout_org</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_payout_org</a>(...) -&gt; AsyncHttpResponse[QueryPayoutTransaction]</code></summary>
 <dl>
 <dd>
 
@@ -22604,7 +22604,7 @@ List of field names accepted:
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_paypoints</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_paypoints</a>(...) -&gt; AsyncHttpResponse[QueryEntrypointResponse]</code></summary>
 <dl>
 <dd>
 
@@ -22775,7 +22775,7 @@ Example: `dbaname(ct)=hoa` returns all records with a `dbaname` containing "hoa"
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_settlements</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_settlements</a>(...) -&gt; AsyncHttpResponse[QueryResponseSettlements]</code></summary>
 <dl>
 <dd>
 
@@ -22965,7 +22965,7 @@ Example: `settledAmount(gt)=20` returns all records with a `settledAmount` great
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_settlements_org</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_settlements_org</a>(...) -&gt; AsyncHttpResponse[QueryResponseSettlements]</code></summary>
 <dl>
 <dd>
 
@@ -23155,7 +23155,7 @@ Example: `settledAmount(gt)=20` returns all records with a `settledAmount` great
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_subscriptions</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_subscriptions</a>(...) -&gt; AsyncHttpResponse[QuerySubscriptionResponse]</code></summary>
 <dl>
 <dd>
 
@@ -23345,7 +23345,7 @@ See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-repo
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_subscriptions_org</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_subscriptions_org</a>(...) -&gt; AsyncHttpResponse[QuerySubscriptionResponse]</code></summary>
 <dl>
 <dd>
 
@@ -23535,7 +23535,7 @@ See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-repo
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transactions</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transactions</a>(...) -&gt; AsyncHttpResponse[QueryResponseTransactions]</code></summary>
 <dl>
 <dd>
 
@@ -23740,7 +23740,7 @@ See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-repo
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transactions_org</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transactions_org</a>(...) -&gt; AsyncHttpResponse[QueryResponseTransactions]</code></summary>
 <dl>
 <dd>
 
@@ -23951,7 +23951,7 @@ See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-repo
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transfer_details</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transfer_details</a>(...) -&gt; AsyncHttpResponse[QueryTransferDetailResponse]</code></summary>
 <dl>
 <dd>
 
@@ -24109,7 +24109,7 @@ for more information.
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transfers</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transfers</a>(...) -&gt; AsyncHttpResponse[TransferQueryResponse]</code></summary>
 <dl>
 <dd>
 
@@ -24257,7 +24257,7 @@ List of field names accepted:
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transfers_org</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transfers_org</a>(...) -&gt; AsyncHttpResponse[TransferQueryResponse]</code></summary>
 <dl>
 <dd>
 
@@ -24402,7 +24402,7 @@ List of field names accepted:
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transfers_out_org</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transfers_out_org</a>(...) -&gt; AsyncHttpResponse[TransferOutQueryResponse]</code></summary>
 <dl>
 <dd>
 
@@ -24535,7 +24535,7 @@ List of field names accepted:
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transfers_out_paypoint</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transfers_out_paypoint</a>(...) -&gt; AsyncHttpResponse[TransferOutQueryResponse]</code></summary>
 <dl>
 <dd>
 
@@ -24668,7 +24668,7 @@ List of field names accepted:
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transfer_details_out</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transfer_details_out</a>(...) -&gt; AsyncHttpResponse[TransferOutDetailQueryResponse]</code></summary>
 <dl>
 <dd>
 
@@ -24809,7 +24809,7 @@ List of field names accepted:
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_users_org</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_users_org</a>(...) -&gt; AsyncHttpResponse[QueryUserResponse]</code></summary>
 <dl>
 <dd>
 
@@ -24957,7 +24957,7 @@ Example: `name(ct)=john`  return all records with name containing 'john'.
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_users_paypoint</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_users_paypoint</a>(...) -&gt; AsyncHttpResponse[QueryUserResponse]</code></summary>
 <dl>
 <dd>
 
@@ -25105,7 +25105,7 @@ Example: `name(ct)=john`  return all records with name containing 'john'
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_vendors</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_vendors</a>(...) -&gt; AsyncHttpResponse[QueryResponseVendors]</code></summary>
 <dl>
 <dd>
 
@@ -25273,7 +25273,7 @@ Example: `netAmount(gt)=20` returns all records with a `netAmount` greater than 
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_vendors_org</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_vendors_org</a>(...) -&gt; AsyncHttpResponse[QueryResponseVendors]</code></summary>
 <dl>
 <dd>
 
@@ -25441,7 +25441,7 @@ Example: `netAmount(gt)=20` returns all records with a `netAmount` greater than 
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_vcards</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_vcards</a>(...) -&gt; AsyncHttpResponse[VCardQueryResponse]</code></summary>
 <dl>
 <dd>
 
@@ -25601,7 +25601,7 @@ List of comparison accepted - enclosed between parentheses:
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_vcards_org</a>(...)</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_vcards_org</a>(...) -&gt; AsyncHttpResponse[VCardQueryResponse]</code></summary>
 <dl>
 <dd>
 
@@ -25762,7 +25762,7 @@ List of comparison accepted - enclosed between parentheses:
 </details>
 
 ## Statistic
-<details><summary><code>client.statistic.<a href="src/payabli/statistic/client.py">basic_stats</a>(...)</code></summary>
+<details><summary><code>client.statistic.<a href="src/payabli/statistic/client.py">basic_stats</a>(...) -&gt; AsyncHttpResponse[typing.List[StatBasicExtendedQueryRecord]]</code></summary>
 <dl>
 <dd>
 
@@ -25928,7 +25928,7 @@ Valid formats:
 </dl>
 </details>
 
-<details><summary><code>client.statistic.<a href="src/payabli/statistic/client.py">customer_basic_stats</a>(...)</code></summary>
+<details><summary><code>client.statistic.<a href="src/payabli/statistic/client.py">customer_basic_stats</a>(...) -&gt; AsyncHttpResponse[typing.List[SubscriptionStatsQueryRecord]]</code></summary>
 <dl>
 <dd>
 
@@ -26047,7 +26047,7 @@ For example, `w` groups the results by week.
 </dl>
 </details>
 
-<details><summary><code>client.statistic.<a href="src/payabli/statistic/client.py">sub_stats</a>(...)</code></summary>
+<details><summary><code>client.statistic.<a href="src/payabli/statistic/client.py">sub_stats</a>(...) -&gt; AsyncHttpResponse[typing.List[StatBasicQueryRecord]]</code></summary>
 <dl>
 <dd>
 
@@ -26155,7 +26155,7 @@ The entry level for the request:
 </dl>
 </details>
 
-<details><summary><code>client.statistic.<a href="src/payabli/statistic/client.py">vendor_basic_stats</a>(...)</code></summary>
+<details><summary><code>client.statistic.<a href="src/payabli/statistic/client.py">vendor_basic_stats</a>(...) -&gt; AsyncHttpResponse[typing.List[StatisticsVendorQueryRecord]]</code></summary>
 <dl>
 <dd>
 
@@ -26275,7 +26275,7 @@ For example, `w` groups the results by week.
 </details>
 
 ## Subscription
-<details><summary><code>client.subscription.<a href="src/payabli/subscription/client.py">get_subscription</a>(...)</code></summary>
+<details><summary><code>client.subscription.<a href="src/payabli/subscription/client.py">get_subscription</a>(...) -&gt; AsyncHttpResponse[SubscriptionQueryRecords]</code></summary>
 <dl>
 <dd>
 
@@ -26345,7 +26345,7 @@ client.subscription.get_subscription(
 </dl>
 </details>
 
-<details><summary><code>client.subscription.<a href="src/payabli/subscription/client.py">new_subscription</a>(...)</code></summary>
+<details><summary><code>client.subscription.<a href="src/payabli/subscription/client.py">new_subscription</a>(...) -&gt; AsyncHttpResponse[AddSubscriptionResponse]</code></summary>
 <dl>
 <dd>
 
@@ -26514,7 +26514,7 @@ client.subscription.new_subscription(
 </dl>
 </details>
 
-<details><summary><code>client.subscription.<a href="src/payabli/subscription/client.py">remove_subscription</a>(...)</code></summary>
+<details><summary><code>client.subscription.<a href="src/payabli/subscription/client.py">remove_subscription</a>(...) -&gt; AsyncHttpResponse[RemoveSubscriptionResponse]</code></summary>
 <dl>
 <dd>
 
@@ -26584,7 +26584,7 @@ client.subscription.remove_subscription(
 </dl>
 </details>
 
-<details><summary><code>client.subscription.<a href="src/payabli/subscription/client.py">update_subscription</a>(...)</code></summary>
+<details><summary><code>client.subscription.<a href="src/payabli/subscription/client.py">update_subscription</a>(...) -&gt; AsyncHttpResponse[UpdateSubscriptionResponse]</code></summary>
 <dl>
 <dd>
 
@@ -26689,7 +26689,7 @@ client.subscription.update_subscription(
 </details>
 
 ## Templates
-<details><summary><code>client.templates.<a href="src/payabli/templates/client.py">delete_template</a>(...)</code></summary>
+<details><summary><code>client.templates.<a href="src/payabli/templates/client.py">delete_template</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseTemplateId]</code></summary>
 <dl>
 <dd>
 
@@ -26759,7 +26759,7 @@ client.templates.delete_template(
 </dl>
 </details>
 
-<details><summary><code>client.templates.<a href="src/payabli/templates/client.py">getlink_template</a>(...)</code></summary>
+<details><summary><code>client.templates.<a href="src/payabli/templates/client.py">getlink_template</a>(...) -&gt; AsyncHttpResponse[BoardingLinkApiResponse]</code></summary>
 <dl>
 <dd>
 
@@ -26838,7 +26838,7 @@ client.templates.getlink_template(
 </dl>
 </details>
 
-<details><summary><code>client.templates.<a href="src/payabli/templates/client.py">get_template</a>(...)</code></summary>
+<details><summary><code>client.templates.<a href="src/payabli/templates/client.py">get_template</a>(...) -&gt; AsyncHttpResponse[TemplateQueryRecord]</code></summary>
 <dl>
 <dd>
 
@@ -26908,7 +26908,7 @@ client.templates.get_template(
 </dl>
 </details>
 
-<details><summary><code>client.templates.<a href="src/payabli/templates/client.py">list_templates</a>(...)</code></summary>
+<details><summary><code>client.templates.<a href="src/payabli/templates/client.py">list_templates</a>(...) -&gt; AsyncHttpResponse[TemplateQueryResponse]</code></summary>
 <dl>
 <dd>
 
@@ -27059,7 +27059,7 @@ Example: title(ct)=hoa return all records with title containing "hoa"
 </details>
 
 ## TokenStorage
-<details><summary><code>client.token_storage.<a href="src/payabli/token_storage/client.py">add_method</a>(...)</code></summary>
+<details><summary><code>client.token_storage.<a href="src/payabli/token_storage/client.py">add_method</a>(...) -&gt; AsyncHttpResponse[AddMethodResponse]</code></summary>
 <dl>
 <dd>
 
@@ -27247,7 +27247,7 @@ client.token_storage.add_method(
 </dl>
 </details>
 
-<details><summary><code>client.token_storage.<a href="src/payabli/token_storage/client.py">get_method</a>(...)</code></summary>
+<details><summary><code>client.token_storage.<a href="src/payabli/token_storage/client.py">get_method</a>(...) -&gt; AsyncHttpResponse[GetMethodResponse]</code></summary>
 <dl>
 <dd>
 
@@ -27345,7 +27345,7 @@ Accepted values:
 </dl>
 </details>
 
-<details><summary><code>client.token_storage.<a href="src/payabli/token_storage/client.py">remove_method</a>(...)</code></summary>
+<details><summary><code>client.token_storage.<a href="src/payabli/token_storage/client.py">remove_method</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponsePaymethodDelete]</code></summary>
 <dl>
 <dd>
 
@@ -27415,7 +27415,7 @@ client.token_storage.remove_method(
 </dl>
 </details>
 
-<details><summary><code>client.token_storage.<a href="src/payabli/token_storage/client.py">update_method</a>(...)</code></summary>
+<details><summary><code>client.token_storage.<a href="src/payabli/token_storage/client.py">update_method</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponsePaymethodDelete]</code></summary>
 <dl>
 <dd>
 
@@ -27583,7 +27583,7 @@ client.token_storage.update_method(
 </details>
 
 ## User
-<details><summary><code>client.user.<a href="src/payabli/user/client.py">add_user</a>(...)</code></summary>
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">add_user</a>(...) -&gt; AsyncHttpResponse[AddUserResponse]</code></summary>
 <dl>
 <dd>
 
@@ -27731,7 +27731,7 @@ client.user.add_user()
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/payabli/user/client.py">auth_refresh_user</a>()</code></summary>
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">auth_refresh_user</a>() -&gt; AsyncHttpResponse[PayabliApiResponseUserMfa]</code></summary>
 <dl>
 <dd>
 
@@ -27791,7 +27791,7 @@ client.user.auth_refresh_user()
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/payabli/user/client.py">auth_reset_user</a>(...)</code></summary>
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">auth_reset_user</a>(...) -&gt; AsyncHttpResponse[AuthResetUserResponse]</code></summary>
 <dl>
 <dd>
 
@@ -27875,7 +27875,7 @@ client.user.auth_reset_user()
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/payabli/user/client.py">auth_user</a>(...)</code></summary>
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">auth_user</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseMfaBasic]</code></summary>
 <dl>
 <dd>
 
@@ -27993,7 +27993,7 @@ client.user.auth_user(
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/payabli/user/client.py">change_psw_user</a>(...)</code></summary>
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">change_psw_user</a>(...) -&gt; AsyncHttpResponse[ChangePswUserResponse]</code></summary>
 <dl>
 <dd>
 
@@ -28061,7 +28061,7 @@ client.user.change_psw_user()
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/payabli/user/client.py">delete_user</a>(...)</code></summary>
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">delete_user</a>(...) -&gt; AsyncHttpResponse[DeleteUserResponse]</code></summary>
 <dl>
 <dd>
 
@@ -28131,7 +28131,7 @@ client.user.delete_user(
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/payabli/user/client.py">edit_mfa_user</a>(...)</code></summary>
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">edit_mfa_user</a>(...) -&gt; AsyncHttpResponse[EditMfaUserResponse]</code></summary>
 <dl>
 <dd>
 
@@ -28217,7 +28217,7 @@ client.user.edit_mfa_user(
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/payabli/user/client.py">edit_user</a>(...)</code></summary>
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">edit_user</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse]</code></summary>
 <dl>
 <dd>
 
@@ -28375,7 +28375,7 @@ client.user.edit_user(
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/payabli/user/client.py">get_user</a>(...)</code></summary>
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">get_user</a>(...) -&gt; AsyncHttpResponse[UserQueryRecord]</code></summary>
 <dl>
 <dd>
 
@@ -28462,7 +28462,7 @@ client.user.get_user(
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/payabli/user/client.py">logout_user</a>()</code></summary>
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">logout_user</a>() -&gt; AsyncHttpResponse[LogoutUserResponse]</code></summary>
 <dl>
 <dd>
 
@@ -28522,7 +28522,7 @@ client.user.logout_user()
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/payabli/user/client.py">resend_mfa_code</a>(...)</code></summary>
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">resend_mfa_code</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseMfaBasic]</code></summary>
 <dl>
 <dd>
 
@@ -28610,7 +28610,7 @@ client.user.resend_mfa_code(
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/payabli/user/client.py">validate_mfa_user</a>(...)</code></summary>
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">validate_mfa_user</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseUserMfa]</code></summary>
 <dl>
 <dd>
 
@@ -28687,7 +28687,7 @@ client.user.validate_mfa_user()
 </details>
 
 ## Vendor
-<details><summary><code>client.vendor.<a href="src/payabli/vendor/client.py">add_vendor</a>(...)</code></summary>
+<details><summary><code>client.vendor.<a href="src/payabli/vendor/client.py">add_vendor</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseVendors]</code></summary>
 <dl>
 <dd>
 
@@ -29057,7 +29057,7 @@ client.vendor.add_vendor(
 </dl>
 </details>
 
-<details><summary><code>client.vendor.<a href="src/payabli/vendor/client.py">delete_vendor</a>(...)</code></summary>
+<details><summary><code>client.vendor.<a href="src/payabli/vendor/client.py">delete_vendor</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseVendors]</code></summary>
 <dl>
 <dd>
 
@@ -29127,7 +29127,7 @@ client.vendor.delete_vendor(
 </dl>
 </details>
 
-<details><summary><code>client.vendor.<a href="src/payabli/vendor/client.py">edit_vendor</a>(...)</code></summary>
+<details><summary><code>client.vendor.<a href="src/payabli/vendor/client.py">edit_vendor</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseVendors]</code></summary>
 <dl>
 <dd>
 
@@ -29454,7 +29454,7 @@ client.vendor.edit_vendor(
 </dl>
 </details>
 
-<details><summary><code>client.vendor.<a href="src/payabli/vendor/client.py">get_vendor</a>(...)</code></summary>
+<details><summary><code>client.vendor.<a href="src/payabli/vendor/client.py">get_vendor</a>(...) -&gt; AsyncHttpResponse[VendorQueryRecord]</code></summary>
 <dl>
 <dd>
 
@@ -29525,7 +29525,7 @@ client.vendor.get_vendor(
 </details>
 
 ## Wallet
-<details><summary><code>client.wallet.<a href="src/payabli/wallet/client.py">configure_apple_pay_organization</a>(...)</code></summary>
+<details><summary><code>client.wallet.<a href="src/payabli/wallet/client.py">configure_apple_pay_organization</a>(...) -&gt; AsyncHttpResponse[ConfigureApplePayOrganizationApiResponse]</code></summary>
 <dl>
 <dd>
 
@@ -29613,7 +29613,7 @@ client.wallet.configure_apple_pay_organization(
 </dl>
 </details>
 
-<details><summary><code>client.wallet.<a href="src/payabli/wallet/client.py">configure_apple_pay_paypoint</a>(...)</code></summary>
+<details><summary><code>client.wallet.<a href="src/payabli/wallet/client.py">configure_apple_pay_paypoint</a>(...) -&gt; AsyncHttpResponse[ConfigureApplePaypointApiResponse]</code></summary>
 <dl>
 <dd>
 
@@ -29692,7 +29692,7 @@ client.wallet.configure_apple_pay_paypoint(
 </dl>
 </details>
 
-<details><summary><code>client.wallet.<a href="src/payabli/wallet/client.py">configure_google_pay_organization</a>(...)</code></summary>
+<details><summary><code>client.wallet.<a href="src/payabli/wallet/client.py">configure_google_pay_organization</a>(...) -&gt; AsyncHttpResponse[ConfigureApplePayOrganizationApiResponse]</code></summary>
 <dl>
 <dd>
 
@@ -29780,7 +29780,7 @@ client.wallet.configure_google_pay_organization(
 </dl>
 </details>
 
-<details><summary><code>client.wallet.<a href="src/payabli/wallet/client.py">configure_google_pay_paypoint</a>(...)</code></summary>
+<details><summary><code>client.wallet.<a href="src/payabli/wallet/client.py">configure_google_pay_paypoint</a>(...) -&gt; AsyncHttpResponse[ConfigureGooglePaypointApiResponse]</code></summary>
 <dl>
 <dd>
 

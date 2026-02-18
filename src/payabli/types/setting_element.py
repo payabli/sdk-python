@@ -19,19 +19,22 @@ class SettingElement(UniversalBaseModel):
     """
 
     order: typing.Optional[Order] = None
-    send_auto: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="sendAuto")] = pydantic.Field(
-        default=None
-    )
-    """
-    When `true`, Payabli automatically sends the receipt to the payor email address.
-    """
-
-    send_manual: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="sendManual")] = pydantic.Field(
-        default=None
-    )
-    """
-    When `true`, you must send the reciept to the payor manually using the [/MoneyIn/sendreceipt/\\{transId\\}](/developers/api-reference/moneyin/send-receipt-for-transaction) endpoint.
-    """
+    send_auto: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="sendAuto"),
+        pydantic.Field(
+            alias="sendAuto",
+            description="When `true`, Payabli automatically sends the receipt to the payor email address.",
+        ),
+    ] = None
+    send_manual: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="sendManual"),
+        pydantic.Field(
+            alias="sendManual",
+            description="When `true`, you must send the reciept to the payor manually using the [/MoneyIn/sendreceipt/\\{transId\\}](/developers/api-reference/moneyin/send-receipt-for-transaction) endpoint.",
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

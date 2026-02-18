@@ -25,34 +25,32 @@ class QueryResponseNotificationsRecordsItem(UniversalBaseModel):
     Notification content.
     """
 
-    created_at: typing_extensions.Annotated[typing.Optional[CreatedAt], FieldMetadata(alias="createdAt")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Timestamp of when notification was created, in UTC.
-    """
-
+    created_at: typing_extensions.Annotated[
+        typing.Optional[CreatedAt],
+        FieldMetadata(alias="createdAt"),
+        pydantic.Field(alias="createdAt", description="Timestamp of when notification was created, in UTC."),
+    ] = None
     frequency: typing.Optional[Frequencynotification] = None
-    last_updated: typing_extensions.Annotated[typing.Optional[LastModified], FieldMetadata(alias="lastUpdated")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Timestamp of when notification was last updated, in UTC.
-    """
-
+    last_updated: typing_extensions.Annotated[
+        typing.Optional[LastModified],
+        FieldMetadata(alias="lastUpdated"),
+        pydantic.Field(alias="lastUpdated", description="Timestamp of when notification was last updated, in UTC."),
+    ] = None
     method: typing.Optional[Methodnotification] = None
     notification_id: typing_extensions.Annotated[
-        typing.Optional[NotificationId], FieldMetadata(alias="notificationId")
+        typing.Optional[NotificationId], FieldMetadata(alias="notificationId"), pydantic.Field(alias="notificationId")
     ] = None
-    owner_id: typing_extensions.Annotated[typing.Optional[Ownerid], FieldMetadata(alias="ownerId")] = None
-    owner_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="ownerName")] = pydantic.Field(
-        default=None
-    )
-    """
-    Name of entity owner of notification.
-    """
-
-    owner_type: typing_extensions.Annotated[typing.Optional[Ownertype], FieldMetadata(alias="ownerType")] = None
+    owner_id: typing_extensions.Annotated[
+        typing.Optional[Ownerid], FieldMetadata(alias="ownerId"), pydantic.Field(alias="ownerId")
+    ] = None
+    owner_name: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="ownerName"),
+        pydantic.Field(alias="ownerName", description="Name of entity owner of notification."),
+    ] = None
+    owner_type: typing_extensions.Annotated[
+        typing.Optional[Ownertype], FieldMetadata(alias="ownerType"), pydantic.Field(alias="ownerType")
+    ] = None
     source: typing.Optional[Source] = pydantic.Field(default=None)
     """
     Custom descriptor of source of notification.

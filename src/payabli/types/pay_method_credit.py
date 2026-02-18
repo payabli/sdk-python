@@ -18,7 +18,9 @@ from .save_if_success import SaveIfSuccess
 class PayMethodCredit(UniversalBaseModel):
     cardcvv: typing.Optional[Cardcvv] = None
     cardexp: Cardexp
-    card_holder: typing_extensions.Annotated[typing.Optional[Cardholder], FieldMetadata(alias="cardHolder")] = None
+    card_holder: typing_extensions.Annotated[
+        typing.Optional[Cardholder], FieldMetadata(alias="cardHolder"), pydantic.Field(alias="cardHolder")
+    ] = None
     cardnumber: Cardnumber
     cardzip: typing.Optional[Cardzip] = None
     initiator: typing.Optional[Initiator] = None
@@ -28,7 +30,7 @@ class PayMethodCredit(UniversalBaseModel):
     """
 
     save_if_success: typing_extensions.Annotated[
-        typing.Optional[SaveIfSuccess], FieldMetadata(alias="saveIfSuccess")
+        typing.Optional[SaveIfSuccess], FieldMetadata(alias="saveIfSuccess"), pydantic.Field(alias="saveIfSuccess")
     ] = None
 
     if IS_PYDANTIC_V2:

@@ -9,13 +9,11 @@ from ..core.serialization import FieldMetadata
 
 
 class SplitFundingRefundContent(UniversalBaseModel):
-    account_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="accountId")] = pydantic.Field(
-        default=None
-    )
-    """
-    The accountId for the account the transaction was routed to.
-    """
-
+    account_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="accountId"),
+        pydantic.Field(alias="accountId", description="The accountId for the account the transaction was routed to."),
+    ] = None
     amount: typing.Optional[float] = pydantic.Field(default=None)
     """
     The amount to refund to this account.
@@ -27,11 +25,10 @@ class SplitFundingRefundContent(UniversalBaseModel):
     """
 
     origination_entry_point: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="originationEntryPoint")
-    ] = pydantic.Field(default=None)
-    """
-    The entrypoint the transaction belongs to.
-    """
+        typing.Optional[str],
+        FieldMetadata(alias="originationEntryPoint"),
+        pydantic.Field(alias="originationEntryPoint", description="The entrypoint the transaction belongs to."),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

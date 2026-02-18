@@ -16,50 +16,47 @@ from .vendor_data_request import VendorDataRequest
 
 class RequestTokenStorage(UniversalBaseModel):
     customer_data: typing_extensions.Annotated[
-        typing.Optional[PayorDataRequest], FieldMetadata(alias="customerData")
-    ] = pydantic.Field(default=None)
-    """
-    Object describing the Customer/Payor owner of payment method. Required for POST requests. Which fields are required depends on the paypoint's custom identifier settings. 
-    """
-
-    entry_point: typing_extensions.Annotated[typing.Optional[Entrypointfield], FieldMetadata(alias="entryPoint")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Entrypoint identifier. Required for POST requests.
-    """
-
-    fallback_auth: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="fallbackAuth")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    When `true`, if tokenization fails, Payabli will attempt an authorization transaction to request a permanent token for the card. If the authorization is successful, the card will be tokenized and the authorization will be voided automatically.
-    """
-
+        typing.Optional[PayorDataRequest],
+        FieldMetadata(alias="customerData"),
+        pydantic.Field(
+            alias="customerData",
+            description="Object describing the Customer/Payor owner of payment method. Required for POST requests. Which fields are required depends on the paypoint's custom identifier settings. ",
+        ),
+    ] = None
+    entry_point: typing_extensions.Annotated[
+        typing.Optional[Entrypointfield],
+        FieldMetadata(alias="entryPoint"),
+        pydantic.Field(alias="entryPoint", description="Entrypoint identifier. Required for POST requests."),
+    ] = None
+    fallback_auth: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="fallbackAuth"),
+        pydantic.Field(
+            alias="fallbackAuth",
+            description="When `true`, if tokenization fails, Payabli will attempt an authorization transaction to request a permanent token for the card. If the authorization is successful, the card will be tokenized and the authorization will be voided automatically.",
+        ),
+    ] = None
     fallback_auth_amount: typing_extensions.Annotated[
-        typing.Optional[int], FieldMetadata(alias="fallbackAuthAmount")
-    ] = pydantic.Field(default=None)
-    """
-    The amount for the `fallbackAuth` transaction. Defaults to one dollar (`100`).
-    """
-
-    method_description: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="methodDescription")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Custom description for stored payment method.
-    """
-
+        typing.Optional[int],
+        FieldMetadata(alias="fallbackAuthAmount"),
+        pydantic.Field(
+            alias="fallbackAuthAmount",
+            description="The amount for the `fallbackAuth` transaction. Defaults to one dollar (`100`).",
+        ),
+    ] = None
+    method_description: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="methodDescription"),
+        pydantic.Field(alias="methodDescription", description="Custom description for stored payment method."),
+    ] = None
     payment_method: typing_extensions.Annotated[
-        typing.Optional[RequestTokenStoragePaymentMethod], FieldMetadata(alias="paymentMethod")
-    ] = pydantic.Field(default=None)
-    """
-    Information about the payment method for the transaction.
-    """
-
-    vendor_data: typing_extensions.Annotated[typing.Optional[VendorDataRequest], FieldMetadata(alias="vendorData")] = (
-        None
-    )
+        typing.Optional[RequestTokenStoragePaymentMethod],
+        FieldMetadata(alias="paymentMethod"),
+        pydantic.Field(alias="paymentMethod", description="Information about the payment method for the transaction."),
+    ] = None
+    vendor_data: typing_extensions.Annotated[
+        typing.Optional[VendorDataRequest], FieldMetadata(alias="vendorData"), pydantic.Field(alias="vendorData")
+    ] = None
     source: typing.Optional[Source] = pydantic.Field(default=None)
     """
     Custom identifier to indicate the source for the request

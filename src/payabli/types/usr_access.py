@@ -9,8 +9,12 @@ from ..core.serialization import FieldMetadata
 
 
 class UsrAccess(UniversalBaseModel):
-    role_label: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="roleLabel")] = None
-    role_value: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="roleValue")] = None
+    role_label: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="roleLabel"), pydantic.Field(alias="roleLabel")
+    ] = None
+    role_value: typing_extensions.Annotated[
+        typing.Optional[bool], FieldMetadata(alias="roleValue"), pydantic.Field(alias="roleValue")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

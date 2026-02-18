@@ -10,12 +10,18 @@ from .link_data import LinkData
 
 
 class Bnk(UniversalBaseModel):
-    account_number: typing_extensions.Annotated[typing.Optional[LinkData], FieldMetadata(alias="accountNumber")] = None
-    bank_name: typing_extensions.Annotated[typing.Optional[LinkData], FieldMetadata(alias="bankName")] = None
-    routing_account: typing_extensions.Annotated[typing.Optional[LinkData], FieldMetadata(alias="routingAccount")] = (
-        None
-    )
-    type_account: typing_extensions.Annotated[typing.Optional[LinkData], FieldMetadata(alias="typeAccount")] = None
+    account_number: typing_extensions.Annotated[
+        typing.Optional[LinkData], FieldMetadata(alias="accountNumber"), pydantic.Field(alias="accountNumber")
+    ] = None
+    bank_name: typing_extensions.Annotated[
+        typing.Optional[LinkData], FieldMetadata(alias="bankName"), pydantic.Field(alias="bankName")
+    ] = None
+    routing_account: typing_extensions.Annotated[
+        typing.Optional[LinkData], FieldMetadata(alias="routingAccount"), pydantic.Field(alias="routingAccount")
+    ] = None
+    type_account: typing_extensions.Annotated[
+        typing.Optional[LinkData], FieldMetadata(alias="typeAccount"), pydantic.Field(alias="typeAccount")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

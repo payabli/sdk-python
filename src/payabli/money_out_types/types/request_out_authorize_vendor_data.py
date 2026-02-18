@@ -36,15 +36,21 @@ class RequestOutAuthorizeVendorData(UniversalBaseModel):
     Object containing vendor data.
     """
 
-    vendor_number: typing_extensions.Annotated[typing.Optional[VendorNumber], FieldMetadata(alias="vendorNumber")] = (
-        None
-    )
-    name_1: typing_extensions.Annotated[typing.Optional[VendorName1], FieldMetadata(alias="name1")] = None
-    name_2: typing_extensions.Annotated[typing.Optional[VendorName2], FieldMetadata(alias="name2")] = None
+    vendor_number: typing_extensions.Annotated[
+        typing.Optional[VendorNumber], FieldMetadata(alias="vendorNumber"), pydantic.Field(alias="vendorNumber")
+    ] = None
+    name_1: typing_extensions.Annotated[
+        typing.Optional[VendorName1], FieldMetadata(alias="name1"), pydantic.Field(alias="name1")
+    ] = None
+    name_2: typing_extensions.Annotated[
+        typing.Optional[VendorName2], FieldMetadata(alias="name2"), pydantic.Field(alias="name2")
+    ] = None
     ein: typing.Optional[VendorEin] = None
     phone: typing.Optional[VendorPhone] = None
     email: typing.Optional[Email] = None
-    address_1: typing_extensions.Annotated[typing.Optional[AddressNullable], FieldMetadata(alias="address1")] = None
+    address_1: typing_extensions.Annotated[
+        typing.Optional[AddressNullable], FieldMetadata(alias="address1"), pydantic.Field(alias="address1")
+    ] = None
     city: typing.Optional[str] = None
     state: typing.Optional[str] = None
     zip: typing.Optional[str] = None
@@ -52,46 +58,68 @@ class RequestOutAuthorizeVendorData(UniversalBaseModel):
     mcc: typing.Optional[Mcc] = None
     contacts: typing.Optional[ContactsField] = None
     billing_data: typing_extensions.Annotated[
-        typing.Optional[RequestOutAuthorizeVendorBillingData], FieldMetadata(alias="billingData")
+        typing.Optional[RequestOutAuthorizeVendorBillingData],
+        FieldMetadata(alias="billingData"),
+        pydantic.Field(alias="billingData"),
     ] = None
-    vendor_status: typing_extensions.Annotated[typing.Optional[Vendorstatus], FieldMetadata(alias="vendorStatus")] = (
-        None
-    )
+    vendor_status: typing_extensions.Annotated[
+        typing.Optional[Vendorstatus], FieldMetadata(alias="vendorStatus"), pydantic.Field(alias="vendorStatus")
+    ] = None
     remit_address_1: typing_extensions.Annotated[
-        typing.Optional[Remitaddress1], FieldMetadata(alias="remitAddress1")
+        typing.Optional[Remitaddress1], FieldMetadata(alias="remitAddress1"), pydantic.Field(alias="remitAddress1")
     ] = None
     remit_address_2: typing_extensions.Annotated[
-        typing.Optional[Remitaddress2], FieldMetadata(alias="remitAddress2")
+        typing.Optional[Remitaddress2], FieldMetadata(alias="remitAddress2"), pydantic.Field(alias="remitAddress2")
     ] = None
-    remit_city: typing_extensions.Annotated[typing.Optional[Remitcity], FieldMetadata(alias="remitCity")] = None
-    remit_state: typing_extensions.Annotated[typing.Optional[Remitstate], FieldMetadata(alias="remitState")] = None
-    remit_zip: typing_extensions.Annotated[typing.Optional[Remitzip], FieldMetadata(alias="remitZip")] = None
-    remit_country: typing_extensions.Annotated[typing.Optional[Remitcountry], FieldMetadata(alias="remitCountry")] = (
-        None
-    )
+    remit_city: typing_extensions.Annotated[
+        typing.Optional[Remitcity], FieldMetadata(alias="remitCity"), pydantic.Field(alias="remitCity")
+    ] = None
+    remit_state: typing_extensions.Annotated[
+        typing.Optional[Remitstate], FieldMetadata(alias="remitState"), pydantic.Field(alias="remitState")
+    ] = None
+    remit_zip: typing_extensions.Annotated[
+        typing.Optional[Remitzip], FieldMetadata(alias="remitZip"), pydantic.Field(alias="remitZip")
+    ] = None
+    remit_country: typing_extensions.Annotated[
+        typing.Optional[Remitcountry], FieldMetadata(alias="remitCountry"), pydantic.Field(alias="remitCountry")
+    ] = None
     customer_vendor_account: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="customerVendorAccount")
+        typing.Optional[str],
+        FieldMetadata(alias="customerVendorAccount"),
+        pydantic.Field(alias="customerVendorAccount"),
     ] = None
-    custom_field_1: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="customField1")] = None
-    custom_field_2: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="customField2")] = None
+    custom_field_1: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="customField1"), pydantic.Field(alias="customField1")
+    ] = None
+    custom_field_2: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="customField2"), pydantic.Field(alias="customField2")
+    ] = None
     additional_data: typing_extensions.Annotated[
-        typing.Optional[AdditionalData], FieldMetadata(alias="additionalData")
+        typing.Optional[AdditionalData], FieldMetadata(alias="additionalData"), pydantic.Field(alias="additionalData")
     ] = None
-    address_2: typing_extensions.Annotated[typing.Optional[AddressAddtlNullable], FieldMetadata(alias="address2")] = (
-        None
-    )
+    address_2: typing_extensions.Annotated[
+        typing.Optional[AddressAddtlNullable], FieldMetadata(alias="address2"), pydantic.Field(alias="address2")
+    ] = None
     internal_reference_id: typing_extensions.Annotated[
-        typing.Optional[int], FieldMetadata(alias="internalReferenceId")
+        typing.Optional[int], FieldMetadata(alias="internalReferenceId"), pydantic.Field(alias="internalReferenceId")
     ] = None
-    location_code: typing_extensions.Annotated[typing.Optional[LocationCode], FieldMetadata(alias="locationCode")] = (
-        None
-    )
-    payee_name_1: typing_extensions.Annotated[typing.Optional[PayeeName], FieldMetadata(alias="payeeName1")] = None
-    payee_name_2: typing_extensions.Annotated[typing.Optional[PayeeName], FieldMetadata(alias="payeeName2")] = None
+    location_code: typing_extensions.Annotated[
+        typing.Optional[LocationCode], FieldMetadata(alias="locationCode"), pydantic.Field(alias="locationCode")
+    ] = None
+    payee_name_1: typing_extensions.Annotated[
+        typing.Optional[PayeeName], FieldMetadata(alias="payeeName1"), pydantic.Field(alias="payeeName1")
+    ] = None
+    payee_name_2: typing_extensions.Annotated[
+        typing.Optional[PayeeName], FieldMetadata(alias="payeeName2"), pydantic.Field(alias="payeeName2")
+    ] = None
     payment_method: typing_extensions.Annotated[
-        typing.Optional[VendorPaymentMethod], FieldMetadata(alias="paymentMethod")
+        typing.Optional[VendorPaymentMethod],
+        FieldMetadata(alias="paymentMethod"),
+        pydantic.Field(alias="paymentMethod"),
     ] = None
-    vendor_id: typing_extensions.Annotated[typing.Optional[Vendorid], FieldMetadata(alias="vendorId")] = None
+    vendor_id: typing_extensions.Annotated[
+        typing.Optional[Vendorid], FieldMetadata(alias="vendorId"), pydantic.Field(alias="vendorId")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

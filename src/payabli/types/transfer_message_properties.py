@@ -10,10 +10,14 @@ from ..core.serialization import FieldMetadata
 
 class TransferMessageProperties(UniversalBaseModel):
     original_transfer_status: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="originalTransferStatus")
+        typing.Optional[str],
+        FieldMetadata(alias="originalTransferStatus"),
+        pydantic.Field(alias="originalTransferStatus"),
     ] = None
     current_transfer_status: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="currentTransferStatus")
+        typing.Optional[str],
+        FieldMetadata(alias="currentTransferStatus"),
+        pydantic.Field(alias="currentTransferStatus"),
     ] = None
 
     if IS_PYDANTIC_V2:

@@ -9,33 +9,26 @@ from ..core.serialization import FieldMetadata
 
 
 class CardSetup(UniversalBaseModel):
-    accept_amex: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="acceptAmex")] = pydantic.Field(
-        default=None
-    )
-    """
-    Determines whether American Express is accepted.
-    """
-
-    accept_discover: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="acceptDiscover")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Determines whether Discover is accepted.
-    """
-
-    accept_mastercard: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="acceptMastercard")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Determines whether Mastercard is accepted.
-    """
-
-    accept_visa: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="acceptVisa")] = pydantic.Field(
-        default=None
-    )
-    """
-    Determines whether Visa is accepted.
-    """
+    accept_amex: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="acceptAmex"),
+        pydantic.Field(alias="acceptAmex", description="Determines whether American Express is accepted."),
+    ] = None
+    accept_discover: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="acceptDiscover"),
+        pydantic.Field(alias="acceptDiscover", description="Determines whether Discover is accepted."),
+    ] = None
+    accept_mastercard: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="acceptMastercard"),
+        pydantic.Field(alias="acceptMastercard", description="Determines whether Mastercard is accepted."),
+    ] = None
+    accept_visa: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="acceptVisa"),
+        pydantic.Field(alias="acceptVisa", description="Determines whether Visa is accepted."),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

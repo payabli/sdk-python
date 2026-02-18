@@ -16,74 +16,65 @@ class NotificationLog(UniversalBaseModel):
     The unique identifier for the notification.
     """
 
-    org_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="orgId")] = pydantic.Field(
-        default=None
-    )
-    """
-    The ID of the organization that the notification belongs to.
-    """
-
-    paypoint_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="paypointId")] = pydantic.Field(
-        default=None
-    )
-    """
-    The ID of the paypoint that the notification is related to.
-    """
-
-    notification_event: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="notificationEvent")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The event that triggered the notification.
-    """
-
+    org_id: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="orgId"),
+        pydantic.Field(alias="orgId", description="The ID of the organization that the notification belongs to."),
+    ] = None
+    paypoint_id: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="paypointId"),
+        pydantic.Field(alias="paypointId", description="The ID of the paypoint that the notification is related to."),
+    ] = None
+    notification_event: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="notificationEvent"),
+        pydantic.Field(alias="notificationEvent", description="The event that triggered the notification."),
+    ] = None
     target: typing.Optional[str] = pydantic.Field(default=None)
     """
     The target URL for the notification.
     """
 
-    response_status: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="responseStatus")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The HTTP response status of the notification.
-    """
-
+    response_status: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="responseStatus"),
+        pydantic.Field(alias="responseStatus", description="The HTTP response status of the notification."),
+    ] = None
     success: bool = pydantic.Field()
     """
     Indicates whether the notification was successful.
     """
 
-    job_data: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="jobData")] = pydantic.Field(
-        default=None
-    )
-    """
-    Contains the body of the notification.
-    """
-
-    created_date: typing_extensions.Annotated[dt.datetime, FieldMetadata(alias="createdDate")] = pydantic.Field()
-    """
-    The date and time when the notification was created.
-    """
-
-    success_date: typing_extensions.Annotated[typing.Optional[dt.datetime], FieldMetadata(alias="successDate")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The date and time when the notification was successfully delivered.
-    """
-
+    job_data: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="jobData"),
+        pydantic.Field(alias="jobData", description="Contains the body of the notification."),
+    ] = None
+    created_date: typing_extensions.Annotated[
+        dt.datetime,
+        FieldMetadata(alias="createdDate"),
+        pydantic.Field(alias="createdDate", description="The date and time when the notification was created."),
+    ]
+    success_date: typing_extensions.Annotated[
+        typing.Optional[dt.datetime],
+        FieldMetadata(alias="successDate"),
+        pydantic.Field(
+            alias="successDate", description="The date and time when the notification was successfully delivered."
+        ),
+    ] = None
     last_failed_date: typing_extensions.Annotated[
-        typing.Optional[dt.datetime], FieldMetadata(alias="lastFailedDate")
-    ] = pydantic.Field(default=None)
-    """
-    The date and time when the notification last failed.
-    """
-
-    is_in_progress: typing_extensions.Annotated[bool, FieldMetadata(alias="isInProgress")] = pydantic.Field()
-    """
-    Indicates whether the notification is currently in progress.
-    """
+        typing.Optional[dt.datetime],
+        FieldMetadata(alias="lastFailedDate"),
+        pydantic.Field(alias="lastFailedDate", description="The date and time when the notification last failed."),
+    ] = None
+    is_in_progress: typing_extensions.Annotated[
+        bool,
+        FieldMetadata(alias="isInProgress"),
+        pydantic.Field(
+            alias="isInProgress", description="Indicates whether the notification is currently in progress."
+        ),
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -18,16 +18,22 @@ class RequestOutAuthorizeVendorBillingData(UniversalBaseModel):
     Object containing vendor's bank information. This object is deprecated for this endpoint. Use the `paymentMethod` object in payout authorize requests instead.
     """
 
-    bank_name: typing_extensions.Annotated[typing.Optional[BankName], FieldMetadata(alias="bankName")] = None
+    bank_name: typing_extensions.Annotated[
+        typing.Optional[BankName], FieldMetadata(alias="bankName"), pydantic.Field(alias="bankName")
+    ] = None
     routing_account: typing_extensions.Annotated[
-        typing.Optional[RoutingAccount], FieldMetadata(alias="routingAccount")
+        typing.Optional[RoutingAccount], FieldMetadata(alias="routingAccount"), pydantic.Field(alias="routingAccount")
     ] = None
     account_number: typing_extensions.Annotated[
-        typing.Optional[AccountNumber], FieldMetadata(alias="accountNumber")
+        typing.Optional[AccountNumber], FieldMetadata(alias="accountNumber"), pydantic.Field(alias="accountNumber")
     ] = None
-    type_account: typing_extensions.Annotated[typing.Optional[TypeAccount], FieldMetadata(alias="typeAccount")] = None
+    type_account: typing_extensions.Annotated[
+        typing.Optional[TypeAccount], FieldMetadata(alias="typeAccount"), pydantic.Field(alias="typeAccount")
+    ] = None
     bank_account_holder_name: typing_extensions.Annotated[
-        typing.Optional[BankAccountHolderName], FieldMetadata(alias="bankAccountHolderName")
+        typing.Optional[BankAccountHolderName],
+        FieldMetadata(alias="bankAccountHolderName"),
+        pydantic.Field(alias="bankAccountHolderName"),
     ] = None
 
     if IS_PYDANTIC_V2:

@@ -12,7 +12,9 @@ from .tier_item import TierItem
 class CardType(UniversalBaseModel):
     amex: typing.Optional[TierItem] = None
     discover: typing.Optional[TierItem] = None
-    master_card: typing_extensions.Annotated[typing.Optional[TierItem], FieldMetadata(alias="masterCard")] = None
+    master_card: typing_extensions.Annotated[
+        typing.Optional[TierItem], FieldMetadata(alias="masterCard"), pydantic.Field(alias="masterCard")
+    ] = None
     visa: typing.Optional[TierItem] = None
 
     if IS_PYDANTIC_V2:

@@ -15,50 +15,73 @@ from .visible import Visible
 
 
 class AchService(UniversalBaseModel):
-    ach_absorb: typing_extensions.Annotated[typing.Optional[AchAbsorbSection], FieldMetadata(alias="achAbsorb")] = None
+    ach_absorb: typing_extensions.Annotated[
+        typing.Optional[AchAbsorbSection], FieldMetadata(alias="achAbsorb"), pydantic.Field(alias="achAbsorb")
+    ] = None
     ach_absorb_high_pay_range: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="achAbsorb_highPayRange")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="achAbsorb_highPayRange"),
+        pydantic.Field(alias="achAbsorb_highPayRange"),
     ] = None
     ach_absorb_low_pay_range: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="achAbsorb_lowPayRange")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="achAbsorb_lowPayRange"),
+        pydantic.Field(alias="achAbsorb_lowPayRange"),
     ] = None
     ach_acceptance: typing_extensions.Annotated[
-        typing.Optional[AchAcceptanceElement], FieldMetadata(alias="achAcceptance")
+        typing.Optional[AchAcceptanceElement],
+        FieldMetadata(alias="achAcceptance"),
+        pydantic.Field(alias="achAcceptance"),
     ] = None
-    ach_fees: typing_extensions.Annotated[typing.Optional[AchFeeSection], FieldMetadata(alias="achFees")] = None
+    ach_fees: typing_extensions.Annotated[
+        typing.Optional[AchFeeSection], FieldMetadata(alias="achFees"), pydantic.Field(alias="achFees")
+    ] = None
     ach_pass_high_pay_range: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="achPass_highPayRange")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="achPass_highPayRange"),
+        pydantic.Field(alias="achPass_highPayRange"),
     ] = None
     ach_pass_low_pay_range: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="achPass_lowPayRange")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="achPass_lowPayRange"),
+        pydantic.Field(alias="achPass_lowPayRange"),
     ] = None
     ach_pass_through: typing_extensions.Annotated[
-        typing.Optional[AchPassThroughSection], FieldMetadata(alias="achPassThrough")
+        typing.Optional[AchPassThroughSection],
+        FieldMetadata(alias="achPassThrough"),
+        pydantic.Field(alias="achPassThrough"),
     ] = None
     batch_cutoff_time: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="batchCutoffTime")
-    ] = pydantic.Field(default=None)
-    """
-    Controls how to present the `batchCutoffTime` field on the application. If this field isn't sent, batch cut off time defaults to 5 ET.
-    """
-
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="batchCutoffTime"),
+        pydantic.Field(
+            alias="batchCutoffTime",
+            description="Controls how to present the `batchCutoffTime` field on the application. If this field isn't sent, batch cut off time defaults to 5 ET.",
+        ),
+    ] = None
     discount_frequency: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="discountFrequency")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="discountFrequency"),
+        pydantic.Field(alias="discountFrequency"),
     ] = None
     funding_rollup: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="fundingRollup")
+        typing.Optional[TemplateElement], FieldMetadata(alias="fundingRollup"), pydantic.Field(alias="fundingRollup")
     ] = None
     gateway: typing.Optional[TemplateElement] = None
     pdf_template_id: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="pdfTemplateId")
+        typing.Optional[TemplateElement], FieldMetadata(alias="pdfTemplateId"), pydantic.Field(alias="pdfTemplateId")
     ] = None
-    pricing_plan: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="pricingPlan")] = None
-    pricing_type: typing_extensions.Annotated[typing.Optional[TemplateElement], FieldMetadata(alias="pricingType")] = (
-        None
-    )
+    pricing_plan: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="pricingPlan"), pydantic.Field(alias="pricingPlan")
+    ] = None
+    pricing_type: typing_extensions.Annotated[
+        typing.Optional[TemplateElement], FieldMetadata(alias="pricingType"), pydantic.Field(alias="pricingType")
+    ] = None
     processor: typing.Optional[TemplateElement] = None
     provider: typing.Optional[TemplateElement] = None
-    tier_name: typing_extensions.Annotated[typing.Optional[TemplateElement], FieldMetadata(alias="tierName")] = None
+    tier_name: typing_extensions.Annotated[
+        typing.Optional[TemplateElement], FieldMetadata(alias="tierName"), pydantic.Field(alias="tierName")
+    ] = None
     visible: typing.Optional[Visible] = None
 
     if IS_PYDANTIC_V2:

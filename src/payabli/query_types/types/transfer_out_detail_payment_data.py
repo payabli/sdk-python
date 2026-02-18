@@ -13,131 +13,96 @@ class TransferOutDetailPaymentData(UniversalBaseModel):
     Payment data for an outbound transfer detail.
     """
 
-    masked_account: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="MaskedAccount")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Masked account number.
-    """
-
-    account_type: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="AccountType")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Type of account.
-    """
-
-    account_exp: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="AccountExp")] = pydantic.Field(
-        default=None
-    )
-    """
-    Account expiration date.
-    """
-
-    account_zip: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="AccountZip")] = pydantic.Field(
-        default=None
-    )
-    """
-    ZIP code associated with the account.
-    """
-
-    holder_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="HolderName")] = pydantic.Field(
-        default=None
-    )
-    """
-    Name of the account holder.
-    """
-
-    stored_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="StoredId")] = pydantic.Field(
-        default=None
-    )
-    """
-    ID of the stored payment method.
-    """
-
-    initiator: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="Initiator")] = pydantic.Field(
-        default=None
-    )
-    """
-    Initiator of the payment.
-    """
-
+    masked_account: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="MaskedAccount"),
+        pydantic.Field(alias="MaskedAccount", description="Masked account number."),
+    ] = None
+    account_type: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="AccountType"),
+        pydantic.Field(alias="AccountType", description="Type of account."),
+    ] = None
+    account_exp: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="AccountExp"),
+        pydantic.Field(alias="AccountExp", description="Account expiration date."),
+    ] = None
+    account_zip: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="AccountZip"),
+        pydantic.Field(alias="AccountZip", description="ZIP code associated with the account."),
+    ] = None
+    holder_name: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="HolderName"),
+        pydantic.Field(alias="HolderName", description="Name of the account holder."),
+    ] = None
+    stored_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="StoredId"),
+        pydantic.Field(alias="StoredId", description="ID of the stored payment method."),
+    ] = None
+    initiator: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="Initiator"),
+        pydantic.Field(alias="Initiator", description="Initiator of the payment."),
+    ] = None
     stored_method_usage_type: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="StoredMethodUsageType")
-    ] = pydantic.Field(default=None)
-    """
-    Usage type for stored method.
-    """
-
-    sequence: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="Sequence")] = pydantic.Field(
-        default=None
-    )
-    """
-    Sequence number.
-    """
-
-    order_description: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="orderDescription")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Description of the order.
-    """
-
+        typing.Optional[str],
+        FieldMetadata(alias="StoredMethodUsageType"),
+        pydantic.Field(alias="StoredMethodUsageType", description="Usage type for stored method."),
+    ] = None
+    sequence: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="Sequence"),
+        pydantic.Field(alias="Sequence", description="Sequence number."),
+    ] = None
+    order_description: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="orderDescription"),
+        pydantic.Field(alias="orderDescription", description="Description of the order."),
+    ] = None
     cloud_signature_data: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="cloudSignatureData")
-    ] = pydantic.Field(default=None)
-    """
-    Cloud signature data.
-    """
-
+        typing.Optional[str],
+        FieldMetadata(alias="cloudSignatureData"),
+        pydantic.Field(alias="cloudSignatureData", description="Cloud signature data."),
+    ] = None
     cloud_signature_format: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="cloudSignatureFormat")
-    ] = pydantic.Field(default=None)
-    """
-    Format of cloud signature.
-    """
-
-    payment_details: typing_extensions.Annotated[typing.Optional[typing.Any], FieldMetadata(alias="paymentDetails")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Additional payment details.
-    """
-
-    payor_data: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="payorData")] = pydantic.Field(
-        default=None
-    )
-    """
-    Data about the payor.
-    """
-
-    account_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="accountId")] = pydantic.Field(
-        default=None
-    )
-    """
-    Account ID.
-    """
-
-    bank_account: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="bankAccount")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Bank account information.
-    """
-
-    gateway_connector: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="gatewayConnector")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Gateway connector used.
-    """
-
-    bin_data: typing_extensions.Annotated[typing.Optional[typing.Any], FieldMetadata(alias="binData")] = pydantic.Field(
-        default=None
-    )
-    """
-    BIN data for the card.
-    """
+        typing.Optional[str],
+        FieldMetadata(alias="cloudSignatureFormat"),
+        pydantic.Field(alias="cloudSignatureFormat", description="Format of cloud signature."),
+    ] = None
+    payment_details: typing_extensions.Annotated[
+        typing.Optional[typing.Any],
+        FieldMetadata(alias="paymentDetails"),
+        pydantic.Field(alias="paymentDetails", description="Additional payment details."),
+    ] = None
+    payor_data: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="payorData"),
+        pydantic.Field(alias="payorData", description="Data about the payor."),
+    ] = None
+    account_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="accountId"),
+        pydantic.Field(alias="accountId", description="Account ID."),
+    ] = None
+    bank_account: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="bankAccount"),
+        pydantic.Field(alias="bankAccount", description="Bank account information."),
+    ] = None
+    gateway_connector: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="gatewayConnector"),
+        pydantic.Field(alias="gatewayConnector", description="Gateway connector used."),
+    ] = None
+    bin_data: typing_extensions.Annotated[
+        typing.Optional[typing.Any],
+        FieldMetadata(alias="binData"),
+        pydantic.Field(alias="binData", description="BIN data for the card."),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

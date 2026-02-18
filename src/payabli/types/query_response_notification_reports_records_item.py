@@ -10,25 +10,24 @@ from .created_at import CreatedAt
 
 
 class QueryResponseNotificationReportsRecordsItem(UniversalBaseModel):
-    created_at: typing_extensions.Annotated[typing.Optional[CreatedAt], FieldMetadata(alias="createdAt")] = None
+    created_at: typing_extensions.Annotated[
+        typing.Optional[CreatedAt], FieldMetadata(alias="createdAt"), pydantic.Field(alias="createdAt")
+    ] = None
     id: typing.Optional[int] = pydantic.Field(default=None)
     """
     Unique identifier for the report.
     """
 
-    is_downloadable: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="isDownloadable")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Indicator of whether the report can be downloaded.
-    """
-
-    report_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="reportName")] = pydantic.Field(
-        default=None
-    )
-    """
-    Name of the report.
-    """
+    is_downloadable: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="isDownloadable"),
+        pydantic.Field(alias="isDownloadable", description="Indicator of whether the report can be downloaded."),
+    ] = None
+    report_name: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="reportName"),
+        pydantic.Field(alias="reportName", description="Name of the report."),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

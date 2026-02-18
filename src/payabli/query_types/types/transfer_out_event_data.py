@@ -18,27 +18,23 @@ class TransferOutEventData(UniversalBaseModel):
     Description of the event.
     """
 
-    event_time: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="eventTime")] = pydantic.Field(
-        default=None
-    )
-    """
-    The time the event occurred.
-    """
-
-    ref_data: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="refData")] = pydantic.Field(
-        default=None
-    )
-    """
-    Reference data for the event.
-    """
-
-    extra_data: typing_extensions.Annotated[typing.Optional[typing.Any], FieldMetadata(alias="extraData")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Additional event data, which may contain detailed transaction information.
-    """
-
+    event_time: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="eventTime"),
+        pydantic.Field(alias="eventTime", description="The time the event occurred."),
+    ] = None
+    ref_data: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="refData"),
+        pydantic.Field(alias="refData", description="Reference data for the event."),
+    ] = None
+    extra_data: typing_extensions.Annotated[
+        typing.Optional[typing.Any],
+        FieldMetadata(alias="extraData"),
+        pydantic.Field(
+            alias="extraData", description="Additional event data, which may contain detailed transaction information."
+        ),
+    ] = None
     source: typing.Optional[str] = pydantic.Field(default=None)
     """
     The source of the event.

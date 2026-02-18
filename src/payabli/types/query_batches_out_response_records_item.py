@@ -13,276 +13,180 @@ from .external_paypoint_id import ExternalPaypointId
 
 
 class QueryBatchesOutResponseRecordsItem(UniversalBaseModel):
-    ach_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="AchAmount")] = pydantic.Field(
-        default=None
-    )
-    """
-    
-    """
-
-    ach_records: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="AchRecords")] = pydantic.Field(
-        default=None
-    )
-    """
-    
-    """
-
-    ach_status: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="AchStatus")] = pydantic.Field(
-        default=None
-    )
-    """
-    
-    """
-
-    ach_status_text: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="AchStatusText")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    
-    """
-
-    batch_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="BatchAmount")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The amount of the batch.
-    """
-
-    batch_cancelled_amount: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="BatchCancelledAmount")
-    ] = pydantic.Field(default=None)
-    """
-    
-    """
-
-    batch_cancelled_records: typing_extensions.Annotated[
-        typing.Optional[int], FieldMetadata(alias="BatchCancelledRecords")
-    ] = pydantic.Field(default=None)
-    """
-    
-    """
-
-    batch_date: typing_extensions.Annotated[typing.Optional[dt.datetime], FieldMetadata(alias="BatchDate")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The batch date.
-    """
-
-    batch_number: typing_extensions.Annotated[typing.Optional[BatchNumber], FieldMetadata(alias="BatchNumber")] = None
-    batch_paid_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="BatchPaidAmount")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    
-    """
-
-    batch_paid_records: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="BatchPaidRecords")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    
-    """
-
-    batch_processed_amount: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="BatchProcessedAmount")
-    ] = pydantic.Field(default=None)
-    """
-    
-    """
-
-    batch_processed_records: typing_extensions.Annotated[
-        typing.Optional[int], FieldMetadata(alias="BatchProcessedRecords")
-    ] = pydantic.Field(default=None)
-    """
-    
-    """
-
-    batch_processing_amount: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="BatchProcessingAmount")
-    ] = pydantic.Field(default=None)
-    """
-    
-    """
-
-    batch_processing_records: typing_extensions.Annotated[
-        typing.Optional[int], FieldMetadata(alias="BatchProcessingRecords")
-    ] = pydantic.Field(default=None)
-    """
-    
-    """
-
-    batch_records: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="BatchRecords")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The number of records in the batch.
-    """
-
-    batch_status: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="BatchStatus")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The batch status. See [Batch Status](/developers/references/money-out-statuses#batch-statuses) for more.
-    """
-
-    batch_status_text: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="BatchStatusText")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    A text description of the batch status.
-    """
-
-    card_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="CardAmount")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    
-    """
-
-    card_records: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="CardRecords")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    
-    """
-
-    card_status: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="CardStatus")] = pydantic.Field(
-        default=None
-    )
-    """
-    
-    """
-
-    card_status_text: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="CardStatusText")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    
-    """
-
-    check_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="CheckAmount")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    
-    """
-
-    check_records: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="CheckRecords")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    
-    """
-
-    check_status: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="CheckStatus")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    
-    """
-
-    check_status_text: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="CheckStatusText")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    
-    """
-
-    entry_name: typing_extensions.Annotated[typing.Optional[Entrypointfield], FieldMetadata(alias="EntryName")] = None
-    external_paypoint_id: typing_extensions.Annotated[
-        typing.Optional[ExternalPaypointId], FieldMetadata(alias="externalPaypointID")
+    ach_amount: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="AchAmount"), pydantic.Field(alias="AchAmount", description="")
     ] = None
-    id_batch: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="IdBatch")] = pydantic.Field(
-        default=None
-    )
-    """
-    The batch ID.
-    """
-
-    parent_org_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="ParentOrgName")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The entrypoint's parent org.
-    """
-
-    paypoint_dba: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="PaypointDba")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Paypoint DBA name.
-    """
-
-    paypoint_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="PaypointId")] = pydantic.Field(
-        default=None
-    )
-    """
-    Paypoint ID.
-    """
-
-    paypoint_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="PaypointName")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Paypoint legal name.
-    """
-
-    vcard_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="VcardAmount")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    
-    """
-
-    vcard_records: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="VcardRecords")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    
-    """
-
-    vcard_status: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="VcardStatus")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    
-    """
-
-    vcard_status_text: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="VcardStatusText")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    
-    """
-
-    wire_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="WireAmount")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    
-    """
-
-    wire_records: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="WireRecords")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    
-    """
-
-    wire_status: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="WireStatus")] = pydantic.Field(
-        default=None
-    )
-    """
-    
-    """
-
-    wire_status_text: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="WireStatusText")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    
-    """
+    ach_records: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="AchRecords"), pydantic.Field(alias="AchRecords", description="")
+    ] = None
+    ach_status: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="AchStatus"), pydantic.Field(alias="AchStatus", description="")
+    ] = None
+    ach_status_text: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="AchStatusText"),
+        pydantic.Field(alias="AchStatusText", description=""),
+    ] = None
+    batch_amount: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="BatchAmount"),
+        pydantic.Field(alias="BatchAmount", description="The amount of the batch."),
+    ] = None
+    batch_cancelled_amount: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="BatchCancelledAmount"),
+        pydantic.Field(alias="BatchCancelledAmount", description=""),
+    ] = None
+    batch_cancelled_records: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="BatchCancelledRecords"),
+        pydantic.Field(alias="BatchCancelledRecords", description=""),
+    ] = None
+    batch_date: typing_extensions.Annotated[
+        typing.Optional[dt.datetime],
+        FieldMetadata(alias="BatchDate"),
+        pydantic.Field(alias="BatchDate", description="The batch date."),
+    ] = None
+    batch_number: typing_extensions.Annotated[
+        typing.Optional[BatchNumber], FieldMetadata(alias="BatchNumber"), pydantic.Field(alias="BatchNumber")
+    ] = None
+    batch_paid_amount: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="BatchPaidAmount"),
+        pydantic.Field(alias="BatchPaidAmount", description=""),
+    ] = None
+    batch_paid_records: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="BatchPaidRecords"),
+        pydantic.Field(alias="BatchPaidRecords", description=""),
+    ] = None
+    batch_processed_amount: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="BatchProcessedAmount"),
+        pydantic.Field(alias="BatchProcessedAmount", description=""),
+    ] = None
+    batch_processed_records: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="BatchProcessedRecords"),
+        pydantic.Field(alias="BatchProcessedRecords", description=""),
+    ] = None
+    batch_processing_amount: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="BatchProcessingAmount"),
+        pydantic.Field(alias="BatchProcessingAmount", description=""),
+    ] = None
+    batch_processing_records: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="BatchProcessingRecords"),
+        pydantic.Field(alias="BatchProcessingRecords", description=""),
+    ] = None
+    batch_records: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="BatchRecords"),
+        pydantic.Field(alias="BatchRecords", description="The number of records in the batch."),
+    ] = None
+    batch_status: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="BatchStatus"),
+        pydantic.Field(
+            alias="BatchStatus",
+            description="The batch status. See [Batch Status](/developers/references/money-out-statuses#batch-statuses) for more.",
+        ),
+    ] = None
+    batch_status_text: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="BatchStatusText"),
+        pydantic.Field(alias="BatchStatusText", description="A text description of the batch status."),
+    ] = None
+    card_amount: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="CardAmount"), pydantic.Field(alias="CardAmount", description="")
+    ] = None
+    card_records: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="CardRecords"), pydantic.Field(alias="CardRecords", description="")
+    ] = None
+    card_status: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="CardStatus"), pydantic.Field(alias="CardStatus", description="")
+    ] = None
+    card_status_text: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="CardStatusText"),
+        pydantic.Field(alias="CardStatusText", description=""),
+    ] = None
+    check_amount: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="CheckAmount"), pydantic.Field(alias="CheckAmount", description="")
+    ] = None
+    check_records: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="CheckRecords"), pydantic.Field(alias="CheckRecords", description="")
+    ] = None
+    check_status: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="CheckStatus"), pydantic.Field(alias="CheckStatus", description="")
+    ] = None
+    check_status_text: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="CheckStatusText"),
+        pydantic.Field(alias="CheckStatusText", description=""),
+    ] = None
+    entry_name: typing_extensions.Annotated[
+        typing.Optional[Entrypointfield], FieldMetadata(alias="EntryName"), pydantic.Field(alias="EntryName")
+    ] = None
+    external_paypoint_id: typing_extensions.Annotated[
+        typing.Optional[ExternalPaypointId],
+        FieldMetadata(alias="externalPaypointID"),
+        pydantic.Field(alias="externalPaypointID"),
+    ] = None
+    id_batch: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="IdBatch"),
+        pydantic.Field(alias="IdBatch", description="The batch ID."),
+    ] = None
+    parent_org_name: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="ParentOrgName"),
+        pydantic.Field(alias="ParentOrgName", description="The entrypoint's parent org."),
+    ] = None
+    paypoint_dba: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="PaypointDba"),
+        pydantic.Field(alias="PaypointDba", description="Paypoint DBA name."),
+    ] = None
+    paypoint_id: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="PaypointId"),
+        pydantic.Field(alias="PaypointId", description="Paypoint ID."),
+    ] = None
+    paypoint_name: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="PaypointName"),
+        pydantic.Field(alias="PaypointName", description="Paypoint legal name."),
+    ] = None
+    vcard_amount: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="VcardAmount"), pydantic.Field(alias="VcardAmount", description="")
+    ] = None
+    vcard_records: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="VcardRecords"), pydantic.Field(alias="VcardRecords", description="")
+    ] = None
+    vcard_status: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="VcardStatus"), pydantic.Field(alias="VcardStatus", description="")
+    ] = None
+    vcard_status_text: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="VcardStatusText"),
+        pydantic.Field(alias="VcardStatusText", description=""),
+    ] = None
+    wire_amount: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="WireAmount"), pydantic.Field(alias="WireAmount", description="")
+    ] = None
+    wire_records: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="WireRecords"), pydantic.Field(alias="WireRecords", description="")
+    ] = None
+    wire_status: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="WireStatus"), pydantic.Field(alias="WireStatus", description="")
+    ] = None
+    wire_status_text: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="WireStatusText"),
+        pydantic.Field(alias="WireStatusText", description=""),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

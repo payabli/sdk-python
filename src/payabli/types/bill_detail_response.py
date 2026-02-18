@@ -39,175 +39,171 @@ from .vendor_query_record import VendorQueryRecord
 
 class BillDetailResponse(UniversalBaseModel):
     bills: typing_extensions.Annotated[
-        typing.Optional[typing.List[BillDetailsResponse]], FieldMetadata(alias="Bills")
-    ] = pydantic.Field(default=None)
-    """
-    Events associated to this transaction.
-    """
-
-    check_data: typing_extensions.Annotated[typing.Optional[FileContent], FieldMetadata(alias="CheckData")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Object referencing to paper check image.
-    """
-
-    check_number: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="CheckNumber")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Paper check number related to payout transaction.
-    """
-
-    comments: typing_extensions.Annotated[typing.Optional[Comments], FieldMetadata(alias="Comments")] = pydantic.Field(
-        default=None
-    )
-    """
-    Any comment or description for payout transaction.
-    """
-
-    created_date: typing_extensions.Annotated[typing.Optional[CreatedAt], FieldMetadata(alias="CreatedDate")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Timestamp when the payment was created, in UTC.
-    """
-
-    created_at: typing_extensions.Annotated[typing.Optional[CreatedAt], FieldMetadata(alias="CreatedAt")] = None
+        typing.Optional[typing.List[BillDetailsResponse]],
+        FieldMetadata(alias="Bills"),
+        pydantic.Field(alias="Bills", description="Events associated to this transaction."),
+    ] = None
+    check_data: typing_extensions.Annotated[
+        typing.Optional[FileContent],
+        FieldMetadata(alias="CheckData"),
+        pydantic.Field(alias="CheckData", description="Object referencing to paper check image."),
+    ] = None
+    check_number: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="CheckNumber"),
+        pydantic.Field(alias="CheckNumber", description="Paper check number related to payout transaction."),
+    ] = None
+    comments: typing_extensions.Annotated[
+        typing.Optional[Comments],
+        FieldMetadata(alias="Comments"),
+        pydantic.Field(alias="Comments", description="Any comment or description for payout transaction."),
+    ] = None
+    created_date: typing_extensions.Annotated[
+        typing.Optional[CreatedAt],
+        FieldMetadata(alias="CreatedDate"),
+        pydantic.Field(alias="CreatedDate", description="Timestamp when the payment was created, in UTC."),
+    ] = None
+    created_at: typing_extensions.Annotated[
+        typing.Optional[CreatedAt], FieldMetadata(alias="CreatedAt"), pydantic.Field(alias="CreatedAt")
+    ] = None
     events: typing_extensions.Annotated[
-        typing.Optional[typing.List[QueryTransactionEvents]], FieldMetadata(alias="Events")
-    ] = pydantic.Field(default=None)
-    """
-    Events associated to this transaction.
-    """
-
-    fee_amount: typing_extensions.Annotated[typing.Optional[FeeAmount], FieldMetadata(alias="FeeAmount")] = None
-    gateway: typing_extensions.Annotated[typing.Optional[Gatewayfield], FieldMetadata(alias="Gateway")] = None
-    id_out: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="IdOut")] = pydantic.Field(
-        default=None
-    )
-    """
-    Identifier of payout transaction.
-    """
-
-    last_updated: typing_extensions.Annotated[typing.Optional[LastModified], FieldMetadata(alias="LastUpdated")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Timestamp when payment record was updated, in UTC.
-    """
-
-    net_amount: typing_extensions.Annotated[typing.Optional[Netamountnullable], FieldMetadata(alias="NetAmount")] = None
+        typing.Optional[typing.List[QueryTransactionEvents]],
+        FieldMetadata(alias="Events"),
+        pydantic.Field(alias="Events", description="Events associated to this transaction."),
+    ] = None
+    fee_amount: typing_extensions.Annotated[
+        typing.Optional[FeeAmount], FieldMetadata(alias="FeeAmount"), pydantic.Field(alias="FeeAmount")
+    ] = None
+    gateway: typing_extensions.Annotated[
+        typing.Optional[Gatewayfield], FieldMetadata(alias="Gateway"), pydantic.Field(alias="Gateway")
+    ] = None
+    id_out: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="IdOut"),
+        pydantic.Field(alias="IdOut", description="Identifier of payout transaction."),
+    ] = None
+    last_updated: typing_extensions.Annotated[
+        typing.Optional[LastModified],
+        FieldMetadata(alias="LastUpdated"),
+        pydantic.Field(alias="LastUpdated", description="Timestamp when payment record was updated, in UTC."),
+    ] = None
+    net_amount: typing_extensions.Annotated[
+        typing.Optional[Netamountnullable], FieldMetadata(alias="NetAmount"), pydantic.Field(alias="NetAmount")
+    ] = None
     parent_org_name: typing_extensions.Annotated[
-        typing.Optional[OrgParentName], FieldMetadata(alias="ParentOrgName")
+        typing.Optional[OrgParentName], FieldMetadata(alias="ParentOrgName"), pydantic.Field(alias="ParentOrgName")
     ] = None
-    parent_org_id: typing_extensions.Annotated[typing.Optional[OrgParentId], FieldMetadata(alias="ParentOrgId")] = None
-    payment_data: typing_extensions.Annotated[typing.Optional[QueryPaymentData], FieldMetadata(alias="PaymentData")] = (
-        None
-    )
-    payment_group: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="PaymentGroup")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Unique identifier for group or batch containing the transaction.
-    """
-
-    payment_id: typing_extensions.Annotated[typing.Optional[PaymentIdString], FieldMetadata(alias="PaymentId")] = None
-    payment_method: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="PaymentMethod")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Method of payment applied to the transaction.
-    """
-
-    payment_status: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="PaymentStatus")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Status of payout transaction.
-    """
-
-    paypoint_dbaname: typing_extensions.Annotated[typing.Optional[Dbaname], FieldMetadata(alias="PaypointDbaname")] = (
-        None
-    )
+    parent_org_id: typing_extensions.Annotated[
+        typing.Optional[OrgParentId], FieldMetadata(alias="ParentOrgId"), pydantic.Field(alias="ParentOrgId")
+    ] = None
+    payment_data: typing_extensions.Annotated[
+        typing.Optional[QueryPaymentData], FieldMetadata(alias="PaymentData"), pydantic.Field(alias="PaymentData")
+    ] = None
+    payment_group: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="PaymentGroup"),
+        pydantic.Field(
+            alias="PaymentGroup", description="Unique identifier for group or batch containing the transaction."
+        ),
+    ] = None
+    payment_id: typing_extensions.Annotated[
+        typing.Optional[PaymentIdString], FieldMetadata(alias="PaymentId"), pydantic.Field(alias="PaymentId")
+    ] = None
+    payment_method: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="PaymentMethod"),
+        pydantic.Field(alias="PaymentMethod", description="Method of payment applied to the transaction."),
+    ] = None
+    payment_status: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="PaymentStatus"),
+        pydantic.Field(alias="PaymentStatus", description="Status of payout transaction."),
+    ] = None
+    paypoint_dbaname: typing_extensions.Annotated[
+        typing.Optional[Dbaname], FieldMetadata(alias="PaypointDbaname"), pydantic.Field(alias="PaypointDbaname")
+    ] = None
     paypoint_legalname: typing_extensions.Annotated[
-        typing.Optional[Legalname], FieldMetadata(alias="PaypointLegalname")
-    ] = pydantic.Field(default=None)
-    """
-    Paypoint legal name.
-    """
-
-    source: typing_extensions.Annotated[typing.Optional[Source], FieldMetadata(alias="Source")] = None
-    status: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="Status")] = pydantic.Field(
-        default=None
-    )
-    """
-    Internal status of transaction.
-    
-    Payout statuses, also known as money out transaction statuses, appear in PartnerHub and PayHub, and the API, and describe where a payout transaction is in its lifecycle.
-    
-    | Status | Key | Description | Events |
-    |--------|-----|-------------|---------|
-    | **Authorized** | 11 | A payout is authorized. These are queued payouts, and nothing happens with them until they're captured. | Authorized |
-    | **Captured** | 1 | A payout is captured and is now part of the batch for payout. | Captured |
-    | **Canceled** | 0 | An authorized payout has been canceled. A captured payout can be canceled before batch close at 5 PM ET. | Cancelled |
-    | **Processing** | 2 | A payout is being processed. | Waiting funds, Funded, Pending (payment type is pending), Generating check |
-    | **Processed** | 3 | A payment method is defined for the vendor, and the payout has been sent to the recipient. | Open (vCard issued, ACH sent, check generated but not yet cashed), Processed (Payment Type is no longer pending), Reissued, Returned, Errored |
-    | **OnHold** | 4 | A payout has been placed on hold and requires review before proceeding. | OnHold |
-    | **Paid** | 5 | A payout has been paid and the recipient has redeemed the funds. | Paid (check cleared, vCard used, ACH settled) |
-    """
-
-    status_text: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="StatusText")] = pydantic.Field(
-        default=None
-    )
-    """
-    Status of payout transaction.
-    """
-
-    total_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="TotalAmount")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Transaction total amount (including service fee or sub-charge).
-    """
-
-    vendor: typing_extensions.Annotated[typing.Optional[VendorQueryRecord], FieldMetadata(alias="Vendor")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Vendor related to the payout transaction.
-    """
-
+        typing.Optional[Legalname],
+        FieldMetadata(alias="PaypointLegalname"),
+        pydantic.Field(alias="PaypointLegalname", description="Paypoint legal name."),
+    ] = None
+    source: typing_extensions.Annotated[
+        typing.Optional[Source], FieldMetadata(alias="Source"), pydantic.Field(alias="Source")
+    ] = None
+    status: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="Status"),
+        pydantic.Field(
+            alias="Status",
+            description="Internal status of transaction.\n\nPayout statuses, also known as money out transaction statuses, appear in PartnerHub and PayHub, and the API, and describe where a payout transaction is in its lifecycle.\n\n| Status | Key | Description | Events |\n|--------|-----|-------------|---------|\n| **Authorized** | 11 | A payout is authorized. These are queued payouts, and nothing happens with them until they're captured. | Authorized |\n| **Captured** | 1 | A payout is captured and is now part of the batch for payout. | Captured |\n| **Canceled** | 0 | An authorized payout has been canceled. A captured payout can be canceled before batch close at 5 PM ET. | Cancelled |\n| **Processing** | 2 | A payout is being processed. | Waiting funds, Funded, Pending (payment type is pending), Generating check |\n| **Processed** | 3 | A payment method is defined for the vendor, and the payout has been sent to the recipient. | Open (vCard issued, ACH sent, check generated but not yet cashed), Processed (Payment Type is no longer pending), Reissued, Returned, Errored |\n| **OnHold** | 4 | A payout has been placed on hold and requires review before proceeding. | OnHold |\n| **Paid** | 5 | A payout has been paid and the recipient has redeemed the funds. | Paid (check cleared, vCard used, ACH settled) |",
+        ),
+    ] = None
+    status_text: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="StatusText"),
+        pydantic.Field(alias="StatusText", description="Status of payout transaction."),
+    ] = None
+    total_amount: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="TotalAmount"),
+        pydantic.Field(
+            alias="TotalAmount", description="Transaction total amount (including service fee or sub-charge)."
+        ),
+    ] = None
+    vendor: typing_extensions.Annotated[
+        typing.Optional[VendorQueryRecord],
+        FieldMetadata(alias="Vendor"),
+        pydantic.Field(alias="Vendor", description="Vendor related to the payout transaction."),
+    ] = None
     external_paypoint_id: typing_extensions.Annotated[
-        typing.Optional[ExternalPaypointId], FieldMetadata(alias="externalPaypointID")
+        typing.Optional[ExternalPaypointId],
+        FieldMetadata(alias="externalPaypointID"),
+        pydantic.Field(alias="externalPaypointID"),
     ] = None
-    entry_name: typing_extensions.Annotated[typing.Optional[Entry], FieldMetadata(alias="EntryName")] = None
-    batch_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="BatchId")] = pydantic.Field(
-        default=None
-    )
-    """
-    Identifier for the batch in which this transaction was processed. Used to track and reconcile batch-level operations.
-    """
-
+    entry_name: typing_extensions.Annotated[
+        typing.Optional[Entry], FieldMetadata(alias="EntryName"), pydantic.Field(alias="EntryName")
+    ] = None
+    batch_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="BatchId"),
+        pydantic.Field(
+            alias="BatchId",
+            description="Identifier for the batch in which this transaction was processed. Used to track and reconcile batch-level operations.",
+        ),
+    ] = None
     has_vcard_transactions: typing_extensions.Annotated[
-        typing.Optional[HasVcardTransactions], FieldMetadata(alias="HasVcardTransactions")
+        typing.Optional[HasVcardTransactions],
+        FieldMetadata(alias="HasVcardTransactions"),
+        pydantic.Field(alias="HasVcardTransactions"),
     ] = None
-    is_same_day_ach: typing_extensions.Annotated[typing.Optional[IsSameDayAch], FieldMetadata(alias="IsSameDayACH")] = (
-        None
-    )
-    schedule_id: typing_extensions.Annotated[typing.Optional[ScheduleId], FieldMetadata(alias="ScheduleId")] = None
+    is_same_day_ach: typing_extensions.Annotated[
+        typing.Optional[IsSameDayAch], FieldMetadata(alias="IsSameDayACH"), pydantic.Field(alias="IsSameDayACH")
+    ] = None
+    schedule_id: typing_extensions.Annotated[
+        typing.Optional[ScheduleId], FieldMetadata(alias="ScheduleId"), pydantic.Field(alias="ScheduleId")
+    ] = None
     settlement_status: typing_extensions.Annotated[
-        typing.Optional[SettlementStatus], FieldMetadata(alias="SettlementStatus")
+        typing.Optional[SettlementStatus],
+        FieldMetadata(alias="SettlementStatus"),
+        pydantic.Field(alias="SettlementStatus"),
     ] = None
-    risk_flagged: typing_extensions.Annotated[typing.Optional[RiskFlagged], FieldMetadata(alias="RiskFlagged")] = None
+    risk_flagged: typing_extensions.Annotated[
+        typing.Optional[RiskFlagged], FieldMetadata(alias="RiskFlagged"), pydantic.Field(alias="RiskFlagged")
+    ] = None
     risk_flagged_on: typing_extensions.Annotated[
-        typing.Optional[RiskFlaggedOn], FieldMetadata(alias="RiskFlaggedOn")
+        typing.Optional[RiskFlaggedOn], FieldMetadata(alias="RiskFlaggedOn"), pydantic.Field(alias="RiskFlaggedOn")
     ] = None
-    risk_status: typing_extensions.Annotated[typing.Optional[RiskStatus], FieldMetadata(alias="RiskStatus")] = None
-    risk_reason: typing_extensions.Annotated[typing.Optional[RiskReason], FieldMetadata(alias="RiskReason")] = None
-    risk_action: typing_extensions.Annotated[typing.Optional[RiskAction], FieldMetadata(alias="RiskAction")] = None
+    risk_status: typing_extensions.Annotated[
+        typing.Optional[RiskStatus], FieldMetadata(alias="RiskStatus"), pydantic.Field(alias="RiskStatus")
+    ] = None
+    risk_reason: typing_extensions.Annotated[
+        typing.Optional[RiskReason], FieldMetadata(alias="RiskReason"), pydantic.Field(alias="RiskReason")
+    ] = None
+    risk_action: typing_extensions.Annotated[
+        typing.Optional[RiskAction], FieldMetadata(alias="RiskAction"), pydantic.Field(alias="RiskAction")
+    ] = None
     risk_action_code: typing_extensions.Annotated[
-        typing.Optional[RiskActionCode], FieldMetadata(alias="RiskActionCode")
+        typing.Optional[RiskActionCode], FieldMetadata(alias="RiskActionCode"), pydantic.Field(alias="RiskActionCode")
     ] = None
 
     if IS_PYDANTIC_V2:

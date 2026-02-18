@@ -10,10 +10,18 @@ from .link_data import LinkData
 
 
 class CList(UniversalBaseModel):
-    contact_email: typing_extensions.Annotated[typing.Optional[LinkData], FieldMetadata(alias="contactEmail")] = None
-    contact_name: typing_extensions.Annotated[typing.Optional[LinkData], FieldMetadata(alias="contactName")] = None
-    contact_phone: typing_extensions.Annotated[typing.Optional[LinkData], FieldMetadata(alias="contactPhone")] = None
-    contact_title: typing_extensions.Annotated[typing.Optional[LinkData], FieldMetadata(alias="contactTitle")] = None
+    contact_email: typing_extensions.Annotated[
+        typing.Optional[LinkData], FieldMetadata(alias="contactEmail"), pydantic.Field(alias="contactEmail")
+    ] = None
+    contact_name: typing_extensions.Annotated[
+        typing.Optional[LinkData], FieldMetadata(alias="contactName"), pydantic.Field(alias="contactName")
+    ] = None
+    contact_phone: typing_extensions.Annotated[
+        typing.Optional[LinkData], FieldMetadata(alias="contactPhone"), pydantic.Field(alias="contactPhone")
+    ] = None
+    contact_title: typing_extensions.Annotated[
+        typing.Optional[LinkData], FieldMetadata(alias="contactTitle"), pydantic.Field(alias="contactTitle")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

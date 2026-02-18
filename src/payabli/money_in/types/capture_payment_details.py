@@ -9,18 +9,19 @@ from ...core.serialization import FieldMetadata
 
 
 class CapturePaymentDetails(UniversalBaseModel):
-    total_amount: typing_extensions.Annotated[float, FieldMetadata(alias="totalAmount")] = pydantic.Field()
-    """
-    Total amount to be captured, including the `serviceFee` amount. The amount can't be greater the original
-    total amount of the transaction, and can't be more than 15% lower than the original amount.
-    """
-
-    service_fee: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="serviceFee")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Service fee to capture for the transaction.
-    """
+    total_amount: typing_extensions.Annotated[
+        float,
+        FieldMetadata(alias="totalAmount"),
+        pydantic.Field(
+            alias="totalAmount",
+            description="Total amount to be captured, including the `serviceFee` amount. The amount can't be greater the original\ntotal amount of the transaction, and can't be more than 15% lower than the original amount.",
+        ),
+    ]
+    service_fee: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="serviceFee"),
+        pydantic.Field(alias="serviceFee", description="Service fee to capture for the transaction."),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

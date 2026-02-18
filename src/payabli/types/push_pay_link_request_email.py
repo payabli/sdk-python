@@ -10,20 +10,20 @@ from ..core.serialization import FieldMetadata
 
 class PushPayLinkRequestEmail(UniversalBaseModel):
     additional_emails: typing_extensions.Annotated[
-        typing.Optional[typing.List[str]], FieldMetadata(alias="additionalEmails")
-    ] = pydantic.Field(default=None)
-    """
-    List of additional email addresses you want to send the paylink to, formatted as an array. 
-    Payment links and opt-in requests are sent to the customer email address on file, and additional 
-    recipients can be specified here.
-    """
-
-    attach_file: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="attachFile")] = pydantic.Field(
-        default=None
-    )
-    """
-    When `true`, attaches a PDF version of the invoice to the email.
-    """
+        typing.Optional[typing.List[str]],
+        FieldMetadata(alias="additionalEmails"),
+        pydantic.Field(
+            alias="additionalEmails",
+            description="List of additional email addresses you want to send the paylink to, formatted as an array. \nPayment links and opt-in requests are sent to the customer email address on file, and additional \nrecipients can be specified here.",
+        ),
+    ] = None
+    attach_file: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="attachFile"),
+        pydantic.Field(
+            alias="attachFile", description="When `true`, attaches a PDF version of the invoice to the email."
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -16,7 +16,9 @@ class UnderwritingDataResponse(UniversalBaseModel):
     """
 
     method: typing.Optional[UnderWritingMethod] = None
-    policy_id: typing_extensions.Annotated[typing.Optional[PolicyId], FieldMetadata(alias="policyId")] = None
+    policy_id: typing_extensions.Annotated[
+        typing.Optional[PolicyId], FieldMetadata(alias="policyId"), pydantic.Field(alias="policyId")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

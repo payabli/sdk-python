@@ -34,87 +34,81 @@ class BinData(UniversalBaseModel):
     )
     """
 
-    bin_matched_length: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="binMatchedLength")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The number of characters from the beginning of the card number that
-    were matched against a Bank Identification Number (BIN) or the Card
-    Range table.
-    """
-
-    bin_card_brand: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="binCardBrand")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The card brand. For example, Visa, Mastercard, American Express,
-    Discover.
-    """
-
-    bin_card_type: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="binCardType")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The type of card: Credit or Debit.
-    """
-
-    bin_card_category: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="binCardCategory")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The category of the card, which indicates the card product. For example: Standard, Gold, Platinum, etc. The binCardCategory for prepaid cards is marked `PREPAID`.
-    """
-
-    bin_card_issuer: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="binCardIssuer")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The name of the financial institution that issued the card.
-    """
-
+    bin_matched_length: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="binMatchedLength"),
+        pydantic.Field(
+            alias="binMatchedLength",
+            description="The number of characters from the beginning of the card number that\nwere matched against a Bank Identification Number (BIN) or the Card\nRange table.",
+        ),
+    ] = None
+    bin_card_brand: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="binCardBrand"),
+        pydantic.Field(
+            alias="binCardBrand",
+            description="The card brand. For example, Visa, Mastercard, American Express,\nDiscover.",
+        ),
+    ] = None
+    bin_card_type: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="binCardType"),
+        pydantic.Field(alias="binCardType", description="The type of card: Credit or Debit."),
+    ] = None
+    bin_card_category: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="binCardCategory"),
+        pydantic.Field(
+            alias="binCardCategory",
+            description="The category of the card, which indicates the card product. For example: Standard, Gold, Platinum, etc. The binCardCategory for prepaid cards is marked `PREPAID`.",
+        ),
+    ] = None
+    bin_card_issuer: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="binCardIssuer"),
+        pydantic.Field(
+            alias="binCardIssuer", description="The name of the financial institution that issued the card."
+        ),
+    ] = None
     bin_card_issuer_country: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="binCardIssuerCountry")
-    ] = pydantic.Field(default=None)
-    """
-    The issuing financial institution's country name.
-    """
-
+        typing.Optional[str],
+        FieldMetadata(alias="binCardIssuerCountry"),
+        pydantic.Field(alias="binCardIssuerCountry", description="The issuing financial institution's country name."),
+    ] = None
     bin_card_issuer_country_code_a_2: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="binCardIssuerCountryCodeA2")
-    ] = pydantic.Field(default=None)
-    """
-    The issuing financial institution's two-character ISO country code. See [this resource](https://www.iso.org/obp/ui/#search) for a list of codes.
-    """
-
+        typing.Optional[str],
+        FieldMetadata(alias="binCardIssuerCountryCodeA2"),
+        pydantic.Field(
+            alias="binCardIssuerCountryCodeA2",
+            description="The issuing financial institution's two-character ISO country code. See [this resource](https://www.iso.org/obp/ui/#search) for a list of codes.",
+        ),
+    ] = None
     bin_card_issuer_country_number: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="binCardIssuerCountryNumber")
-    ] = pydantic.Field(default=None)
-    """
-    The issuing financial institution's ISO standard numeric country code. See [this resource](https://www.iso.org/obp/ui/#search) for a list of codes.
-    """
-
+        typing.Optional[str],
+        FieldMetadata(alias="binCardIssuerCountryNumber"),
+        pydantic.Field(
+            alias="binCardIssuerCountryNumber",
+            description="The issuing financial institution's ISO standard numeric country code. See [this resource](https://www.iso.org/obp/ui/#search) for a list of codes.",
+        ),
+    ] = None
     bin_card_is_regulated: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="binCardIsRegulated")
-    ] = pydantic.Field(default=None)
-    """
-    Indicates whether the card is regulated.
-    """
-
+        typing.Optional[str],
+        FieldMetadata(alias="binCardIsRegulated"),
+        pydantic.Field(alias="binCardIsRegulated", description="Indicates whether the card is regulated."),
+    ] = None
     bin_card_use_category: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="binCardUseCategory")
-    ] = pydantic.Field(default=None)
-    """
-    The use category classification for the card.
-    """
-
+        typing.Optional[str],
+        FieldMetadata(alias="binCardUseCategory"),
+        pydantic.Field(alias="binCardUseCategory", description="The use category classification for the card."),
+    ] = None
     bin_card_issuer_country_code_a_3: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="binCardIssuerCountryCodeA3")
-    ] = pydantic.Field(default=None)
-    """
-    The issuing financial institution's three-character ISO country code.
-    See [this resource](https://www.iso.org/obp/ui/#search) for a list of
-    codes.
-    """
+        typing.Optional[str],
+        FieldMetadata(alias="binCardIssuerCountryCodeA3"),
+        pydantic.Field(
+            alias="binCardIssuerCountryCodeA3",
+            description="The issuing financial institution's three-character ISO country code.\nSee [this resource](https://www.iso.org/obp/ui/#search) for a list of\ncodes.",
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

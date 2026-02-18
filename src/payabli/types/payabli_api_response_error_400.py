@@ -11,34 +11,35 @@ from .payabli_api_response_error_400_response_data import PayabliApiResponseErro
 
 
 class PayabliApiResponseError400(UniversalBaseModel):
-    is_success: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="isSuccess")] = pydantic.Field(
-        default=None
-    )
-    """
-    Boolean indicating whether the operation was successful. A `true` value indicates success. A `false` value indicates failure.
-    """
-
+    is_success: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="isSuccess"),
+        pydantic.Field(
+            alias="isSuccess",
+            description="Boolean indicating whether the operation was successful. A `true` value indicates success. A `false` value indicates failure.",
+        ),
+    ] = None
     pageidentifier: typing.Optional[PageIdentifier] = None
-    response_code: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="responseCode")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    A code that indicates the operation's failure reason. See [API Response Codes](https://docs.payabli.com/api-reference/api-responses) for a full reference.
-    """
-
+    response_code: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="responseCode"),
+        pydantic.Field(
+            alias="responseCode",
+            description="A code that indicates the operation's failure reason. See [API Response Codes](https://docs.payabli.com/api-reference/api-responses) for a full reference.",
+        ),
+    ] = None
     response_data: typing_extensions.Annotated[
-        typing.Optional[PayabliApiResponseError400ResponseData], FieldMetadata(alias="responseData")
-    ] = pydantic.Field(default=None)
-    """
-    Describes the reason for a failed operation and how to resolve it.
-    """
-
-    response_text: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="responseText")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Response text for operation: 'Success' or 'Declined'.
-    """
+        typing.Optional[PayabliApiResponseError400ResponseData],
+        FieldMetadata(alias="responseData"),
+        pydantic.Field(
+            alias="responseData", description="Describes the reason for a failed operation and how to resolve it."
+        ),
+    ] = None
+    response_text: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="responseText"),
+        pydantic.Field(alias="responseText", description="Response text for operation: 'Success' or 'Declined'."),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

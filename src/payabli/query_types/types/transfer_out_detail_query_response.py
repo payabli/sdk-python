@@ -15,17 +15,16 @@ class TransferOutDetailQueryResponse(UniversalBaseModel):
     Response body for queries about outbound transfer details.
     """
 
-    summary: typing_extensions.Annotated[QueryTransferSummary, FieldMetadata(alias="Summary")] = pydantic.Field()
-    """
-    Summary information about the transfer details.
-    """
-
-    records: typing_extensions.Annotated[typing.List[TransferOutDetailRecord], FieldMetadata(alias="Records")] = (
-        pydantic.Field()
-    )
-    """
-    List of outbound transfer detail records.
-    """
+    summary: typing_extensions.Annotated[
+        QueryTransferSummary,
+        FieldMetadata(alias="Summary"),
+        pydantic.Field(alias="Summary", description="Summary information about the transfer details."),
+    ]
+    records: typing_extensions.Annotated[
+        typing.List[TransferOutDetailRecord],
+        FieldMetadata(alias="Records"),
+        pydantic.Field(alias="Records", description="List of outbound transfer detail records."),
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

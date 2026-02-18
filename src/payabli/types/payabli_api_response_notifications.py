@@ -14,30 +14,31 @@ from .responsecode import Responsecode
 
 
 class PayabliApiResponseNotifications(UniversalBaseModel):
-    is_success: typing_extensions.Annotated[typing.Optional[IsSuccess], FieldMetadata(alias="isSuccess")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    
-    If `isSuccess` = true, `responseData` contains the notification identifier.
-    
-    If `isSuccess` = false, `responseData` contains the reason for the error.
-    """
-
-    page_identifier: typing_extensions.Annotated[
-        typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier")
+    is_success: typing_extensions.Annotated[
+        typing.Optional[IsSuccess],
+        FieldMetadata(alias="isSuccess"),
+        pydantic.Field(
+            alias="isSuccess",
+            description="\nIf `isSuccess` = true, `responseData` contains the notification identifier.\n\nIf `isSuccess` = false, `responseData` contains the reason for the error.",
+        ),
     ] = None
-    response_code: typing_extensions.Annotated[typing.Optional[Responsecode], FieldMetadata(alias="responseCode")] = (
-        None
-    )
+    page_identifier: typing_extensions.Annotated[
+        typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier"), pydantic.Field(alias="pageIdentifier")
+    ] = None
+    response_code: typing_extensions.Annotated[
+        typing.Optional[Responsecode], FieldMetadata(alias="responseCode"), pydantic.Field(alias="responseCode")
+    ] = None
     response_data: typing_extensions.Annotated[
-        typing.Optional[PayabliApiResponseNotificationsResponseData], FieldMetadata(alias="responseData")
-    ] = pydantic.Field(default=None)
-    """
-    When the request was successful, this contains the notification ID, or `nID` used to manage the notification.
-    """
-
-    response_text: typing_extensions.Annotated[ResponseText, FieldMetadata(alias="responseText")]
+        typing.Optional[PayabliApiResponseNotificationsResponseData],
+        FieldMetadata(alias="responseData"),
+        pydantic.Field(
+            alias="responseData",
+            description="When the request was successful, this contains the notification ID, or `nID` used to manage the notification.",
+        ),
+    ] = None
+    response_text: typing_extensions.Annotated[
+        ResponseText, FieldMetadata(alias="responseText"), pydantic.Field(alias="responseText")
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

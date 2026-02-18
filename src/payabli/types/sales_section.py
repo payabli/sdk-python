@@ -10,8 +10,12 @@ from .sales_code import SalesCode
 
 
 class SalesSection(UniversalBaseModel):
-    sales_code: typing_extensions.Annotated[typing.Optional[SalesCode], FieldMetadata(alias="salesCode")] = None
-    sales_crm: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="salesCRM")] = None
+    sales_code: typing_extensions.Annotated[
+        typing.Optional[SalesCode], FieldMetadata(alias="salesCode"), pydantic.Field(alias="salesCode")
+    ] = None
+    sales_crm: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="salesCRM"), pydantic.Field(alias="salesCRM")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

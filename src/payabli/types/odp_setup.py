@@ -10,27 +10,21 @@ from .odp_setup_processing_region import OdpSetupProcessingRegion
 
 
 class OdpSetup(UniversalBaseModel):
-    allow_ach: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="allowAch")] = pydantic.Field(
-        default=None
-    )
-    """
-    Enables or disables ACH payout functionality
-    """
-
-    allow_checks: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="allowChecks")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Enables or disables check printing payout functionality
-    """
-
-    allow_v_card: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="allowVCard")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Enables or disables vCard payout functionality
-    """
-
+    allow_ach: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="allowAch"),
+        pydantic.Field(alias="allowAch", description="Enables or disables ACH payout functionality"),
+    ] = None
+    allow_checks: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="allowChecks"),
+        pydantic.Field(alias="allowChecks", description="Enables or disables check printing payout functionality"),
+    ] = None
+    allow_v_card: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="allowVCard"),
+        pydantic.Field(alias="allowVCard", description="Enables or disables vCard payout functionality"),
+    ] = None
     processing_region: typing.Optional[OdpSetupProcessingRegion] = pydantic.Field(default=None)
     """
     Region where payment processing occurs
@@ -42,11 +36,12 @@ class OdpSetup(UniversalBaseModel):
     """
 
     issuer_network_settings_id: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="issuerNetworkSettingsId")
-    ] = pydantic.Field(default=None)
-    """
-    Reference ID for the program enabled for ODP issuance
-    """
+        typing.Optional[str],
+        FieldMetadata(alias="issuerNetworkSettingsId"),
+        pydantic.Field(
+            alias="issuerNetworkSettingsId", description="Reference ID for the program enabled for ODP issuance"
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

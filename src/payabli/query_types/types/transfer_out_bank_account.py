@@ -13,26 +13,21 @@ class TransferOutBankAccount(UniversalBaseModel):
     Bank account information for an outbound transfer.
     """
 
-    account_number: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="accountNumber")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The masked bank account number.
-    """
-
-    routing_number: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="routingNumber")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The bank routing number.
-    """
-
-    bank_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="bankName")] = pydantic.Field(
-        default=None
-    )
-    """
-    The bank name.
-    """
+    account_number: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="accountNumber"),
+        pydantic.Field(alias="accountNumber", description="The masked bank account number."),
+    ] = None
+    routing_number: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="routingNumber"),
+        pydantic.Field(alias="routingNumber", description="The bank routing number."),
+    ] = None
+    bank_name: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="bankName"),
+        pydantic.Field(alias="bankName", description="The bank name."),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

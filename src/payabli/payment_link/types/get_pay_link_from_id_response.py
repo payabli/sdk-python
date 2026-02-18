@@ -12,7 +12,9 @@ from .get_pay_link_from_id_response_response_data import GetPayLinkFromIdRespons
 
 class GetPayLinkFromIdResponse(PayabliApiResponseGeneric2Part):
     response_data: typing_extensions.Annotated[
-        typing.Optional[GetPayLinkFromIdResponseResponseData], FieldMetadata(alias="responseData")
+        typing.Optional[GetPayLinkFromIdResponseResponseData],
+        FieldMetadata(alias="responseData"),
+        pydantic.Field(alias="responseData"),
     ] = None
 
     if IS_PYDANTIC_V2:

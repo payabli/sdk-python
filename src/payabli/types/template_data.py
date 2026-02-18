@@ -17,30 +17,30 @@ class TemplateData(UniversalBaseModel):
     Object containing the template's data.
     """
 
-    org_id: typing_extensions.Annotated[typing.Optional[Orgid], FieldMetadata(alias="orgId")] = pydantic.Field(
-        default=None
-    )
-    """
-    The ID of the organization the template belongs to. 
-    """
-
-    pricing_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="pricingId")] = None
-    template_code: typing_extensions.Annotated[typing.Optional[TemplateCode], FieldMetadata(alias="templateCode")] = (
-        None
-    )
+    org_id: typing_extensions.Annotated[
+        typing.Optional[Orgid],
+        FieldMetadata(alias="orgId"),
+        pydantic.Field(alias="orgId", description="The ID of the organization the template belongs to. "),
+    ] = None
+    pricing_id: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="pricingId"), pydantic.Field(alias="pricingId")
+    ] = None
+    template_code: typing_extensions.Annotated[
+        typing.Optional[TemplateCode], FieldMetadata(alias="templateCode"), pydantic.Field(alias="templateCode")
+    ] = None
     template_content: typing_extensions.Annotated[
-        typing.Optional[TemplateContent], FieldMetadata(alias="templateContent")
+        typing.Optional[TemplateContent],
+        FieldMetadata(alias="templateContent"),
+        pydantic.Field(alias="templateContent"),
     ] = None
     template_description: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="templateDescription")
-    ] = pydantic.Field(default=None)
-    """
-    A description for the template.
-    """
-
-    template_name: typing_extensions.Annotated[typing.Optional[TemplateName], FieldMetadata(alias="templateName")] = (
-        None
-    )
+        typing.Optional[str],
+        FieldMetadata(alias="templateDescription"),
+        pydantic.Field(alias="templateDescription", description="A description for the template."),
+    ] = None
+    template_name: typing_extensions.Annotated[
+        typing.Optional[TemplateName], FieldMetadata(alias="templateName"), pydantic.Field(alias="templateName")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

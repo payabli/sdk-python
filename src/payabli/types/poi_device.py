@@ -20,61 +20,45 @@ class PoiDevice(UniversalBaseModel):
     """
 
     date_de_registered: typing_extensions.Annotated[
-        typing.Optional[dt.datetime], FieldMetadata(alias="dateDeRegistered")
-    ] = pydantic.Field(default=None)
-    """
-    The date the device was unregistered.
-    """
-
+        typing.Optional[dt.datetime],
+        FieldMetadata(alias="dateDeRegistered"),
+        pydantic.Field(alias="dateDeRegistered", description="The date the device was unregistered."),
+    ] = None
     date_registered: typing_extensions.Annotated[
-        typing.Optional[dt.datetime], FieldMetadata(alias="dateRegistered")
-    ] = pydantic.Field(default=None)
-    """
-    The date the device was registered.
-    """
-
-    device_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="deviceId")] = pydantic.Field(
-        default=None
-    )
-    """
-    The device identifier.
-    """
-
-    device_license: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="deviceLicense")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Device license. This is typically the same as `deviceId`.
-    """
-
-    device_nick_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="deviceNickName")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Device description provided during registration.
-    """
-
+        typing.Optional[dt.datetime],
+        FieldMetadata(alias="dateRegistered"),
+        pydantic.Field(alias="dateRegistered", description="The date the device was registered."),
+    ] = None
+    device_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="deviceId"),
+        pydantic.Field(alias="deviceId", description="The device identifier."),
+    ] = None
+    device_license: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="deviceLicense"),
+        pydantic.Field(alias="deviceLicense", description="Device license. This is typically the same as `deviceId`."),
+    ] = None
+    device_nick_name: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="deviceNickName"),
+        pydantic.Field(alias="deviceNickName", description="Device description provided during registration."),
+    ] = None
     last_connected_date: typing_extensions.Annotated[
-        typing.Optional[dt.datetime], FieldMetadata(alias="lastConnectedDate")
-    ] = pydantic.Field(default=None)
-    """
-    Last connected date.
-    """
-
+        typing.Optional[dt.datetime],
+        FieldMetadata(alias="lastConnectedDate"),
+        pydantic.Field(alias="lastConnectedDate", description="Last connected date."),
+    ] = None
     last_disconnected_date: typing_extensions.Annotated[
-        typing.Optional[dt.datetime], FieldMetadata(alias="lastDisconnectedDate")
-    ] = pydantic.Field(default=None)
-    """
-    Last disconnected date.
-    """
-
+        typing.Optional[dt.datetime],
+        FieldMetadata(alias="lastDisconnectedDate"),
+        pydantic.Field(alias="lastDisconnectedDate", description="Last disconnected date."),
+    ] = None
     last_transaction_date: typing_extensions.Annotated[
-        typing.Optional[dt.datetime], FieldMetadata(alias="lastTransactionDate")
-    ] = pydantic.Field(default=None)
-    """
-    Last transaction date.
-    """
-
+        typing.Optional[dt.datetime],
+        FieldMetadata(alias="lastTransactionDate"),
+        pydantic.Field(alias="lastTransactionDate", description="Last transaction date."),
+    ] = None
     make: typing.Optional[str] = pydantic.Field(default=None)
     """
     The device manufacturer.
@@ -90,12 +74,11 @@ class PoiDevice(UniversalBaseModel):
     The device registration status.
     """
 
-    serial_number: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="serialNumber")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The device serial number.
-    """
+    serial_number: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="serialNumber"),
+        pydantic.Field(alias="serialNumber", description="The device serial number."),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -25,40 +25,31 @@ class BatchSummary(UniversalBaseModel):
     """
 
     pageidentifier: typing.Optional[PageIdentifier] = None
-    page_size: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="pageSize")] = pydantic.Field(
-        default=None
-    )
-    """
-    Number of records on each response page.
-    """
-
-    total_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="totalAmount")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Total amount for the records.
-    """
-
-    total_net_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="totalNetAmount")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Total net amount for the records.
-    """
-
-    total_pages: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="totalPages")] = pydantic.Field(
-        default=None
-    )
-    """
-    Total number of pages in response.
-    """
-
-    total_records: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="totalRecords")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Total number of records in response.
-    """
+    page_size: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="pageSize"),
+        pydantic.Field(alias="pageSize", description="Number of records on each response page."),
+    ] = None
+    total_amount: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="totalAmount"),
+        pydantic.Field(alias="totalAmount", description="Total amount for the records."),
+    ] = None
+    total_net_amount: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="totalNetAmount"),
+        pydantic.Field(alias="totalNetAmount", description="Total net amount for the records."),
+    ] = None
+    total_pages: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="totalPages"),
+        pydantic.Field(alias="totalPages", description="Total number of pages in response."),
+    ] = None
+    total_records: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="totalRecords"),
+        pydantic.Field(alias="totalRecords", description="Total number of records in response."),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

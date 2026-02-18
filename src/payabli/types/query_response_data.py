@@ -69,9 +69,11 @@ class QueryResponseData(UniversalBaseModel):
     Text describing the result. If resultCode = 1, will return 'Approved' or a general success message. If resultCode = 2 or 3, will contain the cause of the decline.
     """
 
-    result_code: typing_extensions.Annotated[typing.Optional[ResultCodev2], FieldMetadata(alias="resultCode")] = None
+    result_code: typing_extensions.Annotated[
+        typing.Optional[ResultCodev2], FieldMetadata(alias="resultCode"), pydantic.Field(alias="resultCode")
+    ] = None
     result_code_text: typing_extensions.Annotated[
-        typing.Optional[ResultCodeText], FieldMetadata(alias="resultCodeText")
+        typing.Optional[ResultCodeText], FieldMetadata(alias="resultCodeText"), pydantic.Field(alias="resultCodeText")
     ] = None
     transactionid: typing.Optional[str] = pydantic.Field(default=None)
     """

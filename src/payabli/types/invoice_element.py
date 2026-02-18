@@ -13,20 +13,17 @@ from .order import Order
 
 class InvoiceElement(UniversalBaseModel):
     enabled: typing.Optional[Enabled] = None
-    invoice_link: typing_extensions.Annotated[typing.Optional[LabelElement], FieldMetadata(alias="invoiceLink")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Link to invoice
-    """
-
+    invoice_link: typing_extensions.Annotated[
+        typing.Optional[LabelElement],
+        FieldMetadata(alias="invoiceLink"),
+        pydantic.Field(alias="invoiceLink", description="Link to invoice"),
+    ] = None
     order: typing.Optional[Order] = None
     view_invoice_details: typing_extensions.Annotated[
-        typing.Optional[LabelElement], FieldMetadata(alias="viewInvoiceDetails")
-    ] = pydantic.Field(default=None)
-    """
-    Link to view invoice details
-    """
+        typing.Optional[LabelElement],
+        FieldMetadata(alias="viewInvoiceDetails"),
+        pydantic.Field(alias="viewInvoiceDetails", description="Link to view invoice details"),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

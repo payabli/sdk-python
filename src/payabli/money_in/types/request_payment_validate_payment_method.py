@@ -22,7 +22,9 @@ class RequestPaymentValidatePaymentMethod(UniversalBaseModel):
     cardnumber: Cardnumber
     cardexp: Cardexp
     cardzip: Cardzip
-    card_holder: typing_extensions.Annotated[Cardholder, FieldMetadata(alias="cardHolder")]
+    card_holder: typing_extensions.Annotated[
+        Cardholder, FieldMetadata(alias="cardHolder"), pydantic.Field(alias="cardHolder")
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -20,13 +20,19 @@ from .resumable import Resumable
 
 
 class BoardingLinkQueryRecord(UniversalBaseModel):
-    accept_oauth: typing_extensions.Annotated[typing.Optional[AcceptOauth], FieldMetadata(alias="acceptOauth")] = None
-    accept_register: typing_extensions.Annotated[
-        typing.Optional[AcceptRegister], FieldMetadata(alias="acceptRegister")
+    accept_oauth: typing_extensions.Annotated[
+        typing.Optional[AcceptOauth], FieldMetadata(alias="acceptOauth"), pydantic.Field(alias="acceptOauth")
     ] = None
-    builder_data: typing_extensions.Annotated[typing.Optional[BuilderData], FieldMetadata(alias="builderData")] = None
+    accept_register: typing_extensions.Annotated[
+        typing.Optional[AcceptRegister], FieldMetadata(alias="acceptRegister"), pydantic.Field(alias="acceptRegister")
+    ] = None
+    builder_data: typing_extensions.Annotated[
+        typing.Optional[BuilderData], FieldMetadata(alias="builderData"), pydantic.Field(alias="builderData")
+    ] = None
     entry_attributes: typing_extensions.Annotated[
-        typing.Optional[EntryAttributes], FieldMetadata(alias="entryAttributes")
+        typing.Optional[EntryAttributes],
+        FieldMetadata(alias="entryAttributes"),
+        pydantic.Field(alias="entryAttributes"),
     ] = None
     id: typing.Optional[int] = None
     logo: typing.Optional[FileContent] = pydantic.Field(default=None)
@@ -34,18 +40,24 @@ class BoardingLinkQueryRecord(UniversalBaseModel):
     Object containing logo file.
     """
 
-    org_id: typing_extensions.Annotated[typing.Optional[Orgid], FieldMetadata(alias="orgId")] = None
+    org_id: typing_extensions.Annotated[
+        typing.Optional[Orgid], FieldMetadata(alias="orgId"), pydantic.Field(alias="orgId")
+    ] = None
     page_identifier: typing_extensions.Annotated[
-        typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier:")
+        typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier:"), pydantic.Field(alias="pageIdentifier:")
     ] = None
     recipient_email_notification: typing_extensions.Annotated[
-        typing.Optional[RecipientEmailNotification], FieldMetadata(alias="recipientEmailNotification")
+        typing.Optional[RecipientEmailNotification],
+        FieldMetadata(alias="recipientEmailNotification"),
+        pydantic.Field(alias="recipientEmailNotification"),
     ] = None
     reference_name: typing_extensions.Annotated[
-        typing.Optional[ReferenceName], FieldMetadata(alias="referenceName")
+        typing.Optional[ReferenceName], FieldMetadata(alias="referenceName"), pydantic.Field(alias="referenceName")
     ] = None
     reference_template_id: typing_extensions.Annotated[
-        typing.Optional[ReferenceTemplateId], FieldMetadata(alias="referenceTemplateId")
+        typing.Optional[ReferenceTemplateId],
+        FieldMetadata(alias="referenceTemplateId"),
+        pydantic.Field(alias="referenceTemplateId"),
     ] = None
     resumable: typing.Optional[Resumable] = None
 

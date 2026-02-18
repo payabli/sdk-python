@@ -26,24 +26,22 @@ class CustomerData(UniversalBaseModel):
     """
 
     customer_number: typing_extensions.Annotated[
-        typing.Optional[CustomerNumberNullable], FieldMetadata(alias="customerNumber")
+        typing.Optional[CustomerNumberNullable],
+        FieldMetadata(alias="customerNumber"),
+        pydantic.Field(alias="customerNumber"),
     ] = None
-    customer_username: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="customerUsername")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Customer username for customer portal
-    """
-
-    customer_psw: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="customerPsw")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Customer password for customer portal
-    """
-
+    customer_username: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="customerUsername"),
+        pydantic.Field(alias="customerUsername", description="Customer username for customer portal"),
+    ] = None
+    customer_psw: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="customerPsw"),
+        pydantic.Field(alias="customerPsw", description="Customer password for customer portal"),
+    ] = None
     customer_status: typing_extensions.Annotated[
-        typing.Optional[CustomerStatus], FieldMetadata(alias="customerStatus")
+        typing.Optional[CustomerStatus], FieldMetadata(alias="customerStatus"), pydantic.Field(alias="customerStatus")
     ] = None
     company: typing.Optional[str] = pydantic.Field(default=None)
     """
@@ -75,13 +73,11 @@ class CustomerData(UniversalBaseModel):
     Customer address
     """
 
-    address_1: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="address1")] = pydantic.Field(
-        default=None
-    )
-    """
-    Additional customer address
-    """
-
+    address_1: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="address1"),
+        pydantic.Field(alias="address1", description="Additional customer address"),
+    ] = None
     city: typing.Optional[str] = pydantic.Field(default=None)
     """
     Customer city
@@ -103,38 +99,50 @@ class CustomerData(UniversalBaseModel):
     """
 
     shipping_address: typing_extensions.Annotated[
-        typing.Optional[Shippingaddress], FieldMetadata(alias="shippingAddress")
+        typing.Optional[Shippingaddress],
+        FieldMetadata(alias="shippingAddress"),
+        pydantic.Field(alias="shippingAddress"),
     ] = None
     shipping_address_1: typing_extensions.Annotated[
-        typing.Optional[Shippingaddressadditional], FieldMetadata(alias="shippingAddress1")
+        typing.Optional[Shippingaddressadditional],
+        FieldMetadata(alias="shippingAddress1"),
+        pydantic.Field(alias="shippingAddress1"),
     ] = None
-    shipping_city: typing_extensions.Annotated[typing.Optional[Shippingcity], FieldMetadata(alias="shippingCity")] = (
-        None
-    )
+    shipping_city: typing_extensions.Annotated[
+        typing.Optional[Shippingcity], FieldMetadata(alias="shippingCity"), pydantic.Field(alias="shippingCity")
+    ] = None
     shipping_state: typing_extensions.Annotated[
-        typing.Optional[Shippingstate], FieldMetadata(alias="shippingState")
+        typing.Optional[Shippingstate], FieldMetadata(alias="shippingState"), pydantic.Field(alias="shippingState")
     ] = None
-    shipping_zip: typing_extensions.Annotated[typing.Optional[Shippingzip], FieldMetadata(alias="shippingZip")] = None
+    shipping_zip: typing_extensions.Annotated[
+        typing.Optional[Shippingzip], FieldMetadata(alias="shippingZip"), pydantic.Field(alias="shippingZip")
+    ] = None
     shipping_country: typing_extensions.Annotated[
-        typing.Optional[Shippingcountry], FieldMetadata(alias="shippingCountry")
+        typing.Optional[Shippingcountry],
+        FieldMetadata(alias="shippingCountry"),
+        pydantic.Field(alias="shippingCountry"),
     ] = None
     balance: typing.Optional[float] = pydantic.Field(default=None)
     """
     Customer balance.
     """
 
-    time_zone: typing_extensions.Annotated[typing.Optional[Timezone], FieldMetadata(alias="timeZone")] = None
-    additional_fields: typing_extensions.Annotated[
-        typing.Optional[typing.Dict[str, typing.Optional[str]]], FieldMetadata(alias="additionalFields")
-    ] = pydantic.Field(default=None)
-    """
-    Additional Custom fields in format "key":"value".
-    """
-
-    identifier_fields: typing_extensions.Annotated[
-        typing.Optional[Identifierfields], FieldMetadata(alias="identifierFields")
+    time_zone: typing_extensions.Annotated[
+        typing.Optional[Timezone], FieldMetadata(alias="timeZone"), pydantic.Field(alias="timeZone")
     ] = None
-    created_at: typing_extensions.Annotated[typing.Optional[CreatedAt], FieldMetadata(alias="createdAt")] = None
+    additional_fields: typing_extensions.Annotated[
+        typing.Optional[typing.Dict[str, typing.Optional[str]]],
+        FieldMetadata(alias="additionalFields"),
+        pydantic.Field(alias="additionalFields", description='Additional Custom fields in format "key":"value".'),
+    ] = None
+    identifier_fields: typing_extensions.Annotated[
+        typing.Optional[Identifierfields],
+        FieldMetadata(alias="identifierFields"),
+        pydantic.Field(alias="identifierFields"),
+    ] = None
+    created_at: typing_extensions.Annotated[
+        typing.Optional[CreatedAt], FieldMetadata(alias="createdAt"), pydantic.Field(alias="createdAt")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

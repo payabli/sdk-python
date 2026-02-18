@@ -32,74 +32,95 @@ class PayorDataRequest(UniversalBaseModel):
     """
 
     additional_data: typing_extensions.Annotated[
-        typing.Optional[AdditionalData], FieldMetadata(alias="additionalData")
+        typing.Optional[AdditionalData], FieldMetadata(alias="additionalData"), pydantic.Field(alias="additionalData")
     ] = None
     billing_address_1: typing_extensions.Annotated[
-        typing.Optional[BillingAddressNullable], FieldMetadata(alias="billingAddress1")
+        typing.Optional[BillingAddressNullable],
+        FieldMetadata(alias="billingAddress1"),
+        pydantic.Field(alias="billingAddress1"),
     ] = None
     billing_address_2: typing_extensions.Annotated[
-        typing.Optional[BillingAddressAddtlNullable], FieldMetadata(alias="billingAddress2")
+        typing.Optional[BillingAddressAddtlNullable],
+        FieldMetadata(alias="billingAddress2"),
+        pydantic.Field(alias="billingAddress2"),
     ] = None
     billing_city: typing_extensions.Annotated[
-        typing.Optional[BillingCityNullable], FieldMetadata(alias="billingCity")
+        typing.Optional[BillingCityNullable], FieldMetadata(alias="billingCity"), pydantic.Field(alias="billingCity")
     ] = None
     billing_country: typing_extensions.Annotated[
-        typing.Optional[BillingCountryNullable], FieldMetadata(alias="billingCountry")
+        typing.Optional[BillingCountryNullable],
+        FieldMetadata(alias="billingCountry"),
+        pydantic.Field(alias="billingCountry"),
     ] = None
-    billing_email: typing_extensions.Annotated[typing.Optional[Email], FieldMetadata(alias="billingEmail")] = None
-    billing_phone: typing_extensions.Annotated[typing.Optional[PhoneNumber], FieldMetadata(alias="billingPhone")] = None
+    billing_email: typing_extensions.Annotated[
+        typing.Optional[Email], FieldMetadata(alias="billingEmail"), pydantic.Field(alias="billingEmail")
+    ] = None
+    billing_phone: typing_extensions.Annotated[
+        typing.Optional[PhoneNumber], FieldMetadata(alias="billingPhone"), pydantic.Field(alias="billingPhone")
+    ] = None
     billing_state: typing_extensions.Annotated[
-        typing.Optional[BillingStateNullable], FieldMetadata(alias="billingState")
+        typing.Optional[BillingStateNullable], FieldMetadata(alias="billingState"), pydantic.Field(alias="billingState")
     ] = None
-    billing_zip: typing_extensions.Annotated[typing.Optional[BillingZip], FieldMetadata(alias="billingZip")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Customer's billing ZIP code. For Pay In functions, this field supports 5-digit and 9-digit ZIP codes and alphanumeric Canadian postal codes. For example: "37615-1234" or "37615".
-    """
-
+    billing_zip: typing_extensions.Annotated[
+        typing.Optional[BillingZip],
+        FieldMetadata(alias="billingZip"),
+        pydantic.Field(
+            alias="billingZip",
+            description='Customer\'s billing ZIP code. For Pay In functions, this field supports 5-digit and 9-digit ZIP codes and alphanumeric Canadian postal codes. For example: "37615-1234" or "37615".',
+        ),
+    ] = None
     company: typing.Optional[str] = pydantic.Field(default=None)
     """
     Customer's company name.
     """
 
-    customer_id: typing_extensions.Annotated[typing.Optional[CustomerId], FieldMetadata(alias="customerId")] = None
+    customer_id: typing_extensions.Annotated[
+        typing.Optional[CustomerId], FieldMetadata(alias="customerId"), pydantic.Field(alias="customerId")
+    ] = None
     customer_number: typing_extensions.Annotated[
-        typing.Optional[CustomerNumberNullable], FieldMetadata(alias="customerNumber")
+        typing.Optional[CustomerNumberNullable],
+        FieldMetadata(alias="customerNumber"),
+        pydantic.Field(alias="customerNumber"),
     ] = None
-    first_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="firstName")] = pydantic.Field(
-        default=None
-    )
-    """
-    Customer/Payor first name.
-    """
-
+    first_name: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="firstName"),
+        pydantic.Field(alias="firstName", description="Customer/Payor first name."),
+    ] = None
     identifier_fields: typing_extensions.Annotated[
-        typing.Optional[Identifierfields], FieldMetadata(alias="identifierFields")
+        typing.Optional[Identifierfields],
+        FieldMetadata(alias="identifierFields"),
+        pydantic.Field(alias="identifierFields"),
     ] = None
-    last_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="lastName")] = pydantic.Field(
-        default=None
-    )
-    """
-    Customer/Payor last name.
-    """
-
+    last_name: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="lastName"),
+        pydantic.Field(alias="lastName", description="Customer/Payor last name."),
+    ] = None
     shipping_address_1: typing_extensions.Annotated[
-        typing.Optional[Shippingaddress], FieldMetadata(alias="shippingAddress1")
+        typing.Optional[Shippingaddress],
+        FieldMetadata(alias="shippingAddress1"),
+        pydantic.Field(alias="shippingAddress1"),
     ] = None
     shipping_address_2: typing_extensions.Annotated[
-        typing.Optional[Shippingaddressadditional], FieldMetadata(alias="shippingAddress2")
+        typing.Optional[Shippingaddressadditional],
+        FieldMetadata(alias="shippingAddress2"),
+        pydantic.Field(alias="shippingAddress2"),
     ] = None
-    shipping_city: typing_extensions.Annotated[typing.Optional[Shippingcity], FieldMetadata(alias="shippingCity")] = (
-        None
-    )
+    shipping_city: typing_extensions.Annotated[
+        typing.Optional[Shippingcity], FieldMetadata(alias="shippingCity"), pydantic.Field(alias="shippingCity")
+    ] = None
     shipping_country: typing_extensions.Annotated[
-        typing.Optional[Shippingcountry], FieldMetadata(alias="shippingCountry")
+        typing.Optional[Shippingcountry],
+        FieldMetadata(alias="shippingCountry"),
+        pydantic.Field(alias="shippingCountry"),
     ] = None
     shipping_state: typing_extensions.Annotated[
-        typing.Optional[Shippingstate], FieldMetadata(alias="shippingState")
+        typing.Optional[Shippingstate], FieldMetadata(alias="shippingState"), pydantic.Field(alias="shippingState")
     ] = None
-    shipping_zip: typing_extensions.Annotated[typing.Optional[Shippingzip], FieldMetadata(alias="shippingZip")] = None
+    shipping_zip: typing_extensions.Annotated[
+        typing.Optional[Shippingzip], FieldMetadata(alias="shippingZip"), pydantic.Field(alias="shippingZip")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -13,19 +13,22 @@ class VendorDataRequest(UniversalBaseModel):
     Object describing the vendor owner of payment method. Required when saving an ACH payment method on behalf of a vendor (for Pay Out transactions).
     """
 
-    vendor_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="vendorId")] = pydantic.Field(
-        default=None
-    )
-    """
-    The unique numeric ID assigned to the vendor in Payabli. Either `vendorId` or `vendorNumber` is required.
-    """
-
-    vendor_number: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="vendorNumber")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Custom vendor number assigned by the business. Either `vendorId` or `vendorNumber` is required.
-    """
+    vendor_id: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="vendorId"),
+        pydantic.Field(
+            alias="vendorId",
+            description="The unique numeric ID assigned to the vendor in Payabli. Either `vendorId` or `vendorNumber` is required.",
+        ),
+    ] = None
+    vendor_number: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="vendorNumber"),
+        pydantic.Field(
+            alias="vendorNumber",
+            description="Custom vendor number assigned by the business. Either `vendorId` or `vendorNumber` is required.",
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

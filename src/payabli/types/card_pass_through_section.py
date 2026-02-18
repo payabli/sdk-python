@@ -11,7 +11,9 @@ from .visible import Visible
 
 
 class CardPassThroughSection(UniversalBaseModel):
-    multi_tier: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="multiTier")] = None
+    multi_tier: typing_extensions.Annotated[
+        typing.Optional[bool], FieldMetadata(alias="multiTier"), pydantic.Field(alias="multiTier")
+    ] = None
     tiers: typing.Optional[typing.List[CardTypePass]] = None
     visible: typing.Optional[Visible] = None
 

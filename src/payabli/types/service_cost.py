@@ -12,12 +12,20 @@ from .enabled import Enabled
 class ServiceCost(UniversalBaseModel):
     description: typing.Optional[str] = None
     enabled: typing.Optional[Enabled] = None
-    monthly_cost: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="monthlyCost")] = None
+    monthly_cost: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="monthlyCost"), pydantic.Field(alias="monthlyCost")
+    ] = None
     name: typing.Optional[str] = None
     reseller: typing.Optional[bool] = None
-    setup_cost: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="setupCost")] = None
-    tx_cost: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="txCost")] = None
-    tx_percent_cost: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="txPercentCost")] = None
+    setup_cost: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="setupCost"), pydantic.Field(alias="setupCost")
+    ] = None
+    tx_cost: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="txCost"), pydantic.Field(alias="txCost")
+    ] = None
+    tx_percent_cost: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="txPercentCost"), pydantic.Field(alias="txPercentCost")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

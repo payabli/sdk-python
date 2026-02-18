@@ -24,25 +24,24 @@ class AutoElement(UniversalBaseModel):
     accepted frequencies for autopay
     """
 
-    frequency_selected: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="frequencySelected")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Value of pre-selected frequency
-    """
-
+    frequency_selected: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="frequencySelected"),
+        pydantic.Field(alias="frequencySelected", description="Value of pre-selected frequency"),
+    ] = None
     header: typing.Optional[str] = pydantic.Field(default=None)
     """
     Header text for section
     """
 
     order: typing.Optional[Order] = None
-    start_date: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="startDate")] = pydantic.Field(
-        default=None
-    )
-    """
-    Range of days enabled in calendar. Leave empty to enable all days.
-    """
+    start_date: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="startDate"),
+        pydantic.Field(
+            alias="startDate", description="Range of days enabled in calendar. Leave empty to enable all days."
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

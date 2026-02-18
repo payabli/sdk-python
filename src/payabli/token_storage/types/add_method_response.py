@@ -12,7 +12,9 @@ from .add_method_response_response_data import AddMethodResponseResponseData
 
 class AddMethodResponse(PayabliApiResponseGeneric2Part):
     response_data: typing_extensions.Annotated[
-        typing.Optional[AddMethodResponseResponseData], FieldMetadata(alias="responseData")
+        typing.Optional[AddMethodResponseResponseData],
+        FieldMetadata(alias="responseData"),
+        pydantic.Field(alias="responseData"),
     ] = None
 
     if IS_PYDANTIC_V2:

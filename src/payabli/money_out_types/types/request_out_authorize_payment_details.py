@@ -15,27 +15,29 @@ class RequestOutAuthorizePaymentDetails(UniversalBaseModel):
     """
 
     check_number: typing_extensions.Annotated[
-        typing.Optional[VendorCheckNumber], FieldMetadata(alias="checkNumber")
+        typing.Optional[VendorCheckNumber], FieldMetadata(alias="checkNumber"), pydantic.Field(alias="checkNumber")
     ] = None
     currency: typing.Optional[str] = pydantic.Field(default=None)
     """
     Currency code ISO-4217. If no code is provided, then the currency in the paypoint setting is used. Default is **USD**.
     """
 
-    service_fee: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="serviceFee")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Service fee to be deducted from the total amount. This amount must be a number, percentages aren't accepted. If you are using a percentage-based fee schedule, you must calculate the value manually.
-    """
-
-    total_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="totalAmount")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Total amount to be charged. If a service fee is included, then this amount should include the service fee.
-    """
-
+    service_fee: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="serviceFee"),
+        pydantic.Field(
+            alias="serviceFee",
+            description="Service fee to be deducted from the total amount. This amount must be a number, percentages aren't accepted. If you are using a percentage-based fee schedule, you must calculate the value manually.",
+        ),
+    ] = None
+    total_amount: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="totalAmount"),
+        pydantic.Field(
+            alias="totalAmount",
+            description="Total amount to be charged. If a service fee is included, then this amount should include the service fee.",
+        ),
+    ] = None
     unbundled: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether the payout should be bundled into a single transaction or processed separately. If set to `true`, each bill will be processed as a separate payout. If `false` or not provided, then multiple bills will be paid with a single payout.

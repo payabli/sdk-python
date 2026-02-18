@@ -10,17 +10,19 @@ from .web_header_parameter import WebHeaderParameter
 
 
 class NotificationRequest(UniversalBaseModel):
-    notification_url: typing_extensions.Annotated[str, FieldMetadata(alias="notificationUrl")] = pydantic.Field()
-    """
-    Complete HTTP URL receiving the notification
-    """
-
+    notification_url: typing_extensions.Annotated[
+        str,
+        FieldMetadata(alias="notificationUrl"),
+        pydantic.Field(alias="notificationUrl", description="Complete HTTP URL receiving the notification"),
+    ]
     web_header_parameters: typing_extensions.Annotated[
-        typing.Optional[typing.List[WebHeaderParameter]], FieldMetadata(alias="webHeaderParameters")
-    ] = pydantic.Field(default=None)
-    """
-    A dictionary of key-value pairs to be inserted in the header when the notification request is submitted
-    """
+        typing.Optional[typing.List[WebHeaderParameter]],
+        FieldMetadata(alias="webHeaderParameters"),
+        pydantic.Field(
+            alias="webHeaderParameters",
+            description="A dictionary of key-value pairs to be inserted in the header when the notification request is submitted",
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

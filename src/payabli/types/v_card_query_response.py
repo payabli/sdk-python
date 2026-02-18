@@ -11,10 +11,12 @@ from .v_card_summary import VCardSummary
 
 
 class VCardQueryResponse(UniversalBaseModel):
-    summary: typing_extensions.Annotated[typing.Optional[VCardSummary], FieldMetadata(alias="Summary")] = None
-    records: typing_extensions.Annotated[typing.Optional[typing.List[VCardRecord]], FieldMetadata(alias="Records")] = (
-        None
-    )
+    summary: typing_extensions.Annotated[
+        typing.Optional[VCardSummary], FieldMetadata(alias="Summary"), pydantic.Field(alias="Summary")
+    ] = None
+    records: typing_extensions.Annotated[
+        typing.Optional[typing.List[VCardRecord]], FieldMetadata(alias="Records"), pydantic.Field(alias="Records")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

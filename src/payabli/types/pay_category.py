@@ -13,10 +13,14 @@ class PayCategory(UniversalBaseModel):
     description: typing.Optional[str] = None
     label: typing.Optional[str] = None
     name: typing.Optional[str] = None
-    optional_pay: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="optionalPay")] = None
+    optional_pay: typing_extensions.Annotated[
+        typing.Optional[bool], FieldMetadata(alias="optionalPay"), pydantic.Field(alias="optionalPay")
+    ] = None
     order: typing.Optional[Order] = None
     quantity: typing.Optional[int] = None
-    show_description: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="showDescription")] = None
+    show_description: typing_extensions.Annotated[
+        typing.Optional[bool], FieldMetadata(alias="showDescription"), pydantic.Field(alias="showDescription")
+    ] = None
     type: typing.Optional[str] = None
     value: typing.Optional[str] = None
 

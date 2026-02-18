@@ -12,7 +12,9 @@ from .visible import Visible
 
 class DocumentSectionTermsAndConditions(UniversalBaseModel):
     tc_links: typing_extensions.Annotated[
-        typing.Optional[typing.List[DocumentSectionTermsAndConditionsTcLinksItem]], FieldMetadata(alias="tcLinks")
+        typing.Optional[typing.List[DocumentSectionTermsAndConditionsTcLinksItem]],
+        FieldMetadata(alias="tcLinks"),
+        pydantic.Field(alias="tcLinks"),
     ] = None
     visible: typing.Optional[Visible] = None
 

@@ -40,25 +40,35 @@ class SignerDataRequest(UniversalBaseModel):
     """
 
     address: typing.Optional[Signeraddress] = None
-    address_1: typing_extensions.Annotated[typing.Optional[SignerAddress1], FieldMetadata(alias="address1")] = None
+    address_1: typing_extensions.Annotated[
+        typing.Optional[SignerAddress1], FieldMetadata(alias="address1"), pydantic.Field(alias="address1")
+    ] = None
     city: typing.Optional[SignerCity] = None
     country: typing.Optional[SignerCountry] = None
     state: typing.Optional[SignerState] = None
     zip: typing.Optional[SignerZip] = None
     acceptance: typing.Optional[SignerAcceptance] = None
     signed_document_reference: typing_extensions.Annotated[
-        typing.Optional[SignedDocumentReference], FieldMetadata(alias="signedDocumentReference")
+        typing.Optional[SignedDocumentReference],
+        FieldMetadata(alias="signedDocumentReference"),
+        pydantic.Field(alias="signedDocumentReference"),
     ] = None
     pci_attestation: typing_extensions.Annotated[
-        typing.Optional[PciAttestation], FieldMetadata(alias="pciAttestation")
+        typing.Optional[PciAttestation], FieldMetadata(alias="pciAttestation"), pydantic.Field(alias="pciAttestation")
     ] = None
     attestation_date: typing_extensions.Annotated[
-        typing.Optional[AttestationDate], FieldMetadata(alias="attestationDate")
+        typing.Optional[AttestationDate],
+        FieldMetadata(alias="attestationDate"),
+        pydantic.Field(alias="attestationDate"),
     ] = None
     additional_data: typing_extensions.Annotated[
-        typing.Optional[AdditionalDataString], FieldMetadata(alias="additionalData")
+        typing.Optional[AdditionalDataString],
+        FieldMetadata(alias="additionalData"),
+        pydantic.Field(alias="additionalData"),
     ] = None
-    sign_date: typing_extensions.Annotated[typing.Optional[SignDate], FieldMetadata(alias="signDate")] = None
+    sign_date: typing_extensions.Annotated[
+        typing.Optional[SignDate], FieldMetadata(alias="signDate"), pydantic.Field(alias="signDate")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

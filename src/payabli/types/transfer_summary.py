@@ -24,9 +24,13 @@ class TransferSummary(UniversalBaseModel):
     )
     """
 
-    total_pages: typing_extensions.Annotated[Totalpages, FieldMetadata(alias="totalPages")]
-    total_records: typing_extensions.Annotated[Totalrecords, FieldMetadata(alias="totalRecords")]
-    page_size: typing_extensions.Annotated[Pagesize, FieldMetadata(alias="pageSize")]
+    total_pages: typing_extensions.Annotated[
+        Totalpages, FieldMetadata(alias="totalPages"), pydantic.Field(alias="totalPages")
+    ]
+    total_records: typing_extensions.Annotated[
+        Totalrecords, FieldMetadata(alias="totalRecords"), pydantic.Field(alias="totalRecords")
+    ]
+    page_size: typing_extensions.Annotated[Pagesize, FieldMetadata(alias="pageSize"), pydantic.Field(alias="pageSize")]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -42,8 +42,12 @@ class V2TransactionDetailResponseData(UniversalBaseModel):
     )
     """
 
-    result_code: typing_extensions.Annotated[ResultCodev2, FieldMetadata(alias="resultCode")]
-    result_code_text: typing_extensions.Annotated[ResultCodeText, FieldMetadata(alias="resultCodeText")]
+    result_code: typing_extensions.Annotated[
+        ResultCodev2, FieldMetadata(alias="resultCode"), pydantic.Field(alias="resultCode")
+    ]
+    result_code_text: typing_extensions.Annotated[
+        ResultCodeText, FieldMetadata(alias="resultCodeText"), pydantic.Field(alias="resultCodeText")
+    ]
     response: typing.Optional[str] = None
     responsetext: Resulttext
     authcode: typing.Optional[Authcode] = None

@@ -50,25 +50,28 @@ from .website import Website
 
 class ApplicationDataManaged(UniversalBaseModel):
     annual_revenue: typing_extensions.Annotated[
-        typing.Optional[Annualrevenue], FieldMetadata(alias="annualRevenue")
-    ] = pydantic.Field(default=None)
-    """
-    Annual revenue amount. We recommend including this value.
-    """
-
+        typing.Optional[Annualrevenue],
+        FieldMetadata(alias="annualRevenue"),
+        pydantic.Field(alias="annualRevenue", description="Annual revenue amount. We recommend including this value."),
+    ] = None
     attachments: typing.Optional[Attachments] = None
     baddress: typing.Optional[Baddress1] = None
-    baddress_1: typing_extensions.Annotated[typing.Optional[Baddress2], FieldMetadata(alias="baddress1")] = None
-    bank_data: typing_extensions.Annotated[typing.Optional[BankData], FieldMetadata(alias="bankData")] = None
+    baddress_1: typing_extensions.Annotated[
+        typing.Optional[Baddress2], FieldMetadata(alias="baddress1"), pydantic.Field(alias="baddress1")
+    ] = None
+    bank_data: typing_extensions.Annotated[
+        typing.Optional[BankData], FieldMetadata(alias="bankData"), pydantic.Field(alias="bankData")
+    ] = None
     bcity: typing.Optional[Bcity] = None
     bcountry: typing.Optional[Bcountry] = None
-    boarding_link_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="boardingLinkId")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Boarding link ID for the application. Either `templateId` or `boardingLinkId` are required.
-    """
-
+    boarding_link_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="boardingLinkId"),
+        pydantic.Field(
+            alias="boardingLinkId",
+            description="Boarding link ID for the application. Either `templateId` or `boardingLinkId` are required.",
+        ),
+    ] = None
     bstate: typing.Optional[Bstate] = None
     bsummary: typing.Optional[Bsummary] = None
     btype: typing.Optional[OwnType] = None
@@ -85,45 +88,61 @@ class ApplicationDataManaged(UniversalBaseModel):
     license: typing.Optional[License] = None
     licstate: typing.Optional[Licensestate] = None
     maddress: typing.Optional[Maddress] = None
-    maddress_1: typing_extensions.Annotated[typing.Optional[Maddress1], FieldMetadata(alias="maddress1")] = None
+    maddress_1: typing_extensions.Annotated[
+        typing.Optional[Maddress1], FieldMetadata(alias="maddress1"), pydantic.Field(alias="maddress1")
+    ] = None
     mcc: typing.Optional[Mcc] = None
     mcity: typing.Optional[Mcity] = None
     mcountry: typing.Optional[Mcountry] = None
     mstate: typing.Optional[Mstate] = None
     mzip: typing.Optional[Mzip] = None
-    org_id: typing_extensions.Annotated[typing.Optional[Orgid], FieldMetadata(alias="orgId")] = None
+    org_id: typing_extensions.Annotated[
+        typing.Optional[Orgid], FieldMetadata(alias="orgId"), pydantic.Field(alias="orgId")
+    ] = None
     ownership: typing.Optional[typing.List[ApplicationDataManagedOwnershipItem]] = pydantic.Field(default=None)
     """
     List of Owners with at least a 25% ownership.
     """
 
     phonenumber: typing.Optional[BoardingBusinessPhone] = None
-    recipient_email: typing_extensions.Annotated[typing.Optional[Email], FieldMetadata(alias="recipientEmail")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Email address for the applicant. This is used to send the applicant a boarding link.
-    """
-
+    recipient_email: typing_extensions.Annotated[
+        typing.Optional[Email],
+        FieldMetadata(alias="recipientEmail"),
+        pydantic.Field(
+            alias="recipientEmail",
+            description="Email address for the applicant. This is used to send the applicant a boarding link.",
+        ),
+    ] = None
     recipient_email_notification: typing_extensions.Annotated[
-        typing.Optional[RecipientEmailNotification], FieldMetadata(alias="recipientEmailNotification")
+        typing.Optional[RecipientEmailNotification],
+        FieldMetadata(alias="recipientEmailNotification"),
+        pydantic.Field(alias="recipientEmailNotification"),
     ] = None
     resumable: typing.Optional[Resumable] = None
     signer: SignerDataRequest
     startdate: typing.Optional[Busstartdate] = None
     taxfillname: typing.Optional[Taxfillname] = None
-    template_id: typing_extensions.Annotated[typing.Optional[TemplateId], FieldMetadata(alias="templateId")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The associated boarding template's ID in Payabli. Either `templateId` or `boardingLinkId` are required.
-    """
-
+    template_id: typing_extensions.Annotated[
+        typing.Optional[TemplateId],
+        FieldMetadata(alias="templateId"),
+        pydantic.Field(
+            alias="templateId",
+            description="The associated boarding template's ID in Payabli. Either `templateId` or `boardingLinkId` are required.",
+        ),
+    ] = None
     website: typing.Optional[Website] = None
-    rep_code: typing_extensions.Annotated[typing.Optional[RepCode], FieldMetadata(alias="RepCode")] = None
-    rep_name: typing_extensions.Annotated[typing.Optional[RepName], FieldMetadata(alias="RepName")] = None
-    rep_office: typing_extensions.Annotated[typing.Optional[RepOffice], FieldMetadata(alias="RepOffice")] = None
-    on_create: typing_extensions.Annotated[typing.Optional[OnCreate], FieldMetadata(alias="onCreate")] = None
+    rep_code: typing_extensions.Annotated[
+        typing.Optional[RepCode], FieldMetadata(alias="RepCode"), pydantic.Field(alias="RepCode")
+    ] = None
+    rep_name: typing_extensions.Annotated[
+        typing.Optional[RepName], FieldMetadata(alias="RepName"), pydantic.Field(alias="RepName")
+    ] = None
+    rep_office: typing_extensions.Annotated[
+        typing.Optional[RepOffice], FieldMetadata(alias="RepOffice"), pydantic.Field(alias="RepOffice")
+    ] = None
+    on_create: typing_extensions.Annotated[
+        typing.Optional[OnCreate], FieldMetadata(alias="onCreate"), pydantic.Field(alias="onCreate")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

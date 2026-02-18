@@ -12,7 +12,9 @@ from .wallet_is_enabled import WalletIsEnabled
 
 class OrganizationUpdates(UniversalBaseModel):
     cascade: typing.Optional[WalletCascade] = None
-    is_enabled: typing_extensions.Annotated[typing.Optional[WalletIsEnabled], FieldMetadata(alias="isEnabled")] = None
+    is_enabled: typing_extensions.Annotated[
+        typing.Optional[WalletIsEnabled], FieldMetadata(alias="isEnabled"), pydantic.Field(alias="isEnabled")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

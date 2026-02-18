@@ -17,7 +17,9 @@ class BusinessSection(UniversalBaseModel):
     """
 
     baddress: typing.Optional[TemplateElement] = None
-    baddress_1: typing_extensions.Annotated[typing.Optional[TemplateElement], FieldMetadata(alias="baddress1")] = None
+    baddress_1: typing_extensions.Annotated[
+        typing.Optional[TemplateElement], FieldMetadata(alias="baddress1"), pydantic.Field(alias="baddress1")
+    ] = None
     bcity: typing.Optional[TemplateElement] = None
     bcountry: typing.Optional[TemplateElement] = None
     bstate: typing.Optional[TemplateElement] = None
@@ -30,7 +32,9 @@ class BusinessSection(UniversalBaseModel):
     license: typing.Optional[TemplateElement] = None
     licstate: typing.Optional[TemplateElement] = None
     maddress: typing.Optional[TemplateElement] = None
-    maddress_1: typing_extensions.Annotated[typing.Optional[TemplateElement], FieldMetadata(alias="maddress1")] = None
+    maddress_1: typing_extensions.Annotated[
+        typing.Optional[TemplateElement], FieldMetadata(alias="maddress1"), pydantic.Field(alias="maddress1")
+    ] = None
     mcity: typing.Optional[TemplateElement] = None
     mcountry: typing.Optional[TemplateElement] = None
     mstate: typing.Optional[TemplateElement] = None
@@ -41,7 +45,9 @@ class BusinessSection(UniversalBaseModel):
     visible: typing.Optional[Visible] = None
     website: typing.Optional[TemplateElement] = None
     additional_data: typing_extensions.Annotated[
-        typing.Optional[TemplateAdditionalDataSection], FieldMetadata(alias="additionalData")
+        typing.Optional[TemplateAdditionalDataSection],
+        FieldMetadata(alias="additionalData"),
+        pydantic.Field(alias="additionalData"),
     ] = None
 
     if IS_PYDANTIC_V2:

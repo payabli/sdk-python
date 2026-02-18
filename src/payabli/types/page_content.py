@@ -31,13 +31,11 @@ class PageContent(UniversalBaseModel):
     Autopay section of payment page
     """
 
-    contact_us: typing_extensions.Annotated[typing.Optional[ContactElement], FieldMetadata(alias="contactUs")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    ContactUs section of payment page
-    """
-
+    contact_us: typing_extensions.Annotated[
+        typing.Optional[ContactElement],
+        FieldMetadata(alias="contactUs"),
+        pydantic.Field(alias="contactUs", description="ContactUs section of payment page"),
+    ] = None
     entry: typing.Optional[str] = pydantic.Field(default=None)
     """
     Identifier of entry point owner of page
@@ -54,12 +52,10 @@ class PageContent(UniversalBaseModel):
     """
 
     message_before_paying: typing_extensions.Annotated[
-        typing.Optional[LabelElement], FieldMetadata(alias="messageBeforePaying")
-    ] = pydantic.Field(default=None)
-    """
-    Message section of payment page
-    """
-
+        typing.Optional[LabelElement],
+        FieldMetadata(alias="messageBeforePaying"),
+        pydantic.Field(alias="messageBeforePaying", description="Message section of payment page"),
+    ] = None
     name: typing.Optional[str] = pydantic.Field(default=None)
     """
     Descriptor of page
@@ -75,20 +71,16 @@ class PageContent(UniversalBaseModel):
     Page header section of payment page
     """
 
-    payment_button: typing_extensions.Annotated[typing.Optional[LabelElement], FieldMetadata(alias="paymentButton")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Payment button section of payment page
-    """
-
+    payment_button: typing_extensions.Annotated[
+        typing.Optional[LabelElement],
+        FieldMetadata(alias="paymentButton"),
+        pydantic.Field(alias="paymentButton", description="Payment button section of payment page"),
+    ] = None
     payment_methods: typing_extensions.Annotated[
-        typing.Optional[MethodElement], FieldMetadata(alias="paymentMethods")
-    ] = pydantic.Field(default=None)
-    """
-    Payment methods section of payment page
-    """
-
+        typing.Optional[MethodElement],
+        FieldMetadata(alias="paymentMethods"),
+        pydantic.Field(alias="paymentMethods", description="Payment methods section of payment page"),
+    ] = None
     payor: typing.Optional[PayorElement] = pydantic.Field(default=None)
     """
     Customer/Payor section of payment page

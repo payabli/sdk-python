@@ -18,19 +18,23 @@ class RequestCreditPaymentMethod(UniversalBaseModel):
     Object describing the ACH payment method to use for transaction.
     """
 
-    ach_account: typing_extensions.Annotated[typing.Optional[Achaccount], FieldMetadata(alias="achAccount")] = None
-    ach_account_type: typing_extensions.Annotated[
-        typing.Optional[Achaccounttype], FieldMetadata(alias="achAccountType")
+    ach_account: typing_extensions.Annotated[
+        typing.Optional[Achaccount], FieldMetadata(alias="achAccount"), pydantic.Field(alias="achAccount")
     ] = None
-    ach_code: typing_extensions.Annotated[typing.Optional[AchSecCode], FieldMetadata(alias="achCode")] = None
-    ach_holder: typing_extensions.Annotated[typing.Optional[AchHolder], FieldMetadata(alias="achHolder")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Bank account holder.
-    """
-
-    ach_routing: typing_extensions.Annotated[typing.Optional[Achrouting], FieldMetadata(alias="achRouting")] = None
+    ach_account_type: typing_extensions.Annotated[
+        typing.Optional[Achaccounttype], FieldMetadata(alias="achAccountType"), pydantic.Field(alias="achAccountType")
+    ] = None
+    ach_code: typing_extensions.Annotated[
+        typing.Optional[AchSecCode], FieldMetadata(alias="achCode"), pydantic.Field(alias="achCode")
+    ] = None
+    ach_holder: typing_extensions.Annotated[
+        typing.Optional[AchHolder],
+        FieldMetadata(alias="achHolder"),
+        pydantic.Field(alias="achHolder", description="Bank account holder."),
+    ] = None
+    ach_routing: typing_extensions.Annotated[
+        typing.Optional[Achrouting], FieldMetadata(alias="achRouting"), pydantic.Field(alias="achRouting")
+    ] = None
     method: typing.Literal["ach"] = pydantic.Field(default="ach")
     """
     Method to use for the transaction. Must be ACH.

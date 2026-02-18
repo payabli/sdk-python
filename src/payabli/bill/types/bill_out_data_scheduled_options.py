@@ -9,12 +9,11 @@ from ...core.serialization import FieldMetadata
 
 
 class BillOutDataScheduledOptions(UniversalBaseModel):
-    stored_method_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="storedMethodId")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The ID of the stored payment method to use for the bill.
-    """
+    stored_method_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="storedMethodId"),
+        pydantic.Field(alias="storedMethodId", description="The ID of the stored payment method to use for the bill."),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

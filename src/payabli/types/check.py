@@ -10,11 +10,11 @@ from .ach_holder import AchHolder
 
 
 class Check(UniversalBaseModel):
-    ach_holder: typing_extensions.Annotated[AchHolder, FieldMetadata(alias="achHolder")] = pydantic.Field()
-    """
-    The checking accountholder's name.
-    """
-
+    ach_holder: typing_extensions.Annotated[
+        AchHolder,
+        FieldMetadata(alias="achHolder"),
+        pydantic.Field(alias="achHolder", description="The checking accountholder's name."),
+    ]
     method: typing.Literal["check"] = pydantic.Field(default="check")
     """
     Method to use for the transaction. Use `check` for a paper check transaction. When the method is `check`, then `paymentDetails.checkNumber` is required.

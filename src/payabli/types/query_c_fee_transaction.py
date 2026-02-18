@@ -10,18 +10,32 @@ from .transaction_time import TransactionTime
 
 
 class QueryCFeeTransaction(UniversalBaseModel):
-    c_fee_transid: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="cFeeTransid")] = None
-    fee_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="feeAmount")] = None
+    c_fee_transid: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="cFeeTransid"), pydantic.Field(alias="cFeeTransid")
+    ] = None
+    fee_amount: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="feeAmount"), pydantic.Field(alias="feeAmount")
+    ] = None
     operation: typing.Optional[str] = None
-    refund_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="refundId")] = None
+    refund_id: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="refundId"), pydantic.Field(alias="refundId")
+    ] = None
     response_data: typing_extensions.Annotated[
-        typing.Optional[typing.Dict[str, typing.Any]], FieldMetadata(alias="responseData")
+        typing.Optional[typing.Dict[str, typing.Any]],
+        FieldMetadata(alias="responseData"),
+        pydantic.Field(alias="responseData"),
     ] = None
-    settlement_status: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="settlementStatus")] = None
+    settlement_status: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="settlementStatus"), pydantic.Field(alias="settlementStatus")
+    ] = None
     transaction_time: typing_extensions.Annotated[
-        typing.Optional[TransactionTime], FieldMetadata(alias="transactionTime")
+        typing.Optional[TransactionTime],
+        FieldMetadata(alias="transactionTime"),
+        pydantic.Field(alias="transactionTime"),
     ] = None
-    trans_status: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="transStatus")] = None
+    trans_status: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="transStatus"), pydantic.Field(alias="transStatus")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

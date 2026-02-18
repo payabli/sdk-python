@@ -21,7 +21,7 @@ from .usr_status import UsrStatus
 class UserData(UniversalBaseModel):
     access: typing.Optional[typing.List[UsrAccess]] = None
     additional_data: typing_extensions.Annotated[
-        typing.Optional[AdditionalData], FieldMetadata(alias="additionalData")
+        typing.Optional[AdditionalData], FieldMetadata(alias="additionalData"), pydantic.Field(alias="additionalData")
     ] = None
     email: typing.Optional[Email] = pydantic.Field(default=None)
     """
@@ -29,7 +29,9 @@ class UserData(UniversalBaseModel):
     """
 
     language: typing.Optional[Language] = None
-    mfa_data: typing_extensions.Annotated[typing.Optional[MfaData], FieldMetadata(alias="mfaData")] = None
+    mfa_data: typing_extensions.Annotated[
+        typing.Optional[MfaData], FieldMetadata(alias="mfaData"), pydantic.Field(alias="mfaData")
+    ] = None
     name: typing.Optional[NameUser] = None
     phone: typing.Optional[PhoneNumber] = pydantic.Field(default=None)
     """
@@ -38,8 +40,12 @@ class UserData(UniversalBaseModel):
 
     pwd: typing.Optional[str] = None
     scope: typing.Optional[typing.List[OrgScope]] = None
-    time_zone: typing_extensions.Annotated[typing.Optional[Timezone], FieldMetadata(alias="timeZone")] = None
-    usr_status: typing_extensions.Annotated[typing.Optional[UsrStatus], FieldMetadata(alias="usrStatus")] = None
+    time_zone: typing_extensions.Annotated[
+        typing.Optional[Timezone], FieldMetadata(alias="timeZone"), pydantic.Field(alias="timeZone")
+    ] = None
+    usr_status: typing_extensions.Annotated[
+        typing.Optional[UsrStatus], FieldMetadata(alias="usrStatus"), pydantic.Field(alias="usrStatus")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -22,13 +22,11 @@ class ReceiptContent(UniversalBaseModel):
     Section amount of payment receipt
     """
 
-    contact_us: typing_extensions.Annotated[typing.Optional[Element], FieldMetadata(alias="contactUs")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Section contactUs of payment receipt
-    """
-
+    contact_us: typing_extensions.Annotated[
+        typing.Optional[Element],
+        FieldMetadata(alias="contactUs"),
+        pydantic.Field(alias="contactUs", description="Section contactUs of payment receipt"),
+    ] = None
     details: typing.Optional[Element] = pydantic.Field(default=None)
     """
     Section payment details of payment receipt
@@ -40,31 +38,25 @@ class ReceiptContent(UniversalBaseModel):
     """
 
     message_before_button: typing_extensions.Annotated[
-        typing.Optional[LabelElement], FieldMetadata(alias="messageBeforeButton")
-    ] = pydantic.Field(default=None)
-    """
-    Section message of payment receipt
-    """
-
+        typing.Optional[LabelElement],
+        FieldMetadata(alias="messageBeforeButton"),
+        pydantic.Field(alias="messageBeforeButton", description="Section message of payment receipt"),
+    ] = None
     page: typing.Optional[PageElement] = pydantic.Field(default=None)
     """
     Section page of payment receipt
     """
 
-    payment_button: typing_extensions.Annotated[typing.Optional[LabelElement], FieldMetadata(alias="paymentButton")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Section payment button of payment receipt
-    """
-
+    payment_button: typing_extensions.Annotated[
+        typing.Optional[LabelElement],
+        FieldMetadata(alias="paymentButton"),
+        pydantic.Field(alias="paymentButton", description="Section payment button of payment receipt"),
+    ] = None
     payment_information: typing_extensions.Annotated[
-        typing.Optional[Element], FieldMetadata(alias="paymentInformation")
-    ] = pydantic.Field(default=None)
-    """
-    Section payment information of payment receipt
-    """
-
+        typing.Optional[Element],
+        FieldMetadata(alias="paymentInformation"),
+        pydantic.Field(alias="paymentInformation", description="Section payment information of payment receipt"),
+    ] = None
     settings: typing.Optional[SettingElement] = pydantic.Field(default=None)
     """
     The receipt's settings.

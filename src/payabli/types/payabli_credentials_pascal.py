@@ -11,25 +11,44 @@ from .min_ticket import MinTicket
 
 
 class PayabliCredentialsPascal(UniversalBaseModel):
-    service: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="Service")] = None
-    mode: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="Mode")] = None
-    min_ticket: typing_extensions.Annotated[typing.Optional[MinTicket], FieldMetadata(alias="MinTicket")] = None
-    max_ticket: typing_extensions.Annotated[typing.Optional[MaxTicket], FieldMetadata(alias="MaxTicket")] = None
-    cfee_fix: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="CfeeFix")] = None
-    cfee_float: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="CfeeFloat")] = None
-    cfee_min: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="CfeeMin")] = None
-    cfee_max: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="CfeeMax")] = None
-    account_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="AccountId")] = None
-    reference_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="ReferenceId")] = None
-    accept_same_day_ach: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="acceptSameDayACH")] = (
-        None
-    )
-    currency: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="Currency")] = pydantic.Field(
-        default=None
-    )
-    """
-    The default currency for the paypoint, either `USD` or `CAD`.
-    """
+    service: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="Service"), pydantic.Field(alias="Service")
+    ] = None
+    mode: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="Mode"), pydantic.Field(alias="Mode")
+    ] = None
+    min_ticket: typing_extensions.Annotated[
+        typing.Optional[MinTicket], FieldMetadata(alias="MinTicket"), pydantic.Field(alias="MinTicket")
+    ] = None
+    max_ticket: typing_extensions.Annotated[
+        typing.Optional[MaxTicket], FieldMetadata(alias="MaxTicket"), pydantic.Field(alias="MaxTicket")
+    ] = None
+    cfee_fix: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="CfeeFix"), pydantic.Field(alias="CfeeFix")
+    ] = None
+    cfee_float: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="CfeeFloat"), pydantic.Field(alias="CfeeFloat")
+    ] = None
+    cfee_min: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="CfeeMin"), pydantic.Field(alias="CfeeMin")
+    ] = None
+    cfee_max: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="CfeeMax"), pydantic.Field(alias="CfeeMax")
+    ] = None
+    account_id: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="AccountId"), pydantic.Field(alias="AccountId")
+    ] = None
+    reference_id: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="ReferenceId"), pydantic.Field(alias="ReferenceId")
+    ] = None
+    accept_same_day_ach: typing_extensions.Annotated[
+        typing.Optional[bool], FieldMetadata(alias="acceptSameDayACH"), pydantic.Field(alias="acceptSameDayACH")
+    ] = None
+    currency: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="Currency"),
+        pydantic.Field(alias="Currency", description="The default currency for the paypoint, either `USD` or `CAD`."),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

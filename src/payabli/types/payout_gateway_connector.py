@@ -10,16 +10,30 @@ from ..core.serialization import FieldMetadata
 
 class PayoutGatewayConnector(UniversalBaseModel):
     configuration: typing.Optional[str] = None
-    name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="Name")] = None
-    mode: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="Mode")] = None
-    bank: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="Bank")] = None
-    descriptor: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="Descriptor")] = None
-    gateway_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="gatewayID")] = None
-    enabled: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="Enabled")] = None
-    enable_ach_validation: typing_extensions.Annotated[
-        typing.Optional[bool], FieldMetadata(alias="EnableACHValidation")
+    name: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="Name"), pydantic.Field(alias="Name")
     ] = None
-    test_mode: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="TestMode")] = None
+    mode: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="Mode"), pydantic.Field(alias="Mode")
+    ] = None
+    bank: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="Bank"), pydantic.Field(alias="Bank")
+    ] = None
+    descriptor: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="Descriptor"), pydantic.Field(alias="Descriptor")
+    ] = None
+    gateway_id: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="gatewayID"), pydantic.Field(alias="gatewayID")
+    ] = None
+    enabled: typing_extensions.Annotated[
+        typing.Optional[bool], FieldMetadata(alias="Enabled"), pydantic.Field(alias="Enabled")
+    ] = None
+    enable_ach_validation: typing_extensions.Annotated[
+        typing.Optional[bool], FieldMetadata(alias="EnableACHValidation"), pydantic.Field(alias="EnableACHValidation")
+    ] = None
+    test_mode: typing_extensions.Annotated[
+        typing.Optional[bool], FieldMetadata(alias="TestMode"), pydantic.Field(alias="TestMode")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

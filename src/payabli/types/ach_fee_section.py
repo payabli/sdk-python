@@ -12,40 +12,56 @@ from .visible import Visible
 
 class AchFeeSection(UniversalBaseModel):
     advanced_settlement_ach_fee: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="advancedSettlementAchFee")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="advancedSettlementAchFee"),
+        pydantic.Field(alias="advancedSettlementAchFee"),
     ] = None
     annual_ach_fee: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="annualAchFee")
+        typing.Optional[TemplateElement], FieldMetadata(alias="annualAchFee"), pydantic.Field(alias="annualAchFee")
     ] = None
     chargeback_ach_fee: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="chargebackAchFee")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="chargebackAchFee"),
+        pydantic.Field(alias="chargebackAchFee"),
     ] = None
     early_termination_ach_fee: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="earlyTerminationAchFee")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="earlyTerminationAchFee"),
+        pydantic.Field(alias="earlyTerminationAchFee"),
     ] = None
     monthly_ach_fee: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="monthlyAchFee")
+        typing.Optional[TemplateElement], FieldMetadata(alias="monthlyAchFee"), pydantic.Field(alias="monthlyAchFee")
     ] = None
     quarterly_pci_ach_fee: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="quarterlyPCIAchFee")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="quarterlyPCIAchFee"),
+        pydantic.Field(alias="quarterlyPCIAchFee"),
     ] = None
     returned_ach_fee: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="returnedAchFee")
+        typing.Optional[TemplateElement], FieldMetadata(alias="returnedAchFee"), pydantic.Field(alias="returnedAchFee")
     ] = None
     same_day_ach_fee: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="sameDayAchFee")
+        typing.Optional[TemplateElement], FieldMetadata(alias="sameDayAchFee"), pydantic.Field(alias="sameDayAchFee")
     ] = None
     sunday_origination_ach_fee: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="sundayOriginationAchFee")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="sundayOriginationAchFee"),
+        pydantic.Field(alias="sundayOriginationAchFee"),
     ] = None
     verify_bank_ach_fee: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="verifyBankAchFee")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="verifyBankAchFee"),
+        pydantic.Field(alias="verifyBankAchFee"),
     ] = None
     verify_fund_ach_fee: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="verifyFundAchFee")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="verifyFundAchFee"),
+        pydantic.Field(alias="verifyFundAchFee"),
     ] = None
     verify_negative_ach_fee: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="verifyNegativeAchFee")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="verifyNegativeAchFee"),
+        pydantic.Field(alias="verifyNegativeAchFee"),
     ] = None
     visible: typing.Optional[Visible] = None
 

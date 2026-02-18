@@ -17,83 +17,130 @@ from .visible import Visible
 
 class CardService(UniversalBaseModel):
     batch_cutoff_time: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="batchCutoffTime")
-    ] = pydantic.Field(default=None)
-    """
-    Controls how to present the `batchCutoffTime` field on the application. If this field isn't sent, batch cut off time defaults to 5 ET.
-    """
-
-    card_acceptance: typing_extensions.Annotated[
-        typing.Optional[CardAcceptanceElement], FieldMetadata(alias="cardAcceptance")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="batchCutoffTime"),
+        pydantic.Field(
+            alias="batchCutoffTime",
+            description="Controls how to present the `batchCutoffTime` field on the application. If this field isn't sent, batch cut off time defaults to 5 ET.",
+        ),
     ] = None
-    card_fees: typing_extensions.Annotated[typing.Optional[CardFeeSection], FieldMetadata(alias="cardFees")] = None
-    card_flat: typing_extensions.Annotated[typing.Optional[CardFlatSection], FieldMetadata(alias="cardFlat")] = None
+    card_acceptance: typing_extensions.Annotated[
+        typing.Optional[CardAcceptanceElement],
+        FieldMetadata(alias="cardAcceptance"),
+        pydantic.Field(alias="cardAcceptance"),
+    ] = None
+    card_fees: typing_extensions.Annotated[
+        typing.Optional[CardFeeSection], FieldMetadata(alias="cardFees"), pydantic.Field(alias="cardFees")
+    ] = None
+    card_flat: typing_extensions.Annotated[
+        typing.Optional[CardFlatSection], FieldMetadata(alias="cardFlat"), pydantic.Field(alias="cardFlat")
+    ] = None
     card_flat_amountx_auth: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="cardFlat_amountxAuth")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="cardFlat_amountxAuth"),
+        pydantic.Field(alias="cardFlat_amountxAuth"),
     ] = None
     card_flat_high_pay_range: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="cardFlat_highPayRange")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="cardFlat_highPayRange"),
+        pydantic.Field(alias="cardFlat_highPayRange"),
     ] = None
     card_flat_low_pay_range: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="cardFlat_lowPayRange")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="cardFlat_lowPayRange"),
+        pydantic.Field(alias="cardFlat_lowPayRange"),
     ] = None
     card_flat_percentx_auth: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="cardFlat_percentxAuth")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="cardFlat_percentxAuth"),
+        pydantic.Field(alias="cardFlat_percentxAuth"),
     ] = None
-    card_icp: typing_extensions.Annotated[typing.Optional[CardIcpSection], FieldMetadata(alias="cardICP")] = None
+    card_icp: typing_extensions.Annotated[
+        typing.Optional[CardIcpSection], FieldMetadata(alias="cardICP"), pydantic.Field(alias="cardICP")
+    ] = None
     card_icp_amountx_auth: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="cardICP_amountxAuth")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="cardICP_amountxAuth"),
+        pydantic.Field(alias="cardICP_amountxAuth"),
     ] = None
     card_icp_high_pay_range: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="cardICP_highPayRange")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="cardICP_highPayRange"),
+        pydantic.Field(alias="cardICP_highPayRange"),
     ] = None
     card_icp_low_pay_range: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="cardICP_lowPayRange")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="cardICP_lowPayRange"),
+        pydantic.Field(alias="cardICP_lowPayRange"),
     ] = None
     card_icp_percentx_auth: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="cardICP_percentxAuth")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="cardICP_percentxAuth"),
+        pydantic.Field(alias="cardICP_percentxAuth"),
     ] = None
     card_pass_through: typing_extensions.Annotated[
-        typing.Optional[CardPassThroughSection], FieldMetadata(alias="cardPassThrough")
+        typing.Optional[CardPassThroughSection],
+        FieldMetadata(alias="cardPassThrough"),
+        pydantic.Field(alias="cardPassThrough"),
     ] = None
     card_pass_through_amount_recurring: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="cardPassThrough_amountRecurring")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="cardPassThrough_amountRecurring"),
+        pydantic.Field(alias="cardPassThrough_amountRecurring"),
     ] = None
     card_pass_through_amountx_auth: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="cardPassThrough_amountxAuth")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="cardPassThrough_amountxAuth"),
+        pydantic.Field(alias="cardPassThrough_amountxAuth"),
     ] = None
     card_pass_through_high_pay_range: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="cardPassThrough_highPayRange")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="cardPassThrough_highPayRange"),
+        pydantic.Field(alias="cardPassThrough_highPayRange"),
     ] = None
     card_pass_through_low_pay_range: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="cardPassThrough_lowPayRange")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="cardPassThrough_lowPayRange"),
+        pydantic.Field(alias="cardPassThrough_lowPayRange"),
     ] = None
     card_pass_through_percent_recurring: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="cardPassThrough_percentRecurring")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="cardPassThrough_percentRecurring"),
+        pydantic.Field(alias="cardPassThrough_percentRecurring"),
     ] = None
     card_pass_through_percentx_auth: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="cardPassThrough_percentxAuth")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="cardPassThrough_percentxAuth"),
+        pydantic.Field(alias="cardPassThrough_percentxAuth"),
     ] = None
     discount_frequency: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="discountFrequency")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="discountFrequency"),
+        pydantic.Field(alias="discountFrequency"),
     ] = None
     funding_rollup: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="fundingRollup")
+        typing.Optional[TemplateElement], FieldMetadata(alias="fundingRollup"), pydantic.Field(alias="fundingRollup")
     ] = None
     gateway: typing.Optional[TemplateElement] = None
     pass_through_cost: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="passThroughCost")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="passThroughCost"),
+        pydantic.Field(alias="passThroughCost"),
     ] = None
     pdf_template_id: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="pdfTemplateId")
+        typing.Optional[TemplateElement], FieldMetadata(alias="pdfTemplateId"), pydantic.Field(alias="pdfTemplateId")
     ] = None
-    pricing_plan: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="pricingPlan")] = None
-    pricing_type: typing_extensions.Annotated[typing.Optional[TemplateElement], FieldMetadata(alias="pricingType")] = (
-        None
-    )
+    pricing_plan: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="pricingPlan"), pydantic.Field(alias="pricingPlan")
+    ] = None
+    pricing_type: typing_extensions.Annotated[
+        typing.Optional[TemplateElement], FieldMetadata(alias="pricingType"), pydantic.Field(alias="pricingType")
+    ] = None
     processor: typing.Optional[TemplateElement] = None
     provider: typing.Optional[TemplateElement] = None
-    tier_name: typing_extensions.Annotated[typing.Optional[TemplateElement], FieldMetadata(alias="tierName")] = None
+    tier_name: typing_extensions.Annotated[
+        typing.Optional[TemplateElement], FieldMetadata(alias="tierName"), pydantic.Field(alias="tierName")
+    ] = None
     visible: typing.Optional[Visible] = None
 
     if IS_PYDANTIC_V2:

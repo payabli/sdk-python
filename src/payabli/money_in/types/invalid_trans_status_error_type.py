@@ -9,10 +9,11 @@ from ...core.serialization import FieldMetadata
 
 
 class InvalidTransStatusErrorType(UniversalBaseModel):
-    response_text: typing_extensions.Annotated[str, FieldMetadata(alias="responseText")] = pydantic.Field()
-    """
-    Error message describing the reason for the decline
-    """
+    response_text: typing_extensions.Annotated[
+        str,
+        FieldMetadata(alias="responseText"),
+        pydantic.Field(alias="responseText", description="Error message describing the reason for the decline"),
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

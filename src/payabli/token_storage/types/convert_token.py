@@ -18,10 +18,11 @@ class ConvertToken(UniversalBaseModel):
     The type of payment method to tokenize. When converting a temp token to a permanent token, this should match the `method` set for the temporary token, either `ach` or `card`.
     """
 
-    token_id: typing_extensions.Annotated[str, FieldMetadata(alias="tokenId")] = pydantic.Field()
-    """
-    A temporary stored token ID to be converted to permanent.
-    """
+    token_id: typing_extensions.Annotated[
+        str,
+        FieldMetadata(alias="tokenId"),
+        pydantic.Field(alias="tokenId", description="A temporary stored token ID to be converted to permanent."),
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

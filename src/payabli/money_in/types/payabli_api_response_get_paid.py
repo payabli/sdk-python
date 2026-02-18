@@ -16,10 +16,18 @@ class PayabliApiResponseGetPaid(UniversalBaseModel):
     General response for GetPaid endpoint supporting multiple payment methods
     """
 
-    response_text: typing_extensions.Annotated[ResponseText, FieldMetadata(alias="responseText")]
-    is_success: typing_extensions.Annotated[IsSuccess, FieldMetadata(alias="isSuccess")]
-    page_identifier: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="pageIdentifier")] = None
-    response_data: typing_extensions.Annotated[GetPaidResponseData, FieldMetadata(alias="responseData")]
+    response_text: typing_extensions.Annotated[
+        ResponseText, FieldMetadata(alias="responseText"), pydantic.Field(alias="responseText")
+    ]
+    is_success: typing_extensions.Annotated[
+        IsSuccess, FieldMetadata(alias="isSuccess"), pydantic.Field(alias="isSuccess")
+    ]
+    page_identifier: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="pageIdentifier"), pydantic.Field(alias="pageIdentifier")
+    ] = None
+    response_data: typing_extensions.Annotated[
+        GetPaidResponseData, FieldMetadata(alias="responseData"), pydantic.Field(alias="responseData")
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

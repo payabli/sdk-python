@@ -67,13 +67,17 @@ from .whenrefunded import Whenrefunded
 class ApplicationData(UniversalBaseModel):
     services: typing.Optional[Services] = None
     annual_revenue: typing_extensions.Annotated[
-        typing.Optional[Annualrevenue], FieldMetadata(alias="annualRevenue")
+        typing.Optional[Annualrevenue], FieldMetadata(alias="annualRevenue"), pydantic.Field(alias="annualRevenue")
     ] = None
     attachments: typing.Optional[Attachments] = None
     avgmonthly: typing.Optional[Avgmonthly] = None
     baddress: typing.Optional[Baddress1] = None
-    baddress_1: typing_extensions.Annotated[typing.Optional[Baddress2], FieldMetadata(alias="baddress1")] = None
-    bank_data: typing_extensions.Annotated[typing.Optional[Bank], FieldMetadata(alias="bankData")] = None
+    baddress_1: typing_extensions.Annotated[
+        typing.Optional[Baddress2], FieldMetadata(alias="baddress1"), pydantic.Field(alias="baddress1")
+    ] = None
+    bank_data: typing_extensions.Annotated[
+        typing.Optional[Bank], FieldMetadata(alias="bankData"), pydantic.Field(alias="bankData")
+    ] = None
     bcity: typing.Optional[Bcity] = None
     bcountry: typing.Optional[Bcountry] = None
     binperson: typing.Optional[Binperson] = None
@@ -87,7 +91,9 @@ class ApplicationData(UniversalBaseModel):
     dbaname: typing.Optional[Dbaname] = None
     ein: typing.Optional[Ein] = None
     external_paypoint_id: typing_extensions.Annotated[
-        typing.Optional[ExternalPaypointId], FieldMetadata(alias="externalPaypointId")
+        typing.Optional[ExternalPaypointId],
+        FieldMetadata(alias="externalPaypointId"),
+        pydantic.Field(alias="externalPaypointId"),
     ] = None
     faxnumber: typing.Optional[BoardingBusinessFax] = None
     highticketamt: typing.Optional[Highticketamt] = None
@@ -95,58 +101,85 @@ class ApplicationData(UniversalBaseModel):
     license: typing.Optional[License] = None
     licstate: typing.Optional[Licensestate] = None
     maddress: typing.Optional[Maddress] = None
-    maddress_1: typing_extensions.Annotated[typing.Optional[Maddress1], FieldMetadata(alias="maddress1")] = None
+    maddress_1: typing_extensions.Annotated[
+        typing.Optional[Maddress1], FieldMetadata(alias="maddress1"), pydantic.Field(alias="maddress1")
+    ] = None
     mcc: typing.Optional[Mcc] = None
     mcity: typing.Optional[Mcity] = None
     mcountry: typing.Optional[Mcountry] = None
     mstate: typing.Optional[Mstate] = None
     mzip: typing.Optional[Mzip] = None
-    org_id: typing_extensions.Annotated[typing.Optional[Orgid], FieldMetadata(alias="orgId")] = None
+    org_id: typing_extensions.Annotated[
+        typing.Optional[Orgid], FieldMetadata(alias="orgId"), pydantic.Field(alias="orgId")
+    ] = None
     ownership: typing.Optional[Ownership] = None
     payout_average_monthly_volume: typing_extensions.Annotated[
-        typing.Optional[PayoutAverageMonthlyVolume], FieldMetadata(alias="payoutAverageMonthlyVolume")
+        typing.Optional[PayoutAverageMonthlyVolume],
+        FieldMetadata(alias="payoutAverageMonthlyVolume"),
+        pydantic.Field(alias="payoutAverageMonthlyVolume"),
     ] = None
     payout_average_ticket_limit: typing_extensions.Annotated[
-        typing.Optional[PayoutAverageTicketLimit], FieldMetadata(alias="payoutAverageTicketLimit")
+        typing.Optional[PayoutAverageTicketLimit],
+        FieldMetadata(alias="payoutAverageTicketLimit"),
+        pydantic.Field(alias="payoutAverageTicketLimit"),
     ] = None
     payout_credit_limit: typing_extensions.Annotated[
-        typing.Optional[PayoutCreditLimit], FieldMetadata(alias="payoutCreditLimit")
+        typing.Optional[PayoutCreditLimit],
+        FieldMetadata(alias="payoutCreditLimit"),
+        pydantic.Field(alias="payoutCreditLimit"),
     ] = None
     payout_high_ticket_amount: typing_extensions.Annotated[
-        typing.Optional[PayoutHighTicketAmount], FieldMetadata(alias="payoutHighTicketAmount")
+        typing.Optional[PayoutHighTicketAmount],
+        FieldMetadata(alias="payoutHighTicketAmount"),
+        pydantic.Field(alias="payoutHighTicketAmount"),
     ] = None
     phonenumber: typing.Optional[BoardingBusinessPhone] = None
-    recipient_email: typing_extensions.Annotated[typing.Optional[Email], FieldMetadata(alias="recipientEmail")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Email address for the applicant. This is used to send the applicant a boarding link.
-    """
-
+    recipient_email: typing_extensions.Annotated[
+        typing.Optional[Email],
+        FieldMetadata(alias="recipientEmail"),
+        pydantic.Field(
+            alias="recipientEmail",
+            description="Email address for the applicant. This is used to send the applicant a boarding link.",
+        ),
+    ] = None
     recipient_email_notification: typing_extensions.Annotated[
-        typing.Optional[RecipientEmailNotification], FieldMetadata(alias="recipientEmailNotification")
+        typing.Optional[RecipientEmailNotification],
+        FieldMetadata(alias="recipientEmailNotification"),
+        pydantic.Field(alias="recipientEmailNotification"),
     ] = None
     resumable: typing.Optional[Resumable] = None
     signer: typing.Optional[SignerDataRequest] = None
     startdate: typing.Optional[Busstartdate] = None
     taxfillname: typing.Optional[Taxfillname] = None
-    template_id: typing_extensions.Annotated[typing.Optional[TemplateId], FieldMetadata(alias="templateId")] = None
+    template_id: typing_extensions.Annotated[
+        typing.Optional[TemplateId], FieldMetadata(alias="templateId"), pydantic.Field(alias="templateId")
+    ] = None
     ticketamt: typing.Optional[Ticketamt] = None
     website: typing.Optional[Website] = None
-    when_charged: typing_extensions.Annotated[typing.Optional[Whencharged], FieldMetadata(alias="whenCharged")] = None
-    when_delivered: typing_extensions.Annotated[
-        typing.Optional[Whendelivered], FieldMetadata(alias="whenDelivered")
+    when_charged: typing_extensions.Annotated[
+        typing.Optional[Whencharged], FieldMetadata(alias="whenCharged"), pydantic.Field(alias="whenCharged")
     ] = None
-    when_provided: typing_extensions.Annotated[typing.Optional[Whenprovided], FieldMetadata(alias="whenProvided")] = (
-        None
-    )
-    when_refunded: typing_extensions.Annotated[typing.Optional[Whenrefunded], FieldMetadata(alias="whenRefunded")] = (
-        None
-    )
-    rep_code: typing_extensions.Annotated[typing.Optional[RepCode], FieldMetadata(alias="RepCode")] = None
-    rep_name: typing_extensions.Annotated[typing.Optional[RepName], FieldMetadata(alias="RepName")] = None
-    rep_office: typing_extensions.Annotated[typing.Optional[RepOffice], FieldMetadata(alias="RepOffice")] = None
-    on_create: typing_extensions.Annotated[typing.Optional[OnCreate], FieldMetadata(alias="onCreate")] = None
+    when_delivered: typing_extensions.Annotated[
+        typing.Optional[Whendelivered], FieldMetadata(alias="whenDelivered"), pydantic.Field(alias="whenDelivered")
+    ] = None
+    when_provided: typing_extensions.Annotated[
+        typing.Optional[Whenprovided], FieldMetadata(alias="whenProvided"), pydantic.Field(alias="whenProvided")
+    ] = None
+    when_refunded: typing_extensions.Annotated[
+        typing.Optional[Whenrefunded], FieldMetadata(alias="whenRefunded"), pydantic.Field(alias="whenRefunded")
+    ] = None
+    rep_code: typing_extensions.Annotated[
+        typing.Optional[RepCode], FieldMetadata(alias="RepCode"), pydantic.Field(alias="RepCode")
+    ] = None
+    rep_name: typing_extensions.Annotated[
+        typing.Optional[RepName], FieldMetadata(alias="RepName"), pydantic.Field(alias="RepName")
+    ] = None
+    rep_office: typing_extensions.Annotated[
+        typing.Optional[RepOffice], FieldMetadata(alias="RepOffice"), pydantic.Field(alias="RepOffice")
+    ] = None
+    on_create: typing_extensions.Annotated[
+        typing.Optional[OnCreate], FieldMetadata(alias="onCreate"), pydantic.Field(alias="onCreate")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

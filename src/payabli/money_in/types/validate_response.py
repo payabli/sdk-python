@@ -16,9 +16,15 @@ class ValidateResponse(UniversalBaseModel):
     Response for card validation endpoint
     """
 
-    response_text: typing_extensions.Annotated[ResponseText, FieldMetadata(alias="responseText")]
-    is_success: typing_extensions.Annotated[IsSuccess, FieldMetadata(alias="isSuccess")]
-    response_data: typing_extensions.Annotated[ValidateResponseData, FieldMetadata(alias="responseData")]
+    response_text: typing_extensions.Annotated[
+        ResponseText, FieldMetadata(alias="responseText"), pydantic.Field(alias="responseText")
+    ]
+    is_success: typing_extensions.Annotated[
+        IsSuccess, FieldMetadata(alias="isSuccess"), pydantic.Field(alias="isSuccess")
+    ]
+    response_data: typing_extensions.Annotated[
+        ValidateResponseData, FieldMetadata(alias="responseData"), pydantic.Field(alias="responseData")
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

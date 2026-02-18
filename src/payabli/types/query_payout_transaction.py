@@ -99,10 +99,12 @@ class QueryPayoutTransaction(UniversalBaseModel):
     """
 
     records: typing_extensions.Annotated[
-        typing.Optional[typing.List[QueryPayoutTransactionRecordsItem]], FieldMetadata(alias="Records")
+        typing.Optional[typing.List[QueryPayoutTransactionRecordsItem]],
+        FieldMetadata(alias="Records"),
+        pydantic.Field(alias="Records"),
     ] = None
     summary: typing_extensions.Annotated[
-        typing.Optional[QueryPayoutTransactionSummary], FieldMetadata(alias="Summary")
+        typing.Optional[QueryPayoutTransactionSummary], FieldMetadata(alias="Summary"), pydantic.Field(alias="Summary")
     ] = None
 
     if IS_PYDANTIC_V2:

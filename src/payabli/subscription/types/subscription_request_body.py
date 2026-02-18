@@ -19,42 +19,42 @@ from .set_pause import SetPause
 
 class SubscriptionRequestBody(UniversalBaseModel):
     customer_data: typing_extensions.Annotated[
-        typing.Optional[PayorDataRequest], FieldMetadata(alias="customerData")
-    ] = pydantic.Field(default=None)
-    """
-    Object describing the customer/payor.
-    """
-
-    entry_point: typing_extensions.Annotated[typing.Optional[Entrypointfield], FieldMetadata(alias="entryPoint")] = None
-    invoice_data: typing_extensions.Annotated[typing.Optional[BillData], FieldMetadata(alias="invoiceData")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Object describing an Invoice linked to the subscription.
-    """
-
+        typing.Optional[PayorDataRequest],
+        FieldMetadata(alias="customerData"),
+        pydantic.Field(alias="customerData", description="Object describing the customer/payor."),
+    ] = None
+    entry_point: typing_extensions.Annotated[
+        typing.Optional[Entrypointfield], FieldMetadata(alias="entryPoint"), pydantic.Field(alias="entryPoint")
+    ] = None
+    invoice_data: typing_extensions.Annotated[
+        typing.Optional[BillData],
+        FieldMetadata(alias="invoiceData"),
+        pydantic.Field(alias="invoiceData", description="Object describing an Invoice linked to the subscription."),
+    ] = None
     payment_details: typing_extensions.Annotated[
-        typing.Optional[PaymentDetail], FieldMetadata(alias="paymentDetails")
-    ] = pydantic.Field(default=None)
-    """
-    Object describing details of the payment. To skip the payment, set the `totalAmount` to 0. Payments will be paused until the amount is updated to a non-zero value. When `totalAmount` is set to 0, the `serviceFee` must also be set to 0.
-    """
-
+        typing.Optional[PaymentDetail],
+        FieldMetadata(alias="paymentDetails"),
+        pydantic.Field(
+            alias="paymentDetails",
+            description="Object describing details of the payment. To skip the payment, set the `totalAmount` to 0. Payments will be paused until the amount is updated to a non-zero value. When `totalAmount` is set to 0, the `serviceFee` must also be set to 0.",
+        ),
+    ] = None
     payment_method: typing_extensions.Annotated[
-        typing.Optional[RequestSchedulePaymentMethod], FieldMetadata(alias="paymentMethod")
-    ] = pydantic.Field(default=None)
-    """
-    Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.
-    """
-
+        typing.Optional[RequestSchedulePaymentMethod],
+        FieldMetadata(alias="paymentMethod"),
+        pydantic.Field(
+            alias="paymentMethod",
+            description="Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.",
+        ),
+    ] = None
     schedule_details: typing_extensions.Annotated[
-        typing.Optional[ScheduleDetail], FieldMetadata(alias="scheduleDetails")
-    ] = pydantic.Field(default=None)
-    """
-    Object describing the schedule for subscription.
-    """
-
-    set_pause: typing_extensions.Annotated[typing.Optional[SetPause], FieldMetadata(alias="setPause")] = None
+        typing.Optional[ScheduleDetail],
+        FieldMetadata(alias="scheduleDetails"),
+        pydantic.Field(alias="scheduleDetails", description="Object describing the schedule for subscription."),
+    ] = None
+    set_pause: typing_extensions.Annotated[
+        typing.Optional[SetPause], FieldMetadata(alias="setPause"), pydantic.Field(alias="setPause")
+    ] = None
     source: typing.Optional[Source] = None
     subdomain: typing.Optional[Subdomain] = None
 

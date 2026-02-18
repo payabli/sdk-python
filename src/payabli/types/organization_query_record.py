@@ -35,37 +35,75 @@ from .user_query_record import UserQueryRecord
 
 class OrganizationQueryRecord(UniversalBaseModel):
     services: typing.Optional[typing.List[OrganizationQueryRecordServicesItem]] = None
-    billing_info: typing_extensions.Annotated[typing.Optional[Instrument], FieldMetadata(alias="billingInfo")] = None
+    billing_info: typing_extensions.Annotated[
+        typing.Optional[Instrument], FieldMetadata(alias="billingInfo"), pydantic.Field(alias="billingInfo")
+    ] = None
     contacts: typing.Optional[ContactsField] = None
-    created_at: typing_extensions.Annotated[typing.Optional[CreatedAt], FieldMetadata(alias="createdAt")] = None
-    has_billing: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="hasBilling")] = None
-    has_residual: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="hasResidual")] = None
-    id_org: typing_extensions.Annotated[typing.Optional[Orgid], FieldMetadata(alias="idOrg")] = None
-    is_root: typing_extensions.Annotated[typing.Optional[IsRoot], FieldMetadata(alias="isRoot")] = None
-    org_address: typing_extensions.Annotated[typing.Optional[Orgaddress], FieldMetadata(alias="orgAddress")] = None
-    org_city: typing_extensions.Annotated[typing.Optional[Orgcity], FieldMetadata(alias="orgCity")] = None
-    org_country: typing_extensions.Annotated[typing.Optional[Orgcountry], FieldMetadata(alias="orgCountry")] = None
-    org_entry_name: typing_extensions.Annotated[typing.Optional[Orgentryname], FieldMetadata(alias="orgEntryName")] = (
-        None
-    )
-    org_id: typing_extensions.Annotated[typing.Optional[Orgidstring], FieldMetadata(alias="orgId")] = None
-    org_logo: typing_extensions.Annotated[typing.Optional[FileContent], FieldMetadata(alias="orgLogo")] = None
-    org_name: typing_extensions.Annotated[typing.Optional[Orgname], FieldMetadata(alias="orgName")] = None
-    org_parent_id: typing_extensions.Annotated[typing.Optional[OrgParentId], FieldMetadata(alias="orgParentId")] = None
+    created_at: typing_extensions.Annotated[
+        typing.Optional[CreatedAt], FieldMetadata(alias="createdAt"), pydantic.Field(alias="createdAt")
+    ] = None
+    has_billing: typing_extensions.Annotated[
+        typing.Optional[bool], FieldMetadata(alias="hasBilling"), pydantic.Field(alias="hasBilling")
+    ] = None
+    has_residual: typing_extensions.Annotated[
+        typing.Optional[bool], FieldMetadata(alias="hasResidual"), pydantic.Field(alias="hasResidual")
+    ] = None
+    id_org: typing_extensions.Annotated[
+        typing.Optional[Orgid], FieldMetadata(alias="idOrg"), pydantic.Field(alias="idOrg")
+    ] = None
+    is_root: typing_extensions.Annotated[
+        typing.Optional[IsRoot], FieldMetadata(alias="isRoot"), pydantic.Field(alias="isRoot")
+    ] = None
+    org_address: typing_extensions.Annotated[
+        typing.Optional[Orgaddress], FieldMetadata(alias="orgAddress"), pydantic.Field(alias="orgAddress")
+    ] = None
+    org_city: typing_extensions.Annotated[
+        typing.Optional[Orgcity], FieldMetadata(alias="orgCity"), pydantic.Field(alias="orgCity")
+    ] = None
+    org_country: typing_extensions.Annotated[
+        typing.Optional[Orgcountry], FieldMetadata(alias="orgCountry"), pydantic.Field(alias="orgCountry")
+    ] = None
+    org_entry_name: typing_extensions.Annotated[
+        typing.Optional[Orgentryname], FieldMetadata(alias="orgEntryName"), pydantic.Field(alias="orgEntryName")
+    ] = None
+    org_id: typing_extensions.Annotated[
+        typing.Optional[Orgidstring], FieldMetadata(alias="orgId"), pydantic.Field(alias="orgId")
+    ] = None
+    org_logo: typing_extensions.Annotated[
+        typing.Optional[FileContent], FieldMetadata(alias="orgLogo"), pydantic.Field(alias="orgLogo")
+    ] = None
+    org_name: typing_extensions.Annotated[
+        typing.Optional[Orgname], FieldMetadata(alias="orgName"), pydantic.Field(alias="orgName")
+    ] = None
+    org_parent_id: typing_extensions.Annotated[
+        typing.Optional[OrgParentId], FieldMetadata(alias="orgParentId"), pydantic.Field(alias="orgParentId")
+    ] = None
     org_parent_name: typing_extensions.Annotated[
-        typing.Optional[OrgParentName], FieldMetadata(alias="orgParentName")
+        typing.Optional[OrgParentName], FieldMetadata(alias="orgParentName"), pydantic.Field(alias="orgParentName")
     ] = None
-    org_state: typing_extensions.Annotated[typing.Optional[Orgstate], FieldMetadata(alias="orgState")] = None
-    org_timezone: typing_extensions.Annotated[typing.Optional[Orgtimezone], FieldMetadata(alias="orgTimezone")] = None
-    org_type: typing_extensions.Annotated[typing.Optional[Orgtype], FieldMetadata(alias="orgType")] = None
-    org_website: typing_extensions.Annotated[typing.Optional[Orgwebsite], FieldMetadata(alias="orgWebsite")] = None
-    org_zip: typing_extensions.Annotated[typing.Optional[Orgzip], FieldMetadata(alias="orgZip")] = None
+    org_state: typing_extensions.Annotated[
+        typing.Optional[Orgstate], FieldMetadata(alias="orgState"), pydantic.Field(alias="orgState")
+    ] = None
+    org_timezone: typing_extensions.Annotated[
+        typing.Optional[Orgtimezone], FieldMetadata(alias="orgTimezone"), pydantic.Field(alias="orgTimezone")
+    ] = None
+    org_type: typing_extensions.Annotated[
+        typing.Optional[Orgtype], FieldMetadata(alias="orgType"), pydantic.Field(alias="orgType")
+    ] = None
+    org_website: typing_extensions.Annotated[
+        typing.Optional[Orgwebsite], FieldMetadata(alias="orgWebsite"), pydantic.Field(alias="orgWebsite")
+    ] = None
+    org_zip: typing_extensions.Annotated[
+        typing.Optional[Orgzip], FieldMetadata(alias="orgZip"), pydantic.Field(alias="orgZip")
+    ] = None
     recipient_email_notification: typing_extensions.Annotated[
-        typing.Optional[RecipientEmailNotification], FieldMetadata(alias="recipientEmailNotification")
+        typing.Optional[RecipientEmailNotification],
+        FieldMetadata(alias="recipientEmailNotification"),
+        pydantic.Field(alias="recipientEmailNotification"),
     ] = None
-    reply_to_email: typing_extensions.Annotated[typing.Optional[ReplyToEmail], FieldMetadata(alias="replyToEmail")] = (
-        None
-    )
+    reply_to_email: typing_extensions.Annotated[
+        typing.Optional[ReplyToEmail], FieldMetadata(alias="replyToEmail"), pydantic.Field(alias="replyToEmail")
+    ] = None
     resumable: typing.Optional[Resumable] = None
     summary: typing.Optional[SummaryOrg] = None
     users: typing.Optional[typing.List[UserQueryRecord]] = None

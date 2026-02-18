@@ -66,111 +66,187 @@ from .whenrefunded import Whenrefunded
 
 class ApplicationDetailsRecord(UniversalBaseModel):
     annual_revenue: typing_extensions.Annotated[
-        typing.Optional[Annualrevenue], FieldMetadata(alias="annualRevenue")
+        typing.Optional[Annualrevenue], FieldMetadata(alias="annualRevenue"), pydantic.Field(alias="annualRevenue")
     ] = None
     average_monthly_volume: typing_extensions.Annotated[
-        typing.Optional[Avgmonthly], FieldMetadata(alias="averageMonthlyVolume")
+        typing.Optional[Avgmonthly],
+        FieldMetadata(alias="averageMonthlyVolume"),
+        pydantic.Field(alias="averageMonthlyVolume"),
     ] = None
     average_ticket_amount: typing_extensions.Annotated[
-        typing.Optional[Ticketamt], FieldMetadata(alias="averageTicketAmount")
+        typing.Optional[Ticketamt],
+        FieldMetadata(alias="averageTicketAmount"),
+        pydantic.Field(alias="averageTicketAmount"),
     ] = None
-    b_address_1: typing_extensions.Annotated[typing.Optional[Baddress1], FieldMetadata(alias="bAddress1")] = None
-    b_address_2: typing_extensions.Annotated[typing.Optional[Baddress2], FieldMetadata(alias="bAddress2")] = None
-    bank_data: typing_extensions.Annotated[typing.Optional[BankData], FieldMetadata(alias="bankData")] = None
-    b_city: typing_extensions.Annotated[typing.Optional[Bcity], FieldMetadata(alias="bCity")] = None
-    b_country: typing_extensions.Annotated[typing.Optional[Bcountry], FieldMetadata(alias="bCountry")] = None
-    b_fax: typing_extensions.Annotated[typing.Optional[Bphone], FieldMetadata(alias="bFax")] = pydantic.Field(
-        default=None
-    )
-    """
-    The business's fax number.
-    """
-
-    bin_person: typing_extensions.Annotated[typing.Optional[Binperson], FieldMetadata(alias="binPerson")] = None
-    bin_phone: typing_extensions.Annotated[typing.Optional[Binphone], FieldMetadata(alias="binPhone")] = None
-    bin_web: typing_extensions.Annotated[typing.Optional[Binweb], FieldMetadata(alias="binWeb")] = None
+    b_address_1: typing_extensions.Annotated[
+        typing.Optional[Baddress1], FieldMetadata(alias="bAddress1"), pydantic.Field(alias="bAddress1")
+    ] = None
+    b_address_2: typing_extensions.Annotated[
+        typing.Optional[Baddress2], FieldMetadata(alias="bAddress2"), pydantic.Field(alias="bAddress2")
+    ] = None
+    bank_data: typing_extensions.Annotated[
+        typing.Optional[BankData], FieldMetadata(alias="bankData"), pydantic.Field(alias="bankData")
+    ] = None
+    b_city: typing_extensions.Annotated[
+        typing.Optional[Bcity], FieldMetadata(alias="bCity"), pydantic.Field(alias="bCity")
+    ] = None
+    b_country: typing_extensions.Annotated[
+        typing.Optional[Bcountry], FieldMetadata(alias="bCountry"), pydantic.Field(alias="bCountry")
+    ] = None
+    b_fax: typing_extensions.Annotated[
+        typing.Optional[Bphone],
+        FieldMetadata(alias="bFax"),
+        pydantic.Field(alias="bFax", description="The business's fax number."),
+    ] = None
+    bin_person: typing_extensions.Annotated[
+        typing.Optional[Binperson], FieldMetadata(alias="binPerson"), pydantic.Field(alias="binPerson")
+    ] = None
+    bin_phone: typing_extensions.Annotated[
+        typing.Optional[Binphone], FieldMetadata(alias="binPhone"), pydantic.Field(alias="binPhone")
+    ] = None
+    bin_web: typing_extensions.Annotated[
+        typing.Optional[Binweb], FieldMetadata(alias="binWeb"), pydantic.Field(alias="binWeb")
+    ] = None
     boarding_link_id: typing_extensions.Annotated[
-        typing.Optional[BoardingLinkId], FieldMetadata(alias="boardingLinkId")
+        typing.Optional[BoardingLinkId], FieldMetadata(alias="boardingLinkId"), pydantic.Field(alias="boardingLinkId")
     ] = None
     boarding_status: typing_extensions.Annotated[
-        typing.Optional[BoardingStatus], FieldMetadata(alias="boardingStatus")
+        typing.Optional[BoardingStatus], FieldMetadata(alias="boardingStatus"), pydantic.Field(alias="boardingStatus")
     ] = None
     boarding_sub_status: typing_extensions.Annotated[
-        typing.Optional[BoardingStatus], FieldMetadata(alias="boardingSubStatus")
+        typing.Optional[BoardingStatus],
+        FieldMetadata(alias="boardingSubStatus"),
+        pydantic.Field(alias="boardingSubStatus"),
     ] = None
-    b_phone: typing_extensions.Annotated[typing.Optional[Bphone], FieldMetadata(alias="bPhone")] = None
-    b_startdate: typing_extensions.Annotated[typing.Optional[Busstartdate], FieldMetadata(alias="bStartdate")] = None
-    b_state: typing_extensions.Annotated[typing.Optional[Bstate], FieldMetadata(alias="bState")] = None
-    b_summary: typing_extensions.Annotated[typing.Optional[Bsummary], FieldMetadata(alias="bSummary")] = None
-    builder_data: typing_extensions.Annotated[typing.Optional[BuilderData], FieldMetadata(alias="builderData")] = None
-    b_zip: typing_extensions.Annotated[typing.Optional[Bzip], FieldMetadata(alias="bZip")] = None
-    contact_data: typing_extensions.Annotated[typing.Optional[ContactsField], FieldMetadata(alias="contactData")] = None
-    created_at: typing_extensions.Annotated[typing.Optional[CreatedAt], FieldMetadata(alias="createdAt")] = None
-    dba_name: typing_extensions.Annotated[typing.Optional[Dbaname], FieldMetadata(alias="dbaName")] = None
+    b_phone: typing_extensions.Annotated[
+        typing.Optional[Bphone], FieldMetadata(alias="bPhone"), pydantic.Field(alias="bPhone")
+    ] = None
+    b_startdate: typing_extensions.Annotated[
+        typing.Optional[Busstartdate], FieldMetadata(alias="bStartdate"), pydantic.Field(alias="bStartdate")
+    ] = None
+    b_state: typing_extensions.Annotated[
+        typing.Optional[Bstate], FieldMetadata(alias="bState"), pydantic.Field(alias="bState")
+    ] = None
+    b_summary: typing_extensions.Annotated[
+        typing.Optional[Bsummary], FieldMetadata(alias="bSummary"), pydantic.Field(alias="bSummary")
+    ] = None
+    builder_data: typing_extensions.Annotated[
+        typing.Optional[BuilderData], FieldMetadata(alias="builderData"), pydantic.Field(alias="builderData")
+    ] = None
+    b_zip: typing_extensions.Annotated[
+        typing.Optional[Bzip], FieldMetadata(alias="bZip"), pydantic.Field(alias="bZip")
+    ] = None
+    contact_data: typing_extensions.Annotated[
+        typing.Optional[ContactsField], FieldMetadata(alias="contactData"), pydantic.Field(alias="contactData")
+    ] = None
+    created_at: typing_extensions.Annotated[
+        typing.Optional[CreatedAt], FieldMetadata(alias="createdAt"), pydantic.Field(alias="createdAt")
+    ] = None
+    dba_name: typing_extensions.Annotated[
+        typing.Optional[Dbaname], FieldMetadata(alias="dbaName"), pydantic.Field(alias="dbaName")
+    ] = None
     documents_ref: typing_extensions.Annotated[
-        typing.Optional[BoardingApplicationAttachments], FieldMetadata(alias="documentsRef")
+        typing.Optional[BoardingApplicationAttachments],
+        FieldMetadata(alias="documentsRef"),
+        pydantic.Field(alias="documentsRef"),
     ] = None
     ein: typing.Optional[Ein] = None
     external_paypoint_id: typing_extensions.Annotated[
-        typing.Optional[ExternalPaypointId], FieldMetadata(alias="externalPaypointId")
+        typing.Optional[ExternalPaypointId],
+        FieldMetadata(alias="externalPaypointId"),
+        pydantic.Field(alias="externalPaypointId"),
     ] = None
     general_events: typing_extensions.Annotated[
-        typing.Optional[typing.List[GeneralEvents]], FieldMetadata(alias="generalEvents")
-    ] = pydantic.Field(default=None)
-    """
-    Events associated with the application.
-    """
-
-    high_ticket_amount: typing_extensions.Annotated[
-        typing.Optional[Highticketamt], FieldMetadata(alias="highTicketAmount")
+        typing.Optional[typing.List[GeneralEvents]],
+        FieldMetadata(alias="generalEvents"),
+        pydantic.Field(alias="generalEvents", description="Events associated with the application."),
     ] = None
-    id_application: typing_extensions.Annotated[typing.Optional[AppId], FieldMetadata(alias="idApplication")] = None
-    last_modified: typing_extensions.Annotated[typing.Optional[LastModified], FieldMetadata(alias="lastModified")] = (
-        None
-    )
-    legal_name: typing_extensions.Annotated[typing.Optional[Legalname], FieldMetadata(alias="legalName")] = None
+    high_ticket_amount: typing_extensions.Annotated[
+        typing.Optional[Highticketamt],
+        FieldMetadata(alias="highTicketAmount"),
+        pydantic.Field(alias="highTicketAmount"),
+    ] = None
+    id_application: typing_extensions.Annotated[
+        typing.Optional[AppId], FieldMetadata(alias="idApplication"), pydantic.Field(alias="idApplication")
+    ] = None
+    last_modified: typing_extensions.Annotated[
+        typing.Optional[LastModified], FieldMetadata(alias="lastModified"), pydantic.Field(alias="lastModified")
+    ] = None
+    legal_name: typing_extensions.Annotated[
+        typing.Optional[Legalname], FieldMetadata(alias="legalName"), pydantic.Field(alias="legalName")
+    ] = None
     license: typing.Optional[License] = None
-    license_state: typing_extensions.Annotated[typing.Optional[Licensestate], FieldMetadata(alias="licenseState")] = (
-        None
-    )
+    license_state: typing_extensions.Annotated[
+        typing.Optional[Licensestate], FieldMetadata(alias="licenseState"), pydantic.Field(alias="licenseState")
+    ] = None
     logo: typing.Optional[str] = pydantic.Field(default=None)
     """
     A URL pointing to a logo file.
     """
 
-    m_address_1: typing_extensions.Annotated[typing.Optional[Maddress], FieldMetadata(alias="mAddress1")] = None
-    m_address_2: typing_extensions.Annotated[typing.Optional[Maddress1], FieldMetadata(alias="mAddress2")] = None
-    mccid: typing.Optional[str] = None
-    m_city: typing_extensions.Annotated[typing.Optional[Mstate], FieldMetadata(alias="mCity")] = None
-    m_country: typing_extensions.Annotated[typing.Optional[Mcountry], FieldMetadata(alias="mCountry")] = None
-    messages: typing.Optional[typing.List[ApplicationDetailsRecordMessagesItem]] = None
-    m_state: typing_extensions.Annotated[typing.Optional[Mstate], FieldMetadata(alias="mState")] = None
-    m_zip: typing_extensions.Annotated[typing.Optional[Mzip], FieldMetadata(alias="mZip")] = None
-    org_id: typing_extensions.Annotated[typing.Optional[Orgid], FieldMetadata(alias="orgId")] = None
-    org_parent_name: typing_extensions.Annotated[
-        typing.Optional[OrgParentName], FieldMetadata(alias="orgParentName")
+    m_address_1: typing_extensions.Annotated[
+        typing.Optional[Maddress], FieldMetadata(alias="mAddress1"), pydantic.Field(alias="mAddress1")
     ] = None
-    owner_data: typing_extensions.Annotated[typing.Optional[Ownership], FieldMetadata(alias="ownerData")] = None
-    own_type: typing_extensions.Annotated[typing.Optional[OwnType], FieldMetadata(alias="ownType")] = None
+    m_address_2: typing_extensions.Annotated[
+        typing.Optional[Maddress1], FieldMetadata(alias="mAddress2"), pydantic.Field(alias="mAddress2")
+    ] = None
+    mccid: typing.Optional[str] = None
+    m_city: typing_extensions.Annotated[
+        typing.Optional[Mstate], FieldMetadata(alias="mCity"), pydantic.Field(alias="mCity")
+    ] = None
+    m_country: typing_extensions.Annotated[
+        typing.Optional[Mcountry], FieldMetadata(alias="mCountry"), pydantic.Field(alias="mCountry")
+    ] = None
+    messages: typing.Optional[typing.List[ApplicationDetailsRecordMessagesItem]] = None
+    m_state: typing_extensions.Annotated[
+        typing.Optional[Mstate], FieldMetadata(alias="mState"), pydantic.Field(alias="mState")
+    ] = None
+    m_zip: typing_extensions.Annotated[
+        typing.Optional[Mzip], FieldMetadata(alias="mZip"), pydantic.Field(alias="mZip")
+    ] = None
+    org_id: typing_extensions.Annotated[
+        typing.Optional[Orgid], FieldMetadata(alias="orgId"), pydantic.Field(alias="orgId")
+    ] = None
+    org_parent_name: typing_extensions.Annotated[
+        typing.Optional[OrgParentName], FieldMetadata(alias="orgParentName"), pydantic.Field(alias="orgParentName")
+    ] = None
+    owner_data: typing_extensions.Annotated[
+        typing.Optional[Ownership], FieldMetadata(alias="ownerData"), pydantic.Field(alias="ownerData")
+    ] = None
+    own_type: typing_extensions.Annotated[
+        typing.Optional[OwnType], FieldMetadata(alias="ownType"), pydantic.Field(alias="ownType")
+    ] = None
     pageidentifier: typing.Optional[PageIdentifier] = None
     recipient_email_notification: typing_extensions.Annotated[
-        typing.Optional[RecipientEmailNotification], FieldMetadata(alias="recipientEmailNotification")
+        typing.Optional[RecipientEmailNotification],
+        FieldMetadata(alias="recipientEmailNotification"),
+        pydantic.Field(alias="recipientEmailNotification"),
     ] = None
     resumable: typing.Optional[Resumable] = None
-    sales_code: typing_extensions.Annotated[typing.Optional[SalesCode], FieldMetadata(alias="salesCode")] = None
-    service_data: typing_extensions.Annotated[typing.Optional[Services], FieldMetadata(alias="serviceData")] = None
+    sales_code: typing_extensions.Annotated[
+        typing.Optional[SalesCode], FieldMetadata(alias="salesCode"), pydantic.Field(alias="salesCode")
+    ] = None
+    service_data: typing_extensions.Annotated[
+        typing.Optional[Services], FieldMetadata(alias="serviceData"), pydantic.Field(alias="serviceData")
+    ] = None
     signer: typing.Optional[SignerData] = None
     taxfillname: typing.Optional[Taxfillname] = None
-    template_id: typing_extensions.Annotated[typing.Optional[TemplateId], FieldMetadata(alias="templateId")] = None
-    website_address: typing_extensions.Annotated[typing.Optional[Website], FieldMetadata(alias="websiteAddress")] = None
+    template_id: typing_extensions.Annotated[
+        typing.Optional[TemplateId], FieldMetadata(alias="templateId"), pydantic.Field(alias="templateId")
+    ] = None
+    website_address: typing_extensions.Annotated[
+        typing.Optional[Website], FieldMetadata(alias="websiteAddress"), pydantic.Field(alias="websiteAddress")
+    ] = None
     whencharged: typing.Optional[Whencharged] = None
     whendelivered: typing.Optional[Whendelivered] = None
-    when_provided: typing_extensions.Annotated[typing.Optional[Whenprovided], FieldMetadata(alias="whenProvided")] = (
-        None
-    )
+    when_provided: typing_extensions.Annotated[
+        typing.Optional[Whenprovided], FieldMetadata(alias="whenProvided"), pydantic.Field(alias="whenProvided")
+    ] = None
     whenrefund: typing.Optional[Whenrefunded] = None
     additional_data: typing_extensions.Annotated[
-        typing.Optional[AdditionalDataString], FieldMetadata(alias="additionalData")
+        typing.Optional[AdditionalDataString],
+        FieldMetadata(alias="additionalData"),
+        pydantic.Field(alias="additionalData"),
     ] = None
 
     if IS_PYDANTIC_V2:

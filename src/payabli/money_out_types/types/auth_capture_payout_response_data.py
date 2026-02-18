@@ -17,19 +17,35 @@ from ...types.resulttext import Resulttext
 
 
 class AuthCapturePayoutResponseData(UniversalBaseModel):
-    auth_code: typing_extensions.Annotated[typing.Optional[Authcode], FieldMetadata(alias="authCode")] = None
-    reference_id: typing_extensions.Annotated[Referenceidtrans, FieldMetadata(alias="referenceId")]
-    result_code: typing_extensions.Annotated[ResultCode, FieldMetadata(alias="resultCode")]
-    result_text: typing_extensions.Annotated[Resulttext, FieldMetadata(alias="resultText")]
+    auth_code: typing_extensions.Annotated[
+        typing.Optional[Authcode], FieldMetadata(alias="authCode"), pydantic.Field(alias="authCode")
+    ] = None
+    reference_id: typing_extensions.Annotated[
+        Referenceidtrans, FieldMetadata(alias="referenceId"), pydantic.Field(alias="referenceId")
+    ]
+    result_code: typing_extensions.Annotated[
+        ResultCode, FieldMetadata(alias="resultCode"), pydantic.Field(alias="resultCode")
+    ]
+    result_text: typing_extensions.Annotated[
+        Resulttext, FieldMetadata(alias="resultText"), pydantic.Field(alias="resultText")
+    ]
     avs_response_text: typing_extensions.Annotated[
-        typing.Optional[AvsResponseText], FieldMetadata(alias="avsResponseText")
+        typing.Optional[AvsResponseText],
+        FieldMetadata(alias="avsResponseText"),
+        pydantic.Field(alias="avsResponseText"),
     ] = None
     cvv_response_text: typing_extensions.Annotated[
-        typing.Optional[CvvResponseText], FieldMetadata(alias="cvvResponseText")
+        typing.Optional[CvvResponseText],
+        FieldMetadata(alias="cvvResponseText"),
+        pydantic.Field(alias="cvvResponseText"),
     ] = None
-    customer_id: typing_extensions.Annotated[Customeridtrans, FieldMetadata(alias="customerId")]
+    customer_id: typing_extensions.Annotated[
+        Customeridtrans, FieldMetadata(alias="customerId"), pydantic.Field(alias="customerId")
+    ]
     method_reference_id: typing_extensions.Annotated[
-        typing.Optional[MethodReferenceId], FieldMetadata(alias="methodReferenceId")
+        typing.Optional[MethodReferenceId],
+        FieldMetadata(alias="methodReferenceId"),
+        pydantic.Field(alias="methodReferenceId"),
     ] = None
 
     if IS_PYDANTIC_V2:

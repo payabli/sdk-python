@@ -26,8 +26,12 @@ class NotificationStandardRequest(UniversalBaseModel):
     Get near-instant notifications via email, SMS, or webhooks for important events like new payment disputes, merchant activations, fraud alerts, approved transactions, settlement history, vendor payouts, and more. Use webhooks with notifications to get real-time updates and automate operations based on key those key events. See [Notifications](/developers/developer-guides/notifications-and-webhooks-overview#notifications) for more.
     """
 
-    owner_id: typing_extensions.Annotated[typing.Optional[Ownerid], FieldMetadata(alias="ownerId")] = None
-    owner_type: typing_extensions.Annotated[Ownertype, FieldMetadata(alias="ownerType")]
+    owner_id: typing_extensions.Annotated[
+        typing.Optional[Ownerid], FieldMetadata(alias="ownerId"), pydantic.Field(alias="ownerId")
+    ] = None
+    owner_type: typing_extensions.Annotated[
+        Ownertype, FieldMetadata(alias="ownerType"), pydantic.Field(alias="ownerType")
+    ]
     status: typing.Optional[Statusnotification] = None
     target: str = pydantic.Field()
     """

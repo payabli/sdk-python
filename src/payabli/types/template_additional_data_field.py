@@ -16,10 +16,16 @@ from .visible import Visible
 
 class TemplateAdditionalDataField(UniversalBaseModel):
     visible: typing.Optional[Visible] = None
-    read_only: typing_extensions.Annotated[typing.Optional[ReadOnly], FieldMetadata(alias="readOnly")] = None
+    read_only: typing_extensions.Annotated[
+        typing.Optional[ReadOnly], FieldMetadata(alias="readOnly"), pydantic.Field(alias="readOnly")
+    ] = None
     required: typing.Optional[RequiredElement] = None
-    pos_row: typing_extensions.Annotated[typing.Optional[PosRow], FieldMetadata(alias="posRow")] = None
-    pos_col: typing_extensions.Annotated[typing.Optional[PosCol], FieldMetadata(alias="posCol")] = None
+    pos_row: typing_extensions.Annotated[
+        typing.Optional[PosRow], FieldMetadata(alias="posRow"), pydantic.Field(alias="posRow")
+    ] = None
+    pos_col: typing_extensions.Annotated[
+        typing.Optional[PosCol], FieldMetadata(alias="posCol"), pydantic.Field(alias="posCol")
+    ] = None
     value: typing.Optional[ValueTemplates] = None
     label: typing.Optional[str] = None
     type: typing.Optional[str] = None

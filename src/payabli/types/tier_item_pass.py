@@ -10,18 +10,22 @@ from ..core.serialization import FieldMetadata
 
 class TierItemPass(UniversalBaseModel):
     amount_feeone_time: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="amountFeeone-time")
+        typing.Optional[float], FieldMetadata(alias="amountFeeone-time"), pydantic.Field(alias="amountFeeone-time")
     ] = None
     amount_fee_recurring: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="amountFeeRecurring")
+        typing.Optional[float], FieldMetadata(alias="amountFeeRecurring"), pydantic.Field(alias="amountFeeRecurring")
     ] = None
-    high_pay_range: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="highPayRange")] = None
-    low_pay_range: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="lowPayRange")] = None
+    high_pay_range: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="highPayRange"), pydantic.Field(alias="highPayRange")
+    ] = None
+    low_pay_range: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="lowPayRange"), pydantic.Field(alias="lowPayRange")
+    ] = None
     percent_feeone_time: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="percentFeeone-time")
+        typing.Optional[float], FieldMetadata(alias="percentFeeone-time"), pydantic.Field(alias="percentFeeone-time")
     ] = None
     percent_fee_recurring: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="percentFeeRecurring")
+        typing.Optional[float], FieldMetadata(alias="percentFeeRecurring"), pydantic.Field(alias="percentFeeRecurring")
     ] = None
 
     if IS_PYDANTIC_V2:

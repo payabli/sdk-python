@@ -16,10 +16,16 @@ class AddPaymentMethodDomainApiResponse(UniversalBaseModel):
     Response for the add payment method domain operation.
     """
 
-    is_success: typing_extensions.Annotated[IsSuccess, FieldMetadata(alias="isSuccess")]
+    is_success: typing_extensions.Annotated[
+        IsSuccess, FieldMetadata(alias="isSuccess"), pydantic.Field(alias="isSuccess")
+    ]
     pageidentifier: PageIdentifier
-    response_data: typing_extensions.Annotated[PaymentMethodDomainApiResponse, FieldMetadata(alias="responseData")]
-    response_text: typing_extensions.Annotated[str, FieldMetadata(alias="responseText")]
+    response_data: typing_extensions.Annotated[
+        PaymentMethodDomainApiResponse, FieldMetadata(alias="responseData"), pydantic.Field(alias="responseData")
+    ]
+    response_text: typing_extensions.Annotated[
+        str, FieldMetadata(alias="responseText"), pydantic.Field(alias="responseText")
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

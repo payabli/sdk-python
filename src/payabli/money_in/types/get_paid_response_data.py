@@ -22,22 +22,39 @@ class GetPaidResponseData(UniversalBaseModel):
     Response data for GetPaid transactions
     """
 
-    auth_code: typing_extensions.Annotated[typing.Optional[Authcode], FieldMetadata(alias="authCode")] = None
+    auth_code: typing_extensions.Annotated[
+        typing.Optional[Authcode], FieldMetadata(alias="authCode"), pydantic.Field(alias="authCode")
+    ] = None
     transaction_details: typing_extensions.Annotated[
-        typing.Optional[TransactionDetailRecord], FieldMetadata(alias="transactionDetails")
-    ] = pydantic.Field(default=None)
-    """
-    Details of the transaction. Present only if `includeDetails` query parameter is set to `true` in the request.
-    """
-
-    reference_id: typing_extensions.Annotated[Referenceidtrans, FieldMetadata(alias="referenceId")]
-    result_code: typing_extensions.Annotated[ResultCode, FieldMetadata(alias="resultCode")]
-    result_text: typing_extensions.Annotated[Resulttext, FieldMetadata(alias="resultText")]
-    avs_response_text: typing_extensions.Annotated[AvsResponseText, FieldMetadata(alias="avsResponseText")]
-    cvv_response_text: typing_extensions.Annotated[CvvResponseText, FieldMetadata(alias="cvvResponseText")]
-    customer_id: typing_extensions.Annotated[Customeridtrans, FieldMetadata(alias="customerId")]
+        typing.Optional[TransactionDetailRecord],
+        FieldMetadata(alias="transactionDetails"),
+        pydantic.Field(
+            alias="transactionDetails",
+            description="Details of the transaction. Present only if `includeDetails` query parameter is set to `true` in the request.",
+        ),
+    ] = None
+    reference_id: typing_extensions.Annotated[
+        Referenceidtrans, FieldMetadata(alias="referenceId"), pydantic.Field(alias="referenceId")
+    ]
+    result_code: typing_extensions.Annotated[
+        ResultCode, FieldMetadata(alias="resultCode"), pydantic.Field(alias="resultCode")
+    ]
+    result_text: typing_extensions.Annotated[
+        Resulttext, FieldMetadata(alias="resultText"), pydantic.Field(alias="resultText")
+    ]
+    avs_response_text: typing_extensions.Annotated[
+        AvsResponseText, FieldMetadata(alias="avsResponseText"), pydantic.Field(alias="avsResponseText")
+    ]
+    cvv_response_text: typing_extensions.Annotated[
+        CvvResponseText, FieldMetadata(alias="cvvResponseText"), pydantic.Field(alias="cvvResponseText")
+    ]
+    customer_id: typing_extensions.Annotated[
+        Customeridtrans, FieldMetadata(alias="customerId"), pydantic.Field(alias="customerId")
+    ]
     method_reference_id: typing_extensions.Annotated[
-        typing.Optional[MethodReferenceId], FieldMetadata(alias="methodReferenceId")
+        typing.Optional[MethodReferenceId],
+        FieldMetadata(alias="methodReferenceId"),
+        pydantic.Field(alias="methodReferenceId"),
     ] = None
 
     if IS_PYDANTIC_V2:

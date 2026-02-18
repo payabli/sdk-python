@@ -21,7 +21,9 @@ class TokenizeCard(UniversalBaseModel):
 
     cardcvv: typing.Optional[Cardcvv] = None
     cardexp: Cardexp
-    card_holder: typing_extensions.Annotated[Cardholder, FieldMetadata(alias="cardHolder")]
+    card_holder: typing_extensions.Annotated[
+        Cardholder, FieldMetadata(alias="cardHolder"), pydantic.Field(alias="cardHolder")
+    ]
     cardnumber: Cardnumber
     cardzip: typing.Optional[Cardzip] = None
 

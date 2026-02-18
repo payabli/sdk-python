@@ -11,17 +11,16 @@ from .query_transfer_summary import QueryTransferSummary
 
 
 class QueryTransferResponse(UniversalBaseModel):
-    summary: typing_extensions.Annotated[QueryTransferSummary, FieldMetadata(alias="Summary")] = pydantic.Field()
-    """
-    Summary information about the transfers.
-    """
-
-    records: typing_extensions.Annotated[typing.List[TransactionQueryRecords], FieldMetadata(alias="Records")] = (
-        pydantic.Field()
-    )
-    """
-    List of transfer transaction records.
-    """
+    summary: typing_extensions.Annotated[
+        QueryTransferSummary,
+        FieldMetadata(alias="Summary"),
+        pydantic.Field(alias="Summary", description="Summary information about the transfers."),
+    ]
+    records: typing_extensions.Annotated[
+        typing.List[TransactionQueryRecords],
+        FieldMetadata(alias="Records"),
+        pydantic.Field(alias="Records", description="List of transfer transaction records."),
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

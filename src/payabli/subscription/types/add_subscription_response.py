@@ -27,13 +27,20 @@ class AddSubscriptionResponse(UniversalBaseModel):
     )
     """
 
-    customer_id: typing_extensions.Annotated[typing.Optional[CustomerId], FieldMetadata(alias="customerId")] = None
-    response_text: typing_extensions.Annotated[ResponseText, FieldMetadata(alias="responseText")]
-    is_success: typing_extensions.Annotated[typing.Optional[IsSuccess], FieldMetadata(alias="isSuccess")] = None
-    response_data: typing_extensions.Annotated[int, FieldMetadata(alias="responseData")] = pydantic.Field()
-    """
-    The identifier of the newly created subscription.
-    """
+    customer_id: typing_extensions.Annotated[
+        typing.Optional[CustomerId], FieldMetadata(alias="customerId"), pydantic.Field(alias="customerId")
+    ] = None
+    response_text: typing_extensions.Annotated[
+        ResponseText, FieldMetadata(alias="responseText"), pydantic.Field(alias="responseText")
+    ]
+    is_success: typing_extensions.Annotated[
+        typing.Optional[IsSuccess], FieldMetadata(alias="isSuccess"), pydantic.Field(alias="isSuccess")
+    ] = None
+    response_data: typing_extensions.Annotated[
+        int,
+        FieldMetadata(alias="responseData"),
+        pydantic.Field(alias="responseData", description="The identifier of the newly created subscription."),
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

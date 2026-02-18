@@ -166,19 +166,16 @@ class BillQueryResponse(UniversalBaseModel):
     )
     """
 
-    summary: typing_extensions.Annotated[typing.Optional[BillQueryResponseSummary], FieldMetadata(alias="Summary")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Summary statistics for the bill query response.
-    """
-
+    summary: typing_extensions.Annotated[
+        typing.Optional[BillQueryResponseSummary],
+        FieldMetadata(alias="Summary"),
+        pydantic.Field(alias="Summary", description="Summary statistics for the bill query response."),
+    ] = None
     records: typing_extensions.Annotated[
-        typing.Optional[typing.List[BillQueryRecord2]], FieldMetadata(alias="Records")
-    ] = pydantic.Field(default=None)
-    """
-    Array of bill records returned by the query.
-    """
+        typing.Optional[typing.List[BillQueryRecord2]],
+        FieldMetadata(alias="Records"),
+        pydantic.Field(alias="Records", description="Array of bill records returned by the query."),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

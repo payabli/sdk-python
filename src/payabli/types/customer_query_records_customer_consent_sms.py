@@ -16,7 +16,9 @@ class CustomerQueryRecordsCustomerConsentSms(UniversalBaseModel):
     """
 
     status: typing.Optional[OptinStatus] = None
-    updated_at: typing_extensions.Annotated[typing.Optional[LastModified], FieldMetadata(alias="updatedAt")] = None
+    updated_at: typing_extensions.Annotated[
+        typing.Optional[LastModified], FieldMetadata(alias="updatedAt"), pydantic.Field(alias="updatedAt")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

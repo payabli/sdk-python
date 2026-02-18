@@ -13,9 +13,15 @@ from .response_data_refunds import ResponseDataRefunds
 
 
 class RefundWithInstructionsResponse(UniversalBaseModel):
-    response_text: typing_extensions.Annotated[ResponseText, FieldMetadata(alias="responseText")]
-    is_success: typing_extensions.Annotated[IsSuccess, FieldMetadata(alias="isSuccess")]
-    response_data: typing_extensions.Annotated[ResponseDataRefunds, FieldMetadata(alias="responseData")]
+    response_text: typing_extensions.Annotated[
+        ResponseText, FieldMetadata(alias="responseText"), pydantic.Field(alias="responseText")
+    ]
+    is_success: typing_extensions.Annotated[
+        IsSuccess, FieldMetadata(alias="isSuccess"), pydantic.Field(alias="isSuccess")
+    ]
+    response_data: typing_extensions.Annotated[
+        ResponseDataRefunds, FieldMetadata(alias="responseData"), pydantic.Field(alias="responseData")
+    ]
     pageidentifier: typing.Optional[PageIdentifier] = None
 
     if IS_PYDANTIC_V2:

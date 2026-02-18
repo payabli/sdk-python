@@ -17,14 +17,16 @@ class BankSection(UniversalBaseModel):
 
     visible: typing.Optional[Visible] = None
     account_number: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="accountNumber")
+        typing.Optional[TemplateElement], FieldMetadata(alias="accountNumber"), pydantic.Field(alias="accountNumber")
     ] = None
-    account_type: typing_extensions.Annotated[typing.Optional[TemplateElement], FieldMetadata(alias="accountType")] = (
-        None
-    )
-    bank_name: typing_extensions.Annotated[typing.Optional[TemplateElement], FieldMetadata(alias="bankName")] = None
+    account_type: typing_extensions.Annotated[
+        typing.Optional[TemplateElement], FieldMetadata(alias="accountType"), pydantic.Field(alias="accountType")
+    ] = None
+    bank_name: typing_extensions.Annotated[
+        typing.Optional[TemplateElement], FieldMetadata(alias="bankName"), pydantic.Field(alias="bankName")
+    ] = None
     routing_number: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="routingNumber")
+        typing.Optional[TemplateElement], FieldMetadata(alias="routingNumber"), pydantic.Field(alias="routingNumber")
     ] = None
 
     if IS_PYDANTIC_V2:

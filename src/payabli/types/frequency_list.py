@@ -14,27 +14,21 @@ class FrequencyList(UniversalBaseModel):
     Enable or disable frequency
     """
 
-    every_2_weeks: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="every2Weeks")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Enable or disable frequency
-    """
-
-    every_3_months: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="every3Months")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Enable or disable frequency
-    """
-
-    every_6_months: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="every6Months")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Enable or disable frequency
-    """
-
+    every_2_weeks: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="every2Weeks"),
+        pydantic.Field(alias="every2Weeks", description="Enable or disable frequency"),
+    ] = None
+    every_3_months: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="every3Months"),
+        pydantic.Field(alias="every3Months", description="Enable or disable frequency"),
+    ] = None
+    every_6_months: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="every6Months"),
+        pydantic.Field(alias="every6Months", description="Enable or disable frequency"),
+    ] = None
     monthly: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Enable or disable frequency

@@ -17,9 +17,13 @@ class PushPayLinkRequest_Email(UniversalBaseModel):
 
     channel: typing.Literal["email"] = "email"
     additional_emails: typing_extensions.Annotated[
-        typing.Optional[typing.List[str]], FieldMetadata(alias="additionalEmails")
+        typing.Optional[typing.List[str]],
+        FieldMetadata(alias="additionalEmails"),
+        pydantic.Field(alias="additionalEmails"),
     ] = None
-    attach_file: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="attachFile")] = None
+    attach_file: typing_extensions.Annotated[
+        typing.Optional[bool], FieldMetadata(alias="attachFile"), pydantic.Field(alias="attachFile")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

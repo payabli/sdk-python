@@ -13,16 +13,20 @@ from ...types.responsedatanonobject import Responsedatanonobject
 
 
 class DeletePaymentMethodDomainResponse(UniversalBaseModel):
-    is_success: typing_extensions.Annotated[IsSuccess, FieldMetadata(alias="isSuccess")]
-    page_identifier: typing_extensions.Annotated[PageIdentifier, FieldMetadata(alias="pageIdentifier")]
-    response_data: typing_extensions.Annotated[Responsedatanonobject, FieldMetadata(alias="responseData")] = (
-        pydantic.Field()
-    )
-    """
-    The deleted domain's domain ID.
-    """
-
-    response_text: typing_extensions.Annotated[ResponseText, FieldMetadata(alias="responseText")]
+    is_success: typing_extensions.Annotated[
+        IsSuccess, FieldMetadata(alias="isSuccess"), pydantic.Field(alias="isSuccess")
+    ]
+    page_identifier: typing_extensions.Annotated[
+        PageIdentifier, FieldMetadata(alias="pageIdentifier"), pydantic.Field(alias="pageIdentifier")
+    ]
+    response_data: typing_extensions.Annotated[
+        Responsedatanonobject,
+        FieldMetadata(alias="responseData"),
+        pydantic.Field(alias="responseData", description="The deleted domain's domain ID."),
+    ]
+    response_text: typing_extensions.Annotated[
+        ResponseText, FieldMetadata(alias="responseText"), pydantic.Field(alias="responseText")
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

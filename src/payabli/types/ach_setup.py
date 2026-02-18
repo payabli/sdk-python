@@ -9,26 +9,30 @@ from ..core.serialization import FieldMetadata
 
 
 class AchSetup(UniversalBaseModel):
-    accept_ccd: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="acceptCCD")] = pydantic.Field(
-        default=None
-    )
-    """
-    CCD is an ACH SEC Code that can be used in ACH transactions by the user that indicates the transaction is a Corporate Credit or Debit Entry. Options are: `true` and `false`
-    """
-
-    accept_ppd: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="acceptPPD")] = pydantic.Field(
-        default=None
-    )
-    """
-    PPD is an ACH SEC Code that can be used in ACH transactions by the user that indicates the transaction is a Prearranged Payment and Deposit.
-    """
-
-    accept_web: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="acceptWeb")] = pydantic.Field(
-        default=None
-    )
-    """
-    Web is an ACH SEC Code that can be used in ACH transactions by the user that indicates the transaction is a Internet Initiated/Mobile Entry Options are `true` and `false`.
-    """
+    accept_ccd: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="acceptCCD"),
+        pydantic.Field(
+            alias="acceptCCD",
+            description="CCD is an ACH SEC Code that can be used in ACH transactions by the user that indicates the transaction is a Corporate Credit or Debit Entry. Options are: `true` and `false`",
+        ),
+    ] = None
+    accept_ppd: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="acceptPPD"),
+        pydantic.Field(
+            alias="acceptPPD",
+            description="PPD is an ACH SEC Code that can be used in ACH transactions by the user that indicates the transaction is a Prearranged Payment and Deposit.",
+        ),
+    ] = None
+    accept_web: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="acceptWeb"),
+        pydantic.Field(
+            alias="acceptWeb",
+            description="Web is an ACH SEC Code that can be used in ACH transactions by the user that indicates the transaction is a Internet Initiated/Mobile Entry Options are `true` and `false`.",
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

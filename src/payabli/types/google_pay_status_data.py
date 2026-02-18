@@ -14,13 +14,13 @@ class GooglePayStatusData(UniversalBaseModel):
     Details about the Google Pay service status.
     """
 
-    error_message: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="errorMessage")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Any error message related to Google Pay's activation status.
-    """
-
+    error_message: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="errorMessage"),
+        pydantic.Field(
+            alias="errorMessage", description="Any error message related to Google Pay's activation status."
+        ),
+    ] = None
     metadata: typing.Optional[GooglePayMetadata] = None
 
     if IS_PYDANTIC_V2:

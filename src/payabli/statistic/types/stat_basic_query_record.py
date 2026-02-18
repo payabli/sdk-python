@@ -9,34 +9,29 @@ from ...core.serialization import FieldMetadata
 
 
 class StatBasicQueryRecord(UniversalBaseModel):
-    stat_x: typing_extensions.Annotated[str, FieldMetadata(alias="statX")] = pydantic.Field()
-    """
-    Statistical grouping identifier
-    """
-
-    in_transactions: typing_extensions.Annotated[int, FieldMetadata(alias="inTransactions")] = pydantic.Field()
-    """
-    Number of incoming transactions
-    """
-
-    in_transactions_volume: typing_extensions.Annotated[float, FieldMetadata(alias="inTransactionsVolume")] = (
-        pydantic.Field()
-    )
-    """
-    Volume of incoming transactions
-    """
-
-    in_wallet_transactions: typing_extensions.Annotated[int, FieldMetadata(alias="inWalletTransactions")] = (
-        pydantic.Field()
-    )
-    """
-    Number of incoming wallet transactions
-    """
-
-    in_wallet_volume: typing_extensions.Annotated[float, FieldMetadata(alias="inWalletVolume")] = pydantic.Field()
-    """
-    Volume of incoming wallet transactions
-    """
+    stat_x: typing_extensions.Annotated[
+        str, FieldMetadata(alias="statX"), pydantic.Field(alias="statX", description="Statistical grouping identifier")
+    ]
+    in_transactions: typing_extensions.Annotated[
+        int,
+        FieldMetadata(alias="inTransactions"),
+        pydantic.Field(alias="inTransactions", description="Number of incoming transactions"),
+    ]
+    in_transactions_volume: typing_extensions.Annotated[
+        float,
+        FieldMetadata(alias="inTransactionsVolume"),
+        pydantic.Field(alias="inTransactionsVolume", description="Volume of incoming transactions"),
+    ]
+    in_wallet_transactions: typing_extensions.Annotated[
+        int,
+        FieldMetadata(alias="inWalletTransactions"),
+        pydantic.Field(alias="inWalletTransactions", description="Number of incoming wallet transactions"),
+    ]
+    in_wallet_volume: typing_extensions.Annotated[
+        float,
+        FieldMetadata(alias="inWalletVolume"),
+        pydantic.Field(alias="inWalletVolume", description="Volume of incoming wallet transactions"),
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

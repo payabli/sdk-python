@@ -11,24 +11,42 @@ from .created_at import CreatedAt
 
 class ApplicationDetailsRecordMessagesItem(UniversalBaseModel):
     content: typing.Optional[str] = None
-    created_at: typing_extensions.Annotated[typing.Optional[CreatedAt], FieldMetadata(alias="createdAt")] = None
+    created_at: typing_extensions.Annotated[
+        typing.Optional[CreatedAt], FieldMetadata(alias="createdAt"), pydantic.Field(alias="createdAt")
+    ] = None
     current_application_status: typing_extensions.Annotated[
-        typing.Optional[int], FieldMetadata(alias="currentApplicationStatus")
+        typing.Optional[int],
+        FieldMetadata(alias="currentApplicationStatus"),
+        pydantic.Field(alias="currentApplicationStatus"),
     ] = None
     current_application_sub_status: typing_extensions.Annotated[
-        typing.Optional[int], FieldMetadata(alias="currentApplicationSubStatus")
+        typing.Optional[int],
+        FieldMetadata(alias="currentApplicationSubStatus"),
+        pydantic.Field(alias="currentApplicationSubStatus"),
     ] = None
     id: typing.Optional[int] = None
-    message_type: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="messageType")] = None
+    message_type: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="messageType"), pydantic.Field(alias="messageType")
+    ] = None
     original_application_status: typing_extensions.Annotated[
-        typing.Optional[int], FieldMetadata(alias="originalApplicationStatus")
+        typing.Optional[int],
+        FieldMetadata(alias="originalApplicationStatus"),
+        pydantic.Field(alias="originalApplicationStatus"),
     ] = None
     original_application_sub_status: typing_extensions.Annotated[
-        typing.Optional[int], FieldMetadata(alias="originalApplicationSubStatus")
+        typing.Optional[int],
+        FieldMetadata(alias="originalApplicationSubStatus"),
+        pydantic.Field(alias="originalApplicationSubStatus"),
     ] = None
-    room_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="roomId")] = None
-    user_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="userId")] = None
-    user_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="userName")] = None
+    room_id: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="roomId"), pydantic.Field(alias="roomId")
+    ] = None
+    user_id: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="userId"), pydantic.Field(alias="userId")
+    ] = None
+    user_name: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="userName"), pydantic.Field(alias="userName")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

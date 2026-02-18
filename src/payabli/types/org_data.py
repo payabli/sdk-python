@@ -14,22 +14,26 @@ from .orgtype import Orgtype
 
 
 class OrgData(UniversalBaseModel):
-    id_org: typing_extensions.Annotated[typing.Optional[Orgid], FieldMetadata(alias="idOrg")] = None
-    org_address: typing_extensions.Annotated[typing.Optional[Orgaddress], FieldMetadata(alias="orgAddress")] = None
-    org_logo: typing_extensions.Annotated[typing.Optional[FileContent], FieldMetadata(alias="orgLogo")] = None
-    org_name: typing_extensions.Annotated[typing.Optional[Orgname], FieldMetadata(alias="orgName")] = None
-    org_status: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="orgStatus")] = pydantic.Field(
-        default=None
-    )
-    """
-    The paypoint's status. 
-    
-    Active - `1`
-    
-    Inactive - 0
-    """
-
-    org_type: typing_extensions.Annotated[typing.Optional[Orgtype], FieldMetadata(alias="orgType")] = None
+    id_org: typing_extensions.Annotated[
+        typing.Optional[Orgid], FieldMetadata(alias="idOrg"), pydantic.Field(alias="idOrg")
+    ] = None
+    org_address: typing_extensions.Annotated[
+        typing.Optional[Orgaddress], FieldMetadata(alias="orgAddress"), pydantic.Field(alias="orgAddress")
+    ] = None
+    org_logo: typing_extensions.Annotated[
+        typing.Optional[FileContent], FieldMetadata(alias="orgLogo"), pydantic.Field(alias="orgLogo")
+    ] = None
+    org_name: typing_extensions.Annotated[
+        typing.Optional[Orgname], FieldMetadata(alias="orgName"), pydantic.Field(alias="orgName")
+    ] = None
+    org_status: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="orgStatus"),
+        pydantic.Field(alias="orgStatus", description="The paypoint's status. \n\nActive - `1`\n\nInactive - 0"),
+    ] = None
+    org_type: typing_extensions.Annotated[
+        typing.Optional[Orgtype], FieldMetadata(alias="orgType"), pydantic.Field(alias="orgType")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

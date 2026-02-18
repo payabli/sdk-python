@@ -22,12 +22,14 @@ class VendorPaymentMethod(UniversalBaseModel):
     Payment method type - "managed", "vcard", "check", or "ach"
     """
 
-    stored_method_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="storedMethodId")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    ID of the stored ACH payment method. Only applicable when method is "ach". Required when using a previously saved ACH method when the vendor has more than one saved method. See the [Payouts with saved ACH payment methods](/developers/developer-guides/pay-out-manage-payouts) section for more details.
-    """
+    stored_method_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="storedMethodId"),
+        pydantic.Field(
+            alias="storedMethodId",
+            description='ID of the stored ACH payment method. Only applicable when method is "ach". Required when using a previously saved ACH method when the vendor has more than one saved method. See the [Payouts with saved ACH payment methods](/developers/developer-guides/pay-out-manage-payouts) section for more details.',
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

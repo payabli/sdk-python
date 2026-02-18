@@ -13,26 +13,21 @@ class TransferOutDetailEvent(UniversalBaseModel):
     Event data for an outbound transfer detail.
     """
 
-    trans_event: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="TransEvent")] = pydantic.Field(
-        default=None
-    )
-    """
-    Description of the transaction event.
-    """
-
-    event_data: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="EventData")] = pydantic.Field(
-        default=None
-    )
-    """
-    Additional event data.
-    """
-
-    event_time: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="EventTime")] = pydantic.Field(
-        default=None
-    )
-    """
-    Time the event occurred.
-    """
+    trans_event: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="TransEvent"),
+        pydantic.Field(alias="TransEvent", description="Description of the transaction event."),
+    ] = None
+    event_data: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="EventData"),
+        pydantic.Field(alias="EventData", description="Additional event data."),
+    ] = None
+    event_time: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="EventTime"),
+        pydantic.Field(alias="EventTime", description="Time the event occurred."),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

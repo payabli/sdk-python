@@ -13,25 +13,28 @@ from ...types.resulttext import Resulttext
 
 
 class CaptureAllOutResponseResponseDataItem(UniversalBaseModel):
-    customer_id: typing_extensions.Annotated[typing.Optional[Customeridtrans], FieldMetadata(alias="CustomerId")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Internal unique Id of vendor owner of transaction. Returns `0` if the transaction wasn't assigned to an existing vendor or no vendor was created.
-    """
-
-    reference_id: typing_extensions.Annotated[typing.Optional[Referenceidtrans], FieldMetadata(alias="ReferenceId")] = (
-        None
-    )
-    result_code: typing_extensions.Annotated[typing.Optional[ResultCode], FieldMetadata(alias="ResultCode")] = None
-    result_text: typing_extensions.Annotated[typing.Optional[Resulttext], FieldMetadata(alias="ResultText")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Text describing the result. 
-    If `ResultCode`` = 1, returns 'Authorized'. 
-    If `ResultCode` = 2 or 3, this contains the cause of the decline.
-    """
+    customer_id: typing_extensions.Annotated[
+        typing.Optional[Customeridtrans],
+        FieldMetadata(alias="CustomerId"),
+        pydantic.Field(
+            alias="CustomerId",
+            description="Internal unique Id of vendor owner of transaction. Returns `0` if the transaction wasn't assigned to an existing vendor or no vendor was created.",
+        ),
+    ] = None
+    reference_id: typing_extensions.Annotated[
+        typing.Optional[Referenceidtrans], FieldMetadata(alias="ReferenceId"), pydantic.Field(alias="ReferenceId")
+    ] = None
+    result_code: typing_extensions.Annotated[
+        typing.Optional[ResultCode], FieldMetadata(alias="ResultCode"), pydantic.Field(alias="ResultCode")
+    ] = None
+    result_text: typing_extensions.Annotated[
+        typing.Optional[Resulttext],
+        FieldMetadata(alias="ResultText"),
+        pydantic.Field(
+            alias="ResultText",
+            description="Text describing the result. \nIf `ResultCode`` = 1, returns 'Authorized'. \nIf `ResultCode` = 2 or 3, this contains the cause of the decline.",
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -12,51 +12,75 @@ from .pagesize import Pagesize
 
 class QueryPayoutTransactionSummary(UniversalBaseModel):
     page_identifier: typing_extensions.Annotated[
-        typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier")
+        typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier"), pydantic.Field(alias="pageIdentifier")
     ] = None
-    page_size: typing_extensions.Annotated[typing.Optional[Pagesize], FieldMetadata(alias="pageSize")] = None
-    total_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="totalAmount")] = None
-    total_authorized: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="totalAuthorized")] = None
+    page_size: typing_extensions.Annotated[
+        typing.Optional[Pagesize], FieldMetadata(alias="pageSize"), pydantic.Field(alias="pageSize")
+    ] = None
+    total_amount: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="totalAmount"), pydantic.Field(alias="totalAmount")
+    ] = None
+    total_authorized: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="totalAuthorized"), pydantic.Field(alias="totalAuthorized")
+    ] = None
     total_authorized_amount: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="totalAuthorizedAmount")
+        typing.Optional[float],
+        FieldMetadata(alias="totalAuthorizedAmount"),
+        pydantic.Field(alias="totalAuthorizedAmount"),
     ] = None
-    total_canceled: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="totalCanceled")] = None
+    total_canceled: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="totalCanceled"), pydantic.Field(alias="totalCanceled")
+    ] = None
     total_canceled_amount: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="totalCanceledAmount")
+        typing.Optional[float], FieldMetadata(alias="totalCanceledAmount"), pydantic.Field(alias="totalCanceledAmount")
     ] = None
-    total_captured: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="totalCaptured")] = None
+    total_captured: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="totalCaptured"), pydantic.Field(alias="totalCaptured")
+    ] = None
     total_captured_amount: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="totalCapturedAmount")
+        typing.Optional[float], FieldMetadata(alias="totalCapturedAmount"), pydantic.Field(alias="totalCapturedAmount")
     ] = None
-    total_net_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="totalNetAmount")] = None
-    total_open: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="totalOpen")] = None
-    total_open_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="totalOpenAmount")] = (
-        None
-    )
-    total_pages: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="totalPages")] = None
-    total_paid: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="totalPaid")] = None
-    total_paid_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="totalPaidAmount")] = (
-        None
-    )
-    total_on_hold: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="totalOnHold")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Total number of transactions that are currently on hold.
-    """
-
+    total_net_amount: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="totalNetAmount"), pydantic.Field(alias="totalNetAmount")
+    ] = None
+    total_open: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="totalOpen"), pydantic.Field(alias="totalOpen")
+    ] = None
+    total_open_amount: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="totalOpenAmount"), pydantic.Field(alias="totalOpenAmount")
+    ] = None
+    total_pages: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="totalPages"), pydantic.Field(alias="totalPages")
+    ] = None
+    total_paid: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="totalPaid"), pydantic.Field(alias="totalPaid")
+    ] = None
+    total_paid_amount: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="totalPaidAmount"), pydantic.Field(alias="totalPaidAmount")
+    ] = None
+    total_on_hold: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="totalOnHold"),
+        pydantic.Field(alias="totalOnHold", description="Total number of transactions that are currently on hold."),
+    ] = None
     total_on_hold_amount: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="totalOnHoldAmount")
-    ] = pydantic.Field(default=None)
-    """
-    Total amount of transactions that are currently on hold.
-    """
-
-    total_processing: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="totalProcessing")] = None
-    total_processing_amount: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="totalProcessingAmount")
+        typing.Optional[float],
+        FieldMetadata(alias="totalOnHoldAmount"),
+        pydantic.Field(
+            alias="totalOnHoldAmount", description="Total amount of transactions that are currently on hold."
+        ),
     ] = None
-    total_records: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="totalRecords")] = None
+    total_processing: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="totalProcessing"), pydantic.Field(alias="totalProcessing")
+    ] = None
+    total_processing_amount: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="totalProcessingAmount"),
+        pydantic.Field(alias="totalProcessingAmount"),
+    ] = None
+    total_records: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="totalRecords"), pydantic.Field(alias="totalRecords")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

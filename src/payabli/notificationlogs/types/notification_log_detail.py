@@ -13,12 +13,18 @@ from .string_string_key_value_pair import StringStringKeyValuePair
 
 class NotificationLogDetail(NotificationLog):
     web_headers: typing_extensions.Annotated[
-        typing.Optional[typing.List[StringStringKeyValuePair]], FieldMetadata(alias="webHeaders")
+        typing.Optional[typing.List[StringStringKeyValuePair]],
+        FieldMetadata(alias="webHeaders"),
+        pydantic.Field(alias="webHeaders"),
     ] = None
     response_headers: typing_extensions.Annotated[
-        typing.Optional[typing.List[KeyValueArray]], FieldMetadata(alias="responseHeaders")
+        typing.Optional[typing.List[KeyValueArray]],
+        FieldMetadata(alias="responseHeaders"),
+        pydantic.Field(alias="responseHeaders"),
     ] = None
-    response_content: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="responseContent")] = None
+    response_content: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="responseContent"), pydantic.Field(alias="responseContent")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

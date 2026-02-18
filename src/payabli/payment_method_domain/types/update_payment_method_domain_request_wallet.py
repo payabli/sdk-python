@@ -10,7 +10,9 @@ from ...types.is_enabled import IsEnabled
 
 
 class UpdatePaymentMethodDomainRequestWallet(UniversalBaseModel):
-    is_enabled: typing_extensions.Annotated[typing.Optional[IsEnabled], FieldMetadata(alias="isEnabled")] = None
+    is_enabled: typing_extensions.Annotated[
+        typing.Optional[IsEnabled], FieldMetadata(alias="isEnabled"), pydantic.Field(alias="isEnabled")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

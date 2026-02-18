@@ -12,37 +12,55 @@ from .visible import Visible
 
 class CardFeeSection(UniversalBaseModel):
     ach_batch_card_fee: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="achBatchCardFee")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="achBatchCardFee"),
+        pydantic.Field(alias="achBatchCardFee"),
     ] = None
     annual_card_fee: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="annualCardFee")
+        typing.Optional[TemplateElement], FieldMetadata(alias="annualCardFee"), pydantic.Field(alias="annualCardFee")
     ] = None
-    avs_card_fee: typing_extensions.Annotated[typing.Optional[TemplateElement], FieldMetadata(alias="avsCardFee")] = (
-        None
-    )
+    avs_card_fee: typing_extensions.Annotated[
+        typing.Optional[TemplateElement], FieldMetadata(alias="avsCardFee"), pydantic.Field(alias="avsCardFee")
+    ] = None
     chargeback_card_fee: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="chargebackCardFee")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="chargebackCardFee"),
+        pydantic.Field(alias="chargebackCardFee"),
     ] = None
     dda_rejects_card_fee: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="ddaRejectsCardFee")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="ddaRejectsCardFee"),
+        pydantic.Field(alias="ddaRejectsCardFee"),
     ] = None
     early_termination_card_fee: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="earlyTerminationCardFee")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="earlyTerminationCardFee"),
+        pydantic.Field(alias="earlyTerminationCardFee"),
     ] = None
     minimum_processing_card_fee: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="minimumProcessingCardFee")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="minimumProcessingCardFee"),
+        pydantic.Field(alias="minimumProcessingCardFee"),
     ] = None
     monthly_pci_card_fee: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="monthlyPCICardFee")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="monthlyPCICardFee"),
+        pydantic.Field(alias="monthlyPCICardFee"),
     ] = None
     montly_platform_card_fee: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="montlyPlatformCardFee")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="montlyPlatformCardFee"),
+        pydantic.Field(alias="montlyPlatformCardFee"),
     ] = None
     retrieval_card_fee: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="retrievalCardFee")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="retrievalCardFee"),
+        pydantic.Field(alias="retrievalCardFee"),
     ] = None
     transaction_card_fee: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="transactionCardFee")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="transactionCardFee"),
+        pydantic.Field(alias="transactionCardFee"),
     ] = None
     visible: typing.Optional[Visible] = None
 

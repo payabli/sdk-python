@@ -10,15 +10,29 @@ from .transfer_message_properties import TransferMessageProperties
 
 
 class TransferMessage(UniversalBaseModel):
-    id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="Id")] = None
-    room_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="RoomId")] = None
-    user_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="UserId")] = None
-    user_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="UserName")] = None
-    content: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="Content")] = None
-    created_at: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="CreatedAt")] = None
-    message_type: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="MessageType")] = None
+    id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="Id"), pydantic.Field(alias="Id")] = None
+    room_id: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="RoomId"), pydantic.Field(alias="RoomId")
+    ] = None
+    user_id: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="UserId"), pydantic.Field(alias="UserId")
+    ] = None
+    user_name: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="UserName"), pydantic.Field(alias="UserName")
+    ] = None
+    content: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="Content"), pydantic.Field(alias="Content")
+    ] = None
+    created_at: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="CreatedAt"), pydantic.Field(alias="CreatedAt")
+    ] = None
+    message_type: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="MessageType"), pydantic.Field(alias="MessageType")
+    ] = None
     message_properties: typing_extensions.Annotated[
-        typing.Optional[TransferMessageProperties], FieldMetadata(alias="MessageProperties")
+        typing.Optional[TransferMessageProperties],
+        FieldMetadata(alias="MessageProperties"),
+        pydantic.Field(alias="MessageProperties"),
     ] = None
 
     if IS_PYDANTIC_V2:

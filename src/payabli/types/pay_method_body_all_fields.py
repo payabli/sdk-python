@@ -29,37 +29,50 @@ class PayMethodBodyAllFields(UniversalBaseModel):
     Model for the PaymentMethod object, includes all method types.
     """
 
-    ach_account: typing_extensions.Annotated[Achaccount, FieldMetadata(alias="achAccount")] = pydantic.Field()
-    """
-    Bank account number. This field is **required** when method = 'ach'.
-    """
-
+    ach_account: typing_extensions.Annotated[
+        Achaccount,
+        FieldMetadata(alias="achAccount"),
+        pydantic.Field(
+            alias="achAccount", description="Bank account number. This field is **required** when method = 'ach'."
+        ),
+    ]
     ach_account_type: typing_extensions.Annotated[
-        typing.Optional[Achaccounttype], FieldMetadata(alias="achAccountType")
+        typing.Optional[Achaccounttype], FieldMetadata(alias="achAccountType"), pydantic.Field(alias="achAccountType")
     ] = None
-    ach_code: typing_extensions.Annotated[typing.Optional[AchSecCode], FieldMetadata(alias="achCode")] = None
-    ach_holder: typing_extensions.Annotated[AchHolder, FieldMetadata(alias="achHolder")]
-    ach_routing: typing_extensions.Annotated[Achrouting, FieldMetadata(alias="achRouting")] = pydantic.Field()
-    """
-    ABA/routing number of Bank account. This field is **required** when method = 'ach'.
-    """
-
+    ach_code: typing_extensions.Annotated[
+        typing.Optional[AchSecCode], FieldMetadata(alias="achCode"), pydantic.Field(alias="achCode")
+    ] = None
+    ach_holder: typing_extensions.Annotated[
+        AchHolder, FieldMetadata(alias="achHolder"), pydantic.Field(alias="achHolder")
+    ]
+    ach_routing: typing_extensions.Annotated[
+        Achrouting,
+        FieldMetadata(alias="achRouting"),
+        pydantic.Field(
+            alias="achRouting",
+            description="ABA/routing number of Bank account. This field is **required** when method = 'ach'.",
+        ),
+    ]
     cardcvv: typing.Optional[Cardcvv] = None
     cardexp: typing.Optional[Cardexp] = None
-    card_holder: typing_extensions.Annotated[typing.Optional[Cardholder], FieldMetadata(alias="cardHolder")] = None
+    card_holder: typing_extensions.Annotated[
+        typing.Optional[Cardholder], FieldMetadata(alias="cardHolder"), pydantic.Field(alias="cardHolder")
+    ] = None
     cardnumber: typing.Optional[Cardnumber] = None
     cardzip: typing.Optional[Cardzip] = None
     device: typing.Optional[Device] = None
     initator: typing.Optional[Initiator] = None
     method: typing.Optional[Methodall] = None
     save_if_success: typing_extensions.Annotated[
-        typing.Optional[SaveIfSuccess], FieldMetadata(alias="saveIfSuccess")
+        typing.Optional[SaveIfSuccess], FieldMetadata(alias="saveIfSuccess"), pydantic.Field(alias="saveIfSuccess")
     ] = None
     stored_method_id: typing_extensions.Annotated[
-        typing.Optional[Storedmethodid], FieldMetadata(alias="storedMethodId")
+        typing.Optional[Storedmethodid], FieldMetadata(alias="storedMethodId"), pydantic.Field(alias="storedMethodId")
     ] = None
     stored_method_usage_type: typing_extensions.Annotated[
-        typing.Optional[StoredMethodUsageType], FieldMetadata(alias="storedMethodUsageType")
+        typing.Optional[StoredMethodUsageType],
+        FieldMetadata(alias="storedMethodUsageType"),
+        pydantic.Field(alias="storedMethodUsageType"),
     ] = None
 
     if IS_PYDANTIC_V2:

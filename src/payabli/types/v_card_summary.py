@@ -13,13 +13,17 @@ from .totalrecords import Totalrecords
 
 
 class VCardSummary(UniversalBaseModel):
-    total_pages: typing_extensions.Annotated[Totalpages, FieldMetadata(alias="totalPages")]
-    total_records: typing_extensions.Annotated[Totalrecords, FieldMetadata(alias="totalRecords")]
-    total_amount: typing_extensions.Annotated[float, FieldMetadata(alias="totalAmount")] = pydantic.Field()
-    """
-    Total amount for the records.
-    """
-
+    total_pages: typing_extensions.Annotated[
+        Totalpages, FieldMetadata(alias="totalPages"), pydantic.Field(alias="totalPages")
+    ]
+    total_records: typing_extensions.Annotated[
+        Totalrecords, FieldMetadata(alias="totalRecords"), pydantic.Field(alias="totalRecords")
+    ]
+    total_amount: typing_extensions.Annotated[
+        float,
+        FieldMetadata(alias="totalAmount"),
+        pydantic.Field(alias="totalAmount", description="Total amount for the records."),
+    ]
     totalactive: int = pydantic.Field()
     """
     Total number of active vCards.
@@ -36,9 +40,11 @@ class VCardSummary(UniversalBaseModel):
     """
 
     page_identifier: typing_extensions.Annotated[
-        typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier")
+        typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier"), pydantic.Field(alias="pageIdentifier")
     ] = None
-    page_size: typing_extensions.Annotated[typing.Optional[Pagesize], FieldMetadata(alias="pageSize")] = None
+    page_size: typing_extensions.Annotated[
+        typing.Optional[Pagesize], FieldMetadata(alias="pageSize"), pydantic.Field(alias="pageSize")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

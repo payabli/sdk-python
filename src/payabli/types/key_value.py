@@ -15,7 +15,9 @@ class KeyValue(UniversalBaseModel):
     Key name.
     """
 
-    read_only: typing_extensions.Annotated[typing.Optional[ReadOnly], FieldMetadata(alias="readOnly")] = None
+    read_only: typing_extensions.Annotated[
+        typing.Optional[ReadOnly], FieldMetadata(alias="readOnly"), pydantic.Field(alias="readOnly")
+    ] = None
     value: typing.Optional[str] = pydantic.Field(default=None)
     """
     Key value.

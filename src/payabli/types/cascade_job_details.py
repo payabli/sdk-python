@@ -17,17 +17,23 @@ class CascadeJobDetails(UniversalBaseModel):
     Details about the cascade process.
     """
 
-    created_at: typing_extensions.Annotated[typing.Optional[CreatedAt], FieldMetadata(alias="createdAt")] = None
-    job_error_message: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="jobErrorMessage")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Error message for a failed cascade process.
-    """
-
-    job_id: typing_extensions.Annotated[typing.Optional[JobId], FieldMetadata(alias="jobId")] = None
-    job_status: typing_extensions.Annotated[typing.Optional[JobStatus], FieldMetadata(alias="jobStatus")] = None
-    updated_at: typing_extensions.Annotated[typing.Optional[LastModified], FieldMetadata(alias="updatedAt")] = None
+    created_at: typing_extensions.Annotated[
+        typing.Optional[CreatedAt], FieldMetadata(alias="createdAt"), pydantic.Field(alias="createdAt")
+    ] = None
+    job_error_message: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="jobErrorMessage"),
+        pydantic.Field(alias="jobErrorMessage", description="Error message for a failed cascade process."),
+    ] = None
+    job_id: typing_extensions.Annotated[
+        typing.Optional[JobId], FieldMetadata(alias="jobId"), pydantic.Field(alias="jobId")
+    ] = None
+    job_status: typing_extensions.Annotated[
+        typing.Optional[JobStatus], FieldMetadata(alias="jobStatus"), pydantic.Field(alias="jobStatus")
+    ] = None
+    updated_at: typing_extensions.Annotated[
+        typing.Optional[LastModified], FieldMetadata(alias="updatedAt"), pydantic.Field(alias="updatedAt")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

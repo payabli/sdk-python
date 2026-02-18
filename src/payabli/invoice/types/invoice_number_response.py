@@ -15,12 +15,20 @@ class InvoiceNumberResponse(UniversalBaseModel):
     Response schema for operations for sending invoices or getting next invoice number.
     """
 
-    is_success: typing_extensions.Annotated[IsSuccess, FieldMetadata(alias="isSuccess")]
-    response_text: typing_extensions.Annotated[ResponseText, FieldMetadata(alias="responseText")]
-    response_data: typing_extensions.Annotated[str, FieldMetadata(alias="responseData")] = pydantic.Field()
-    """
-    If `isSuccess` = true, this contains the next available invoice number in the format defined by paypoint settings. If `isSuccess` = false, this contains the reason for the error.
-    """
+    is_success: typing_extensions.Annotated[
+        IsSuccess, FieldMetadata(alias="isSuccess"), pydantic.Field(alias="isSuccess")
+    ]
+    response_text: typing_extensions.Annotated[
+        ResponseText, FieldMetadata(alias="responseText"), pydantic.Field(alias="responseText")
+    ]
+    response_data: typing_extensions.Annotated[
+        str,
+        FieldMetadata(alias="responseData"),
+        pydantic.Field(
+            alias="responseData",
+            description="If `isSuccess` = true, this contains the next available invoice number in the format defined by paypoint settings. If `isSuccess` = false, this contains the reason for the error.",
+        ),
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -48,43 +48,51 @@ class TransRequestBody(UniversalBaseModel):
     )
     """
 
-    account_id: typing_extensions.Annotated[typing.Optional[Accountid], FieldMetadata(alias="accountId")] = None
+    account_id: typing_extensions.Annotated[
+        typing.Optional[Accountid], FieldMetadata(alias="accountId"), pydantic.Field(alias="accountId")
+    ] = None
     customer_data: typing_extensions.Annotated[
-        typing.Optional[PayorDataRequest], FieldMetadata(alias="customerData")
-    ] = pydantic.Field(default=None)
-    """
-    Object describing the Customer/Payor. Which fields are required depends on the paypoint's custom identifier settings. 
-    """
-
-    entry_point: typing_extensions.Annotated[typing.Optional[Entrypointfield], FieldMetadata(alias="entryPoint")] = None
-    invoice_data: typing_extensions.Annotated[typing.Optional[BillData], FieldMetadata(alias="invoiceData")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Object describing an Invoice linked to the transaction.
-    """
-
+        typing.Optional[PayorDataRequest],
+        FieldMetadata(alias="customerData"),
+        pydantic.Field(
+            alias="customerData",
+            description="Object describing the Customer/Payor. Which fields are required depends on the paypoint's custom identifier settings. ",
+        ),
+    ] = None
+    entry_point: typing_extensions.Annotated[
+        typing.Optional[Entrypointfield], FieldMetadata(alias="entryPoint"), pydantic.Field(alias="entryPoint")
+    ] = None
+    invoice_data: typing_extensions.Annotated[
+        typing.Optional[BillData],
+        FieldMetadata(alias="invoiceData"),
+        pydantic.Field(alias="invoiceData", description="Object describing an Invoice linked to the transaction."),
+    ] = None
     ipaddress: typing.Optional[IpAddress] = None
     order_description: typing_extensions.Annotated[
-        typing.Optional[Orderdescription], FieldMetadata(alias="orderDescription")
+        typing.Optional[Orderdescription],
+        FieldMetadata(alias="orderDescription"),
+        pydantic.Field(alias="orderDescription"),
     ] = None
-    order_id: typing_extensions.Annotated[typing.Optional[OrderId], FieldMetadata(alias="orderId")] = None
-    payment_details: typing_extensions.Annotated[PaymentDetail, FieldMetadata(alias="paymentDetails")] = (
-        pydantic.Field()
-    )
-    """
-    Object describing details of the payment. Required.
-    """
-
-    payment_method: typing_extensions.Annotated[PaymentMethod, FieldMetadata(alias="paymentMethod")] = pydantic.Field()
-    """
-    Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.
-    """
-
+    order_id: typing_extensions.Annotated[
+        typing.Optional[OrderId], FieldMetadata(alias="orderId"), pydantic.Field(alias="orderId")
+    ] = None
+    payment_details: typing_extensions.Annotated[
+        PaymentDetail,
+        FieldMetadata(alias="paymentDetails"),
+        pydantic.Field(alias="paymentDetails", description="Object describing details of the payment. Required."),
+    ]
+    payment_method: typing_extensions.Annotated[
+        PaymentMethod,
+        FieldMetadata(alias="paymentMethod"),
+        pydantic.Field(
+            alias="paymentMethod",
+            description="Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.",
+        ),
+    ]
     source: typing.Optional[Source] = None
     subdomain: typing.Optional[Subdomain] = None
     subscription_id: typing_extensions.Annotated[
-        typing.Optional[Subscriptionid], FieldMetadata(alias="subscriptionId")
+        typing.Optional[Subscriptionid], FieldMetadata(alias="subscriptionId"), pydantic.Field(alias="subscriptionId")
     ] = None
 
     if IS_PYDANTIC_V2:

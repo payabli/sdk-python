@@ -19,20 +19,22 @@ class TransactionDetailResponseData(UniversalBaseModel):
     Response data from payment processor
     """
 
-    result_code: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="resultCode")] = pydantic.Field(
-        default=None
-    )
-    """
-    Unified result code for the transaction. See [Pay In unified response codes](/guides/pay-in-unified-response-codes-reference) for more information.
-    """
-
-    result_code_text: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="resultCodeText")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Description of the result code. See [Pay In unified response codes](/guides/pay-in-unified-response-codes-reference) for more information.
-    """
-
+    result_code: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="resultCode"),
+        pydantic.Field(
+            alias="resultCode",
+            description="Unified result code for the transaction. See [Pay In unified response codes](/guides/pay-in-unified-response-codes-reference) for more information.",
+        ),
+    ] = None
+    result_code_text: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="resultCodeText"),
+        pydantic.Field(
+            alias="resultCodeText",
+            description="Description of the result code. See [Pay In unified response codes](/guides/pay-in-unified-response-codes-reference) for more information.",
+        ),
+    ] = None
     response: typing.Optional[str] = None
     responsetext: Resulttext
     authcode: typing.Optional[Authcode] = None

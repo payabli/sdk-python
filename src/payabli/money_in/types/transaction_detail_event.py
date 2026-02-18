@@ -13,9 +13,9 @@ class TransactionDetailEvent(UniversalBaseModel):
     Event associated with transaction processing
     """
 
-    trans_event: typing_extensions.Annotated[str, FieldMetadata(alias="transEvent")]
-    event_data: typing_extensions.Annotated[str, FieldMetadata(alias="eventData")]
-    event_time: typing_extensions.Annotated[str, FieldMetadata(alias="eventTime")]
+    trans_event: typing_extensions.Annotated[str, FieldMetadata(alias="transEvent"), pydantic.Field(alias="transEvent")]
+    event_data: typing_extensions.Annotated[str, FieldMetadata(alias="eventData"), pydantic.Field(alias="eventData")]
+    event_time: typing_extensions.Annotated[str, FieldMetadata(alias="eventTime"), pydantic.Field(alias="eventTime")]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

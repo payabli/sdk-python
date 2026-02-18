@@ -14,13 +14,14 @@ class FileContent(UniversalBaseModel):
     Contains details about a file. Max upload size is 30 MB.
     """
 
-    f_content: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="fContent")] = pydantic.Field(
-        default=None
-    )
-    """
-    Content of file, Base64-encoded. Ignored if furl is specified. Max upload size is 30 MB.
-    """
-
+    f_content: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="fContent"),
+        pydantic.Field(
+            alias="fContent",
+            description="Content of file, Base64-encoded. Ignored if furl is specified. Max upload size is 30 MB.",
+        ),
+    ] = None
     filename: typing.Optional[str] = pydantic.Field(default=None)
     """
     The name of the attached file.

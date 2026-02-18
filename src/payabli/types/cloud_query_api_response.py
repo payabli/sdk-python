@@ -16,15 +16,17 @@ class CloudQueryApiResponse(UniversalBaseModel):
     Object containing details about cloud devices and their registration history.
     """
 
-    is_success: typing_extensions.Annotated[typing.Optional[IsSuccess], FieldMetadata(alias="isSuccess")] = None
+    is_success: typing_extensions.Annotated[
+        typing.Optional[IsSuccess], FieldMetadata(alias="isSuccess"), pydantic.Field(alias="isSuccess")
+    ] = None
     response_list: typing_extensions.Annotated[
-        typing.Optional[typing.List[PoiDevice]], FieldMetadata(alias="responseList")
-    ] = pydantic.Field(default=None)
-    """
-    List of devices and history of registration.
-    """
-
-    response_text: typing_extensions.Annotated[ResponseText, FieldMetadata(alias="responseText")]
+        typing.Optional[typing.List[PoiDevice]],
+        FieldMetadata(alias="responseList"),
+        pydantic.Field(alias="responseList", description="List of devices and history of registration."),
+    ] = None
+    response_text: typing_extensions.Annotated[
+        ResponseText, FieldMetadata(alias="responseText"), pydantic.Field(alias="responseText")
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

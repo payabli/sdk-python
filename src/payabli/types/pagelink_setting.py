@@ -15,38 +15,39 @@ class PagelinkSetting(UniversalBaseModel):
     An HTML color code in format #RRGGBB
     """
 
-    custom_css_url: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="customCssUrl")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Complete URL to a custom CSS file to be loaded with the page
-    """
-
+    custom_css_url: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="customCssUrl"),
+        pydantic.Field(
+            alias="customCssUrl", description="Complete URL to a custom CSS file to be loaded with the page"
+        ),
+    ] = None
     language: typing.Optional[str] = pydantic.Field(default=None)
     """
     Two-letter code following ISO 639-1
     """
 
-    page_logo: typing_extensions.Annotated[typing.Optional[FileContent], FieldMetadata(alias="pageLogo")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Object containing logo file to upload/ use in page
-    """
-
+    page_logo: typing_extensions.Annotated[
+        typing.Optional[FileContent],
+        FieldMetadata(alias="pageLogo"),
+        pydantic.Field(alias="pageLogo", description="Object containing logo file to upload/ use in page"),
+    ] = None
     redirect_after_approve: typing_extensions.Annotated[
-        typing.Optional[bool], FieldMetadata(alias="redirectAfterApprove")
-    ] = pydantic.Field(default=None)
-    """
-    Flag indicating if the capability for redirection in the page will be activated
-    """
-
+        typing.Optional[bool],
+        FieldMetadata(alias="redirectAfterApprove"),
+        pydantic.Field(
+            alias="redirectAfterApprove",
+            description="Flag indicating if the capability for redirection in the page will be activated",
+        ),
+    ] = None
     redirect_after_approve_url: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="redirectAfterApproveUrl")
-    ] = pydantic.Field(default=None)
-    """
-    Complete URL where the page will be redirected after completion
-    """
+        typing.Optional[str],
+        FieldMetadata(alias="redirectAfterApproveUrl"),
+        pydantic.Field(
+            alias="redirectAfterApproveUrl",
+            description="Complete URL where the page will be redirected after completion",
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

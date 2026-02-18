@@ -12,11 +12,15 @@ from ...types.responsecode import Responsecode
 
 
 class MigratePaypointResponse(UniversalBaseModel):
-    is_success: typing_extensions.Annotated[IsSuccess, FieldMetadata(alias="isSuccess")]
-    response_code: typing_extensions.Annotated[typing.Optional[Responsecode], FieldMetadata(alias="responseCode")] = (
-        None
-    )
-    response_text: typing_extensions.Annotated[ResponseText, FieldMetadata(alias="responseText")]
+    is_success: typing_extensions.Annotated[
+        IsSuccess, FieldMetadata(alias="isSuccess"), pydantic.Field(alias="isSuccess")
+    ]
+    response_code: typing_extensions.Annotated[
+        typing.Optional[Responsecode], FieldMetadata(alias="responseCode"), pydantic.Field(alias="responseCode")
+    ] = None
+    response_text: typing_extensions.Annotated[
+        ResponseText, FieldMetadata(alias="responseText"), pydantic.Field(alias="responseText")
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

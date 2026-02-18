@@ -19,14 +19,22 @@ class VoidResponse(UniversalBaseModel):
     Response for MoneyIn/void endpoint
     """
 
-    response_code: typing_extensions.Annotated[Responsecode, FieldMetadata(alias="responseCode")]
+    response_code: typing_extensions.Annotated[
+        Responsecode, FieldMetadata(alias="responseCode"), pydantic.Field(alias="responseCode")
+    ]
     page_identifier: typing_extensions.Annotated[
-        typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier")
+        typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier"), pydantic.Field(alias="pageIdentifier")
     ] = None
-    room_id: typing_extensions.Annotated[RoomIdNotInUse, FieldMetadata(alias="roomId")]
-    is_success: typing_extensions.Annotated[IsSuccess, FieldMetadata(alias="isSuccess")]
-    response_text: typing_extensions.Annotated[ResponseText, FieldMetadata(alias="responseText")]
-    response_data: typing_extensions.Annotated[VoidResponseData, FieldMetadata(alias="responseData")]
+    room_id: typing_extensions.Annotated[RoomIdNotInUse, FieldMetadata(alias="roomId"), pydantic.Field(alias="roomId")]
+    is_success: typing_extensions.Annotated[
+        IsSuccess, FieldMetadata(alias="isSuccess"), pydantic.Field(alias="isSuccess")
+    ]
+    response_text: typing_extensions.Annotated[
+        ResponseText, FieldMetadata(alias="responseText"), pydantic.Field(alias="responseText")
+    ]
+    response_data: typing_extensions.Annotated[
+        VoidResponseData, FieldMetadata(alias="responseData"), pydantic.Field(alias="responseData")
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

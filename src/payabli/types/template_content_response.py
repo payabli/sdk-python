@@ -17,23 +17,29 @@ from .underwriting_data_response import UnderwritingDataResponse
 
 class TemplateContentResponse(UniversalBaseModel):
     business_data: typing_extensions.Annotated[
-        typing.Optional[BusinessSection], FieldMetadata(alias="businessData")
+        typing.Optional[BusinessSection], FieldMetadata(alias="businessData"), pydantic.Field(alias="businessData")
     ] = None
     documents_data: typing_extensions.Annotated[
-        typing.Optional[DocumentSection], FieldMetadata(alias="documentsData")
+        typing.Optional[DocumentSection], FieldMetadata(alias="documentsData"), pydantic.Field(alias="documentsData")
     ] = None
     ownership_data: typing_extensions.Annotated[
-        typing.Optional[OwnersSection], FieldMetadata(alias="ownershipData")
+        typing.Optional[OwnersSection], FieldMetadata(alias="ownershipData"), pydantic.Field(alias="ownershipData")
     ] = None
     processing_data: typing_extensions.Annotated[
-        typing.Optional[ProcessingSection], FieldMetadata(alias="processingData")
+        typing.Optional[ProcessingSection],
+        FieldMetadata(alias="processingData"),
+        pydantic.Field(alias="processingData"),
     ] = None
-    sales_data: typing_extensions.Annotated[typing.Optional[SalesSection], FieldMetadata(alias="salesData")] = None
+    sales_data: typing_extensions.Annotated[
+        typing.Optional[SalesSection], FieldMetadata(alias="salesData"), pydantic.Field(alias="salesData")
+    ] = None
     services_data: typing_extensions.Annotated[
-        typing.Optional[ServicesSection], FieldMetadata(alias="servicesData")
+        typing.Optional[ServicesSection], FieldMetadata(alias="servicesData"), pydantic.Field(alias="servicesData")
     ] = None
     underwriting_data: typing_extensions.Annotated[
-        typing.Optional[UnderwritingDataResponse], FieldMetadata(alias="underwritingData")
+        typing.Optional[UnderwritingDataResponse],
+        FieldMetadata(alias="underwritingData"),
+        pydantic.Field(alias="underwritingData"),
     ] = None
 
     if IS_PYDANTIC_V2:

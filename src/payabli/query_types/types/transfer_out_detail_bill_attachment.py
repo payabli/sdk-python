@@ -23,24 +23,21 @@ class TransferOutDetailBillAttachment(UniversalBaseModel):
     File name.
     """
 
-    file_descriptor: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="fileDescriptor")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    File descriptor.
-    """
-
+    file_descriptor: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="fileDescriptor"),
+        pydantic.Field(alias="fileDescriptor", description="File descriptor."),
+    ] = None
     furl: typing.Optional[str] = pydantic.Field(default=None)
     """
     File URL.
     """
 
-    f_content: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="fContent")] = pydantic.Field(
-        default=None
-    )
-    """
-    File content.
-    """
+    f_content: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="fContent"),
+        pydantic.Field(alias="fContent", description="File content."),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

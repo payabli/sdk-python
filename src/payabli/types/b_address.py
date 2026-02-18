@@ -11,13 +11,17 @@ from .link_data import LinkData
 
 class BAddress(UniversalBaseModel):
     baddress: typing.Optional[LinkData] = None
-    baddress_1: typing_extensions.Annotated[typing.Optional[LinkData], FieldMetadata(alias="baddress1")] = None
+    baddress_1: typing_extensions.Annotated[
+        typing.Optional[LinkData], FieldMetadata(alias="baddress1"), pydantic.Field(alias="baddress1")
+    ] = None
     bcity: typing.Optional[LinkData] = None
     bcountry: typing.Optional[LinkData] = None
     bstate: typing.Optional[LinkData] = None
     bzip: typing.Optional[LinkData] = None
     maddress: typing.Optional[LinkData] = None
-    maddress_1: typing_extensions.Annotated[typing.Optional[LinkData], FieldMetadata(alias="maddress1")] = None
+    maddress_1: typing_extensions.Annotated[
+        typing.Optional[LinkData], FieldMetadata(alias="maddress1"), pydantic.Field(alias="maddress1")
+    ] = None
     mcity: typing.Optional[LinkData] = None
     mcountry: typing.Optional[LinkData] = None
     mstate: typing.Optional[LinkData] = None

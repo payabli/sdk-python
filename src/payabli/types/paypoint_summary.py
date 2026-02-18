@@ -9,10 +9,18 @@ from ..core.serialization import FieldMetadata
 
 
 class PaypointSummary(UniversalBaseModel):
-    amount_subs: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="amountSubs")] = None
-    amount_tx: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="amountTx")] = None
-    count_subs: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="countSubs")] = None
-    count_tx: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="countTx")] = None
+    amount_subs: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="amountSubs"), pydantic.Field(alias="amountSubs")
+    ] = None
+    amount_tx: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="amountTx"), pydantic.Field(alias="amountTx")
+    ] = None
+    count_subs: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="countSubs"), pydantic.Field(alias="countSubs")
+    ] = None
+    count_tx: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="countTx"), pydantic.Field(alias="countTx")
+    ] = None
     customers: typing.Optional[int] = None
 
     if IS_PYDANTIC_V2:

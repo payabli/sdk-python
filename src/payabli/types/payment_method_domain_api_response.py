@@ -29,21 +29,37 @@ class PaymentMethodDomainApiResponse(UniversalBaseModel):
     The record type. For payment method domains, this is always `PaymentMethodDomain`.
     """
 
-    apple_pay: typing_extensions.Annotated[ApplePayData, FieldMetadata(alias="applePay")]
-    google_pay: typing_extensions.Annotated[GooglePayData, FieldMetadata(alias="googlePay")]
+    apple_pay: typing_extensions.Annotated[
+        ApplePayData, FieldMetadata(alias="applePay"), pydantic.Field(alias="applePay")
+    ]
+    google_pay: typing_extensions.Annotated[
+        GooglePayData, FieldMetadata(alias="googlePay"), pydantic.Field(alias="googlePay")
+    ]
     cascades: typing.Optional[typing.List[CascadeJobDetails]] = pydantic.Field(default=None)
     """
     Data about the domain's cascade status.
     """
 
-    created_at: typing_extensions.Annotated[CreatedAt, FieldMetadata(alias="createdAt")]
-    domain_name: typing_extensions.Annotated[DomainName, FieldMetadata(alias="domainName")]
-    entity_id: typing_extensions.Annotated[EntityId, FieldMetadata(alias="entityId")]
-    entity_type: typing_extensions.Annotated[EntityType, FieldMetadata(alias="entityType")]
+    created_at: typing_extensions.Annotated[
+        CreatedAt, FieldMetadata(alias="createdAt"), pydantic.Field(alias="createdAt")
+    ]
+    domain_name: typing_extensions.Annotated[
+        DomainName, FieldMetadata(alias="domainName"), pydantic.Field(alias="domainName")
+    ]
+    entity_id: typing_extensions.Annotated[EntityId, FieldMetadata(alias="entityId"), pydantic.Field(alias="entityId")]
+    entity_type: typing_extensions.Annotated[
+        EntityType, FieldMetadata(alias="entityType"), pydantic.Field(alias="entityType")
+    ]
     id: PaymentMethodDomainId
-    owner_entity_id: typing_extensions.Annotated[OwnerEntityId, FieldMetadata(alias="ownerEntityId")]
-    owner_entity_type: typing_extensions.Annotated[OwnerEntityType, FieldMetadata(alias="ownerEntityType")]
-    updated_at: typing_extensions.Annotated[LastModified, FieldMetadata(alias="updatedAt")]
+    owner_entity_id: typing_extensions.Annotated[
+        OwnerEntityId, FieldMetadata(alias="ownerEntityId"), pydantic.Field(alias="ownerEntityId")
+    ]
+    owner_entity_type: typing_extensions.Annotated[
+        OwnerEntityType, FieldMetadata(alias="ownerEntityType"), pydantic.Field(alias="ownerEntityType")
+    ]
+    updated_at: typing_extensions.Annotated[
+        LastModified, FieldMetadata(alias="updatedAt"), pydantic.Field(alias="updatedAt")
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

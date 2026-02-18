@@ -11,16 +11,32 @@ from .paypoint_data import PaypointData
 
 
 class PaypointEntryConfig(UniversalBaseModel):
-    entry_comment: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="EntryComment")] = None
-    entry_logo: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="EntryLogo")] = None
-    entry_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="EntryName")] = None
-    entry_pages: typing_extensions.Annotated[
-        typing.Optional[typing.List[PayabliPages]], FieldMetadata(alias="EntryPages")
+    entry_comment: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="EntryComment"), pydantic.Field(alias="EntryComment")
     ] = None
-    entry_subtitle: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="EntrySubtitle")] = None
-    entry_title: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="EntryTitle")] = None
-    id_entry: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="IdEntry")] = None
-    paypoint: typing_extensions.Annotated[typing.Optional[PaypointData], FieldMetadata(alias="Paypoint")] = None
+    entry_logo: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="EntryLogo"), pydantic.Field(alias="EntryLogo")
+    ] = None
+    entry_name: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="EntryName"), pydantic.Field(alias="EntryName")
+    ] = None
+    entry_pages: typing_extensions.Annotated[
+        typing.Optional[typing.List[PayabliPages]],
+        FieldMetadata(alias="EntryPages"),
+        pydantic.Field(alias="EntryPages"),
+    ] = None
+    entry_subtitle: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="EntrySubtitle"), pydantic.Field(alias="EntrySubtitle")
+    ] = None
+    entry_title: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="EntryTitle"), pydantic.Field(alias="EntryTitle")
+    ] = None
+    id_entry: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="IdEntry"), pydantic.Field(alias="IdEntry")
+    ] = None
+    paypoint: typing_extensions.Annotated[
+        typing.Optional[PaypointData], FieldMetadata(alias="Paypoint"), pydantic.Field(alias="Paypoint")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

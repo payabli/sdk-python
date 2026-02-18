@@ -17,46 +17,39 @@ from .terms import Terms
 
 
 class BillPayOutDataRequest(UniversalBaseModel):
-    bill_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="billId")] = pydantic.Field(
-        default=None
-    )
-    """
-    Bill ID in Payabli.
-    """
-
+    bill_id: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="billId"),
+        pydantic.Field(alias="billId", description="Bill ID in Payabli."),
+    ] = None
     comments: typing.Optional[Comments] = pydantic.Field(default=None)
     """
     Any comments about bill. **For managed payouts, this field has a limit of 100 characters**.
     """
 
-    due_date: typing_extensions.Annotated[typing.Optional[Datenullable], FieldMetadata(alias="dueDate")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Bill due date in format YYYY-MM-DD or MM/DD/YYYY.
-    """
-
-    invoice_date: typing_extensions.Annotated[typing.Optional[Datenullable], FieldMetadata(alias="invoiceDate")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Bill date in format YYYY-MM-DD or MM/DD/YYYY.
-    """
-
+    due_date: typing_extensions.Annotated[
+        typing.Optional[Datenullable],
+        FieldMetadata(alias="dueDate"),
+        pydantic.Field(alias="dueDate", description="Bill due date in format YYYY-MM-DD or MM/DD/YYYY."),
+    ] = None
+    invoice_date: typing_extensions.Annotated[
+        typing.Optional[Datenullable],
+        FieldMetadata(alias="invoiceDate"),
+        pydantic.Field(alias="invoiceDate", description="Bill date in format YYYY-MM-DD or MM/DD/YYYY."),
+    ] = None
     invoice_number: typing_extensions.Annotated[
-        typing.Optional[InvoiceNumber], FieldMetadata(alias="invoiceNumber")
-    ] = pydantic.Field(default=None)
-    """
-    Custom number identifying the bill. Must be unique in paypoint. **Required** for new bill and when `billId` isn't provided.
-    """
-
-    net_amount: typing_extensions.Annotated[typing.Optional[NetAmountstring], FieldMetadata(alias="netAmount")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Net Amount owed in bill. Required when adding a bill.
-    """
-
+        typing.Optional[InvoiceNumber],
+        FieldMetadata(alias="invoiceNumber"),
+        pydantic.Field(
+            alias="invoiceNumber",
+            description="Custom number identifying the bill. Must be unique in paypoint. **Required** for new bill and when `billId` isn't provided.",
+        ),
+    ] = None
+    net_amount: typing_extensions.Annotated[
+        typing.Optional[NetAmountstring],
+        FieldMetadata(alias="netAmount"),
+        pydantic.Field(alias="netAmount", description="Net Amount owed in bill. Required when adding a bill."),
+    ] = None
     discount: typing.Optional[str] = pydantic.Field(default=None)
     """
     Bill discount amount.
@@ -68,13 +61,19 @@ class BillPayOutDataRequest(UniversalBaseModel):
     """
 
     accounting_field_1: typing_extensions.Annotated[
-        typing.Optional[AccountingField], FieldMetadata(alias="accountingField1")
+        typing.Optional[AccountingField],
+        FieldMetadata(alias="accountingField1"),
+        pydantic.Field(alias="accountingField1"),
     ] = None
     accounting_field_2: typing_extensions.Annotated[
-        typing.Optional[AccountingField], FieldMetadata(alias="accountingField2")
+        typing.Optional[AccountingField],
+        FieldMetadata(alias="accountingField2"),
+        pydantic.Field(alias="accountingField2"),
     ] = None
     additional_data: typing_extensions.Annotated[
-        typing.Optional[AdditionalDataString], FieldMetadata(alias="additionalData")
+        typing.Optional[AdditionalDataString],
+        FieldMetadata(alias="additionalData"),
+        pydantic.Field(alias="additionalData"),
     ] = None
     attachments: typing.Optional[Attachments] = pydantic.Field(default=None)
     """

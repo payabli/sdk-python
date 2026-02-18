@@ -14,12 +14,13 @@ from .order import Order
 
 class MethodElement(UniversalBaseModel):
     all_methods_checked: typing_extensions.Annotated[
-        typing.Optional[bool], FieldMetadata(alias="allMethodsChecked")
-    ] = pydantic.Field(default=None)
-    """
-    Flag indicating if all allowed payment methods will be pre-selected.
-    """
-
+        typing.Optional[bool],
+        FieldMetadata(alias="allMethodsChecked"),
+        pydantic.Field(
+            alias="allMethodsChecked",
+            description="Flag indicating if all allowed payment methods will be pre-selected.",
+        ),
+    ] = None
     enabled: typing.Optional[Enabled] = None
     header: typing.Optional[str] = pydantic.Field(default=None)
     """

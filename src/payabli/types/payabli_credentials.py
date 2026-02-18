@@ -9,15 +9,27 @@ from ..core.serialization import FieldMetadata
 
 
 class PayabliCredentials(UniversalBaseModel):
-    account_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="accountId")] = None
-    cfee_fix: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="cfeeFix")] = None
-    cfee_float: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="cfeeFloat")] = None
-    cfee_max: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="cfeeMax")] = None
-    cfee_min: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="cfeeMin")] = None
+    account_id: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="accountId"), pydantic.Field(alias="accountId")
+    ] = None
+    cfee_fix: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="cfeeFix"), pydantic.Field(alias="cfeeFix")
+    ] = None
+    cfee_float: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="cfeeFloat"), pydantic.Field(alias="cfeeFloat")
+    ] = None
+    cfee_max: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="cfeeMax"), pydantic.Field(alias="cfeeMax")
+    ] = None
+    cfee_min: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="cfeeMin"), pydantic.Field(alias="cfeeMin")
+    ] = None
     maxticket: typing.Optional[float] = None
     minticket: typing.Optional[float] = None
     mode: typing.Optional[int] = None
-    reference_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="referenceId")] = None
+    reference_id: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="referenceId"), pydantic.Field(alias="referenceId")
+    ] = None
     service: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:

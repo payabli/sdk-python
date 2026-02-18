@@ -18,34 +18,40 @@ from .template_name import TemplateName
 
 
 class QueryBoardingLinksResponseRecordsItem(UniversalBaseModel):
-    accept_oauth: typing_extensions.Annotated[typing.Optional[AcceptOauth], FieldMetadata(alias="AcceptOauth")] = None
+    accept_oauth: typing_extensions.Annotated[
+        typing.Optional[AcceptOauth], FieldMetadata(alias="AcceptOauth"), pydantic.Field(alias="AcceptOauth")
+    ] = None
     accept_register: typing_extensions.Annotated[
-        typing.Optional[AcceptRegister], FieldMetadata(alias="AcceptRegister")
+        typing.Optional[AcceptRegister], FieldMetadata(alias="AcceptRegister"), pydantic.Field(alias="AcceptRegister")
     ] = None
     entry_attributes: typing_extensions.Annotated[
-        typing.Optional[EntryAttributes], FieldMetadata(alias="EntryAttributes")
+        typing.Optional[EntryAttributes],
+        FieldMetadata(alias="EntryAttributes"),
+        pydantic.Field(alias="EntryAttributes"),
     ] = None
-    id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="Id")] = pydantic.Field(default=None)
-    """
-    The record ID.
-    """
-
-    last_updated: typing_extensions.Annotated[typing.Optional[LastModified], FieldMetadata(alias="LastUpdated")] = None
+    id: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="Id"), pydantic.Field(alias="Id", description="The record ID.")
+    ] = None
+    last_updated: typing_extensions.Annotated[
+        typing.Optional[LastModified], FieldMetadata(alias="LastUpdated"), pydantic.Field(alias="LastUpdated")
+    ] = None
     org_parent_name: typing_extensions.Annotated[
-        typing.Optional[OrgParentName], FieldMetadata(alias="OrgParentName")
+        typing.Optional[OrgParentName], FieldMetadata(alias="OrgParentName"), pydantic.Field(alias="OrgParentName")
     ] = None
     reference_name: typing_extensions.Annotated[
-        typing.Optional[ReferenceName], FieldMetadata(alias="ReferenceName")
+        typing.Optional[ReferenceName], FieldMetadata(alias="ReferenceName"), pydantic.Field(alias="ReferenceName")
     ] = None
     reference_template_id: typing_extensions.Annotated[
-        typing.Optional[ReferenceTemplateId], FieldMetadata(alias="ReferenceTemplateId")
+        typing.Optional[ReferenceTemplateId],
+        FieldMetadata(alias="ReferenceTemplateId"),
+        pydantic.Field(alias="ReferenceTemplateId"),
     ] = None
-    template_code: typing_extensions.Annotated[typing.Optional[TemplateCode], FieldMetadata(alias="TemplateCode")] = (
-        None
-    )
-    template_name: typing_extensions.Annotated[typing.Optional[TemplateName], FieldMetadata(alias="TemplateName")] = (
-        None
-    )
+    template_code: typing_extensions.Annotated[
+        typing.Optional[TemplateCode], FieldMetadata(alias="TemplateCode"), pydantic.Field(alias="TemplateCode")
+    ] = None
+    template_name: typing_extensions.Annotated[
+        typing.Optional[TemplateName], FieldMetadata(alias="TemplateName"), pydantic.Field(alias="TemplateName")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

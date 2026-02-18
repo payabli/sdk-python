@@ -16,28 +16,48 @@ class TransactionDetailPaymentDetails(UniversalBaseModel):
     Detailed breakdown of payment amounts and identifiers
     """
 
-    total_amount: typing_extensions.Annotated[float, FieldMetadata(alias="totalAmount")]
-    service_fee: typing_extensions.Annotated[float, FieldMetadata(alias="serviceFee")]
-    check_number: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="checkNumber")] = None
-    check_image: typing_extensions.Annotated[typing.Optional[typing.Any], FieldMetadata(alias="checkImage")] = None
-    check_unique_id: typing_extensions.Annotated[str, FieldMetadata(alias="checkUniqueId")]
+    total_amount: typing_extensions.Annotated[
+        float, FieldMetadata(alias="totalAmount"), pydantic.Field(alias="totalAmount")
+    ]
+    service_fee: typing_extensions.Annotated[
+        float, FieldMetadata(alias="serviceFee"), pydantic.Field(alias="serviceFee")
+    ]
+    check_number: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="checkNumber"), pydantic.Field(alias="checkNumber")
+    ] = None
+    check_image: typing_extensions.Annotated[
+        typing.Optional[typing.Any], FieldMetadata(alias="checkImage"), pydantic.Field(alias="checkImage")
+    ] = None
+    check_unique_id: typing_extensions.Annotated[
+        str, FieldMetadata(alias="checkUniqueId"), pydantic.Field(alias="checkUniqueId")
+    ]
     currency: str
     order_description: typing_extensions.Annotated[
-        typing.Optional[Orderdescription], FieldMetadata(alias="orderDescription")
+        typing.Optional[Orderdescription],
+        FieldMetadata(alias="orderDescription"),
+        pydantic.Field(alias="orderDescription"),
     ] = None
-    order_id: typing_extensions.Annotated[typing.Optional[OrderId], FieldMetadata(alias="orderId")] = None
+    order_id: typing_extensions.Annotated[
+        typing.Optional[OrderId], FieldMetadata(alias="orderId"), pydantic.Field(alias="orderId")
+    ] = None
     order_id_alternative: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="orderIdAlternative")
+        typing.Optional[str], FieldMetadata(alias="orderIdAlternative"), pydantic.Field(alias="orderIdAlternative")
     ] = None
     payment_description: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="paymentDescription")
+        typing.Optional[str], FieldMetadata(alias="paymentDescription"), pydantic.Field(alias="paymentDescription")
     ] = None
-    group_number: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="groupNumber")] = None
+    group_number: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="groupNumber"), pydantic.Field(alias="groupNumber")
+    ] = None
     source: typing.Optional[Source] = None
-    payabli_trans_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="payabliTransId")] = None
+    payabli_trans_id: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="payabliTransId"), pydantic.Field(alias="payabliTransId")
+    ] = None
     unbundled: typing.Optional[typing.Any] = None
     categories: typing.List[typing.Any]
-    split_funding: typing_extensions.Annotated[typing.List[typing.Any], FieldMetadata(alias="splitFunding")]
+    split_funding: typing_extensions.Annotated[
+        typing.List[typing.Any], FieldMetadata(alias="splitFunding"), pydantic.Field(alias="splitFunding")
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

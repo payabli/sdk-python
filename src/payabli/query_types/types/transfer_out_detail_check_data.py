@@ -13,19 +13,16 @@ class TransferOutDetailCheckData(UniversalBaseModel):
     Check data for an outbound transfer detail.
     """
 
-    check_number: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="CheckNumber")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The check number.
-    """
-
-    check_data: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="CheckData")] = pydantic.Field(
-        default=None
-    )
-    """
-    Additional check data.
-    """
+    check_number: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="CheckNumber"),
+        pydantic.Field(alias="CheckNumber", description="The check number."),
+    ] = None
+    check_data: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="CheckData"),
+        pydantic.Field(alias="CheckData", description="Additional check data."),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

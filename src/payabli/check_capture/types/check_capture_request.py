@@ -14,21 +14,33 @@ class CheckCaptureRequest(UniversalBaseModel):
     Request model for check capture processing.
     """
 
-    entry_point: typing_extensions.Annotated[Entry, FieldMetadata(alias="entryPoint")]
-    front_image: typing_extensions.Annotated[str, FieldMetadata(alias="frontImage")] = pydantic.Field()
-    """
-    Base64-encoded image of the front of the check. Must be JPEG or PNG format and less than 1MB. Image must show the entire check clearly with no partial, blurry, or illegible portions.
-    """
-
-    rear_image: typing_extensions.Annotated[str, FieldMetadata(alias="rearImage")] = pydantic.Field()
-    """
-    Base64-encoded image of the back of the check. Must be JPEG or PNG format and less than 1MB. Image must show the entire check clearly with no partial, blurry, or illegible portions.
-    """
-
-    check_amount: typing_extensions.Annotated[int, FieldMetadata(alias="checkAmount")] = pydantic.Field()
-    """
-    Check amount in cents (maximum 32-bit integer value). For example, $125.50 is represented as 12550.
-    """
+    entry_point: typing_extensions.Annotated[
+        Entry, FieldMetadata(alias="entryPoint"), pydantic.Field(alias="entryPoint")
+    ]
+    front_image: typing_extensions.Annotated[
+        str,
+        FieldMetadata(alias="frontImage"),
+        pydantic.Field(
+            alias="frontImage",
+            description="Base64-encoded image of the front of the check. Must be JPEG or PNG format and less than 1MB. Image must show the entire check clearly with no partial, blurry, or illegible portions.",
+        ),
+    ]
+    rear_image: typing_extensions.Annotated[
+        str,
+        FieldMetadata(alias="rearImage"),
+        pydantic.Field(
+            alias="rearImage",
+            description="Base64-encoded image of the back of the check. Must be JPEG or PNG format and less than 1MB. Image must show the entire check clearly with no partial, blurry, or illegible portions.",
+        ),
+    ]
+    check_amount: typing_extensions.Annotated[
+        int,
+        FieldMetadata(alias="checkAmount"),
+        pydantic.Field(
+            alias="checkAmount",
+            description="Check amount in cents (maximum 32-bit integer value). For example, $125.50 is represented as 12550.",
+        ),
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

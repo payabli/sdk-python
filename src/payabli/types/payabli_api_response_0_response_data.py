@@ -17,22 +17,36 @@ from .resulttext import Resulttext
 
 
 class PayabliApiResponse0ResponseData(UniversalBaseModel):
-    auth_code: typing_extensions.Annotated[typing.Optional[Authcode], FieldMetadata(alias="AuthCode")] = None
-    avs_response_text: typing_extensions.Annotated[
-        typing.Optional[AvsResponseText], FieldMetadata(alias="avsResponseText")
+    auth_code: typing_extensions.Annotated[
+        typing.Optional[Authcode], FieldMetadata(alias="AuthCode"), pydantic.Field(alias="AuthCode")
     ] = None
-    customer_id: typing_extensions.Annotated[typing.Optional[Customeridtrans], FieldMetadata(alias="CustomerId")] = None
+    avs_response_text: typing_extensions.Annotated[
+        typing.Optional[AvsResponseText],
+        FieldMetadata(alias="avsResponseText"),
+        pydantic.Field(alias="avsResponseText"),
+    ] = None
+    customer_id: typing_extensions.Annotated[
+        typing.Optional[Customeridtrans], FieldMetadata(alias="CustomerId"), pydantic.Field(alias="CustomerId")
+    ] = None
     cvv_response_text: typing_extensions.Annotated[
-        typing.Optional[CvvResponseText], FieldMetadata(alias="cvvResponseText")
+        typing.Optional[CvvResponseText],
+        FieldMetadata(alias="cvvResponseText"),
+        pydantic.Field(alias="cvvResponseText"),
     ] = None
     method_reference_id: typing_extensions.Annotated[
-        typing.Optional[MethodReferenceId], FieldMetadata(alias="methodReferenceId")
+        typing.Optional[MethodReferenceId],
+        FieldMetadata(alias="methodReferenceId"),
+        pydantic.Field(alias="methodReferenceId"),
     ] = None
-    reference_id: typing_extensions.Annotated[typing.Optional[Referenceidtrans], FieldMetadata(alias="ReferenceId")] = (
-        None
-    )
-    result_code: typing_extensions.Annotated[typing.Optional[ResultCode], FieldMetadata(alias="ResultCode")] = None
-    result_text: typing_extensions.Annotated[typing.Optional[Resulttext], FieldMetadata(alias="ResultText")] = None
+    reference_id: typing_extensions.Annotated[
+        typing.Optional[Referenceidtrans], FieldMetadata(alias="ReferenceId"), pydantic.Field(alias="ReferenceId")
+    ] = None
+    result_code: typing_extensions.Annotated[
+        typing.Optional[ResultCode], FieldMetadata(alias="ResultCode"), pydantic.Field(alias="ResultCode")
+    ] = None
+    result_text: typing_extensions.Annotated[
+        typing.Optional[Resulttext], FieldMetadata(alias="ResultText"), pydantic.Field(alias="ResultText")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

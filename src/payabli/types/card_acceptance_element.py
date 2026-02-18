@@ -15,9 +15,15 @@ from .visible import Visible
 
 class CardAcceptanceElement(UniversalBaseModel):
     types: typing.Optional[CardTypes] = None
-    pos_col: typing_extensions.Annotated[typing.Optional[PosCol], FieldMetadata(alias="posCol")] = None
-    pos_row: typing_extensions.Annotated[typing.Optional[PosRow], FieldMetadata(alias="posRow")] = None
-    read_only: typing_extensions.Annotated[typing.Optional[ReadOnly], FieldMetadata(alias="readOnly")] = None
+    pos_col: typing_extensions.Annotated[
+        typing.Optional[PosCol], FieldMetadata(alias="posCol"), pydantic.Field(alias="posCol")
+    ] = None
+    pos_row: typing_extensions.Annotated[
+        typing.Optional[PosRow], FieldMetadata(alias="posRow"), pydantic.Field(alias="posRow")
+    ] = None
+    read_only: typing_extensions.Annotated[
+        typing.Optional[ReadOnly], FieldMetadata(alias="readOnly"), pydantic.Field(alias="readOnly")
+    ] = None
     value: typing.Optional[str] = None
     visible: typing.Optional[Visible] = None
 

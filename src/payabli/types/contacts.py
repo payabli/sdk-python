@@ -11,36 +11,30 @@ from .email import Email
 
 
 class Contacts(UniversalBaseModel):
-    contact_email: typing_extensions.Annotated[typing.Optional[Email], FieldMetadata(alias="contactEmail")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Contact email address.
-    """
-
-    contact_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="contactName")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Contact name.
-    """
-
-    contact_phone: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="contactPhone")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Contact phone number.
-    """
-
-    contact_title: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="contactTitle")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Contact title.
-    """
-
+    contact_email: typing_extensions.Annotated[
+        typing.Optional[Email],
+        FieldMetadata(alias="contactEmail"),
+        pydantic.Field(alias="contactEmail", description="Contact email address."),
+    ] = None
+    contact_name: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="contactName"),
+        pydantic.Field(alias="contactName", description="Contact name."),
+    ] = None
+    contact_phone: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="contactPhone"),
+        pydantic.Field(alias="contactPhone", description="Contact phone number."),
+    ] = None
+    contact_title: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="contactTitle"),
+        pydantic.Field(alias="contactTitle", description="Contact title."),
+    ] = None
     additional_data: typing_extensions.Annotated[
-        typing.Optional[AdditionalDataString], FieldMetadata(alias="additionalData")
+        typing.Optional[AdditionalDataString],
+        FieldMetadata(alias="additionalData"),
+        pydantic.Field(alias="additionalData"),
     ] = None
 
     if IS_PYDANTIC_V2:

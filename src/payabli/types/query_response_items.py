@@ -16,9 +16,13 @@ class QueryResponseItems(UniversalBaseModel):
     """
 
     records: typing_extensions.Annotated[
-        typing.Optional[typing.List[QueryResponseItemsRecordsItem]], FieldMetadata(alias="Records")
+        typing.Optional[typing.List[QueryResponseItemsRecordsItem]],
+        FieldMetadata(alias="Records"),
+        pydantic.Field(alias="Records"),
     ] = None
-    summary: typing_extensions.Annotated[typing.Optional[QuerySummary], FieldMetadata(alias="Summary")] = None
+    summary: typing_extensions.Annotated[
+        typing.Optional[QuerySummary], FieldMetadata(alias="Summary"), pydantic.Field(alias="Summary")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

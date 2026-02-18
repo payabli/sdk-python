@@ -10,7 +10,9 @@ from .ocr_result_data import OcrResultData
 
 
 class OcrResponseData(UniversalBaseModel):
-    result_data: typing_extensions.Annotated[typing.Optional[OcrResultData], FieldMetadata(alias="resultData")] = None
+    result_data: typing_extensions.Annotated[
+        typing.Optional[OcrResultData], FieldMetadata(alias="resultData"), pydantic.Field(alias="resultData")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

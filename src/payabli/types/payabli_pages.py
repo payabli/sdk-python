@@ -18,67 +18,58 @@ from .subdomain import Subdomain
 
 class PayabliPages(UniversalBaseModel):
     additional_data: typing_extensions.Annotated[
-        typing.Optional[AdditionalData], FieldMetadata(alias="AdditionalData")
+        typing.Optional[AdditionalData], FieldMetadata(alias="AdditionalData"), pydantic.Field(alias="AdditionalData")
     ] = None
     credentials: typing.Optional[typing.List[PayabliCredentials]] = pydantic.Field(default=None)
     """
     Array of credential objects with active services for the page
     """
 
-    last_access: typing_extensions.Annotated[typing.Optional[dt.datetime], FieldMetadata(alias="lastAccess")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Timestamp of last access to page structure
-    """
-
-    page_content: typing_extensions.Annotated[typing.Optional[PageContent], FieldMetadata(alias="pageContent")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Sections of page
-    """
-
-    page_identifier: typing_extensions.Annotated[
-        typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier")
+    last_access: typing_extensions.Annotated[
+        typing.Optional[dt.datetime],
+        FieldMetadata(alias="lastAccess"),
+        pydantic.Field(alias="lastAccess", description="Timestamp of last access to page structure"),
     ] = None
-    page_settings: typing_extensions.Annotated[typing.Optional[PageSetting], FieldMetadata(alias="pageSettings")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Settings of page
-    """
-
+    page_content: typing_extensions.Annotated[
+        typing.Optional[PageContent],
+        FieldMetadata(alias="pageContent"),
+        pydantic.Field(alias="pageContent", description="Sections of page"),
+    ] = None
+    page_identifier: typing_extensions.Annotated[
+        typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier"), pydantic.Field(alias="pageIdentifier")
+    ] = None
+    page_settings: typing_extensions.Annotated[
+        typing.Optional[PageSetting],
+        FieldMetadata(alias="pageSettings"),
+        pydantic.Field(alias="pageSettings", description="Settings of page"),
+    ] = None
     published: typing.Optional[int] = pydantic.Field(default=None)
     """
     Flag indicating if page is active to accept payments. `0` for false, `1` for true.
     """
 
     receipt_content: typing_extensions.Annotated[
-        typing.Optional[ReceiptContent], FieldMetadata(alias="receiptContent")
-    ] = pydantic.Field(default=None)
-    """
-    Sections of payment receipt
-    """
-
+        typing.Optional[ReceiptContent],
+        FieldMetadata(alias="receiptContent"),
+        pydantic.Field(alias="receiptContent", description="Sections of payment receipt"),
+    ] = None
     subdomain: typing.Optional[Subdomain] = pydantic.Field(default=None)
     """
     Page identifier. Must be unique in platform.
     """
 
-    total_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="totalAmount")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Total amount to pay in this page
-    """
-
-    validation_code: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="validationCode")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Base64 encoded image of CAPTCHA associated to this page load
-    """
+    total_amount: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="totalAmount"),
+        pydantic.Field(alias="totalAmount", description="Total amount to pay in this page"),
+    ] = None
+    validation_code: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="validationCode"),
+        pydantic.Field(
+            alias="validationCode", description="Base64 encoded image of CAPTCHA associated to this page load"
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

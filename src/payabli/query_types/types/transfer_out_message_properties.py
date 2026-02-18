@@ -14,18 +14,19 @@ class TransferOutMessageProperties(UniversalBaseModel):
     """
 
     original_transfer_status: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="originalTransferStatus")
-    ] = pydantic.Field(default=None)
-    """
-    The original status of the transfer before the message.
-    """
-
+        typing.Optional[str],
+        FieldMetadata(alias="originalTransferStatus"),
+        pydantic.Field(
+            alias="originalTransferStatus", description="The original status of the transfer before the message."
+        ),
+    ] = None
     current_transfer_status: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="currentTransferStatus")
-    ] = pydantic.Field(default=None)
-    """
-    The current status of the transfer after the message.
-    """
+        typing.Optional[str],
+        FieldMetadata(alias="currentTransferStatus"),
+        pydantic.Field(
+            alias="currentTransferStatus", description="The current status of the transfer after the message."
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

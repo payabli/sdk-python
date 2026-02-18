@@ -21,14 +21,24 @@ class TokenizeAch(UniversalBaseModel):
     The type of payment method to tokenize. For ACH, this is always `ach`.
     """
 
-    ach_account: typing_extensions.Annotated[Achaccount, FieldMetadata(alias="achAccount")]
-    ach_account_type: typing_extensions.Annotated[Achaccounttype, FieldMetadata(alias="achAccountType")]
-    ach_code: typing_extensions.Annotated[typing.Optional[AchSecCode], FieldMetadata(alias="achCode")] = None
-    ach_holder: typing_extensions.Annotated[AchHolder, FieldMetadata(alias="achHolder")]
-    ach_holder_type: typing_extensions.Annotated[
-        typing.Optional[AchHolderType], FieldMetadata(alias="achHolderType")
+    ach_account: typing_extensions.Annotated[
+        Achaccount, FieldMetadata(alias="achAccount"), pydantic.Field(alias="achAccount")
+    ]
+    ach_account_type: typing_extensions.Annotated[
+        Achaccounttype, FieldMetadata(alias="achAccountType"), pydantic.Field(alias="achAccountType")
+    ]
+    ach_code: typing_extensions.Annotated[
+        typing.Optional[AchSecCode], FieldMetadata(alias="achCode"), pydantic.Field(alias="achCode")
     ] = None
-    ach_routing: typing_extensions.Annotated[Achrouting, FieldMetadata(alias="achRouting")]
+    ach_holder: typing_extensions.Annotated[
+        AchHolder, FieldMetadata(alias="achHolder"), pydantic.Field(alias="achHolder")
+    ]
+    ach_holder_type: typing_extensions.Annotated[
+        typing.Optional[AchHolderType], FieldMetadata(alias="achHolderType"), pydantic.Field(alias="achHolderType")
+    ] = None
+    ach_routing: typing_extensions.Annotated[
+        Achrouting, FieldMetadata(alias="achRouting"), pydantic.Field(alias="achRouting")
+    ]
     device: typing.Optional[Device] = None
 
     if IS_PYDANTIC_V2:

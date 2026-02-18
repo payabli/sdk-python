@@ -19,17 +19,23 @@ class SignerSection(UniversalBaseModel):
     phone: typing.Optional[TemplateElement] = None
     email: typing.Optional[TemplateElement] = None
     address: typing.Optional[TemplateElement] = None
-    address_1: typing_extensions.Annotated[typing.Optional[TemplateElement], FieldMetadata(alias="address1")] = None
+    address_1: typing_extensions.Annotated[
+        typing.Optional[TemplateElement], FieldMetadata(alias="address1"), pydantic.Field(alias="address1")
+    ] = None
     city: typing.Optional[TemplateElement] = None
     country: typing.Optional[TemplateElement] = None
     state: typing.Optional[TemplateElement] = None
     zip: typing.Optional[TemplateElement] = None
     acceptance: typing.Optional[TemplateElement] = None
     signed_document_reference: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="signedDocumentReference")
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="signedDocumentReference"),
+        pydantic.Field(alias="signedDocumentReference"),
     ] = None
     additional_data: typing_extensions.Annotated[
-        typing.Optional[TemplateAdditionalDataSection], FieldMetadata(alias="additionalData")
+        typing.Optional[TemplateAdditionalDataSection],
+        FieldMetadata(alias="additionalData"),
+        pydantic.Field(alias="additionalData"),
     ] = None
 
     if IS_PYDANTIC_V2:

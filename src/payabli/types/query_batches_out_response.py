@@ -16,9 +16,9 @@ class QueryBatchesOutResponse(UniversalBaseModel):
     """
 
     records: typing_extensions.Annotated[
-        typing.List[QueryBatchesOutResponseRecordsItem], FieldMetadata(alias="Records")
+        typing.List[QueryBatchesOutResponseRecordsItem], FieldMetadata(alias="Records"), pydantic.Field(alias="Records")
     ]
-    summary: typing_extensions.Annotated[BatchSummary, FieldMetadata(alias="Summary")]
+    summary: typing_extensions.Annotated[BatchSummary, FieldMetadata(alias="Summary"), pydantic.Field(alias="Summary")]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

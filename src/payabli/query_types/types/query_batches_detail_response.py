@@ -15,8 +15,12 @@ class QueryBatchesDetailResponse(UniversalBaseModel):
     Response body for queries about batch details.
     """
 
-    records: typing_extensions.Annotated[typing.List[BatchDetailResponseRecord], FieldMetadata(alias="Records")]
-    summary: typing_extensions.Annotated[BatchDetailResponseSummary, FieldMetadata(alias="Summary")]
+    records: typing_extensions.Annotated[
+        typing.List[BatchDetailResponseRecord], FieldMetadata(alias="Records"), pydantic.Field(alias="Records")
+    ]
+    summary: typing_extensions.Annotated[
+        BatchDetailResponseSummary, FieldMetadata(alias="Summary"), pydantic.Field(alias="Summary")
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

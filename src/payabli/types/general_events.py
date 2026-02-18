@@ -16,27 +16,21 @@ class GeneralEvents(UniversalBaseModel):
     Event description.
     """
 
-    event_time: typing_extensions.Annotated[typing.Optional[dt.datetime], FieldMetadata(alias="eventTime")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Event timestamp, in UTC.
-    """
-
+    event_time: typing_extensions.Annotated[
+        typing.Optional[dt.datetime],
+        FieldMetadata(alias="eventTime"),
+        pydantic.Field(alias="eventTime", description="Event timestamp, in UTC."),
+    ] = None
     extra_data: typing_extensions.Annotated[
-        typing.Optional[typing.Dict[str, typing.Any]], FieldMetadata(alias="extraData")
-    ] = pydantic.Field(default=None)
-    """
-    Extra data.
-    """
-
-    ref_data: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="refData")] = pydantic.Field(
-        default=None
-    )
-    """
-    Reference data.
-    """
-
+        typing.Optional[typing.Dict[str, typing.Any]],
+        FieldMetadata(alias="extraData"),
+        pydantic.Field(alias="extraData", description="Extra data."),
+    ] = None
+    ref_data: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="refData"),
+        pydantic.Field(alias="refData", description="Reference data."),
+    ] = None
     source: typing.Optional[Source] = pydantic.Field(default=None)
     """
     The event source.

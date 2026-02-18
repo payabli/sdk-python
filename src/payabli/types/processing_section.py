@@ -20,21 +20,25 @@ class ProcessingSection(UniversalBaseModel):
     bsummary: typing.Optional[TemplateElement] = None
     highticketamt: typing.Optional[TemplateElement] = None
     mcc: typing.Optional[TemplateElement] = None
-    sub_footer: typing_extensions.Annotated[typing.Optional[SubFooter], FieldMetadata(alias="subFooter")] = None
-    sub_header: typing_extensions.Annotated[typing.Optional[SubHeader], FieldMetadata(alias="subHeader")] = None
+    sub_footer: typing_extensions.Annotated[
+        typing.Optional[SubFooter], FieldMetadata(alias="subFooter"), pydantic.Field(alias="subFooter")
+    ] = None
+    sub_header: typing_extensions.Annotated[
+        typing.Optional[SubHeader], FieldMetadata(alias="subHeader"), pydantic.Field(alias="subHeader")
+    ] = None
     ticketamt: typing.Optional[TemplateElement] = None
     visible: typing.Optional[Visible] = None
-    when_charged: typing_extensions.Annotated[typing.Optional[TemplateElement], FieldMetadata(alias="whenCharged")] = (
-        None
-    )
+    when_charged: typing_extensions.Annotated[
+        typing.Optional[TemplateElement], FieldMetadata(alias="whenCharged"), pydantic.Field(alias="whenCharged")
+    ] = None
     when_delivered: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="whenDelivered")
+        typing.Optional[TemplateElement], FieldMetadata(alias="whenDelivered"), pydantic.Field(alias="whenDelivered")
     ] = None
     when_provided: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="whenProvided")
+        typing.Optional[TemplateElement], FieldMetadata(alias="whenProvided"), pydantic.Field(alias="whenProvided")
     ] = None
     when_refunded: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="whenRefunded")
+        typing.Optional[TemplateElement], FieldMetadata(alias="whenRefunded"), pydantic.Field(alias="whenRefunded")
     ] = None
 
     if IS_PYDANTIC_V2:

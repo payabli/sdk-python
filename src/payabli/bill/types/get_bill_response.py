@@ -19,17 +19,23 @@ class GetBillResponse(UniversalBaseModel):
     A successful response returns a bill object with all its details. If the bill isn't found, the response will contain an error message.
     """
 
-    response_code: typing_extensions.Annotated[typing.Optional[Responsecode], FieldMetadata(alias="responseCode")] = (
-        None
-    )
-    page_identifier: typing_extensions.Annotated[
-        typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier")
+    response_code: typing_extensions.Annotated[
+        typing.Optional[Responsecode], FieldMetadata(alias="responseCode"), pydantic.Field(alias="responseCode")
     ] = None
-    room_id: typing_extensions.Annotated[typing.Optional[RoomIdNotInUse], FieldMetadata(alias="roomId")] = None
-    is_success: typing_extensions.Annotated[typing.Optional[IsSuccess], FieldMetadata(alias="isSuccess")] = None
-    response_text: typing_extensions.Annotated[ResponseText, FieldMetadata(alias="responseText")]
+    page_identifier: typing_extensions.Annotated[
+        typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier"), pydantic.Field(alias="pageIdentifier")
+    ] = None
+    room_id: typing_extensions.Annotated[
+        typing.Optional[RoomIdNotInUse], FieldMetadata(alias="roomId"), pydantic.Field(alias="roomId")
+    ] = None
+    is_success: typing_extensions.Annotated[
+        typing.Optional[IsSuccess], FieldMetadata(alias="isSuccess"), pydantic.Field(alias="isSuccess")
+    ] = None
+    response_text: typing_extensions.Annotated[
+        ResponseText, FieldMetadata(alias="responseText"), pydantic.Field(alias="responseText")
+    ]
     response_data: typing_extensions.Annotated[
-        typing.Optional[BillResponseData], FieldMetadata(alias="responseData")
+        typing.Optional[BillResponseData], FieldMetadata(alias="responseData"), pydantic.Field(alias="responseData")
     ] = None
 
     if IS_PYDANTIC_V2:

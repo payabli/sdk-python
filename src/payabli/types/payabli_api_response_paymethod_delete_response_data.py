@@ -13,14 +13,16 @@ from .resulttext import Resulttext
 
 class PayabliApiResponsePaymethodDeleteResponseData(UniversalBaseModel):
     reference_id: typing_extensions.Annotated[
-        typing.Optional[MethodReferenceId], FieldMetadata(alias="referenceId")
-    ] = pydantic.Field(default=None)
-    """
-    The method's reference ID.
-    """
-
-    result_code: typing_extensions.Annotated[typing.Optional[ResultCode], FieldMetadata(alias="resultCode")] = None
-    result_text: typing_extensions.Annotated[typing.Optional[Resulttext], FieldMetadata(alias="resultText")] = None
+        typing.Optional[MethodReferenceId],
+        FieldMetadata(alias="referenceId"),
+        pydantic.Field(alias="referenceId", description="The method's reference ID."),
+    ] = None
+    result_code: typing_extensions.Annotated[
+        typing.Optional[ResultCode], FieldMetadata(alias="resultCode"), pydantic.Field(alias="resultCode")
+    ] = None
+    result_text: typing_extensions.Annotated[
+        typing.Optional[Resulttext], FieldMetadata(alias="resultText"), pydantic.Field(alias="resultText")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -19,32 +19,32 @@ class MethodQueryRecords(UniversalBaseModel):
     The bank identification number (BIN). Null when method is ACH.
     """
 
-    bin_data: typing_extensions.Annotated[typing.Optional[BinData], FieldMetadata(alias="binData")] = None
+    bin_data: typing_extensions.Annotated[
+        typing.Optional[BinData], FieldMetadata(alias="binData"), pydantic.Field(alias="binData")
+    ] = None
     descriptor: typing.Optional[Descriptor] = None
-    exp_date: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="expDate")] = pydantic.Field(
-        default=None
-    )
-    """
-    Expiration date associated to the method (only for card) in format MMYY.
-    """
-
-    holder_name: typing_extensions.Annotated[typing.Optional[Holdername], FieldMetadata(alias="holderName")] = None
-    id_pmethod: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="idPmethod")] = pydantic.Field(
-        default=None
-    )
-    """
-    Method internal ID
-    """
-
-    last_updated: typing_extensions.Annotated[typing.Optional[LastModified], FieldMetadata(alias="lastUpdated")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Date of last update
-    """
-
+    exp_date: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="expDate"),
+        pydantic.Field(
+            alias="expDate", description="Expiration date associated to the method (only for card) in format MMYY."
+        ),
+    ] = None
+    holder_name: typing_extensions.Annotated[
+        typing.Optional[Holdername], FieldMetadata(alias="holderName"), pydantic.Field(alias="holderName")
+    ] = None
+    id_pmethod: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="idPmethod"),
+        pydantic.Field(alias="idPmethod", description="Method internal ID"),
+    ] = None
+    last_updated: typing_extensions.Annotated[
+        typing.Optional[LastModified],
+        FieldMetadata(alias="lastUpdated"),
+        pydantic.Field(alias="lastUpdated", description="Date of last update"),
+    ] = None
     masked_account: typing_extensions.Annotated[
-        typing.Optional[Maskedaccount], FieldMetadata(alias="maskedAccount")
+        typing.Optional[Maskedaccount], FieldMetadata(alias="maskedAccount"), pydantic.Field(alias="maskedAccount")
     ] = None
     method: typing.Optional[str] = pydantic.Field(default=None)
     """

@@ -14,59 +14,46 @@ class TransferOutMessage(UniversalBaseModel):
     A message associated with an outbound transfer.
     """
 
-    id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="Id")] = pydantic.Field(default=None)
-    """
-    Unique identifier for the message.
-    """
-
-    room_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="RoomId")] = pydantic.Field(
-        default=None
-    )
-    """
-    The ID of the room where the message was sent.
-    """
-
-    user_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="UserId")] = pydantic.Field(
-        default=None
-    )
-    """
-    The ID of the user who sent the message.
-    """
-
-    user_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="UserName")] = pydantic.Field(
-        default=None
-    )
-    """
-    The name of the user who sent the message.
-    """
-
-    content: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="Content")] = pydantic.Field(
-        default=None
-    )
-    """
-    The content of the message.
-    """
-
-    created_at: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="CreatedAt")] = pydantic.Field(
-        default=None
-    )
-    """
-    The time the message was created.
-    """
-
-    message_type: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="MessageType")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The type of message.
-    """
-
+    id: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="Id"),
+        pydantic.Field(alias="Id", description="Unique identifier for the message."),
+    ] = None
+    room_id: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="RoomId"),
+        pydantic.Field(alias="RoomId", description="The ID of the room where the message was sent."),
+    ] = None
+    user_id: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="UserId"),
+        pydantic.Field(alias="UserId", description="The ID of the user who sent the message."),
+    ] = None
+    user_name: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="UserName"),
+        pydantic.Field(alias="UserName", description="The name of the user who sent the message."),
+    ] = None
+    content: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="Content"),
+        pydantic.Field(alias="Content", description="The content of the message."),
+    ] = None
+    created_at: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="CreatedAt"),
+        pydantic.Field(alias="CreatedAt", description="The time the message was created."),
+    ] = None
+    message_type: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="MessageType"),
+        pydantic.Field(alias="MessageType", description="The type of message."),
+    ] = None
     message_properties: typing_extensions.Annotated[
-        typing.Optional[TransferOutMessageProperties], FieldMetadata(alias="MessageProperties")
-    ] = pydantic.Field(default=None)
-    """
-    Additional properties for the message.
-    """
+        typing.Optional[TransferOutMessageProperties],
+        FieldMetadata(alias="MessageProperties"),
+        pydantic.Field(alias="MessageProperties", description="Additional properties for the message."),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -18,17 +18,22 @@ class PaymentDetailCredit(UniversalBaseModel):
     Currency code ISO-4217. If not code is provided the currency in the paypoint setting is taken. Default is **USD**
     """
 
-    service_fee: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="serviceFee")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Service fee to be deducted from the total amount. This amount must be a number, percentages aren't accepted. If you are using a percentage-based fee schedule, you must calculate the value manually.
-    """
-
-    total_amount: typing_extensions.Annotated[float, FieldMetadata(alias="totalAmount")] = pydantic.Field()
-    """
-    Total amount to be charged. If a service fee is provided, then this amount should include the service fee.
-    """
+    service_fee: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="serviceFee"),
+        pydantic.Field(
+            alias="serviceFee",
+            description="Service fee to be deducted from the total amount. This amount must be a number, percentages aren't accepted. If you are using a percentage-based fee schedule, you must calculate the value manually.",
+        ),
+    ] = None
+    total_amount: typing_extensions.Annotated[
+        float,
+        FieldMetadata(alias="totalAmount"),
+        pydantic.Field(
+            alias="totalAmount",
+            description="Total amount to be charged. If a service fee is provided, then this amount should include the service fee.",
+        ),
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

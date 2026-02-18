@@ -20,8 +20,12 @@ class ServicesSection(UniversalBaseModel):
 
     ach: typing.Optional[AchService] = None
     card: typing.Optional[CardService] = None
-    sub_footer: typing_extensions.Annotated[typing.Optional[SubFooter], FieldMetadata(alias="subFooter")] = None
-    sub_header: typing_extensions.Annotated[typing.Optional[SubHeader], FieldMetadata(alias="subHeader")] = None
+    sub_footer: typing_extensions.Annotated[
+        typing.Optional[SubFooter], FieldMetadata(alias="subFooter"), pydantic.Field(alias="subFooter")
+    ] = None
+    sub_header: typing_extensions.Annotated[
+        typing.Optional[SubHeader], FieldMetadata(alias="subHeader"), pydantic.Field(alias="subHeader")
+    ] = None
     visible: typing.Optional[Visible] = None
 
     if IS_PYDANTIC_V2:

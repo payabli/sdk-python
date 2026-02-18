@@ -36,20 +36,16 @@ class Owners(UniversalBaseModel):
     Owner's date of birth.
     """
 
-    ownerphone_1: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="ownerphone1")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Owner phone 1.
-    """
-
-    ownerphone_2: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="ownerphone2")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Owner phone 2.
-    """
-
+    ownerphone_1: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="ownerphone1"),
+        pydantic.Field(alias="ownerphone1", description="Owner phone 1."),
+    ] = None
+    ownerphone_2: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="ownerphone2"),
+        pydantic.Field(alias="ownerphone2", description="Owner phone 2."),
+    ] = None
     owneremail: typing.Optional[Email] = pydantic.Field(default=None)
     """
     Owner email.
@@ -91,7 +87,9 @@ class Owners(UniversalBaseModel):
     """
 
     additional_data: typing_extensions.Annotated[
-        typing.Optional[AdditionalDataString], FieldMetadata(alias="additionalData")
+        typing.Optional[AdditionalDataString],
+        FieldMetadata(alias="additionalData"),
+        pydantic.Field(alias="additionalData"),
     ] = None
 
     if IS_PYDANTIC_V2:

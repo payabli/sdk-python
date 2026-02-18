@@ -10,7 +10,9 @@ from ...types.response_text import ResponseText
 
 
 class DeleteUserResponse(UniversalBaseModel):
-    response_text: typing_extensions.Annotated[ResponseText, FieldMetadata(alias="responseText")]
+    response_text: typing_extensions.Annotated[
+        ResponseText, FieldMetadata(alias="responseText"), pydantic.Field(alias="responseText")
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

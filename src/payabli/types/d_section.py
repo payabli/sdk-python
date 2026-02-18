@@ -10,10 +10,12 @@ from .bnk import Bnk
 
 
 class DSection(UniversalBaseModel):
-    deposit_account: typing_extensions.Annotated[typing.Optional[Bnk], FieldMetadata(alias="depositAccount")] = None
-    withdrawal_account: typing_extensions.Annotated[typing.Optional[Bnk], FieldMetadata(alias="withdrawalAccount")] = (
-        None
-    )
+    deposit_account: typing_extensions.Annotated[
+        typing.Optional[Bnk], FieldMetadata(alias="depositAccount"), pydantic.Field(alias="depositAccount")
+    ] = None
+    withdrawal_account: typing_extensions.Annotated[
+        typing.Optional[Bnk], FieldMetadata(alias="withdrawalAccount"), pydantic.Field(alias="withdrawalAccount")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

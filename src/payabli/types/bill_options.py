@@ -9,19 +9,21 @@ from ..core.serialization import FieldMetadata
 
 
 class BillOptions(UniversalBaseModel):
-    include_paylink: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="includePaylink")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Flag to indicate if the scheduled invoice includes a payment link.
-    """
-
-    include_pdf: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="includePdf")] = pydantic.Field(
-        default=None
-    )
-    """
-    Flag to indicate if the scheduled invoice includes a PDF version of invoice
-    """
+    include_paylink: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="includePaylink"),
+        pydantic.Field(
+            alias="includePaylink", description="Flag to indicate if the scheduled invoice includes a payment link."
+        ),
+    ] = None
+    include_pdf: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="includePdf"),
+        pydantic.Field(
+            alias="includePdf",
+            description="Flag to indicate if the scheduled invoice includes a PDF version of invoice",
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

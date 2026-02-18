@@ -11,25 +11,24 @@ from .key_value import KeyValue
 
 class SettingsQueryRecord(UniversalBaseModel):
     custom_fields: typing_extensions.Annotated[
-        typing.Optional[typing.List[KeyValue]], FieldMetadata(alias="customFields")
-    ] = pydantic.Field(default=None)
-    """
-    Any custom fields defined for the org.
-    """
-
+        typing.Optional[typing.List[KeyValue]],
+        FieldMetadata(alias="customFields"),
+        pydantic.Field(alias="customFields", description="Any custom fields defined for the org."),
+    ] = None
     for_invoices: typing_extensions.Annotated[
-        typing.Optional[typing.List[KeyValue]], FieldMetadata(alias="forInvoices")
+        typing.Optional[typing.List[KeyValue]], FieldMetadata(alias="forInvoices"), pydantic.Field(alias="forInvoices")
     ] = None
     for_pay_outs: typing_extensions.Annotated[
-        typing.Optional[typing.List[KeyValue]], FieldMetadata(alias="forPayOuts")
+        typing.Optional[typing.List[KeyValue]], FieldMetadata(alias="forPayOuts"), pydantic.Field(alias="forPayOuts")
     ] = None
     for_wallets: typing_extensions.Annotated[
-        typing.Optional[typing.List[KeyValue]], FieldMetadata(alias="forWallets")
-    ] = pydantic.Field(default=None)
-    """
-    Information about digital wallet settings for the entity. Available values are `isApplePayEnabled` and `isGooglePayEnabled`.
-    """
-
+        typing.Optional[typing.List[KeyValue]],
+        FieldMetadata(alias="forWallets"),
+        pydantic.Field(
+            alias="forWallets",
+            description="Information about digital wallet settings for the entity. Available values are `isApplePayEnabled` and `isGooglePayEnabled`.",
+        ),
+    ] = None
     general: typing.Optional[typing.List[KeyValue]] = pydantic.Field(default=None)
     """
     

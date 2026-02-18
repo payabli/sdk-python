@@ -11,13 +11,11 @@ from .order import Order
 
 
 class ContactElement(UniversalBaseModel):
-    email_label: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="emailLabel")] = pydantic.Field(
-        default=None
-    )
-    """
-    Custom content for email
-    """
-
+    email_label: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="emailLabel"),
+        pydantic.Field(alias="emailLabel", description="Custom content for email"),
+    ] = None
     enabled: typing.Optional[Enabled] = None
     header: typing.Optional[str] = pydantic.Field(default=None)
     """
@@ -25,19 +23,18 @@ class ContactElement(UniversalBaseModel):
     """
 
     order: typing.Optional[Order] = None
-    payment_icons: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="paymentIcons")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Flag indicating if icons for accepted card brands will be shown
-    """
-
-    phone_label: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="phoneLabel")] = pydantic.Field(
-        default=None
-    )
-    """
-    Custom content for phone number
-    """
+    payment_icons: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="paymentIcons"),
+        pydantic.Field(
+            alias="paymentIcons", description="Flag indicating if icons for accepted card brands will be shown"
+        ),
+    ] = None
+    phone_label: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="phoneLabel"),
+        pydantic.Field(alias="phoneLabel", description="Custom content for phone number"),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

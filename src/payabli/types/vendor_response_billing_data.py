@@ -14,20 +14,34 @@ class VendorResponseBillingData(UniversalBaseModel):
     """
 
     id: typing.Optional[int] = None
-    account_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="accountId")] = None
+    account_id: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="accountId"), pydantic.Field(alias="accountId")
+    ] = None
     nickname: typing.Optional[str] = None
-    bank_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="bankName")] = None
-    routing_account: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="routingAccount")] = None
-    account_number: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="accountNumber")] = None
-    type_account: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="typeAccount")] = None
+    bank_name: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="bankName"), pydantic.Field(alias="bankName")
+    ] = None
+    routing_account: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="routingAccount"), pydantic.Field(alias="routingAccount")
+    ] = None
+    account_number: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="accountNumber"), pydantic.Field(alias="accountNumber")
+    ] = None
+    type_account: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="typeAccount"), pydantic.Field(alias="typeAccount")
+    ] = None
     bank_account_holder_name: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="bankAccountHolderName")
+        typing.Optional[str],
+        FieldMetadata(alias="bankAccountHolderName"),
+        pydantic.Field(alias="bankAccountHolderName"),
     ] = None
     bank_account_holder_type: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="bankAccountHolderType")
+        typing.Optional[str],
+        FieldMetadata(alias="bankAccountHolderType"),
+        pydantic.Field(alias="bankAccountHolderType"),
     ] = None
     bank_account_function: typing_extensions.Annotated[
-        typing.Optional[int], FieldMetadata(alias="bankAccountFunction")
+        typing.Optional[int], FieldMetadata(alias="bankAccountFunction"), pydantic.Field(alias="bankAccountFunction")
     ] = None
     verified: typing.Optional[bool] = None
     status: typing.Optional[int] = None

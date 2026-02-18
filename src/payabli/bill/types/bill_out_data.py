@@ -21,94 +21,89 @@ from .bill_out_data_scheduled_options import BillOutDataScheduledOptions
 
 class BillOutData(UniversalBaseModel):
     accounting_field_1: typing_extensions.Annotated[
-        typing.Optional[AccountingField], FieldMetadata(alias="accountingField1")
+        typing.Optional[AccountingField],
+        FieldMetadata(alias="accountingField1"),
+        pydantic.Field(alias="accountingField1"),
     ] = None
     accounting_field_2: typing_extensions.Annotated[
-        typing.Optional[AccountingField], FieldMetadata(alias="accountingField2")
+        typing.Optional[AccountingField],
+        FieldMetadata(alias="accountingField2"),
+        pydantic.Field(alias="accountingField2"),
     ] = None
     additional_data: typing_extensions.Annotated[
-        typing.Optional[AdditionalDataString], FieldMetadata(alias="additionalData")
+        typing.Optional[AdditionalDataString],
+        FieldMetadata(alias="additionalData"),
+        pydantic.Field(alias="additionalData"),
     ] = None
     attachments: typing.Optional[Attachments] = pydantic.Field(default=None)
     """
     An array of bill images. Attachments aren't required, but we strongly recommend including them. Including a bill image can make payouts smoother and prevent delays. You can include either the Base64-encoded file content, or you can include an fURL to a public file. The maximum file size for image uploads is 30 MB.
     """
 
-    bill_date: typing_extensions.Annotated[typing.Optional[Datenullable], FieldMetadata(alias="billDate")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
-    """
-
-    bill_items: typing_extensions.Annotated[typing.Optional[Billitems], FieldMetadata(alias="billItems")] = None
-    bill_number: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="billNumber")] = pydantic.Field(
-        default=None
-    )
-    """
-    Unique identifier for the bill. Required when adding a bill.
-    """
-
+    bill_date: typing_extensions.Annotated[
+        typing.Optional[Datenullable],
+        FieldMetadata(alias="billDate"),
+        pydantic.Field(alias="billDate", description="Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY."),
+    ] = None
+    bill_items: typing_extensions.Annotated[
+        typing.Optional[Billitems], FieldMetadata(alias="billItems"), pydantic.Field(alias="billItems")
+    ] = None
+    bill_number: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="billNumber"),
+        pydantic.Field(alias="billNumber", description="Unique identifier for the bill. Required when adding a bill."),
+    ] = None
     comments: typing.Optional[Comments] = None
     discount: typing.Optional[float] = pydantic.Field(default=None)
     """
     Discount amount applied to the bill.
     """
 
-    due_date: typing_extensions.Annotated[typing.Optional[Datenullable], FieldMetadata(alias="dueDate")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
-    """
-
-    end_date: typing_extensions.Annotated[typing.Optional[Datenullable], FieldMetadata(alias="endDate")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    End Date for scheduled bills. Applied only in `Mode` = 1. Accepted formats: YYYY-MM-DD, MM/DD/YYYY
-    """
-
+    due_date: typing_extensions.Annotated[
+        typing.Optional[Datenullable],
+        FieldMetadata(alias="dueDate"),
+        pydantic.Field(alias="dueDate", description="Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY."),
+    ] = None
+    end_date: typing_extensions.Annotated[
+        typing.Optional[Datenullable],
+        FieldMetadata(alias="endDate"),
+        pydantic.Field(
+            alias="endDate",
+            description="End Date for scheduled bills. Applied only in `Mode` = 1. Accepted formats: YYYY-MM-DD, MM/DD/YYYY",
+        ),
+    ] = None
     frequency: typing.Optional[Frequency] = pydantic.Field(default=None)
     """
     Frequency for scheduled bills. Applied only in `Mode` = 1.
     """
 
-    lot_number: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="lotNumber")] = pydantic.Field(
-        default=None
-    )
-    """
-    Lot number associated with the bill.
-    """
-
+    lot_number: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="lotNumber"),
+        pydantic.Field(alias="lotNumber", description="Lot number associated with the bill."),
+    ] = None
     mode: typing.Optional[int] = pydantic.Field(default=None)
     """
     Bill mode: value `0` for one-time bills, `1` for scheduled bills.
     """
 
-    net_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="netAmount")] = pydantic.Field(
-        default=None
-    )
-    """
-    Net Amount owed in bill. Required when adding a bill.
-    """
-
+    net_amount: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="netAmount"),
+        pydantic.Field(alias="netAmount", description="Net Amount owed in bill. Required when adding a bill."),
+    ] = None
     scheduled_options: typing_extensions.Annotated[
-        typing.Optional[BillOutDataScheduledOptions], FieldMetadata(alias="scheduledOptions")
-    ] = pydantic.Field(default=None)
-    """
-    Options for scheduled bills.
-    """
-
+        typing.Optional[BillOutDataScheduledOptions],
+        FieldMetadata(alias="scheduledOptions"),
+        pydantic.Field(alias="scheduledOptions", description="Options for scheduled bills."),
+    ] = None
     status: typing.Optional[Billstatus] = None
     terms: typing.Optional[Terms] = None
-    total_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="totalAmount")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Total amount of the bill.
-    """
-
+    total_amount: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="totalAmount"),
+        pydantic.Field(alias="totalAmount", description="Total amount of the bill."),
+    ] = None
     vendor: typing.Optional[VendorData] = pydantic.Field(default=None)
     """
     The vendor associated with the bill. Although you can create a vendor in a create bill request, Payabli recommends creating a vendor separately and passing a valid `vendorNumber` here. At minimum, the `vendorNumber` is required. 

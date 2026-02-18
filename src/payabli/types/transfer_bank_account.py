@@ -12,9 +12,13 @@ from .routing_account import RoutingAccount
 
 
 class TransferBankAccount(UniversalBaseModel):
-    account_number: typing_extensions.Annotated[AccountNumber, FieldMetadata(alias="accountNumber")]
-    routing_number: typing_extensions.Annotated[RoutingAccount, FieldMetadata(alias="routingNumber")]
-    bank_name: typing_extensions.Annotated[BankName, FieldMetadata(alias="bankName")]
+    account_number: typing_extensions.Annotated[
+        AccountNumber, FieldMetadata(alias="accountNumber"), pydantic.Field(alias="accountNumber")
+    ]
+    routing_number: typing_extensions.Annotated[
+        RoutingAccount, FieldMetadata(alias="routingNumber"), pydantic.Field(alias="routingNumber")
+    ]
+    bank_name: typing_extensions.Annotated[BankName, FieldMetadata(alias="bankName"), pydantic.Field(alias="bankName")]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

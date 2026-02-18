@@ -14,25 +14,31 @@ from ...types.resulttext import Resulttext
 
 class AddMethodResponseResponseData(UniversalBaseModel):
     reference_id: typing_extensions.Annotated[
-        typing.Optional[MethodReferenceId], FieldMetadata(alias="referenceId")
-    ] = pydantic.Field(default=None)
-    """
-    Stored method identifier in Payabli platform. This ID is used to manage the stored method.
-    """
-
-    result_code: typing_extensions.Annotated[typing.Optional[ResultCode], FieldMetadata(alias="resultCode")] = None
-    result_text: typing_extensions.Annotated[typing.Optional[Resulttext], FieldMetadata(alias="resultText")] = None
-    customer_id: typing_extensions.Annotated[typing.Optional[CustomerId], FieldMetadata(alias="customerId")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Internal unique ID of customer owner of the stored method.  
-    
-    Returns `0` if the method wasn't assigned to an existing customer or no customer was created."
-    """
-
+        typing.Optional[MethodReferenceId],
+        FieldMetadata(alias="referenceId"),
+        pydantic.Field(
+            alias="referenceId",
+            description="Stored method identifier in Payabli platform. This ID is used to manage the stored method.",
+        ),
+    ] = None
+    result_code: typing_extensions.Annotated[
+        typing.Optional[ResultCode], FieldMetadata(alias="resultCode"), pydantic.Field(alias="resultCode")
+    ] = None
+    result_text: typing_extensions.Annotated[
+        typing.Optional[Resulttext], FieldMetadata(alias="resultText"), pydantic.Field(alias="resultText")
+    ] = None
+    customer_id: typing_extensions.Annotated[
+        typing.Optional[CustomerId],
+        FieldMetadata(alias="customerId"),
+        pydantic.Field(
+            alias="customerId",
+            description="Internal unique ID of customer owner of the stored method.  \n\nReturns `0` if the method wasn't assigned to an existing customer or no customer was created.\"",
+        ),
+    ] = None
     method_reference_id: typing_extensions.Annotated[
-        typing.Optional[MethodReferenceId], FieldMetadata(alias="methodReferenceId")
+        typing.Optional[MethodReferenceId],
+        FieldMetadata(alias="methodReferenceId"),
+        pydantic.Field(alias="methodReferenceId"),
     ] = None
 
     if IS_PYDANTIC_V2:

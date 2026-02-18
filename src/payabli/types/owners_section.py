@@ -19,31 +19,27 @@ class OwnersSection(UniversalBaseModel):
     """
 
     contact_email: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="contactEmail")
+        typing.Optional[TemplateElement], FieldMetadata(alias="contactEmail"), pydantic.Field(alias="contactEmail")
     ] = None
-    contact_name: typing_extensions.Annotated[typing.Optional[TemplateElement], FieldMetadata(alias="contactName")] = (
-        None
-    )
+    contact_name: typing_extensions.Annotated[
+        typing.Optional[TemplateElement], FieldMetadata(alias="contactName"), pydantic.Field(alias="contactName")
+    ] = None
     contact_phone: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="contactPhone")
+        typing.Optional[TemplateElement], FieldMetadata(alias="contactPhone"), pydantic.Field(alias="contactPhone")
     ] = None
     contact_title: typing_extensions.Annotated[
-        typing.Optional[TemplateElement], FieldMetadata(alias="contactTitle")
+        typing.Optional[TemplateElement], FieldMetadata(alias="contactTitle"), pydantic.Field(alias="contactTitle")
     ] = None
-    multiple_contacts: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="multipleContacts")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Offer add more contacts
-    """
-
-    multiple_owners: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="multipleOwners")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    offer add more owners
-    """
-
+    multiple_contacts: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="multipleContacts"),
+        pydantic.Field(alias="multipleContacts", description="Offer add more contacts"),
+    ] = None
+    multiple_owners: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="multipleOwners"),
+        pydantic.Field(alias="multipleOwners", description="offer add more owners"),
+    ] = None
     oaddress: typing.Optional[TemplateElement] = None
     ocity: typing.Optional[TemplateElement] = None
     ocountry: typing.Optional[TemplateElement] = None
@@ -54,20 +50,26 @@ class OwnersSection(UniversalBaseModel):
     owneremail: typing.Optional[TemplateElement] = None
     ownername: typing.Optional[TemplateElement] = None
     ownerpercent: typing.Optional[TemplateElement] = None
-    ownerphone_1: typing_extensions.Annotated[typing.Optional[TemplateElement], FieldMetadata(alias="ownerphone1")] = (
-        None
-    )
-    ownerphone_2: typing_extensions.Annotated[typing.Optional[TemplateElement], FieldMetadata(alias="ownerphone2")] = (
-        None
-    )
+    ownerphone_1: typing_extensions.Annotated[
+        typing.Optional[TemplateElement], FieldMetadata(alias="ownerphone1"), pydantic.Field(alias="ownerphone1")
+    ] = None
+    ownerphone_2: typing_extensions.Annotated[
+        typing.Optional[TemplateElement], FieldMetadata(alias="ownerphone2"), pydantic.Field(alias="ownerphone2")
+    ] = None
     ownerssn: typing.Optional[TemplateElement] = None
     ownertitle: typing.Optional[TemplateElement] = None
     ozip: typing.Optional[TemplateElement] = None
-    sub_footer: typing_extensions.Annotated[typing.Optional[SubFooter], FieldMetadata(alias="subFooter")] = None
-    sub_header: typing_extensions.Annotated[typing.Optional[SubHeader], FieldMetadata(alias="subHeader")] = None
+    sub_footer: typing_extensions.Annotated[
+        typing.Optional[SubFooter], FieldMetadata(alias="subFooter"), pydantic.Field(alias="subFooter")
+    ] = None
+    sub_header: typing_extensions.Annotated[
+        typing.Optional[SubHeader], FieldMetadata(alias="subHeader"), pydantic.Field(alias="subHeader")
+    ] = None
     visible: typing.Optional[Visible] = None
     additional_data: typing_extensions.Annotated[
-        typing.Optional[TemplateAdditionalDataSection], FieldMetadata(alias="additionalData")
+        typing.Optional[TemplateAdditionalDataSection],
+        FieldMetadata(alias="additionalData"),
+        pydantic.Field(alias="additionalData"),
     ] = None
 
     if IS_PYDANTIC_V2:

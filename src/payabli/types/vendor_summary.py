@@ -34,38 +34,58 @@ class VendorSummary(UniversalBaseModel):
     )
     """
 
-    active_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="ActiveBills")] = None
-    pending_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="PendingBills")] = None
-    in_transit_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="InTransitBills")] = None
-    paid_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="PaidBills")] = None
-    overdue_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="OverdueBills")] = None
-    approved_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="ApprovedBills")] = None
-    disapproved_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="DisapprovedBills")] = None
-    total_bills: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="TotalBills")] = None
+    active_bills: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="ActiveBills"), pydantic.Field(alias="ActiveBills")
+    ] = None
+    pending_bills: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="PendingBills"), pydantic.Field(alias="PendingBills")
+    ] = None
+    in_transit_bills: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="InTransitBills"), pydantic.Field(alias="InTransitBills")
+    ] = None
+    paid_bills: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="PaidBills"), pydantic.Field(alias="PaidBills")
+    ] = None
+    overdue_bills: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="OverdueBills"), pydantic.Field(alias="OverdueBills")
+    ] = None
+    approved_bills: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="ApprovedBills"), pydantic.Field(alias="ApprovedBills")
+    ] = None
+    disapproved_bills: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="DisapprovedBills"), pydantic.Field(alias="DisapprovedBills")
+    ] = None
+    total_bills: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="TotalBills"), pydantic.Field(alias="TotalBills")
+    ] = None
     active_bills_amount: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="ActiveBillsAmount")
+        typing.Optional[float], FieldMetadata(alias="ActiveBillsAmount"), pydantic.Field(alias="ActiveBillsAmount")
     ] = None
     pending_bills_amount: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="PendingBillsAmount")
+        typing.Optional[float], FieldMetadata(alias="PendingBillsAmount"), pydantic.Field(alias="PendingBillsAmount")
     ] = None
     in_transit_bills_amount: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="InTransitBillsAmount")
+        typing.Optional[float],
+        FieldMetadata(alias="InTransitBillsAmount"),
+        pydantic.Field(alias="InTransitBillsAmount"),
     ] = None
-    paid_bills_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="PaidBillsAmount")] = (
-        None
-    )
+    paid_bills_amount: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="PaidBillsAmount"), pydantic.Field(alias="PaidBillsAmount")
+    ] = None
     overdue_bills_amount: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="OverdueBillsAmount")
+        typing.Optional[float], FieldMetadata(alias="OverdueBillsAmount"), pydantic.Field(alias="OverdueBillsAmount")
     ] = None
     approved_bills_amount: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="ApprovedBillsAmount")
+        typing.Optional[float], FieldMetadata(alias="ApprovedBillsAmount"), pydantic.Field(alias="ApprovedBillsAmount")
     ] = None
     disapproved_bills_amount: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="DisapprovedBillsAmount")
+        typing.Optional[float],
+        FieldMetadata(alias="DisapprovedBillsAmount"),
+        pydantic.Field(alias="DisapprovedBillsAmount"),
     ] = None
-    total_bills_amount: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="TotalBillsAmount")] = (
-        None
-    )
+    total_bills_amount: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="TotalBillsAmount"), pydantic.Field(alias="TotalBillsAmount")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

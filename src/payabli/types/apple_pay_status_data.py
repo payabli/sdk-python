@@ -14,13 +14,11 @@ class ApplePayStatusData(UniversalBaseModel):
     Details about the Apple Pay service status.
     """
 
-    error_message: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="errorMessage")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Any error message related to Apple Pay's activation status.
-    """
-
+    error_message: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="errorMessage"),
+        pydantic.Field(alias="errorMessage", description="Any error message related to Apple Pay's activation status."),
+    ] = None
     metadata: typing.Optional[ApplePayMetadata] = None
 
     if IS_PYDANTIC_V2:

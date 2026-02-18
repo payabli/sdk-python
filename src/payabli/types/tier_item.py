@@ -9,10 +9,18 @@ from ..core.serialization import FieldMetadata
 
 
 class TierItem(UniversalBaseModel):
-    amountx_auth: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="amountxAuth")] = None
-    high_pay_range: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="highPayRange")] = None
-    low_pay_range: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="lowPayRange")] = None
-    percentx_auth: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="percentxAuth")] = None
+    amountx_auth: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="amountxAuth"), pydantic.Field(alias="amountxAuth")
+    ] = None
+    high_pay_range: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="highPayRange"), pydantic.Field(alias="highPayRange")
+    ] = None
+    low_pay_range: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="lowPayRange"), pydantic.Field(alias="lowPayRange")
+    ] = None
+    percentx_auth: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="percentxAuth"), pydantic.Field(alias="percentxAuth")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

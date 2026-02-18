@@ -12,15 +12,16 @@ from ...types.payabli_api_response_generic_2_part import PayabliApiResponseGener
 
 class AddDeviceResponse(PayabliApiResponseGeneric2Part):
     page_identifier: typing_extensions.Annotated[
-        typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier")
+        typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier"), pydantic.Field(alias="pageIdentifier")
     ] = None
-    response_data: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="responseData")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    If `isSuccess` = true, this contains the device identifier.
-    If `isSuccess` = false, this contains the reason for the error.
-    """
+    response_data: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="responseData"),
+        pydantic.Field(
+            alias="responseData",
+            description="If `isSuccess` = true, this contains the device identifier.\nIf `isSuccess` = false, this contains the reason for the error.",
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

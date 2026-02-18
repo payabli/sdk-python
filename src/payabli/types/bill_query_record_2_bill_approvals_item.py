@@ -17,12 +17,10 @@ class BillQueryRecord2BillApprovalsItem(UniversalBaseModel):
     """
 
     approved_time: typing_extensions.Annotated[
-        typing.Optional[DatetimeNullable], FieldMetadata(alias="approvedTime")
-    ] = pydantic.Field(default=None)
-    """
-    Timestamp of when the approval was made, in UTC.
-    """
-
+        typing.Optional[DatetimeNullable],
+        FieldMetadata(alias="approvedTime"),
+        pydantic.Field(alias="approvedTime", description="Timestamp of when the approval was made, in UTC."),
+    ] = None
     comments: typing.Optional[str] = pydantic.Field(default=None)
     """
     Additional comments on the approval.
@@ -33,10 +31,11 @@ class BillQueryRecord2BillApprovalsItem(UniversalBaseModel):
     The approving user's email address.
     """
 
-    id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="Id")] = pydantic.Field(default=None)
-    """
-    The approving user's ID.
-    """
+    id: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="Id"),
+        pydantic.Field(alias="Id", description="The approving user's ID."),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

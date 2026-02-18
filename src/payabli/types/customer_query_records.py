@@ -213,216 +213,197 @@ class CustomerQueryRecords(UniversalBaseModel):
     )
     """
 
-    customer_id: typing_extensions.Annotated[typing.Optional[CustomerId], FieldMetadata(alias="customerId")] = None
+    customer_id: typing_extensions.Annotated[
+        typing.Optional[CustomerId], FieldMetadata(alias="customerId"), pydantic.Field(alias="customerId")
+    ] = None
     customer_number: typing_extensions.Annotated[
-        typing.Optional[CustomerNumberNullable], FieldMetadata(alias="customerNumber")
+        typing.Optional[CustomerNumberNullable],
+        FieldMetadata(alias="customerNumber"),
+        pydantic.Field(alias="customerNumber"),
     ] = None
-    customer_username: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="customerUsername")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Username for customer.
-    """
-
+    customer_username: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="customerUsername"),
+        pydantic.Field(alias="customerUsername", description="Username for customer."),
+    ] = None
     customer_status: typing_extensions.Annotated[
-        typing.Optional[CustomerStatus], FieldMetadata(alias="customerStatus")
+        typing.Optional[CustomerStatus], FieldMetadata(alias="customerStatus"), pydantic.Field(alias="customerStatus")
     ] = None
-    company: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="Company")] = pydantic.Field(
-        default=None
-    )
-    """
-    Company name.
-    """
-
-    firstname: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="Firstname")] = pydantic.Field(
-        default=None
-    )
-    """
-    Customer first name.
-    """
-
-    lastname: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="Lastname")] = pydantic.Field(
-        default=None
-    )
-    """
-    Customer last name.
-    """
-
-    phone: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="Phone")] = pydantic.Field(
-        default=None
-    )
-    """
-    Customer phone number.
-    """
-
-    email: typing_extensions.Annotated[typing.Optional[Email], FieldMetadata(alias="Email")] = pydantic.Field(
-        default=None
-    )
-    """
-    Customer email address.
-    """
-
-    address: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="Address")] = pydantic.Field(
-        default=None
-    )
-    """
-    Customer address.
-    """
-
-    address_1: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="Address1")] = pydantic.Field(
-        default=None
-    )
-    """
-    Additional line for customer address.
-    """
-
-    city: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="City")] = pydantic.Field(default=None)
-    """
-    Customer city.
-    """
-
-    state: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="State")] = pydantic.Field(
-        default=None
-    )
-    """
-    Customer state.
-    """
-
-    zip: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="Zip")] = pydantic.Field(default=None)
-    """
-    Customer postal code.
-    """
-
-    country: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="Country")] = pydantic.Field(
-        default=None
-    )
-    """
-    Customer country.
-    """
-
+    company: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="Company"),
+        pydantic.Field(alias="Company", description="Company name."),
+    ] = None
+    firstname: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="Firstname"),
+        pydantic.Field(alias="Firstname", description="Customer first name."),
+    ] = None
+    lastname: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="Lastname"),
+        pydantic.Field(alias="Lastname", description="Customer last name."),
+    ] = None
+    phone: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="Phone"),
+        pydantic.Field(alias="Phone", description="Customer phone number."),
+    ] = None
+    email: typing_extensions.Annotated[
+        typing.Optional[Email],
+        FieldMetadata(alias="Email"),
+        pydantic.Field(alias="Email", description="Customer email address."),
+    ] = None
+    address: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="Address"),
+        pydantic.Field(alias="Address", description="Customer address."),
+    ] = None
+    address_1: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="Address1"),
+        pydantic.Field(alias="Address1", description="Additional line for customer address."),
+    ] = None
+    city: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="City"), pydantic.Field(alias="City", description="Customer city.")
+    ] = None
+    state: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="State"), pydantic.Field(alias="State", description="Customer state.")
+    ] = None
+    zip: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="Zip"),
+        pydantic.Field(alias="Zip", description="Customer postal code."),
+    ] = None
+    country: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="Country"),
+        pydantic.Field(alias="Country", description="Customer country."),
+    ] = None
     shipping_address: typing_extensions.Annotated[
-        typing.Optional[Shippingaddress], FieldMetadata(alias="ShippingAddress")
+        typing.Optional[Shippingaddress],
+        FieldMetadata(alias="ShippingAddress"),
+        pydantic.Field(alias="ShippingAddress"),
     ] = None
     shipping_address_1: typing_extensions.Annotated[
-        typing.Optional[Shippingaddressadditional], FieldMetadata(alias="ShippingAddress1")
+        typing.Optional[Shippingaddressadditional],
+        FieldMetadata(alias="ShippingAddress1"),
+        pydantic.Field(alias="ShippingAddress1"),
     ] = None
-    shipping_city: typing_extensions.Annotated[typing.Optional[Shippingcity], FieldMetadata(alias="ShippingCity")] = (
+    shipping_city: typing_extensions.Annotated[
+        typing.Optional[Shippingcity], FieldMetadata(alias="ShippingCity"), pydantic.Field(alias="ShippingCity")
+    ] = None
+    shipping_state: typing_extensions.Annotated[
+        typing.Optional[Shippingstate], FieldMetadata(alias="ShippingState"), pydantic.Field(alias="ShippingState")
+    ] = None
+    shipping_zip: typing_extensions.Annotated[
+        typing.Optional[Shippingzip], FieldMetadata(alias="ShippingZip"), pydantic.Field(alias="ShippingZip")
+    ] = None
+    shipping_country: typing_extensions.Annotated[
+        typing.Optional[Shippingcountry],
+        FieldMetadata(alias="ShippingCountry"),
+        pydantic.Field(alias="ShippingCountry"),
+    ] = None
+    balance: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="Balance"),
+        pydantic.Field(alias="Balance", description="Customer balance."),
+    ] = None
+    time_zone: typing_extensions.Annotated[
+        typing.Optional[Timezone], FieldMetadata(alias="TimeZone"), pydantic.Field(alias="TimeZone")
+    ] = None
+    mfa: typing_extensions.Annotated[typing.Optional[Mfa], FieldMetadata(alias="MFA"), pydantic.Field(alias="MFA")] = (
         None
     )
-    shipping_state: typing_extensions.Annotated[
-        typing.Optional[Shippingstate], FieldMetadata(alias="ShippingState")
+    mfa_mode: typing_extensions.Annotated[
+        typing.Optional[MfaMode], FieldMetadata(alias="MFAMode"), pydantic.Field(alias="MFAMode")
     ] = None
-    shipping_zip: typing_extensions.Annotated[typing.Optional[Shippingzip], FieldMetadata(alias="ShippingZip")] = None
-    shipping_country: typing_extensions.Annotated[
-        typing.Optional[Shippingcountry], FieldMetadata(alias="ShippingCountry")
+    sn_provider: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="snProvider"),
+        pydantic.Field(
+            alias="snProvider",
+            description="Social network linked to customer. Possible values:\n\n- `facebook`\n\n- `google`\n\n- `twitter`\n\n- `microsoft`",
+        ),
     ] = None
-    balance: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="Balance")] = pydantic.Field(
-        default=None
-    )
-    """
-    Customer balance.
-    """
-
-    time_zone: typing_extensions.Annotated[typing.Optional[Timezone], FieldMetadata(alias="TimeZone")] = None
-    mfa: typing_extensions.Annotated[typing.Optional[Mfa], FieldMetadata(alias="MFA")] = None
-    mfa_mode: typing_extensions.Annotated[typing.Optional[MfaMode], FieldMetadata(alias="MFAMode")] = None
-    sn_provider: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="snProvider")] = pydantic.Field(
-        default=None
-    )
-    """
-    Social network linked to customer. Possible values:
-    
-    - `facebook`
-    
-    - `google`
-    
-    - `twitter`
-    
-    - `microsoft`
-    """
-
-    sn_identifier: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="snIdentifier")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Identifier or token for customer in linked social network.
-    """
-
-    sn_data: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="snData")] = pydantic.Field(
-        default=None
-    )
-    """
-    Additional data provided by the social network related to the customer.
-    """
-
-    last_updated: typing_extensions.Annotated[typing.Optional[dt.datetime], FieldMetadata(alias="LastUpdated")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Date and time of last update.
-    """
-
-    created: typing_extensions.Annotated[typing.Optional[dt.datetime], FieldMetadata(alias="Created")] = pydantic.Field(
-        default=None
-    )
-    """
-    Date and time created.
-    """
-
+    sn_identifier: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="snIdentifier"),
+        pydantic.Field(alias="snIdentifier", description="Identifier or token for customer in linked social network."),
+    ] = None
+    sn_data: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="snData"),
+        pydantic.Field(
+            alias="snData", description="Additional data provided by the social network related to the customer."
+        ),
+    ] = None
+    last_updated: typing_extensions.Annotated[
+        typing.Optional[dt.datetime],
+        FieldMetadata(alias="LastUpdated"),
+        pydantic.Field(alias="LastUpdated", description="Date and time of last update."),
+    ] = None
+    created: typing_extensions.Annotated[
+        typing.Optional[dt.datetime],
+        FieldMetadata(alias="Created"),
+        pydantic.Field(alias="Created", description="Date and time created."),
+    ] = None
     additional_fields: typing_extensions.Annotated[
-        typing.Optional[typing.Dict[str, typing.Optional[str]]], FieldMetadata(alias="AdditionalFields")
-    ] = pydantic.Field(default=None)
-    """
-    List of additional custom fields in format key:value.
-    """
-
+        typing.Optional[typing.Dict[str, typing.Optional[str]]],
+        FieldMetadata(alias="AdditionalFields"),
+        pydantic.Field(alias="AdditionalFields", description="List of additional custom fields in format key:value."),
+    ] = None
     identifier_fields: typing_extensions.Annotated[
-        typing.Optional[Identifierfields], FieldMetadata(alias="IdentifierFields")
+        typing.Optional[Identifierfields],
+        FieldMetadata(alias="IdentifierFields"),
+        pydantic.Field(alias="IdentifierFields"),
     ] = None
     subscriptions: typing_extensions.Annotated[
-        typing.Optional[typing.List[SubscriptionQueryRecords]], FieldMetadata(alias="Subscriptions")
-    ] = pydantic.Field(default=None)
-    """
-    List of subscriptions associated to the customer.
-    """
-
+        typing.Optional[typing.List[SubscriptionQueryRecords]],
+        FieldMetadata(alias="Subscriptions"),
+        pydantic.Field(alias="Subscriptions", description="List of subscriptions associated to the customer."),
+    ] = None
     stored_methods: typing_extensions.Annotated[
-        typing.Optional[typing.List[MethodQueryRecords]], FieldMetadata(alias="StoredMethods")
-    ] = pydantic.Field(default=None)
-    """
-    List of payment methods associated to the customer.
-    """
-
+        typing.Optional[typing.List[MethodQueryRecords]],
+        FieldMetadata(alias="StoredMethods"),
+        pydantic.Field(alias="StoredMethods", description="List of payment methods associated to the customer."),
+    ] = None
     customer_summary: typing_extensions.Annotated[
-        typing.Optional[CustomerSummaryRecord], FieldMetadata(alias="customerSummary")
+        typing.Optional[CustomerSummaryRecord],
+        FieldMetadata(alias="customerSummary"),
+        pydantic.Field(alias="customerSummary"),
     ] = None
     paypoint_legalname: typing_extensions.Annotated[
-        typing.Optional[Legalname], FieldMetadata(alias="PaypointLegalname")
-    ] = pydantic.Field(default=None)
-    """
-    Paypoint legal name.
-    """
-
-    paypoint_dbaname: typing_extensions.Annotated[typing.Optional[Dbaname], FieldMetadata(alias="PaypointDbaname")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Paypoint DBA name.
-    """
-
-    parent_org_name: typing_extensions.Annotated[
-        typing.Optional[OrgParentName], FieldMetadata(alias="ParentOrgName")
+        typing.Optional[Legalname],
+        FieldMetadata(alias="PaypointLegalname"),
+        pydantic.Field(alias="PaypointLegalname", description="Paypoint legal name."),
     ] = None
-    parent_org_id: typing_extensions.Annotated[typing.Optional[OrgParentId], FieldMetadata(alias="ParentOrgId")] = None
+    paypoint_dbaname: typing_extensions.Annotated[
+        typing.Optional[Dbaname],
+        FieldMetadata(alias="PaypointDbaname"),
+        pydantic.Field(alias="PaypointDbaname", description="Paypoint DBA name."),
+    ] = None
+    parent_org_name: typing_extensions.Annotated[
+        typing.Optional[OrgParentName], FieldMetadata(alias="ParentOrgName"), pydantic.Field(alias="ParentOrgName")
+    ] = None
+    parent_org_id: typing_extensions.Annotated[
+        typing.Optional[OrgParentId], FieldMetadata(alias="ParentOrgId"), pydantic.Field(alias="ParentOrgId")
+    ] = None
     paypoint_entryname: typing_extensions.Annotated[
-        typing.Optional[Entrypointfield], FieldMetadata(alias="PaypointEntryname")
+        typing.Optional[Entrypointfield],
+        FieldMetadata(alias="PaypointEntryname"),
+        pydantic.Field(alias="PaypointEntryname"),
     ] = None
     pageidentifier: typing.Optional[PageIdentifier] = None
     external_paypoint_id: typing_extensions.Annotated[
-        typing.Optional[ExternalPaypointId], FieldMetadata(alias="externalPaypointID")
+        typing.Optional[ExternalPaypointId],
+        FieldMetadata(alias="externalPaypointID"),
+        pydantic.Field(alias="externalPaypointID"),
     ] = None
     customer_consent: typing_extensions.Annotated[
-        typing.Optional[CustomerQueryRecordsCustomerConsent], FieldMetadata(alias="customerConsent")
+        typing.Optional[CustomerQueryRecordsCustomerConsent],
+        FieldMetadata(alias="customerConsent"),
+        pydantic.Field(alias="customerConsent"),
     ] = None
 
     if IS_PYDANTIC_V2:

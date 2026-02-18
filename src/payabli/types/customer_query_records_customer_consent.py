@@ -12,12 +12,12 @@ from .customer_query_records_customer_consent_sms import CustomerQueryRecordsCus
 
 class CustomerQueryRecordsCustomerConsent(UniversalBaseModel):
     e_communication: typing_extensions.Annotated[
-        typing.Optional[CustomerQueryRecordsCustomerConsentECommunication], FieldMetadata(alias="eCommunication")
-    ] = pydantic.Field(default=None)
-    """
-    Describes the customer's email communications consent status.
-    """
-
+        typing.Optional[CustomerQueryRecordsCustomerConsentECommunication],
+        FieldMetadata(alias="eCommunication"),
+        pydantic.Field(
+            alias="eCommunication", description="Describes the customer's email communications consent status."
+        ),
+    ] = None
     sms: typing.Optional[CustomerQueryRecordsCustomerConsentSms] = pydantic.Field(default=None)
     """
     Describes the customer's SMS communications consent status.

@@ -18,7 +18,7 @@ class PayMethodCloud(UniversalBaseModel):
     """
 
     save_if_success: typing_extensions.Annotated[
-        typing.Optional[SaveIfSuccess], FieldMetadata(alias="saveIfSuccess")
+        typing.Optional[SaveIfSuccess], FieldMetadata(alias="saveIfSuccess"), pydantic.Field(alias="saveIfSuccess")
     ] = None
 
     if IS_PYDANTIC_V2:

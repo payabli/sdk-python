@@ -10,7 +10,9 @@ from .capture_payment_details import CapturePaymentDetails
 
 
 class CaptureRequest(UniversalBaseModel):
-    payment_details: typing_extensions.Annotated[CapturePaymentDetails, FieldMetadata(alias="paymentDetails")]
+    payment_details: typing_extensions.Annotated[
+        CapturePaymentDetails, FieldMetadata(alias="paymentDetails"), pydantic.Field(alias="paymentDetails")
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

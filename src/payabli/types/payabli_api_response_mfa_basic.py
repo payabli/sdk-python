@@ -13,26 +13,28 @@ from .response_text import ResponseText
 
 
 class PayabliApiResponseMfaBasic(UniversalBaseModel):
-    is_success: typing_extensions.Annotated[typing.Optional[IsSuccess], FieldMetadata(alias="isSuccess")] = None
-    mfa: typing.Optional[Mfa] = None
-    mfa_mode: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="mfaMode")] = pydantic.Field(
-        default=None
-    )
-    """
-    The mode of multi-factor authentication used.
-    """
-
-    mfa_validation_code: typing_extensions.Annotated[
-        typing.Optional[MfaValidationCode], FieldMetadata(alias="mfaValidationCode")
+    is_success: typing_extensions.Annotated[
+        typing.Optional[IsSuccess], FieldMetadata(alias="isSuccess"), pydantic.Field(alias="isSuccess")
     ] = None
-    response_data: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="responseData")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Data returned by the response, masked for security.
-    """
-
-    response_text: typing_extensions.Annotated[ResponseText, FieldMetadata(alias="responseText")]
+    mfa: typing.Optional[Mfa] = None
+    mfa_mode: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="mfaMode"),
+        pydantic.Field(alias="mfaMode", description="The mode of multi-factor authentication used."),
+    ] = None
+    mfa_validation_code: typing_extensions.Annotated[
+        typing.Optional[MfaValidationCode],
+        FieldMetadata(alias="mfaValidationCode"),
+        pydantic.Field(alias="mfaValidationCode"),
+    ] = None
+    response_data: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="responseData"),
+        pydantic.Field(alias="responseData", description="Data returned by the response, masked for security."),
+    ] = None
+    response_text: typing_extensions.Annotated[
+        ResponseText, FieldMetadata(alias="responseText"), pydantic.Field(alias="responseText")
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

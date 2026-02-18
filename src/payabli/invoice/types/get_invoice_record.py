@@ -48,77 +48,151 @@ from .invoice_paid_amount import InvoicePaidAmount
 
 
 class GetInvoiceRecord(UniversalBaseModel):
-    invoice_id: typing_extensions.Annotated[InvoiceId, FieldMetadata(alias="invoiceId")]
-    customer_id: typing_extensions.Annotated[CustomerId, FieldMetadata(alias="customerId")]
-    paypoint_id: typing_extensions.Annotated[PaypointId, FieldMetadata(alias="paypointId")]
-    invoice_number: typing_extensions.Annotated[InvoiceNumber, FieldMetadata(alias="invoiceNumber")]
-    invoice_date: typing_extensions.Annotated[Datenullable, FieldMetadata(alias="invoiceDate")]
-    invoice_due_date: typing_extensions.Annotated[Datenullable, FieldMetadata(alias="invoiceDueDate")]
-    invoice_sent_date: typing_extensions.Annotated[DatetimeNullable, FieldMetadata(alias="invoiceSentDate")]
-    invoice_end_date: typing_extensions.Annotated[Datenullable, FieldMetadata(alias="invoiceEndDate")]
-    last_payment_date: typing_extensions.Annotated[DatetimeNullable, FieldMetadata(alias="lastPaymentDate")]
-    created_at: typing_extensions.Annotated[CreatedAt, FieldMetadata(alias="createdAt")]
-    invoice_status: typing_extensions.Annotated[Invoicestatus, FieldMetadata(alias="invoiceStatus")]
-    invoice_type: typing_extensions.Annotated[InvoiceType, FieldMetadata(alias="invoiceType")]
+    invoice_id: typing_extensions.Annotated[
+        InvoiceId, FieldMetadata(alias="invoiceId"), pydantic.Field(alias="invoiceId")
+    ]
+    customer_id: typing_extensions.Annotated[
+        CustomerId, FieldMetadata(alias="customerId"), pydantic.Field(alias="customerId")
+    ]
+    paypoint_id: typing_extensions.Annotated[
+        PaypointId, FieldMetadata(alias="paypointId"), pydantic.Field(alias="paypointId")
+    ]
+    invoice_number: typing_extensions.Annotated[
+        InvoiceNumber, FieldMetadata(alias="invoiceNumber"), pydantic.Field(alias="invoiceNumber")
+    ]
+    invoice_date: typing_extensions.Annotated[
+        Datenullable, FieldMetadata(alias="invoiceDate"), pydantic.Field(alias="invoiceDate")
+    ]
+    invoice_due_date: typing_extensions.Annotated[
+        Datenullable, FieldMetadata(alias="invoiceDueDate"), pydantic.Field(alias="invoiceDueDate")
+    ]
+    invoice_sent_date: typing_extensions.Annotated[
+        DatetimeNullable, FieldMetadata(alias="invoiceSentDate"), pydantic.Field(alias="invoiceSentDate")
+    ]
+    invoice_end_date: typing_extensions.Annotated[
+        Datenullable, FieldMetadata(alias="invoiceEndDate"), pydantic.Field(alias="invoiceEndDate")
+    ]
+    last_payment_date: typing_extensions.Annotated[
+        DatetimeNullable, FieldMetadata(alias="lastPaymentDate"), pydantic.Field(alias="lastPaymentDate")
+    ]
+    created_at: typing_extensions.Annotated[
+        CreatedAt, FieldMetadata(alias="createdAt"), pydantic.Field(alias="createdAt")
+    ]
+    invoice_status: typing_extensions.Annotated[
+        Invoicestatus, FieldMetadata(alias="invoiceStatus"), pydantic.Field(alias="invoiceStatus")
+    ]
+    invoice_type: typing_extensions.Annotated[
+        InvoiceType, FieldMetadata(alias="invoiceType"), pydantic.Field(alias="invoiceType")
+    ]
     frequency: Frequency
-    payment_terms: typing_extensions.Annotated[Terms, FieldMetadata(alias="paymentTerms")]
+    payment_terms: typing_extensions.Annotated[
+        Terms, FieldMetadata(alias="paymentTerms"), pydantic.Field(alias="paymentTerms")
+    ]
     terms_conditions: typing_extensions.Annotated[
-        typing.Optional[TermsConditions], FieldMetadata(alias="termsConditions")
+        typing.Optional[TermsConditions],
+        FieldMetadata(alias="termsConditions"),
+        pydantic.Field(alias="termsConditions"),
     ] = None
     notes: typing.Optional[str] = None
     tax: Tax
     discount: Discount
-    invoice_amount: typing_extensions.Annotated[InvoiceAmount, FieldMetadata(alias="invoiceAmount")]
-    invoice_paid_amount: typing_extensions.Annotated[InvoicePaidAmount, FieldMetadata(alias="invoicePaidAmount")]
-    freight_amount: typing_extensions.Annotated[FreightAmount, FieldMetadata(alias="freightAmount")]
-    duty_amount: typing_extensions.Annotated[DutyAmount, FieldMetadata(alias="dutyAmount")]
-    purchase_order: typing_extensions.Annotated[PurchaseOrder, FieldMetadata(alias="purchaseOrder")]
-    first_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="firstName")] = pydantic.Field(
-        default=None
-    )
-    """
-    First name of the recipient of the invoice.
-    """
-
-    last_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="lastName")] = pydantic.Field(
-        default=None
-    )
-    """
-    Last name of the recipient of the invoice.
-    """
-
+    invoice_amount: typing_extensions.Annotated[
+        InvoiceAmount, FieldMetadata(alias="invoiceAmount"), pydantic.Field(alias="invoiceAmount")
+    ]
+    invoice_paid_amount: typing_extensions.Annotated[
+        InvoicePaidAmount, FieldMetadata(alias="invoicePaidAmount"), pydantic.Field(alias="invoicePaidAmount")
+    ]
+    freight_amount: typing_extensions.Annotated[
+        FreightAmount, FieldMetadata(alias="freightAmount"), pydantic.Field(alias="freightAmount")
+    ]
+    duty_amount: typing_extensions.Annotated[
+        DutyAmount, FieldMetadata(alias="dutyAmount"), pydantic.Field(alias="dutyAmount")
+    ]
+    purchase_order: typing_extensions.Annotated[
+        PurchaseOrder, FieldMetadata(alias="purchaseOrder"), pydantic.Field(alias="purchaseOrder")
+    ]
+    first_name: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="firstName"),
+        pydantic.Field(alias="firstName", description="First name of the recipient of the invoice."),
+    ] = None
+    last_name: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="lastName"),
+        pydantic.Field(alias="lastName", description="Last name of the recipient of the invoice."),
+    ] = None
     company: typing.Optional[str] = pydantic.Field(default=None)
     """
     Company name of the recipient of the invoice.
     """
 
-    shipping_address_1: typing_extensions.Annotated[Shippingaddress, FieldMetadata(alias="shippingAddress1")]
-    shipping_address_2: typing_extensions.Annotated[Shippingaddressadditional, FieldMetadata(alias="shippingAddress2")]
-    shipping_city: typing_extensions.Annotated[Shippingcity, FieldMetadata(alias="shippingCity")]
-    shipping_state: typing_extensions.Annotated[Shippingstate, FieldMetadata(alias="shippingState")]
-    shipping_zip: typing_extensions.Annotated[Shippingzip, FieldMetadata(alias="shippingZip")]
-    shipping_from_zip: typing_extensions.Annotated[ShippingFromZip, FieldMetadata(alias="shippingFromZip")]
-    shipping_country: typing_extensions.Annotated[Shippingcountry, FieldMetadata(alias="shippingCountry")]
-    shipping_email: typing_extensions.Annotated[Email, FieldMetadata(alias="shippingEmail")]
-    shipping_phone: typing_extensions.Annotated[str, FieldMetadata(alias="shippingPhone")]
+    shipping_address_1: typing_extensions.Annotated[
+        Shippingaddress, FieldMetadata(alias="shippingAddress1"), pydantic.Field(alias="shippingAddress1")
+    ]
+    shipping_address_2: typing_extensions.Annotated[
+        Shippingaddressadditional, FieldMetadata(alias="shippingAddress2"), pydantic.Field(alias="shippingAddress2")
+    ]
+    shipping_city: typing_extensions.Annotated[
+        Shippingcity, FieldMetadata(alias="shippingCity"), pydantic.Field(alias="shippingCity")
+    ]
+    shipping_state: typing_extensions.Annotated[
+        Shippingstate, FieldMetadata(alias="shippingState"), pydantic.Field(alias="shippingState")
+    ]
+    shipping_zip: typing_extensions.Annotated[
+        Shippingzip, FieldMetadata(alias="shippingZip"), pydantic.Field(alias="shippingZip")
+    ]
+    shipping_from_zip: typing_extensions.Annotated[
+        ShippingFromZip, FieldMetadata(alias="shippingFromZip"), pydantic.Field(alias="shippingFromZip")
+    ]
+    shipping_country: typing_extensions.Annotated[
+        Shippingcountry, FieldMetadata(alias="shippingCountry"), pydantic.Field(alias="shippingCountry")
+    ]
+    shipping_email: typing_extensions.Annotated[
+        Email, FieldMetadata(alias="shippingEmail"), pydantic.Field(alias="shippingEmail")
+    ]
+    shipping_phone: typing_extensions.Annotated[
+        str, FieldMetadata(alias="shippingPhone"), pydantic.Field(alias="shippingPhone")
+    ]
     summary_commodity_code: typing_extensions.Annotated[
-        SummaryCommodityCode, FieldMetadata(alias="summaryCommodityCode")
+        SummaryCommodityCode, FieldMetadata(alias="summaryCommodityCode"), pydantic.Field(alias="summaryCommodityCode")
     ]
     items: typing.List[BillItem]
-    customer: typing_extensions.Annotated[PayorDataResponse, FieldMetadata(alias="Customer")]
-    paylink_id: typing_extensions.Annotated[PaylinkId, FieldMetadata(alias="paylinkId")]
-    bill_events: typing_extensions.Annotated[BillEvents, FieldMetadata(alias="billEvents")]
-    scheduled_options: typing_extensions.Annotated[BillOptions, FieldMetadata(alias="scheduledOptions")]
-    paypoint_legalname: typing_extensions.Annotated[str, FieldMetadata(alias="PaypointLegalname")]
-    paypoint_dbaname: typing_extensions.Annotated[Dbaname, FieldMetadata(alias="PaypointDbaname")]
-    paypoint_entryname: typing_extensions.Annotated[Entrypointfield, FieldMetadata(alias="PaypointEntryname")]
-    parent_org_name: typing_extensions.Annotated[OrgParentName, FieldMetadata(alias="ParentOrgName")]
+    customer: typing_extensions.Annotated[
+        PayorDataResponse, FieldMetadata(alias="Customer"), pydantic.Field(alias="Customer")
+    ]
+    paylink_id: typing_extensions.Annotated[
+        PaylinkId, FieldMetadata(alias="paylinkId"), pydantic.Field(alias="paylinkId")
+    ]
+    bill_events: typing_extensions.Annotated[
+        BillEvents, FieldMetadata(alias="billEvents"), pydantic.Field(alias="billEvents")
+    ]
+    scheduled_options: typing_extensions.Annotated[
+        BillOptions, FieldMetadata(alias="scheduledOptions"), pydantic.Field(alias="scheduledOptions")
+    ]
+    paypoint_legalname: typing_extensions.Annotated[
+        str, FieldMetadata(alias="PaypointLegalname"), pydantic.Field(alias="PaypointLegalname")
+    ]
+    paypoint_dbaname: typing_extensions.Annotated[
+        Dbaname, FieldMetadata(alias="PaypointDbaname"), pydantic.Field(alias="PaypointDbaname")
+    ]
+    paypoint_entryname: typing_extensions.Annotated[
+        Entrypointfield, FieldMetadata(alias="PaypointEntryname"), pydantic.Field(alias="PaypointEntryname")
+    ]
+    parent_org_name: typing_extensions.Annotated[
+        OrgParentName, FieldMetadata(alias="ParentOrgName"), pydantic.Field(alias="ParentOrgName")
+    ]
     additional_data: typing_extensions.Annotated[
-        typing.Optional[AdditionalDataMap], FieldMetadata(alias="AdditionalData")
+        typing.Optional[AdditionalDataMap],
+        FieldMetadata(alias="AdditionalData"),
+        pydantic.Field(alias="AdditionalData"),
     ] = None
-    documents_ref: typing_extensions.Annotated[DocumentsRef, FieldMetadata(alias="DocumentsRef")]
+    documents_ref: typing_extensions.Annotated[
+        DocumentsRef, FieldMetadata(alias="DocumentsRef"), pydantic.Field(alias="DocumentsRef")
+    ]
     external_paypoint_id: typing_extensions.Annotated[
-        typing.Optional[ExternalPaypointId], FieldMetadata(alias="externalPaypointID")
+        typing.Optional[ExternalPaypointId],
+        FieldMetadata(alias="externalPaypointID"),
+        pydantic.Field(alias="externalPaypointID"),
     ] = None
 
     if IS_PYDANTIC_V2:
