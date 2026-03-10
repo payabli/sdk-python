@@ -4,4 +4,4 @@ import typing
 
 from .contacts import Contacts
 
-ContactsField = typing.Optional[typing.List[Contacts]]
+ContactsField = typing.List[Contacts]

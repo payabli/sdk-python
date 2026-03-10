@@ -4,6 +4,8 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
+from ..money_out_types.types.method_element_out import MethodElementOut
+from ..money_out_types.types.payment_link_status import PaymentLinkStatus
 from ..types.contact_element import ContactElement
 from ..types.element import Element
 from ..types.entry import Entry
@@ -20,6 +22,7 @@ from ..types.push_pay_link_request import PushPayLinkRequest
 from .raw_client import AsyncRawPaymentLinkClient, RawPaymentLinkClient
 from .types.get_pay_link_from_id_response import GetPayLinkFromIdResponse
 from .types.payabli_api_response_payment_links import PayabliApiResponsePaymentLinks
+from .types.payment_page_request_body_out import PaymentPageRequestBodyOut
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -281,20 +284,19 @@ class PaymentLinkClient:
         mail_2: typing.Optional[str] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         contact_us: typing.Optional[ContactElement] = OMIT,
-        invoices: typing.Optional[InvoiceElement] = OMIT,
         logo: typing.Optional[Element] = OMIT,
         message_before_paying: typing.Optional[LabelElement] = OMIT,
         notes: typing.Optional[NoteElement] = OMIT,
         page: typing.Optional[PageElement] = OMIT,
         payment_button: typing.Optional[LabelElement] = OMIT,
-        payment_methods: typing.Optional[MethodElement] = OMIT,
-        payor: typing.Optional[PayorElement] = OMIT,
+        payment_methods: typing.Optional[MethodElementOut] = OMIT,
         review: typing.Optional[HeaderElement] = OMIT,
+        bills: typing.Optional[Element] = OMIT,
         settings: typing.Optional[PagelinkSetting] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PayabliApiResponsePaymentLinks:
         """
-        Generates a payment link for a bill from the bill ID.
+        Generates a payment link for a bill from the bill ID. The vendor receives a secure page where they can select their preferred payment method (ACH, virtual card, or check) and complete the payment.
 
         Parameters
         ----------
@@ -310,37 +312,34 @@ class PaymentLinkClient:
         idempotency_key : typing.Optional[IdempotencyKey]
 
         contact_us : typing.Optional[ContactElement]
-            ContactUs section of payment link page
-
-        invoices : typing.Optional[InvoiceElement]
-            Invoices section of payment link page
+            ContactUs section of payment link page.
 
         logo : typing.Optional[Element]
-            Logo section of payment link page
+            Logo section of payment link page.
 
         message_before_paying : typing.Optional[LabelElement]
-            Message section of payment link page
+            Message section of payment link page.
 
         notes : typing.Optional[NoteElement]
-            Notes section of payment link page
+            Notes section of payment link page.
 
         page : typing.Optional[PageElement]
-            Page header section of payment link page
+            Page header section of payment link page.
 
         payment_button : typing.Optional[LabelElement]
-            Payment button section of payment link page
+            Payment button section of payment link page.
 
-        payment_methods : typing.Optional[MethodElement]
-            Payment methods section of payment link page
-
-        payor : typing.Optional[PayorElement]
-            Customer/Payor section of payment link page
+        payment_methods : typing.Optional[MethodElementOut]
+            Payment methods section of payment link page. Use this to configure which payout methods (ACH, vCard, check) are offered to the vendor.
 
         review : typing.Optional[HeaderElement]
-            Review section of payment link page
+            Review section of payment link page.
+
+        bills : typing.Optional[Element]
+            Bills section of payment link page.
 
         settings : typing.Optional[PagelinkSetting]
-            Settings section of payment link page
+            Settings section of payment link page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -357,15 +356,12 @@ class PaymentLinkClient:
             Element,
             HeaderElement,
             LabelElement,
-            MethodElement,
-            MethodsList,
             NoteElement,
             PageElement,
             PagelinkSetting,
-            PayorElement,
-            PayorFields,
             payabli,
         )
+        from payabli.money_out_types import MethodElementOut, MethodsListOut
 
         client = payabli(
             api_key="YOUR_API_KEY",
@@ -408,38 +404,19 @@ class PaymentLinkClient:
                 label="Pay Now",
                 order=0,
             ),
-            payment_methods=MethodElement(
+            payment_methods=MethodElementOut(
                 all_methods_checked=True,
+                allow_multiple_methods=True,
+                default_method="vcard",
                 enabled=True,
                 header="Payment Methods",
-                methods=MethodsList(
-                    amex=True,
-                    apple_pay=True,
-                    discover=True,
-                    e_check=True,
-                    mastercard=True,
-                    visa=True,
+                methods=MethodsListOut(
+                    ach=True,
+                    check=True,
+                    vcard=True,
                 ),
                 order=0,
-            ),
-            payor=PayorElement(
-                enabled=True,
-                fields=[
-                    PayorFields(
-                        display=True,
-                        fixed=True,
-                        identifier=True,
-                        label="Full Name",
-                        name="fullName",
-                        order=0,
-                        required=True,
-                        validation="alpha",
-                        value="",
-                        width=0,
-                    )
-                ],
-                header="Payor Information",
-                order=0,
+                show_preview_virtual_card=True,
             ),
             review=HeaderElement(
                 enabled=True,
@@ -458,15 +435,14 @@ class PaymentLinkClient:
             mail_2=mail_2,
             idempotency_key=idempotency_key,
             contact_us=contact_us,
-            invoices=invoices,
             logo=logo,
             message_before_paying=message_before_paying,
             notes=notes,
             page=page,
             payment_button=payment_button,
             payment_methods=payment_methods,
-            payor=payor,
             review=review,
+            bills=bills,
             settings=settings,
             request_options=request_options,
         )
@@ -499,7 +475,7 @@ class PaymentLinkClient:
             api_key="YOUR_API_KEY",
         )
         client.payment_link.delete_pay_link_from_id(
-            pay_link_id="payLinkId",
+            pay_link_id="2325-XXXXXXX-90b1-4598-b6c7-44cdcbf495d7-1234",
         )
         """
         _response = self._raw_client.delete_pay_link_from_id(pay_link_id, request_options=request_options)
@@ -770,15 +746,14 @@ class PaymentLinkClient:
         mail_2: typing.Optional[str] = None,
         amount_fixed: typing.Optional[str] = None,
         contact_us: typing.Optional[ContactElement] = OMIT,
-        invoices: typing.Optional[InvoiceElement] = OMIT,
         logo: typing.Optional[Element] = OMIT,
         message_before_paying: typing.Optional[LabelElement] = OMIT,
         notes: typing.Optional[NoteElement] = OMIT,
         page: typing.Optional[PageElement] = OMIT,
         payment_button: typing.Optional[LabelElement] = OMIT,
-        payment_methods: typing.Optional[MethodElement] = OMIT,
-        payor: typing.Optional[PayorElement] = OMIT,
+        payment_methods: typing.Optional[MethodElementOut] = OMIT,
         review: typing.Optional[HeaderElement] = OMIT,
+        bills: typing.Optional[Element] = OMIT,
         settings: typing.Optional[PagelinkSetting] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PayabliApiResponsePaymentLinks:
@@ -802,37 +777,34 @@ class PaymentLinkClient:
             Indicates whether customer can modify the payment amount. A value of `true` means the amount isn't modifiable, a value `false` means the payor can modify the amount to pay.
 
         contact_us : typing.Optional[ContactElement]
-            ContactUs section of payment link page
-
-        invoices : typing.Optional[InvoiceElement]
-            Invoices section of payment link page
+            ContactUs section of payment link page.
 
         logo : typing.Optional[Element]
-            Logo section of payment link page
+            Logo section of payment link page.
 
         message_before_paying : typing.Optional[LabelElement]
-            Message section of payment link page
+            Message section of payment link page.
 
         notes : typing.Optional[NoteElement]
-            Notes section of payment link page
+            Notes section of payment link page.
 
         page : typing.Optional[PageElement]
-            Page header section of payment link page
+            Page header section of payment link page.
 
         payment_button : typing.Optional[LabelElement]
-            Payment button section of payment link page
+            Payment button section of payment link page.
 
-        payment_methods : typing.Optional[MethodElement]
-            Payment methods section of payment link page
-
-        payor : typing.Optional[PayorElement]
-            Customer/Payor section of payment link page
+        payment_methods : typing.Optional[MethodElementOut]
+            Payment methods section of payment link page. Use this to configure which payout methods (ACH, vCard, check) are offered to the vendor.
 
         review : typing.Optional[HeaderElement]
-            Review section of payment link page
+            Review section of payment link page.
+
+        bills : typing.Optional[Element]
+            Bills section of payment link page.
 
         settings : typing.Optional[PagelinkSetting]
-            Settings section of payment link page
+            Settings section of payment link page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -849,15 +821,12 @@ class PaymentLinkClient:
             Element,
             HeaderElement,
             LabelElement,
-            MethodElement,
-            MethodsList,
             NoteElement,
             PageElement,
             PagelinkSetting,
-            PayorElement,
-            PayorFields,
             payabli,
         )
+        from payabli.money_out_types import MethodElementOut, MethodsListOut
 
         client = payabli(
             api_key="YOUR_API_KEY",
@@ -903,38 +872,19 @@ class PaymentLinkClient:
                 label="Pay Now",
                 order=0,
             ),
-            payment_methods=MethodElement(
+            payment_methods=MethodElementOut(
                 all_methods_checked=True,
+                allow_multiple_methods=True,
+                default_method="vcard",
                 enabled=True,
                 header="Payment Methods",
-                methods=MethodsList(
-                    amex=True,
-                    apple_pay=True,
-                    discover=True,
-                    e_check=True,
-                    mastercard=True,
-                    visa=True,
+                methods=MethodsListOut(
+                    ach=True,
+                    check=True,
+                    vcard=True,
                 ),
                 order=0,
-            ),
-            payor=PayorElement(
-                enabled=True,
-                fields=[
-                    PayorFields(
-                        display=True,
-                        fixed=True,
-                        identifier=True,
-                        label="Full Name",
-                        name="fullName",
-                        order=0,
-                        required=True,
-                        validation="alpha",
-                        value="",
-                        width=0,
-                    )
-                ],
-                header="Payor Information",
-                order=0,
+                show_preview_virtual_card=True,
             ),
             review=HeaderElement(
                 enabled=True,
@@ -954,15 +904,227 @@ class PaymentLinkClient:
             mail_2=mail_2,
             amount_fixed=amount_fixed,
             contact_us=contact_us,
-            invoices=invoices,
             logo=logo,
             message_before_paying=message_before_paying,
             notes=notes,
             page=page,
             payment_button=payment_button,
             payment_methods=payment_methods,
-            payor=payor,
             review=review,
+            bills=bills,
+            settings=settings,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def patch_out_payment_link(
+        self,
+        paylink_id: str,
+        *,
+        bill_page_data: typing.Optional[PaymentPageRequestBodyOut] = OMIT,
+        expiration_date: typing.Optional[str] = OMIT,
+        status: typing.Optional[PaymentLinkStatus] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PayabliApiResponsePaymentLinks:
+        """
+        Partially updates a Pay Out payment link's content, expiration date, and/or status. Use this to modify the payment page configuration, extend or change the expiration, or cancel a link. Updating the expiration date of an expired link reactivates it to Active status.
+
+        Parameters
+        ----------
+        paylink_id : str
+            ID for the payment link.
+
+        bill_page_data : typing.Optional[PaymentPageRequestBodyOut]
+            Updated payment link page configuration.
+
+        expiration_date : typing.Optional[str]
+            New expiration date for the payment link. Must be a future date. If null and the link is expired, uses the default expiration from settings. Updating the expiration date reactivates an expired payment link to Active status.
+
+        status : typing.Optional[PaymentLinkStatus]
+            Updated status for the payment link.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayabliApiResponsePaymentLinks
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.payment_link.patch_out_payment_link(
+            paylink_id="2325-XXXXXXX-90b1-4598-b6c7-44cdcbf495d7-1234",
+            expiration_date="2026-06-01T00:00:00Z",
+            status="Active",
+        )
+        """
+        _response = self._raw_client.patch_out_payment_link(
+            paylink_id,
+            bill_page_data=bill_page_data,
+            expiration_date=expiration_date,
+            status=status,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def update_pay_link_out_from_id(
+        self,
+        paylink_id: str,
+        *,
+        contact_us: typing.Optional[ContactElement] = OMIT,
+        logo: typing.Optional[Element] = OMIT,
+        message_before_paying: typing.Optional[LabelElement] = OMIT,
+        notes: typing.Optional[NoteElement] = OMIT,
+        page: typing.Optional[PageElement] = OMIT,
+        payment_button: typing.Optional[LabelElement] = OMIT,
+        payment_methods: typing.Optional[MethodElementOut] = OMIT,
+        review: typing.Optional[HeaderElement] = OMIT,
+        bills: typing.Optional[Element] = OMIT,
+        settings: typing.Optional[PagelinkSetting] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PayabliApiResponsePaymentLinks:
+        """
+        Updates the payment page content for a Pay Out payment link. Use this to change the branding, messaging, payment methods offered, or other page configuration.
+
+        Parameters
+        ----------
+        paylink_id : str
+            ID for the payment link.
+
+        contact_us : typing.Optional[ContactElement]
+            ContactUs section of payment link page.
+
+        logo : typing.Optional[Element]
+            Logo section of payment link page.
+
+        message_before_paying : typing.Optional[LabelElement]
+            Message section of payment link page.
+
+        notes : typing.Optional[NoteElement]
+            Notes section of payment link page.
+
+        page : typing.Optional[PageElement]
+            Page header section of payment link page.
+
+        payment_button : typing.Optional[LabelElement]
+            Payment button section of payment link page.
+
+        payment_methods : typing.Optional[MethodElementOut]
+            Payment methods section of payment link page. Use this to configure which payout methods (ACH, vCard, check) are offered to the vendor.
+
+        review : typing.Optional[HeaderElement]
+            Review section of payment link page.
+
+        bills : typing.Optional[Element]
+            Bills section of payment link page.
+
+        settings : typing.Optional[PagelinkSetting]
+            Settings section of payment link page.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayabliApiResponsePaymentLinks
+            Success
+
+        Examples
+        --------
+        from payabli import (
+            ContactElement,
+            Element,
+            HeaderElement,
+            LabelElement,
+            NoteElement,
+            PageElement,
+            PagelinkSetting,
+            payabli,
+        )
+        from payabli.money_out_types import MethodElementOut, MethodsListOut
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.payment_link.update_pay_link_out_from_id(
+            paylink_id="2325-XXXXXXX-90b1-4598-b6c7-44cdcbf495d7-1234",
+            contact_us=ContactElement(
+                email_label="Email",
+                enabled=True,
+                header="Contact Us",
+                order=0,
+                payment_icons=True,
+                phone_label="Phone",
+            ),
+            logo=Element(
+                enabled=True,
+                order=0,
+            ),
+            message_before_paying=LabelElement(
+                enabled=True,
+                label="Please review your payment details",
+                order=0,
+            ),
+            notes=NoteElement(
+                enabled=True,
+                header="Additional Notes",
+                order=0,
+                placeholder="Enter any additional notes here",
+                value="",
+            ),
+            page=PageElement(
+                description="Get paid securely",
+                enabled=True,
+                header="Payment Page",
+                order=0,
+            ),
+            payment_button=LabelElement(
+                enabled=True,
+                label="Pay Now",
+                order=0,
+            ),
+            payment_methods=MethodElementOut(
+                all_methods_checked=True,
+                allow_multiple_methods=True,
+                default_method="vcard",
+                enabled=True,
+                header="Payment Methods",
+                methods=MethodsListOut(
+                    ach=True,
+                    check=True,
+                    vcard=True,
+                ),
+                order=0,
+                show_preview_virtual_card=True,
+            ),
+            review=HeaderElement(
+                enabled=True,
+                header="Review Payment",
+                order=0,
+            ),
+            settings=PagelinkSetting(
+                color="#000000",
+                language="en",
+            ),
+        )
+        """
+        _response = self._raw_client.update_pay_link_out_from_id(
+            paylink_id,
+            contact_us=contact_us,
+            logo=logo,
+            message_before_paying=message_before_paying,
+            notes=notes,
+            page=page,
+            payment_button=payment_button,
+            payment_methods=payment_methods,
+            review=review,
+            bills=bills,
             settings=settings,
             request_options=request_options,
         )
@@ -1233,20 +1395,19 @@ class AsyncPaymentLinkClient:
         mail_2: typing.Optional[str] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         contact_us: typing.Optional[ContactElement] = OMIT,
-        invoices: typing.Optional[InvoiceElement] = OMIT,
         logo: typing.Optional[Element] = OMIT,
         message_before_paying: typing.Optional[LabelElement] = OMIT,
         notes: typing.Optional[NoteElement] = OMIT,
         page: typing.Optional[PageElement] = OMIT,
         payment_button: typing.Optional[LabelElement] = OMIT,
-        payment_methods: typing.Optional[MethodElement] = OMIT,
-        payor: typing.Optional[PayorElement] = OMIT,
+        payment_methods: typing.Optional[MethodElementOut] = OMIT,
         review: typing.Optional[HeaderElement] = OMIT,
+        bills: typing.Optional[Element] = OMIT,
         settings: typing.Optional[PagelinkSetting] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PayabliApiResponsePaymentLinks:
         """
-        Generates a payment link for a bill from the bill ID.
+        Generates a payment link for a bill from the bill ID. The vendor receives a secure page where they can select their preferred payment method (ACH, virtual card, or check) and complete the payment.
 
         Parameters
         ----------
@@ -1262,37 +1423,34 @@ class AsyncPaymentLinkClient:
         idempotency_key : typing.Optional[IdempotencyKey]
 
         contact_us : typing.Optional[ContactElement]
-            ContactUs section of payment link page
-
-        invoices : typing.Optional[InvoiceElement]
-            Invoices section of payment link page
+            ContactUs section of payment link page.
 
         logo : typing.Optional[Element]
-            Logo section of payment link page
+            Logo section of payment link page.
 
         message_before_paying : typing.Optional[LabelElement]
-            Message section of payment link page
+            Message section of payment link page.
 
         notes : typing.Optional[NoteElement]
-            Notes section of payment link page
+            Notes section of payment link page.
 
         page : typing.Optional[PageElement]
-            Page header section of payment link page
+            Page header section of payment link page.
 
         payment_button : typing.Optional[LabelElement]
-            Payment button section of payment link page
+            Payment button section of payment link page.
 
-        payment_methods : typing.Optional[MethodElement]
-            Payment methods section of payment link page
-
-        payor : typing.Optional[PayorElement]
-            Customer/Payor section of payment link page
+        payment_methods : typing.Optional[MethodElementOut]
+            Payment methods section of payment link page. Use this to configure which payout methods (ACH, vCard, check) are offered to the vendor.
 
         review : typing.Optional[HeaderElement]
-            Review section of payment link page
+            Review section of payment link page.
+
+        bills : typing.Optional[Element]
+            Bills section of payment link page.
 
         settings : typing.Optional[PagelinkSetting]
-            Settings section of payment link page
+            Settings section of payment link page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1312,14 +1470,11 @@ class AsyncPaymentLinkClient:
             Element,
             HeaderElement,
             LabelElement,
-            MethodElement,
-            MethodsList,
             NoteElement,
             PageElement,
             PagelinkSetting,
-            PayorElement,
-            PayorFields,
         )
+        from payabli.money_out_types import MethodElementOut, MethodsListOut
 
         client = Asyncpayabli(
             api_key="YOUR_API_KEY",
@@ -1365,38 +1520,19 @@ class AsyncPaymentLinkClient:
                     label="Pay Now",
                     order=0,
                 ),
-                payment_methods=MethodElement(
+                payment_methods=MethodElementOut(
                     all_methods_checked=True,
+                    allow_multiple_methods=True,
+                    default_method="vcard",
                     enabled=True,
                     header="Payment Methods",
-                    methods=MethodsList(
-                        amex=True,
-                        apple_pay=True,
-                        discover=True,
-                        e_check=True,
-                        mastercard=True,
-                        visa=True,
+                    methods=MethodsListOut(
+                        ach=True,
+                        check=True,
+                        vcard=True,
                     ),
                     order=0,
-                ),
-                payor=PayorElement(
-                    enabled=True,
-                    fields=[
-                        PayorFields(
-                            display=True,
-                            fixed=True,
-                            identifier=True,
-                            label="Full Name",
-                            name="fullName",
-                            order=0,
-                            required=True,
-                            validation="alpha",
-                            value="",
-                            width=0,
-                        )
-                    ],
-                    header="Payor Information",
-                    order=0,
+                    show_preview_virtual_card=True,
                 ),
                 review=HeaderElement(
                     enabled=True,
@@ -1418,15 +1554,14 @@ class AsyncPaymentLinkClient:
             mail_2=mail_2,
             idempotency_key=idempotency_key,
             contact_us=contact_us,
-            invoices=invoices,
             logo=logo,
             message_before_paying=message_before_paying,
             notes=notes,
             page=page,
             payment_button=payment_button,
             payment_methods=payment_methods,
-            payor=payor,
             review=review,
+            bills=bills,
             settings=settings,
             request_options=request_options,
         )
@@ -1464,7 +1599,7 @@ class AsyncPaymentLinkClient:
 
         async def main() -> None:
             await client.payment_link.delete_pay_link_from_id(
-                pay_link_id="payLinkId",
+                pay_link_id="2325-XXXXXXX-90b1-4598-b6c7-44cdcbf495d7-1234",
             )
 
 
@@ -1778,15 +1913,14 @@ class AsyncPaymentLinkClient:
         mail_2: typing.Optional[str] = None,
         amount_fixed: typing.Optional[str] = None,
         contact_us: typing.Optional[ContactElement] = OMIT,
-        invoices: typing.Optional[InvoiceElement] = OMIT,
         logo: typing.Optional[Element] = OMIT,
         message_before_paying: typing.Optional[LabelElement] = OMIT,
         notes: typing.Optional[NoteElement] = OMIT,
         page: typing.Optional[PageElement] = OMIT,
         payment_button: typing.Optional[LabelElement] = OMIT,
-        payment_methods: typing.Optional[MethodElement] = OMIT,
-        payor: typing.Optional[PayorElement] = OMIT,
+        payment_methods: typing.Optional[MethodElementOut] = OMIT,
         review: typing.Optional[HeaderElement] = OMIT,
+        bills: typing.Optional[Element] = OMIT,
         settings: typing.Optional[PagelinkSetting] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PayabliApiResponsePaymentLinks:
@@ -1810,37 +1944,34 @@ class AsyncPaymentLinkClient:
             Indicates whether customer can modify the payment amount. A value of `true` means the amount isn't modifiable, a value `false` means the payor can modify the amount to pay.
 
         contact_us : typing.Optional[ContactElement]
-            ContactUs section of payment link page
-
-        invoices : typing.Optional[InvoiceElement]
-            Invoices section of payment link page
+            ContactUs section of payment link page.
 
         logo : typing.Optional[Element]
-            Logo section of payment link page
+            Logo section of payment link page.
 
         message_before_paying : typing.Optional[LabelElement]
-            Message section of payment link page
+            Message section of payment link page.
 
         notes : typing.Optional[NoteElement]
-            Notes section of payment link page
+            Notes section of payment link page.
 
         page : typing.Optional[PageElement]
-            Page header section of payment link page
+            Page header section of payment link page.
 
         payment_button : typing.Optional[LabelElement]
-            Payment button section of payment link page
+            Payment button section of payment link page.
 
-        payment_methods : typing.Optional[MethodElement]
-            Payment methods section of payment link page
-
-        payor : typing.Optional[PayorElement]
-            Customer/Payor section of payment link page
+        payment_methods : typing.Optional[MethodElementOut]
+            Payment methods section of payment link page. Use this to configure which payout methods (ACH, vCard, check) are offered to the vendor.
 
         review : typing.Optional[HeaderElement]
-            Review section of payment link page
+            Review section of payment link page.
+
+        bills : typing.Optional[Element]
+            Bills section of payment link page.
 
         settings : typing.Optional[PagelinkSetting]
-            Settings section of payment link page
+            Settings section of payment link page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1860,14 +1991,11 @@ class AsyncPaymentLinkClient:
             Element,
             HeaderElement,
             LabelElement,
-            MethodElement,
-            MethodsList,
             NoteElement,
             PageElement,
             PagelinkSetting,
-            PayorElement,
-            PayorFields,
         )
+        from payabli.money_out_types import MethodElementOut, MethodsListOut
 
         client = Asyncpayabli(
             api_key="YOUR_API_KEY",
@@ -1916,38 +2044,19 @@ class AsyncPaymentLinkClient:
                     label="Pay Now",
                     order=0,
                 ),
-                payment_methods=MethodElement(
+                payment_methods=MethodElementOut(
                     all_methods_checked=True,
+                    allow_multiple_methods=True,
+                    default_method="vcard",
                     enabled=True,
                     header="Payment Methods",
-                    methods=MethodsList(
-                        amex=True,
-                        apple_pay=True,
-                        discover=True,
-                        e_check=True,
-                        mastercard=True,
-                        visa=True,
+                    methods=MethodsListOut(
+                        ach=True,
+                        check=True,
+                        vcard=True,
                     ),
                     order=0,
-                ),
-                payor=PayorElement(
-                    enabled=True,
-                    fields=[
-                        PayorFields(
-                            display=True,
-                            fixed=True,
-                            identifier=True,
-                            label="Full Name",
-                            name="fullName",
-                            order=0,
-                            required=True,
-                            validation="alpha",
-                            value="",
-                            width=0,
-                        )
-                    ],
-                    header="Payor Information",
-                    order=0,
+                    show_preview_virtual_card=True,
                 ),
                 review=HeaderElement(
                     enabled=True,
@@ -1970,15 +2079,243 @@ class AsyncPaymentLinkClient:
             mail_2=mail_2,
             amount_fixed=amount_fixed,
             contact_us=contact_us,
-            invoices=invoices,
             logo=logo,
             message_before_paying=message_before_paying,
             notes=notes,
             page=page,
             payment_button=payment_button,
             payment_methods=payment_methods,
-            payor=payor,
             review=review,
+            bills=bills,
+            settings=settings,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def patch_out_payment_link(
+        self,
+        paylink_id: str,
+        *,
+        bill_page_data: typing.Optional[PaymentPageRequestBodyOut] = OMIT,
+        expiration_date: typing.Optional[str] = OMIT,
+        status: typing.Optional[PaymentLinkStatus] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PayabliApiResponsePaymentLinks:
+        """
+        Partially updates a Pay Out payment link's content, expiration date, and/or status. Use this to modify the payment page configuration, extend or change the expiration, or cancel a link. Updating the expiration date of an expired link reactivates it to Active status.
+
+        Parameters
+        ----------
+        paylink_id : str
+            ID for the payment link.
+
+        bill_page_data : typing.Optional[PaymentPageRequestBodyOut]
+            Updated payment link page configuration.
+
+        expiration_date : typing.Optional[str]
+            New expiration date for the payment link. Must be a future date. If null and the link is expired, uses the default expiration from settings. Updating the expiration date reactivates an expired payment link to Active status.
+
+        status : typing.Optional[PaymentLinkStatus]
+            Updated status for the payment link.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayabliApiResponsePaymentLinks
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.payment_link.patch_out_payment_link(
+                paylink_id="2325-XXXXXXX-90b1-4598-b6c7-44cdcbf495d7-1234",
+                expiration_date="2026-06-01T00:00:00Z",
+                status="Active",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.patch_out_payment_link(
+            paylink_id,
+            bill_page_data=bill_page_data,
+            expiration_date=expiration_date,
+            status=status,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def update_pay_link_out_from_id(
+        self,
+        paylink_id: str,
+        *,
+        contact_us: typing.Optional[ContactElement] = OMIT,
+        logo: typing.Optional[Element] = OMIT,
+        message_before_paying: typing.Optional[LabelElement] = OMIT,
+        notes: typing.Optional[NoteElement] = OMIT,
+        page: typing.Optional[PageElement] = OMIT,
+        payment_button: typing.Optional[LabelElement] = OMIT,
+        payment_methods: typing.Optional[MethodElementOut] = OMIT,
+        review: typing.Optional[HeaderElement] = OMIT,
+        bills: typing.Optional[Element] = OMIT,
+        settings: typing.Optional[PagelinkSetting] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PayabliApiResponsePaymentLinks:
+        """
+        Updates the payment page content for a Pay Out payment link. Use this to change the branding, messaging, payment methods offered, or other page configuration.
+
+        Parameters
+        ----------
+        paylink_id : str
+            ID for the payment link.
+
+        contact_us : typing.Optional[ContactElement]
+            ContactUs section of payment link page.
+
+        logo : typing.Optional[Element]
+            Logo section of payment link page.
+
+        message_before_paying : typing.Optional[LabelElement]
+            Message section of payment link page.
+
+        notes : typing.Optional[NoteElement]
+            Notes section of payment link page.
+
+        page : typing.Optional[PageElement]
+            Page header section of payment link page.
+
+        payment_button : typing.Optional[LabelElement]
+            Payment button section of payment link page.
+
+        payment_methods : typing.Optional[MethodElementOut]
+            Payment methods section of payment link page. Use this to configure which payout methods (ACH, vCard, check) are offered to the vendor.
+
+        review : typing.Optional[HeaderElement]
+            Review section of payment link page.
+
+        bills : typing.Optional[Element]
+            Bills section of payment link page.
+
+        settings : typing.Optional[PagelinkSetting]
+            Settings section of payment link page.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayabliApiResponsePaymentLinks
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import (
+            Asyncpayabli,
+            ContactElement,
+            Element,
+            HeaderElement,
+            LabelElement,
+            NoteElement,
+            PageElement,
+            PagelinkSetting,
+        )
+        from payabli.money_out_types import MethodElementOut, MethodsListOut
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.payment_link.update_pay_link_out_from_id(
+                paylink_id="2325-XXXXXXX-90b1-4598-b6c7-44cdcbf495d7-1234",
+                contact_us=ContactElement(
+                    email_label="Email",
+                    enabled=True,
+                    header="Contact Us",
+                    order=0,
+                    payment_icons=True,
+                    phone_label="Phone",
+                ),
+                logo=Element(
+                    enabled=True,
+                    order=0,
+                ),
+                message_before_paying=LabelElement(
+                    enabled=True,
+                    label="Please review your payment details",
+                    order=0,
+                ),
+                notes=NoteElement(
+                    enabled=True,
+                    header="Additional Notes",
+                    order=0,
+                    placeholder="Enter any additional notes here",
+                    value="",
+                ),
+                page=PageElement(
+                    description="Get paid securely",
+                    enabled=True,
+                    header="Payment Page",
+                    order=0,
+                ),
+                payment_button=LabelElement(
+                    enabled=True,
+                    label="Pay Now",
+                    order=0,
+                ),
+                payment_methods=MethodElementOut(
+                    all_methods_checked=True,
+                    allow_multiple_methods=True,
+                    default_method="vcard",
+                    enabled=True,
+                    header="Payment Methods",
+                    methods=MethodsListOut(
+                        ach=True,
+                        check=True,
+                        vcard=True,
+                    ),
+                    order=0,
+                    show_preview_virtual_card=True,
+                ),
+                review=HeaderElement(
+                    enabled=True,
+                    header="Review Payment",
+                    order=0,
+                ),
+                settings=PagelinkSetting(
+                    color="#000000",
+                    language="en",
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.update_pay_link_out_from_id(
+            paylink_id,
+            contact_us=contact_us,
+            logo=logo,
+            message_before_paying=message_before_paying,
+            notes=notes,
+            page=page,
+            payment_button=payment_button,
+            payment_methods=payment_methods,
+            review=review,
+            bills=bills,
             settings=settings,
             request_options=request_options,
         )

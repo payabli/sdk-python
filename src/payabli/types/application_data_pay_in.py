@@ -6,15 +6,15 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .additional_data_string import AdditionalDataString
+from .additional_data_map import AdditionalDataMap
 from .annualrevenue import Annualrevenue
-from .application_data_pay_in_bank_data import ApplicationDataPayInBankData
 from .application_data_pay_in_contacts_item import ApplicationDataPayInContactsItem
 from .application_data_pay_in_ownership_item import ApplicationDataPayInOwnershipItem
 from .application_data_pay_in_services import ApplicationDataPayInServices
 from .avgmonthly import Avgmonthly
 from .baddress_1 import Baddress1
 from .baddress_2 import Baddress2
+from .bank_data import BankData
 from .bcity import Bcity
 from .bcountry import Bcountry
 from .binperson import Binperson
@@ -86,9 +86,7 @@ class ApplicationDataPayIn(UniversalBaseModel):
     baddress_1: typing_extensions.Annotated[
         typing.Optional[Baddress2], FieldMetadata(alias="baddress1"), pydantic.Field(alias="baddress1")
     ] = None
-    bank_data: typing_extensions.Annotated[
-        ApplicationDataPayInBankData, FieldMetadata(alias="bankData"), pydantic.Field(alias="bankData")
-    ]
+    bank_data: typing_extensions.Annotated[BankData, FieldMetadata(alias="bankData"), pydantic.Field(alias="bankData")]
     bcity: typing.Optional[Bcity] = None
     bcountry: typing.Optional[Bcountry] = None
     binperson: typing.Optional[Binperson] = None
@@ -116,7 +114,7 @@ class ApplicationDataPayIn(UniversalBaseModel):
         FieldMetadata(alias="creditLimit"),
         pydantic.Field(
             alias="creditLimit",
-            description="The maximum amount of credit that our lending partner, has authorized to your business. It's the upper boundary on how much you can spend or owe on a credit account at any given time.",
+            description="The maximum amount of credit that our lending partner has authorized to your business for Pay In processing. It's the upper boundary on how much you can spend or owe on a credit account at any given time. For on-demand payout (Pay Out) credit limits, see `payoutCreditLimit`.",
         ),
     ] = None
     dba_name: typing_extensions.Annotated[
@@ -213,7 +211,7 @@ class ApplicationDataPayIn(UniversalBaseModel):
         Whenrefunded, FieldMetadata(alias="whenRefunded"), pydantic.Field(alias="whenRefunded")
     ]
     additional_data: typing_extensions.Annotated[
-        typing.Optional[AdditionalDataString],
+        typing.Optional[AdditionalDataMap],
         FieldMetadata(alias="additionalData"),
         pydantic.Field(alias="additionalData"),
     ] = None

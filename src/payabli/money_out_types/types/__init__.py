@@ -14,7 +14,10 @@ if typing.TYPE_CHECKING:
     from .capture_all_out_response import CaptureAllOutResponse
     from .capture_all_out_response_response_data_item import CaptureAllOutResponseResponseDataItem
     from .lot_number import LotNumber
+    from .method_element_out import MethodElementOut
+    from .methods_list_out import MethodsListOut
     from .operation_result import OperationResult
+    from .payment_link_status import PaymentLinkStatus
     from .request_out_authorize_invoice_data import RequestOutAuthorizeInvoiceData
     from .request_out_authorize_payment_details import RequestOutAuthorizePaymentDetails
     from .request_out_authorize_vendor_billing_data import RequestOutAuthorizeVendorBillingData
@@ -34,7 +37,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CaptureAllOutResponse": ".capture_all_out_response",
     "CaptureAllOutResponseResponseDataItem": ".capture_all_out_response_response_data_item",
     "LotNumber": ".lot_number",
+    "MethodElementOut": ".method_element_out",
+    "MethodsListOut": ".methods_list_out",
     "OperationResult": ".operation_result",
+    "PaymentLinkStatus": ".payment_link_status",
     "RequestOutAuthorizeInvoiceData": ".request_out_authorize_invoice_data",
     "RequestOutAuthorizePaymentDetails": ".request_out_authorize_payment_details",
     "RequestOutAuthorizeVendorBillingData": ".request_out_authorize_vendor_billing_data",
@@ -78,7 +84,10 @@ __all__ = [
     "CaptureAllOutResponse",
     "CaptureAllOutResponseResponseDataItem",
     "LotNumber",
+    "MethodElementOut",
+    "MethodsListOut",
     "OperationResult",
+    "PaymentLinkStatus",
     "RequestOutAuthorizeInvoiceData",
     "RequestOutAuthorizePaymentDetails",
     "RequestOutAuthorizeVendorBillingData",

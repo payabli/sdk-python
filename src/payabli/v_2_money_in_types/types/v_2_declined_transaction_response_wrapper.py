@@ -50,7 +50,7 @@ class V2DeclinedTransactionResponseWrapper(UniversalBaseModel):
             method="card",
             batch_number="3040_combined_20251201",
             batch_amount=420.0,
-            payor_id=40144,
+            payor_id=4440,
             payment_data=TransactionDetailPaymentData(
                 masked_account="4XXXXXXXXXXX5439",
                 account_type="visa",
@@ -125,7 +125,7 @@ class V2DeclinedTransactionResponseWrapper(UniversalBaseModel):
                 shipping_state="",
                 shipping_zip="45157",
                 shipping_country="US",
-                customer_id=40144,
+                customer_id=4440,
                 customer_status=0,
             ),
             cfee_transactions=[],

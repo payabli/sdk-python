@@ -4,4 +4,4 @@ import typing
 
 from .file_content import FileContent
 
-Attachments = typing.Optional[typing.List[FileContent]]
+Attachments = typing.List[FileContent]

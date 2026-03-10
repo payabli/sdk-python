@@ -143,7 +143,7 @@ client.bill.add_bill(
 <dl>
 <dd>
 
-**bill_date:** `typing.Optional[Datenullable]` — Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+**bill_date:** `typing.Optional[dt.date]` — Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
     
 </dd>
 </dl>
@@ -183,7 +183,7 @@ client.bill.add_bill(
 <dl>
 <dd>
 
-**due_date:** `typing.Optional[Datenullable]` — Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+**due_date:** `typing.Optional[dt.date]` — Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
     
 </dd>
 </dl>
@@ -191,7 +191,7 @@ client.bill.add_bill(
 <dl>
 <dd>
 
-**end_date:** `typing.Optional[Datenullable]` — End Date for scheduled bills. Applied only in `Mode` = 1. Accepted formats: YYYY-MM-DD, MM/DD/YYYY
+**end_date:** `typing.Optional[dt.date]` — End Date for scheduled bills. Applied only in `Mode` = 1. Accepted formats: YYYY-MM-DD, MM/DD/YYYY
     
 </dd>
 </dl>
@@ -553,7 +553,7 @@ client.bill.edit_bill(
 <dl>
 <dd>
 
-**bill_date:** `typing.Optional[Datenullable]` — Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+**bill_date:** `typing.Optional[dt.date]` — Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
     
 </dd>
 </dl>
@@ -593,7 +593,7 @@ client.bill.edit_bill(
 <dl>
 <dd>
 
-**due_date:** `typing.Optional[Datenullable]` — Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+**due_date:** `typing.Optional[dt.date]` — Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
     
 </dd>
 </dl>
@@ -601,7 +601,7 @@ client.bill.edit_bill(
 <dl>
 <dd>
 
-**end_date:** `typing.Optional[Datenullable]` — End Date for scheduled bills. Applied only in `Mode` = 1. Accepted formats: YYYY-MM-DD, MM/DD/YYYY
+**end_date:** `typing.Optional[dt.date]` — End Date for scheduled bills. Applied only in `Mode` = 1. Accepted formats: YYYY-MM-DD, MM/DD/YYYY
     
 </dd>
 </dl>
@@ -1619,7 +1619,11 @@ client.boarding.add_application(
             signed_document_reference="https://example.com/signed-document.pdf",
             attestation_date="04/20/2025",
             sign_date="04/20/2025",
-            additional_data='{"deviceId":"499585-389fj484-3jcj8hj3","session":"fifji4-fiu443-fn4843","timeWithCompany":"6 Years"}',
+            additional_data={
+                "deviceId": "499585-389fj484-3jcj8hj3",
+                "session": "fifji4-fiu443-fn4843",
+                "timeWithCompany": "6 Years",
+            },
         ),
         startdate="01/01/2015",
         taxfillname="Herman's Coatings LLC",
@@ -2579,7 +2583,7 @@ client.boarding.update_application(
 <dl>
 <dd>
 
-**bank_data:** `typing.Optional[Bank]` 
+**bank_data:** `typing.Optional[BankData]` 
     
 </dd>
 </dl>
@@ -12467,7 +12471,7 @@ client.money_in.capture_auth(
 <dl>
 <dd>
 
-Make a temporary microdeposit in a customer account to verify the customer's ownership and access to the target account. Reverse the microdeposit with `reverseCredit`.
+Make a temporary microdeposit in a customer account to verify the customer's ownership and access to the target account. Reverse the microdeposit with `reverseCredit`. Payabli doesn't automatically make microdeposits when you add a bank account, you must manually make the requests.
 
 This feature must be enabled by Payabli on a per-merchant basis. Contact support for help. 
 </dd>
@@ -15331,7 +15335,7 @@ client.notification.add_notification(
         ),
         frequency="biweekly",
         method="report-email",
-        owner_id="236",
+        owner_id=236,
         owner_type=0,
         status=1,
         target="admin@example.com",
@@ -15556,7 +15560,7 @@ client.notification.update_notification(
         ),
         frequency="untilcancelled",
         method="email",
-        owner_id="136",
+        owner_id=136,
         owner_type=0,
         status=1,
         target="newemail@email.com",
@@ -17430,7 +17434,7 @@ client.payment_link.add_pay_link_from_invoice(
 <dl>
 <dd>
 
-Generates a payment link for a bill from the bill ID. 
+Generates a payment link for a bill from the bill ID. The vendor receives a secure page where they can select their preferred payment method (ACH, virtual card, or check) and complete the payment.
 </dd>
 </dl>
 </dd>
@@ -17450,22 +17454,18 @@ from payabli import (
     Element,
     HeaderElement,
     LabelElement,
-    MethodElement,
-    MethodsList,
     NoteElement,
     PageElement,
     PagelinkSetting,
-    PayorElement,
-    PayorFields,
     payabli,
 )
+from payabli.money_out_types import MethodElementOut, MethodsListOut
 
 client = payabli(
     api_key="YOUR_API_KEY",
 )
 client.payment_link.add_pay_link_from_bill(
     bill_id=23548884,
-    mail_2="jo@example.com; ceo@example.com",
     contact_us=ContactElement(
         email_label="Email",
         enabled=True,
@@ -17501,38 +17501,19 @@ client.payment_link.add_pay_link_from_bill(
         label="Pay Now",
         order=0,
     ),
-    payment_methods=MethodElement(
+    payment_methods=MethodElementOut(
         all_methods_checked=True,
+        allow_multiple_methods=True,
+        default_method="vcard",
         enabled=True,
         header="Payment Methods",
-        methods=MethodsList(
-            amex=True,
-            apple_pay=True,
-            discover=True,
-            e_check=True,
-            mastercard=True,
-            visa=True,
+        methods=MethodsListOut(
+            ach=True,
+            check=True,
+            vcard=True,
         ),
         order=0,
-    ),
-    payor=PayorElement(
-        enabled=True,
-        fields=[
-            PayorFields(
-                display=True,
-                fixed=True,
-                identifier=True,
-                label="Full Name",
-                name="fullName",
-                order=0,
-                required=True,
-                validation="alpha",
-                value="",
-                width=0,
-            )
-        ],
-        header="Payor Information",
-        order=0,
+        show_preview_virtual_card=True,
     ),
     review=HeaderElement(
         enabled=True,
@@ -17591,7 +17572,7 @@ client.payment_link.add_pay_link_from_bill(
 <dl>
 <dd>
 
-**contact_us:** `typing.Optional[ContactElement]` — ContactUs section of payment link page
+**contact_us:** `typing.Optional[ContactElement]` — ContactUs section of payment link page.
     
 </dd>
 </dl>
@@ -17599,7 +17580,7 @@ client.payment_link.add_pay_link_from_bill(
 <dl>
 <dd>
 
-**invoices:** `typing.Optional[InvoiceElement]` — Invoices section of payment link page
+**logo:** `typing.Optional[Element]` — Logo section of payment link page.
     
 </dd>
 </dl>
@@ -17607,7 +17588,7 @@ client.payment_link.add_pay_link_from_bill(
 <dl>
 <dd>
 
-**logo:** `typing.Optional[Element]` — Logo section of payment link page
+**message_before_paying:** `typing.Optional[LabelElement]` — Message section of payment link page.
     
 </dd>
 </dl>
@@ -17615,7 +17596,7 @@ client.payment_link.add_pay_link_from_bill(
 <dl>
 <dd>
 
-**message_before_paying:** `typing.Optional[LabelElement]` — Message section of payment link page
+**notes:** `typing.Optional[NoteElement]` — Notes section of payment link page.
     
 </dd>
 </dl>
@@ -17623,7 +17604,7 @@ client.payment_link.add_pay_link_from_bill(
 <dl>
 <dd>
 
-**notes:** `typing.Optional[NoteElement]` — Notes section of payment link page
+**page:** `typing.Optional[PageElement]` — Page header section of payment link page.
     
 </dd>
 </dl>
@@ -17631,7 +17612,7 @@ client.payment_link.add_pay_link_from_bill(
 <dl>
 <dd>
 
-**page:** `typing.Optional[PageElement]` — Page header section of payment link page
+**payment_button:** `typing.Optional[LabelElement]` — Payment button section of payment link page.
     
 </dd>
 </dl>
@@ -17639,7 +17620,7 @@ client.payment_link.add_pay_link_from_bill(
 <dl>
 <dd>
 
-**payment_button:** `typing.Optional[LabelElement]` — Payment button section of payment link page
+**payment_methods:** `typing.Optional[MethodElementOut]` — Payment methods section of payment link page. Use this to configure which payout methods (ACH, vCard, check) are offered to the vendor.
     
 </dd>
 </dl>
@@ -17647,7 +17628,7 @@ client.payment_link.add_pay_link_from_bill(
 <dl>
 <dd>
 
-**payment_methods:** `typing.Optional[MethodElement]` — Payment methods section of payment link page
+**review:** `typing.Optional[HeaderElement]` — Review section of payment link page.
     
 </dd>
 </dl>
@@ -17655,7 +17636,7 @@ client.payment_link.add_pay_link_from_bill(
 <dl>
 <dd>
 
-**payor:** `typing.Optional[PayorElement]` — Customer/Payor section of payment link page
+**bills:** `typing.Optional[Element]` — Bills section of payment link page.
     
 </dd>
 </dl>
@@ -17663,15 +17644,7 @@ client.payment_link.add_pay_link_from_bill(
 <dl>
 <dd>
 
-**review:** `typing.Optional[HeaderElement]` — Review section of payment link page
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**settings:** `typing.Optional[PagelinkSetting]` — Settings section of payment link page
+**settings:** `typing.Optional[PagelinkSetting]` — Settings section of payment link page.
     
 </dd>
 </dl>
@@ -17724,7 +17697,7 @@ client = payabli(
     api_key="YOUR_API_KEY",
 )
 client.payment_link.delete_pay_link_from_id(
-    pay_link_id="payLinkId",
+    pay_link_id="2325-XXXXXXX-90b1-4598-b6c7-44cdcbf495d7-1234",
 )
 
 ```
@@ -18264,15 +18237,12 @@ from payabli import (
     Element,
     HeaderElement,
     LabelElement,
-    MethodElement,
-    MethodsList,
     NoteElement,
     PageElement,
     PagelinkSetting,
-    PayorElement,
-    PayorFields,
     payabli,
 )
+from payabli.money_out_types import MethodElementOut, MethodsListOut
 
 client = payabli(
     api_key="YOUR_API_KEY",
@@ -18318,38 +18288,19 @@ client.payment_link.add_pay_link_from_bill_lot_number(
         label="Pay Now",
         order=0,
     ),
-    payment_methods=MethodElement(
+    payment_methods=MethodElementOut(
         all_methods_checked=True,
+        allow_multiple_methods=True,
+        default_method="vcard",
         enabled=True,
         header="Payment Methods",
-        methods=MethodsList(
-            amex=True,
-            apple_pay=True,
-            discover=True,
-            e_check=True,
-            mastercard=True,
-            visa=True,
+        methods=MethodsListOut(
+            ach=True,
+            check=True,
+            vcard=True,
         ),
         order=0,
-    ),
-    payor=PayorElement(
-        enabled=True,
-        fields=[
-            PayorFields(
-                display=True,
-                fixed=True,
-                identifier=True,
-                label="Full Name",
-                name="fullName",
-                order=0,
-                required=True,
-                validation="alpha",
-                value="",
-                width=0,
-            )
-        ],
-        header="Payor Information",
-        order=0,
+        show_preview_virtual_card=True,
     ),
     review=HeaderElement(
         enabled=True,
@@ -18416,7 +18367,7 @@ client.payment_link.add_pay_link_from_bill_lot_number(
 <dl>
 <dd>
 
-**contact_us:** `typing.Optional[ContactElement]` — ContactUs section of payment link page
+**contact_us:** `typing.Optional[ContactElement]` — ContactUs section of payment link page.
     
 </dd>
 </dl>
@@ -18424,7 +18375,7 @@ client.payment_link.add_pay_link_from_bill_lot_number(
 <dl>
 <dd>
 
-**invoices:** `typing.Optional[InvoiceElement]` — Invoices section of payment link page
+**logo:** `typing.Optional[Element]` — Logo section of payment link page.
     
 </dd>
 </dl>
@@ -18432,7 +18383,7 @@ client.payment_link.add_pay_link_from_bill_lot_number(
 <dl>
 <dd>
 
-**logo:** `typing.Optional[Element]` — Logo section of payment link page
+**message_before_paying:** `typing.Optional[LabelElement]` — Message section of payment link page.
     
 </dd>
 </dl>
@@ -18440,7 +18391,7 @@ client.payment_link.add_pay_link_from_bill_lot_number(
 <dl>
 <dd>
 
-**message_before_paying:** `typing.Optional[LabelElement]` — Message section of payment link page
+**notes:** `typing.Optional[NoteElement]` — Notes section of payment link page.
     
 </dd>
 </dl>
@@ -18448,7 +18399,7 @@ client.payment_link.add_pay_link_from_bill_lot_number(
 <dl>
 <dd>
 
-**notes:** `typing.Optional[NoteElement]` — Notes section of payment link page
+**page:** `typing.Optional[PageElement]` — Page header section of payment link page.
     
 </dd>
 </dl>
@@ -18456,7 +18407,7 @@ client.payment_link.add_pay_link_from_bill_lot_number(
 <dl>
 <dd>
 
-**page:** `typing.Optional[PageElement]` — Page header section of payment link page
+**payment_button:** `typing.Optional[LabelElement]` — Payment button section of payment link page.
     
 </dd>
 </dl>
@@ -18464,7 +18415,7 @@ client.payment_link.add_pay_link_from_bill_lot_number(
 <dl>
 <dd>
 
-**payment_button:** `typing.Optional[LabelElement]` — Payment button section of payment link page
+**payment_methods:** `typing.Optional[MethodElementOut]` — Payment methods section of payment link page. Use this to configure which payout methods (ACH, vCard, check) are offered to the vendor.
     
 </dd>
 </dl>
@@ -18472,7 +18423,7 @@ client.payment_link.add_pay_link_from_bill_lot_number(
 <dl>
 <dd>
 
-**payment_methods:** `typing.Optional[MethodElement]` — Payment methods section of payment link page
+**review:** `typing.Optional[HeaderElement]` — Review section of payment link page.
     
 </dd>
 </dl>
@@ -18480,7 +18431,7 @@ client.payment_link.add_pay_link_from_bill_lot_number(
 <dl>
 <dd>
 
-**payor:** `typing.Optional[PayorElement]` — Customer/Payor section of payment link page
+**bills:** `typing.Optional[Element]` — Bills section of payment link page.
     
 </dd>
 </dl>
@@ -18488,7 +18439,7 @@ client.payment_link.add_pay_link_from_bill_lot_number(
 <dl>
 <dd>
 
-**review:** `typing.Optional[HeaderElement]` — Review section of payment link page
+**settings:** `typing.Optional[PagelinkSetting]` — Settings section of payment link page.
     
 </dd>
 </dl>
@@ -18496,7 +18447,292 @@ client.payment_link.add_pay_link_from_bill_lot_number(
 <dl>
 <dd>
 
-**settings:** `typing.Optional[PagelinkSetting]` — Settings section of payment link page
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">patch_out_payment_link</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponsePaymentLinks]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Partially updates a Pay Out payment link's content, expiration date, and/or status. Use this to modify the payment page configuration, extend or change the expiration, or cancel a link. Updating the expiration date of an expired link reactivates it to Active status.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import LabelElement, PageElement, payabli
+from payabli.money_out_types import MethodElementOut, MethodsListOut
+from payabli.payment_link import PaymentPageRequestBodyOut
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.payment_link.patch_out_payment_link(
+    paylink_id="2325-XXXXXXX-90b1-4598-b6c7-44cdcbf495d7-1234",
+    bill_page_data=PaymentPageRequestBodyOut(
+        page=PageElement(
+            description="You have a payment waiting",
+            enabled=True,
+            header="Vendor Payment",
+            order=0,
+        ),
+        payment_button=LabelElement(
+            enabled=True,
+            label="Select Payment Method",
+            order=0,
+        ),
+        payment_methods=MethodElementOut(
+            all_methods_checked=True,
+            allow_multiple_methods=True,
+            default_method="ach",
+            enabled=True,
+            header="Payment Methods",
+            methods=MethodsListOut(
+                ach=True,
+                check=True,
+                vcard=True,
+            ),
+            order=0,
+            show_preview_virtual_card=False,
+        ),
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**paylink_id:** `str` — ID for the payment link.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**bill_page_data:** `typing.Optional[PaymentPageRequestBodyOut]` — Updated payment link page configuration.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expiration_date:** `typing.Optional[str]` — New expiration date for the payment link. Must be a future date. If null and the link is expired, uses the default expiration from settings. Updating the expiration date reactivates an expired payment link to Active status.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[PaymentLinkStatus]` — Updated status for the payment link.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">update_pay_link_out_from_id</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponsePaymentLinks]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the payment page content for a Pay Out payment link. Use this to change the branding, messaging, payment methods offered, or other page configuration.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import LabelElement, payabli
+from payabli.money_out_types import MethodElementOut, MethodsListOut
+
+client = payabli(
+    api_key="YOUR_API_KEY",
+)
+client.payment_link.update_pay_link_out_from_id(
+    paylink_id="2325-XXXXXXX-90b1-4598-b6c7-44cdcbf495d7-1234",
+    payment_methods=MethodElementOut(
+        all_methods_checked=False,
+        allow_multiple_methods=True,
+        default_method="vcard",
+        enabled=True,
+        header="Payment Methods",
+        methods=MethodsListOut(
+            ach=True,
+            check=False,
+            vcard=True,
+        ),
+        order=0,
+        show_preview_virtual_card=True,
+    ),
+    payment_button=LabelElement(
+        enabled=True,
+        label="Choose Payment Method",
+        order=0,
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**paylink_id:** `str` — ID for the payment link.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**contact_us:** `typing.Optional[ContactElement]` — ContactUs section of payment link page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**logo:** `typing.Optional[Element]` — Logo section of payment link page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**message_before_paying:** `typing.Optional[LabelElement]` — Message section of payment link page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**notes:** `typing.Optional[NoteElement]` — Notes section of payment link page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page:** `typing.Optional[PageElement]` — Page header section of payment link page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payment_button:** `typing.Optional[LabelElement]` — Payment button section of payment link page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payment_methods:** `typing.Optional[MethodElementOut]` — Payment methods section of payment link page. Use this to configure which payout methods (ACH, vCard, check) are offered to the vendor.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**review:** `typing.Optional[HeaderElement]` — Review section of payment link page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**bills:** `typing.Optional[Element]` — Bills section of payment link page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**settings:** `typing.Optional[PagelinkSetting]` — Settings section of payment link page.
     
 </dd>
 </dl>
@@ -27123,22 +27359,6 @@ client.token_storage.add_method(
 <dl>
 <dd>
 
-**create_anonymous:** `CreateAnonymous` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**temporary:** `Temporary` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **ach_validation:** `typing.Optional[AchValidation]` 
     
 </dd>
@@ -27147,7 +27367,23 @@ client.token_storage.add_method(
 <dl>
 <dd>
 
+**create_anonymous:** `typing.Optional[CreateAnonymous]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **force_customer_creation:** `typing.Optional[ForceCustomerCreation]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**temporary:** `typing.Optional[Temporary]` 
     
 </dd>
 </dl>

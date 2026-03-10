@@ -58,8 +58,8 @@ class PaymentMethodDomainApiResponse(UniversalBaseModel):
         OwnerEntityType, FieldMetadata(alias="ownerEntityType"), pydantic.Field(alias="ownerEntityType")
     ]
     updated_at: typing_extensions.Annotated[
-        LastModified, FieldMetadata(alias="updatedAt"), pydantic.Field(alias="updatedAt")
-    ]
+        typing.Optional[LastModified], FieldMetadata(alias="updatedAt"), pydantic.Field(alias="updatedAt")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

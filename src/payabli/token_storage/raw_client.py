@@ -41,10 +41,10 @@ class RawTokenStorageClient:
     def add_method(
         self,
         *,
-        create_anonymous: CreateAnonymous,
-        temporary: Temporary,
         ach_validation: typing.Optional[AchValidation] = None,
+        create_anonymous: typing.Optional[CreateAnonymous] = None,
         force_customer_creation: typing.Optional[ForceCustomerCreation] = None,
+        temporary: typing.Optional[Temporary] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         customer_data: typing.Optional[PayorDataRequest] = OMIT,
         entry_point: typing.Optional[Entrypointfield] = OMIT,
@@ -62,13 +62,13 @@ class RawTokenStorageClient:
 
         Parameters
         ----------
-        create_anonymous : CreateAnonymous
-
-        temporary : Temporary
-
         ach_validation : typing.Optional[AchValidation]
 
+        create_anonymous : typing.Optional[CreateAnonymous]
+
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+
+        temporary : typing.Optional[Temporary]
 
         idempotency_key : typing.Optional[IdempotencyKey]
 
@@ -497,10 +497,10 @@ class AsyncRawTokenStorageClient:
     async def add_method(
         self,
         *,
-        create_anonymous: CreateAnonymous,
-        temporary: Temporary,
         ach_validation: typing.Optional[AchValidation] = None,
+        create_anonymous: typing.Optional[CreateAnonymous] = None,
         force_customer_creation: typing.Optional[ForceCustomerCreation] = None,
+        temporary: typing.Optional[Temporary] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         customer_data: typing.Optional[PayorDataRequest] = OMIT,
         entry_point: typing.Optional[Entrypointfield] = OMIT,
@@ -518,13 +518,13 @@ class AsyncRawTokenStorageClient:
 
         Parameters
         ----------
-        create_anonymous : CreateAnonymous
-
-        temporary : Temporary
-
         ach_validation : typing.Optional[AchValidation]
 
+        create_anonymous : typing.Optional[CreateAnonymous]
+
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+
+        temporary : typing.Optional[Temporary]
 
         idempotency_key : typing.Optional[IdempotencyKey]
 

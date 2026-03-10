@@ -60,7 +60,6 @@ if typing.TYPE_CHECKING:
     from .application_data_odp_contacts_item import ApplicationDataOdpContactsItem
     from .application_data_odp_ownership_item import ApplicationDataOdpOwnershipItem
     from .application_data_pay_in import ApplicationDataPayIn
-    from .application_data_pay_in_bank_data import ApplicationDataPayInBankData
     from .application_data_pay_in_contacts_item import ApplicationDataPayInContactsItem
     from .application_data_pay_in_ownership_item import ApplicationDataPayInOwnershipItem
     from .application_data_pay_in_services import ApplicationDataPayInServices
@@ -201,8 +200,6 @@ if typing.TYPE_CHECKING:
     from .cvv_response import CvvResponse
     from .cvv_response_text import CvvResponseText
     from .d_section import DSection
-    from .datenullable import Datenullable
-    from .datetime_nullable import DatetimeNullable
     from .dbaname import Dbaname
     from .deposit_date import DepositDate
     from .descriptor import Descriptor
@@ -716,7 +713,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ApplicationDataOdpContactsItem": ".application_data_odp_contacts_item",
     "ApplicationDataOdpOwnershipItem": ".application_data_odp_ownership_item",
     "ApplicationDataPayIn": ".application_data_pay_in",
-    "ApplicationDataPayInBankData": ".application_data_pay_in_bank_data",
     "ApplicationDataPayInContactsItem": ".application_data_pay_in_contacts_item",
     "ApplicationDataPayInOwnershipItem": ".application_data_pay_in_ownership_item",
     "ApplicationDataPayInServices": ".application_data_pay_in_services",
@@ -855,8 +851,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CvvResponse": ".cvv_response",
     "CvvResponseText": ".cvv_response_text",
     "DSection": ".d_section",
-    "Datenullable": ".datenullable",
-    "DatetimeNullable": ".datetime_nullable",
     "Dbaname": ".dbaname",
     "DepositDate": ".deposit_date",
     "Descriptor": ".descriptor",
@@ -1396,7 +1390,6 @@ __all__ = [
     "ApplicationDataOdpContactsItem",
     "ApplicationDataOdpOwnershipItem",
     "ApplicationDataPayIn",
-    "ApplicationDataPayInBankData",
     "ApplicationDataPayInContactsItem",
     "ApplicationDataPayInOwnershipItem",
     "ApplicationDataPayInServices",
@@ -1535,8 +1528,6 @@ __all__ = [
     "CvvResponse",
     "CvvResponseText",
     "DSection",
-    "Datenullable",
-    "DatetimeNullable",
     "Dbaname",
     "DepositDate",
     "Descriptor",

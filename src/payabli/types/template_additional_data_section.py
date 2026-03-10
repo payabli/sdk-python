@@ -9,7 +9,7 @@ from .visible import Visible
 
 
 class TemplateAdditionalDataSection(UniversalBaseModel):
-    visible: Visible
+    visible: typing.Optional[Visible] = None
     fields: typing.Dict[str, TemplateAdditionalDataField]
 
     if IS_PYDANTIC_V2:

@@ -11,7 +11,7 @@ from ..types.attachments import Attachments
 from ..types.avgmonthly import Avgmonthly
 from ..types.baddress_1 import Baddress1
 from ..types.baddress_2 import Baddress2
-from ..types.bank import Bank
+from ..types.bank_data import BankData
 from ..types.bcity import Bcity
 from ..types.bcountry import Bcountry
 from ..types.binperson import Binperson
@@ -112,12 +112,12 @@ class BoardingClient:
         --------
         from payabli import (
             ApplicationDataPayIn,
-            ApplicationDataPayInBankData,
             ApplicationDataPayInContactsItem,
             ApplicationDataPayInOwnershipItem,
             ApplicationDataPayInServices,
             ApplicationDataPayInServicesAch,
             ApplicationDataPayInServicesCard,
+            Bank,
             SignerDataRequest,
             payabli,
         )
@@ -142,7 +142,30 @@ class BoardingClient:
                 avgmonthly=1000.0,
                 baddress="123 Walnut Street",
                 baddress_1="Suite 103",
-                bank_data=ApplicationDataPayInBankData(),
+                bank_data=[
+                    Bank(
+                        account_number="123123123",
+                        bank_account_function=1,
+                        bank_account_holder_name="Gruzya Adventure Outfitters LLC",
+                        bank_account_holder_type="Business",
+                        bank_name="Test Bank",
+                        nickname="Withdrawal Account",
+                        routing_account="123123123",
+                        type_account="Checking",
+                        account_id="123-456",
+                    ),
+                    Bank(
+                        account_number="123123123",
+                        bank_account_function=0,
+                        bank_account_holder_name="Gruzya Adventure Outfitters LLC",
+                        bank_account_holder_type="Business",
+                        bank_name="Test Bank",
+                        nickname="Deposit Account",
+                        routing_account="123123123",
+                        type_account="Checking",
+                        account_id="123-456",
+                    ),
+                ],
                 bcity="New Vegas",
                 bcountry="US",
                 binperson=60,
@@ -216,7 +239,11 @@ class BoardingClient:
                     signed_document_reference="https://example.com/signed-document.pdf",
                     attestation_date="04/20/2025",
                     sign_date="04/20/2025",
-                    additional_data='{"deviceId":"499585-389fj484-3jcj8hj3","session":"fifji4-fiu443-fn4843","timeWithCompany":"6 Years"}',
+                    additional_data={
+                        "deviceId": "499585-389fj484-3jcj8hj3",
+                        "session": "fifji4-fiu443-fn4843",
+                        "timeWithCompany": "6 Years",
+                    },
                 ),
                 startdate="01/01/1990",
                 tax_fill_name="Sunshine LLC",
@@ -695,7 +722,7 @@ class BoardingClient:
         avgmonthly: typing.Optional[Avgmonthly] = OMIT,
         baddress: typing.Optional[Baddress1] = OMIT,
         baddress_1: typing.Optional[Baddress2] = OMIT,
-        bank_data: typing.Optional[Bank] = OMIT,
+        bank_data: typing.Optional[BankData] = OMIT,
         bcity: typing.Optional[Bcity] = OMIT,
         bcountry: typing.Optional[Bcountry] = OMIT,
         binperson: typing.Optional[Binperson] = OMIT,
@@ -767,7 +794,7 @@ class BoardingClient:
 
         baddress_1 : typing.Optional[Baddress2]
 
-        bank_data : typing.Optional[Bank]
+        bank_data : typing.Optional[BankData]
 
         bcity : typing.Optional[Bcity]
 
@@ -989,13 +1016,13 @@ class AsyncBoardingClient:
 
         from payabli import (
             ApplicationDataPayIn,
-            ApplicationDataPayInBankData,
             ApplicationDataPayInContactsItem,
             ApplicationDataPayInOwnershipItem,
             ApplicationDataPayInServices,
             ApplicationDataPayInServicesAch,
             ApplicationDataPayInServicesCard,
             Asyncpayabli,
+            Bank,
             SignerDataRequest,
         )
 
@@ -1022,7 +1049,30 @@ class AsyncBoardingClient:
                     avgmonthly=1000.0,
                     baddress="123 Walnut Street",
                     baddress_1="Suite 103",
-                    bank_data=ApplicationDataPayInBankData(),
+                    bank_data=[
+                        Bank(
+                            account_number="123123123",
+                            bank_account_function=1,
+                            bank_account_holder_name="Gruzya Adventure Outfitters LLC",
+                            bank_account_holder_type="Business",
+                            bank_name="Test Bank",
+                            nickname="Withdrawal Account",
+                            routing_account="123123123",
+                            type_account="Checking",
+                            account_id="123-456",
+                        ),
+                        Bank(
+                            account_number="123123123",
+                            bank_account_function=0,
+                            bank_account_holder_name="Gruzya Adventure Outfitters LLC",
+                            bank_account_holder_type="Business",
+                            bank_name="Test Bank",
+                            nickname="Deposit Account",
+                            routing_account="123123123",
+                            type_account="Checking",
+                            account_id="123-456",
+                        ),
+                    ],
                     bcity="New Vegas",
                     bcountry="US",
                     binperson=60,
@@ -1096,7 +1146,11 @@ class AsyncBoardingClient:
                         signed_document_reference="https://example.com/signed-document.pdf",
                         attestation_date="04/20/2025",
                         sign_date="04/20/2025",
-                        additional_data='{"deviceId":"499585-389fj484-3jcj8hj3","session":"fifji4-fiu443-fn4843","timeWithCompany":"6 Years"}',
+                        additional_data={
+                            "deviceId": "499585-389fj484-3jcj8hj3",
+                            "session": "fifji4-fiu443-fn4843",
+                            "timeWithCompany": "6 Years",
+                        },
                     ),
                     startdate="01/01/1990",
                     tax_fill_name="Sunshine LLC",
@@ -1654,7 +1708,7 @@ class AsyncBoardingClient:
         avgmonthly: typing.Optional[Avgmonthly] = OMIT,
         baddress: typing.Optional[Baddress1] = OMIT,
         baddress_1: typing.Optional[Baddress2] = OMIT,
-        bank_data: typing.Optional[Bank] = OMIT,
+        bank_data: typing.Optional[BankData] = OMIT,
         bcity: typing.Optional[Bcity] = OMIT,
         bcountry: typing.Optional[Bcountry] = OMIT,
         binperson: typing.Optional[Binperson] = OMIT,
@@ -1726,7 +1780,7 @@ class AsyncBoardingClient:
 
         baddress_1 : typing.Optional[Baddress2]
 
-        bank_data : typing.Optional[Bank]
+        bank_data : typing.Optional[BankData]
 
         bcity : typing.Optional[Bcity]
 

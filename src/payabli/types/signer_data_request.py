@@ -6,7 +6,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .additional_data_string import AdditionalDataString
+from .additional_data_map import AdditionalDataMap
 from .attestation_date import AttestationDate
 from .email import Email
 from .pci_attestation import PciAttestation
@@ -62,7 +62,7 @@ class SignerDataRequest(UniversalBaseModel):
         pydantic.Field(alias="attestationDate"),
     ] = None
     additional_data: typing_extensions.Annotated[
-        typing.Optional[AdditionalDataString],
+        typing.Optional[AdditionalDataMap],
         FieldMetadata(alias="additionalData"),
         pydantic.Field(alias="additionalData"),
     ] = None

@@ -266,8 +266,8 @@ class BatchDetailResponseRecord(UniversalBaseModel):
         typing.Optional[QueryPaymentData], FieldMetadata(alias="PaymentData"), pydantic.Field(alias="PaymentData")
     ] = None
     net_amount: typing_extensions.Annotated[
-        Netamountnullable, FieldMetadata(alias="NetAmount"), pydantic.Field(alias="NetAmount")
-    ]
+        typing.Optional[Netamountnullable], FieldMetadata(alias="NetAmount"), pydantic.Field(alias="NetAmount")
+    ] = None
     operation: typing_extensions.Annotated[
         Operation, FieldMetadata(alias="Operation"), pydantic.Field(alias="Operation")
     ]
@@ -351,15 +351,19 @@ class BatchDetailResponseRecord(UniversalBaseModel):
         PaypointId, FieldMetadata(alias="PaypointId"), pydantic.Field(alias="PaypointId")
     ]
     pending_fee_amount: typing_extensions.Annotated[
-        PendingFeeAmount, FieldMetadata(alias="PendingFeeAmount"), pydantic.Field(alias="PendingFeeAmount")
-    ]
+        typing.Optional[PendingFeeAmount],
+        FieldMetadata(alias="PendingFeeAmount"),
+        pydantic.Field(alias="PendingFeeAmount"),
+    ] = None
     refund_id: typing_extensions.Annotated[RefundId, FieldMetadata(alias="RefundId"), pydantic.Field(alias="RefundId")]
     returned_id: typing_extensions.Annotated[
         ReturnedId, FieldMetadata(alias="ReturnedId"), pydantic.Field(alias="ReturnedId")
     ]
     split_funding_instructions: typing_extensions.Annotated[
-        SplitFunding, FieldMetadata(alias="splitFundingInstructions"), pydantic.Field(alias="splitFundingInstructions")
-    ]
+        typing.Optional[SplitFunding],
+        FieldMetadata(alias="splitFundingInstructions"),
+        pydantic.Field(alias="splitFundingInstructions"),
+    ] = None
     total_amount: typing_extensions.Annotated[
         float, FieldMetadata(alias="TotalAmount"), pydantic.Field(alias="TotalAmount")
     ]

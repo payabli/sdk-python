@@ -11,7 +11,7 @@ from .attachments import Attachments
 from .avgmonthly import Avgmonthly
 from .baddress_1 import Baddress1
 from .baddress_2 import Baddress2
-from .bank import Bank
+from .bank_data import BankData
 from .bcity import Bcity
 from .bcountry import Bcountry
 from .binperson import Binperson
@@ -76,7 +76,7 @@ class ApplicationData(UniversalBaseModel):
         typing.Optional[Baddress2], FieldMetadata(alias="baddress1"), pydantic.Field(alias="baddress1")
     ] = None
     bank_data: typing_extensions.Annotated[
-        typing.Optional[Bank], FieldMetadata(alias="bankData"), pydantic.Field(alias="bankData")
+        typing.Optional[BankData], FieldMetadata(alias="bankData"), pydantic.Field(alias="bankData")
     ] = None
     bcity: typing.Optional[Bcity] = None
     bcountry: typing.Optional[Bcountry] = None

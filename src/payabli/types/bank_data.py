@@ -4,4 +4,4 @@ import typing
 
 from .bank import Bank
 
-BankData = typing.Optional[typing.List[Bank]]
+BankData = typing.List[Bank]

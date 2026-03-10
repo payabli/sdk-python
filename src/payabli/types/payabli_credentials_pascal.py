@@ -12,10 +12,20 @@ from .min_ticket import MinTicket
 
 class PayabliCredentialsPascal(UniversalBaseModel):
     service: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="Service"), pydantic.Field(alias="Service")
+        typing.Optional[str],
+        FieldMetadata(alias="Service"),
+        pydantic.Field(
+            alias="Service",
+            description="The payment service that this credential applies to. A paypoint can support multiple services, each represented by its own credential object in the array. Possible values are `card` (credit/debit card), `ach` (ACH bank transfer), `check` (paper check), `vcard` (virtual card), `cloud` (card-present), `cash`, `managed` (managed payment service), and `wallet`.",
+        ),
     ] = None
     mode: typing_extensions.Annotated[
-        typing.Optional[int], FieldMetadata(alias="Mode"), pydantic.Field(alias="Mode")
+        typing.Optional[int],
+        FieldMetadata(alias="Mode"),
+        pydantic.Field(
+            alias="Mode",
+            description="The payment mode supported by this service. `0` for one-time payments, `1` for recurring payments, `2` for both.",
+        ),
     ] = None
     min_ticket: typing_extensions.Annotated[
         typing.Optional[MinTicket], FieldMetadata(alias="MinTicket"), pydantic.Field(alias="MinTicket")

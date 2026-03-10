@@ -4,4 +4,4 @@ import typing
 
 from .bill_item import BillItem
 
-Billitems = typing.Optional[typing.List[BillItem]]
+Billitems = typing.List[BillItem]

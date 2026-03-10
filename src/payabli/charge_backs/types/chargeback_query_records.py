@@ -100,10 +100,10 @@ class ChargebackQueryRecords(UniversalBaseModel):
     ] = None
     order_id: typing_extensions.Annotated[OrderId, FieldMetadata(alias="OrderId"), pydantic.Field(alias="OrderId")]
     net_amount: typing_extensions.Annotated[
-        Netamountnullable,
+        typing.Optional[Netamountnullable],
         FieldMetadata(alias="NetAmount"),
         pydantic.Field(alias="NetAmount", description="Net amount in chargeback or ACH return."),
-    ]
+    ] = None
     transaction_time: typing_extensions.Annotated[
         TransactionTime, FieldMetadata(alias="TransactionTime"), pydantic.Field(alias="TransactionTime")
     ]

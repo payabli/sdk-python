@@ -4,4 +4,4 @@ import typing
 
 from .split_funding_content import SplitFundingContent
 
-SplitFunding = typing.Optional[typing.List[SplitFundingContent]]
+SplitFunding = typing.List[SplitFundingContent]

@@ -26,11 +26,18 @@ class PayabliCredentials(UniversalBaseModel):
     ] = None
     maxticket: typing.Optional[float] = None
     minticket: typing.Optional[float] = None
-    mode: typing.Optional[int] = None
+    mode: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    The payment mode supported by this service. `0` for one-time payments, `1` for recurring payments, `2` for both.
+    """
+
     reference_id: typing_extensions.Annotated[
         typing.Optional[int], FieldMetadata(alias="referenceId"), pydantic.Field(alias="referenceId")
     ] = None
-    service: typing.Optional[str] = None
+    service: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The payment service that this credential applies to. A paypoint can support multiple services, each represented by its own credential object in the array. Possible values are `card` (credit/debit card), `ach` (ACH bank transfer), `check` (paper check), `vcard` (virtual card), `cloud` (card-present), `cash`, `managed` (managed payment service), and `wallet`.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

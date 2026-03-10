@@ -21,7 +21,7 @@ from ..types.attachments import Attachments
 from ..types.avgmonthly import Avgmonthly
 from ..types.baddress_1 import Baddress1
 from ..types.baddress_2 import Baddress2
-from ..types.bank import Bank
+from ..types.bank_data import BankData
 from ..types.bcity import Bcity
 from ..types.bcountry import Bcountry
 from ..types.binperson import Binperson
@@ -1086,7 +1086,7 @@ class RawBoardingClient:
         avgmonthly: typing.Optional[Avgmonthly] = OMIT,
         baddress: typing.Optional[Baddress1] = OMIT,
         baddress_1: typing.Optional[Baddress2] = OMIT,
-        bank_data: typing.Optional[Bank] = OMIT,
+        bank_data: typing.Optional[BankData] = OMIT,
         bcity: typing.Optional[Bcity] = OMIT,
         bcountry: typing.Optional[Bcountry] = OMIT,
         binperson: typing.Optional[Binperson] = OMIT,
@@ -1158,7 +1158,7 @@ class RawBoardingClient:
 
         baddress_1 : typing.Optional[Baddress2]
 
-        bank_data : typing.Optional[Bank]
+        bank_data : typing.Optional[BankData]
 
         bcity : typing.Optional[Bcity]
 
@@ -1282,7 +1282,7 @@ class RawBoardingClient:
                 "baddress": baddress,
                 "baddress1": baddress_1,
                 "bankData": convert_and_respect_annotation_metadata(
-                    object_=bank_data, annotation=Bank, direction="write"
+                    object_=bank_data, annotation=BankData, direction="write"
                 ),
                 "bcity": bcity,
                 "bcountry": bcountry,
@@ -2407,7 +2407,7 @@ class AsyncRawBoardingClient:
         avgmonthly: typing.Optional[Avgmonthly] = OMIT,
         baddress: typing.Optional[Baddress1] = OMIT,
         baddress_1: typing.Optional[Baddress2] = OMIT,
-        bank_data: typing.Optional[Bank] = OMIT,
+        bank_data: typing.Optional[BankData] = OMIT,
         bcity: typing.Optional[Bcity] = OMIT,
         bcountry: typing.Optional[Bcountry] = OMIT,
         binperson: typing.Optional[Binperson] = OMIT,
@@ -2479,7 +2479,7 @@ class AsyncRawBoardingClient:
 
         baddress_1 : typing.Optional[Baddress2]
 
-        bank_data : typing.Optional[Bank]
+        bank_data : typing.Optional[BankData]
 
         bcity : typing.Optional[Bcity]
 
@@ -2603,7 +2603,7 @@ class AsyncRawBoardingClient:
                 "baddress": baddress,
                 "baddress1": baddress_1,
                 "bankData": convert_and_respect_annotation_metadata(
-                    object_=bank_data, annotation=Bank, direction="write"
+                    object_=bank_data, annotation=BankData, direction="write"
                 ),
                 "bcity": bcity,
                 "bcountry": bcountry,

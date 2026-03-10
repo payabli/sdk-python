@@ -9,14 +9,18 @@ if typing.TYPE_CHECKING:
     from .types import (
         GetPayLinkFromIdResponse,
         GetPayLinkFromIdResponseResponseData,
+        PatchOutPaymentLinkRequest,
         PayabliApiResponsePaymentLinks,
         PaymentPageRequestBody,
+        PaymentPageRequestBodyOut,
     )
 _dynamic_imports: typing.Dict[str, str] = {
     "GetPayLinkFromIdResponse": ".types",
     "GetPayLinkFromIdResponseResponseData": ".types",
+    "PatchOutPaymentLinkRequest": ".types",
     "PayabliApiResponsePaymentLinks": ".types",
     "PaymentPageRequestBody": ".types",
+    "PaymentPageRequestBodyOut": ".types",
 }
 
 
@@ -44,6 +48,8 @@ def __dir__():
 __all__ = [
     "GetPayLinkFromIdResponse",
     "GetPayLinkFromIdResponseResponseData",
+    "PatchOutPaymentLinkRequest",
     "PayabliApiResponsePaymentLinks",
     "PaymentPageRequestBody",
+    "PaymentPageRequestBodyOut",
 ]

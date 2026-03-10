@@ -4,4 +4,4 @@ import typing
 
 from .owners import Owners
 
-Ownership = typing.Optional[typing.List[Owners]]
+Ownership = typing.List[Owners]

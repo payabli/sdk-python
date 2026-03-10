@@ -42,10 +42,10 @@ class TokenStorageClient:
     def add_method(
         self,
         *,
-        create_anonymous: CreateAnonymous,
-        temporary: Temporary,
         ach_validation: typing.Optional[AchValidation] = None,
+        create_anonymous: typing.Optional[CreateAnonymous] = None,
         force_customer_creation: typing.Optional[ForceCustomerCreation] = None,
+        temporary: typing.Optional[Temporary] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         customer_data: typing.Optional[PayorDataRequest] = OMIT,
         entry_point: typing.Optional[Entrypointfield] = OMIT,
@@ -63,13 +63,13 @@ class TokenStorageClient:
 
         Parameters
         ----------
-        create_anonymous : CreateAnonymous
-
-        temporary : Temporary
-
         ach_validation : typing.Optional[AchValidation]
 
+        create_anonymous : typing.Optional[CreateAnonymous]
+
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+
+        temporary : typing.Optional[Temporary]
 
         idempotency_key : typing.Optional[IdempotencyKey]
 
@@ -120,6 +120,8 @@ class TokenStorageClient:
             ),
             entry_point="f743aed24a",
             fallback_auth=True,
+            fallback_auth_amount=100,
+            method_description="Primary Visa card",
             payment_method=TokenizeCard(
                 cardcvv="123",
                 cardexp="02/25",
@@ -128,13 +130,14 @@ class TokenStorageClient:
                 cardzip="12345",
                 method="card",
             ),
+            source="api",
         )
         """
         _response = self._raw_client.add_method(
-            create_anonymous=create_anonymous,
-            temporary=temporary,
             ach_validation=ach_validation,
+            create_anonymous=create_anonymous,
             force_customer_creation=force_customer_creation,
+            temporary=temporary,
             idempotency_key=idempotency_key,
             customer_data=customer_data,
             entry_point=entry_point,
@@ -360,10 +363,10 @@ class AsyncTokenStorageClient:
     async def add_method(
         self,
         *,
-        create_anonymous: CreateAnonymous,
-        temporary: Temporary,
         ach_validation: typing.Optional[AchValidation] = None,
+        create_anonymous: typing.Optional[CreateAnonymous] = None,
         force_customer_creation: typing.Optional[ForceCustomerCreation] = None,
+        temporary: typing.Optional[Temporary] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         customer_data: typing.Optional[PayorDataRequest] = OMIT,
         entry_point: typing.Optional[Entrypointfield] = OMIT,
@@ -381,13 +384,13 @@ class AsyncTokenStorageClient:
 
         Parameters
         ----------
-        create_anonymous : CreateAnonymous
-
-        temporary : Temporary
-
         ach_validation : typing.Optional[AchValidation]
 
+        create_anonymous : typing.Optional[CreateAnonymous]
+
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+
+        temporary : typing.Optional[Temporary]
 
         idempotency_key : typing.Optional[IdempotencyKey]
 
@@ -443,6 +446,8 @@ class AsyncTokenStorageClient:
                 ),
                 entry_point="f743aed24a",
                 fallback_auth=True,
+                fallback_auth_amount=100,
+                method_description="Primary Visa card",
                 payment_method=TokenizeCard(
                     cardcvv="123",
                     cardexp="02/25",
@@ -451,16 +456,17 @@ class AsyncTokenStorageClient:
                     cardzip="12345",
                     method="card",
                 ),
+                source="api",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._raw_client.add_method(
-            create_anonymous=create_anonymous,
-            temporary=temporary,
             ach_validation=ach_validation,
+            create_anonymous=create_anonymous,
             force_customer_creation=force_customer_creation,
+            temporary=temporary,
             idempotency_key=idempotency_key,
             customer_data=customer_data,
             entry_point=entry_point,

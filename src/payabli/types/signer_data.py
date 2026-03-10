@@ -6,7 +6,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .additional_data_string import AdditionalDataString
+from .additional_data_map import AdditionalDataMap
 from .attestation_date import AttestationDate
 from .email import Email
 from .pci_attestation import PciAttestation
@@ -48,7 +48,11 @@ class SignerData(UniversalBaseModel):
         signed_document_reference="https://example.com/signed-document.pdf",
         attestation_date="04/20/2025",
         sign_date="04/20/2025",
-        additional_data='{"deviceId":"499585-389fj484-3jcj8hj3","session":"fifji4-fiu443-fn4843","timeWithCompany":"6 Years"}',
+        additional_data={
+            "deviceId": "499585-389fj484-3jcj8hj3",
+            "session": "fifji4-fiu443-fn4843",
+            "timeWithCompany": "6 Years",
+        },
     )
     """
 
@@ -92,7 +96,7 @@ class SignerData(UniversalBaseModel):
         typing.Optional[SignDate], FieldMetadata(alias="signDate"), pydantic.Field(alias="signDate")
     ] = None
     additional_data: typing_extensions.Annotated[
-        typing.Optional[AdditionalDataString],
+        typing.Optional[AdditionalDataMap],
         FieldMetadata(alias="additionalData"),
         pydantic.Field(alias="additionalData"),
     ] = None

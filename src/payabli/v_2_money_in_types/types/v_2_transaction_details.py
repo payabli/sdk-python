@@ -80,7 +80,7 @@ class V2TransactionDetails(UniversalBaseModel):
         method="card",
         batch_number="3040_combined_20251201_3a50747d-6b5c-40ef-9f69-93a9cc7fcb49",
         batch_amount=420.0,
-        payor_id=40144,
+        payor_id=4440,
         payment_data=TransactionDetailPaymentData(
             masked_account="4XXXXXXXXXXX5439",
             account_type="visa",
@@ -152,7 +152,7 @@ class V2TransactionDetails(UniversalBaseModel):
             billing_zip="45157",
             billing_country="US",
             billing_phone="+15555555555",
-            billing_email="mrinal.kundu@payabli.com",
+            billing_email="example@payabli.com",
             customer_number="C-90010",
             shipping_address_1="Home Address",
             shipping_address_2="",
@@ -160,7 +160,7 @@ class V2TransactionDetails(UniversalBaseModel):
             shipping_state="",
             shipping_zip="45157",
             shipping_country="US",
-            customer_id=40144,
+            customer_id=4440,
             customer_status=0,
         ),
         cfee_transactions=[
@@ -344,14 +344,16 @@ class V2TransactionDetails(UniversalBaseModel):
         pydantic.Field(alias="transactionEvents"),
     ]
     pending_fee_amount: typing_extensions.Annotated[
-        PendingFeeAmount, FieldMetadata(alias="pendingFeeAmount"), pydantic.Field(alias="pendingFeeAmount")
-    ]
+        typing.Optional[PendingFeeAmount],
+        FieldMetadata(alias="pendingFeeAmount"),
+        pydantic.Field(alias="pendingFeeAmount"),
+    ] = None
     risk_flagged: typing_extensions.Annotated[
-        RiskFlagged, FieldMetadata(alias="riskFlagged"), pydantic.Field(alias="riskFlagged")
-    ]
+        typing.Optional[RiskFlagged], FieldMetadata(alias="riskFlagged"), pydantic.Field(alias="riskFlagged")
+    ] = None
     risk_flagged_on: typing_extensions.Annotated[
-        RiskFlaggedOn, FieldMetadata(alias="riskFlaggedOn"), pydantic.Field(alias="riskFlaggedOn")
-    ]
+        typing.Optional[RiskFlaggedOn], FieldMetadata(alias="riskFlaggedOn"), pydantic.Field(alias="riskFlaggedOn")
+    ] = None
     risk_status: typing_extensions.Annotated[
         RiskStatus, FieldMetadata(alias="riskStatus"), pydantic.Field(alias="riskStatus")
     ]
@@ -362,8 +364,8 @@ class V2TransactionDetails(UniversalBaseModel):
         RiskAction, FieldMetadata(alias="riskAction"), pydantic.Field(alias="riskAction")
     ]
     risk_action_code: typing_extensions.Annotated[
-        RiskActionCode, FieldMetadata(alias="riskActionCode"), pydantic.Field(alias="riskActionCode")
-    ]
+        typing.Optional[RiskActionCode], FieldMetadata(alias="riskActionCode"), pydantic.Field(alias="riskActionCode")
+    ] = None
     device_id: typing_extensions.Annotated[Device, FieldMetadata(alias="deviceId"), pydantic.Field(alias="deviceId")]
     ach_sec_code: typing_extensions.Annotated[
         AchSecCode, FieldMetadata(alias="achSecCode"), pydantic.Field(alias="achSecCode")

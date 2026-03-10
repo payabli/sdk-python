@@ -60,7 +60,7 @@ class PaymentDetail(UniversalBaseModel):
         FieldMetadata(alias="checkUniqueId"),
         pydantic.Field(
             alias="checkUniqueId",
-            description="Unique identifier for a processed check image. Required for RDC (Remote Deposit Capture) transactions where `achCode` is `BOC`. Use the `id` value from the [check processing](/developers/api-reference/checkcapture/process-a-check-image) response.",
+            description="Unique identifier for a processed check image. Required for RDC (Remote Deposit Capture) transactions where `achCode` is `BOC`. Use the `id` value from the [check processing](/developers/api-reference/moneyin/check-capture) response.",
         ),
     ] = None
     total_amount: typing_extensions.Annotated[

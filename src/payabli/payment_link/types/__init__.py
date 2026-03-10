@@ -8,13 +8,17 @@ from importlib import import_module
 if typing.TYPE_CHECKING:
     from .get_pay_link_from_id_response import GetPayLinkFromIdResponse
     from .get_pay_link_from_id_response_response_data import GetPayLinkFromIdResponseResponseData
+    from .patch_out_payment_link_request import PatchOutPaymentLinkRequest
     from .payabli_api_response_payment_links import PayabliApiResponsePaymentLinks
     from .payment_page_request_body import PaymentPageRequestBody
+    from .payment_page_request_body_out import PaymentPageRequestBodyOut
 _dynamic_imports: typing.Dict[str, str] = {
     "GetPayLinkFromIdResponse": ".get_pay_link_from_id_response",
     "GetPayLinkFromIdResponseResponseData": ".get_pay_link_from_id_response_response_data",
+    "PatchOutPaymentLinkRequest": ".patch_out_payment_link_request",
     "PayabliApiResponsePaymentLinks": ".payabli_api_response_payment_links",
     "PaymentPageRequestBody": ".payment_page_request_body",
+    "PaymentPageRequestBodyOut": ".payment_page_request_body_out",
 }
 
 
@@ -42,6 +46,8 @@ def __dir__():
 __all__ = [
     "GetPayLinkFromIdResponse",
     "GetPayLinkFromIdResponseResponseData",
+    "PatchOutPaymentLinkRequest",
     "PayabliApiResponsePaymentLinks",
     "PaymentPageRequestBody",
+    "PaymentPageRequestBodyOut",
 ]

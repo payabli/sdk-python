@@ -4,4 +4,4 @@ import typing
 
 from .general_events import GeneralEvents
 
-BillEvents = typing.Optional[typing.List[GeneralEvents]]
+BillEvents = typing.List[GeneralEvents]
