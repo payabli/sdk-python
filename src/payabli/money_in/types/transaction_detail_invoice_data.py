@@ -7,7 +7,7 @@ import pydantic
 import typing_extensions
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ...core.serialization import FieldMetadata
-from ...types.additional_data_string import AdditionalDataString
+from ...types.additional_data_map import AdditionalDataMap
 from ...types.attachments import Attachments
 from ...types.bill_item import BillItem
 from ...types.discount import Discount
@@ -129,7 +129,7 @@ class TransactionDetailInvoiceData(UniversalBaseModel):
     items: typing.Optional[typing.List[BillItem]] = None
     attachments: typing.Optional[Attachments] = None
     additional_data: typing_extensions.Annotated[
-        typing.Optional[AdditionalDataString],
+        typing.Optional[AdditionalDataMap],
         FieldMetadata(alias="additionalData"),
         pydantic.Field(alias="additionalData"),
     ] = None

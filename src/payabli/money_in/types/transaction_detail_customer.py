@@ -6,7 +6,7 @@ import pydantic
 import typing_extensions
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ...core.serialization import FieldMetadata
-from ...types.additional_data_string import AdditionalDataString
+from ...types.additional_data_map import AdditionalDataMap
 from ...types.billing_address_addtl_nullable import BillingAddressAddtlNullable
 from ...types.billing_address_nullable import BillingAddressNullable
 from ...types.billing_city_nullable import BillingCityNullable
@@ -90,7 +90,7 @@ class TransactionDetailCustomer(UniversalBaseModel):
         CustomerStatus, FieldMetadata(alias="customerStatus"), pydantic.Field(alias="customerStatus")
     ]
     additional_data: typing_extensions.Annotated[
-        typing.Optional[AdditionalDataString],
+        typing.Optional[AdditionalDataMap],
         FieldMetadata(alias="additionalData"),
         pydantic.Field(alias="additionalData"),
     ] = None
