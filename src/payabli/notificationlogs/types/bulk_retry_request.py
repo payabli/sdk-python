@@ -4,3 +4,6 @@ import typing
 import uuid
 
 BulkRetryRequest = typing.List[uuid.UUID]
+"""
+A list of notification log IDs to retry. The maximum number of IDs that can be retried in a single request is 50.
+"""

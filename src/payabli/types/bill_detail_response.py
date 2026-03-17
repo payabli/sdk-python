@@ -41,7 +41,7 @@ class BillDetailResponse(UniversalBaseModel):
     bills: typing_extensions.Annotated[
         typing.Optional[typing.List[BillDetailsResponse]],
         FieldMetadata(alias="Bills"),
-        pydantic.Field(alias="Bills", description="Events associated to this transaction."),
+        pydantic.Field(alias="Bills", description="Bills associated with this transaction."),
     ] = None
     check_data: typing_extensions.Annotated[
         typing.Optional[FileContent],
@@ -141,7 +141,7 @@ class BillDetailResponse(UniversalBaseModel):
     status_text: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="StatusText"),
-        pydantic.Field(alias="StatusText", description="Status of payout transaction."),
+        pydantic.Field(alias="StatusText", description="Text description of the payout transaction status."),
     ] = None
     total_amount: typing_extensions.Annotated[
         typing.Optional[float],

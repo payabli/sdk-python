@@ -6,6 +6,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .account_id import AccountId
 from .account_number import AccountNumber
 from .bank_account_holder_name import BankAccountHolderName
 from .bank_account_holder_type import BankAccountHolderType
@@ -44,7 +45,12 @@ class BillingDataResponse(UniversalBaseModel):
     """
 
     account_id: typing_extensions.Annotated[
-        typing.Optional[typing.Any], FieldMetadata(alias="accountId"), pydantic.Field(alias="accountId")
+        typing.Optional[AccountId],
+        FieldMetadata(alias="accountId"),
+        pydantic.Field(
+            alias="accountId",
+            description="An identifier for the bank account. If not provided during creation or update, the system generates one in the format `acct-{first_digit}xxxxx{last_4_digits}` based on the account number. If a duplicate exists within the same service at the paypoint, a numeric suffix is appended, such as `-2`. This value is also used as the identifier for the bank account's associated payment connector.",
+        ),
     ] = None
     nickname: str
     bank_name: typing_extensions.Annotated[BankName, FieldMetadata(alias="bankName"), pydantic.Field(alias="bankName")]

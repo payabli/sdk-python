@@ -18,6 +18,10 @@ if typing.TYPE_CHECKING:
     from .methods_list_out import MethodsListOut
     from .operation_result import OperationResult
     from .payment_link_status import PaymentLinkStatus
+    from .reissue_payment_method import ReissuePaymentMethod
+    from .reissue_payout_body import ReissuePayoutBody
+    from .reissue_payout_response import ReissuePayoutResponse
+    from .reissue_payout_response_data import ReissuePayoutResponseData
     from .request_out_authorize_invoice_data import RequestOutAuthorizeInvoiceData
     from .request_out_authorize_payment_details import RequestOutAuthorizePaymentDetails
     from .request_out_authorize_vendor_billing_data import RequestOutAuthorizeVendorBillingData
@@ -41,6 +45,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "MethodsListOut": ".methods_list_out",
     "OperationResult": ".operation_result",
     "PaymentLinkStatus": ".payment_link_status",
+    "ReissuePaymentMethod": ".reissue_payment_method",
+    "ReissuePayoutBody": ".reissue_payout_body",
+    "ReissuePayoutResponse": ".reissue_payout_response",
+    "ReissuePayoutResponseData": ".reissue_payout_response_data",
     "RequestOutAuthorizeInvoiceData": ".request_out_authorize_invoice_data",
     "RequestOutAuthorizePaymentDetails": ".request_out_authorize_payment_details",
     "RequestOutAuthorizeVendorBillingData": ".request_out_authorize_vendor_billing_data",
@@ -88,6 +96,10 @@ __all__ = [
     "MethodsListOut",
     "OperationResult",
     "PaymentLinkStatus",
+    "ReissuePaymentMethod",
+    "ReissuePayoutBody",
+    "ReissuePayoutResponse",
+    "ReissuePayoutResponseData",
     "RequestOutAuthorizeInvoiceData",
     "RequestOutAuthorizePaymentDetails",
     "RequestOutAuthorizeVendorBillingData",

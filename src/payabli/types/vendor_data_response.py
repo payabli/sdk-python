@@ -67,6 +67,7 @@ class VendorDataResponse(UniversalBaseModel):
         ],
         billing_data=VendorResponseBillingData(
             id=123,
+            account_id="acct-1xxxxx3123",
             nickname="Checking Account",
             bank_name="Country Bank",
             routing_account="123123123",

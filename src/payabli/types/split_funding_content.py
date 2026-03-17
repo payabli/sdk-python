@@ -16,7 +16,7 @@ class SplitFundingContent(UniversalBaseModel):
     ] = None
     amount: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Amount from the transaction to sent to this recipient.
+    Amount from the transaction to send to this recipient.
     """
 
     description: typing.Optional[str] = pydantic.Field(default=None)

@@ -7,6 +7,7 @@ from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
 from ..core.jsonable_encoder import jsonable_encoder
+from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 from ..core.serialization import convert_and_respect_annotation_metadata
@@ -14,7 +15,7 @@ from ..errors.bad_request_error import BadRequestError
 from ..errors.internal_server_error import InternalServerError
 from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.unauthorized_error import UnauthorizedError
-from ..types.accountid import Accountid
+from ..types.account_id import AccountId
 from ..types.ach_validation import AchValidation
 from ..types.bill_data import BillData
 from ..types.entrypointfield import Entrypointfield
@@ -59,6 +60,7 @@ from .types.request_payment_validate_payment_method import RequestPaymentValidat
 from .types.reverse_response import ReverseResponse
 from .types.validate_response import ValidateResponse
 from .types.void_response import VoidResponse
+from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -75,7 +77,7 @@ class RawMoneyInClient:
         payment_method: PaymentMethod,
         force_customer_creation: typing.Optional[ForceCustomerCreation] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
-        account_id: typing.Optional[Accountid] = OMIT,
+        account_id: typing.Optional[AccountId] = OMIT,
         customer_data: typing.Optional[PayorDataRequest] = OMIT,
         entry_point: typing.Optional[Entrypointfield] = OMIT,
         invoice_data: typing.Optional[BillData] = OMIT,
@@ -106,7 +108,7 @@ class RawMoneyInClient:
 
         idempotency_key : typing.Optional[IdempotencyKey]
 
-        account_id : typing.Optional[Accountid]
+        account_id : typing.Optional[AccountId]
 
         customer_data : typing.Optional[PayorDataRequest]
             Object describing the Customer/Payor. Which fields are required depends on the paypoint's custom identifier settings.
@@ -228,6 +230,10 @@ class RawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def capture(
@@ -319,6 +325,10 @@ class RawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def capture_auth(
@@ -420,6 +430,10 @@ class RawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def credit(
@@ -430,7 +444,7 @@ class RawMoneyInClient:
         payment_method: RequestCreditPaymentMethod,
         force_customer_creation: typing.Optional[ForceCustomerCreation] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
-        account_id: typing.Optional[Accountid] = OMIT,
+        account_id: typing.Optional[AccountId] = OMIT,
         entrypoint: typing.Optional[Entrypointfield] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
         order_id: typing.Optional[OrderId] = OMIT,
@@ -457,7 +471,7 @@ class RawMoneyInClient:
 
         idempotency_key : typing.Optional[IdempotencyKey]
 
-        account_id : typing.Optional[Accountid]
+        account_id : typing.Optional[AccountId]
 
         entrypoint : typing.Optional[Entrypointfield]
 
@@ -566,6 +580,10 @@ class RawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def details(
@@ -649,6 +667,10 @@ class RawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def getpaid(
@@ -661,7 +683,7 @@ class RawMoneyInClient:
         include_details: typing.Optional[bool] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         validation_code: typing.Optional[str] = None,
-        account_id: typing.Optional[Accountid] = OMIT,
+        account_id: typing.Optional[AccountId] = OMIT,
         customer_data: typing.Optional[PayorDataRequest] = OMIT,
         entry_point: typing.Optional[Entrypointfield] = OMIT,
         invoice_data: typing.Optional[BillData] = OMIT,
@@ -700,7 +722,7 @@ class RawMoneyInClient:
         validation_code : typing.Optional[str]
             Value obtained from user when an API generated CAPTCHA is used in payment page
 
-        account_id : typing.Optional[Accountid]
+        account_id : typing.Optional[AccountId]
 
         customer_data : typing.Optional[PayorDataRequest]
             Object describing the Customer/Payor. Which fields are required depends on the paypoint's custom identifier settings.
@@ -825,6 +847,10 @@ class RawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def reverse(
@@ -916,6 +942,10 @@ class RawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def refund(
@@ -1011,6 +1041,10 @@ class RawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def refund_with_instructions(
@@ -1139,6 +1173,10 @@ class RawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def reverse_credit(
@@ -1222,6 +1260,10 @@ class RawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def send_receipt_2_trans(
@@ -1317,6 +1359,10 @@ class RawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def validate(
@@ -1325,7 +1371,7 @@ class RawMoneyInClient:
         entry_point: Entrypointfield,
         payment_method: RequestPaymentValidatePaymentMethod,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
-        account_id: typing.Optional[Accountid] = OMIT,
+        account_id: typing.Optional[AccountId] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
         order_id: typing.Optional[OrderId] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1342,7 +1388,7 @@ class RawMoneyInClient:
 
         idempotency_key : typing.Optional[IdempotencyKey]
 
-        account_id : typing.Optional[Accountid]
+        account_id : typing.Optional[AccountId]
 
         order_description : typing.Optional[Orderdescription]
 
@@ -1432,6 +1478,10 @@ class RawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def void(
@@ -1519,6 +1569,10 @@ class RawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def getpaidv_2(
@@ -1530,7 +1584,7 @@ class RawMoneyInClient:
         force_customer_creation: typing.Optional[ForceCustomerCreation] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         validation_code: typing.Optional[str] = None,
-        account_id: typing.Optional[Accountid] = OMIT,
+        account_id: typing.Optional[AccountId] = OMIT,
         customer_data: typing.Optional[PayorDataRequest] = OMIT,
         entry_point: typing.Optional[Entrypointfield] = OMIT,
         invoice_data: typing.Optional[BillData] = OMIT,
@@ -1562,7 +1616,7 @@ class RawMoneyInClient:
         validation_code : typing.Optional[str]
             Value obtained from user when an API generated CAPTCHA is used in payment page
 
-        account_id : typing.Optional[Accountid]
+        account_id : typing.Optional[AccountId]
 
         customer_data : typing.Optional[PayorDataRequest]
             Object describing the Customer/Payor. Which fields are required depends on the paypoint's custom identifier settings.
@@ -1686,6 +1740,10 @@ class RawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def authorizev_2(
@@ -1695,7 +1753,7 @@ class RawMoneyInClient:
         payment_method: PaymentMethod,
         force_customer_creation: typing.Optional[ForceCustomerCreation] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
-        account_id: typing.Optional[Accountid] = OMIT,
+        account_id: typing.Optional[AccountId] = OMIT,
         customer_data: typing.Optional[PayorDataRequest] = OMIT,
         entry_point: typing.Optional[Entrypointfield] = OMIT,
         invoice_data: typing.Optional[BillData] = OMIT,
@@ -1724,7 +1782,7 @@ class RawMoneyInClient:
 
         idempotency_key : typing.Optional[IdempotencyKey]
 
-        account_id : typing.Optional[Accountid]
+        account_id : typing.Optional[AccountId]
 
         customer_data : typing.Optional[PayorDataRequest]
             Object describing the Customer/Payor. Which fields are required depends on the paypoint's custom identifier settings.
@@ -1846,6 +1904,10 @@ class RawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def capturev_2(
@@ -1944,6 +2006,10 @@ class RawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def refundv_2(
@@ -2029,6 +2095,10 @@ class RawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def refundv_2_amount(
@@ -2117,6 +2187,10 @@ class RawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def voidv_2(
@@ -2200,6 +2274,10 @@ class RawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -2214,7 +2292,7 @@ class AsyncRawMoneyInClient:
         payment_method: PaymentMethod,
         force_customer_creation: typing.Optional[ForceCustomerCreation] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
-        account_id: typing.Optional[Accountid] = OMIT,
+        account_id: typing.Optional[AccountId] = OMIT,
         customer_data: typing.Optional[PayorDataRequest] = OMIT,
         entry_point: typing.Optional[Entrypointfield] = OMIT,
         invoice_data: typing.Optional[BillData] = OMIT,
@@ -2245,7 +2323,7 @@ class AsyncRawMoneyInClient:
 
         idempotency_key : typing.Optional[IdempotencyKey]
 
-        account_id : typing.Optional[Accountid]
+        account_id : typing.Optional[AccountId]
 
         customer_data : typing.Optional[PayorDataRequest]
             Object describing the Customer/Payor. Which fields are required depends on the paypoint's custom identifier settings.
@@ -2367,6 +2445,10 @@ class AsyncRawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def capture(
@@ -2458,6 +2540,10 @@ class AsyncRawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def capture_auth(
@@ -2559,6 +2645,10 @@ class AsyncRawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def credit(
@@ -2569,7 +2659,7 @@ class AsyncRawMoneyInClient:
         payment_method: RequestCreditPaymentMethod,
         force_customer_creation: typing.Optional[ForceCustomerCreation] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
-        account_id: typing.Optional[Accountid] = OMIT,
+        account_id: typing.Optional[AccountId] = OMIT,
         entrypoint: typing.Optional[Entrypointfield] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
         order_id: typing.Optional[OrderId] = OMIT,
@@ -2596,7 +2686,7 @@ class AsyncRawMoneyInClient:
 
         idempotency_key : typing.Optional[IdempotencyKey]
 
-        account_id : typing.Optional[Accountid]
+        account_id : typing.Optional[AccountId]
 
         entrypoint : typing.Optional[Entrypointfield]
 
@@ -2705,6 +2795,10 @@ class AsyncRawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def details(
@@ -2788,6 +2882,10 @@ class AsyncRawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def getpaid(
@@ -2800,7 +2898,7 @@ class AsyncRawMoneyInClient:
         include_details: typing.Optional[bool] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         validation_code: typing.Optional[str] = None,
-        account_id: typing.Optional[Accountid] = OMIT,
+        account_id: typing.Optional[AccountId] = OMIT,
         customer_data: typing.Optional[PayorDataRequest] = OMIT,
         entry_point: typing.Optional[Entrypointfield] = OMIT,
         invoice_data: typing.Optional[BillData] = OMIT,
@@ -2839,7 +2937,7 @@ class AsyncRawMoneyInClient:
         validation_code : typing.Optional[str]
             Value obtained from user when an API generated CAPTCHA is used in payment page
 
-        account_id : typing.Optional[Accountid]
+        account_id : typing.Optional[AccountId]
 
         customer_data : typing.Optional[PayorDataRequest]
             Object describing the Customer/Payor. Which fields are required depends on the paypoint's custom identifier settings.
@@ -2964,6 +3062,10 @@ class AsyncRawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def reverse(
@@ -3055,6 +3157,10 @@ class AsyncRawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def refund(
@@ -3150,6 +3256,10 @@ class AsyncRawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def refund_with_instructions(
@@ -3278,6 +3388,10 @@ class AsyncRawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def reverse_credit(
@@ -3361,6 +3475,10 @@ class AsyncRawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def send_receipt_2_trans(
@@ -3456,6 +3574,10 @@ class AsyncRawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def validate(
@@ -3464,7 +3586,7 @@ class AsyncRawMoneyInClient:
         entry_point: Entrypointfield,
         payment_method: RequestPaymentValidatePaymentMethod,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
-        account_id: typing.Optional[Accountid] = OMIT,
+        account_id: typing.Optional[AccountId] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
         order_id: typing.Optional[OrderId] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -3481,7 +3603,7 @@ class AsyncRawMoneyInClient:
 
         idempotency_key : typing.Optional[IdempotencyKey]
 
-        account_id : typing.Optional[Accountid]
+        account_id : typing.Optional[AccountId]
 
         order_description : typing.Optional[Orderdescription]
 
@@ -3571,6 +3693,10 @@ class AsyncRawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def void(
@@ -3658,6 +3784,10 @@ class AsyncRawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def getpaidv_2(
@@ -3669,7 +3799,7 @@ class AsyncRawMoneyInClient:
         force_customer_creation: typing.Optional[ForceCustomerCreation] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         validation_code: typing.Optional[str] = None,
-        account_id: typing.Optional[Accountid] = OMIT,
+        account_id: typing.Optional[AccountId] = OMIT,
         customer_data: typing.Optional[PayorDataRequest] = OMIT,
         entry_point: typing.Optional[Entrypointfield] = OMIT,
         invoice_data: typing.Optional[BillData] = OMIT,
@@ -3701,7 +3831,7 @@ class AsyncRawMoneyInClient:
         validation_code : typing.Optional[str]
             Value obtained from user when an API generated CAPTCHA is used in payment page
 
-        account_id : typing.Optional[Accountid]
+        account_id : typing.Optional[AccountId]
 
         customer_data : typing.Optional[PayorDataRequest]
             Object describing the Customer/Payor. Which fields are required depends on the paypoint's custom identifier settings.
@@ -3825,6 +3955,10 @@ class AsyncRawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def authorizev_2(
@@ -3834,7 +3968,7 @@ class AsyncRawMoneyInClient:
         payment_method: PaymentMethod,
         force_customer_creation: typing.Optional[ForceCustomerCreation] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
-        account_id: typing.Optional[Accountid] = OMIT,
+        account_id: typing.Optional[AccountId] = OMIT,
         customer_data: typing.Optional[PayorDataRequest] = OMIT,
         entry_point: typing.Optional[Entrypointfield] = OMIT,
         invoice_data: typing.Optional[BillData] = OMIT,
@@ -3863,7 +3997,7 @@ class AsyncRawMoneyInClient:
 
         idempotency_key : typing.Optional[IdempotencyKey]
 
-        account_id : typing.Optional[Accountid]
+        account_id : typing.Optional[AccountId]
 
         customer_data : typing.Optional[PayorDataRequest]
             Object describing the Customer/Payor. Which fields are required depends on the paypoint's custom identifier settings.
@@ -3985,6 +4119,10 @@ class AsyncRawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def capturev_2(
@@ -4083,6 +4221,10 @@ class AsyncRawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def refundv_2(
@@ -4168,6 +4310,10 @@ class AsyncRawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def refundv_2_amount(
@@ -4256,6 +4402,10 @@ class AsyncRawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def voidv_2(
@@ -4339,4 +4489,8 @@ class AsyncRawMoneyInClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

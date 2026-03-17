@@ -3,3 +3,6 @@
 import datetime as dt
 
 LastModified = dt.datetime
+"""
+Timestamp of when record was last updated, in UTC.
+"""

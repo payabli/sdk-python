@@ -6,7 +6,7 @@ import pydantic
 import typing_extensions
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ...core.serialization import FieldMetadata
-from ...types.accountid import Accountid
+from ...types.account_id import AccountId
 from ...types.entrypointfield import Entrypointfield
 from ...types.order_id import OrderId
 from ...types.orderdescription import Orderdescription
@@ -51,7 +51,7 @@ class AuthorizePayoutBody(UniversalBaseModel):
         pydantic.Field(alias="invoiceData", description="Array of bills associated to the transaction"),
     ]
     account_id: typing_extensions.Annotated[
-        typing.Optional[Accountid], FieldMetadata(alias="accountId"), pydantic.Field(alias="accountId")
+        typing.Optional[AccountId], FieldMetadata(alias="accountId"), pydantic.Field(alias="accountId")
     ] = None
     subdomain: typing.Optional[Subdomain] = None
     subscription_id: typing_extensions.Annotated[

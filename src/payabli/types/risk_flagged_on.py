@@ -3,3 +3,6 @@
 import datetime as dt
 
 RiskFlaggedOn = dt.datetime
+"""
+Timestamp when the transaction was flagged for risk
+"""

@@ -3,3 +3,6 @@
 from .device import Device
 
 DeviceId = Device
+"""
+Identifier of registered cloud device used in the transaction
+"""

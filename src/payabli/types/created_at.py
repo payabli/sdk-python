@@ -3,3 +3,6 @@
 import datetime as dt
 
 CreatedAt = dt.datetime
+"""
+Timestamp of when record was created, in UTC.
+"""

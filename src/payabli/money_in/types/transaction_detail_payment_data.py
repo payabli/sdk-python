@@ -6,8 +6,8 @@ import pydantic
 import typing_extensions
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ...core.serialization import FieldMetadata
+from ...types.account_id import AccountId
 from ...types.accountexp import Accountexp
-from ...types.accountid import Accountid
 from ...types.accounttype import Accounttype
 from ...types.bin_data import BinData
 from ...types.holdername import Holdername
@@ -52,7 +52,7 @@ class TransactionDetailPaymentData(UniversalBaseModel):
         Orderdescription, FieldMetadata(alias="orderDescription"), pydantic.Field(alias="orderDescription")
     ]
     account_id: typing_extensions.Annotated[
-        typing.Optional[Accountid], FieldMetadata(alias="accountId"), pydantic.Field(alias="accountId")
+        typing.Optional[AccountId], FieldMetadata(alias="accountId"), pydantic.Field(alias="accountId")
     ] = None
     signature_data: typing_extensions.Annotated[
         typing.Optional[Signaturedata], FieldMetadata(alias="signatureData"), pydantic.Field(alias="signatureData")

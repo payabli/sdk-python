@@ -132,12 +132,12 @@ class TransactionOutQueryRecord(UniversalBaseModel):
     bills: typing_extensions.Annotated[
         typing.Optional[typing.List[BillPayOutData]],
         FieldMetadata(alias="Bills"),
-        pydantic.Field(alias="Bills", description="Events associated to this transaction."),
+        pydantic.Field(alias="Bills", description="Bills associated with this transaction."),
     ] = None
     events: typing_extensions.Annotated[
         typing.Optional[typing.List[QueryTransactionEvents]],
         FieldMetadata(alias="Events"),
-        pydantic.Field(alias="Events", description="Events associated to this transaction."),
+        pydantic.Field(alias="Events", description="Events associated with this transaction."),
     ] = None
     external_paypoint_id: typing_extensions.Annotated[
         typing.Optional[ExternalPaypointId],

@@ -3,3 +3,6 @@
 import typing
 
 Responsedata = typing.Dict[str, typing.Any]
+"""
+The object containing the response data.
+"""

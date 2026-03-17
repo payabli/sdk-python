@@ -5,3 +5,6 @@ import typing
 from .contacts import Contacts
 
 ContactsField = typing.List[Contacts]
+"""
+List of contacts.
+"""

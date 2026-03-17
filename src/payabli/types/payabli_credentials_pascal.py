@@ -6,6 +6,10 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .absorb_difference import AbsorbDifference
+from .account_id import AccountId
+from .allow_override import AllowOverride
+from .greater_value_allowed import GreaterValueAllowed
 from .max_ticket import MaxTicket
 from .min_ticket import MinTicket
 
@@ -46,7 +50,12 @@ class PayabliCredentialsPascal(UniversalBaseModel):
         typing.Optional[float], FieldMetadata(alias="CfeeMax"), pydantic.Field(alias="CfeeMax")
     ] = None
     account_id: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="AccountId"), pydantic.Field(alias="AccountId")
+        typing.Optional[AccountId],
+        FieldMetadata(alias="AccountId"),
+        pydantic.Field(
+            alias="AccountId",
+            description="The identifier for the payment connector, matching the `accountId` of the linked bank account.",
+        ),
     ] = None
     reference_id: typing_extensions.Annotated[
         typing.Optional[int], FieldMetadata(alias="ReferenceId"), pydantic.Field(alias="ReferenceId")
@@ -58,6 +67,19 @@ class PayabliCredentialsPascal(UniversalBaseModel):
         typing.Optional[str],
         FieldMetadata(alias="Currency"),
         pydantic.Field(alias="Currency", description="The default currency for the paypoint, either `USD` or `CAD`."),
+    ] = None
+    greater_value_allowed: typing_extensions.Annotated[
+        typing.Optional[GreaterValueAllowed],
+        FieldMetadata(alias="GreaterValueAllowed"),
+        pydantic.Field(alias="GreaterValueAllowed"),
+    ] = None
+    absorb_difference: typing_extensions.Annotated[
+        typing.Optional[AbsorbDifference],
+        FieldMetadata(alias="AbsorbDifference"),
+        pydantic.Field(alias="AbsorbDifference"),
+    ] = None
+    allow_override: typing_extensions.Annotated[
+        typing.Optional[AllowOverride], FieldMetadata(alias="AllowOverride"), pydantic.Field(alias="AllowOverride")
     ] = None
 
     if IS_PYDANTIC_V2:

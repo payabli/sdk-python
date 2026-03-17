@@ -3,3 +3,6 @@
 import typing
 
 Identifierfields = typing.List[typing.Optional[str]]
+"""
+List of fields acting as customer identifiers, to be used instead of CustomerNumber.
+"""

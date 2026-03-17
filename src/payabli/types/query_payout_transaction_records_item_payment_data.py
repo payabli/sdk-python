@@ -6,8 +6,8 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .account_id import AccountId
 from .accountexp import Accountexp
-from .accountid import Accountid
 from .accounttype import Accounttype
 from .accountzip import Accountzip
 from .bin_data import BinData
@@ -27,7 +27,7 @@ class QueryPayoutTransactionRecordsItemPaymentData(UniversalBaseModel):
         typing.Optional[Accountexp], FieldMetadata(alias="AccountExp"), pydantic.Field(alias="AccountExp")
     ] = None
     account_id: typing_extensions.Annotated[
-        typing.Optional[Accountid], FieldMetadata(alias="accountId"), pydantic.Field(alias="accountId")
+        typing.Optional[AccountId], FieldMetadata(alias="accountId"), pydantic.Field(alias="accountId")
     ] = None
     account_type: typing_extensions.Annotated[
         typing.Optional[Accounttype], FieldMetadata(alias="AccountType"), pydantic.Field(alias="AccountType")

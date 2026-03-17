@@ -57,11 +57,12 @@ print(result)
 Instantiate and use the client with the following:
 
 ```python
-from payabli import PaymentDetail, PayMethodCredit, PayorDataRequest, payabli
+from payabli import payabli, PayorDataRequest, PaymentDetail, PayMethodCredit
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
 )
+
 client.money_in.getpaid(
     customer_data=PayorDataRequest(
         customer_id=4440,
@@ -69,8 +70,8 @@ client.money_in.getpaid(
     entry_point="f743aed24a",
     ipaddress="255.255.255.255",
     payment_details=PaymentDetail(
-        service_fee=0.0,
-        total_amount=100.0,
+        service_fee=0,
+        total_amount=100,
     ),
     payment_method=PayMethodCredit(
         cardcvv="999",
@@ -79,6 +80,7 @@ client.money_in.getpaid(
         cardnumber="4111111111111111",
         cardzip="12345",
         initiator="payor",
+        method="card",
     ),
 )
 ```
@@ -90,15 +92,10 @@ The SDK also exports an `async` client so that you can make non-blocking calls t
 ```python
 import asyncio
 
-from payabli import (
-    Asyncpayabli,
-    PaymentDetail,
-    PayMethodCredit,
-    PayorDataRequest,
-)
+from payabli import Asyncpayabli
 
 client = Asyncpayabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
 )
 
 
@@ -110,8 +107,8 @@ async def main() -> None:
         entry_point="f743aed24a",
         ipaddress="255.255.255.255",
         payment_details=PaymentDetail(
-            service_fee=0.0,
-            total_amount=100.0,
+            service_fee=0,
+            total_amount=100,
         ),
         payment_method=PayMethodCredit(
             cardcvv="999",
@@ -120,6 +117,7 @@ async def main() -> None:
             cardnumber="4111111111111111",
             cardzip="12345",
             initiator="payor",
+            method="card",
         ),
     )
 
@@ -152,9 +150,7 @@ The `.with_raw_response` property returns a "raw" client that can be used to acc
 ```python
 from payabli import payabli
 
-client = payabli(
-    ...,
-)
+client = payabli(...)
 response = client.money_in.with_raw_response.getpaid(...)
 print(response.headers)  # access the response headers
 print(response.status_code)  # access the response status code
@@ -186,14 +182,9 @@ client.money_in.getpaid(..., request_options={
 The SDK defaults to a 60 second timeout. You can configure this with a timeout option at the client or request level.
 
 ```python
-
 from payabli import payabli
 
-client = payabli(
-    ...,
-    timeout=20.0,
-)
-
+client = payabli(..., timeout=20.0)
 
 # Override timeout for a specific method
 client.money_in.getpaid(..., request_options={

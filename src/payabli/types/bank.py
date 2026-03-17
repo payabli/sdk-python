@@ -6,6 +6,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .account_id import AccountId
 from .account_number import AccountNumber
 from .bank_account_function import BankAccountFunction
 from .bank_account_holder_name import BankAccountHolderName
@@ -27,11 +28,11 @@ class Bank(UniversalBaseModel):
     """
 
     account_id: typing_extensions.Annotated[
-        typing.Optional[str],
+        typing.Optional[AccountId],
         FieldMetadata(alias="accountId"),
         pydantic.Field(
             alias="accountId",
-            description="A user-defined internal identifier for the bank account. This allows you to specify which bank account should be used for payments in cases where multiple accounts are configured.",
+            description="An identifier for the bank account, used to specify which account handles payments when multiple accounts are configured. If not provided during creation or update, the system generates one in the format `acct-{first_digit}xxxxx{last_4_digits}` based on the account number. The mask always uses five `x` characters regardless of account number length. For example, account number `123456789` produces `acct-1xxxxx6789`. If a duplicate exists within the same service at the paypoint, a numeric suffix is appended, such as `acct-1xxxxx6789-2`. This value is also used as the identifier for the bank account's associated payment connector.",
         ),
     ] = None
     nickname: typing.Optional[BankNickname] = None

@@ -4,7 +4,7 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
-from ..types.accountid import Accountid
+from ..types.account_id import AccountId
 from ..types.ach_validation import AchValidation
 from ..types.bill_data import BillData
 from ..types.entrypointfield import Entrypointfield
@@ -65,7 +65,7 @@ class MoneyInClient:
         payment_method: PaymentMethod,
         force_customer_creation: typing.Optional[ForceCustomerCreation] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
-        account_id: typing.Optional[Accountid] = OMIT,
+        account_id: typing.Optional[AccountId] = OMIT,
         customer_data: typing.Optional[PayorDataRequest] = OMIT,
         entry_point: typing.Optional[Entrypointfield] = OMIT,
         invoice_data: typing.Optional[BillData] = OMIT,
@@ -96,7 +96,7 @@ class MoneyInClient:
 
         idempotency_key : typing.Optional[IdempotencyKey]
 
-        account_id : typing.Optional[Accountid]
+        account_id : typing.Optional[AccountId]
 
         customer_data : typing.Optional[PayorDataRequest]
             Object describing the Customer/Payor. Which fields are required depends on the paypoint's custom identifier settings.
@@ -274,7 +274,7 @@ class MoneyInClient:
         payment_method: RequestCreditPaymentMethod,
         force_customer_creation: typing.Optional[ForceCustomerCreation] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
-        account_id: typing.Optional[Accountid] = OMIT,
+        account_id: typing.Optional[AccountId] = OMIT,
         entrypoint: typing.Optional[Entrypointfield] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
         order_id: typing.Optional[OrderId] = OMIT,
@@ -301,7 +301,7 @@ class MoneyInClient:
 
         idempotency_key : typing.Optional[IdempotencyKey]
 
-        account_id : typing.Optional[Accountid]
+        account_id : typing.Optional[AccountId]
 
         entrypoint : typing.Optional[Entrypointfield]
 
@@ -409,7 +409,7 @@ class MoneyInClient:
         include_details: typing.Optional[bool] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         validation_code: typing.Optional[str] = None,
-        account_id: typing.Optional[Accountid] = OMIT,
+        account_id: typing.Optional[AccountId] = OMIT,
         customer_data: typing.Optional[PayorDataRequest] = OMIT,
         entry_point: typing.Optional[Entrypointfield] = OMIT,
         invoice_data: typing.Optional[BillData] = OMIT,
@@ -448,7 +448,7 @@ class MoneyInClient:
         validation_code : typing.Optional[str]
             Value obtained from user when an API generated CAPTCHA is used in payment page
 
-        account_id : typing.Optional[Accountid]
+        account_id : typing.Optional[AccountId]
 
         customer_data : typing.Optional[PayorDataRequest]
             Object describing the Customer/Payor. Which fields are required depends on the paypoint's custom identifier settings.
@@ -790,7 +790,7 @@ class MoneyInClient:
         entry_point: Entrypointfield,
         payment_method: RequestPaymentValidatePaymentMethod,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
-        account_id: typing.Optional[Accountid] = OMIT,
+        account_id: typing.Optional[AccountId] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
         order_id: typing.Optional[OrderId] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -807,7 +807,7 @@ class MoneyInClient:
 
         idempotency_key : typing.Optional[IdempotencyKey]
 
-        account_id : typing.Optional[Accountid]
+        account_id : typing.Optional[AccountId]
 
         order_description : typing.Optional[Orderdescription]
 
@@ -896,7 +896,7 @@ class MoneyInClient:
         force_customer_creation: typing.Optional[ForceCustomerCreation] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         validation_code: typing.Optional[str] = None,
-        account_id: typing.Optional[Accountid] = OMIT,
+        account_id: typing.Optional[AccountId] = OMIT,
         customer_data: typing.Optional[PayorDataRequest] = OMIT,
         entry_point: typing.Optional[Entrypointfield] = OMIT,
         invoice_data: typing.Optional[BillData] = OMIT,
@@ -928,7 +928,7 @@ class MoneyInClient:
         validation_code : typing.Optional[str]
             Value obtained from user when an API generated CAPTCHA is used in payment page
 
-        account_id : typing.Optional[Accountid]
+        account_id : typing.Optional[AccountId]
 
         customer_data : typing.Optional[PayorDataRequest]
             Object describing the Customer/Payor. Which fields are required depends on the paypoint's custom identifier settings.
@@ -1013,7 +1013,7 @@ class MoneyInClient:
         payment_method: PaymentMethod,
         force_customer_creation: typing.Optional[ForceCustomerCreation] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
-        account_id: typing.Optional[Accountid] = OMIT,
+        account_id: typing.Optional[AccountId] = OMIT,
         customer_data: typing.Optional[PayorDataRequest] = OMIT,
         entry_point: typing.Optional[Entrypointfield] = OMIT,
         invoice_data: typing.Optional[BillData] = OMIT,
@@ -1042,7 +1042,7 @@ class MoneyInClient:
 
         idempotency_key : typing.Optional[IdempotencyKey]
 
-        account_id : typing.Optional[Accountid]
+        account_id : typing.Optional[AccountId]
 
         customer_data : typing.Optional[PayorDataRequest]
             Object describing the Customer/Payor. Which fields are required depends on the paypoint's custom identifier settings.
@@ -1294,7 +1294,7 @@ class AsyncMoneyInClient:
         payment_method: PaymentMethod,
         force_customer_creation: typing.Optional[ForceCustomerCreation] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
-        account_id: typing.Optional[Accountid] = OMIT,
+        account_id: typing.Optional[AccountId] = OMIT,
         customer_data: typing.Optional[PayorDataRequest] = OMIT,
         entry_point: typing.Optional[Entrypointfield] = OMIT,
         invoice_data: typing.Optional[BillData] = OMIT,
@@ -1325,7 +1325,7 @@ class AsyncMoneyInClient:
 
         idempotency_key : typing.Optional[IdempotencyKey]
 
-        account_id : typing.Optional[Accountid]
+        account_id : typing.Optional[AccountId]
 
         customer_data : typing.Optional[PayorDataRequest]
             Object describing the Customer/Payor. Which fields are required depends on the paypoint's custom identifier settings.
@@ -1532,7 +1532,7 @@ class AsyncMoneyInClient:
         payment_method: RequestCreditPaymentMethod,
         force_customer_creation: typing.Optional[ForceCustomerCreation] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
-        account_id: typing.Optional[Accountid] = OMIT,
+        account_id: typing.Optional[AccountId] = OMIT,
         entrypoint: typing.Optional[Entrypointfield] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
         order_id: typing.Optional[OrderId] = OMIT,
@@ -1559,7 +1559,7 @@ class AsyncMoneyInClient:
 
         idempotency_key : typing.Optional[IdempotencyKey]
 
-        account_id : typing.Optional[Accountid]
+        account_id : typing.Optional[AccountId]
 
         entrypoint : typing.Optional[Entrypointfield]
 
@@ -1683,7 +1683,7 @@ class AsyncMoneyInClient:
         include_details: typing.Optional[bool] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         validation_code: typing.Optional[str] = None,
-        account_id: typing.Optional[Accountid] = OMIT,
+        account_id: typing.Optional[AccountId] = OMIT,
         customer_data: typing.Optional[PayorDataRequest] = OMIT,
         entry_point: typing.Optional[Entrypointfield] = OMIT,
         invoice_data: typing.Optional[BillData] = OMIT,
@@ -1722,7 +1722,7 @@ class AsyncMoneyInClient:
         validation_code : typing.Optional[str]
             Value obtained from user when an API generated CAPTCHA is used in payment page
 
-        account_id : typing.Optional[Accountid]
+        account_id : typing.Optional[AccountId]
 
         customer_data : typing.Optional[PayorDataRequest]
             Object describing the Customer/Payor. Which fields are required depends on the paypoint's custom identifier settings.
@@ -2117,7 +2117,7 @@ class AsyncMoneyInClient:
         entry_point: Entrypointfield,
         payment_method: RequestPaymentValidatePaymentMethod,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
-        account_id: typing.Optional[Accountid] = OMIT,
+        account_id: typing.Optional[AccountId] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
         order_id: typing.Optional[OrderId] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -2134,7 +2134,7 @@ class AsyncMoneyInClient:
 
         idempotency_key : typing.Optional[IdempotencyKey]
 
-        account_id : typing.Optional[Accountid]
+        account_id : typing.Optional[AccountId]
 
         order_description : typing.Optional[Orderdescription]
 
@@ -2239,7 +2239,7 @@ class AsyncMoneyInClient:
         force_customer_creation: typing.Optional[ForceCustomerCreation] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         validation_code: typing.Optional[str] = None,
-        account_id: typing.Optional[Accountid] = OMIT,
+        account_id: typing.Optional[AccountId] = OMIT,
         customer_data: typing.Optional[PayorDataRequest] = OMIT,
         entry_point: typing.Optional[Entrypointfield] = OMIT,
         invoice_data: typing.Optional[BillData] = OMIT,
@@ -2271,7 +2271,7 @@ class AsyncMoneyInClient:
         validation_code : typing.Optional[str]
             Value obtained from user when an API generated CAPTCHA is used in payment page
 
-        account_id : typing.Optional[Accountid]
+        account_id : typing.Optional[AccountId]
 
         customer_data : typing.Optional[PayorDataRequest]
             Object describing the Customer/Payor. Which fields are required depends on the paypoint's custom identifier settings.
@@ -2369,7 +2369,7 @@ class AsyncMoneyInClient:
         payment_method: PaymentMethod,
         force_customer_creation: typing.Optional[ForceCustomerCreation] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
-        account_id: typing.Optional[Accountid] = OMIT,
+        account_id: typing.Optional[AccountId] = OMIT,
         customer_data: typing.Optional[PayorDataRequest] = OMIT,
         entry_point: typing.Optional[Entrypointfield] = OMIT,
         invoice_data: typing.Optional[BillData] = OMIT,
@@ -2398,7 +2398,7 @@ class AsyncMoneyInClient:
 
         idempotency_key : typing.Optional[IdempotencyKey]
 
-        account_id : typing.Optional[Accountid]
+        account_id : typing.Optional[AccountId]
 
         customer_data : typing.Optional[PayorDataRequest]
             Object describing the Customer/Payor. Which fields are required depends on the paypoint's custom identifier settings.

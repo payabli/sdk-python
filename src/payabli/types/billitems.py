@@ -5,3 +5,6 @@ import typing
 from .bill_item import BillItem
 
 Billitems = typing.List[BillItem]
+"""
+Array of `LineItems` contained in bill.
+"""

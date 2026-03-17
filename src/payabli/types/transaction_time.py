@@ -3,3 +3,6 @@
 import datetime as dt
 
 TransactionTime = dt.datetime
+"""
+Timestamp when transaction was submitted, in UTC.
+"""

@@ -3,3 +3,6 @@
 import datetime as dt
 
 Replyby = dt.datetime
+"""
+Time that a response to a chargeback is due, in UTC.
+"""

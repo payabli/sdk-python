@@ -5,3 +5,6 @@ import typing
 from .bill_query_record_2_bill_approvals_item import BillQueryRecord2BillApprovalsItem
 
 BillApprovals = typing.List[typing.Optional[BillQueryRecord2BillApprovalsItem]]
+"""
+Approvals associated with the bill.
+"""

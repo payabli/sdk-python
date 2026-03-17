@@ -5,3 +5,6 @@ import typing
 from .general_events import GeneralEvents
 
 BillEvents = typing.List[GeneralEvents]
+"""
+Array of event objects with information related to events associated to the invoice.
+"""

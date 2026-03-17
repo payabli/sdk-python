@@ -7,10 +7,12 @@ from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
 from ..core.jsonable_encoder import jsonable_encoder
+from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 from ..core.serialization import convert_and_respect_annotation_metadata
 from ..errors.bad_request_error import BadRequestError
+from ..errors.forbidden_error import ForbiddenError
 from ..errors.internal_server_error import InternalServerError
 from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.unauthorized_error import UnauthorizedError
@@ -19,11 +21,13 @@ from ..money_out_types.types.auth_capture_payout_response import AuthCapturePayo
 from ..money_out_types.types.authorize_payment_method import AuthorizePaymentMethod
 from ..money_out_types.types.capture_all_out_response import CaptureAllOutResponse
 from ..money_out_types.types.operation_result import OperationResult
+from ..money_out_types.types.reissue_payment_method import ReissuePaymentMethod
+from ..money_out_types.types.reissue_payout_response import ReissuePayoutResponse
 from ..money_out_types.types.request_out_authorize_invoice_data import RequestOutAuthorizeInvoiceData
 from ..money_out_types.types.request_out_authorize_payment_details import RequestOutAuthorizePaymentDetails
 from ..money_out_types.types.request_out_authorize_vendor_data import RequestOutAuthorizeVendorData
 from ..money_out_types.types.v_card_get_response import VCardGetResponse
-from ..types.accountid import Accountid
+from ..types.account_id import AccountId
 from ..types.bill_detail_response import BillDetailResponse
 from ..types.entrypointfield import Entrypointfield
 from ..types.idempotency_key import IdempotencyKey
@@ -32,9 +36,11 @@ from ..types.orderdescription import Orderdescription
 from ..types.payabli_api_response import PayabliApiResponse
 from ..types.payabli_api_response_00_responsedatanonobject import PayabliApiResponse00Responsedatanonobject
 from ..types.payabli_api_response_0000 import PayabliApiResponse0000
+from ..types.payabli_api_response_paylinks import PayabliApiResponsePaylinks
 from ..types.source import Source
 from ..types.subdomain import Subdomain
 from ..types.subscriptionid import Subscriptionid
+from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -59,7 +65,7 @@ class RawMoneyOutClient:
         source: typing.Optional[Source] = OMIT,
         order_id: typing.Optional[OrderId] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
-        account_id: typing.Optional[Accountid] = OMIT,
+        account_id: typing.Optional[AccountId] = OMIT,
         subdomain: typing.Optional[Subdomain] = OMIT,
         subscription_id: typing.Optional[Subscriptionid] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -99,7 +105,7 @@ class RawMoneyOutClient:
 
         order_description : typing.Optional[Orderdescription]
 
-        account_id : typing.Optional[Accountid]
+        account_id : typing.Optional[AccountId]
 
         subdomain : typing.Optional[Subdomain]
 
@@ -206,6 +212,10 @@ class RawMoneyOutClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def cancel_all_out(
@@ -293,6 +303,10 @@ class RawMoneyOutClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def cancel_out_get(
@@ -376,6 +390,10 @@ class RawMoneyOutClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def cancel_out_delete(
@@ -459,6 +477,10 @@ class RawMoneyOutClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def capture_all_out(
@@ -553,6 +575,10 @@ class RawMoneyOutClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def capture_out(
@@ -645,6 +671,10 @@ class RawMoneyOutClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def payout_details(
@@ -728,6 +758,10 @@ class RawMoneyOutClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def v_card_get(
@@ -811,6 +845,10 @@ class RawMoneyOutClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def send_v_card_link(
@@ -897,6 +935,10 @@ class RawMoneyOutClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get_check_image(
@@ -991,6 +1033,10 @@ class RawMoneyOutClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def update_check_payment_status(
@@ -1092,6 +1138,134 @@ class RawMoneyOutClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def reissue_out(
+        self,
+        *,
+        trans_id: str,
+        payment_method: ReissuePaymentMethod,
+        idempotency_key: typing.Optional[IdempotencyKey] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[ReissuePayoutResponse]:
+        """
+        Reissues a payout transaction with a new payment method. This creates a new transaction linked to the original and marks the original transaction as reissued.
+
+        The original transaction must be in **Processing** or **Processed** status. The payment method in the request body is used directly. The endpoint doesn't fall back to vendor-managed payment methods.
+
+        The new transaction goes through the standard authorize-and-capture flow automatically. Both the original and new transactions are linked through their event histories for audit purposes.
+
+        Parameters
+        ----------
+        trans_id : str
+            The transaction ID of the payout to reissue.
+
+        payment_method : ReissuePaymentMethod
+
+        idempotency_key : typing.Optional[IdempotencyKey]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[ReissuePayoutResponse]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "MoneyOut/reissue",
+            method="POST",
+            params={
+                "transId": trans_id,
+            },
+            json={
+                "paymentMethod": convert_and_respect_annotation_metadata(
+                    object_=payment_method, annotation=ReissuePaymentMethod, direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+                "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ReissuePayoutResponse,
+                    parse_obj_as(
+                        type_=ReissuePayoutResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponsePaylinks,
+                        parse_obj_as(
+                            type_=PayabliApiResponsePaylinks,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -1114,7 +1288,7 @@ class AsyncRawMoneyOutClient:
         source: typing.Optional[Source] = OMIT,
         order_id: typing.Optional[OrderId] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
-        account_id: typing.Optional[Accountid] = OMIT,
+        account_id: typing.Optional[AccountId] = OMIT,
         subdomain: typing.Optional[Subdomain] = OMIT,
         subscription_id: typing.Optional[Subscriptionid] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1154,7 +1328,7 @@ class AsyncRawMoneyOutClient:
 
         order_description : typing.Optional[Orderdescription]
 
-        account_id : typing.Optional[Accountid]
+        account_id : typing.Optional[AccountId]
 
         subdomain : typing.Optional[Subdomain]
 
@@ -1261,6 +1435,10 @@ class AsyncRawMoneyOutClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def cancel_all_out(
@@ -1348,6 +1526,10 @@ class AsyncRawMoneyOutClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def cancel_out_get(
@@ -1431,6 +1613,10 @@ class AsyncRawMoneyOutClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def cancel_out_delete(
@@ -1514,6 +1700,10 @@ class AsyncRawMoneyOutClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def capture_all_out(
@@ -1608,6 +1798,10 @@ class AsyncRawMoneyOutClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def capture_out(
@@ -1700,6 +1894,10 @@ class AsyncRawMoneyOutClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def payout_details(
@@ -1783,6 +1981,10 @@ class AsyncRawMoneyOutClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def v_card_get(
@@ -1866,6 +2068,10 @@ class AsyncRawMoneyOutClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def send_v_card_link(
@@ -1952,6 +2158,10 @@ class AsyncRawMoneyOutClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get_check_image(
@@ -2046,6 +2256,10 @@ class AsyncRawMoneyOutClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def update_check_payment_status(
@@ -2147,4 +2361,132 @@ class AsyncRawMoneyOutClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def reissue_out(
+        self,
+        *,
+        trans_id: str,
+        payment_method: ReissuePaymentMethod,
+        idempotency_key: typing.Optional[IdempotencyKey] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[ReissuePayoutResponse]:
+        """
+        Reissues a payout transaction with a new payment method. This creates a new transaction linked to the original and marks the original transaction as reissued.
+
+        The original transaction must be in **Processing** or **Processed** status. The payment method in the request body is used directly. The endpoint doesn't fall back to vendor-managed payment methods.
+
+        The new transaction goes through the standard authorize-and-capture flow automatically. Both the original and new transactions are linked through their event histories for audit purposes.
+
+        Parameters
+        ----------
+        trans_id : str
+            The transaction ID of the payout to reissue.
+
+        payment_method : ReissuePaymentMethod
+
+        idempotency_key : typing.Optional[IdempotencyKey]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[ReissuePayoutResponse]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "MoneyOut/reissue",
+            method="POST",
+            params={
+                "transId": trans_id,
+            },
+            json={
+                "paymentMethod": convert_and_respect_annotation_metadata(
+                    object_=payment_method, annotation=ReissuePaymentMethod, direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+                "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ReissuePayoutResponse,
+                    parse_obj_as(
+                        type_=ReissuePayoutResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponsePaylinks,
+                        parse_obj_as(
+                            type_=PayabliApiResponsePaylinks,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

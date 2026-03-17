@@ -6,7 +6,6 @@ import pydantic
 import typing_extensions
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ...core.serialization import FieldMetadata
-from ...types.ach_holder import AchHolder
 from ...types.ach_holder_type import AchHolderType
 from ...types.ach_sec_code import AchSecCode
 from ...types.achaccount import Achaccount
@@ -31,7 +30,12 @@ class TokenizeAch(UniversalBaseModel):
         typing.Optional[AchSecCode], FieldMetadata(alias="achCode"), pydantic.Field(alias="achCode")
     ] = None
     ach_holder: typing_extensions.Annotated[
-        AchHolder, FieldMetadata(alias="achHolder"), pydantic.Field(alias="achHolder")
+        str,
+        FieldMetadata(alias="achHolder"),
+        pydantic.Field(
+            alias="achHolder",
+            description="Bank account holder. This field is **required** when `method` is `ach`. Only letters, numbers, spaces, hyphens, apostrophes, and periods are allowed.",
+        ),
     ]
     ach_holder_type: typing_extensions.Annotated[
         typing.Optional[AchHolderType], FieldMetadata(alias="achHolderType"), pydantic.Field(alias="achHolderType")

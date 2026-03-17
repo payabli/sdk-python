@@ -5,3 +5,6 @@ import typing
 from .bank import Bank
 
 BankData = typing.List[Bank]
+"""
+Information about associated bank accounts.
+"""

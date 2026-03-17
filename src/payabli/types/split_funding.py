@@ -5,3 +5,6 @@ import typing
 from .split_funding_content import SplitFundingContent
 
 SplitFunding = typing.List[SplitFundingContent]
+"""
+Split funding instructions for the transaction. The total amount of the splits must match the total amount of the transaction.
+"""

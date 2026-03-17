@@ -6,11 +6,20 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .absorb_difference import AbsorbDifference
+from .account_id import AccountId
+from .allow_override import AllowOverride
+from .greater_value_allowed import GreaterValueAllowed
 
 
 class PayabliCredentials(UniversalBaseModel):
     account_id: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="accountId"), pydantic.Field(alias="accountId")
+        typing.Optional[AccountId],
+        FieldMetadata(alias="accountId"),
+        pydantic.Field(
+            alias="accountId",
+            description="The identifier for the payment connector, matching the `accountId` of the linked bank account.",
+        ),
     ] = None
     cfee_fix: typing_extensions.Annotated[
         typing.Optional[float], FieldMetadata(alias="cfeeFix"), pydantic.Field(alias="cfeeFix")
@@ -38,6 +47,20 @@ class PayabliCredentials(UniversalBaseModel):
     """
     The payment service that this credential applies to. A paypoint can support multiple services, each represented by its own credential object in the array. Possible values are `card` (credit/debit card), `ach` (ACH bank transfer), `check` (paper check), `vcard` (virtual card), `cloud` (card-present), `cash`, `managed` (managed payment service), and `wallet`.
     """
+
+    greater_value_allowed: typing_extensions.Annotated[
+        typing.Optional[GreaterValueAllowed],
+        FieldMetadata(alias="greaterValueAllowed"),
+        pydantic.Field(alias="greaterValueAllowed"),
+    ] = None
+    absorb_difference: typing_extensions.Annotated[
+        typing.Optional[AbsorbDifference],
+        FieldMetadata(alias="absorbDifference"),
+        pydantic.Field(alias="absorbDifference"),
+    ] = None
+    allow_override: typing_extensions.Annotated[
+        typing.Optional[AllowOverride], FieldMetadata(alias="allowOverride"), pydantic.Field(alias="allowOverride")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

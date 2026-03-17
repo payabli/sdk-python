@@ -3,3 +3,6 @@
 import datetime as dt
 
 DepositDate = dt.datetime
+"""
+The date the funds were deposited.
+"""

@@ -3,3 +3,6 @@
 import typing
 
 File = typing.Dict[str, typing.Any]
+"""
+A file containing the response data, in the format specified in the request.
+"""

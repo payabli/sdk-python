@@ -1,6 +1,6 @@
 # Reference
 ## Bill
-<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">add_bill</a>(...) -&gt; AsyncHttpResponse[BillResponse]</code></summary>
+<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">add_bill</a>(...) -> BillResponse</code></summary>
 <dl>
 <dd>
 
@@ -27,23 +27,21 @@ Creates a bill in an entrypoint.
 <dd>
 
 ```python
+from payabli import payabli, BillItem, VendorData, FileContent
+from payabli.environment import payabliEnvironment
 import datetime
 
-from payabli import BillItem, FileContent, VendorData, payabli
-
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.bill.add_bill(
     entry="8cfec329267",
     bill_number="ABC-123",
     net_amount=3762.87,
-    bill_date=datetime.date.fromisoformat(
-        "2024-07-01",
-    ),
-    due_date=datetime.date.fromisoformat(
-        "2024-07-01",
-    ),
+    bill_date=datetime.date.fromisoformat("2024-07-01"),
+    due_date=datetime.date.fromisoformat("2024-07-01"),
     comments="Deposit for materials",
     bill_items=[
         BillItem(
@@ -52,12 +50,14 @@ client.bill.add_bill(
             item_description="Deposit for materials",
             item_commodity_code="010",
             item_unit_of_measure="SqFt",
-            item_cost=5.0,
+            item_cost=5,
             item_qty=1,
             item_mode=0,
-            item_categories=["deposits"],
-            item_total_amount=123.0,
-            item_tax_amount=7.0,
+            item_categories=[
+                "deposits"
+            ],
+            item_total_amount=123,
+            item_tax_amount=7,
             item_tax_rate=0.075,
         )
     ],
@@ -66,9 +66,7 @@ client.bill.add_bill(
     vendor=VendorData(
         vendor_number="1234-A",
     ),
-    end_date=datetime.date.fromisoformat(
-        "2024-07-01",
-    ),
+    end_date=datetime.date.fromisoformat("2024-07-01"),
     frequency="monthly",
     terms="NET30",
     status=-99,
@@ -103,167 +101,15 @@ client.bill.add_bill(
 <dl>
 <dd>
 
+**request:** `BillOutData` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **idempotency_key:** `typing.Optional[IdempotencyKey]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**accounting_field_1:** `typing.Optional[AccountingField]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**accounting_field_2:** `typing.Optional[AccountingField]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**additional_data:** `typing.Optional[AdditionalDataString]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**attachments:** `typing.Optional[Attachments]` — An array of bill images. Attachments aren't required, but we strongly recommend including them. Including a bill image can make payouts smoother and prevent delays. You can include either the Base64-encoded file content, or you can include an fURL to a public file. The maximum file size for image uploads is 30 MB.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**bill_date:** `typing.Optional[dt.date]` — Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**bill_items:** `typing.Optional[Billitems]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**bill_number:** `typing.Optional[str]` — Unique identifier for the bill. Required when adding a bill.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**comments:** `typing.Optional[Comments]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**discount:** `typing.Optional[float]` — Discount amount applied to the bill.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**due_date:** `typing.Optional[dt.date]` — Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_date:** `typing.Optional[dt.date]` — End Date for scheduled bills. Applied only in `Mode` = 1. Accepted formats: YYYY-MM-DD, MM/DD/YYYY
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**frequency:** `typing.Optional[Frequency]` — Frequency for scheduled bills. Applied only in `Mode` = 1.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**lot_number:** `typing.Optional[str]` — Lot number associated with the bill.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**mode:** `typing.Optional[int]` — Bill mode: value `0` for one-time bills, `1` for scheduled bills.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**net_amount:** `typing.Optional[float]` — Net Amount owed in bill. Required when adding a bill.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**scheduled_options:** `typing.Optional[BillOutDataScheduledOptions]` — Options for scheduled bills.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**status:** `typing.Optional[Billstatus]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**terms:** `typing.Optional[Terms]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**total_amount:** `typing.Optional[float]` — Total amount of the bill.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**vendor:** `typing.Optional[VendorData]` — The vendor associated with the bill. Although you can create a vendor in a create bill request, Payabli recommends creating a vendor separately and passing a valid `vendorNumber` here. At minimum, the `vendorNumber` is required. 
     
 </dd>
 </dl>
@@ -283,7 +129,7 @@ client.bill.add_bill(
 </dl>
 </details>
 
-<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">delete_attached_from_bill</a>(...) -&gt; AsyncHttpResponse[BillResponse]</code></summary>
+<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">delete_attached_from_bill</a>(...) -> BillResponse</code></summary>
 <dl>
 <dd>
 
@@ -311,10 +157,13 @@ Delete a file attached to a bill.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.bill.delete_attached_from_bill(
     filename="0_Bill.pdf",
     id_bill=285,
@@ -387,7 +236,7 @@ request to `/api/Invoice/{idInvoice}`. Here, the filename is
 </dl>
 </details>
 
-<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">delete_bill</a>(...) -&gt; AsyncHttpResponse[BillResponse]</code></summary>
+<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">delete_bill</a>(...) -> BillResponse</code></summary>
 <dl>
 <dd>
 
@@ -415,10 +264,13 @@ Deletes a bill by ID.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.bill.delete_bill(
     id_bill=285,
 )
@@ -457,7 +309,7 @@ client.bill.delete_bill(
 </dl>
 </details>
 
-<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">edit_bill</a>(...) -&gt; AsyncHttpResponse[EditBillResponse]</code></summary>
+<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">edit_bill</a>(...) -> EditBillResponse</code></summary>
 <dl>
 <dd>
 
@@ -484,19 +336,19 @@ Updates a bill by ID.
 <dd>
 
 ```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
 import datetime
 
-from payabli import payabli
-
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.bill.edit_bill(
     id_bill=285,
     net_amount=3762.87,
-    bill_date=datetime.date.fromisoformat(
-        "2025-07-01",
-    ),
+    bill_date=datetime.date.fromisoformat("2025-07-01"),
 )
 
 ```
@@ -521,159 +373,7 @@ client.bill.edit_bill(
 <dl>
 <dd>
 
-**accounting_field_1:** `typing.Optional[AccountingField]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**accounting_field_2:** `typing.Optional[AccountingField]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**additional_data:** `typing.Optional[AdditionalDataString]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**attachments:** `typing.Optional[Attachments]` — An array of bill images. Attachments aren't required, but we strongly recommend including them. Including a bill image can make payouts smoother and prevent delays. You can include either the Base64-encoded file content, or you can include an fURL to a public file. The maximum file size for image uploads is 30 MB.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**bill_date:** `typing.Optional[dt.date]` — Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**bill_items:** `typing.Optional[Billitems]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**bill_number:** `typing.Optional[str]` — Unique identifier for the bill. Required when adding a bill.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**comments:** `typing.Optional[Comments]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**discount:** `typing.Optional[float]` — Discount amount applied to the bill.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**due_date:** `typing.Optional[dt.date]` — Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_date:** `typing.Optional[dt.date]` — End Date for scheduled bills. Applied only in `Mode` = 1. Accepted formats: YYYY-MM-DD, MM/DD/YYYY
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**frequency:** `typing.Optional[Frequency]` — Frequency for scheduled bills. Applied only in `Mode` = 1.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**lot_number:** `typing.Optional[str]` — Lot number associated with the bill.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**mode:** `typing.Optional[int]` — Bill mode: value `0` for one-time bills, `1` for scheduled bills.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**net_amount:** `typing.Optional[float]` — Net Amount owed in bill. Required when adding a bill.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**scheduled_options:** `typing.Optional[BillOutDataScheduledOptions]` — Options for scheduled bills.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**status:** `typing.Optional[Billstatus]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**terms:** `typing.Optional[Terms]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**total_amount:** `typing.Optional[float]` — Total amount of the bill.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**vendor:** `typing.Optional[VendorData]` — The vendor associated with the bill. Although you can create a vendor in a create bill request, Payabli recommends creating a vendor separately and passing a valid `vendorNumber` here. At minimum, the `vendorNumber` is required. 
+**request:** `BillOutData` 
     
 </dd>
 </dl>
@@ -693,7 +393,7 @@ client.bill.edit_bill(
 </dl>
 </details>
 
-<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">get_attached_from_bill</a>(...) -&gt; AsyncHttpResponse[FileContent]</code></summary>
+<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">get_attached_from_bill</a>(...) -> FileContent</code></summary>
 <dl>
 <dd>
 
@@ -721,10 +421,13 @@ Retrieves a file attached to a bill, either as a binary file or as a Base64-enco
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.bill.get_attached_from_bill(
     filename="0_Bill.pdf",
     id_bill=285,
@@ -793,7 +496,7 @@ The filename in Payabli. Filename is `zipName` in response to a request to `/api
 </dl>
 </details>
 
-<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">get_bill</a>(...) -&gt; AsyncHttpResponse[GetBillResponse]</code></summary>
+<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">get_bill</a>(...) -> GetBillResponse</code></summary>
 <dl>
 <dd>
 
@@ -821,10 +524,13 @@ Retrieves a bill by ID from an entrypoint.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.bill.get_bill(
     id_bill=285,
 )
@@ -863,7 +569,7 @@ client.bill.get_bill(
 </dl>
 </details>
 
-<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">list_bills</a>(...) -&gt; AsyncHttpResponse[BillQueryResponse]</code></summary>
+<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">list_bills</a>(...) -> BillQueryResponse</code></summary>
 <dl>
 <dd>
 
@@ -891,10 +597,13 @@ Retrieve a list of bills for an entrypoint. Use filters to limit results. Includ
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.bill.list_bills(
     entry="8cfec329267",
     from_record=251,
@@ -1020,7 +729,7 @@ Example: `totalAmount(gt)=20` returns all records with a `totalAmount` that's gr
 </dl>
 </details>
 
-<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">list_bills_org</a>(...) -&gt; AsyncHttpResponse[BillQueryResponse]</code></summary>
+<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">list_bills_org</a>(...) -> BillQueryResponse</code></summary>
 <dl>
 <dd>
 
@@ -1048,10 +757,13 @@ Retrieve a list of bills for an organization. Use filters to limit results. Incl
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.bill.list_bills_org(
     org_id=123,
     from_record=251,
@@ -1177,7 +889,7 @@ Example: totalAmount(gt)=20 return all records with totalAmount greater than 20.
 </dl>
 </details>
 
-<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">modify_approval_bill</a>(...) -&gt; AsyncHttpResponse[ModifyApprovalBillResponse]</code></summary>
+<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">modify_approval_bill</a>(...) -> ModifyApprovalBillResponse</code></summary>
 <dl>
 <dd>
 
@@ -1205,13 +917,18 @@ Modify the list of users the bill is sent to for approval.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.bill.modify_approval_bill(
     id_bill=285,
-    request=["string"],
+    request=[
+        "string"
+    ],
 )
 
 ```
@@ -1236,7 +953,7 @@ client.bill.modify_approval_bill(
 <dl>
 <dd>
 
-**request:** `typing.Sequence[str]` 
+**request:** `typing.List[str]` 
     
 </dd>
 </dl>
@@ -1256,7 +973,7 @@ client.bill.modify_approval_bill(
 </dl>
 </details>
 
-<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">send_to_approval_bill</a>(...) -&gt; AsyncHttpResponse[BillResponse]</code></summary>
+<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">send_to_approval_bill</a>(...) -> BillResponse</code></summary>
 <dl>
 <dd>
 
@@ -1284,14 +1001,19 @@ Send a bill to a user or list of users to approve.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.bill.send_to_approval_bill(
     id_bill=285,
     idempotency_key="6B29FC40-CA47-1067-B31D-00DD010662DA",
-    request=["string"],
+    request=[
+        "string"
+    ],
 )
 
 ```
@@ -1316,7 +1038,7 @@ client.bill.send_to_approval_bill(
 <dl>
 <dd>
 
-**request:** `typing.Sequence[str]` 
+**request:** `typing.List[str]` 
     
 </dd>
 </dl>
@@ -1352,7 +1074,7 @@ client.bill.send_to_approval_bill(
 </dl>
 </details>
 
-<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">set_approved_bill</a>(...) -&gt; AsyncHttpResponse[SetApprovedBillResponse]</code></summary>
+<details><summary><code>client.bill.<a href="src/payabli/bill/client.py">set_approved_bill</a>(...) -> SetApprovedBillResponse</code></summary>
 <dl>
 <dd>
 
@@ -1380,10 +1102,13 @@ Approve or disapprove a bill by ID.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.bill.set_approved_bill(
     approved="true",
     id_bill=285,
@@ -1440,7 +1165,7 @@ client.bill.set_approved_bill(
 </details>
 
 ## Boarding
-<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">add_application</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]</code></summary>
+<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">add_application</a>(...) -> PayabliApiResponse00Responsedatanonobject</code></summary>
 <dl>
 <dd>
 
@@ -1467,140 +1192,110 @@ Creates a boarding application in an organization. This endpoint requires an app
 <dd>
 
 ```python
-from payabli import (
-    AchSetup,
-    ApplicationDataOdp,
-    ApplicationDataOdpContactsItem,
-    ApplicationDataOdpOwnershipItem,
-    Bank,
-    CardSetup,
-    FileContent,
-    OdpSetup,
-    Services,
-    SignerDataRequest,
-    payabli,
-)
+from payabli import payabli, ApplicationDataPayIn, ApplicationDataPayInServices, ApplicationDataPayInServicesAch, ApplicationDataPayInServicesCard, Bank, ApplicationDataPayInContactsItem, ApplicationDataPayInOwnershipItem, SignerDataRequest
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.boarding.add_application(
-    request=ApplicationDataOdp(
-        services=Services(
-            ach=AchSetup(
-                accept_ccd=True,
-                accept_ppd=True,
-                accept_web=True,
-            ),
-            card=CardSetup(
+    request=ApplicationDataPayIn(
+        services=ApplicationDataPayInServices(
+            ach=ApplicationDataPayInServicesAch(),
+            card=ApplicationDataPayInServicesCard(
                 accept_amex=True,
                 accept_discover=True,
                 accept_mastercard=True,
                 accept_visa=True,
             ),
-            odp=OdpSetup(
-                allow_ach=False,
-                allow_checks=False,
-                allow_v_card=False,
-            ),
         ),
-        annual_revenue=750000.0,
-        attachments=[FileContent(), FileContent()],
-        baddress="789 Industrial Parkway",
-        baddress_1="Unit 12",
+        annual_revenue=1000,
+        average_bill_size="500",
+        average_monthly_bill="5650",
+        avgmonthly=1000,
+        baddress="123 Walnut Street",
+        baddress_1="Suite 103",
         bank_data=[
             Bank(
-                account_number="1XXXXXX3100",
+                account_number="123123123",
                 bank_account_function=1,
-                bank_account_holder_name="Herman's Coatings LLC",
+                bank_account_holder_name="Gruzya Adventure Outfitters LLC",
                 bank_account_holder_type="Business",
-                bank_name="First Miami Bank",
-                id=123,
+                bank_name="Test Bank",
                 nickname="Withdrawal Account",
-                routing_account="123123123",
-                type_account="Checking",
-                account_id="123-789",
-            ),
-            Bank(
-                account_number="1XXXXXX3200",
-                bank_account_function=0,
-                bank_account_holder_name="Herman's Coatings LLC",
-                bank_account_holder_type="Business",
-                bank_name="First Miami Bank",
-                id=456,
-                nickname="Deposit Account",
                 routing_account="123123123",
                 type_account="Checking",
                 account_id="123-456",
             ),
             Bank(
-                account_number="1XXXXXX3123",
-                bank_account_function=3,
-                bank_account_holder_name="Herman's Coatings LLC",
+                account_number="123123123",
+                bank_account_function=0,
+                bank_account_holder_name="Gruzya Adventure Outfitters LLC",
                 bank_account_holder_type="Business",
-                bank_name="First Miami Bank",
-                id=987,
-                nickname="Remittance Account",
+                bank_name="Test Bank",
+                nickname="Deposit Account",
                 routing_account="123123123",
                 type_account="Checking",
-                account_id="123-100",
-            ),
+                account_id="123-456",
+            )
         ],
-        bcity="Miami",
+        bcity="New Vegas",
         bcountry="US",
-        boarding_link_id="bl_123456",
+        binperson=60,
+        binphone=20,
+        binweb=20,
         bstate="FL",
-        bsummary="Commercial and industrial coating services, including protective and decorative coatings",
+        bsummary="Brick and mortar store that sells office supplies",
         btype="Limited Liability Company",
-        bzip="33101",
+        bzip="33000",
         contacts=[
-            ApplicationDataOdpContactsItem(
+            ApplicationDataPayInContactsItem(
                 contact_email="herman@hermanscoatings.com",
                 contact_name="Herman Martinez",
                 contact_phone="3055550000",
                 contact_title="Owner",
             )
         ],
-        dbaname="Herman's Coatings",
+        credit_limit="creditLimit",
+        dba_name="Sunshine Gutters",
         ein="123456789",
-        faxnumber="3055550001",
-        highticketamt=15000.0,
-        legalname="Herman's Coatings LLC",
-        license="FL123456",
-        licstate="FL",
-        maddress="789 Industrial Parkway",
-        maddress_1="Unit 12",
-        mcc="1799",
-        mcity="Miami",
+        faxnumber="1234567890",
+        highticketamt=1000,
+        legal_name="Sunshine Services, LLC",
+        license="2222222FFG",
+        licstate="CA",
+        maddress="123 Walnut Street",
+        maddress_1="STE 900",
+        mcc="7777",
+        mcity="Johnson City",
         mcountry="US",
-        mstate="FL",
-        mzip="33101",
+        mstate="TN",
+        mzip="37615",
         org_id=123,
         ownership=[
-            ApplicationDataOdpOwnershipItem(
-                oaddress="123 Palm Avenue",
-                ocity="Miami",
+            ApplicationDataPayInOwnershipItem(
+                oaddress="33 North St",
+                ocity="Any City",
                 ocountry="US",
-                odriverstate="FL",
-                ostate="FL",
-                ownerdob="05/15/1980",
-                ownerdriver="FL789456",
-                owneremail="herman@hermanscoatings.com",
-                ownername="Herman Martinez",
+                odriverstate="CA",
+                ostate="CA",
+                ownerdob="01/01/1990",
+                ownerdriver="CA6677778",
+                owneremail="test@email.com",
+                ownername="John Smith",
                 ownerpercent=100,
-                ownerphone_1="3055550000",
-                ownerphone_2="3055550002",
+                ownerphone_1="555888111",
+                ownerphone_2="555888111",
                 ownerssn="123456789",
-                ownertitle="Owner",
-                ozip="33102",
+                ownertitle="CEO",
+                ozip="55555",
             )
         ],
-        payout_average_monthly_volume=50000.0,
-        payout_average_ticket_amount=500.0,
-        payout_credit_limit=25000.0,
-        payout_high_ticket_amount=15000.0,
-        phonenumber="3055550000",
-        recipient_email="herman@hermanscoatings.com",
+        phonenumber="1234567890",
+        processing_region="US",
+        recipient_email="josephray@example.com",
         recipient_email_notification=True,
         resumable=True,
         signer=SignerDataRequest(
@@ -1622,13 +1317,18 @@ client.boarding.add_application(
             additional_data={
                 "deviceId": "499585-389fj484-3jcj8hj3",
                 "session": "fifji4-fiu443-fn4843",
-                "timeWithCompany": "6 Years",
+                "timeWithCompany": "6 Years"
             },
         ),
-        startdate="01/01/2015",
-        taxfillname="Herman's Coatings LLC",
+        startdate="01/01/1990",
+        tax_fill_name="Sunshine LLC",
         template_id=22,
-        website="www.hermanscoatings.com",
+        ticketamt=1000,
+        website="www.example.com",
+        when_charged="When Service Provided",
+        when_delivered="Over 30 Days",
+        when_provided="30 Days or Less",
+        when_refunded="30 Days or Less",
     ),
 )
 
@@ -1666,7 +1366,7 @@ client.boarding.add_application(
 </dl>
 </details>
 
-<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">delete_application</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]</code></summary>
+<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">delete_application</a>(...) -> PayabliApiResponse00Responsedatanonobject</code></summary>
 <dl>
 <dd>
 
@@ -1694,10 +1394,13 @@ Deletes a boarding application by ID.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.boarding.delete_application(
     app_id=352,
 )
@@ -1736,7 +1439,7 @@ client.boarding.delete_application(
 </dl>
 </details>
 
-<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">get_application</a>(...) -&gt; AsyncHttpResponse[ApplicationDetailsRecord]</code></summary>
+<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">get_application</a>(...) -> ApplicationDetailsRecord</code></summary>
 <dl>
 <dd>
 
@@ -1764,10 +1467,13 @@ Retrieves the details for a boarding application by ID.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.boarding.get_application(
     app_id=352,
 )
@@ -1806,7 +1512,7 @@ client.boarding.get_application(
 </dl>
 </details>
 
-<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">get_application_by_auth</a>(...) -&gt; AsyncHttpResponse[ApplicationQueryRecord]</code></summary>
+<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">get_application_by_auth</a>(...) -> ApplicationQueryRecord</code></summary>
 <dl>
 <dd>
 
@@ -1834,10 +1540,13 @@ Gets a boarding application by authentication information. This endpoint require
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.boarding.get_application_by_auth(
     x_id="17E",
     email="admin@email.com",
@@ -1894,7 +1603,7 @@ client.boarding.get_application_by_auth(
 </dl>
 </details>
 
-<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">get_by_id_link_application</a>(...) -&gt; AsyncHttpResponse[BoardingLinkQueryRecord]</code></summary>
+<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">get_by_id_link_application</a>(...) -> BoardingLinkQueryRecord</code></summary>
 <dl>
 <dd>
 
@@ -1922,10 +1631,13 @@ Retrieves details for a boarding link, by ID.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.boarding.get_by_id_link_application(
     boarding_link_id=91,
 )
@@ -1964,7 +1676,7 @@ client.boarding.get_by_id_link_application(
 </dl>
 </details>
 
-<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">get_by_template_id_link_application</a>(...) -&gt; AsyncHttpResponse[BoardingLinkQueryRecord]</code></summary>
+<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">get_by_template_id_link_application</a>(...) -> BoardingLinkQueryRecord</code></summary>
 <dl>
 <dd>
 
@@ -1992,12 +1704,15 @@ Get details for a boarding link using the boarding template ID. This endpoint re
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.boarding.get_by_template_id_link_application(
-    template_id=80.0,
+    template_id=80,
 )
 
 ```
@@ -2034,7 +1749,7 @@ client.boarding.get_by_template_id_link_application(
 </dl>
 </details>
 
-<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">get_external_application</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse00]</code></summary>
+<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">get_external_application</a>(...) -> PayabliApiResponse00</code></summary>
 <dl>
 <dd>
 
@@ -2062,10 +1777,13 @@ Retrieves a link and the verification code used to log into an existing boarding
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.boarding.get_external_application(
     app_id=352,
     mail_2="mail2",
@@ -2121,7 +1839,7 @@ client.boarding.get_external_application(
 </dl>
 </details>
 
-<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">get_link_application</a>(...) -&gt; AsyncHttpResponse[BoardingLinkQueryRecord]</code></summary>
+<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">get_link_application</a>(...) -> BoardingLinkQueryRecord</code></summary>
 <dl>
 <dd>
 
@@ -2149,10 +1867,13 @@ Retrieves the details for a boarding link, by reference name. This endpoint requ
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.boarding.get_link_application(
     boarding_link_reference="myorgaccountname-00091",
 )
@@ -2191,7 +1912,7 @@ client.boarding.get_link_application(
 </dl>
 </details>
 
-<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">list_applications</a>(...) -&gt; AsyncHttpResponse[QueryBoardingAppsListResponse]</code></summary>
+<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">list_applications</a>(...) -> QueryBoardingAppsListResponse</code></summary>
 <dl>
 <dd>
 
@@ -2219,10 +1940,13 @@ Returns a list of boarding applications for an organization. Use filters to limi
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.boarding.list_applications(
     org_id=123,
     from_record=251,
@@ -2340,7 +2064,7 @@ List of comparison accepted - enclosed between parentheses:
 </dl>
 </details>
 
-<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">list_boarding_links</a>(...) -&gt; AsyncHttpResponse[QueryBoardingLinksResponse]</code></summary>
+<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">list_boarding_links</a>(...) -> QueryBoardingLinksResponse</code></summary>
 <dl>
 <dd>
 
@@ -2368,10 +2092,13 @@ Return a list of boarding links for an organization. Use filters to limit result
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.boarding.list_boarding_links(
     org_id=123,
     from_record=251,
@@ -2477,7 +2204,7 @@ Example: templateName(ct)=hoa return all records with template title containing 
 </dl>
 </details>
 
-<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">update_application</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]</code></summary>
+<details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">update_application</a>(...) -> PayabliApiResponse00Responsedatanonobject</code></summary>
 <dl>
 <dd>
 
@@ -2505,10 +2232,13 @@ Updates a boarding application by ID. This endpoint requires an application API 
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.boarding.update_application(
     app_id=352,
 )
@@ -2535,447 +2265,7 @@ client.boarding.update_application(
 <dl>
 <dd>
 
-**services:** `typing.Optional[Services]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**annual_revenue:** `typing.Optional[Annualrevenue]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**attachments:** `typing.Optional[Attachments]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**avgmonthly:** `typing.Optional[Avgmonthly]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**baddress:** `typing.Optional[Baddress1]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**baddress_1:** `typing.Optional[Baddress2]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**bank_data:** `typing.Optional[BankData]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**bcity:** `typing.Optional[Bcity]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**bcountry:** `typing.Optional[Bcountry]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**binperson:** `typing.Optional[Binperson]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**binphone:** `typing.Optional[Binphone]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**binweb:** `typing.Optional[Binweb]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**bstate:** `typing.Optional[Bstate]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**bsummary:** `typing.Optional[Bsummary]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**btype:** `typing.Optional[OwnType]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**bzip:** `typing.Optional[Bzip]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**contacts:** `typing.Optional[ContactsField]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**dbaname:** `typing.Optional[Dbaname]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**ein:** `typing.Optional[Ein]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**external_paypoint_id:** `typing.Optional[ExternalPaypointId]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**faxnumber:** `typing.Optional[BoardingBusinessFax]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**highticketamt:** `typing.Optional[Highticketamt]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**legalname:** `typing.Optional[Legalname]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**license:** `typing.Optional[License]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**licstate:** `typing.Optional[Licensestate]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**maddress:** `typing.Optional[Maddress]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**maddress_1:** `typing.Optional[Maddress1]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**mcc:** `typing.Optional[Mcc]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**mcity:** `typing.Optional[Mcity]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**mcountry:** `typing.Optional[Mcountry]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**mstate:** `typing.Optional[Mstate]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**mzip:** `typing.Optional[Mzip]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**org_id:** `typing.Optional[Orgid]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**ownership:** `typing.Optional[Ownership]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payout_average_monthly_volume:** `typing.Optional[PayoutAverageMonthlyVolume]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payout_average_ticket_limit:** `typing.Optional[PayoutAverageTicketLimit]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payout_credit_limit:** `typing.Optional[PayoutCreditLimit]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payout_high_ticket_amount:** `typing.Optional[PayoutHighTicketAmount]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**phonenumber:** `typing.Optional[BoardingBusinessPhone]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**recipient_email:** `typing.Optional[Email]` — Email address for the applicant. This is used to send the applicant a boarding link.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**recipient_email_notification:** `typing.Optional[RecipientEmailNotification]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**resumable:** `typing.Optional[Resumable]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**signer:** `typing.Optional[SignerDataRequest]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**startdate:** `typing.Optional[Busstartdate]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**taxfillname:** `typing.Optional[Taxfillname]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**template_id:** `typing.Optional[TemplateId]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**ticketamt:** `typing.Optional[Ticketamt]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**website:** `typing.Optional[Website]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**when_charged:** `typing.Optional[Whencharged]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**when_delivered:** `typing.Optional[Whendelivered]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**when_provided:** `typing.Optional[Whenprovided]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**when_refunded:** `typing.Optional[Whenrefunded]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**rep_code:** `typing.Optional[RepCode]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**rep_name:** `typing.Optional[RepName]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**rep_office:** `typing.Optional[RepOffice]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**on_create:** `typing.Optional[OnCreate]` 
+**request:** `ApplicationData` 
     
 </dd>
 </dl>
@@ -2996,7 +2286,7 @@ client.boarding.update_application(
 </details>
 
 ## ChargeBacks
-<details><summary><code>client.charge_backs.<a href="src/payabli/charge_backs/client.py">add_response</a>(...) -&gt; AsyncHttpResponse[AddResponseResponse]</code></summary>
+<details><summary><code>client.charge_backs.<a href="src/payabli/charge_backs/client.py">add_response</a>(...) -> AddResponseResponse</code></summary>
 <dl>
 <dd>
 
@@ -3024,10 +2314,13 @@ Add a response to a chargeback or ACH return.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.charge_backs.add_response(
     id=1000000,
     idempotency_key="6B29FC40-CA47-1067-B31D-00DD010662DA",
@@ -3107,7 +2400,7 @@ client.charge_backs.add_response(
 </dl>
 </details>
 
-<details><summary><code>client.charge_backs.<a href="src/payabli/charge_backs/client.py">get_chargeback</a>(...) -&gt; AsyncHttpResponse[ChargebackQueryRecords]</code></summary>
+<details><summary><code>client.charge_backs.<a href="src/payabli/charge_backs/client.py">get_chargeback</a>(...) -> ChargebackQueryRecords</code></summary>
 <dl>
 <dd>
 
@@ -3135,10 +2428,13 @@ Retrieves a chargeback record and its details.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.charge_backs.get_chargeback(
     id=1000000,
 )
@@ -3177,7 +2473,7 @@ client.charge_backs.get_chargeback(
 </dl>
 </details>
 
-<details><summary><code>client.charge_backs.<a href="src/payabli/charge_backs/client.py">get_chargeback_attachment</a>(...) -&gt; AsyncHttpResponse[str]</code></summary>
+<details><summary><code>client.charge_backs.<a href="src/payabli/charge_backs/client.py">get_chargeback_attachment</a>(...) -> str</code></summary>
 <dl>
 <dd>
 
@@ -3205,10 +2501,13 @@ Retrieves a chargeback attachment file by its file name.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.charge_backs.get_chargeback_attachment(
     id=1000000,
     file_name="fileName",
@@ -3257,7 +2556,7 @@ client.charge_backs.get_chargeback_attachment(
 </details>
 
 ## CheckCapture
-<details><summary><code>client.check_capture.<a href="src/payabli/check_capture/client.py">check_processing</a>(...) -&gt; AsyncHttpResponse[CheckCaptureResponse]</code></summary>
+<details><summary><code>client.check_capture.<a href="src/payabli/check_capture/client.py">check_processing</a>(...) -> CheckCaptureResponse</code></summary>
 <dl>
 <dd>
 
@@ -3285,10 +2584,13 @@ Captures a check for Remote Deposit Capture (RDC) using the provided check image
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.check_capture.check_processing(
     entry_point="47abcfea12",
     front_image="/9j/4AAQSkZJRgABAQEASABIAAD...",
@@ -3355,7 +2657,7 @@ client.check_capture.check_processing(
 </details>
 
 ## Cloud
-<details><summary><code>client.cloud.<a href="src/payabli/cloud/client.py">add_device</a>(...) -&gt; AsyncHttpResponse[AddDeviceResponse]</code></summary>
+<details><summary><code>client.cloud.<a href="src/payabli/cloud/client.py">add_device</a>(...) -> AddDeviceResponse</code></summary>
 <dl>
 <dd>
 
@@ -3383,10 +2685,13 @@ Register a cloud device to an entrypoint. See [Devices Quickstart](/developers/d
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.cloud.add_device(
     entry="8cfec329267",
     registration_code="YS7DS5",
@@ -3457,7 +2762,7 @@ The device registration code or serial number, depending on the model.
 </dl>
 </details>
 
-<details><summary><code>client.cloud.<a href="src/payabli/cloud/client.py">history_device</a>(...) -&gt; AsyncHttpResponse[CloudQueryApiResponse]</code></summary>
+<details><summary><code>client.cloud.<a href="src/payabli/cloud/client.py">history_device</a>(...) -> CloudQueryApiResponse</code></summary>
 <dl>
 <dd>
 
@@ -3485,10 +2790,13 @@ Retrieve the registration history for a device.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.cloud.history_device(
     device_id="WXGDWB",
     entry="8cfec329267",
@@ -3536,7 +2844,7 @@ client.cloud.history_device(
 </dl>
 </details>
 
-<details><summary><code>client.cloud.<a href="src/payabli/cloud/client.py">list_device</a>(...) -&gt; AsyncHttpResponse[CloudQueryApiResponse]</code></summary>
+<details><summary><code>client.cloud.<a href="src/payabli/cloud/client.py">list_device</a>(...) -> CloudQueryApiResponse</code></summary>
 <dl>
 <dd>
 
@@ -3564,10 +2872,13 @@ Get a list of cloud devices registered to an entrypoint.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.cloud.list_device(
     entry="8cfec329267",
 )
@@ -3614,7 +2925,7 @@ client.cloud.list_device(
 </dl>
 </details>
 
-<details><summary><code>client.cloud.<a href="src/payabli/cloud/client.py">remove_device</a>(...) -&gt; AsyncHttpResponse[RemoveDeviceResponse]</code></summary>
+<details><summary><code>client.cloud.<a href="src/payabli/cloud/client.py">remove_device</a>(...) -> RemoveDeviceResponse</code></summary>
 <dl>
 <dd>
 
@@ -3642,10 +2953,13 @@ Remove a cloud device from an entrypoint.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.cloud.remove_device(
     device_id="6c361c7d-674c-44cc-b790-382b75d1xxx",
     entry="8cfec329267",
@@ -3694,7 +3008,7 @@ client.cloud.remove_device(
 </details>
 
 ## Customer
-<details><summary><code>client.customer.<a href="src/payabli/customer/client.py">add_customer</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseCustomerQuery]</code></summary>
+<details><summary><code>client.customer.<a href="src/payabli/customer/client.py">add_customer</a>(...) -> PayabliApiResponseCustomerQuery</code></summary>
 <dl>
 <dd>
 
@@ -3723,22 +3037,27 @@ If you don't include an identifier, the record is rejected.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.customer.add_customer(
     entry="8cfec329267",
     customer_number="12356ACB",
     firstname="Irene",
     lastname="Canizales",
-    address_1="123 Bishop's Trail",
+    address_1="123 Bishop\'s Trail",
     city="Mountain City",
     state="TN",
     zip="37612",
     country="US",
     email="irene@canizalesconcrete.com",
-    identifier_fields=["email"],
+    identifier_fields=[
+        "email"
+    ],
     time_zone=-5,
 )
 
@@ -3757,6 +3076,14 @@ client.customer.add_customer(
 <dd>
 
 **entry:** `Entrypointfield` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `CustomerData` 
     
 </dd>
 </dl>
@@ -3788,214 +3115,6 @@ client.customer.add_customer(
 <dl>
 <dd>
 
-**customer_number:** `typing.Optional[CustomerNumberNullable]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**customer_username:** `typing.Optional[str]` — Customer username for customer portal
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**customer_psw:** `typing.Optional[str]` — Customer password for customer portal
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**customer_status:** `typing.Optional[CustomerStatus]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**company:** `typing.Optional[str]` — Company name
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**firstname:** `typing.Optional[str]` — Customer first name
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**lastname:** `typing.Optional[str]` — Customer last name
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**phone:** `typing.Optional[str]` — Customer phone number
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**email:** `typing.Optional[Email]` — Customer email address.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**address:** `typing.Optional[str]` — Customer address
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**address_1:** `typing.Optional[str]` — Additional customer address
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**city:** `typing.Optional[str]` — Customer city
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**state:** `typing.Optional[str]` — Customer State
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**zip:** `typing.Optional[str]` — Customer postal code
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**country:** `typing.Optional[str]` — Customer country in ISO-3166-1 alpha 2 format. See https://en.wikipedia.org/wiki/ISO_3166-1 for reference.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**shipping_address:** `typing.Optional[Shippingaddress]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**shipping_address_1:** `typing.Optional[Shippingaddressadditional]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**shipping_city:** `typing.Optional[Shippingcity]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**shipping_state:** `typing.Optional[Shippingstate]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**shipping_zip:** `typing.Optional[Shippingzip]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**shipping_country:** `typing.Optional[Shippingcountry]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**balance:** `typing.Optional[float]` — Customer balance.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**time_zone:** `typing.Optional[Timezone]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**additional_fields:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — Additional Custom fields in format "key":"value".
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**identifier_fields:** `typing.Optional[Identifierfields]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_at:** `typing.Optional[CreatedAt]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -4008,7 +3127,7 @@ client.customer.add_customer(
 </dl>
 </details>
 
-<details><summary><code>client.customer.<a href="src/payabli/customer/client.py">delete_customer</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]</code></summary>
+<details><summary><code>client.customer.<a href="src/payabli/customer/client.py">delete_customer</a>(...) -> PayabliApiResponse00Responsedatanonobject</code></summary>
 <dl>
 <dd>
 
@@ -4036,10 +3155,13 @@ Delete a customer record.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.customer.delete_customer(
     customer_id=998,
 )
@@ -4078,7 +3200,7 @@ client.customer.delete_customer(
 </dl>
 </details>
 
-<details><summary><code>client.customer.<a href="src/payabli/customer/client.py">get_customer</a>(...) -&gt; AsyncHttpResponse[CustomerQueryRecords]</code></summary>
+<details><summary><code>client.customer.<a href="src/payabli/customer/client.py">get_customer</a>(...) -> CustomerQueryRecords</code></summary>
 <dl>
 <dd>
 
@@ -4106,10 +3228,13 @@ Retrieves a customer's record and details.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.customer.get_customer(
     customer_id=998,
 )
@@ -4148,7 +3273,7 @@ client.customer.get_customer(
 </dl>
 </details>
 
-<details><summary><code>client.customer.<a href="src/payabli/customer/client.py">link_customer_transaction</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]</code></summary>
+<details><summary><code>client.customer.<a href="src/payabli/customer/client.py">link_customer_transaction</a>(...) -> PayabliApiResponse00Responsedatanonobject</code></summary>
 <dl>
 <dd>
 
@@ -4176,10 +3301,13 @@ Links a customer to a transaction by ID.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.customer.link_customer_transaction(
     customer_id=998,
     trans_id="45-as456777hhhhhhhhhh77777777-324",
@@ -4227,7 +3355,7 @@ client.customer.link_customer_transaction(
 </dl>
 </details>
 
-<details><summary><code>client.customer.<a href="src/payabli/customer/client.py">request_consent</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]</code></summary>
+<details><summary><code>client.customer.<a href="src/payabli/customer/client.py">request_consent</a>(...) -> PayabliApiResponse00Responsedatanonobject</code></summary>
 <dl>
 <dd>
 
@@ -4255,10 +3383,13 @@ Sends the consent opt-in email to the customer email address in the customer rec
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.customer.request_consent(
     customer_id=998,
 )
@@ -4297,7 +3428,7 @@ client.customer.request_consent(
 </dl>
 </details>
 
-<details><summary><code>client.customer.<a href="src/payabli/customer/client.py">update_customer</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]</code></summary>
+<details><summary><code>client.customer.<a href="src/payabli/customer/client.py">update_customer</a>(...) -> PayabliApiResponse00Responsedatanonobject</code></summary>
 <dl>
 <dd>
 
@@ -4325,15 +3456,18 @@ Update a customer record. Include only the fields you want to change.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.customer.update_customer(
     customer_id=998,
     firstname="Irene",
     lastname="Canizales",
-    address_1="145 Bishop's Trail",
+    address_1="145 Bishop\'s Trail",
     city="Mountain City",
     state="TN",
     zip="37612",
@@ -4362,207 +3496,7 @@ client.customer.update_customer(
 <dl>
 <dd>
 
-**customer_number:** `typing.Optional[CustomerNumberNullable]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**customer_username:** `typing.Optional[str]` — Customer username for customer portal
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**customer_psw:** `typing.Optional[str]` — Customer password for customer portal
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**customer_status:** `typing.Optional[CustomerStatus]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**company:** `typing.Optional[str]` — Company name
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**firstname:** `typing.Optional[str]` — Customer first name
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**lastname:** `typing.Optional[str]` — Customer last name
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**phone:** `typing.Optional[str]` — Customer phone number
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**email:** `typing.Optional[Email]` — Customer email address.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**address:** `typing.Optional[str]` — Customer address
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**address_1:** `typing.Optional[str]` — Additional customer address
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**city:** `typing.Optional[str]` — Customer city
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**state:** `typing.Optional[str]` — Customer State
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**zip:** `typing.Optional[str]` — Customer postal code
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**country:** `typing.Optional[str]` — Customer country in ISO-3166-1 alpha 2 format. See https://en.wikipedia.org/wiki/ISO_3166-1 for reference.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**shipping_address:** `typing.Optional[Shippingaddress]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**shipping_address_1:** `typing.Optional[Shippingaddressadditional]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**shipping_city:** `typing.Optional[Shippingcity]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**shipping_state:** `typing.Optional[Shippingstate]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**shipping_zip:** `typing.Optional[Shippingzip]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**shipping_country:** `typing.Optional[Shippingcountry]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**balance:** `typing.Optional[float]` — Customer balance.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**time_zone:** `typing.Optional[Timezone]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**additional_fields:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — Additional Custom fields in format "key":"value".
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**identifier_fields:** `typing.Optional[Identifierfields]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_at:** `typing.Optional[CreatedAt]` 
+**request:** `CustomerData` 
     
 </dd>
 </dl>
@@ -4583,7 +3517,7 @@ client.customer.update_customer(
 </details>
 
 ## Export
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_applications</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_applications</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -4611,10 +3545,13 @@ Export a list of boarding applications for an organization. Use filters to limit
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.export.export_applications(
     format="csv",
     org_id=123,
@@ -4750,7 +3687,7 @@ Example: `dbaname(ct)=hoa` returns all records with a `dbaname` containing "hoa"
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_batch_details</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_batch_details</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -4778,10 +3715,13 @@ This endpoint is deprecated. Export batch details for a paypoint. Use filters to
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.export.export_batch_details(
     entry="8cfec329267",
     format="csv",
@@ -4928,7 +3868,7 @@ Example: `amount(gt)=20` return all records with amount greater than 20.00
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_batch_details_org</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_batch_details_org</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -4956,10 +3896,13 @@ This endpoint is deprecated. Export batch details for an organization. Use filte
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.export.export_batch_details_org(
     format="csv",
     org_id=123,
@@ -5106,7 +4049,7 @@ Example: `amount(gt)=20` return all records with amount greater than 20.00
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_batches</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_batches</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -5134,10 +4077,13 @@ Export a list of batches for an entrypoint. Use filters to limit results.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.export.export_batches(
     entry="8cfec329267",
     format="csv",
@@ -5274,7 +4220,7 @@ Example: `batchAmount(gt)=20` returns all records with a `batchAmount` greater t
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_batches_org</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_batches_org</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -5302,10 +4248,13 @@ Export a list of batches for an organization. Use filters to limit results.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.export.export_batches_org(
     format="csv",
     org_id=123,
@@ -5440,7 +4389,7 @@ Example: `batchAmount(gt)=20` returns all records with a `batchAmount` greater t
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_batches_out</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_batches_out</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -5468,10 +4417,13 @@ Export a list of money out batches for a paypoint. Use filters to limit results.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.export.export_batches_out(
     entry="8cfec329267",
     format="csv",
@@ -5588,7 +4540,7 @@ Example: `batchAmount(gt)=20` returns all records with a `batchAmount` greater t
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_batches_out_org</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_batches_out_org</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -5616,10 +4568,13 @@ Export a list of money out batches for an organization. Use filters to limit res
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.export.export_batches_out_org(
     format="csv",
     org_id=123,
@@ -5736,7 +4691,7 @@ Example: `batchAmount(gt)=20` returns all records with a `batchAmount` greater t
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_bills</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_bills</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -5764,10 +4719,13 @@ Export a list of bills for an entrypoint. Use filters to limit results.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.export.export_bills(
     entry="8cfec329267",
     format="csv",
@@ -5902,7 +4860,7 @@ Example: totalAmount(gt)=20  return all records with totalAmount greater than 20
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_bills_org</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_bills_org</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -5930,10 +4888,13 @@ Export a list of bills for an organization. Use filters to limit results.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.export.export_bills_org(
     format="csv",
     org_id=123,
@@ -6068,7 +5029,7 @@ Example: totalAmount(gt)=20  return all records with totalAmount greater than 20
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_chargebacks</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_chargebacks</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -6096,10 +5057,13 @@ Export a list of chargebacks and ACH returns for an entrypoint. Use filters to l
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.export.export_chargebacks(
     entry="8cfec329267",
     format="csv",
@@ -6255,7 +5219,7 @@ Example: `netAmount(gt)=20` returns all records with a `netAmount` greater than 
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_chargebacks_org</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_chargebacks_org</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -6283,10 +5247,13 @@ Export a list of chargebacks and ACH returns for an organization. Use filters to
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.export.export_chargebacks_org(
     format="csv",
     org_id=123,
@@ -6442,7 +5409,7 @@ Example: `netAmount(gt)=20` returns all records with a `netAmount` greater than 
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_customers</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_customers</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -6470,10 +5437,13 @@ Export a list of customers for an entrypoint. Use filters to limit results.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.export.export_customers(
     entry="8cfec329267",
     format="csv",
@@ -6622,7 +5592,7 @@ balance(gt)=20 return all records with balance greater than 20.00
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_customers_org</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_customers_org</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -6650,10 +5620,13 @@ Exports a list of customers for an organization. Use filters to limit results.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.export.export_customers_org(
     format="csv",
     org_id=123,
@@ -6802,7 +5775,7 @@ balance(gt)=20 return all records with balance greater than 20.00
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_invoices</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_invoices</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -6830,10 +5803,13 @@ Export list of invoices for an entrypoint. Use filters to limit results.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.export.export_invoices(
     entry="8cfec329267",
     format="csv",
@@ -6992,7 +5968,7 @@ Example: `totalAmount(gt)=20` returns all records with `totalAmount` greater tha
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_invoices_org</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_invoices_org</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -7020,10 +5996,13 @@ Export a list of invoices for an organization. Use filters to limit results.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.export.export_invoices_org(
     format="csv",
     org_id=123,
@@ -7182,7 +6161,7 @@ Example: totalAmount(gt)=20  return all records with totalAmount greater than 20
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_organizations</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_organizations</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -7210,10 +6189,13 @@ Export a list of child organizations (suborganizations) for a parent organizatio
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.export.export_organizations(
     format="csv",
     org_id=123,
@@ -7347,7 +6329,7 @@ Example: name(ct)=hoa  return all records where name contains "hoa"
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_payout</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_payout</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -7375,10 +6357,13 @@ Export a list of payouts and their statuses for an entrypoint. Use filters to li
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.export.export_payout(
     entry="8cfec329267",
     format="csv",
@@ -7511,7 +6496,7 @@ Example: totalAmount(gt)=20 return all records with totalAmount greater than 20.
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_payout_org</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_payout_org</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -7539,10 +6524,13 @@ Export a list of payouts and their details for an organization. Use filters to l
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.export.export_payout_org(
     format="csv",
     org_id=123,
@@ -7675,7 +6663,7 @@ Example: totalAmount(gt)=20 return all records with totalAmount greater than 20.
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_paypoints</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_paypoints</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -7703,10 +6691,13 @@ Export a list of paypoints in an organization. Use filters to limit results.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.export.export_paypoints(
     format="csv",
     org_id=123,
@@ -7841,7 +6832,7 @@ Example: `dbaname(ct)=hoa` returns all records with `dbaname` containing "hoa"
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_settlements</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_settlements</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -7869,10 +6860,13 @@ Export a list of settled transactions for an entrypoint. Use filters to limit re
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.export.export_settlements(
     entry="8cfec329267",
     format="csv",
@@ -8027,7 +7021,7 @@ Example: `settledAmount(gt)=20` returns all records with a `settledAmount` great
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_settlements_org</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_settlements_org</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -8055,10 +7049,13 @@ Export a list of settled transactions for an organization. Use filters to limit 
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.export.export_settlements_org(
     format="csv",
     org_id=123,
@@ -8213,7 +7210,7 @@ Example: `settledAmount(gt)=20` returns all records with a `settledAmount` great
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_subscriptions</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_subscriptions</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -8241,10 +7238,13 @@ Export a list of subscriptions for an entrypoint. Use filters to limit results.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.export.export_subscriptions(
     entry="8cfec329267",
     format="csv",
@@ -8401,7 +7401,7 @@ Example: `netAmount(gt)=20` returns all records with a `netAmount` greater than 
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_subscriptions_org</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_subscriptions_org</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -8429,10 +7429,13 @@ Export a list of subscriptions for an organization. Use filters to limit results
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.export.export_subscriptions_org(
     format="csv",
     org_id=123,
@@ -8589,7 +7592,7 @@ Example: `netAmount(gt)=20` returns all records with a `netAmount` greater than 
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_transactions</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_transactions</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -8617,10 +7620,13 @@ Export a list of transactions for an entrypoint in a file in XLXS or CSV format.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.export.export_transactions(
     entry="8cfec329267",
     format="csv",
@@ -8781,7 +7787,7 @@ Example: `netAmount(gt)=20` returns all records with a `netAmount` greater than 
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_transactions_org</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_transactions_org</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -8809,10 +7815,13 @@ Export a list of transactions for an org in a file in XLSX or CSV format. Use fi
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.export.export_transactions_org(
     format="csv",
     org_id=123,
@@ -8973,7 +7982,7 @@ Example: `netAmount(gt)=20` returns all records with a `netAmount` greater than 
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_transfer_details</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_transfer_details</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -9001,10 +8010,13 @@ Export a list of transfer details for an entrypoint. Use filters to limit result
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.export.export_transfer_details(
     entry="8cfec329267",
     format="csv",
@@ -9147,7 +8159,7 @@ List of field names accepted:
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_transfers</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_transfers</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -9175,10 +8187,13 @@ Get a list of transfers for an entrypoint. Use filters to limit results.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.export.export_transfers(
     entry="8cfec329267",
     columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
@@ -9304,7 +8319,7 @@ List of field names accepted:
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_vendors</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_vendors</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -9332,10 +8347,13 @@ Export a list of vendors for an entrypoint. Use filters to limit results.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.export.export_vendors(
     entry="8cfec329267",
     format="csv",
@@ -9474,7 +8492,7 @@ Example: `netAmount(gt)=20` returns all records with a `netAmount` greater than 
 </dl>
 </details>
 
-<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_vendors_org</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
+<details><summary><code>client.export.<a href="src/payabli/export/client.py">export_vendors_org</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -9502,10 +8520,13 @@ Export a list of vendors for an organization. Use filters to limit results.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.export.export_vendors_org(
     format="csv",
     org_id=123,
@@ -9645,7 +8666,7 @@ Example: `netAmount(gt)=20` returns all records with a `netAmount` greater than 
 </details>
 
 ## HostedPaymentPages
-<details><summary><code>client.hosted_payment_pages.<a href="src/payabli/hosted_payment_pages/client.py">load_page</a>(...) -&gt; AsyncHttpResponse[PayabliPages]</code></summary>
+<details><summary><code>client.hosted_payment_pages.<a href="src/payabli/hosted_payment_pages/client.py">load_page</a>(...) -> PayabliPages</code></summary>
 <dl>
 <dd>
 
@@ -9673,10 +8694,13 @@ Loads all of a payment page's details including `pageIdentifier` and `validation
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.hosted_payment_pages.load_page(
     entry="8cfec329267",
     subdomain="pay-your-fees-1",
@@ -9724,7 +8748,7 @@ client.hosted_payment_pages.load_page(
 </dl>
 </details>
 
-<details><summary><code>client.hosted_payment_pages.<a href="src/payabli/hosted_payment_pages/client.py">new_page</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]</code></summary>
+<details><summary><code>client.hosted_payment_pages.<a href="src/payabli/hosted_payment_pages/client.py">new_page</a>(...) -> PayabliApiResponse00Responsedatanonobject</code></summary>
 <dl>
 <dd>
 
@@ -9754,10 +8778,13 @@ Note: this operation doesn't create a new paypoint, just a payment page for an e
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.hosted_payment_pages.new_page(
     entry="8cfec329267",
     idempotency_key="6B29FC40-CA47-1067-B31D-00DD010662DA",
@@ -9785,95 +8812,15 @@ client.hosted_payment_pages.new_page(
 <dl>
 <dd>
 
+**request:** `PayabliPages` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **idempotency_key:** `typing.Optional[IdempotencyKey]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**additional_data:** `typing.Optional[AdditionalData]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**credentials:** `typing.Optional[typing.Sequence[PayabliCredentials]]` — Array of credential objects with active services for the page
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**last_access:** `typing.Optional[dt.datetime]` — Timestamp of last access to page structure
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_content:** `typing.Optional[PageContent]` — Sections of page
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_identifier:** `typing.Optional[PageIdentifier]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_settings:** `typing.Optional[PageSetting]` — Settings of page
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**published:** `typing.Optional[int]` — Flag indicating if page is active to accept payments. `0` for false, `1` for true.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**receipt_content:** `typing.Optional[ReceiptContent]` — Sections of payment receipt
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**subdomain:** `typing.Optional[Subdomain]` — Page identifier. Must be unique in platform.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**total_amount:** `typing.Optional[float]` — Total amount to pay in this page
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**validation_code:** `typing.Optional[str]` — Base64 encoded image of CAPTCHA associated to this page load
     
 </dd>
 </dl>
@@ -9893,7 +8840,7 @@ client.hosted_payment_pages.new_page(
 </dl>
 </details>
 
-<details><summary><code>client.hosted_payment_pages.<a href="src/payabli/hosted_payment_pages/client.py">save_page</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]</code></summary>
+<details><summary><code>client.hosted_payment_pages.<a href="src/payabli/hosted_payment_pages/client.py">save_page</a>(...) -> PayabliApiResponse00Responsedatanonobject</code></summary>
 <dl>
 <dd>
 
@@ -9921,10 +8868,13 @@ Updates a payment page in a paypoint.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.hosted_payment_pages.save_page(
     entry="8cfec329267",
     subdomain_="pay-your-fees-1",
@@ -9952,7 +8902,7 @@ client.hosted_payment_pages.save_page(
 <dl>
 <dd>
 
-**subdomain_:** `str` — Payment page identifier. The subdomain value is the last part of the payment page URL. For example, in`https://paypages-sandbox.payabli.com/513823dc10/pay-your-fees-1`, the subdomain is `pay-your-fees-1`.
+**subdomain:** `str` — Payment page identifier. The subdomain value is the last part of the payment page URL. For example, in`https://paypages-sandbox.payabli.com/513823dc10/pay-your-fees-1`, the subdomain is `pay-your-fees-1`.
     
 </dd>
 </dl>
@@ -9960,87 +8910,7 @@ client.hosted_payment_pages.save_page(
 <dl>
 <dd>
 
-**additional_data:** `typing.Optional[AdditionalData]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**credentials:** `typing.Optional[typing.Sequence[PayabliCredentials]]` — Array of credential objects with active services for the page
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**last_access:** `typing.Optional[dt.datetime]` — Timestamp of last access to page structure
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_content:** `typing.Optional[PageContent]` — Sections of page
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_identifier:** `typing.Optional[PageIdentifier]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_settings:** `typing.Optional[PageSetting]` — Settings of page
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**published:** `typing.Optional[int]` — Flag indicating if page is active to accept payments. `0` for false, `1` for true.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**receipt_content:** `typing.Optional[ReceiptContent]` — Sections of payment receipt
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**subdomain:** `typing.Optional[Subdomain]` — Page identifier. Must be unique in platform.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**total_amount:** `typing.Optional[float]` — Total amount to pay in this page
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**validation_code:** `typing.Optional[str]` — Base64 encoded image of CAPTCHA associated to this page load
+**request:** `PayabliPages` 
     
 </dd>
 </dl>
@@ -10061,7 +8931,7 @@ client.hosted_payment_pages.save_page(
 </details>
 
 ## Import
-<details><summary><code>client.import_.<a href="src/payabli/import_/client.py">import_bills</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseImport]</code></summary>
+<details><summary><code>client.import_.<a href="src/payabli/import_/client.py">import_bills</a>(...) -> PayabliApiResponseImport</code></summary>
 <dl>
 <dd>
 
@@ -10089,12 +8959,16 @@ Import a list of bills from a CSV file. See the [Import Guide](/developers/devel
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.import_.import_bills(
     entry="8cfec329267",
+    file="example_file",
 )
 
 ```
@@ -10119,9 +8993,7 @@ client.import_.import_bills(
 <dl>
 <dd>
 
-**file:** `from __future__ import annotations
-
-core.File` — See core.File for more documentation
+**file:** `core.File` — The file to be imported. The file must be a CSV file with the correct format. See the [Import Guide](/developers/developer-guides/bills-add#import-bills) for more help and example files.
     
 </dd>
 </dl>
@@ -10141,7 +9013,7 @@ core.File` — See core.File for more documentation
 </dl>
 </details>
 
-<details><summary><code>client.import_.<a href="src/payabli/import_/client.py">import_customer</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseImport]</code></summary>
+<details><summary><code>client.import_.<a href="src/payabli/import_/client.py">import_customer</a>(...) -> PayabliApiResponseImport</code></summary>
 <dl>
 <dd>
 
@@ -10169,12 +9041,16 @@ Import a list of customers from a CSV file. See the [Import Guide](/developers/d
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.import_.import_customer(
     entry="8cfec329267",
+    file="example_file",
 )
 
 ```
@@ -10199,9 +9075,7 @@ client.import_.import_customer(
 <dl>
 <dd>
 
-**file:** `from __future__ import annotations
-
-core.File` — See core.File for more documentation
+**file:** `core.File` 
     
 </dd>
 </dl>
@@ -10229,7 +9103,7 @@ core.File` — See core.File for more documentation
 </dl>
 </details>
 
-<details><summary><code>client.import_.<a href="src/payabli/import_/client.py">import_vendor</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseImport]</code></summary>
+<details><summary><code>client.import_.<a href="src/payabli/import_/client.py">import_vendor</a>(...) -> PayabliApiResponseImport</code></summary>
 <dl>
 <dd>
 
@@ -10257,12 +9131,16 @@ Import a list of vendors from a CSV file. See the [Import Guide](/developers/dev
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.import_.import_vendor(
     entry="8cfec329267",
+    file="example_file",
 )
 
 ```
@@ -10287,9 +9165,7 @@ client.import_.import_vendor(
 <dl>
 <dd>
 
-**file:** `from __future__ import annotations
-
-core.File` — See core.File for more documentation
+**file:** `core.File` 
     
 </dd>
 </dl>
@@ -10310,7 +9186,7 @@ core.File` — See core.File for more documentation
 </details>
 
 ## Invoice
-<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">add_invoice</a>(...) -&gt; AsyncHttpResponse[InvoiceResponseWithoutData]</code></summary>
+<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">add_invoice</a>(...) -> InvoiceResponseWithoutData</code></summary>
 <dl>
 <dd>
 
@@ -10337,13 +9213,15 @@ Creates an invoice in an entrypoint.
 <dd>
 
 ```python
+from payabli import payabli, PayorDataRequest, BillData, BillItem
+from payabli.environment import payabliEnvironment
 import datetime
 
-from payabli import BillData, BillItem, PayorDataRequest, payabli
-
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.invoice.add_invoice(
     entry="8cfec329267",
     customer_data=PayorDataRequest(
@@ -10356,27 +9234,25 @@ client.invoice.add_invoice(
             BillItem(
                 item_product_name="Adventure Consult",
                 item_description="Consultation for Georgian tours",
-                item_cost=100.0,
+                item_cost=100,
                 item_qty=1,
                 item_mode=1,
-                item_total_amount=1.0,
+                item_total_amount=1,
             ),
             BillItem(
                 item_product_name="Deposit ",
                 item_description="Deposit for trip planning",
                 item_cost=882.37,
                 item_qty=1,
-                item_total_amount=1.0,
-            ),
+                item_total_amount=1,
+            )
         ],
-        invoice_date=datetime.date.fromisoformat(
-            "2025-10-19",
-        ),
+        invoice_date=datetime.date.fromisoformat("2025-10-19"),
         invoice_type=0,
         invoice_status=1,
         frequency="onetime",
         invoice_amount=982.37,
-        discount=10.0,
+        discount=10,
         invoice_number="INV-3",
     ),
 )
@@ -10403,6 +9279,14 @@ client.invoice.add_invoice(
 <dl>
 <dd>
 
+**request:** `InvoiceDataRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **force_customer_creation:** `typing.Optional[ForceCustomerCreation]` 
     
 </dd>
@@ -10412,30 +9296,6 @@ client.invoice.add_invoice(
 <dd>
 
 **idempotency_key:** `typing.Optional[IdempotencyKey]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**customer_data:** `typing.Optional[PayorDataRequest]` — Object describing the customer/payor. Required for POST requests. Which fields are required depends on the paypoint's custom identifier settings. 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**invoice_data:** `typing.Optional[BillData]` — Object describing the invoice. Required for POST requests.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**scheduled_options:** `typing.Optional[BillOptions]` — Object with options for scheduled invoices.
     
 </dd>
 </dl>
@@ -10455,7 +9315,7 @@ client.invoice.add_invoice(
 </dl>
 </details>
 
-<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">delete_attached_from_invoice</a>(...) -&gt; AsyncHttpResponse[InvoiceResponseWithoutData]</code></summary>
+<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">delete_attached_from_invoice</a>(...) -> InvoiceResponseWithoutData</code></summary>
 <dl>
 <dd>
 
@@ -10483,10 +9343,13 @@ Deletes an invoice that's attached to a file.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.invoice.delete_attached_from_invoice(
     filename="0_Bill.pdf",
     id_invoice=23548884,
@@ -10546,7 +9409,7 @@ The filename in Payabli. Filename is `zipName` in response to a request to `/api
 </dl>
 </details>
 
-<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">delete_invoice</a>(...) -&gt; AsyncHttpResponse[InvoiceResponseWithoutData]</code></summary>
+<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">delete_invoice</a>(...) -> InvoiceResponseWithoutData</code></summary>
 <dl>
 <dd>
 
@@ -10574,10 +9437,13 @@ Deletes a single invoice from an entrypoint.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.invoice.delete_invoice(
     id_invoice=23548884,
 )
@@ -10616,7 +9482,7 @@ client.invoice.delete_invoice(
 </dl>
 </details>
 
-<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">edit_invoice</a>(...) -&gt; AsyncHttpResponse[InvoiceResponseWithoutData]</code></summary>
+<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">edit_invoice</a>(...) -> InvoiceResponseWithoutData</code></summary>
 <dl>
 <dd>
 
@@ -10643,13 +9509,15 @@ Updates details for a single invoice in an entrypoint.
 <dd>
 
 ```python
+from payabli import payabli, BillData, BillItem
+from payabli.environment import payabliEnvironment
 import datetime
 
-from payabli import BillData, BillItem, payabli
-
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.invoice.edit_invoice(
     id_invoice=332,
     invoice_data=BillData(
@@ -10661,9 +9529,7 @@ client.invoice.edit_invoice(
                 item_qty=1,
             )
         ],
-        invoice_date=datetime.date.fromisoformat(
-            "2025-10-19",
-        ),
+        invoice_date=datetime.date.fromisoformat("2025-10-19"),
         invoice_amount=982.37,
         invoice_number="INV-6",
     ),
@@ -10691,31 +9557,15 @@ client.invoice.edit_invoice(
 <dl>
 <dd>
 
+**request:** `InvoiceDataRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **force_customer_creation:** `typing.Optional[bool]` — When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**customer_data:** `typing.Optional[PayorDataRequest]` — Object describing the customer/payor. Required for POST requests. Which fields are required depends on the paypoint's custom identifier settings. 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**invoice_data:** `typing.Optional[BillData]` — Object describing the invoice. Required for POST requests.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**scheduled_options:** `typing.Optional[BillOptions]` — Object with options for scheduled invoices.
     
 </dd>
 </dl>
@@ -10735,7 +9585,7 @@ client.invoice.edit_invoice(
 </dl>
 </details>
 
-<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">get_attached_file_from_invoice</a>(...) -&gt; AsyncHttpResponse[FileContent]</code></summary>
+<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">get_attached_file_from_invoice</a>(...) -> FileContent</code></summary>
 <dl>
 <dd>
 
@@ -10763,10 +9613,13 @@ Retrieves a file attached to an invoice.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.invoice.get_attached_file_from_invoice(
     id_invoice=1,
     filename="filename",
@@ -10836,7 +9689,7 @@ The filename in Payabli. Filename is `zipName` in the response to a request to `
 </dl>
 </details>
 
-<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">get_invoice</a>(...) -&gt; AsyncHttpResponse[GetInvoiceRecord]</code></summary>
+<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">get_invoice</a>(...) -> GetInvoiceRecord</code></summary>
 <dl>
 <dd>
 
@@ -10864,10 +9717,13 @@ Retrieves a single invoice by ID.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.invoice.get_invoice(
     id_invoice=23548884,
 )
@@ -10906,7 +9762,7 @@ client.invoice.get_invoice(
 </dl>
 </details>
 
-<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">get_invoice_number</a>(...) -&gt; AsyncHttpResponse[InvoiceNumberResponse]</code></summary>
+<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">get_invoice_number</a>(...) -> InvoiceNumberResponse</code></summary>
 <dl>
 <dd>
 
@@ -10934,10 +9790,13 @@ Retrieves the next available invoice number for a paypoint.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.invoice.get_invoice_number(
     entry="8cfec329267",
 )
@@ -10976,7 +9835,7 @@ client.invoice.get_invoice_number(
 </dl>
 </details>
 
-<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">list_invoices</a>(...) -&gt; AsyncHttpResponse[QueryInvoiceResponse]</code></summary>
+<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">list_invoices</a>(...) -> QueryInvoiceResponse</code></summary>
 <dl>
 <dd>
 
@@ -11004,10 +9863,13 @@ Returns a list of invoices for an entrypoint. Use filters to limit results. Incl
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.invoice.list_invoices(
     entry="8cfec329267",
     from_record=251,
@@ -11153,7 +10015,7 @@ Example: totalAmount(gt)=20 return all records with totalAmount greater than 20.
 </dl>
 </details>
 
-<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">list_invoices_org</a>(...) -&gt; AsyncHttpResponse[QueryInvoiceResponse]</code></summary>
+<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">list_invoices_org</a>(...) -> QueryInvoiceResponse</code></summary>
 <dl>
 <dd>
 
@@ -11181,10 +10043,13 @@ Returns a list of invoices for an org. Use filters to limit results. Include the
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.invoice.list_invoices_org(
     org_id=123,
     from_record=251,
@@ -11330,7 +10195,7 @@ Example: totalAmount(gt)=20 return all records with totalAmount greater than 20.
 </dl>
 </details>
 
-<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">send_invoice</a>(...) -&gt; AsyncHttpResponse[SendInvoiceResponse]</code></summary>
+<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">send_invoice</a>(...) -> SendInvoiceResponse</code></summary>
 <dl>
 <dd>
 
@@ -11358,10 +10223,13 @@ Sends an invoice from an entrypoint via email.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.invoice.send_invoice(
     id_invoice=23548884,
     attachfile=True,
@@ -11418,7 +10286,7 @@ client.invoice.send_invoice(
 </dl>
 </details>
 
-<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">get_invoice_pdf</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
+<details><summary><code>client.invoice.<a href="src/payabli/invoice/client.py">get_invoice_pdf</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -11446,10 +10314,13 @@ Export a single invoice in PDF format.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.invoice.get_invoice_pdf(
     id_invoice=23548884,
 )
@@ -11489,7 +10360,7 @@ client.invoice.get_invoice_pdf(
 </details>
 
 ## LineItem
-<details><summary><code>client.line_item.<a href="src/payabli/line_item/client.py">add_item</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse6]</code></summary>
+<details><summary><code>client.line_item.<a href="src/payabli/line_item/client.py">add_item</a>(...) -> PayabliApiResponse6</code></summary>
 <dl>
 <dd>
 
@@ -11517,10 +10388,13 @@ Adds products and services to an entrypoint's catalog. These are used as line it
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.line_item.add_item(
     entry="47cae3d74",
     item_product_code="M-DEPOSIT",
@@ -11555,15 +10429,7 @@ client.line_item.add_item(
 <dl>
 <dd>
 
-**item_cost:** `float` — Item or product price per unit.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**item_qty:** `int` — Quantity of item or product.
+**request:** `LineItem` 
     
 </dd>
 </dl>
@@ -11572,62 +10438,6 @@ client.line_item.add_item(
 <dd>
 
 **idempotency_key:** `typing.Optional[str]` — A unique ID you can include to prevent duplicating objects or transactions if a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**item_categories:** `typing.Optional[typing.Sequence[typing.Optional[str]]]` — Array of tags classifying item or product.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**item_commodity_code:** `typing.Optional[ItemCommodityCode]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**item_description:** `typing.Optional[ItemDescription]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**item_mode:** `typing.Optional[int]` — Internal class of item or product: value '0' is only for invoices, '1' for bills, and '2' is common for both.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**item_product_code:** `typing.Optional[ItemProductCode]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**item_product_name:** `typing.Optional[ItemProductName]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**item_unit_of_measure:** `typing.Optional[ItemUnitofMeasure]` 
     
 </dd>
 </dl>
@@ -11647,7 +10457,7 @@ client.line_item.add_item(
 </dl>
 </details>
 
-<details><summary><code>client.line_item.<a href="src/payabli/line_item/client.py">delete_item</a>(...) -&gt; AsyncHttpResponse[DeleteItemResponse]</code></summary>
+<details><summary><code>client.line_item.<a href="src/payabli/line_item/client.py">delete_item</a>(...) -> DeleteItemResponse</code></summary>
 <dl>
 <dd>
 
@@ -11675,10 +10485,13 @@ Deletes an item.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.line_item.delete_item(
     line_item_id=700,
 )
@@ -11717,7 +10530,7 @@ client.line_item.delete_item(
 </dl>
 </details>
 
-<details><summary><code>client.line_item.<a href="src/payabli/line_item/client.py">get_item</a>(...) -&gt; AsyncHttpResponse[LineItemQueryRecord]</code></summary>
+<details><summary><code>client.line_item.<a href="src/payabli/line_item/client.py">get_item</a>(...) -> LineItemQueryRecord</code></summary>
 <dl>
 <dd>
 
@@ -11745,10 +10558,13 @@ Gets an item by ID.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.line_item.get_item(
     line_item_id=700,
 )
@@ -11787,7 +10603,7 @@ client.line_item.get_item(
 </dl>
 </details>
 
-<details><summary><code>client.line_item.<a href="src/payabli/line_item/client.py">list_line_items</a>(...) -&gt; AsyncHttpResponse[QueryResponseItems]</code></summary>
+<details><summary><code>client.line_item.<a href="src/payabli/line_item/client.py">list_line_items</a>(...) -> QueryResponseItems</code></summary>
 <dl>
 <dd>
 
@@ -11815,10 +10631,13 @@ Retrieves a list of line items and their details from an entrypoint. Line items 
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.line_item.list_line_items(
     entry="8cfec329267",
     from_record=251,
@@ -11948,7 +10767,7 @@ Example: name(ct)=john return all records with name containing john
 </dl>
 </details>
 
-<details><summary><code>client.line_item.<a href="src/payabli/line_item/client.py">update_item</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse6]</code></summary>
+<details><summary><code>client.line_item.<a href="src/payabli/line_item/client.py">update_item</a>(...) -> PayabliApiResponse6</code></summary>
 <dl>
 <dd>
 
@@ -11976,10 +10795,13 @@ Updates an item.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.line_item.update_item(
     line_item_id=700,
     item_cost=12.45,
@@ -12008,71 +10830,7 @@ client.line_item.update_item(
 <dl>
 <dd>
 
-**item_cost:** `float` — Item or product price per unit.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**item_qty:** `int` — Quantity of item or product.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**item_categories:** `typing.Optional[typing.Sequence[typing.Optional[str]]]` — Array of tags classifying item or product.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**item_commodity_code:** `typing.Optional[ItemCommodityCode]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**item_description:** `typing.Optional[ItemDescription]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**item_mode:** `typing.Optional[int]` — Internal class of item or product: value '0' is only for invoices, '1' for bills, and '2' is common for both.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**item_product_code:** `typing.Optional[ItemProductCode]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**item_product_name:** `typing.Optional[ItemProductName]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**item_unit_of_measure:** `typing.Optional[ItemUnitofMeasure]` 
+**request:** `LineItem` 
     
 </dd>
 </dl>
@@ -12093,7 +10851,7 @@ client.line_item.update_item(
 </details>
 
 ## MoneyIn
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">authorize</a>(...) -&gt; AsyncHttpResponse[AuthResponse]</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">authorize</a>(...) -> AuthResponse</code></summary>
 <dl>
 <dd>
 
@@ -12124,11 +10882,14 @@ Only card transactions can be authorized. This endpoint can't be used for ACH tr
 <dd>
 
 ```python
-from payabli import PaymentDetail, PayMethodCredit, PayorDataRequest, payabli
+from payabli import payabli, PayorDataRequest, PaymentDetail, PayMethodCredit
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.money_in.authorize(
     customer_data=PayorDataRequest(
         customer_id=4440,
@@ -12136,8 +10897,8 @@ client.money_in.authorize(
     entry_point="f743aed24a",
     ipaddress="255.255.255.255",
     payment_details=PaymentDetail(
-        service_fee=0.0,
-        total_amount=100.0,
+        service_fee=0,
+        total_amount=100,
     ),
     payment_method=PayMethodCredit(
         cardcvv="999",
@@ -12146,6 +10907,7 @@ client.money_in.authorize(
         cardnumber="4111111111111111",
         cardzip="12345",
         initiator="payor",
+        method="card",
     ),
 )
 
@@ -12163,15 +10925,7 @@ client.money_in.authorize(
 <dl>
 <dd>
 
-**payment_details:** `PaymentDetail` — Object describing details of the payment. Required.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payment_method:** `PaymentMethod` — Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.
+**request:** `TransRequestBody` 
     
 </dd>
 </dl>
@@ -12195,86 +10949,6 @@ client.money_in.authorize(
 <dl>
 <dd>
 
-**account_id:** `typing.Optional[Accountid]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**customer_data:** `typing.Optional[PayorDataRequest]` — Object describing the Customer/Payor. Which fields are required depends on the paypoint's custom identifier settings. 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**entry_point:** `typing.Optional[Entrypointfield]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**invoice_data:** `typing.Optional[BillData]` — Object describing an Invoice linked to the transaction.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**ipaddress:** `typing.Optional[IpAddress]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**order_description:** `typing.Optional[Orderdescription]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**order_id:** `typing.Optional[OrderId]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**source:** `typing.Optional[Source]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**subdomain:** `typing.Optional[Subdomain]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**subscription_id:** `typing.Optional[Subscriptionid]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -12287,7 +10961,7 @@ client.money_in.authorize(
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">capture</a>(...) -&gt; AsyncHttpResponse[CaptureResponse]</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">capture</a>(...) -> CaptureResponse</code></summary>
 <dl>
 <dd>
 
@@ -12320,13 +10994,16 @@ transaction](/developers/api-reference/moneyin/authorize-a-transaction) to compl
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.money_in.capture(
     trans_id="10-7d9cd67d-2d5d-4cd7-a1b7-72b8b201ec13",
-    amount=0.0,
+    amount=0,
 )
 
 ```
@@ -12371,7 +11048,7 @@ client.money_in.capture(
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">capture_auth</a>(...) -&gt; AsyncHttpResponse[CaptureResponse]</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">capture_auth</a>(...) -> CaptureResponse</code></summary>
 <dl>
 <dd>
 
@@ -12405,15 +11082,19 @@ Consider migrating to the [v2 Capture endpoint](/developers/api-reference/moneyi
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 from payabli.money_in import CapturePaymentDetails
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.money_in.capture_auth(
     trans_id="10-7d9cd67d-2d5d-4cd7-a1b7-72b8b201ec13",
     payment_details=CapturePaymentDetails(
-        total_amount=100.0,
+        total_amount=105,
+        service_fee=5,
     ),
 )
 
@@ -12439,7 +11120,7 @@ client.money_in.capture_auth(
 <dl>
 <dd>
 
-**payment_details:** `CapturePaymentDetails` 
+**request:** `CaptureRequest` 
     
 </dd>
 </dl>
@@ -12459,7 +11140,7 @@ client.money_in.capture_auth(
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">credit</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse0]</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">credit</a>(...) -> PayabliApiResponse0</code></summary>
 <dl>
 <dd>
 
@@ -12488,33 +11169,32 @@ This feature must be enabled by Payabli on a per-merchant basis. Contact support
 <dd>
 
 ```python
-from payabli import PaymentDetailCredit, PayorDataRequest, payabli
+from payabli import payabli, PayorDataRequest, PaymentDetailCredit
+from payabli.environment import payabliEnvironment
 from payabli.money_in import RequestCreditPaymentMethod
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.money_in.credit(
     idempotency_key="6B29FC40-CA47-1067-B31D-00DD010662DA",
     customer_data=PayorDataRequest(
-        billing_address_1="125 Main Street",
-        billing_city="Kingsport",
-        billing_email="johnnyp@email.com",
-        company="Acme, Inc",
+        billing_address_1="5127 Linkwood ave",
         customer_number="100",
-        first_name="Johnny",
-        last_name="Poulsbo",
     ),
     entrypoint="my-entrypoint",
     payment_details=PaymentDetailCredit(
-        service_fee=0.0,
-        total_amount=1.0,
+        service_fee=0,
+        total_amount=1,
     ),
     payment_method=RequestCreditPaymentMethod(
-        ach_account="88354554",
+        ach_account="88354454",
         ach_account_type="Checking",
-        ach_holder="John Poulsbo",
-        ach_routing="029000021",
+        ach_holder="John Smith",
+        ach_routing="021000021",
+        method="ach",
     ),
 )
 
@@ -12572,7 +11252,7 @@ client.money_in.credit(
 <dl>
 <dd>
 
-**account_id:** `typing.Optional[Accountid]` 
+**account_id:** `typing.Optional[AccountId]` 
     
 </dd>
 </dl>
@@ -12632,7 +11312,7 @@ client.money_in.credit(
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">details</a>(...) -&gt; AsyncHttpResponse[TransactionQueryRecordsCustomer]</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">details</a>(...) -> TransactionQueryRecordsCustomer</code></summary>
 <dl>
 <dd>
 
@@ -12660,10 +11340,13 @@ Retrieve a processed transaction's details.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.money_in.details(
     trans_id="45-as456777hhhhhhhhhh77777777-324",
 )
@@ -12702,7 +11385,7 @@ client.money_in.details(
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">getpaid</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseGetPaid]</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">getpaid</a>(...) -> PayabliApiResponseGetPaid</code></summary>
 <dl>
 <dd>
 
@@ -12733,11 +11416,14 @@ Make a single transaction. This method authorizes and captures a payment in one 
 <dd>
 
 ```python
-from payabli import PaymentDetail, PayMethodCredit, PayorDataRequest, payabli
+from payabli import payabli, PayorDataRequest, PaymentDetail, PayMethodCredit
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.money_in.getpaid(
     customer_data=PayorDataRequest(
         customer_id=4440,
@@ -12745,8 +11431,8 @@ client.money_in.getpaid(
     entry_point="f743aed24a",
     ipaddress="255.255.255.255",
     payment_details=PaymentDetail(
-        service_fee=0.0,
-        total_amount=100.0,
+        service_fee=0,
+        total_amount=100,
     ),
     payment_method=PayMethodCredit(
         cardcvv="999",
@@ -12755,6 +11441,7 @@ client.money_in.getpaid(
         cardnumber="4111111111111111",
         cardzip="12345",
         initiator="payor",
+        method="card",
     ),
 )
 
@@ -12772,15 +11459,7 @@ client.money_in.getpaid(
 <dl>
 <dd>
 
-**payment_details:** `PaymentDetail` — Object describing details of the payment. Required.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payment_method:** `PaymentMethod` — Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.
+**request:** `TransRequestBody` 
     
 </dd>
 </dl>
@@ -12828,86 +11507,6 @@ client.money_in.getpaid(
 <dl>
 <dd>
 
-**account_id:** `typing.Optional[Accountid]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**customer_data:** `typing.Optional[PayorDataRequest]` — Object describing the Customer/Payor. Which fields are required depends on the paypoint's custom identifier settings. 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**entry_point:** `typing.Optional[Entrypointfield]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**invoice_data:** `typing.Optional[BillData]` — Object describing an Invoice linked to the transaction.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**ipaddress:** `typing.Optional[IpAddress]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**order_description:** `typing.Optional[Orderdescription]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**order_id:** `typing.Optional[OrderId]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**source:** `typing.Optional[Source]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**subdomain:** `typing.Optional[Subdomain]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**subscription_id:** `typing.Optional[Subscriptionid]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -12920,7 +11519,7 @@ client.money_in.getpaid(
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">reverse</a>(...) -&gt; AsyncHttpResponse[ReverseResponse]</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">reverse</a>(...) -> ReverseResponse</code></summary>
 <dl>
 <dd>
 
@@ -12948,12 +11547,15 @@ A reversal either refunds or voids a transaction independent of the transaction'
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.money_in.reverse(
-    amount=53.76,
+    amount=0,
     trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
 )
 
@@ -13006,7 +11608,7 @@ An amount equal to zero will refunds the total amount authorized minus any servi
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">refund</a>(...) -&gt; AsyncHttpResponse[RefundResponse]</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">refund</a>(...) -> RefundResponse</code></summary>
 <dl>
 <dd>
 
@@ -13038,12 +11640,15 @@ Refund a transaction that has settled and send money back to the account holder.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.money_in.refund(
-    amount=100.99,
+    amount=0,
     trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
 )
 
@@ -13096,7 +11701,7 @@ An amount equal to zero will refund the total amount authorized minus any servic
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">refund_with_instructions</a>(...) -&gt; AsyncHttpResponse[RefundWithInstructionsResponse]</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">refund_with_instructions</a>(...) -> RefundWithInstructionsResponse</code></summary>
 <dl>
 <dd>
 
@@ -13123,31 +11728,34 @@ Refunds a settled transaction with split instructions.
 <dd>
 
 ```python
-from payabli import RefundDetail, SplitFundingRefundContent, payabli
+from payabli import payabli, RefundDetail, SplitFundingRefundContent
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.money_in.refund_with_instructions(
     trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
     idempotency_key="8A29FC40-CA47-1067-B31D-00DD010662DB",
     source="api",
     order_description="Materials deposit",
-    amount=70.0,
+    amount=100,
     refund_details=RefundDetail(
         split_refunding=[
             SplitFundingRefundContent(
                 origination_entry_point="7f1a381696",
                 account_id="187-342",
                 description="Refunding undelivered materials",
-                amount=40.0,
+                amount=60,
             ),
             SplitFundingRefundContent(
                 origination_entry_point="7f1a381696",
                 account_id="187-343",
                 description="Refunding deposit for undelivered materials",
-                amount=30.0,
-            ),
+                amount=40,
+            )
         ],
     ),
 )
@@ -13249,7 +11857,7 @@ An amount equal to zero will refund the total amount authorized minus any servic
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">reverse_credit</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse]</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">reverse_credit</a>(...) -> PayabliApiResponse</code></summary>
 <dl>
 <dd>
 
@@ -13277,10 +11885,13 @@ Reverse microdeposits that are used to verify customer account ownership and acc
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.money_in.reverse_credit(
     trans_id="45-as456777hhhhhhhhhh77777777-324",
 )
@@ -13319,7 +11930,7 @@ client.money_in.reverse_credit(
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">send_receipt_2_trans</a>(...) -&gt; AsyncHttpResponse[ReceiptResponse]</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">send_receipt_2_trans</a>(...) -> ReceiptResponse</code></summary>
 <dl>
 <dd>
 
@@ -13347,10 +11958,13 @@ Send a payment receipt for a transaction.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.money_in.send_receipt_2_trans(
     trans_id="45-as456777hhhhhhhhhh77777777-324",
     email="example@email.com",
@@ -13402,7 +12016,7 @@ If not provided, the email address on file for the user owner of the transaction
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">validate</a>(...) -&gt; AsyncHttpResponse[ValidateResponse]</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">validate</a>(...) -> ValidateResponse</code></summary>
 <dl>
 <dd>
 
@@ -13430,11 +12044,14 @@ Validates a card number without running a transaction or authorizing a charge.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 from payabli.money_in import RequestPaymentValidatePaymentMethod
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.money_in.validate(
     idempotency_key="6B29FC40-CA47-1067-B31D-00DD010662DA",
     entry_point="entry132",
@@ -13485,7 +12102,7 @@ client.money_in.validate(
 <dl>
 <dd>
 
-**account_id:** `typing.Optional[Accountid]` 
+**account_id:** `typing.Optional[AccountId]` 
     
 </dd>
 </dl>
@@ -13521,7 +12138,7 @@ client.money_in.validate(
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">void</a>(...) -&gt; AsyncHttpResponse[VoidResponse]</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">void</a>(...) -> VoidResponse</code></summary>
 <dl>
 <dd>
 
@@ -13553,10 +12170,13 @@ Cancel a transaction that hasn't been settled yet. Voiding non-captured authoriz
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.money_in.void(
     trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
 )
@@ -13595,7 +12215,7 @@ client.money_in.void(
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">getpaidv_2</a>(...) -&gt; AsyncHttpResponse[V2TransactionResponseWrapper]</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">getpaidv_2</a>(...) -> V2TransactionResponseWrapper</code></summary>
 <dl>
 <dd>
 
@@ -13622,11 +12242,14 @@ Make a single transaction. This method authorizes and captures a payment in one 
 <dd>
 
 ```python
-from payabli import PaymentDetail, PayMethodCloud, PayorDataRequest, payabli
+from payabli import payabli, PayorDataRequest, PaymentDetail, PayMethodCredit
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.money_in.getpaidv_2(
     customer_data=PayorDataRequest(
         customer_id=4440,
@@ -13634,12 +12257,17 @@ client.money_in.getpaidv_2(
     entry_point="f743aed24a",
     ipaddress="255.255.255.255",
     payment_details=PaymentDetail(
-        service_fee=0.0,
-        total_amount=100.0,
+        service_fee=0,
+        total_amount=100,
     ),
-    payment_method=PayMethodCloud(
-        device="6c361c7d-674c-44cc-b790-382b75d1xxx",
-        save_if_success=True,
+    payment_method=PayMethodCredit(
+        cardcvv="999",
+        cardexp="02/27",
+        card_holder="John Cassian",
+        cardnumber="4111111111111111",
+        cardzip="12345",
+        initiator="payor",
+        method="card",
     ),
 )
 
@@ -13657,15 +12285,7 @@ client.money_in.getpaidv_2(
 <dl>
 <dd>
 
-**payment_details:** `PaymentDetail` — Object describing details of the payment. Required.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payment_method:** `PaymentMethod` — Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.
+**request:** `TransRequestBody` 
     
 </dd>
 </dl>
@@ -13705,86 +12325,6 @@ client.money_in.getpaidv_2(
 <dl>
 <dd>
 
-**account_id:** `typing.Optional[Accountid]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**customer_data:** `typing.Optional[PayorDataRequest]` — Object describing the Customer/Payor. Which fields are required depends on the paypoint's custom identifier settings. 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**entry_point:** `typing.Optional[Entrypointfield]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**invoice_data:** `typing.Optional[BillData]` — Object describing an Invoice linked to the transaction.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**ipaddress:** `typing.Optional[IpAddress]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**order_description:** `typing.Optional[Orderdescription]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**order_id:** `typing.Optional[OrderId]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**source:** `typing.Optional[Source]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**subdomain:** `typing.Optional[Subdomain]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**subscription_id:** `typing.Optional[Subscriptionid]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -13797,7 +12337,7 @@ client.money_in.getpaidv_2(
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">authorizev_2</a>(...) -&gt; AsyncHttpResponse[V2TransactionResponseWrapper]</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">authorizev_2</a>(...) -> V2TransactionResponseWrapper</code></summary>
 <dl>
 <dd>
 
@@ -13826,11 +12366,14 @@ Authorize a card transaction. This returns an authorization code and reserves fu
 <dd>
 
 ```python
-from payabli import PaymentDetail, PayMethodCredit, PayorDataRequest, payabli
+from payabli import payabli, PayorDataRequest, PaymentDetail, PayMethodCredit
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.money_in.authorizev_2(
     customer_data=PayorDataRequest(
         customer_id=4440,
@@ -13838,8 +12381,8 @@ client.money_in.authorizev_2(
     entry_point="f743aed24a",
     ipaddress="255.255.255.255",
     payment_details=PaymentDetail(
-        service_fee=0.0,
-        total_amount=100.0,
+        service_fee=0,
+        total_amount=100,
     ),
     payment_method=PayMethodCredit(
         cardcvv="999",
@@ -13848,6 +12391,7 @@ client.money_in.authorizev_2(
         cardnumber="4111111111111111",
         cardzip="12345",
         initiator="payor",
+        method="card",
     ),
 )
 
@@ -13865,15 +12409,7 @@ client.money_in.authorizev_2(
 <dl>
 <dd>
 
-**payment_details:** `PaymentDetail` — Object describing details of the payment. Required.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payment_method:** `PaymentMethod` — Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.
+**request:** `TransRequestBody` 
     
 </dd>
 </dl>
@@ -13897,86 +12433,6 @@ client.money_in.authorizev_2(
 <dl>
 <dd>
 
-**account_id:** `typing.Optional[Accountid]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**customer_data:** `typing.Optional[PayorDataRequest]` — Object describing the Customer/Payor. Which fields are required depends on the paypoint's custom identifier settings. 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**entry_point:** `typing.Optional[Entrypointfield]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**invoice_data:** `typing.Optional[BillData]` — Object describing an Invoice linked to the transaction.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**ipaddress:** `typing.Optional[IpAddress]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**order_description:** `typing.Optional[Orderdescription]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**order_id:** `typing.Optional[OrderId]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**source:** `typing.Optional[Source]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**subdomain:** `typing.Optional[Subdomain]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**subscription_id:** `typing.Optional[Subscriptionid]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -13989,7 +12445,7 @@ client.money_in.authorizev_2(
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">capturev_2</a>(...) -&gt; AsyncHttpResponse[V2TransactionResponseWrapper]</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">capturev_2</a>(...) -> V2TransactionResponseWrapper</code></summary>
 <dl>
 <dd>
 
@@ -14017,16 +12473,19 @@ Capture an authorized transaction to complete the transaction and move funds fro
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 from payabli.money_in import CapturePaymentDetails
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.money_in.capturev_2(
     trans_id="10-7d9cd67d-2d5d-4cd7-a1b7-72b8b201ec13",
     payment_details=CapturePaymentDetails(
-        total_amount=89.0,
-        service_fee=4.0,
+        total_amount=105,
+        service_fee=5,
     ),
 )
 
@@ -14052,7 +12511,7 @@ client.money_in.capturev_2(
 <dl>
 <dd>
 
-**payment_details:** `CapturePaymentDetails` 
+**request:** `CaptureRequest` 
     
 </dd>
 </dl>
@@ -14072,7 +12531,7 @@ client.money_in.capturev_2(
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">refundv_2</a>(...) -&gt; AsyncHttpResponse[V2TransactionResponseWrapper]</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">refundv_2</a>(...) -> V2TransactionResponseWrapper</code></summary>
 <dl>
 <dd>
 
@@ -14102,10 +12561,13 @@ This is the v2 version of the refund endpoint, and returns the unified response 
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.money_in.refundv_2(
     trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
 )
@@ -14144,7 +12606,7 @@ client.money_in.refundv_2(
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">refundv_2_amount</a>(...) -&gt; AsyncHttpResponse[V2TransactionResponseWrapper]</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">refundv_2_amount</a>(...) -> V2TransactionResponseWrapper</code></summary>
 <dl>
 <dd>
 
@@ -14174,13 +12636,16 @@ This is the v2 version of the refund endpoint, and returns the unified response 
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.money_in.refundv_2_amount(
     trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
-    amount=100.99,
+    amount=0,
 )
 
 ```
@@ -14225,7 +12690,7 @@ client.money_in.refundv_2_amount(
 </dl>
 </details>
 
-<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">voidv_2</a>(...) -&gt; AsyncHttpResponse[V2TransactionResponseWrapper]</code></summary>
+<details><summary><code>client.money_in.<a href="src/payabli/money_in/client.py">voidv_2</a>(...) -> V2TransactionResponseWrapper</code></summary>
 <dl>
 <dd>
 
@@ -14253,10 +12718,13 @@ Cancel a transaction that hasn't been settled yet. Voiding non-captured authoriz
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.money_in.voidv_2(
     trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
 )
@@ -14296,7 +12764,7 @@ client.money_in.voidv_2(
 </details>
 
 ## MoneyOut
-<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">authorize_out</a>(...) -&gt; AsyncHttpResponse[AuthCapturePayoutResponse]</code></summary>
+<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">authorize_out</a>(...) -> AuthCapturePayoutResponse</code></summary>
 <dl>
 <dd>
 
@@ -14323,74 +12791,33 @@ Authorizes transaction for payout. Authorized transactions aren't flagged for se
 <dd>
 
 ```python
-import datetime
-
-from payabli import Contacts, payabli
-from payabli.money_out_types import (
-    AuthorizePaymentMethod,
-    RequestOutAuthorizeInvoiceData,
-    RequestOutAuthorizePaymentDetails,
-    RequestOutAuthorizeVendorData,
-)
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+from payabli.money_out_types import RequestOutAuthorizeInvoiceData, RequestOutAuthorizePaymentDetails, AuthorizePaymentMethod, RequestOutAuthorizeVendorData
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.money_out.authorize_out(
-    entry_point="47ced57b",
-    payment_method=AuthorizePaymentMethod(
-        method="ach",
-        ach_holder="John Doe",
-        ach_routing="011401533",
-        ach_account="123456789",
-        ach_account_type="checking",
-        ach_holder_type="business",
-    ),
-    payment_details=RequestOutAuthorizePaymentDetails(
-        total_amount=978.32,
-    ),
-    vendor_data=RequestOutAuthorizeVendorData(
-        vendor_number="Vendor3800638299609471",
-        name_1="Heritage Pro Company",
-        name_2="",
-        ein="473771889",
-        phone="7868342364",
-        email="contact570@heritagepro.com",
-        address_1="478 Mittie Roads",
-        city="Jakubowskifield",
-        state="WI",
-        zip="45993",
-        country="US",
-        mcc="0763",
-        location_code="tpa",
-        contacts=[
-            Contacts(
-                contact_name="Dax",
-                contact_email="Mandy65@heritagepro.com",
-                contact_phone="996-325-5420 x31028",
-            )
-        ],
-        vendor_status=1,
-        remit_address_1="727 Terrell Streets",
-        remit_address_2="Apt. 773",
-        remit_city="South Nicholeside",
-        remit_state="ID",
-        remit_zip="72951-9790",
-        remit_country="US",
-    ),
+    entry_point="48acde49",
     invoice_data=[
         RequestOutAuthorizeInvoiceData(
-            invoice_number="VI3BvwTG",
-            net_amount="1",
-            invoice_date=datetime.date.fromisoformat(
-                "2026-09-03",
-            ),
-            due_date=datetime.date.fromisoformat(
-                "2026-11-04",
-            ),
-            comments="Building Repairs - Community event setup (System updates)",
+            bill_id=54323,
         )
     ],
+    order_description="Window Painting",
+    payment_details=RequestOutAuthorizePaymentDetails(
+        total_amount=47,
+        unbundled=False,
+    ),
+    payment_method=AuthorizePaymentMethod(
+        method="managed",
+    ),
+    vendor_data=RequestOutAuthorizeVendorData(
+        vendor_number="7895433",
+    ),
 )
 
 ```
@@ -14407,39 +12834,7 @@ client.money_out.authorize_out(
 <dl>
 <dd>
 
-**entry_point:** `Entrypointfield` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payment_method:** `AuthorizePaymentMethod` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payment_details:** `RequestOutAuthorizePaymentDetails` — Object containing payment details.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**vendor_data:** `RequestOutAuthorizeVendorData` — Object containing vendor data.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**invoice_data:** `typing.Sequence[RequestOutAuthorizeInvoiceData]` — Array of bills associated to the transaction
+**request:** `AuthorizePayoutBody` 
     
 </dd>
 </dl>
@@ -14479,54 +12874,6 @@ client.money_out.authorize_out(
 <dl>
 <dd>
 
-**source:** `typing.Optional[Source]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**order_id:** `typing.Optional[OrderId]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**order_description:** `typing.Optional[Orderdescription]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**account_id:** `typing.Optional[Accountid]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**subdomain:** `typing.Optional[Subdomain]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**subscription_id:** `typing.Optional[Subscriptionid]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -14539,7 +12886,7 @@ client.money_out.authorize_out(
 </dl>
 </details>
 
-<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">cancel_all_out</a>(...) -&gt; AsyncHttpResponse[CaptureAllOutResponse]</code></summary>
+<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">cancel_all_out</a>(...) -> CaptureAllOutResponse</code></summary>
 <dl>
 <dd>
 
@@ -14567,12 +12914,19 @@ Cancels an array of payout transactions.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.money_out.cancel_all_out(
-    request=["2-29", "2-28", "2-27"],
+    request=[
+        "2-29",
+        "2-28",
+        "2-27"
+    ],
 )
 
 ```
@@ -14589,7 +12943,7 @@ client.money_out.cancel_all_out(
 <dl>
 <dd>
 
-**request:** `typing.Sequence[str]` 
+**request:** `typing.List[str]` — Array of identifiers of payout transactions to cancel.
     
 </dd>
 </dl>
@@ -14609,7 +12963,7 @@ client.money_out.cancel_all_out(
 </dl>
 </details>
 
-<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">cancel_out_get</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse0000]</code></summary>
+<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">cancel_out_get</a>(...) -> PayabliApiResponse0000</code></summary>
 <dl>
 <dd>
 
@@ -14637,10 +12991,13 @@ Cancel a payout transaction by ID.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.money_out.cancel_out_get(
     reference_id="129-219",
 )
@@ -14679,7 +13036,7 @@ client.money_out.cancel_out_get(
 </dl>
 </details>
 
-<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">cancel_out_delete</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse0000]</code></summary>
+<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">cancel_out_delete</a>(...) -> PayabliApiResponse0000</code></summary>
 <dl>
 <dd>
 
@@ -14707,10 +13064,13 @@ Cancel a payout transaction by ID.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.money_out.cancel_out_delete(
     reference_id="129-219",
 )
@@ -14749,7 +13109,7 @@ client.money_out.cancel_out_delete(
 </dl>
 </details>
 
-<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">capture_all_out</a>(...) -&gt; AsyncHttpResponse[CaptureAllOutResponse]</code></summary>
+<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">capture_all_out</a>(...) -> CaptureAllOutResponse</code></summary>
 <dl>
 <dd>
 
@@ -14777,12 +13137,19 @@ Captures an array of authorized payout transactions for settlement. The maximum 
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.money_out.capture_all_out(
-    request=["2-29", "2-28", "2-27"],
+    request=[
+        "2-29",
+        "2-28",
+        "2-27"
+    ],
 )
 
 ```
@@ -14799,7 +13166,7 @@ client.money_out.capture_all_out(
 <dl>
 <dd>
 
-**request:** `typing.Sequence[str]` 
+**request:** `typing.List[str]` — Array of identifiers of payout transactions to capture.  
     
 </dd>
 </dl>
@@ -14827,7 +13194,7 @@ client.money_out.capture_all_out(
 </dl>
 </details>
 
-<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">capture_out</a>(...) -&gt; AsyncHttpResponse[AuthCapturePayoutResponse]</code></summary>
+<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">capture_out</a>(...) -> AuthCapturePayoutResponse</code></summary>
 <dl>
 <dd>
 
@@ -14855,10 +13222,13 @@ Captures a single authorized payout transaction by ID.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.money_out.capture_out(
     reference_id="129-219",
 )
@@ -14905,7 +13275,7 @@ client.money_out.capture_out(
 </dl>
 </details>
 
-<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">payout_details</a>(...) -&gt; AsyncHttpResponse[BillDetailResponse]</code></summary>
+<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">payout_details</a>(...) -> BillDetailResponse</code></summary>
 <dl>
 <dd>
 
@@ -14933,10 +13303,13 @@ Returns details for a processed money out transaction.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.money_out.payout_details(
     trans_id="45-as456777hhhhhhhhhh77777777-324",
 )
@@ -14975,7 +13348,7 @@ client.money_out.payout_details(
 </dl>
 </details>
 
-<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">v_card_get</a>(...) -&gt; AsyncHttpResponse[VCardGetResponse]</code></summary>
+<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">v_card_get</a>(...) -> VCardGetResponse</code></summary>
 <dl>
 <dd>
 
@@ -15003,10 +13376,13 @@ Retrieves vCard details for a single card in an entrypoint.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.money_out.v_card_get(
     card_token="20230403315245421165",
 )
@@ -15045,7 +13421,7 @@ client.money_out.v_card_get(
 </dl>
 </details>
 
-<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">send_v_card_link</a>(...) -&gt; AsyncHttpResponse[OperationResult]</code></summary>
+<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">send_v_card_link</a>(...) -> OperationResult</code></summary>
 <dl>
 <dd>
 
@@ -15073,10 +13449,13 @@ Sends a virtual card link via email to the vendor associated with the `transId`.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.money_out.send_v_card_link(
     trans_id="01K33Z6YQZ6GD5QVKZ856MJBSC",
 )
@@ -15115,7 +13494,7 @@ client.money_out.send_v_card_link(
 </dl>
 </details>
 
-<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">get_check_image</a>(...) -&gt; AsyncHttpResponse[str]</code></summary>
+<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">get_check_image</a>(...) -> str</code></summary>
 <dl>
 <dd>
 
@@ -15145,10 +13524,13 @@ The check image is only available for payouts that have been processed.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.money_out.get_check_image(
     asset_name="check133832686289732320_01JKBNZ5P32JPTZY8XXXX000000.pdf",
 )
@@ -15198,7 +13580,7 @@ in the response when you make a GET request to `/MoneyOut/details/{transId}`.
 </dl>
 </details>
 
-<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">update_check_payment_status</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]</code></summary>
+<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">update_check_payment_status</a>(...) -> PayabliApiResponse00Responsedatanonobject</code></summary>
 <dl>
 <dd>
 
@@ -15237,13 +13619,16 @@ The transaction must meet all of the following criteria:
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.money_out.update_check_payment_status(
     trans_id="TRANS123456",
-    check_payment_status="0",
+    check_payment_status="5",
 )
 
 ```
@@ -15288,8 +13673,110 @@ client.money_out.update_check_payment_status(
 </dl>
 </details>
 
+<details><summary><code>client.money_out.<a href="src/payabli/money_out/client.py">reissue_out</a>(...) -> ReissuePayoutResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Reissues a payout transaction with a new payment method. This creates a new transaction linked to the original and marks the original transaction as reissued.
+
+The original transaction must be in **Processing** or **Processed** status. The payment method in the request body is used directly. The endpoint doesn't fall back to vendor-managed payment methods.
+
+The new transaction goes through the standard authorize-and-capture flow automatically. Both the original and new transactions are linked through their event histories for audit purposes.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+from payabli.money_out_types import ReissuePaymentMethod
+
+client = payabli(
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.money_out.reissue_out(
+    trans_id="129-219",
+    payment_method=ReissuePaymentMethod(
+        method="ach",
+        ach_account="9876543210",
+        ach_account_type="savings",
+        ach_routing="021000021",
+        ach_holder="Acme Corp",
+        ach_holder_type="business",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**trans_id:** `str` — The transaction ID of the payout to reissue.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `ReissuePayoutBody` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotency_key:** `typing.Optional[IdempotencyKey]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Notification
-<details><summary><code>client.notification.<a href="src/payabli/notification/client.py">add_notification</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseNotifications]</code></summary>
+<details><summary><code>client.notification.<a href="src/payabli/notification/client.py">add_notification</a>(...) -> PayabliApiResponseNotifications</code></summary>
 <dl>
 <dd>
 
@@ -15316,29 +13803,25 @@ Create a new notification or autogenerated report.
 <dd>
 
 ```python
-from payabli import (
-    NotificationReportRequest,
-    NotificationReportRequestContent,
-    payabli,
-)
+from payabli import payabli, NotificationStandardRequest, NotificationStandardRequestContent
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.notification.add_notification(
-    request=NotificationReportRequest(
-        content=NotificationReportRequestContent(
-            file_format="json",
-            report_name="Transaction",
-            time_zone=-5,
-            transaction_id="0",
+    request=NotificationStandardRequest(
+        content=NotificationStandardRequestContent(
+            event_type="CreatedApplication",
         ),
-        frequency="biweekly",
-        method="report-email",
+        frequency="untilcancelled",
+        method="web",
         owner_id=236,
         owner_type=0,
         status=1,
-        target="admin@example.com",
+        target="https://webhook.site/2871b8f8-edc7-441a-b376-98d8c8e33275",
     ),
 )
 
@@ -15376,7 +13859,7 @@ client.notification.add_notification(
 </dl>
 </details>
 
-<details><summary><code>client.notification.<a href="src/payabli/notification/client.py">delete_notification</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseNotifications]</code></summary>
+<details><summary><code>client.notification.<a href="src/payabli/notification/client.py">delete_notification</a>(...) -> PayabliApiResponseNotifications</code></summary>
 <dl>
 <dd>
 
@@ -15404,10 +13887,13 @@ Deletes a single notification or autogenerated report.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.notification.delete_notification(
     n_id="1717",
 )
@@ -15446,7 +13932,7 @@ client.notification.delete_notification(
 </dl>
 </details>
 
-<details><summary><code>client.notification.<a href="src/payabli/notification/client.py">get_notification</a>(...) -&gt; AsyncHttpResponse[NotificationQueryRecord]</code></summary>
+<details><summary><code>client.notification.<a href="src/payabli/notification/client.py">get_notification</a>(...) -> NotificationQueryRecord</code></summary>
 <dl>
 <dd>
 
@@ -15474,10 +13960,13 @@ Retrieves a single notification or autogenerated report's details.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.notification.get_notification(
     n_id="1717",
 )
@@ -15516,7 +14005,7 @@ client.notification.get_notification(
 </dl>
 </details>
 
-<details><summary><code>client.notification.<a href="src/payabli/notification/client.py">update_notification</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseNotifications]</code></summary>
+<details><summary><code>client.notification.<a href="src/payabli/notification/client.py">update_notification</a>(...) -> PayabliApiResponseNotifications</code></summary>
 <dl>
 <dd>
 
@@ -15543,15 +14032,14 @@ Update a notification or autogenerated report.
 <dd>
 
 ```python
-from payabli import (
-    NotificationStandardRequest,
-    NotificationStandardRequestContent,
-    payabli,
-)
+from payabli import payabli, NotificationStandardRequest, NotificationStandardRequestContent
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.notification.update_notification(
     n_id="1717",
     request=NotificationStandardRequest(
@@ -15609,7 +14097,7 @@ client.notification.update_notification(
 </dl>
 </details>
 
-<details><summary><code>client.notification.<a href="src/payabli/notification/client.py">get_report_file</a>(...) -&gt; AsyncHttpResponse[File]</code></summary>
+<details><summary><code>client.notification.<a href="src/payabli/notification/client.py">get_report_file</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -15637,10 +14125,13 @@ Gets a copy of a generated report by ID.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.notification.get_report_file(
     id=1000000,
 )
@@ -15680,7 +14171,7 @@ client.notification.get_report_file(
 </details>
 
 ## Notificationlogs
-<details><summary><code>client.notificationlogs.<a href="src/payabli/notificationlogs/client.py">search_notification_logs</a>(...) -&gt; AsyncHttpResponse[typing.List[NotificationLog]]</code></summary>
+<details><summary><code>client.notificationlogs.<a href="src/payabli/notificationlogs/client.py">search_notification_logs</a>(...) -> typing.List[NotificationLog]</code></summary>
 <dl>
 <dd>
 
@@ -15711,21 +14202,19 @@ This endpoint requires the `notifications_create` OR `notifications_read` permis
 <dd>
 
 ```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
 import datetime
 
-from payabli import payabli
-
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.notificationlogs.search_notification_logs(
     page_size=20,
-    start_date=datetime.datetime.fromisoformat(
-        "2024-01-01 00:00:00+00:00",
-    ),
-    end_date=datetime.datetime.fromisoformat(
-        "2024-01-31 23:59:59+00:00",
-    ),
+    start_date=datetime.datetime.fromisoformat("2024-01-01T00:00:00+00:00"),
+    end_date=datetime.datetime.fromisoformat("2024-01-31T23:59:59+00:00"),
     org_id=12345,
     notification_event="ActivatedMerchant",
     succeeded=True,
@@ -15745,15 +14234,7 @@ client.notificationlogs.search_notification_logs(
 <dl>
 <dd>
 
-**start_date:** `dt.datetime` — The start date for the search.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_date:** `dt.datetime` — The end date for the search.
+**request:** `NotificationLogSearchRequest` 
     
 </dd>
 </dl>
@@ -15777,38 +14258,6 @@ client.notificationlogs.search_notification_logs(
 <dl>
 <dd>
 
-**notification_event:** `typing.Optional[str]` — The type of notification event to filter by.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**succeeded:** `typing.Optional[bool]` — Indicates whether the notification was successful.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**org_id:** `typing.Optional[int]` — The ID of the organization to filter by.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**paypoint_id:** `typing.Optional[int]` — The ID of the paypoint to filter by.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -15821,7 +14270,7 @@ client.notificationlogs.search_notification_logs(
 </dl>
 </details>
 
-<details><summary><code>client.notificationlogs.<a href="src/payabli/notificationlogs/client.py">get_notification_log</a>(...) -&gt; AsyncHttpResponse[NotificationLogDetail]</code></summary>
+<details><summary><code>client.notificationlogs.<a href="src/payabli/notificationlogs/client.py">get_notification_log</a>(...) -> NotificationLogDetail</code></summary>
 <dl>
 <dd>
 
@@ -15849,17 +14298,17 @@ This endpoint requires the `notifications_create` OR `notifications_read` permis
 <dd>
 
 ```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
 import uuid
 
-from payabli import payabli
-
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.notificationlogs.get_notification_log(
-    uuid_=uuid.UUID(
-        "550e8400-e29b-41d4-a716-446655440000",
-    ),
+    uuid_=uuid.UUID("550e8400-e29b-41d4-a716-446655440000"),
 )
 
 ```
@@ -15876,7 +14325,7 @@ client.notificationlogs.get_notification_log(
 <dl>
 <dd>
 
-**uuid_:** `uuid.UUID` — The notification log entry.
+**uuid:** `uuid.UUID` — The notification log entry.
     
 </dd>
 </dl>
@@ -15896,7 +14345,7 @@ client.notificationlogs.get_notification_log(
 </dl>
 </details>
 
-<details><summary><code>client.notificationlogs.<a href="src/payabli/notificationlogs/client.py">retry_notification_log</a>(...) -&gt; AsyncHttpResponse[NotificationLogDetail]</code></summary>
+<details><summary><code>client.notificationlogs.<a href="src/payabli/notificationlogs/client.py">retry_notification_log</a>(...) -> NotificationLogDetail</code></summary>
 <dl>
 <dd>
 
@@ -15925,17 +14374,17 @@ Retry sending a specific notification.
 <dd>
 
 ```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
 import uuid
 
-from payabli import payabli
-
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.notificationlogs.retry_notification_log(
-    uuid_=uuid.UUID(
-        "550e8400-e29b-41d4-a716-446655440000",
-    ),
+    uuid_=uuid.UUID("550e8400-e29b-41d4-a716-446655440000"),
 )
 
 ```
@@ -15952,7 +14401,7 @@ client.notificationlogs.retry_notification_log(
 <dl>
 <dd>
 
-**uuid_:** `uuid.UUID` — Unique id
+**uuid:** `uuid.UUID` — Unique id
     
 </dd>
 </dl>
@@ -15972,7 +14421,7 @@ client.notificationlogs.retry_notification_log(
 </dl>
 </details>
 
-<details><summary><code>client.notificationlogs.<a href="src/payabli/notificationlogs/client.py">bulk_retry_notification_logs</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.notificationlogs.<a href="src/payabli/notificationlogs/client.py">bulk_retry_notification_logs</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -16002,24 +14451,20 @@ This endpoint requires the `notifications_create` permission.
 <dd>
 
 ```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
 import uuid
 
-from payabli import payabli
-
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.notificationlogs.bulk_retry_notification_logs(
     request=[
-        uuid.UUID(
-            "550e8400-e29b-41d4-a716-446655440000",
-        ),
-        uuid.UUID(
-            "550e8400-e29b-41d4-a716-446655440001",
-        ),
-        uuid.UUID(
-            "550e8400-e29b-41d4-a716-446655440002",
-        ),
+        uuid.UUID("550e8400-e29b-41d4-a716-446655440000"),
+        uuid.UUID("550e8400-e29b-41d4-a716-446655440001"),
+        uuid.UUID("550e8400-e29b-41d4-a716-446655440002")
     ],
 )
 
@@ -16058,7 +14503,7 @@ client.notificationlogs.bulk_retry_notification_logs(
 </details>
 
 ## Ocr
-<details><summary><code>client.ocr.<a href="src/payabli/ocr/client.py">ocr_document_form</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseOcr]</code></summary>
+<details><summary><code>client.ocr.<a href="src/payabli/ocr/client.py">ocr_document_form</a>(...) -> PayabliApiResponseOcr</code></summary>
 <dl>
 <dd>
 
@@ -16086,10 +14531,13 @@ Use this endpoint to upload an image file for OCR processing. The accepted file 
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.ocr.ocr_document_form(
     type_result="typeResult",
 )
@@ -16116,31 +14564,7 @@ client.ocr.ocr_document_form(
 <dl>
 <dd>
 
-**ftype:** `typing.Optional[FileContentFtype]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**filename:** `typing.Optional[str]` — The name of the file to be uploaded
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**furl:** `typing.Optional[str]` — Optional URL link to the file
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**f_content:** `typing.Optional[str]` — Base64-encoded file content
+**request:** `FileContentImageOnly` — The image file to OCR. Accepted formats include PDF, JPG, JPEG, PNG, GIF.
     
 </dd>
 </dl>
@@ -16160,7 +14584,7 @@ client.ocr.ocr_document_form(
 </dl>
 </details>
 
-<details><summary><code>client.ocr.<a href="src/payabli/ocr/client.py">ocr_document_json</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseOcr]</code></summary>
+<details><summary><code>client.ocr.<a href="src/payabli/ocr/client.py">ocr_document_json</a>(...) -> PayabliApiResponseOcr</code></summary>
 <dl>
 <dd>
 
@@ -16188,10 +14612,13 @@ Use this endpoint to submit a Base64-encoded image file for OCR processing. The 
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.ocr.ocr_document_json(
     type_result="typeResult",
 )
@@ -16218,31 +14645,7 @@ client.ocr.ocr_document_json(
 <dl>
 <dd>
 
-**ftype:** `typing.Optional[FileContentFtype]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**filename:** `typing.Optional[str]` — The name of the file to be uploaded
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**furl:** `typing.Optional[str]` — Optional URL link to the file
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**f_content:** `typing.Optional[str]` — Base64-encoded file content
+**request:** `FileContentImageOnly` — Base64-encoded file content for OCR processing
     
 </dd>
 </dl>
@@ -16263,7 +14666,7 @@ client.ocr.ocr_document_json(
 </details>
 
 ## Organization
-<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">add_organization</a>(...) -&gt; AsyncHttpResponse[AddOrganizationResponse]</code></summary>
+<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">add_organization</a>(...) -> AddOrganizationResponse</code></summary>
 <dl>
 <dd>
 
@@ -16290,11 +14693,14 @@ Creates an organization under a parent organization. This is also referred to as
 <dd>
 
 ```python
-from payabli import Contacts, FileContent, Instrument, payabli
+from payabli import payabli, Instrument, Contacts, FileContent
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.organization.add_organization(
     idempotency_key="6B29FC40-CA47-1067-B31D-00DD010662DA",
     billing_info=Instrument(
@@ -16383,7 +14789,7 @@ client.organization.add_organization(
 <dl>
 <dd>
 
-**services:** `typing.Optional[typing.Sequence[ServiceCost]]` 
+**services:** `typing.Optional[typing.List[ServiceCost]]` 
     
 </dd>
 </dl>
@@ -16523,7 +14929,7 @@ client.organization.add_organization(
 </dl>
 </details>
 
-<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">delete_organization</a>(...) -&gt; AsyncHttpResponse[DeleteOrganizationResponse]</code></summary>
+<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">delete_organization</a>(...) -> DeleteOrganizationResponse</code></summary>
 <dl>
 <dd>
 
@@ -16551,10 +14957,13 @@ Delete an organization by ID.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.organization.delete_organization(
     org_id=123,
 )
@@ -16593,7 +15002,7 @@ client.organization.delete_organization(
 </dl>
 </details>
 
-<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">edit_organization</a>(...) -&gt; AsyncHttpResponse[EditOrganizationResponse]</code></summary>
+<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">edit_organization</a>(...) -> EditOrganizationResponse</code></summary>
 <dl>
 <dd>
 
@@ -16620,11 +15029,14 @@ Updates an organization's details by ID.
 <dd>
 
 ```python
-from payabli import Contacts, payabli
+from payabli import payabli, Contacts
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.organization.edit_organization(
     org_id=123,
     contacts=[
@@ -16670,7 +15082,7 @@ client.organization.edit_organization(
 <dl>
 <dd>
 
-**services:** `typing.Optional[typing.Sequence[ServiceCost]]` 
+**services:** `typing.Optional[typing.List[ServiceCost]]` 
     
 </dd>
 </dl>
@@ -16834,7 +15246,7 @@ client.organization.edit_organization(
 </dl>
 </details>
 
-<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">get_basic_organization</a>(...) -&gt; AsyncHttpResponse[OrganizationQueryRecord]</code></summary>
+<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">get_basic_organization</a>(...) -> OrganizationQueryRecord</code></summary>
 <dl>
 <dd>
 
@@ -16862,10 +15274,13 @@ Gets an organization's basic information by entry name (entrypoint identifier).
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.organization.get_basic_organization(
     entry="8cfec329267",
 )
@@ -16904,7 +15319,7 @@ client.organization.get_basic_organization(
 </dl>
 </details>
 
-<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">get_basic_organization_by_id</a>(...) -&gt; AsyncHttpResponse[OrganizationQueryRecord]</code></summary>
+<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">get_basic_organization_by_id</a>(...) -> OrganizationQueryRecord</code></summary>
 <dl>
 <dd>
 
@@ -16932,10 +15347,13 @@ Gets an organizations basic details by org ID.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.organization.get_basic_organization_by_id(
     org_id=123,
 )
@@ -16974,7 +15392,7 @@ client.organization.get_basic_organization_by_id(
 </dl>
 </details>
 
-<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">get_organization</a>(...) -&gt; AsyncHttpResponse[OrganizationQueryRecord]</code></summary>
+<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">get_organization</a>(...) -> OrganizationQueryRecord</code></summary>
 <dl>
 <dd>
 
@@ -17002,10 +15420,13 @@ Retrieves details for an organization by ID.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.organization.get_organization(
     org_id=123,
 )
@@ -17044,7 +15465,7 @@ client.organization.get_organization(
 </dl>
 </details>
 
-<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">get_settings_organization</a>(...) -&gt; AsyncHttpResponse[SettingsQueryRecord]</code></summary>
+<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">get_settings_organization</a>(...) -> SettingsQueryRecord</code></summary>
 <dl>
 <dd>
 
@@ -17072,10 +15493,13 @@ Retrieves an organization's settings.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.organization.get_settings_organization(
     org_id=123,
 )
@@ -17115,7 +15539,7 @@ client.organization.get_settings_organization(
 </details>
 
 ## PaymentLink
-<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">add_pay_link_from_invoice</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponsePaymentLinks]</code></summary>
+<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">add_pay_link_from_invoice</a>(...) -> PayabliApiResponsePaymentLinks</code></summary>
 <dl>
 <dd>
 
@@ -17142,28 +15566,14 @@ Generates a payment link for an invoice from the invoice ID.
 <dd>
 
 ```python
-from payabli import (
-    ContactElement,
-    Element,
-    FileContent,
-    HeaderElement,
-    InvoiceElement,
-    LabelElement,
-    MethodElement,
-    MethodElementSettings,
-    MethodElementSettingsApplePay,
-    MethodsList,
-    NoteElement,
-    PageElement,
-    PagelinkSetting,
-    PayorElement,
-    PayorFields,
-    payabli,
-)
+from payabli import payabli, ContactElement, InvoiceElement, LabelElement, Element, NoteElement, PageElement, MethodElement, MethodsList, MethodElementSettings, MethodElementSettingsApplePay, PayorElement, PayorFields, HeaderElement, PagelinkSetting, FileContent
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.payment_link.add_pay_link_from_invoice(
     id_invoice=23548884,
     mail_2="jo@example.com; ceo@example.com",
@@ -17298,6 +15708,14 @@ client.payment_link.add_pay_link_from_invoice(
 <dl>
 <dd>
 
+**request:** `PaymentPageRequestBody` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **amount_fixed:** `typing.Optional[bool]` — Indicates whether customer can modify the payment amount. A value of `true` means the amount isn't modifiable, a value `false` means the payor can modify the amount to pay.
     
 </dd>
@@ -17322,94 +15740,6 @@ client.payment_link.add_pay_link_from_invoice(
 <dl>
 <dd>
 
-**contact_us:** `typing.Optional[ContactElement]` — ContactUs section of payment link page
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**invoices:** `typing.Optional[InvoiceElement]` — Invoices section of payment link page
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**logo:** `typing.Optional[Element]` — Logo section of payment link page
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**message_before_paying:** `typing.Optional[LabelElement]` — Message section of payment link page
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**notes:** `typing.Optional[NoteElement]` — Notes section of payment link page
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page:** `typing.Optional[PageElement]` — Page header section of payment link page
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payment_button:** `typing.Optional[LabelElement]` — Payment button section of payment link page
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payment_methods:** `typing.Optional[MethodElement]` — Payment methods section of payment link page
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payor:** `typing.Optional[PayorElement]` — Customer/Payor section of payment link page
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**review:** `typing.Optional[HeaderElement]` — Review section of payment link page
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**settings:** `typing.Optional[PagelinkSetting]` — Settings section of payment link page
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -17422,7 +15752,7 @@ client.payment_link.add_pay_link_from_invoice(
 </dl>
 </details>
 
-<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">add_pay_link_from_bill</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponsePaymentLinks]</code></summary>
+<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">add_pay_link_from_bill</a>(...) -> PayabliApiResponsePaymentLinks</code></summary>
 <dl>
 <dd>
 
@@ -17449,23 +15779,18 @@ Generates a payment link for a bill from the bill ID. The vendor receives a secu
 <dd>
 
 ```python
-from payabli import (
-    ContactElement,
-    Element,
-    HeaderElement,
-    LabelElement,
-    NoteElement,
-    PageElement,
-    PagelinkSetting,
-    payabli,
-)
+from payabli import payabli, ContactElement, Element, LabelElement, NoteElement, PageElement, HeaderElement, PagelinkSetting
+from payabli.environment import payabliEnvironment
 from payabli.money_out_types import MethodElementOut, MethodsListOut
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.payment_link.add_pay_link_from_bill(
     bill_id=23548884,
+    mail_2="jo@example.com; ceo@example.com",
     contact_us=ContactElement(
         email_label="Email",
         enabled=True,
@@ -17548,6 +15873,14 @@ client.payment_link.add_pay_link_from_bill(
 <dl>
 <dd>
 
+**request:** `PaymentPageRequestBodyOut` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **amount_fixed:** `typing.Optional[bool]` — Indicates whether customer can modify the payment amount. A value of `true` means the amount isn't modifiable, a value `false` means the payor can modify the amount to pay.
     
 </dd>
@@ -17572,86 +15905,6 @@ client.payment_link.add_pay_link_from_bill(
 <dl>
 <dd>
 
-**contact_us:** `typing.Optional[ContactElement]` — ContactUs section of payment link page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**logo:** `typing.Optional[Element]` — Logo section of payment link page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**message_before_paying:** `typing.Optional[LabelElement]` — Message section of payment link page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**notes:** `typing.Optional[NoteElement]` — Notes section of payment link page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page:** `typing.Optional[PageElement]` — Page header section of payment link page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payment_button:** `typing.Optional[LabelElement]` — Payment button section of payment link page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payment_methods:** `typing.Optional[MethodElementOut]` — Payment methods section of payment link page. Use this to configure which payout methods (ACH, vCard, check) are offered to the vendor.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**review:** `typing.Optional[HeaderElement]` — Review section of payment link page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**bills:** `typing.Optional[Element]` — Bills section of payment link page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**settings:** `typing.Optional[PagelinkSetting]` — Settings section of payment link page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -17664,7 +15917,7 @@ client.payment_link.add_pay_link_from_bill(
 </dl>
 </details>
 
-<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">delete_pay_link_from_id</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponsePaymentLinks]</code></summary>
+<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">delete_pay_link_from_id</a>(...) -> PayabliApiResponsePaymentLinks</code></summary>
 <dl>
 <dd>
 
@@ -17692,10 +15945,13 @@ Deletes a payment link by ID.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.payment_link.delete_pay_link_from_id(
     pay_link_id="2325-XXXXXXX-90b1-4598-b6c7-44cdcbf495d7-1234",
 )
@@ -17734,7 +15990,7 @@ client.payment_link.delete_pay_link_from_id(
 </dl>
 </details>
 
-<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">get_pay_link_from_id</a>(...) -&gt; AsyncHttpResponse[GetPayLinkFromIdResponse]</code></summary>
+<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">get_pay_link_from_id</a>(...) -> GetPayLinkFromIdResponse</code></summary>
 <dl>
 <dd>
 
@@ -17762,10 +16018,13 @@ Retrieves a payment link by ID.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.payment_link.get_pay_link_from_id(
     paylink_id="paylinkId",
 )
@@ -17804,7 +16063,7 @@ client.payment_link.get_pay_link_from_id(
 </dl>
 </details>
 
-<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">push_pay_link_from_id</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponsePaymentLinks]</code></summary>
+<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">push_pay_link_from_id</a>(...) -> PayabliApiResponsePaymentLinks</code></summary>
 <dl>
 <dd>
 
@@ -17831,17 +16090,19 @@ Send a payment link to the specified email addresses or phone numbers.
 <dd>
 
 ```python
-from payabli import PushPayLinkRequest_Email, payabli
+from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.payment_link.push_pay_link_from_id(
     pay_link_id="payLinkId",
-    request=PushPayLinkRequest_Email(
-        additional_emails=["admin@example.com", "accounting@example.com"],
-        attach_file=True,
-    ),
+    request={
+        "channel": "sms"
+    },
 )
 
 ```
@@ -17886,7 +16147,7 @@ client.payment_link.push_pay_link_from_id(
 </dl>
 </details>
 
-<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">refresh_pay_link_from_id</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponsePaymentLinks]</code></summary>
+<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">refresh_pay_link_from_id</a>(...) -> PayabliApiResponsePaymentLinks</code></summary>
 <dl>
 <dd>
 
@@ -17914,10 +16175,13 @@ Refresh a payment link's content after an update.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.payment_link.refresh_pay_link_from_id(
     pay_link_id="payLinkId",
 )
@@ -17964,7 +16228,7 @@ client.payment_link.refresh_pay_link_from_id(
 </dl>
 </details>
 
-<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">send_pay_link_from_id</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponsePaymentLinks]</code></summary>
+<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">send_pay_link_from_id</a>(...) -> PayabliApiResponsePaymentLinks</code></summary>
 <dl>
 <dd>
 
@@ -17992,10 +16256,13 @@ Sends a payment link to the specified email addresses.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.payment_link.send_pay_link_from_id(
     pay_link_id="payLinkId",
     mail_2="jo@example.com; ceo@example.com",
@@ -18051,7 +16318,7 @@ client.payment_link.send_pay_link_from_id(
 </dl>
 </details>
 
-<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">update_pay_link_from_id</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponsePaymentLinks]</code></summary>
+<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">update_pay_link_from_id</a>(...) -> PayabliApiResponsePaymentLinks</code></summary>
 <dl>
 <dd>
 
@@ -18078,11 +16345,14 @@ Updates a payment link's details.
 <dd>
 
 ```python
-from payabli import LabelElement, NoteElement, payabli
+from payabli import payabli, NoteElement, LabelElement
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.payment_link.update_pay_link_from_id(
     pay_link_id="332-c277b704-1301",
     notes=NoteElement(
@@ -18205,7 +16475,7 @@ client.payment_link.update_pay_link_from_id(
 </dl>
 </details>
 
-<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">add_pay_link_from_bill_lot_number</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponsePaymentLinks]</code></summary>
+<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">add_pay_link_from_bill_lot_number</a>(...) -> PayabliApiResponsePaymentLinks</code></summary>
 <dl>
 <dd>
 
@@ -18232,21 +16502,15 @@ Generates a vendor payment link for a specific bill lot number. This allows you 
 <dd>
 
 ```python
-from payabli import (
-    ContactElement,
-    Element,
-    HeaderElement,
-    LabelElement,
-    NoteElement,
-    PageElement,
-    PagelinkSetting,
-    payabli,
-)
+from payabli import payabli, ContactElement, Element, LabelElement, NoteElement, PageElement, HeaderElement, PagelinkSetting
+from payabli.environment import payabliEnvironment
 from payabli.money_out_types import MethodElementOut, MethodsListOut
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.payment_link.add_pay_link_from_bill_lot_number(
     lot_number="LOT-2024-001",
     entry_point="billing",
@@ -18351,6 +16615,14 @@ client.payment_link.add_pay_link_from_bill_lot_number(
 <dl>
 <dd>
 
+**request:** `PaymentPageRequestBodyOut` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **mail_2:** `typing.Optional[str]` — List of recipient email addresses. When there is more than one, separate them by a semicolon (;).
     
 </dd>
@@ -18360,86 +16632,6 @@ client.payment_link.add_pay_link_from_bill_lot_number(
 <dd>
 
 **amount_fixed:** `typing.Optional[str]` — Indicates whether customer can modify the payment amount. A value of `true` means the amount isn't modifiable, a value `false` means the payor can modify the amount to pay.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**contact_us:** `typing.Optional[ContactElement]` — ContactUs section of payment link page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**logo:** `typing.Optional[Element]` — Logo section of payment link page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**message_before_paying:** `typing.Optional[LabelElement]` — Message section of payment link page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**notes:** `typing.Optional[NoteElement]` — Notes section of payment link page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page:** `typing.Optional[PageElement]` — Page header section of payment link page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payment_button:** `typing.Optional[LabelElement]` — Payment button section of payment link page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payment_methods:** `typing.Optional[MethodElementOut]` — Payment methods section of payment link page. Use this to configure which payout methods (ACH, vCard, check) are offered to the vendor.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**review:** `typing.Optional[HeaderElement]` — Review section of payment link page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**bills:** `typing.Optional[Element]` — Bills section of payment link page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**settings:** `typing.Optional[PagelinkSetting]` — Settings section of payment link page.
     
 </dd>
 </dl>
@@ -18459,7 +16651,7 @@ client.payment_link.add_pay_link_from_bill_lot_number(
 </dl>
 </details>
 
-<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">patch_out_payment_link</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponsePaymentLinks]</code></summary>
+<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">patch_out_payment_link</a>(...) -> PayabliApiResponsePaymentLinks</code></summary>
 <dl>
 <dd>
 
@@ -18486,42 +16678,18 @@ Partially updates a Pay Out payment link's content, expiration date, and/or stat
 <dd>
 
 ```python
-from payabli import LabelElement, PageElement, payabli
-from payabli.money_out_types import MethodElementOut, MethodsListOut
-from payabli.payment_link import PaymentPageRequestBodyOut
+from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.payment_link.patch_out_payment_link(
     paylink_id="2325-XXXXXXX-90b1-4598-b6c7-44cdcbf495d7-1234",
-    bill_page_data=PaymentPageRequestBodyOut(
-        page=PageElement(
-            description="You have a payment waiting",
-            enabled=True,
-            header="Vendor Payment",
-            order=0,
-        ),
-        payment_button=LabelElement(
-            enabled=True,
-            label="Select Payment Method",
-            order=0,
-        ),
-        payment_methods=MethodElementOut(
-            all_methods_checked=True,
-            allow_multiple_methods=True,
-            default_method="ach",
-            enabled=True,
-            header="Payment Methods",
-            methods=MethodsListOut(
-                ach=True,
-                check=True,
-                vcard=True,
-            ),
-            order=0,
-            show_preview_virtual_card=False,
-        ),
-    ),
+    expiration_date="2026-06-01T00:00:00Z",
+    status="Active",
 )
 
 ```
@@ -18546,23 +16714,7 @@ client.payment_link.patch_out_payment_link(
 <dl>
 <dd>
 
-**bill_page_data:** `typing.Optional[PaymentPageRequestBodyOut]` — Updated payment link page configuration.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expiration_date:** `typing.Optional[str]` — New expiration date for the payment link. Must be a future date. If null and the link is expired, uses the default expiration from settings. Updating the expiration date reactivates an expired payment link to Active status.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**status:** `typing.Optional[PaymentLinkStatus]` — Updated status for the payment link.
+**request:** `PatchOutPaymentLinkRequest` 
     
 </dd>
 </dl>
@@ -18582,7 +16734,7 @@ client.payment_link.patch_out_payment_link(
 </dl>
 </details>
 
-<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">update_pay_link_out_from_id</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponsePaymentLinks]</code></summary>
+<details><summary><code>client.payment_link.<a href="src/payabli/payment_link/client.py">update_pay_link_out_from_id</a>(...) -> PayabliApiResponsePaymentLinks</code></summary>
 <dl>
 <dd>
 
@@ -18609,32 +16761,74 @@ Updates the payment page content for a Pay Out payment link. Use this to change 
 <dd>
 
 ```python
-from payabli import LabelElement, payabli
+from payabli import payabli, ContactElement, Element, LabelElement, NoteElement, PageElement, HeaderElement, PagelinkSetting
+from payabli.environment import payabliEnvironment
 from payabli.money_out_types import MethodElementOut, MethodsListOut
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.payment_link.update_pay_link_out_from_id(
     paylink_id="2325-XXXXXXX-90b1-4598-b6c7-44cdcbf495d7-1234",
+    contact_us=ContactElement(
+        email_label="Email",
+        enabled=True,
+        header="Contact Us",
+        order=0,
+        payment_icons=True,
+        phone_label="Phone",
+    ),
+    logo=Element(
+        enabled=True,
+        order=0,
+    ),
+    message_before_paying=LabelElement(
+        enabled=True,
+        label="Please review your payment details",
+        order=0,
+    ),
+    notes=NoteElement(
+        enabled=True,
+        header="Additional Notes",
+        order=0,
+        placeholder="Enter any additional notes here",
+        value="",
+    ),
+    page=PageElement(
+        description="Get paid securely",
+        enabled=True,
+        header="Payment Page",
+        order=0,
+    ),
+    payment_button=LabelElement(
+        enabled=True,
+        label="Pay Now",
+        order=0,
+    ),
     payment_methods=MethodElementOut(
-        all_methods_checked=False,
+        all_methods_checked=True,
         allow_multiple_methods=True,
         default_method="vcard",
         enabled=True,
         header="Payment Methods",
         methods=MethodsListOut(
             ach=True,
-            check=False,
+            check=True,
             vcard=True,
         ),
         order=0,
         show_preview_virtual_card=True,
     ),
-    payment_button=LabelElement(
+    review=HeaderElement(
         enabled=True,
-        label="Choose Payment Method",
+        header="Review Payment",
         order=0,
+    ),
+    settings=PagelinkSetting(
+        color="#000000",
+        language="en",
     ),
 )
 
@@ -18660,79 +16854,7 @@ client.payment_link.update_pay_link_out_from_id(
 <dl>
 <dd>
 
-**contact_us:** `typing.Optional[ContactElement]` — ContactUs section of payment link page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**logo:** `typing.Optional[Element]` — Logo section of payment link page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**message_before_paying:** `typing.Optional[LabelElement]` — Message section of payment link page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**notes:** `typing.Optional[NoteElement]` — Notes section of payment link page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page:** `typing.Optional[PageElement]` — Page header section of payment link page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payment_button:** `typing.Optional[LabelElement]` — Payment button section of payment link page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payment_methods:** `typing.Optional[MethodElementOut]` — Payment methods section of payment link page. Use this to configure which payout methods (ACH, vCard, check) are offered to the vendor.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**review:** `typing.Optional[HeaderElement]` — Review section of payment link page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**bills:** `typing.Optional[Element]` — Bills section of payment link page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**settings:** `typing.Optional[PagelinkSetting]` — Settings section of payment link page.
+**request:** `PaymentPageRequestBodyOut` 
     
 </dd>
 </dl>
@@ -18753,7 +16875,7 @@ client.payment_link.update_pay_link_out_from_id(
 </details>
 
 ## PaymentMethodDomain
-<details><summary><code>client.payment_method_domain.<a href="src/payabli/payment_method_domain/client.py">add_payment_method_domain</a>(...) -&gt; AsyncHttpResponse[AddPaymentMethodDomainApiResponse]</code></summary>
+<details><summary><code>client.payment_method_domain.<a href="src/payabli/payment_method_domain/client.py">add_payment_method_domain</a>(...) -> AddPaymentMethodDomainApiResponse</code></summary>
 <dl>
 <dd>
 
@@ -18781,14 +16903,14 @@ Add a payment method domain to an organization or paypoint.
 
 ```python
 from payabli import payabli
-from payabli.payment_method_domain import (
-    AddPaymentMethodDomainRequestApplePay,
-    AddPaymentMethodDomainRequestGooglePay,
-)
+from payabli.environment import payabliEnvironment
+from payabli.payment_method_domain import AddPaymentMethodDomainRequestApplePay, AddPaymentMethodDomainRequestGooglePay
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.payment_method_domain.add_payment_method_domain(
     domain_name="checkout.example.com",
     entity_id=109,
@@ -18867,7 +16989,7 @@ client.payment_method_domain.add_payment_method_domain(
 </dl>
 </details>
 
-<details><summary><code>client.payment_method_domain.<a href="src/payabli/payment_method_domain/client.py">cascade_payment_method_domain</a>(...) -&gt; AsyncHttpResponse[PaymentMethodDomainGeneralResponse]</code></summary>
+<details><summary><code>client.payment_method_domain.<a href="src/payabli/payment_method_domain/client.py">cascade_payment_method_domain</a>(...) -> PaymentMethodDomainGeneralResponse</code></summary>
 <dl>
 <dd>
 
@@ -18895,10 +17017,13 @@ Cascades a payment method domain to all child entities. All paypoints and suborg
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.payment_method_domain.cascade_payment_method_domain(
     domain_id="pmd_b8237fa45c964d8a9ef27160cd42b8c5",
 )
@@ -18937,7 +17062,7 @@ client.payment_method_domain.cascade_payment_method_domain(
 </dl>
 </details>
 
-<details><summary><code>client.payment_method_domain.<a href="src/payabli/payment_method_domain/client.py">delete_payment_method_domain</a>(...) -&gt; AsyncHttpResponse[DeletePaymentMethodDomainResponse]</code></summary>
+<details><summary><code>client.payment_method_domain.<a href="src/payabli/payment_method_domain/client.py">delete_payment_method_domain</a>(...) -> DeletePaymentMethodDomainResponse</code></summary>
 <dl>
 <dd>
 
@@ -18965,10 +17090,13 @@ Delete a payment method domain. You can't delete an inherited domain, you must d
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.payment_method_domain.delete_payment_method_domain(
     domain_id="pmd_b8237fa45c964d8a9ef27160cd42b8c5",
 )
@@ -19007,7 +17135,7 @@ client.payment_method_domain.delete_payment_method_domain(
 </dl>
 </details>
 
-<details><summary><code>client.payment_method_domain.<a href="src/payabli/payment_method_domain/client.py">get_payment_method_domain</a>(...) -&gt; AsyncHttpResponse[PaymentMethodDomainApiResponse]</code></summary>
+<details><summary><code>client.payment_method_domain.<a href="src/payabli/payment_method_domain/client.py">get_payment_method_domain</a>(...) -> PaymentMethodDomainApiResponse</code></summary>
 <dl>
 <dd>
 
@@ -19035,10 +17163,13 @@ Get the details for a payment method domain.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.payment_method_domain.get_payment_method_domain(
     domain_id="pmd_b8237fa45c964d8a9ef27160cd42b8c5",
 )
@@ -19077,7 +17208,7 @@ client.payment_method_domain.get_payment_method_domain(
 </dl>
 </details>
 
-<details><summary><code>client.payment_method_domain.<a href="src/payabli/payment_method_domain/client.py">list_payment_method_domains</a>(...) -&gt; AsyncHttpResponse[ListPaymentMethodDomainsResponse]</code></summary>
+<details><summary><code>client.payment_method_domain.<a href="src/payabli/payment_method_domain/client.py">list_payment_method_domains</a>(...) -> ListPaymentMethodDomainsResponse</code></summary>
 <dl>
 <dd>
 
@@ -19105,13 +17236,16 @@ Get a list of payment method domains that belong to a PSP, organization, or payp
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.payment_method_domain.list_payment_method_domains(
-    entity_id=39,
-    entity_type="organization",
+    entity_id=1147,
+    entity_type="paypoint",
 )
 
 ```
@@ -19180,7 +17314,7 @@ The type of entity. Valid values:
 </dl>
 </details>
 
-<details><summary><code>client.payment_method_domain.<a href="src/payabli/payment_method_domain/client.py">update_payment_method_domain</a>(...) -&gt; AsyncHttpResponse[PaymentMethodDomainGeneralResponse]</code></summary>
+<details><summary><code>client.payment_method_domain.<a href="src/payabli/payment_method_domain/client.py">update_payment_method_domain</a>(...) -> PaymentMethodDomainGeneralResponse</code></summary>
 <dl>
 <dd>
 
@@ -19208,11 +17342,14 @@ Update a payment method domain's configuration values.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 from payabli.payment_method_domain import UpdatePaymentMethodDomainRequestWallet
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.payment_method_domain.update_payment_method_domain(
     domain_id="pmd_b8237fa45c964d8a9ef27160cd42b8c5",
     apple_pay=UpdatePaymentMethodDomainRequestWallet(
@@ -19273,7 +17410,7 @@ client.payment_method_domain.update_payment_method_domain(
 </dl>
 </details>
 
-<details><summary><code>client.payment_method_domain.<a href="src/payabli/payment_method_domain/client.py">verify_payment_method_domain</a>(...) -&gt; AsyncHttpResponse[PaymentMethodDomainGeneralResponse]</code></summary>
+<details><summary><code>client.payment_method_domain.<a href="src/payabli/payment_method_domain/client.py">verify_payment_method_domain</a>(...) -> PaymentMethodDomainGeneralResponse</code></summary>
 <dl>
 <dd>
 
@@ -19301,10 +17438,13 @@ Verify a new payment method domain. If verification is successful, Apple Pay is 
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.payment_method_domain.verify_payment_method_domain(
     domain_id="pmd_b8237fa45c964d8a9ef27160cd42b8c5",
 )
@@ -19344,7 +17484,7 @@ client.payment_method_domain.verify_payment_method_domain(
 </details>
 
 ## Paypoint
-<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">get_basic_entry</a>(...) -&gt; AsyncHttpResponse[GetBasicEntryResponse]</code></summary>
+<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">get_basic_entry</a>(...) -> GetBasicEntryResponse</code></summary>
 <dl>
 <dd>
 
@@ -19372,10 +17512,13 @@ Gets the basic details for a paypoint.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.paypoint.get_basic_entry(
     entry="8cfec329267",
 )
@@ -19414,7 +17557,7 @@ client.paypoint.get_basic_entry(
 </dl>
 </details>
 
-<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">get_basic_entry_by_id</a>(...) -&gt; AsyncHttpResponse[GetBasicEntryByIdResponse]</code></summary>
+<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">get_basic_entry_by_id</a>(...) -> GetBasicEntryByIdResponse</code></summary>
 <dl>
 <dd>
 
@@ -19442,10 +17585,13 @@ Retrieves the basic details for a paypoint by ID.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.paypoint.get_basic_entry_by_id(
     id_paypoint="198",
 )
@@ -19484,7 +17630,7 @@ client.paypoint.get_basic_entry_by_id(
 </dl>
 </details>
 
-<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">get_entry_config</a>(...) -&gt; AsyncHttpResponse[GetEntryConfigResponse]</code></summary>
+<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">get_entry_config</a>(...) -> GetEntryConfigResponse</code></summary>
 <dl>
 <dd>
 
@@ -19512,10 +17658,13 @@ Gets the details for a single paypoint.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.paypoint.get_entry_config(
     entry="8cfec329267",
 )
@@ -19562,7 +17711,7 @@ client.paypoint.get_entry_config(
 </dl>
 </details>
 
-<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">get_page</a>(...) -&gt; AsyncHttpResponse[PayabliPages]</code></summary>
+<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">get_page</a>(...) -> PayabliPages</code></summary>
 <dl>
 <dd>
 
@@ -19590,10 +17739,13 @@ Gets the details for single payment page for a paypoint.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.paypoint.get_page(
     entry="8cfec329267",
     subdomain="pay-your-fees-1",
@@ -19641,7 +17793,7 @@ client.paypoint.get_page(
 </dl>
 </details>
 
-<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">remove_page</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseGeneric2Part]</code></summary>
+<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">remove_page</a>(...) -> PayabliApiResponseGeneric2Part</code></summary>
 <dl>
 <dd>
 
@@ -19669,10 +17821,13 @@ Deletes a payment page in a paypoint.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.paypoint.remove_page(
     entry="8cfec329267",
     subdomain="pay-your-fees-1",
@@ -19720,7 +17875,7 @@ client.paypoint.remove_page(
 </dl>
 </details>
 
-<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">save_logo</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]</code></summary>
+<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">save_logo</a>(...) -> PayabliApiResponse00Responsedatanonobject</code></summary>
 <dl>
 <dd>
 
@@ -19748,10 +17903,13 @@ Updates a paypoint logo.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.paypoint.save_logo(
     entry="8cfec329267",
 )
@@ -19778,31 +17936,7 @@ client.paypoint.save_logo(
 <dl>
 <dd>
 
-**f_content:** `typing.Optional[str]` — Content of file, Base64-encoded. Ignored if furl is specified. Max upload size is 30 MB.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**filename:** `typing.Optional[str]` — The name of the attached file.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**ftype:** `typing.Optional[FileContentFtype]` — The MIME type of the file (if content is provided)
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**furl:** `typing.Optional[str]` — Optional URL provided to show or download the file remotely
+**request:** `FileContent` 
     
 </dd>
 </dl>
@@ -19822,7 +17956,7 @@ client.paypoint.save_logo(
 </dl>
 </details>
 
-<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">settings_page</a>(...) -&gt; AsyncHttpResponse[SettingsQueryRecord]</code></summary>
+<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">settings_page</a>(...) -> SettingsQueryRecord</code></summary>
 <dl>
 <dd>
 
@@ -19850,10 +17984,13 @@ Retrieves an paypoint's basic settings like custom fields, identifiers, and invo
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.paypoint.settings_page(
     entry="8cfec329267",
 )
@@ -19892,7 +18029,7 @@ client.paypoint.settings_page(
 </dl>
 </details>
 
-<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">migrate</a>(...) -&gt; AsyncHttpResponse[MigratePaypointResponse]</code></summary>
+<details><summary><code>client.paypoint.<a href="src/payabli/paypoint/client.py">migrate</a>(...) -> MigratePaypointResponse</code></summary>
 <dl>
 <dd>
 
@@ -19920,11 +18057,14 @@ Migrates a paypoint to a new parent organization.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 from payabli.paypoint import NotificationRequest, WebHeaderParameter
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.paypoint.migrate(
     entry_point="473abc123def",
     new_parent_organization_id=123,
@@ -19953,23 +18093,7 @@ client.paypoint.migrate(
 <dl>
 <dd>
 
-**entry_point:** `Entrypointfield` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**new_parent_organization_id:** `int` — The ID for the paypoint's new parent organization.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**notification_request:** `typing.Optional[NotificationRequest]` — Optional notification request object for a webhook
+**request:** `PaypointMoveRequest` 
     
 </dd>
 </dl>
@@ -19990,7 +18114,7 @@ client.paypoint.migrate(
 </details>
 
 ## Query
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_batch_details</a>(...) -&gt; AsyncHttpResponse[QueryBatchesDetailResponse]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_batch_details</a>(...) -> QueryBatchesDetailResponse</code></summary>
 <dl>
 <dd>
 
@@ -20019,10 +18143,13 @@ unsettled transactions for a paypoint. Use filters to limit results. Include the
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_batch_details(
     entry="8cfec329267",
     from_record=251,
@@ -20181,7 +18308,7 @@ Example: `settledAmount(gt)=20` returns all records with a `settledAmount` great
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_batch_details_org</a>(...) -&gt; AsyncHttpResponse[QueryResponseSettlements]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_batch_details_org</a>(...) -> QueryResponseSettlements</code></summary>
 <dl>
 <dd>
 
@@ -20209,10 +18336,13 @@ Retrieve a list of batches and their details, including settled and unsettled tr
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_batch_details_org(
     org_id=123,
     from_record=251,
@@ -20370,7 +18500,7 @@ Example: `settledAmount(gt)=20` returns all records with a `settledAmount` great
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_batches</a>(...) -&gt; AsyncHttpResponse[QueryBatchesResponse]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_batches</a>(...) -> QueryBatchesResponse</code></summary>
 <dl>
 <dd>
 
@@ -20398,10 +18528,13 @@ Retrieve a list of batches for a paypoint. Use filters to limit results. Include
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_batches(
     entry="8cfec329267",
     from_record=251,
@@ -20538,7 +18671,7 @@ Example: `batchAmount(gt)=20` returns all records with a `batchAmount` greater t
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_batches_org</a>(...) -&gt; AsyncHttpResponse[QueryBatchesResponse]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_batches_org</a>(...) -> QueryBatchesResponse</code></summary>
 <dl>
 <dd>
 
@@ -20566,10 +18699,13 @@ Retrieve a list of batches for an org. Use filters to limit results. Include the
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_batches_org(
     org_id=123,
     from_record=251,
@@ -20706,7 +18842,7 @@ Example: `batchAmount(gt)=20` returns all records with a `batchAmount` greater t
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_batches_out</a>(...) -&gt; AsyncHttpResponse[QueryBatchesOutResponse]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_batches_out</a>(...) -> QueryBatchesOutResponse</code></summary>
 <dl>
 <dd>
 
@@ -20734,10 +18870,13 @@ Retrieve a list of MoneyOut batches for a paypoint. Use filters to limit results
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_batches_out(
     entry="8cfec329267",
     from_record=251,
@@ -20836,7 +18975,7 @@ Collection of field names, conditions, and values used to filter the query. See 
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_batches_out_org</a>(...) -&gt; AsyncHttpResponse[QueryBatchesOutResponse]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_batches_out_org</a>(...) -> QueryBatchesOutResponse</code></summary>
 <dl>
 <dd>
 
@@ -20864,10 +19003,13 @@ Retrieve a list of MoneyOut batches for an org. Use filters to limit results. In
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_batches_out_org(
     org_id=123,
     from_record=251,
@@ -20981,7 +19123,7 @@ See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-repo
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_chargebacks</a>(...) -&gt; AsyncHttpResponse[QueryChargebacksResponse]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_chargebacks</a>(...) -> QueryChargebacksResponse</code></summary>
 <dl>
 <dd>
 
@@ -21009,10 +19151,13 @@ Retrieves a list of chargebacks and returned transactions for a paypoint. Use fi
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_chargebacks(
     entry="8cfec329267",
     from_record=251,
@@ -21166,7 +19311,7 @@ Example: `netAmount(gt)=20` returns all records with a `netAmount` greater than 
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_chargebacks_org</a>(...) -&gt; AsyncHttpResponse[QueryChargebacksResponse]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_chargebacks_org</a>(...) -> QueryChargebacksResponse</code></summary>
 <dl>
 <dd>
 
@@ -21194,10 +19339,13 @@ Retrieve a list of chargebacks and returned transactions for an org. Use filters
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_chargebacks_org(
     org_id=123,
     from_record=251,
@@ -21353,7 +19501,7 @@ Example: `netAmount(gt)=20` returns all records with a `netAmount` greater than 
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_customers</a>(...) -&gt; AsyncHttpResponse[QueryCustomerResponse]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_customers</a>(...) -> QueryCustomerResponse</code></summary>
 <dl>
 <dd>
 
@@ -21381,10 +19529,13 @@ Retrieves a list of customers for a paypoint. Use filters to limit results. Incl
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_customers(
     entry="8cfec329267",
     from_record=251,
@@ -21532,7 +19683,7 @@ See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-repo
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_customers_org</a>(...) -&gt; AsyncHttpResponse[QueryCustomerResponse]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_customers_org</a>(...) -> QueryCustomerResponse</code></summary>
 <dl>
 <dd>
 
@@ -21560,10 +19711,13 @@ Retrieves a list of customers for an org. Use filters to limit results. Include 
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_customers_org(
     org_id=123,
     from_record=251,
@@ -21711,7 +19865,7 @@ See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-repo
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_notification_reports</a>(...) -&gt; AsyncHttpResponse[QueryResponseNotificationReports]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_notification_reports</a>(...) -> QueryResponseNotificationReports</code></summary>
 <dl>
 <dd>
 
@@ -21739,10 +19893,13 @@ Returns a list of all reports generated in the last 60 days for a single entrypo
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_notification_reports(
     entry="8cfec329267",
     from_record=251,
@@ -21855,7 +20012,7 @@ Example: reportName(ct)=tr  return all records containing the string "tr"
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_notification_reports_org</a>(...) -&gt; AsyncHttpResponse[QueryResponseNotificationReports]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_notification_reports_org</a>(...) -> QueryResponseNotificationReports</code></summary>
 <dl>
 <dd>
 
@@ -21883,10 +20040,13 @@ Returns a list of all reports generated in the last 60 days for an organization.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_notification_reports_org(
     org_id=123,
     from_record=251,
@@ -21997,7 +20157,7 @@ Example: reportName(ct)=tr  return all records containing the string "tr"
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_notifications</a>(...) -&gt; AsyncHttpResponse[QueryResponseNotifications]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_notifications</a>(...) -> QueryResponseNotifications</code></summary>
 <dl>
 <dd>
 
@@ -22025,10 +20185,13 @@ Returns a list of notifications for an entrypoint. Use filters to limit results.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_notifications(
     entry="8cfec329267",
     from_record=251,
@@ -22143,7 +20306,7 @@ Example: totalAmount(gt)=20  return all records with totalAmount greater than 20
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_notifications_org</a>(...) -&gt; AsyncHttpResponse[QueryResponseNotifications]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_notifications_org</a>(...) -> QueryResponseNotifications</code></summary>
 <dl>
 <dd>
 
@@ -22171,10 +20334,13 @@ Return a list of notifications for an organization. Use filters to limit results
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_notifications_org(
     org_id=123,
     from_record=251,
@@ -22289,7 +20455,7 @@ Example: totalAmount(gt)=20  return all records with totalAmount greater than 20
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_organizations</a>(...) -&gt; AsyncHttpResponse[ListOrganizationsResponse]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_organizations</a>(...) -> ListOrganizationsResponse</code></summary>
 <dl>
 <dd>
 
@@ -22317,10 +20483,13 @@ Retrieves a list of an organization's suborganizations and their full details su
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_organizations(
     org_id=123,
     from_record=251,
@@ -22455,7 +20624,7 @@ Example: `dbaname(ct)=hoa` returns all records with a `dbaname` containing "hoa"
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_payout</a>(...) -&gt; AsyncHttpResponse[QueryPayoutTransaction]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_payout</a>(...) -> QueryPayoutTransaction</code></summary>
 <dl>
 <dd>
 
@@ -22483,10 +20652,13 @@ Retrieves a list of money out transactions (payouts) for a paypoint. Use filters
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_payout(
     entry="8cfec329267",
     from_record=251,
@@ -22648,7 +20820,7 @@ List of field names accepted:
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_payout_org</a>(...) -&gt; AsyncHttpResponse[QueryPayoutTransaction]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_payout_org</a>(...) -> QueryPayoutTransaction</code></summary>
 <dl>
 <dd>
 
@@ -22676,10 +20848,13 @@ Retrieves a list of money out transactions (payouts) for an organization. Use fi
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_payout_org(
     org_id=123,
     from_record=251,
@@ -22840,7 +21015,7 @@ List of field names accepted:
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_paypoints</a>(...) -&gt; AsyncHttpResponse[QueryEntrypointResponse]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_paypoints</a>(...) -> QueryEntrypointResponse</code></summary>
 <dl>
 <dd>
 
@@ -22868,10 +21043,13 @@ Returns a list of paypoints in an organization. Use filters to limit results. In
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_paypoints(
     org_id=123,
     from_record=251,
@@ -23011,7 +21189,7 @@ Example: `dbaname(ct)=hoa` returns all records with a `dbaname` containing "hoa"
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_settlements</a>(...) -&gt; AsyncHttpResponse[QueryResponseSettlements]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_settlements</a>(...) -> QueryResponseSettlements</code></summary>
 <dl>
 <dd>
 
@@ -23039,10 +21217,13 @@ Retrieve a list of settled transactions for a paypoint. Use filters to limit res
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_settlements(
     entry="8cfec329267",
     from_record=251,
@@ -23201,7 +21382,7 @@ Example: `settledAmount(gt)=20` returns all records with a `settledAmount` great
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_settlements_org</a>(...) -&gt; AsyncHttpResponse[QueryResponseSettlements]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_settlements_org</a>(...) -> QueryResponseSettlements</code></summary>
 <dl>
 <dd>
 
@@ -23229,10 +21410,13 @@ Retrieve a list of settled transactions for an organization. Include the `export
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_settlements_org(
     org_id=123,
     from_record=251,
@@ -23391,7 +21575,7 @@ Example: `settledAmount(gt)=20` returns all records with a `settledAmount` great
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_subscriptions</a>(...) -&gt; AsyncHttpResponse[QuerySubscriptionResponse]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_subscriptions</a>(...) -> QuerySubscriptionResponse</code></summary>
 <dl>
 <dd>
 
@@ -23419,10 +21603,13 @@ Returns a list of subscriptions for a single paypoint. Use filters to limit resu
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_subscriptions(
     entry="8cfec329267",
     from_record=251,
@@ -23581,7 +21768,7 @@ See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-repo
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_subscriptions_org</a>(...) -&gt; AsyncHttpResponse[QuerySubscriptionResponse]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_subscriptions_org</a>(...) -> QuerySubscriptionResponse</code></summary>
 <dl>
 <dd>
 
@@ -23609,10 +21796,13 @@ Returns a list of subscriptions for a single org. Use filters to limit results. 
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_subscriptions_org(
     org_id=123,
     from_record=251,
@@ -23771,7 +21961,7 @@ See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-repo
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transactions</a>(...) -&gt; AsyncHttpResponse[QueryResponseTransactions]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transactions</a>(...) -> QueryResponseTransactions</code></summary>
 <dl>
 <dd>
 
@@ -23806,10 +21996,13 @@ For example, this request parameters filter for transactions between April 01, 2
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_transactions(
     entry="8cfec329267",
     from_record=251,
@@ -23976,7 +22169,7 @@ See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-repo
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transactions_org</a>(...) -&gt; AsyncHttpResponse[QueryResponseTransactions]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transactions_org</a>(...) -> QueryResponseTransactions</code></summary>
 <dl>
 <dd>
 
@@ -24018,10 +22211,13 @@ curl --request GET \
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_transactions_org(
     org_id=123,
     from_record=251,
@@ -24187,7 +22383,7 @@ See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-repo
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transfer_details</a>(...) -&gt; AsyncHttpResponse[QueryTransferDetailResponse]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transfer_details</a>(...) -> QueryTransferDetailResponse</code></summary>
 <dl>
 <dd>
 
@@ -24215,10 +22411,13 @@ Retrieve a list of transfer details records for a paypoint. Use filters to limit
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_transfer_details(
     entry="47862acd",
     transfer_id=123456,
@@ -24345,7 +22544,7 @@ for more information.
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transfers</a>(...) -&gt; AsyncHttpResponse[TransferQueryResponse]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transfers</a>(...) -> TransferQueryResponse</code></summary>
 <dl>
 <dd>
 
@@ -24373,10 +22572,13 @@ Retrieve a list of transfers for a paypoint. Use filters to limit results. Inclu
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_transfers(
     entry="47862acd",
     from_record=0,
@@ -24493,7 +22695,7 @@ List of field names accepted:
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transfers_org</a>(...) -&gt; AsyncHttpResponse[TransferQueryResponse]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transfers_org</a>(...) -> TransferQueryResponse</code></summary>
 <dl>
 <dd>
 
@@ -24521,10 +22723,13 @@ Retrieve a list of transfers for an org. Use filters to limit results. Include t
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_transfers_org(
     org_id=123,
     from_record=0,
@@ -24638,7 +22843,7 @@ List of field names accepted:
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transfers_out_org</a>(...) -&gt; AsyncHttpResponse[TransferOutQueryResponse]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transfers_out_org</a>(...) -> TransferOutQueryResponse</code></summary>
 <dl>
 <dd>
 
@@ -24666,10 +22871,13 @@ Retrieve a list of outbound transfers for an organization. Use filters to limit 
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_transfers_out_org(
     org_id=77,
     from_record=0,
@@ -24771,7 +22979,7 @@ List of field names accepted:
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transfers_out_paypoint</a>(...) -&gt; AsyncHttpResponse[TransferOutQueryResponse]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transfers_out_paypoint</a>(...) -> TransferOutQueryResponse</code></summary>
 <dl>
 <dd>
 
@@ -24799,10 +23007,13 @@ Retrieve a list of outbound transfers for a paypoint. Use filters to limit resul
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_transfers_out_paypoint(
     entry="47cade237",
     from_record=0,
@@ -24904,7 +23115,7 @@ List of field names accepted:
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transfer_details_out</a>(...) -&gt; AsyncHttpResponse[TransferOutDetailQueryResponse]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_transfer_details_out</a>(...) -> TransferOutDetailQueryResponse</code></summary>
 <dl>
 <dd>
 
@@ -24932,10 +23143,13 @@ Retrieve details for a specific outbound transfer. Use filters to limit results.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_transfer_details_out(
     entry="47ace2b25",
     transfer_id=4521,
@@ -25045,7 +23259,7 @@ List of field names accepted:
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_users_org</a>(...) -&gt; AsyncHttpResponse[QueryUserResponse]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_users_org</a>(...) -> QueryUserResponse</code></summary>
 <dl>
 <dd>
 
@@ -25073,10 +23287,13 @@ Get list of users for an org. Use filters to limit results.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_users_org(
     org_id=123,
     from_record=251,
@@ -25193,7 +23410,7 @@ Example: `name(ct)=john`  return all records with name containing 'john'.
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_users_paypoint</a>(...) -&gt; AsyncHttpResponse[QueryUserResponse]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_users_paypoint</a>(...) -> QueryUserResponse</code></summary>
 <dl>
 <dd>
 
@@ -25221,10 +23438,13 @@ Get list of users for a paypoint. Use filters to limit results.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_users_paypoint(
     entry="8cfec329267",
     from_record=251,
@@ -25341,7 +23561,7 @@ Example: `name(ct)=john`  return all records with name containing 'john'
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_vendors</a>(...) -&gt; AsyncHttpResponse[QueryResponseVendors]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_vendors</a>(...) -> QueryResponseVendors</code></summary>
 <dl>
 <dd>
 
@@ -25369,10 +23589,13 @@ Retrieve a list of vendors for an entrypoint. Use filters to limit results. Incl
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_vendors(
     entry="8cfec329267",
     from_record=251,
@@ -25509,7 +23732,7 @@ Example: `netAmount(gt)=20` returns all records with a `netAmount` greater than 
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_vendors_org</a>(...) -&gt; AsyncHttpResponse[QueryResponseVendors]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_vendors_org</a>(...) -> QueryResponseVendors</code></summary>
 <dl>
 <dd>
 
@@ -25537,10 +23760,13 @@ Retrieve a list of vendors for an organization. Use filters to limit results. In
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_vendors_org(
     org_id=123,
     from_record=251,
@@ -25677,7 +23903,7 @@ Example: `netAmount(gt)=20` returns all records with a `netAmount` greater than 
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_vcards</a>(...) -&gt; AsyncHttpResponse[VCardQueryResponse]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_vcards</a>(...) -> VCardQueryResponse</code></summary>
 <dl>
 <dd>
 
@@ -25705,10 +23931,13 @@ Retrieve a list of vcards (virtual credit cards) issued for an entrypoint. Use f
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_vcards(
     entry="8cfec329267",
     from_record=251,
@@ -25837,7 +24066,7 @@ List of comparison accepted - enclosed between parentheses:
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_vcards_org</a>(...) -&gt; AsyncHttpResponse[VCardQueryResponse]</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_vcards_org</a>(...) -> VCardQueryResponse</code></summary>
 <dl>
 <dd>
 
@@ -25865,10 +24094,13 @@ Retrieve a list of vcards (virtual credit cards) issued for an organization. Use
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.query.list_vcards_org(
     org_id=123,
     from_record=251,
@@ -25998,7 +24230,7 @@ List of comparison accepted - enclosed between parentheses:
 </details>
 
 ## Statistic
-<details><summary><code>client.statistic.<a href="src/payabli/statistic/client.py">basic_stats</a>(...) -&gt; AsyncHttpResponse[typing.List[StatBasicExtendedQueryRecord]]</code></summary>
+<details><summary><code>client.statistic.<a href="src/payabli/statistic/client.py">basic_stats</a>(...) -> typing.List[StatBasicExtendedQueryRecord]</code></summary>
 <dl>
 <dd>
 
@@ -26026,10 +24258,13 @@ Retrieves the basic statistics for an organization or a paypoint, for a given ti
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.statistic.basic_stats(
     entry_id=1000000,
     freq="m",
@@ -26164,7 +24399,7 @@ Valid formats:
 </dl>
 </details>
 
-<details><summary><code>client.statistic.<a href="src/payabli/statistic/client.py">customer_basic_stats</a>(...) -&gt; AsyncHttpResponse[typing.List[SubscriptionStatsQueryRecord]]</code></summary>
+<details><summary><code>client.statistic.<a href="src/payabli/statistic/client.py">customer_basic_stats</a>(...) -> typing.List[SubscriptionStatsQueryRecord]</code></summary>
 <dl>
 <dd>
 
@@ -26192,10 +24427,13 @@ Retrieves the basic statistics for a customer for a specific time period, groupe
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.statistic.customer_basic_stats(
     customer_id=998,
     freq="m",
@@ -26283,7 +24521,7 @@ For example, `w` groups the results by week.
 </dl>
 </details>
 
-<details><summary><code>client.statistic.<a href="src/payabli/statistic/client.py">sub_stats</a>(...) -&gt; AsyncHttpResponse[typing.List[StatBasicQueryRecord]]</code></summary>
+<details><summary><code>client.statistic.<a href="src/payabli/statistic/client.py">sub_stats</a>(...) -> typing.List[StatBasicQueryRecord]</code></summary>
 <dl>
 <dd>
 
@@ -26311,10 +24549,13 @@ Retrieves the subscription statistics for a given interval for a paypoint or org
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.statistic.sub_stats(
     entry_id=1000000,
     interval="30",
@@ -26391,7 +24632,7 @@ The entry level for the request:
 </dl>
 </details>
 
-<details><summary><code>client.statistic.<a href="src/payabli/statistic/client.py">vendor_basic_stats</a>(...) -&gt; AsyncHttpResponse[typing.List[StatisticsVendorQueryRecord]]</code></summary>
+<details><summary><code>client.statistic.<a href="src/payabli/statistic/client.py">vendor_basic_stats</a>(...) -> typing.List[StatisticsVendorQueryRecord]</code></summary>
 <dl>
 <dd>
 
@@ -26419,10 +24660,13 @@ Retrieve the basic statistics about a vendor for a given time period, grouped by
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.statistic.vendor_basic_stats(
     freq="m",
     id_vendor=1,
@@ -26511,7 +24755,7 @@ For example, `w` groups the results by week.
 </details>
 
 ## Subscription
-<details><summary><code>client.subscription.<a href="src/payabli/subscription/client.py">get_subscription</a>(...) -&gt; AsyncHttpResponse[SubscriptionQueryRecords]</code></summary>
+<details><summary><code>client.subscription.<a href="src/payabli/subscription/client.py">get_subscription</a>(...) -> SubscriptionQueryRecords</code></summary>
 <dl>
 <dd>
 
@@ -26539,10 +24783,13 @@ Retrieves a single subscription's details.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.subscription.get_subscription(
     sub_id=263,
 )
@@ -26581,7 +24828,7 @@ client.subscription.get_subscription(
 </dl>
 </details>
 
-<details><summary><code>client.subscription.<a href="src/payabli/subscription/client.py">new_subscription</a>(...) -&gt; AsyncHttpResponse[AddSubscriptionResponse]</code></summary>
+<details><summary><code>client.subscription.<a href="src/payabli/subscription/client.py">new_subscription</a>(...) -> AddSubscriptionResponse</code></summary>
 <dl>
 <dd>
 
@@ -26608,25 +24855,31 @@ Creates a subscription or scheduled payment to run at a specified time and frequ
 <dd>
 
 ```python
-from payabli import PaymentDetail, PayorDataRequest, ScheduleDetail, payabli
-from payabli.subscription import RequestSchedulePaymentMethodInitiator
+from payabli import payabli, PayorDataRequest, PaymentDetail, PayMethodCredit, ScheduleDetail
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.subscription.new_subscription(
     customer_data=PayorDataRequest(
         customer_id=4440,
     ),
     entry_point="f743aed24a",
     payment_details=PaymentDetail(
-        service_fee=0.0,
-        total_amount=100.0,
+        service_fee=0,
+        total_amount=100,
     ),
-    payment_method=RequestSchedulePaymentMethodInitiator(
-        initiator="merchant",
-        stored_method_id="4000e8c6-3add-4200-8ac2-9b8a4f8b1639-1323",
-        stored_method_usage_type="recurring",
+    payment_method=PayMethodCredit(
+        cardcvv="123",
+        cardexp="02/25",
+        card_holder="John Cassian",
+        cardnumber="4111111111111111",
+        cardzip="37615",
+        initiator="payor",
+        method="card",
     ),
     schedule_details=ScheduleDetail(
         end_date="03-20-2025",
@@ -26650,6 +24903,14 @@ client.subscription.new_subscription(
 <dl>
 <dd>
 
+**request:** `SubscriptionRequestBody` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **force_customer_creation:** `typing.Optional[ForceCustomerCreation]` 
     
 </dd>
@@ -26659,78 +24920,6 @@ client.subscription.new_subscription(
 <dd>
 
 **idempotency_key:** `typing.Optional[IdempotencyKey]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**customer_data:** `typing.Optional[PayorDataRequest]` — Object describing the customer/payor.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**entry_point:** `typing.Optional[Entrypointfield]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**invoice_data:** `typing.Optional[BillData]` — Object describing an Invoice linked to the subscription.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payment_details:** `typing.Optional[PaymentDetail]` — Object describing details of the payment. To skip the payment, set the `totalAmount` to 0. Payments will be paused until the amount is updated to a non-zero value. When `totalAmount` is set to 0, the `serviceFee` must also be set to 0.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payment_method:** `typing.Optional[RequestSchedulePaymentMethod]` — Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**schedule_details:** `typing.Optional[ScheduleDetail]` — Object describing the schedule for subscription.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**set_pause:** `typing.Optional[SetPause]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**source:** `typing.Optional[Source]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**subdomain:** `typing.Optional[Subdomain]` 
     
 </dd>
 </dl>
@@ -26750,7 +24939,7 @@ client.subscription.new_subscription(
 </dl>
 </details>
 
-<details><summary><code>client.subscription.<a href="src/payabli/subscription/client.py">remove_subscription</a>(...) -&gt; AsyncHttpResponse[RemoveSubscriptionResponse]</code></summary>
+<details><summary><code>client.subscription.<a href="src/payabli/subscription/client.py">remove_subscription</a>(...) -> RemoveSubscriptionResponse</code></summary>
 <dl>
 <dd>
 
@@ -26778,10 +24967,13 @@ Deletes a subscription, autopay, or recurring payment and prevents future charge
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.subscription.remove_subscription(
     sub_id=396,
 )
@@ -26820,7 +25012,7 @@ client.subscription.remove_subscription(
 </dl>
 </details>
 
-<details><summary><code>client.subscription.<a href="src/payabli/subscription/client.py">update_subscription</a>(...) -&gt; AsyncHttpResponse[UpdateSubscriptionResponse]</code></summary>
+<details><summary><code>client.subscription.<a href="src/payabli/subscription/client.py">update_subscription</a>(...) -> UpdateSubscriptionResponse</code></summary>
 <dl>
 <dd>
 
@@ -26847,23 +25039,17 @@ Updates a subscription's details.
 <dd>
 
 ```python
-from payabli import PaymentDetail, ScheduleDetail, payabli
+from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.subscription.update_subscription(
     sub_id=231,
-    payment_details=PaymentDetail(
-        service_fee=0.0,
-        total_amount=100.0,
-    ),
-    schedule_details=ScheduleDetail(
-        end_date="03-20-2025",
-        frequency="weekly",
-        plan_id=1,
-        start_date="09-20-2024",
-    ),
+    set_pause=True,
 )
 
 ```
@@ -26925,7 +25111,7 @@ client.subscription.update_subscription(
 </details>
 
 ## Templates
-<details><summary><code>client.templates.<a href="src/payabli/templates/client.py">delete_template</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseTemplateId]</code></summary>
+<details><summary><code>client.templates.<a href="src/payabli/templates/client.py">delete_template</a>(...) -> PayabliApiResponseTemplateId</code></summary>
 <dl>
 <dd>
 
@@ -26953,12 +25139,15 @@ Deletes a template by ID.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.templates.delete_template(
-    template_id=80.0,
+    template_id=80,
 )
 
 ```
@@ -26995,7 +25184,7 @@ client.templates.delete_template(
 </dl>
 </details>
 
-<details><summary><code>client.templates.<a href="src/payabli/templates/client.py">getlink_template</a>(...) -&gt; AsyncHttpResponse[BoardingLinkApiResponse]</code></summary>
+<details><summary><code>client.templates.<a href="src/payabli/templates/client.py">getlink_template</a>(...) -> BoardingLinkApiResponse</code></summary>
 <dl>
 <dd>
 
@@ -27023,13 +25212,16 @@ Generates a boarding link from a boarding template.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.templates.getlink_template(
     ignore_empty=True,
-    template_id=80.0,
+    template_id=80,
 )
 
 ```
@@ -27074,7 +25266,7 @@ client.templates.getlink_template(
 </dl>
 </details>
 
-<details><summary><code>client.templates.<a href="src/payabli/templates/client.py">get_template</a>(...) -&gt; AsyncHttpResponse[TemplateQueryRecord]</code></summary>
+<details><summary><code>client.templates.<a href="src/payabli/templates/client.py">get_template</a>(...) -> TemplateQueryRecord</code></summary>
 <dl>
 <dd>
 
@@ -27102,12 +25294,15 @@ Retrieves a boarding template's details by ID.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.templates.get_template(
-    template_id=80.0,
+    template_id=80,
 )
 
 ```
@@ -27144,7 +25339,7 @@ client.templates.get_template(
 </dl>
 </details>
 
-<details><summary><code>client.templates.<a href="src/payabli/templates/client.py">list_templates</a>(...) -&gt; AsyncHttpResponse[TemplateQueryResponse]</code></summary>
+<details><summary><code>client.templates.<a href="src/payabli/templates/client.py">list_templates</a>(...) -> TemplateQueryResponse</code></summary>
 <dl>
 <dd>
 
@@ -27172,10 +25367,13 @@ Retrieves a list of boarding templates for an organization. Use filters to limit
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.templates.list_templates(
     org_id=123,
     from_record=251,
@@ -27295,7 +25493,7 @@ Example: title(ct)=hoa return all records with title containing "hoa"
 </details>
 
 ## TokenStorage
-<details><summary><code>client.token_storage.<a href="src/payabli/token_storage/client.py">add_method</a>(...) -&gt; AsyncHttpResponse[AddMethodResponse]</code></summary>
+<details><summary><code>client.token_storage.<a href="src/payabli/token_storage/client.py">add_method</a>(...) -> AddMethodResponse</code></summary>
 <dl>
 <dd>
 
@@ -27322,27 +25520,32 @@ Saves a payment method for reuse. This call exchanges sensitive payment informat
 <dd>
 
 ```python
-from payabli import payabli
-from payabli.token_storage import TokenizeAch, VendorDataRequest
+from payabli import payabli, PayorDataRequest
+from payabli.environment import payabliEnvironment
+from payabli.token_storage import TokenizeCard
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.token_storage.add_method(
-    ach_validation=True,
+    customer_data=PayorDataRequest(
+        customer_id=4440,
+    ),
     entry_point="f743aed24a",
-    payment_method=TokenizeAch(
-        ach_account="1111111111111",
-        ach_account_type="Checking",
-        ach_code="WEB",
-        ach_holder="John Doe",
-        ach_holder_type="personal",
-        ach_routing="123456780",
-        method="ach",
+    fallback_auth=True,
+    fallback_auth_amount=100,
+    method_description="Primary Visa card",
+    payment_method=TokenizeCard(
+        cardcvv="123",
+        cardexp="02/25",
+        card_holder="John Doe",
+        cardnumber="4111111111111111",
+        cardzip="12345",
+        method="card",
     ),
-    vendor_data=VendorDataRequest(
-        vendor_id=7890,
-    ),
+    source="api",
 )
 
 ```
@@ -27355,6 +25558,14 @@ client.token_storage.add_method(
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**request:** `RequestTokenStorage` 
+    
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -27399,78 +25610,6 @@ client.token_storage.add_method(
 <dl>
 <dd>
 
-**customer_data:** `typing.Optional[PayorDataRequest]` — Object describing the Customer/Payor owner of payment method. Required for POST requests. Which fields are required depends on the paypoint's custom identifier settings. 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**entry_point:** `typing.Optional[Entrypointfield]` — Entrypoint identifier. Required for POST requests.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**fallback_auth:** `typing.Optional[bool]` — When `true`, if tokenization fails, Payabli will attempt an authorization transaction to request a permanent token for the card. If the authorization is successful, the card will be tokenized and the authorization will be voided automatically.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**fallback_auth_amount:** `typing.Optional[int]` — The amount for the `fallbackAuth` transaction. Defaults to one dollar (`100`).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**method_description:** `typing.Optional[str]` — Custom description for stored payment method.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payment_method:** `typing.Optional[RequestTokenStoragePaymentMethod]` — Information about the payment method for the transaction.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**vendor_data:** `typing.Optional[VendorDataRequest]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**source:** `typing.Optional[Source]` — Custom identifier to indicate the source for the request
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**subdomain:** `typing.Optional[Subdomain]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -27483,7 +25622,7 @@ client.token_storage.add_method(
 </dl>
 </details>
 
-<details><summary><code>client.token_storage.<a href="src/payabli/token_storage/client.py">get_method</a>(...) -&gt; AsyncHttpResponse[GetMethodResponse]</code></summary>
+<details><summary><code>client.token_storage.<a href="src/payabli/token_storage/client.py">get_method</a>(...) -> GetMethodResponse</code></summary>
 <dl>
 <dd>
 
@@ -27511,12 +25650,15 @@ Retrieves details for a saved payment method.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.token_storage.get_method(
-    method_id="749e236c-59a3-49c7-ab47-73e06f9e94aa-199689",
+    method_id="32-8877drt00045632-678",
     card_expiration_format=1,
     include_temporary=False,
 )
@@ -27581,7 +25723,7 @@ Accepted values:
 </dl>
 </details>
 
-<details><summary><code>client.token_storage.<a href="src/payabli/token_storage/client.py">remove_method</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponsePaymethodDelete]</code></summary>
+<details><summary><code>client.token_storage.<a href="src/payabli/token_storage/client.py">remove_method</a>(...) -> PayabliApiResponsePaymethodDelete</code></summary>
 <dl>
 <dd>
 
@@ -27609,10 +25751,13 @@ Deletes a saved payment method.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.token_storage.remove_method(
     method_id="32-8877drt00045632-678",
 )
@@ -27651,7 +25796,7 @@ client.token_storage.remove_method(
 </dl>
 </details>
 
-<details><summary><code>client.token_storage.<a href="src/payabli/token_storage/client.py">update_method</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponsePaymethodDelete]</code></summary>
+<details><summary><code>client.token_storage.<a href="src/payabli/token_storage/client.py">update_method</a>(...) -> PayabliApiResponsePaymethodDelete</code></summary>
 <dl>
 <dd>
 
@@ -27678,29 +25823,29 @@ Updates a saved payment method.
 <dd>
 
 ```python
-from payabli import PayorDataRequest, payabli
-from payabli.token_storage import TokenizeAch, VendorDataRequest
+from payabli import payabli, PayorDataRequest
+from payabli.environment import payabliEnvironment
+from payabli.token_storage import TokenizeCard
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.token_storage.update_method(
     method_id="32-8877drt00045632-678",
     customer_data=PayorDataRequest(
         customer_id=4440,
     ),
     entry_point="f743aed24a",
-    payment_method=TokenizeAch(
-        ach_account="1111111111111",
-        ach_account_type="Checking",
-        ach_code="WEB",
-        ach_holder="John Doe",
-        ach_holder_type="personal",
-        ach_routing="123456780",
-        method="ach",
-    ),
-    vendor_data=VendorDataRequest(
-        vendor_id=7890,
+    fallback_auth=True,
+    payment_method=TokenizeCard(
+        cardcvv="123",
+        cardexp="02/25",
+        card_holder="John Doe",
+        cardnumber="4111111111111111",
+        cardzip="12345",
+        method="card",
     ),
 )
 
@@ -27726,79 +25871,15 @@ client.token_storage.update_method(
 <dl>
 <dd>
 
+**request:** `RequestTokenStorage` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **ach_validation:** `typing.Optional[AchValidation]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**customer_data:** `typing.Optional[PayorDataRequest]` — Object describing the Customer/Payor owner of payment method. Required for POST requests. Which fields are required depends on the paypoint's custom identifier settings. 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**entry_point:** `typing.Optional[Entrypointfield]` — Entrypoint identifier. Required for POST requests.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**fallback_auth:** `typing.Optional[bool]` — When `true`, if tokenization fails, Payabli will attempt an authorization transaction to request a permanent token for the card. If the authorization is successful, the card will be tokenized and the authorization will be voided automatically.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**fallback_auth_amount:** `typing.Optional[int]` — The amount for the `fallbackAuth` transaction. Defaults to one dollar (`100`).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**method_description:** `typing.Optional[str]` — Custom description for stored payment method.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payment_method:** `typing.Optional[RequestTokenStoragePaymentMethod]` — Information about the payment method for the transaction.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**vendor_data:** `typing.Optional[VendorDataRequest]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**source:** `typing.Optional[Source]` — Custom identifier to indicate the source for the request
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**subdomain:** `typing.Optional[Subdomain]` 
     
 </dd>
 </dl>
@@ -27819,7 +25900,7 @@ client.token_storage.update_method(
 </details>
 
 ## User
-<details><summary><code>client.user.<a href="src/payabli/user/client.py">add_user</a>(...) -&gt; AsyncHttpResponse[AddUserResponse]</code></summary>
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">add_user</a>(...) -> AddUserResponse</code></summary>
 <dl>
 <dd>
 
@@ -27847,10 +25928,13 @@ Use this endpoint to add a new user to an organization.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.user.add_user()
 
 ```
@@ -27867,87 +25951,7 @@ client.user.add_user()
 <dl>
 <dd>
 
-**access:** `typing.Optional[typing.Sequence[UsrAccess]]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**additional_data:** `typing.Optional[AdditionalData]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**email:** `typing.Optional[Email]` — The user's email address.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**language:** `typing.Optional[Language]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**mfa_data:** `typing.Optional[MfaData]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**name:** `typing.Optional[NameUser]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**phone:** `typing.Optional[PhoneNumber]` — The user's phone number.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**pwd:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**scope:** `typing.Optional[typing.Sequence[OrgScope]]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**time_zone:** `typing.Optional[Timezone]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**usr_status:** `typing.Optional[UsrStatus]` 
+**request:** `UserData` 
     
 </dd>
 </dl>
@@ -27967,7 +25971,7 @@ client.user.add_user()
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/payabli/user/client.py">auth_refresh_user</a>() -&gt; AsyncHttpResponse[PayabliApiResponseUserMfa]</code></summary>
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">auth_refresh_user</a>() -> PayabliApiResponseUserMfa</code></summary>
 <dl>
 <dd>
 
@@ -27995,10 +25999,13 @@ Use this endpoint to refresh the authentication token for a user within an organ
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.user.auth_refresh_user()
 
 ```
@@ -28027,7 +26034,7 @@ client.user.auth_refresh_user()
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/payabli/user/client.py">auth_reset_user</a>(...) -&gt; AsyncHttpResponse[AuthResetUserResponse]</code></summary>
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">auth_reset_user</a>(...) -> AuthResetUserResponse</code></summary>
 <dl>
 <dd>
 
@@ -28055,10 +26062,13 @@ Use this endpoint to initiate a password reset for a user within an organization
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.user.auth_reset_user()
 
 ```
@@ -28111,7 +26121,7 @@ client.user.auth_reset_user()
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/payabli/user/client.py">auth_user</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseMfaBasic]</code></summary>
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">auth_user</a>(...) -> PayabliApiResponseMfaBasic</code></summary>
 <dl>
 <dd>
 
@@ -28139,10 +26149,13 @@ This endpoint requires an application API token.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.user.auth_user(
     provider="provider",
 )
@@ -28229,7 +26242,7 @@ client.user.auth_user(
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/payabli/user/client.py">change_psw_user</a>(...) -&gt; AsyncHttpResponse[ChangePswUserResponse]</code></summary>
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">change_psw_user</a>(...) -> ChangePswUserResponse</code></summary>
 <dl>
 <dd>
 
@@ -28257,10 +26270,13 @@ Use this endpoint to change the password for a user within an organization.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.user.change_psw_user()
 
 ```
@@ -28297,7 +26313,7 @@ client.user.change_psw_user()
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/payabli/user/client.py">delete_user</a>(...) -&gt; AsyncHttpResponse[DeleteUserResponse]</code></summary>
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">delete_user</a>(...) -> DeleteUserResponse</code></summary>
 <dl>
 <dd>
 
@@ -28325,10 +26341,13 @@ Use this endpoint to delete a specific user within an organization.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.user.delete_user(
     user_id=1000000,
 )
@@ -28367,7 +26386,7 @@ client.user.delete_user(
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/payabli/user/client.py">edit_mfa_user</a>(...) -&gt; AsyncHttpResponse[EditMfaUserResponse]</code></summary>
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">edit_mfa_user</a>(...) -> EditMfaUserResponse</code></summary>
 <dl>
 <dd>
 
@@ -28395,10 +26414,13 @@ Use this endpoint to enable or disable multi-factor authentication (MFA) for a u
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.user.edit_mfa_user(
     user_id=1000000,
 )
@@ -28425,15 +26447,7 @@ client.user.edit_mfa_user(
 <dl>
 <dd>
 
-**mfa:** `typing.Optional[bool]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**mfa_mode:** `typing.Optional[MfaMode]` 
+**request:** `MfaData` 
     
 </dd>
 </dl>
@@ -28453,7 +26467,7 @@ client.user.edit_mfa_user(
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/payabli/user/client.py">edit_user</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponse]</code></summary>
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">edit_user</a>(...) -> PayabliApiResponse</code></summary>
 <dl>
 <dd>
 
@@ -28481,10 +26495,13 @@ Use this endpoint to modify the details of a specific user within an organizatio
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.user.edit_user(
     user_id=1000000,
 )
@@ -28511,87 +26528,7 @@ client.user.edit_user(
 <dl>
 <dd>
 
-**access:** `typing.Optional[typing.Sequence[UsrAccess]]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**additional_data:** `typing.Optional[AdditionalData]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**email:** `typing.Optional[Email]` — The user's email address.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**language:** `typing.Optional[Language]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**mfa_data:** `typing.Optional[MfaData]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**name:** `typing.Optional[NameUser]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**phone:** `typing.Optional[PhoneNumber]` — The user's phone number.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**pwd:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**scope:** `typing.Optional[typing.Sequence[OrgScope]]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**time_zone:** `typing.Optional[Timezone]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**usr_status:** `typing.Optional[UsrStatus]` 
+**request:** `UserData` 
     
 </dd>
 </dl>
@@ -28611,7 +26548,7 @@ client.user.edit_user(
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/payabli/user/client.py">get_user</a>(...) -&gt; AsyncHttpResponse[UserQueryRecord]</code></summary>
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">get_user</a>(...) -> UserQueryRecord</code></summary>
 <dl>
 <dd>
 
@@ -28639,10 +26576,13 @@ Use this endpoint to retrieve information about a specific user within an organi
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.user.get_user(
     user_id=1000000,
     entry="478ae1234",
@@ -28698,7 +26638,7 @@ client.user.get_user(
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/payabli/user/client.py">logout_user</a>() -&gt; AsyncHttpResponse[LogoutUserResponse]</code></summary>
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">logout_user</a>() -> LogoutUserResponse</code></summary>
 <dl>
 <dd>
 
@@ -28726,10 +26666,13 @@ Use this endpoint to log a user out from the system.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.user.logout_user()
 
 ```
@@ -28758,7 +26701,7 @@ client.user.logout_user()
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/payabli/user/client.py">resend_mfa_code</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseMfaBasic]</code></summary>
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">resend_mfa_code</a>(...) -> PayabliApiResponseMfaBasic</code></summary>
 <dl>
 <dd>
 
@@ -28786,10 +26729,13 @@ Resends the MFA code to the user via the selected MFA mode (email or SMS).
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.user.resend_mfa_code(
     entry="Entry",
     entry_type=1,
@@ -28846,7 +26792,7 @@ client.user.resend_mfa_code(
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/payabli/user/client.py">validate_mfa_user</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseUserMfa]</code></summary>
+<details><summary><code>client.user.<a href="src/payabli/user/client.py">validate_mfa_user</a>(...) -> PayabliApiResponseUserMfa</code></summary>
 <dl>
 <dd>
 
@@ -28874,10 +26820,13 @@ Use this endpoint to validate the multi-factor authentication (MFA) code for a u
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.user.validate_mfa_user()
 
 ```
@@ -28923,7 +26872,7 @@ client.user.validate_mfa_user()
 </details>
 
 ## Vendor
-<details><summary><code>client.vendor.<a href="src/payabli/vendor/client.py">add_vendor</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseVendors]</code></summary>
+<details><summary><code>client.vendor.<a href="src/payabli/vendor/client.py">add_vendor</a>(...) -> PayabliApiResponseVendors</code></summary>
 <dl>
 <dd>
 
@@ -28950,15 +26899,18 @@ Creates a vendor in an entrypoint.
 <dd>
 
 ```python
-from payabli import BillingData, Contacts, payabli
+from payabli import payabli, Contacts, BillingData
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.vendor.add_vendor(
     entry="8cfec329267",
     vendor_number="1234",
-    name_1="Herman's Coatings and Masonry",
+    name_1="Herman\'s Coatings and Masonry",
     name_2="<string>",
     ein="12-3456789",
     phone="5555555555",
@@ -29025,255 +26977,7 @@ client.vendor.add_vendor(
 <dl>
 <dd>
 
-**vendor_number:** `typing.Optional[VendorNumber]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**additional_data:** `typing.Optional[AdditionalData]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**address_1:** `typing.Optional[AddressNullable]` — Vendor's address
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**address_2:** `typing.Optional[AddressAddtlNullable]` — Additional line for vendor's address.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**billing_data:** `typing.Optional[BillingData]` — Object containing vendor's bank information.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**city:** `typing.Optional[str]` — Vendor's city.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**contacts:** `typing.Optional[ContactsField]` — Array of objects describing the vendor's contacts.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**country:** `typing.Optional[str]` — Vendor's country.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**custom_field_1:** `typing.Optional[str]` — Custom field 1 for vendor
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**custom_field_2:** `typing.Optional[str]` — Custom field 2 for vendor
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**customer_vendor_account:** `typing.Optional[str]` — Account number of paypoint in the vendor side.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**ein:** `typing.Optional[VendorEin]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**email:** `typing.Optional[Email]` — Vendor's email address. Required for vCard.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**internal_reference_id:** `typing.Optional[int]` — Internal identifier for global vendor account.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**location_code:** `typing.Optional[LocationCode]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**mcc:** `typing.Optional[Mcc]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**name_1:** `typing.Optional[VendorName1]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**name_2:** `typing.Optional[VendorName2]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payee_name_1:** `typing.Optional[PayeeName]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payee_name_2:** `typing.Optional[PayeeName]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payment_method:** `typing.Optional[VendorPaymentMethodString]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**phone:** `typing.Optional[VendorPhone]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remit_address_1:** `typing.Optional[Remitaddress1]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remit_address_2:** `typing.Optional[Remitaddress2]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remit_city:** `typing.Optional[Remitcity]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remit_country:** `typing.Optional[Remitcountry]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remit_email:** `typing.Optional[RemitEmail]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remit_state:** `typing.Optional[Remitstate]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remit_zip:** `typing.Optional[Remitzip]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**state:** `typing.Optional[str]` — Vendor's state. Must be a 2 character state code.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**vendor_status:** `typing.Optional[Vendorstatus]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**zip:** `typing.Optional[str]` — Vendor's zip code.
+**request:** `VendorData` 
     
 </dd>
 </dl>
@@ -29293,7 +26997,7 @@ client.vendor.add_vendor(
 </dl>
 </details>
 
-<details><summary><code>client.vendor.<a href="src/payabli/vendor/client.py">delete_vendor</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseVendors]</code></summary>
+<details><summary><code>client.vendor.<a href="src/payabli/vendor/client.py">delete_vendor</a>(...) -> PayabliApiResponseVendors</code></summary>
 <dl>
 <dd>
 
@@ -29321,10 +27025,13 @@ Delete a vendor.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.vendor.delete_vendor(
     id_vendor=1,
 )
@@ -29363,7 +27070,7 @@ client.vendor.delete_vendor(
 </dl>
 </details>
 
-<details><summary><code>client.vendor.<a href="src/payabli/vendor/client.py">edit_vendor</a>(...) -&gt; AsyncHttpResponse[PayabliApiResponseVendors]</code></summary>
+<details><summary><code>client.vendor.<a href="src/payabli/vendor/client.py">edit_vendor</a>(...) -> PayabliApiResponseVendors</code></summary>
 <dl>
 <dd>
 
@@ -29391,13 +27098,16 @@ Updates a vendor's information. Send only the fields you need to update.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.vendor.edit_vendor(
     id_vendor=1,
-    name_1="Theodore's Janitorial",
+    name_1="Theodore\'s Janitorial",
 )
 
 ```
@@ -29422,255 +27132,7 @@ client.vendor.edit_vendor(
 <dl>
 <dd>
 
-**vendor_number:** `typing.Optional[VendorNumber]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**additional_data:** `typing.Optional[AdditionalData]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**address_1:** `typing.Optional[AddressNullable]` — Vendor's address
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**address_2:** `typing.Optional[AddressAddtlNullable]` — Additional line for vendor's address.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**billing_data:** `typing.Optional[BillingData]` — Object containing vendor's bank information.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**city:** `typing.Optional[str]` — Vendor's city.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**contacts:** `typing.Optional[ContactsField]` — Array of objects describing the vendor's contacts.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**country:** `typing.Optional[str]` — Vendor's country.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**custom_field_1:** `typing.Optional[str]` — Custom field 1 for vendor
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**custom_field_2:** `typing.Optional[str]` — Custom field 2 for vendor
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**customer_vendor_account:** `typing.Optional[str]` — Account number of paypoint in the vendor side.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**ein:** `typing.Optional[VendorEin]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**email:** `typing.Optional[Email]` — Vendor's email address. Required for vCard.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**internal_reference_id:** `typing.Optional[int]` — Internal identifier for global vendor account.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**location_code:** `typing.Optional[LocationCode]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**mcc:** `typing.Optional[Mcc]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**name_1:** `typing.Optional[VendorName1]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**name_2:** `typing.Optional[VendorName2]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payee_name_1:** `typing.Optional[PayeeName]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payee_name_2:** `typing.Optional[PayeeName]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payment_method:** `typing.Optional[VendorPaymentMethodString]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**phone:** `typing.Optional[VendorPhone]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remit_address_1:** `typing.Optional[Remitaddress1]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remit_address_2:** `typing.Optional[Remitaddress2]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remit_city:** `typing.Optional[Remitcity]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remit_country:** `typing.Optional[Remitcountry]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remit_email:** `typing.Optional[RemitEmail]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remit_state:** `typing.Optional[Remitstate]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remit_zip:** `typing.Optional[Remitzip]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**state:** `typing.Optional[str]` — Vendor's state. Must be a 2 character state code.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**vendor_status:** `typing.Optional[Vendorstatus]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**zip:** `typing.Optional[str]` — Vendor's zip code.
+**request:** `VendorData` 
     
 </dd>
 </dl>
@@ -29690,7 +27152,7 @@ client.vendor.edit_vendor(
 </dl>
 </details>
 
-<details><summary><code>client.vendor.<a href="src/payabli/vendor/client.py">get_vendor</a>(...) -&gt; AsyncHttpResponse[VendorQueryRecord]</code></summary>
+<details><summary><code>client.vendor.<a href="src/payabli/vendor/client.py">get_vendor</a>(...) -> VendorQueryRecord</code></summary>
 <dl>
 <dd>
 
@@ -29718,10 +27180,13 @@ Retrieves a vendor's details.
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.vendor.get_vendor(
     id_vendor=1,
 )
@@ -29761,7 +27226,7 @@ client.vendor.get_vendor(
 </details>
 
 ## Wallet
-<details><summary><code>client.wallet.<a href="src/payabli/wallet/client.py">configure_apple_pay_organization</a>(...) -&gt; AsyncHttpResponse[ConfigureApplePayOrganizationApiResponse]</code></summary>
+<details><summary><code>client.wallet.<a href="src/payabli/wallet/client.py">configure_apple_pay_organization</a>(...) -> ConfigureApplePayOrganizationApiResponse</code></summary>
 <dl>
 <dd>
 
@@ -29789,10 +27254,13 @@ Configure and activate Apple Pay for a Payabli organization
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.wallet.configure_apple_pay_organization(
     cascade=True,
     is_enabled=True,
@@ -29849,7 +27317,7 @@ client.wallet.configure_apple_pay_organization(
 </dl>
 </details>
 
-<details><summary><code>client.wallet.<a href="src/payabli/wallet/client.py">configure_apple_pay_paypoint</a>(...) -&gt; AsyncHttpResponse[ConfigureApplePaypointApiResponse]</code></summary>
+<details><summary><code>client.wallet.<a href="src/payabli/wallet/client.py">configure_apple_pay_paypoint</a>(...) -> ConfigureApplePaypointApiResponse</code></summary>
 <dl>
 <dd>
 
@@ -29877,10 +27345,13 @@ Configure and activate Apple Pay for a Payabli paypoint
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.wallet.configure_apple_pay_paypoint(
     entry="8cfec329267",
     is_enabled=True,
@@ -29928,7 +27399,7 @@ client.wallet.configure_apple_pay_paypoint(
 </dl>
 </details>
 
-<details><summary><code>client.wallet.<a href="src/payabli/wallet/client.py">configure_google_pay_organization</a>(...) -&gt; AsyncHttpResponse[ConfigureApplePayOrganizationApiResponse]</code></summary>
+<details><summary><code>client.wallet.<a href="src/payabli/wallet/client.py">configure_google_pay_organization</a>(...) -> ConfigureApplePayOrganizationApiResponse</code></summary>
 <dl>
 <dd>
 
@@ -29956,10 +27427,13 @@ Configure and activate Google Pay for a Payabli organization
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.wallet.configure_google_pay_organization(
     cascade=True,
     is_enabled=True,
@@ -30016,7 +27490,7 @@ client.wallet.configure_google_pay_organization(
 </dl>
 </details>
 
-<details><summary><code>client.wallet.<a href="src/payabli/wallet/client.py">configure_google_pay_paypoint</a>(...) -&gt; AsyncHttpResponse[ConfigureGooglePaypointApiResponse]</code></summary>
+<details><summary><code>client.wallet.<a href="src/payabli/wallet/client.py">configure_google_pay_paypoint</a>(...) -> ConfigureGooglePaypointApiResponse</code></summary>
 <dl>
 <dd>
 
@@ -30044,10 +27518,13 @@ Configure and activate Google Pay for a Payabli paypoint
 
 ```python
 from payabli import payabli
+from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="YOUR_API_KEY",
+    api_key="<value>",
+    environment=payabliEnvironment.SANDBOX,
 )
+
 client.wallet.configure_google_pay_paypoint(
     entry="8cfec329267",
     is_enabled=True,

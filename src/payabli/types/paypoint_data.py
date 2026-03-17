@@ -24,6 +24,7 @@ from .paypointstatus import Paypointstatus
 from .phone_number import PhoneNumber
 from .services import Services
 from .state_nullable import StateNullable
+from .statement_email_config import StatementEmailConfig
 from .timezone import Timezone
 from .website import Website
 from .zip import Zip
@@ -84,6 +85,14 @@ class PaypointData(UniversalBaseModel):
         typing.Optional[Website], FieldMetadata(alias="websiteAddress"), pydantic.Field(alias="websiteAddress")
     ] = None
     zip: typing.Optional[Zip] = None
+    statement_email: typing_extensions.Annotated[
+        typing.Optional[StatementEmailConfig],
+        FieldMetadata(alias="statementEmail"),
+        pydantic.Field(
+            alias="statementEmail",
+            description="Configuration for billing statement email recipients and sender address. `null` if not configured.",
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

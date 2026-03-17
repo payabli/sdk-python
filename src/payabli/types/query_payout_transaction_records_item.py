@@ -51,7 +51,7 @@ class QueryPayoutTransactionRecordsItem(UniversalBaseModel):
     bills: typing_extensions.Annotated[
         typing.Optional[typing.List[BillPayOutData]],
         FieldMetadata(alias="Bills"),
-        pydantic.Field(alias="Bills", description="Events associated with this transaction."),
+        pydantic.Field(alias="Bills", description="Bills associated with this transaction."),
     ] = None
     card_token: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="CardToken"), pydantic.Field(alias="CardToken")

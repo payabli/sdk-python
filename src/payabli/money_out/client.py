@@ -9,11 +9,13 @@ from ..money_out_types.types.auth_capture_payout_response import AuthCapturePayo
 from ..money_out_types.types.authorize_payment_method import AuthorizePaymentMethod
 from ..money_out_types.types.capture_all_out_response import CaptureAllOutResponse
 from ..money_out_types.types.operation_result import OperationResult
+from ..money_out_types.types.reissue_payment_method import ReissuePaymentMethod
+from ..money_out_types.types.reissue_payout_response import ReissuePayoutResponse
 from ..money_out_types.types.request_out_authorize_invoice_data import RequestOutAuthorizeInvoiceData
 from ..money_out_types.types.request_out_authorize_payment_details import RequestOutAuthorizePaymentDetails
 from ..money_out_types.types.request_out_authorize_vendor_data import RequestOutAuthorizeVendorData
 from ..money_out_types.types.v_card_get_response import VCardGetResponse
-from ..types.accountid import Accountid
+from ..types.account_id import AccountId
 from ..types.bill_detail_response import BillDetailResponse
 from ..types.entrypointfield import Entrypointfield
 from ..types.idempotency_key import IdempotencyKey
@@ -60,7 +62,7 @@ class MoneyOutClient:
         source: typing.Optional[Source] = OMIT,
         order_id: typing.Optional[OrderId] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
-        account_id: typing.Optional[Accountid] = OMIT,
+        account_id: typing.Optional[AccountId] = OMIT,
         subdomain: typing.Optional[Subdomain] = OMIT,
         subscription_id: typing.Optional[Subscriptionid] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -100,7 +102,7 @@ class MoneyOutClient:
 
         order_description : typing.Optional[Orderdescription]
 
-        account_id : typing.Optional[Accountid]
+        account_id : typing.Optional[AccountId]
 
         subdomain : typing.Optional[Subdomain]
 
@@ -540,6 +542,66 @@ class MoneyOutClient:
         )
         return _response.data
 
+    def reissue_out(
+        self,
+        *,
+        trans_id: str,
+        payment_method: ReissuePaymentMethod,
+        idempotency_key: typing.Optional[IdempotencyKey] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ReissuePayoutResponse:
+        """
+        Reissues a payout transaction with a new payment method. This creates a new transaction linked to the original and marks the original transaction as reissued.
+
+        The original transaction must be in **Processing** or **Processed** status. The payment method in the request body is used directly. The endpoint doesn't fall back to vendor-managed payment methods.
+
+        The new transaction goes through the standard authorize-and-capture flow automatically. Both the original and new transactions are linked through their event histories for audit purposes.
+
+        Parameters
+        ----------
+        trans_id : str
+            The transaction ID of the payout to reissue.
+
+        payment_method : ReissuePaymentMethod
+
+        idempotency_key : typing.Optional[IdempotencyKey]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ReissuePayoutResponse
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+        from payabli.money_out_types import ReissuePaymentMethod
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.money_out.reissue_out(
+            trans_id="129-219",
+            payment_method=ReissuePaymentMethod(
+                method="ach",
+                ach_account="9876543210",
+                ach_account_type="savings",
+                ach_routing="021000021",
+                ach_holder="Acme Corp",
+                ach_holder_type="business",
+            ),
+        )
+        """
+        _response = self._raw_client.reissue_out(
+            trans_id=trans_id,
+            payment_method=payment_method,
+            idempotency_key=idempotency_key,
+            request_options=request_options,
+        )
+        return _response.data
+
 
 class AsyncMoneyOutClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -571,7 +633,7 @@ class AsyncMoneyOutClient:
         source: typing.Optional[Source] = OMIT,
         order_id: typing.Optional[OrderId] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
-        account_id: typing.Optional[Accountid] = OMIT,
+        account_id: typing.Optional[AccountId] = OMIT,
         subdomain: typing.Optional[Subdomain] = OMIT,
         subscription_id: typing.Optional[Subscriptionid] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -611,7 +673,7 @@ class AsyncMoneyOutClient:
 
         order_description : typing.Optional[Orderdescription]
 
-        account_id : typing.Optional[Accountid]
+        account_id : typing.Optional[AccountId]
 
         subdomain : typing.Optional[Subdomain]
 
@@ -1136,5 +1198,73 @@ class AsyncMoneyOutClient:
         """
         _response = await self._raw_client.update_check_payment_status(
             trans_id, check_payment_status, request_options=request_options
+        )
+        return _response.data
+
+    async def reissue_out(
+        self,
+        *,
+        trans_id: str,
+        payment_method: ReissuePaymentMethod,
+        idempotency_key: typing.Optional[IdempotencyKey] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ReissuePayoutResponse:
+        """
+        Reissues a payout transaction with a new payment method. This creates a new transaction linked to the original and marks the original transaction as reissued.
+
+        The original transaction must be in **Processing** or **Processed** status. The payment method in the request body is used directly. The endpoint doesn't fall back to vendor-managed payment methods.
+
+        The new transaction goes through the standard authorize-and-capture flow automatically. Both the original and new transactions are linked through their event histories for audit purposes.
+
+        Parameters
+        ----------
+        trans_id : str
+            The transaction ID of the payout to reissue.
+
+        payment_method : ReissuePaymentMethod
+
+        idempotency_key : typing.Optional[IdempotencyKey]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ReissuePayoutResponse
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+        from payabli.money_out_types import ReissuePaymentMethod
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.money_out.reissue_out(
+                trans_id="129-219",
+                payment_method=ReissuePaymentMethod(
+                    method="ach",
+                    ach_account="9876543210",
+                    ach_account_type="savings",
+                    ach_routing="021000021",
+                    ach_holder="Acme Corp",
+                    ach_holder_type="business",
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.reissue_out(
+            trans_id=trans_id,
+            payment_method=payment_method,
+            idempotency_key=idempotency_key,
+            request_options=request_options,
         )
         return _response.data

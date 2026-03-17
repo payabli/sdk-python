@@ -5,3 +5,6 @@ import typing
 from .file_content import FileContent
 
 Attachments = typing.List[FileContent]
+"""
+Array of `fileContent` objects with attached documents. Max upload size is 30 MB.
+"""

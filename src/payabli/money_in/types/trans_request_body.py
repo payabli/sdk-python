@@ -6,7 +6,7 @@ import pydantic
 import typing_extensions
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ...core.serialization import FieldMetadata
-from ...types.accountid import Accountid
+from ...types.account_id import AccountId
 from ...types.bill_data import BillData
 from ...types.entrypointfield import Entrypointfield
 from ...types.ip_address import IpAddress
@@ -49,7 +49,7 @@ class TransRequestBody(UniversalBaseModel):
     """
 
     account_id: typing_extensions.Annotated[
-        typing.Optional[Accountid], FieldMetadata(alias="accountId"), pydantic.Field(alias="accountId")
+        typing.Optional[AccountId], FieldMetadata(alias="accountId"), pydantic.Field(alias="accountId")
     ] = None
     customer_data: typing_extensions.Annotated[
         typing.Optional[PayorDataRequest],

@@ -5,3 +5,6 @@ import typing
 from .owners import Owners
 
 Ownership = typing.List[Owners]
+"""
+List of Owners with at least a 25% ownership.
+"""

@@ -3,3 +3,6 @@
 import datetime as dt
 
 ExpectedDepositDate = dt.datetime
+"""
+The date the funds are expected to be deposited.
+"""
