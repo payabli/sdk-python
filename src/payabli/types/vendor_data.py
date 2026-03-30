@@ -41,12 +41,18 @@ class VendorData(UniversalBaseModel):
     address_1: typing_extensions.Annotated[
         typing.Optional[AddressNullable],
         FieldMetadata(alias="address1"),
-        pydantic.Field(alias="address1", description="Vendor's address"),
+        pydantic.Field(
+            alias="address1",
+            description="Vendor's street address. If any address field is provided, this field is required along with `city`, `state`, and `zip`. Allowed characters are letters, numbers, spaces, and `. ,",
+        ),
     ] = None
     address_2: typing_extensions.Annotated[
         typing.Optional[AddressAddtlNullable],
         FieldMetadata(alias="address2"),
-        pydantic.Field(alias="address2", description="Additional line for vendor's address."),
+        pydantic.Field(
+            alias="address2",
+            description="Additional line for vendor's address, such as a suite or unit number. Always optional.",
+        ),
     ] = None
     billing_data: typing_extensions.Annotated[
         typing.Optional[BillingData],
@@ -55,7 +61,7 @@ class VendorData(UniversalBaseModel):
     ] = None
     city: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Vendor's city.
+    Vendor's city. Required if any address field is provided.
     """
 
     contacts: typing.Optional[ContactsField] = pydantic.Field(default=None)
@@ -65,7 +71,7 @@ class VendorData(UniversalBaseModel):
 
     country: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Vendor's country.
+    Vendor's country. Must be `US` or `CA`. Defaults to `US` if not provided.
     """
 
     custom_field_1: typing_extensions.Annotated[
@@ -139,7 +145,7 @@ class VendorData(UniversalBaseModel):
     ] = None
     state: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Vendor's state. Must be a 2 character state code.
+    Vendor's state or province. Required if any address field is provided. Must be a valid US state abbreviation (such as `CA`, `NY`) or Canadian province abbreviation (such as `ON`, `BC`), depending on the `country` value.
     """
 
     vendor_status: typing_extensions.Annotated[
@@ -147,7 +153,7 @@ class VendorData(UniversalBaseModel):
     ] = None
     zip: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Vendor's zip code.
+    Vendor's ZIP or postal code. Required if any address field is provided. For US addresses, use five digits (`12345`) or ZIP+4 format (`12345-6789`).
     """
 
     if IS_PYDANTIC_V2:

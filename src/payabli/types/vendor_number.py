@@ -2,5 +2,5 @@
 
 VendorNumber = str
 """
-Custom number identifying the vendor. Must be unique in paypoint.
+Custom number identifying the vendor. Must be unique in paypoint. Can't be blank.
 """

@@ -4,6 +4,7 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
+from ..payout_subscription.types.query_payout_subscription_response import QueryPayoutSubscriptionResponse
 from ..query_types.types.limit_record import LimitRecord
 from ..query_types.types.list_organizations_response import ListOrganizationsResponse
 from ..query_types.types.query_batches_detail_response import QueryBatchesDetailResponse
@@ -2755,6 +2756,263 @@ class QueryClient:
         )
         return _response.data
 
+    def list_payout_subscriptions(
+        self,
+        entry: Entry,
+        *,
+        export_format: typing.Optional[ExportFormat] = None,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> QueryPayoutSubscriptionResponse:
+        """
+        Returns a list of payout subscriptions for a single paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response. See [Manage payout subscriptions](/guides/pay-out-developer-payout-subscriptions-manage) for more information.
+
+        Parameters
+        ----------
+        entry : Entry
+
+        export_format : typing.Optional[ExportFormat]
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+
+            Collection of field names, conditions, and values used to filter the query.
+            <Info>
+              **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+              For example:
+
+              --url https://api-sandbox.payabli.com/api/Query/payoutsubscriptions/entry123?parameters=totalAmount(gt)=1000&limitRecord=20
+
+              should become:
+
+              --url https://api-sandbox.payabli.com/api/Query/payoutsubscriptions/entry123?totalAmount(gt)=1000&limitRecord=20
+            </Info>
+            See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
+            **List of field names accepted:**
+
+            - `startDate` (gt, ge, lt, le, eq, ne)
+            - `endDate` (gt, ge, lt, le, eq, ne)
+            - `nextDate` (gt, ge, lt, le, eq, ne)
+            - `frequency` (in, nin, ne, eq)
+            - `method` (in, nin, eq, ne)
+            - `totalAmount` (gt, ge, lt, le, eq, ne)
+            - `netAmount` (gt, ge, lt, le, eq, ne)
+            - `feeAmount` (gt, ge, lt, le, eq, ne)
+            - `status` (in, nin, eq, ne)
+            - `untilcancelled` (eq, ne)
+            - `payaccountLastfour` (ct, nct)
+            - `payaccountType` (ne, eq, in, nin)
+            - `payaccountCurrency` (ne, eq, in, nin)
+            - `paypointId` (ne, eq)
+            - `paypointLegal` (ne, eq, ct, nct)
+            - `paypointDba` (ne, eq, ct, nct)
+            - `orgName` (ne, eq, ct, nct, nin, in)
+            - `parentOrgId` (ne, eq, nin, in)
+            - `subscriptionId` (eq, ne)
+            - `orderDescription` (ct, nct)
+            - `cycles` (eq, ne, gt, ge, lt, le)
+            - `leftcycles` (eq, ne, gt, ge, lt, le)
+            - `createdAt` (eq, ne, gt, ge, lt, le)
+            - `updatedOn` (eq, ne, gt, ge, lt, le)
+            - `vendorNumber` (ne, eq, ct, nct)
+            - `name` (ne, eq, ct, nct)
+            - `phone` (ne, eq, ct, nct)
+            - `email` (ne, eq, ct, nct)
+            - `address` (ne, eq, ct, nct)
+            - `remitAddress` (ct, nct)
+            - `city` (ne, eq, ct, nct)
+            - `state` (ne, eq, ct, nct)
+            - `country` (ne, eq, ct, nct)
+            - `zip` (ne, eq, ct, nct)
+
+            **List of comparison operators accepted:**
+            - `eq` or empty => equal
+            - `gt` => greater than
+            - `ge` => greater or equal
+            - `lt` => less than
+            - `le` => less or equal
+            - `ne` => not equal
+            - `ct` => contains
+            - `nct` => not contains
+            - `in` => inside array
+            - `nin` => not inside array
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        QueryPayoutSubscriptionResponse
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.query.list_payout_subscriptions(
+            entry="8cfec329267",
+            from_record=0,
+            limit_record=20,
+            sort_by="desc(field_name)",
+        )
+        """
+        _response = self._raw_client.list_payout_subscriptions(
+            entry,
+            export_format=export_format,
+            from_record=from_record,
+            limit_record=limit_record,
+            parameters=parameters,
+            sort_by=sort_by,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def list_payout_subscriptions_org(
+        self,
+        org_id: int,
+        *,
+        export_format: typing.Optional[ExportFormat] = None,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> QueryPayoutSubscriptionResponse:
+        """
+        Returns a list of payout subscriptions for a single org. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response. See [Manage payout subscriptions](/guides/pay-out-developer-payout-subscriptions-manage) for more information.
+
+        Parameters
+        ----------
+        org_id : int
+            The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+
+            Collection of field names, conditions, and values used to filter the query.
+            <Info>
+              **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+              For example:
+
+              --url https://api-sandbox.payabli.com/api/Query/payoutsubscriptions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+              should become:
+
+              --url https://api-sandbox.payabli.com/api/Query/payoutsubscriptions/org/236?totalAmount(gt)=1000&limitRecord=20
+            </Info>
+            See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
+            **List of field names accepted:**
+
+            - `startDate` (gt, ge, lt, le, eq, ne)
+            - `endDate` (gt, ge, lt, le, eq, ne)
+            - `nextDate` (gt, ge, lt, le, eq, ne)
+            - `frequency` (in, nin, ne, eq)
+            - `method` (in, nin, eq, ne)
+            - `totalAmount` (gt, ge, lt, le, eq, ne)
+            - `netAmount` (gt, ge, lt, le, eq, ne)
+            - `feeAmount` (gt, ge, lt, le, eq, ne)
+            - `status` (in, nin, eq, ne)
+            - `untilcancelled` (eq, ne)
+            - `payaccountLastfour` (ct, nct)
+            - `payaccountType` (ne, eq, in, nin)
+            - `payaccountCurrency` (ne, eq, in, nin)
+            - `paypointId` (ne, eq)
+            - `paypointLegal` (ne, eq, ct, nct)
+            - `paypointDba` (ne, eq, ct, nct)
+            - `orgName` (ne, eq, ct, nct, nin, in)
+            - `parentOrgId` (ne, eq, nin, in)
+            - `subscriptionId` (eq, ne)
+            - `orderDescription` (ct, nct)
+            - `cycles` (eq, ne, gt, ge, lt, le)
+            - `leftcycles` (eq, ne, gt, ge, lt, le)
+            - `createdAt` (eq, ne, gt, ge, lt, le)
+            - `updatedOn` (eq, ne, gt, ge, lt, le)
+            - `vendorNumber` (ne, eq, ct, nct)
+            - `name` (ne, eq, ct, nct)
+            - `phone` (ne, eq, ct, nct)
+            - `email` (ne, eq, ct, nct)
+            - `address` (ne, eq, ct, nct)
+            - `remitAddress` (ct, nct)
+            - `city` (ne, eq, ct, nct)
+            - `state` (ne, eq, ct, nct)
+            - `country` (ne, eq, ct, nct)
+            - `zip` (ne, eq, ct, nct)
+
+            **List of comparison operators accepted:**
+            - `eq` or empty => equal
+            - `gt` => greater than
+            - `ge` => greater or equal
+            - `lt` => less than
+            - `le` => less or equal
+            - `ne` => not equal
+            - `ct` => contains
+            - `nct` => not contains
+            - `in` => inside array
+            - `nin` => not inside array
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        QueryPayoutSubscriptionResponse
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.query.list_payout_subscriptions_org(
+            org_id=123,
+            from_record=0,
+            limit_record=20,
+            sort_by="desc(field_name)",
+        )
+        """
+        _response = self._raw_client.list_payout_subscriptions_org(
+            org_id,
+            export_format=export_format,
+            from_record=from_record,
+            limit_record=limit_record,
+            parameters=parameters,
+            sort_by=sort_by,
+            request_options=request_options,
+        )
+        return _response.data
+
     def list_transactions(
         self,
         entry: Entry,
@@ -2770,9 +3028,8 @@ class QueryClient:
         Retrieve a list of transactions for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
         By default, this endpoint returns only transactions from the last 60 days. To query transactions outside of this period, include `transactionDate` filters.
         For example, this request parameters filter for transactions between April 01, 2024 and April 09, 2024. 
-        ``` curl --request GET \\
-          --url https://sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59\\
-          --header 'requestToken: <api-key>'
+        ``` curl -X GET https://sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59\\
+          -H 'requestToken: <API TOKEN>'
         
           ```
         
@@ -2932,9 +3189,8 @@ class QueryClient:
         For example, this request parameters filter for transactions between April 01, 2024 and April 09, 2024. 
         
         ```
-        curl --request GET \\
-          --url https://sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59\\
-          --header 'requestToken: <api-key>'
+        curl -X GET "https://sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59"\\
+          -H 'requestToken: <API TOKEN>'
         
           ```
         
@@ -7202,6 +7458,279 @@ class AsyncQueryClient:
         )
         return _response.data
 
+    async def list_payout_subscriptions(
+        self,
+        entry: Entry,
+        *,
+        export_format: typing.Optional[ExportFormat] = None,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> QueryPayoutSubscriptionResponse:
+        """
+        Returns a list of payout subscriptions for a single paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response. See [Manage payout subscriptions](/guides/pay-out-developer-payout-subscriptions-manage) for more information.
+
+        Parameters
+        ----------
+        entry : Entry
+
+        export_format : typing.Optional[ExportFormat]
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+
+            Collection of field names, conditions, and values used to filter the query.
+            <Info>
+              **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+              For example:
+
+              --url https://api-sandbox.payabli.com/api/Query/payoutsubscriptions/entry123?parameters=totalAmount(gt)=1000&limitRecord=20
+
+              should become:
+
+              --url https://api-sandbox.payabli.com/api/Query/payoutsubscriptions/entry123?totalAmount(gt)=1000&limitRecord=20
+            </Info>
+            See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
+            **List of field names accepted:**
+
+            - `startDate` (gt, ge, lt, le, eq, ne)
+            - `endDate` (gt, ge, lt, le, eq, ne)
+            - `nextDate` (gt, ge, lt, le, eq, ne)
+            - `frequency` (in, nin, ne, eq)
+            - `method` (in, nin, eq, ne)
+            - `totalAmount` (gt, ge, lt, le, eq, ne)
+            - `netAmount` (gt, ge, lt, le, eq, ne)
+            - `feeAmount` (gt, ge, lt, le, eq, ne)
+            - `status` (in, nin, eq, ne)
+            - `untilcancelled` (eq, ne)
+            - `payaccountLastfour` (ct, nct)
+            - `payaccountType` (ne, eq, in, nin)
+            - `payaccountCurrency` (ne, eq, in, nin)
+            - `paypointId` (ne, eq)
+            - `paypointLegal` (ne, eq, ct, nct)
+            - `paypointDba` (ne, eq, ct, nct)
+            - `orgName` (ne, eq, ct, nct, nin, in)
+            - `parentOrgId` (ne, eq, nin, in)
+            - `subscriptionId` (eq, ne)
+            - `orderDescription` (ct, nct)
+            - `cycles` (eq, ne, gt, ge, lt, le)
+            - `leftcycles` (eq, ne, gt, ge, lt, le)
+            - `createdAt` (eq, ne, gt, ge, lt, le)
+            - `updatedOn` (eq, ne, gt, ge, lt, le)
+            - `vendorNumber` (ne, eq, ct, nct)
+            - `name` (ne, eq, ct, nct)
+            - `phone` (ne, eq, ct, nct)
+            - `email` (ne, eq, ct, nct)
+            - `address` (ne, eq, ct, nct)
+            - `remitAddress` (ct, nct)
+            - `city` (ne, eq, ct, nct)
+            - `state` (ne, eq, ct, nct)
+            - `country` (ne, eq, ct, nct)
+            - `zip` (ne, eq, ct, nct)
+
+            **List of comparison operators accepted:**
+            - `eq` or empty => equal
+            - `gt` => greater than
+            - `ge` => greater or equal
+            - `lt` => less than
+            - `le` => less or equal
+            - `ne` => not equal
+            - `ct` => contains
+            - `nct` => not contains
+            - `in` => inside array
+            - `nin` => not inside array
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        QueryPayoutSubscriptionResponse
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.query.list_payout_subscriptions(
+                entry="8cfec329267",
+                from_record=0,
+                limit_record=20,
+                sort_by="desc(field_name)",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_payout_subscriptions(
+            entry,
+            export_format=export_format,
+            from_record=from_record,
+            limit_record=limit_record,
+            parameters=parameters,
+            sort_by=sort_by,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def list_payout_subscriptions_org(
+        self,
+        org_id: int,
+        *,
+        export_format: typing.Optional[ExportFormat] = None,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> QueryPayoutSubscriptionResponse:
+        """
+        Returns a list of payout subscriptions for a single org. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response. See [Manage payout subscriptions](/guides/pay-out-developer-payout-subscriptions-manage) for more information.
+
+        Parameters
+        ----------
+        org_id : int
+            The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+
+            Collection of field names, conditions, and values used to filter the query.
+            <Info>
+              **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+              For example:
+
+              --url https://api-sandbox.payabli.com/api/Query/payoutsubscriptions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+              should become:
+
+              --url https://api-sandbox.payabli.com/api/Query/payoutsubscriptions/org/236?totalAmount(gt)=1000&limitRecord=20
+            </Info>
+            See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
+            **List of field names accepted:**
+
+            - `startDate` (gt, ge, lt, le, eq, ne)
+            - `endDate` (gt, ge, lt, le, eq, ne)
+            - `nextDate` (gt, ge, lt, le, eq, ne)
+            - `frequency` (in, nin, ne, eq)
+            - `method` (in, nin, eq, ne)
+            - `totalAmount` (gt, ge, lt, le, eq, ne)
+            - `netAmount` (gt, ge, lt, le, eq, ne)
+            - `feeAmount` (gt, ge, lt, le, eq, ne)
+            - `status` (in, nin, eq, ne)
+            - `untilcancelled` (eq, ne)
+            - `payaccountLastfour` (ct, nct)
+            - `payaccountType` (ne, eq, in, nin)
+            - `payaccountCurrency` (ne, eq, in, nin)
+            - `paypointId` (ne, eq)
+            - `paypointLegal` (ne, eq, ct, nct)
+            - `paypointDba` (ne, eq, ct, nct)
+            - `orgName` (ne, eq, ct, nct, nin, in)
+            - `parentOrgId` (ne, eq, nin, in)
+            - `subscriptionId` (eq, ne)
+            - `orderDescription` (ct, nct)
+            - `cycles` (eq, ne, gt, ge, lt, le)
+            - `leftcycles` (eq, ne, gt, ge, lt, le)
+            - `createdAt` (eq, ne, gt, ge, lt, le)
+            - `updatedOn` (eq, ne, gt, ge, lt, le)
+            - `vendorNumber` (ne, eq, ct, nct)
+            - `name` (ne, eq, ct, nct)
+            - `phone` (ne, eq, ct, nct)
+            - `email` (ne, eq, ct, nct)
+            - `address` (ne, eq, ct, nct)
+            - `remitAddress` (ct, nct)
+            - `city` (ne, eq, ct, nct)
+            - `state` (ne, eq, ct, nct)
+            - `country` (ne, eq, ct, nct)
+            - `zip` (ne, eq, ct, nct)
+
+            **List of comparison operators accepted:**
+            - `eq` or empty => equal
+            - `gt` => greater than
+            - `ge` => greater or equal
+            - `lt` => less than
+            - `le` => less or equal
+            - `ne` => not equal
+            - `ct` => contains
+            - `nct` => not contains
+            - `in` => inside array
+            - `nin` => not inside array
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        QueryPayoutSubscriptionResponse
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.query.list_payout_subscriptions_org(
+                org_id=123,
+                from_record=0,
+                limit_record=20,
+                sort_by="desc(field_name)",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_payout_subscriptions_org(
+            org_id,
+            export_format=export_format,
+            from_record=from_record,
+            limit_record=limit_record,
+            parameters=parameters,
+            sort_by=sort_by,
+            request_options=request_options,
+        )
+        return _response.data
+
     async def list_transactions(
         self,
         entry: Entry,
@@ -7217,9 +7746,8 @@ class AsyncQueryClient:
         Retrieve a list of transactions for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
         By default, this endpoint returns only transactions from the last 60 days. To query transactions outside of this period, include `transactionDate` filters.
         For example, this request parameters filter for transactions between April 01, 2024 and April 09, 2024. 
-        ``` curl --request GET \\
-          --url https://sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59\\
-          --header 'requestToken: <api-key>'
+        ``` curl -X GET https://sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59\\
+          -H 'requestToken: <API TOKEN>'
         
           ```
         
@@ -7387,9 +7915,8 @@ class AsyncQueryClient:
         For example, this request parameters filter for transactions between April 01, 2024 and April 09, 2024. 
         
         ```
-        curl --request GET \\
-          --url https://sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59\\
-          --header 'requestToken: <api-key>'
+        curl -X GET "https://sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59"\\
+          -H 'requestToken: <API TOKEN>'
         
           ```
         

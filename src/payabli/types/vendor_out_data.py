@@ -34,12 +34,17 @@ class VendorOutData(UniversalBaseModel):
     address_1: typing_extensions.Annotated[
         typing.Optional[AddressNullable],
         FieldMetadata(alias="Address1"),
-        pydantic.Field(alias="Address1", description="Vendor's address"),
+        pydantic.Field(
+            alias="Address1",
+            description="Vendor's street address. Allowed characters are letters, numbers, spaces, and `. ,",
+        ),
     ] = None
     address_2: typing_extensions.Annotated[
         typing.Optional[AddressAddtlNullable],
         FieldMetadata(alias="Address2"),
-        pydantic.Field(alias="Address2", description="Additional line for vendor's address."),
+        pydantic.Field(
+            alias="Address2", description="Additional line for vendor's address, such as a suite or unit number."
+        ),
     ] = None
     billing_data: typing_extensions.Annotated[
         typing.Optional[BillingData],
@@ -55,7 +60,9 @@ class VendorOutData(UniversalBaseModel):
         pydantic.Field(alias="Contacts", description="Array of objects describing the vendor's contacts."),
     ] = None
     country: typing_extensions.Annotated[
-        str, FieldMetadata(alias="Country"), pydantic.Field(alias="Country", description="Vendor's country.")
+        str,
+        FieldMetadata(alias="Country"),
+        pydantic.Field(alias="Country", description="Vendor's country. `US` or `CA`."),
     ]
     customer_vendor_account: typing_extensions.Annotated[
         typing.Optional[str],
@@ -67,7 +74,7 @@ class VendorOutData(UniversalBaseModel):
         FieldMetadata(alias="EIN"),
         pydantic.Field(
             alias="EIN",
-            description="EIN/Tax ID for vendor. In reponses, this field is masked, and looks like: `XXXXX6789`.",
+            description="EIN/Tax ID for vendor. Must be nine digits formatted as `XX-XXXXXXX`. In responses, this field is masked and looks like: `XXXXX6789`.",
         ),
     ]
     email: typing_extensions.Annotated[
@@ -89,12 +96,18 @@ class VendorOutData(UniversalBaseModel):
     name_1: typing_extensions.Annotated[
         str,
         FieldMetadata(alias="Name1"),
-        pydantic.Field(alias="Name1", description="Primary name for vendor. Required for new vendor."),
+        pydantic.Field(
+            alias="Name1",
+            description="Primary name for vendor. Required for new vendor. Allowed characters are letters, numbers, spaces, and `. , ' & ( )",
+        ),
     ]
     name_2: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="Name2"),
-        pydantic.Field(alias="Name2", description="Secondary name for vendor."),
+        pydantic.Field(
+            alias="Name2",
+            description="Secondary name for vendor. If provided, allowed characters are the same as `Name1`.",
+        ),
     ] = None
     payee_name_1: typing_extensions.Annotated[
         typing.Optional[PayeeName], FieldMetadata(alias="payeeName1"), pydantic.Field(alias="payeeName1")
@@ -108,7 +121,11 @@ class VendorOutData(UniversalBaseModel):
         pydantic.Field(alias="PaymentMethod"),
     ] = None
     phone: typing_extensions.Annotated[
-        str, FieldMetadata(alias="Phone"), pydantic.Field(alias="Phone", description="Vendor's phone number")
+        str,
+        FieldMetadata(alias="Phone"),
+        pydantic.Field(
+            alias="Phone", description="Vendor's phone number. Digits only when creating or updating a vendor."
+        ),
     ]
     remit_address_1: typing_extensions.Annotated[
         typing.Optional[Remitaddress1], FieldMetadata(alias="remitAddress1"), pydantic.Field(alias="remitAddress1")
@@ -131,7 +148,10 @@ class VendorOutData(UniversalBaseModel):
     state: typing_extensions.Annotated[
         str,
         FieldMetadata(alias="State"),
-        pydantic.Field(alias="State", description="Vendor's state. Must be a 2 character state code."),
+        pydantic.Field(
+            alias="State",
+            description="Vendor's state or province. Must be a valid US state or Canadian province abbreviation, depending on the `Country` value.",
+        ),
     ]
     vendor_id: typing_extensions.Annotated[
         typing.Optional[Vendorid],
@@ -148,7 +168,12 @@ class VendorOutData(UniversalBaseModel):
         typing.Optional[Vendorstatus], FieldMetadata(alias="VendorStatus"), pydantic.Field(alias="VendorStatus")
     ] = None
     zip: typing_extensions.Annotated[
-        str, FieldMetadata(alias="Zip"), pydantic.Field(alias="Zip", description="Vendor's zip code.")
+        str,
+        FieldMetadata(alias="Zip"),
+        pydantic.Field(
+            alias="Zip",
+            description="Vendor's ZIP or postal code. For US addresses, five digits (`12345`) or ZIP+4 format (`12345-6789`).",
+        ),
     ]
 
     if IS_PYDANTIC_V2:

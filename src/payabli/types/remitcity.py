@@ -2,5 +2,5 @@
 
 Remitcity = str
 """
-Remittance address city. Used for mailing paper checks.
+Remittance address city. Used for mailing paper checks. Required if any remittance address field is provided.
 """

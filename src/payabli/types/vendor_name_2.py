@@ -2,5 +2,5 @@
 
 VendorName2 = str
 """
-Secondary name for vendor.
+Secondary name for vendor. If provided, allowed characters are the same as the `name1` field. Letters, numbers, spaces, and `. , ' & ( )
 """

@@ -101,22 +101,22 @@ class VendorClient:
         additional_data : typing.Optional[AdditionalData]
 
         address_1 : typing.Optional[AddressNullable]
-            Vendor's address
+            Vendor's street address. If any address field is provided, this field is required along with `city`, `state`, and `zip`. Allowed characters are letters, numbers, spaces, and `. ,
 
         address_2 : typing.Optional[AddressAddtlNullable]
-            Additional line for vendor's address.
+            Additional line for vendor's address, such as a suite or unit number. Always optional.
 
         billing_data : typing.Optional[BillingData]
             Object containing vendor's bank information.
 
         city : typing.Optional[str]
-            Vendor's city.
+            Vendor's city. Required if any address field is provided.
 
         contacts : typing.Optional[ContactsField]
             Array of objects describing the vendor's contacts.
 
         country : typing.Optional[str]
-            Vendor's country.
+            Vendor's country. Must be `US` or `CA`. Defaults to `US` if not provided.
 
         custom_field_1 : typing.Optional[str]
             Custom field 1 for vendor
@@ -166,12 +166,12 @@ class VendorClient:
         remit_zip : typing.Optional[Remitzip]
 
         state : typing.Optional[str]
-            Vendor's state. Must be a 2 character state code.
+            Vendor's state or province. Required if any address field is provided. Must be a valid US state abbreviation (such as `CA`, `NY`) or Canadian province abbreviation (such as `ON`, `BC`), depending on the `country` value.
 
         vendor_status : typing.Optional[Vendorstatus]
 
         zip : typing.Optional[str]
-            Vendor's zip code.
+            Vendor's ZIP or postal code. Required if any address field is provided. For US addresses, use five digits (`12345`) or ZIP+4 format (`12345-6789`).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -358,22 +358,22 @@ class VendorClient:
         additional_data : typing.Optional[AdditionalData]
 
         address_1 : typing.Optional[AddressNullable]
-            Vendor's address
+            Vendor's street address. If any address field is provided, this field is required along with `city`, `state`, and `zip`. Allowed characters are letters, numbers, spaces, and `. ,
 
         address_2 : typing.Optional[AddressAddtlNullable]
-            Additional line for vendor's address.
+            Additional line for vendor's address, such as a suite or unit number. Always optional.
 
         billing_data : typing.Optional[BillingData]
             Object containing vendor's bank information.
 
         city : typing.Optional[str]
-            Vendor's city.
+            Vendor's city. Required if any address field is provided.
 
         contacts : typing.Optional[ContactsField]
             Array of objects describing the vendor's contacts.
 
         country : typing.Optional[str]
-            Vendor's country.
+            Vendor's country. Must be `US` or `CA`. Defaults to `US` if not provided.
 
         custom_field_1 : typing.Optional[str]
             Custom field 1 for vendor
@@ -423,12 +423,12 @@ class VendorClient:
         remit_zip : typing.Optional[Remitzip]
 
         state : typing.Optional[str]
-            Vendor's state. Must be a 2 character state code.
+            Vendor's state or province. Required if any address field is provided. Must be a valid US state abbreviation (such as `CA`, `NY`) or Canadian province abbreviation (such as `ON`, `BC`), depending on the `country` value.
 
         vendor_status : typing.Optional[Vendorstatus]
 
         zip : typing.Optional[str]
-            Vendor's zip code.
+            Vendor's ZIP or postal code. Required if any address field is provided. For US addresses, use five digits (`12345`) or ZIP+4 format (`12345-6789`).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -588,22 +588,22 @@ class AsyncVendorClient:
         additional_data : typing.Optional[AdditionalData]
 
         address_1 : typing.Optional[AddressNullable]
-            Vendor's address
+            Vendor's street address. If any address field is provided, this field is required along with `city`, `state`, and `zip`. Allowed characters are letters, numbers, spaces, and `. ,
 
         address_2 : typing.Optional[AddressAddtlNullable]
-            Additional line for vendor's address.
+            Additional line for vendor's address, such as a suite or unit number. Always optional.
 
         billing_data : typing.Optional[BillingData]
             Object containing vendor's bank information.
 
         city : typing.Optional[str]
-            Vendor's city.
+            Vendor's city. Required if any address field is provided.
 
         contacts : typing.Optional[ContactsField]
             Array of objects describing the vendor's contacts.
 
         country : typing.Optional[str]
-            Vendor's country.
+            Vendor's country. Must be `US` or `CA`. Defaults to `US` if not provided.
 
         custom_field_1 : typing.Optional[str]
             Custom field 1 for vendor
@@ -653,12 +653,12 @@ class AsyncVendorClient:
         remit_zip : typing.Optional[Remitzip]
 
         state : typing.Optional[str]
-            Vendor's state. Must be a 2 character state code.
+            Vendor's state or province. Required if any address field is provided. Must be a valid US state abbreviation (such as `CA`, `NY`) or Canadian province abbreviation (such as `ON`, `BC`), depending on the `country` value.
 
         vendor_status : typing.Optional[Vendorstatus]
 
         zip : typing.Optional[str]
-            Vendor's zip code.
+            Vendor's ZIP or postal code. Required if any address field is provided. For US addresses, use five digits (`12345`) or ZIP+4 format (`12345-6789`).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -861,22 +861,22 @@ class AsyncVendorClient:
         additional_data : typing.Optional[AdditionalData]
 
         address_1 : typing.Optional[AddressNullable]
-            Vendor's address
+            Vendor's street address. If any address field is provided, this field is required along with `city`, `state`, and `zip`. Allowed characters are letters, numbers, spaces, and `. ,
 
         address_2 : typing.Optional[AddressAddtlNullable]
-            Additional line for vendor's address.
+            Additional line for vendor's address, such as a suite or unit number. Always optional.
 
         billing_data : typing.Optional[BillingData]
             Object containing vendor's bank information.
 
         city : typing.Optional[str]
-            Vendor's city.
+            Vendor's city. Required if any address field is provided.
 
         contacts : typing.Optional[ContactsField]
             Array of objects describing the vendor's contacts.
 
         country : typing.Optional[str]
-            Vendor's country.
+            Vendor's country. Must be `US` or `CA`. Defaults to `US` if not provided.
 
         custom_field_1 : typing.Optional[str]
             Custom field 1 for vendor
@@ -926,12 +926,12 @@ class AsyncVendorClient:
         remit_zip : typing.Optional[Remitzip]
 
         state : typing.Optional[str]
-            Vendor's state. Must be a 2 character state code.
+            Vendor's state or province. Required if any address field is provided. Must be a valid US state abbreviation (such as `CA`, `NY`) or Canadian province abbreviation (such as `ON`, `BC`), depending on the `country` value.
 
         vendor_status : typing.Optional[Vendorstatus]
 
         zip : typing.Optional[str]
-            Vendor's zip code.
+            Vendor's ZIP or postal code. Required if any address field is provided. For US addresses, use five digits (`12345`) or ZIP+4 format (`12345-6789`).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

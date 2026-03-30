@@ -61,7 +61,7 @@ class VendorQueryRecord(UniversalBaseModel):
         name_1="Herman's Coatings",
         name_2="Herman's Coating Supply Company, LLC",
         ein="123456789",
-        phone="212-555-1234",
+        phone="2125551234",
         email="example@email.com",
         address_1="123 Ocean Drive",
         address_2="Suite 400",

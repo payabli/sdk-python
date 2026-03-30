@@ -2,5 +2,5 @@
 
 Remitzip = str
 """
-Remittance address ZIP code. Used for mailing paper checks.
+Remittance address ZIP or postal code. Used for mailing paper checks. Required if any remittance address field is provided. For US addresses, use five digits or ZIP+4 format.
 """

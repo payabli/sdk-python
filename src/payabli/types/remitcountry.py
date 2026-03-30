@@ -2,5 +2,5 @@
 
 Remitcountry = str
 """
-Remittance address country. Used for mailing paper checks.
+Remittance address country. Used for mailing paper checks. Must be `US` or `CA`. Defaults to `US` if not provided.
 """

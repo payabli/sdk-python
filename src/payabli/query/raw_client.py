@@ -14,6 +14,7 @@ from ..errors.bad_request_error import BadRequestError
 from ..errors.internal_server_error import InternalServerError
 from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.unauthorized_error import UnauthorizedError
+from ..payout_subscription.types.query_payout_subscription_response import QueryPayoutSubscriptionResponse
 from ..query_types.types.limit_record import LimitRecord
 from ..query_types.types.list_organizations_response import ListOrganizationsResponse
 from ..query_types.types.query_batches_detail_response import QueryBatchesDetailResponse
@@ -3855,6 +3856,363 @@ class RawQueryClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def list_payout_subscriptions(
+        self,
+        entry: Entry,
+        *,
+        export_format: typing.Optional[ExportFormat] = None,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[QueryPayoutSubscriptionResponse]:
+        """
+        Returns a list of payout subscriptions for a single paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response. See [Manage payout subscriptions](/guides/pay-out-developer-payout-subscriptions-manage) for more information.
+
+        Parameters
+        ----------
+        entry : Entry
+
+        export_format : typing.Optional[ExportFormat]
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+
+            Collection of field names, conditions, and values used to filter the query.
+            <Info>
+              **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+              For example:
+
+              --url https://api-sandbox.payabli.com/api/Query/payoutsubscriptions/entry123?parameters=totalAmount(gt)=1000&limitRecord=20
+
+              should become:
+
+              --url https://api-sandbox.payabli.com/api/Query/payoutsubscriptions/entry123?totalAmount(gt)=1000&limitRecord=20
+            </Info>
+            See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
+            **List of field names accepted:**
+
+            - `startDate` (gt, ge, lt, le, eq, ne)
+            - `endDate` (gt, ge, lt, le, eq, ne)
+            - `nextDate` (gt, ge, lt, le, eq, ne)
+            - `frequency` (in, nin, ne, eq)
+            - `method` (in, nin, eq, ne)
+            - `totalAmount` (gt, ge, lt, le, eq, ne)
+            - `netAmount` (gt, ge, lt, le, eq, ne)
+            - `feeAmount` (gt, ge, lt, le, eq, ne)
+            - `status` (in, nin, eq, ne)
+            - `untilcancelled` (eq, ne)
+            - `payaccountLastfour` (ct, nct)
+            - `payaccountType` (ne, eq, in, nin)
+            - `payaccountCurrency` (ne, eq, in, nin)
+            - `paypointId` (ne, eq)
+            - `paypointLegal` (ne, eq, ct, nct)
+            - `paypointDba` (ne, eq, ct, nct)
+            - `orgName` (ne, eq, ct, nct, nin, in)
+            - `parentOrgId` (ne, eq, nin, in)
+            - `subscriptionId` (eq, ne)
+            - `orderDescription` (ct, nct)
+            - `cycles` (eq, ne, gt, ge, lt, le)
+            - `leftcycles` (eq, ne, gt, ge, lt, le)
+            - `createdAt` (eq, ne, gt, ge, lt, le)
+            - `updatedOn` (eq, ne, gt, ge, lt, le)
+            - `vendorNumber` (ne, eq, ct, nct)
+            - `name` (ne, eq, ct, nct)
+            - `phone` (ne, eq, ct, nct)
+            - `email` (ne, eq, ct, nct)
+            - `address` (ne, eq, ct, nct)
+            - `remitAddress` (ct, nct)
+            - `city` (ne, eq, ct, nct)
+            - `state` (ne, eq, ct, nct)
+            - `country` (ne, eq, ct, nct)
+            - `zip` (ne, eq, ct, nct)
+
+            **List of comparison operators accepted:**
+            - `eq` or empty => equal
+            - `gt` => greater than
+            - `ge` => greater or equal
+            - `lt` => less than
+            - `le` => less or equal
+            - `ne` => not equal
+            - `ct` => contains
+            - `nct` => not contains
+            - `in` => inside array
+            - `nin` => not inside array
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[QueryPayoutSubscriptionResponse]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"Query/payoutsubscriptions/{jsonable_encoder(entry)}",
+            method="GET",
+            params={
+                "exportFormat": export_format,
+                "fromRecord": from_record,
+                "limitRecord": limit_record,
+                "parameters": parameters,
+                "sortBy": sort_by,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    QueryPayoutSubscriptionResponse,
+                    parse_obj_as(
+                        type_=QueryPayoutSubscriptionResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def list_payout_subscriptions_org(
+        self,
+        org_id: int,
+        *,
+        export_format: typing.Optional[ExportFormat] = None,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[QueryPayoutSubscriptionResponse]:
+        """
+        Returns a list of payout subscriptions for a single org. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response. See [Manage payout subscriptions](/guides/pay-out-developer-payout-subscriptions-manage) for more information.
+
+        Parameters
+        ----------
+        org_id : int
+            The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+
+            Collection of field names, conditions, and values used to filter the query.
+            <Info>
+              **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+              For example:
+
+              --url https://api-sandbox.payabli.com/api/Query/payoutsubscriptions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+              should become:
+
+              --url https://api-sandbox.payabli.com/api/Query/payoutsubscriptions/org/236?totalAmount(gt)=1000&limitRecord=20
+            </Info>
+            See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
+            **List of field names accepted:**
+
+            - `startDate` (gt, ge, lt, le, eq, ne)
+            - `endDate` (gt, ge, lt, le, eq, ne)
+            - `nextDate` (gt, ge, lt, le, eq, ne)
+            - `frequency` (in, nin, ne, eq)
+            - `method` (in, nin, eq, ne)
+            - `totalAmount` (gt, ge, lt, le, eq, ne)
+            - `netAmount` (gt, ge, lt, le, eq, ne)
+            - `feeAmount` (gt, ge, lt, le, eq, ne)
+            - `status` (in, nin, eq, ne)
+            - `untilcancelled` (eq, ne)
+            - `payaccountLastfour` (ct, nct)
+            - `payaccountType` (ne, eq, in, nin)
+            - `payaccountCurrency` (ne, eq, in, nin)
+            - `paypointId` (ne, eq)
+            - `paypointLegal` (ne, eq, ct, nct)
+            - `paypointDba` (ne, eq, ct, nct)
+            - `orgName` (ne, eq, ct, nct, nin, in)
+            - `parentOrgId` (ne, eq, nin, in)
+            - `subscriptionId` (eq, ne)
+            - `orderDescription` (ct, nct)
+            - `cycles` (eq, ne, gt, ge, lt, le)
+            - `leftcycles` (eq, ne, gt, ge, lt, le)
+            - `createdAt` (eq, ne, gt, ge, lt, le)
+            - `updatedOn` (eq, ne, gt, ge, lt, le)
+            - `vendorNumber` (ne, eq, ct, nct)
+            - `name` (ne, eq, ct, nct)
+            - `phone` (ne, eq, ct, nct)
+            - `email` (ne, eq, ct, nct)
+            - `address` (ne, eq, ct, nct)
+            - `remitAddress` (ct, nct)
+            - `city` (ne, eq, ct, nct)
+            - `state` (ne, eq, ct, nct)
+            - `country` (ne, eq, ct, nct)
+            - `zip` (ne, eq, ct, nct)
+
+            **List of comparison operators accepted:**
+            - `eq` or empty => equal
+            - `gt` => greater than
+            - `ge` => greater or equal
+            - `lt` => less than
+            - `le` => less or equal
+            - `ne` => not equal
+            - `ct` => contains
+            - `nct` => not contains
+            - `in` => inside array
+            - `nin` => not inside array
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[QueryPayoutSubscriptionResponse]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"Query/payoutsubscriptions/org/{jsonable_encoder(org_id)}",
+            method="GET",
+            params={
+                "exportFormat": export_format,
+                "fromRecord": from_record,
+                "limitRecord": limit_record,
+                "parameters": parameters,
+                "sortBy": sort_by,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    QueryPayoutSubscriptionResponse,
+                    parse_obj_as(
+                        type_=QueryPayoutSubscriptionResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     def list_transactions(
         self,
         entry: Entry,
@@ -3870,9 +4228,8 @@ class RawQueryClient:
         Retrieve a list of transactions for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
         By default, this endpoint returns only transactions from the last 60 days. To query transactions outside of this period, include `transactionDate` filters.
         For example, this request parameters filter for transactions between April 01, 2024 and April 09, 2024. 
-        ``` curl --request GET \\
-          --url https://sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59\\
-          --header 'requestToken: <api-key>'
+        ``` curl -X GET https://sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59\\
+          -H 'requestToken: <API TOKEN>'
         
           ```
         
@@ -4082,9 +4439,8 @@ class RawQueryClient:
         For example, this request parameters filter for transactions between April 01, 2024 and April 09, 2024. 
         
         ```
-        curl --request GET \\
-          --url https://sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59\\
-          --header 'requestToken: <api-key>'
+        curl -X GET "https://sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59"\\
+          -H 'requestToken: <API TOKEN>'
         
           ```
         
@@ -9875,6 +10231,363 @@ class AsyncRawQueryClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    async def list_payout_subscriptions(
+        self,
+        entry: Entry,
+        *,
+        export_format: typing.Optional[ExportFormat] = None,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[QueryPayoutSubscriptionResponse]:
+        """
+        Returns a list of payout subscriptions for a single paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response. See [Manage payout subscriptions](/guides/pay-out-developer-payout-subscriptions-manage) for more information.
+
+        Parameters
+        ----------
+        entry : Entry
+
+        export_format : typing.Optional[ExportFormat]
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+
+            Collection of field names, conditions, and values used to filter the query.
+            <Info>
+              **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+              For example:
+
+              --url https://api-sandbox.payabli.com/api/Query/payoutsubscriptions/entry123?parameters=totalAmount(gt)=1000&limitRecord=20
+
+              should become:
+
+              --url https://api-sandbox.payabli.com/api/Query/payoutsubscriptions/entry123?totalAmount(gt)=1000&limitRecord=20
+            </Info>
+            See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
+            **List of field names accepted:**
+
+            - `startDate` (gt, ge, lt, le, eq, ne)
+            - `endDate` (gt, ge, lt, le, eq, ne)
+            - `nextDate` (gt, ge, lt, le, eq, ne)
+            - `frequency` (in, nin, ne, eq)
+            - `method` (in, nin, eq, ne)
+            - `totalAmount` (gt, ge, lt, le, eq, ne)
+            - `netAmount` (gt, ge, lt, le, eq, ne)
+            - `feeAmount` (gt, ge, lt, le, eq, ne)
+            - `status` (in, nin, eq, ne)
+            - `untilcancelled` (eq, ne)
+            - `payaccountLastfour` (ct, nct)
+            - `payaccountType` (ne, eq, in, nin)
+            - `payaccountCurrency` (ne, eq, in, nin)
+            - `paypointId` (ne, eq)
+            - `paypointLegal` (ne, eq, ct, nct)
+            - `paypointDba` (ne, eq, ct, nct)
+            - `orgName` (ne, eq, ct, nct, nin, in)
+            - `parentOrgId` (ne, eq, nin, in)
+            - `subscriptionId` (eq, ne)
+            - `orderDescription` (ct, nct)
+            - `cycles` (eq, ne, gt, ge, lt, le)
+            - `leftcycles` (eq, ne, gt, ge, lt, le)
+            - `createdAt` (eq, ne, gt, ge, lt, le)
+            - `updatedOn` (eq, ne, gt, ge, lt, le)
+            - `vendorNumber` (ne, eq, ct, nct)
+            - `name` (ne, eq, ct, nct)
+            - `phone` (ne, eq, ct, nct)
+            - `email` (ne, eq, ct, nct)
+            - `address` (ne, eq, ct, nct)
+            - `remitAddress` (ct, nct)
+            - `city` (ne, eq, ct, nct)
+            - `state` (ne, eq, ct, nct)
+            - `country` (ne, eq, ct, nct)
+            - `zip` (ne, eq, ct, nct)
+
+            **List of comparison operators accepted:**
+            - `eq` or empty => equal
+            - `gt` => greater than
+            - `ge` => greater or equal
+            - `lt` => less than
+            - `le` => less or equal
+            - `ne` => not equal
+            - `ct` => contains
+            - `nct` => not contains
+            - `in` => inside array
+            - `nin` => not inside array
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[QueryPayoutSubscriptionResponse]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"Query/payoutsubscriptions/{jsonable_encoder(entry)}",
+            method="GET",
+            params={
+                "exportFormat": export_format,
+                "fromRecord": from_record,
+                "limitRecord": limit_record,
+                "parameters": parameters,
+                "sortBy": sort_by,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    QueryPayoutSubscriptionResponse,
+                    parse_obj_as(
+                        type_=QueryPayoutSubscriptionResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def list_payout_subscriptions_org(
+        self,
+        org_id: int,
+        *,
+        export_format: typing.Optional[ExportFormat] = None,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[QueryPayoutSubscriptionResponse]:
+        """
+        Returns a list of payout subscriptions for a single org. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response. See [Manage payout subscriptions](/guides/pay-out-developer-payout-subscriptions-manage) for more information.
+
+        Parameters
+        ----------
+        org_id : int
+            The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+
+            Collection of field names, conditions, and values used to filter the query.
+            <Info>
+              **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+              For example:
+
+              --url https://api-sandbox.payabli.com/api/Query/payoutsubscriptions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+
+              should become:
+
+              --url https://api-sandbox.payabli.com/api/Query/payoutsubscriptions/org/236?totalAmount(gt)=1000&limitRecord=20
+            </Info>
+            See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
+            **List of field names accepted:**
+
+            - `startDate` (gt, ge, lt, le, eq, ne)
+            - `endDate` (gt, ge, lt, le, eq, ne)
+            - `nextDate` (gt, ge, lt, le, eq, ne)
+            - `frequency` (in, nin, ne, eq)
+            - `method` (in, nin, eq, ne)
+            - `totalAmount` (gt, ge, lt, le, eq, ne)
+            - `netAmount` (gt, ge, lt, le, eq, ne)
+            - `feeAmount` (gt, ge, lt, le, eq, ne)
+            - `status` (in, nin, eq, ne)
+            - `untilcancelled` (eq, ne)
+            - `payaccountLastfour` (ct, nct)
+            - `payaccountType` (ne, eq, in, nin)
+            - `payaccountCurrency` (ne, eq, in, nin)
+            - `paypointId` (ne, eq)
+            - `paypointLegal` (ne, eq, ct, nct)
+            - `paypointDba` (ne, eq, ct, nct)
+            - `orgName` (ne, eq, ct, nct, nin, in)
+            - `parentOrgId` (ne, eq, nin, in)
+            - `subscriptionId` (eq, ne)
+            - `orderDescription` (ct, nct)
+            - `cycles` (eq, ne, gt, ge, lt, le)
+            - `leftcycles` (eq, ne, gt, ge, lt, le)
+            - `createdAt` (eq, ne, gt, ge, lt, le)
+            - `updatedOn` (eq, ne, gt, ge, lt, le)
+            - `vendorNumber` (ne, eq, ct, nct)
+            - `name` (ne, eq, ct, nct)
+            - `phone` (ne, eq, ct, nct)
+            - `email` (ne, eq, ct, nct)
+            - `address` (ne, eq, ct, nct)
+            - `remitAddress` (ct, nct)
+            - `city` (ne, eq, ct, nct)
+            - `state` (ne, eq, ct, nct)
+            - `country` (ne, eq, ct, nct)
+            - `zip` (ne, eq, ct, nct)
+
+            **List of comparison operators accepted:**
+            - `eq` or empty => equal
+            - `gt` => greater than
+            - `ge` => greater or equal
+            - `lt` => less than
+            - `le` => less or equal
+            - `ne` => not equal
+            - `ct` => contains
+            - `nct` => not contains
+            - `in` => inside array
+            - `nin` => not inside array
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[QueryPayoutSubscriptionResponse]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"Query/payoutsubscriptions/org/{jsonable_encoder(org_id)}",
+            method="GET",
+            params={
+                "exportFormat": export_format,
+                "fromRecord": from_record,
+                "limitRecord": limit_record,
+                "parameters": parameters,
+                "sortBy": sort_by,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    QueryPayoutSubscriptionResponse,
+                    parse_obj_as(
+                        type_=QueryPayoutSubscriptionResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     async def list_transactions(
         self,
         entry: Entry,
@@ -9890,9 +10603,8 @@ class AsyncRawQueryClient:
         Retrieve a list of transactions for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
         By default, this endpoint returns only transactions from the last 60 days. To query transactions outside of this period, include `transactionDate` filters.
         For example, this request parameters filter for transactions between April 01, 2024 and April 09, 2024. 
-        ``` curl --request GET \\
-          --url https://sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59\\
-          --header 'requestToken: <api-key>'
+        ``` curl -X GET https://sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59\\
+          -H 'requestToken: <API TOKEN>'
         
           ```
         
@@ -10102,9 +10814,8 @@ class AsyncRawQueryClient:
         For example, this request parameters filter for transactions between April 01, 2024 and April 09, 2024. 
         
         ```
-        curl --request GET \\
-          --url https://sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59\\
-          --header 'requestToken: <api-key>'
+        curl -X GET "https://sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59"\\
+          -H 'requestToken: <API TOKEN>'
         
           ```
         

@@ -12,6 +12,7 @@ The Payabli Python library provides convenient access to the Payabli APIs from P
 - [Reference](#reference)
 - [Passing Query Parameters](#passing-query-parameters)
 - [Usage](#usage)
+- [Environments](#environments)
 - [Async Client](#async-client)
 - [Exception Handling](#exception-handling)
 - [Advanced](#advanced)
@@ -82,6 +83,19 @@ client.money_in.getpaid(
         initiator="payor",
         method="card",
     ),
+)
+```
+
+## Environments
+
+This SDK allows you to configure different environments for API requests.
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    environment=payabliEnvironment.SANDBOX,
 )
 ```
 

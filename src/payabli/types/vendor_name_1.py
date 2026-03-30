@@ -2,5 +2,5 @@
 
 VendorName1 = str
 """
-Primary name for vendor. Required for new vendor.
+Primary name for vendor. Required for new vendor. Allowed characters are letters, numbers, spaces, and the following symbols `. , ' & ( )
 """

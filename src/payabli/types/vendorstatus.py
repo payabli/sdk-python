@@ -2,10 +2,12 @@
 
 Vendorstatus = int
 """
-Vendor's status. 
-Allowed status:
-  
-  - 0 Inactive
-  
-  - 1 Active
+Vendor's status.
+Allowed values:
+
+  - `0` Inactive
+
+  - `1` Active
+
+  - `-99` Deleted
 """

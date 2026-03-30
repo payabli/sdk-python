@@ -17,6 +17,7 @@ if typing.TYPE_CHECKING:
     from .cloud.client import AsyncCloudClient, CloudClient
     from .customer.client import AsyncCustomerClient, CustomerClient
     from .export.client import AsyncExportClient, ExportClient
+    from .ghost_card.client import AsyncGhostCardClient, GhostCardClient
     from .hosted_payment_pages.client import AsyncHostedPaymentPagesClient, HostedPaymentPagesClient
     from .import_.client import AsyncImportClient, ImportClient
     from .invoice.client import AsyncInvoiceClient, InvoiceClient
@@ -29,6 +30,7 @@ if typing.TYPE_CHECKING:
     from .organization.client import AsyncOrganizationClient, OrganizationClient
     from .payment_link.client import AsyncPaymentLinkClient, PaymentLinkClient
     from .payment_method_domain.client import AsyncPaymentMethodDomainClient, PaymentMethodDomainClient
+    from .payout_subscription.client import AsyncPayoutSubscriptionClient, PayoutSubscriptionClient
     from .paypoint.client import AsyncPaypointClient, PaypointClient
     from .query.client import AsyncQueryClient, QueryClient
     from .statistic.client import AsyncStatisticClient, StatisticClient
@@ -117,6 +119,7 @@ class payabli:
         self._cloud: typing.Optional[CloudClient] = None
         self._customer: typing.Optional[CustomerClient] = None
         self._export: typing.Optional[ExportClient] = None
+        self._ghost_card: typing.Optional[GhostCardClient] = None
         self._hosted_payment_pages: typing.Optional[HostedPaymentPagesClient] = None
         self._import_: typing.Optional[ImportClient] = None
         self._invoice: typing.Optional[InvoiceClient] = None
@@ -129,6 +132,7 @@ class payabli:
         self._organization: typing.Optional[OrganizationClient] = None
         self._payment_link: typing.Optional[PaymentLinkClient] = None
         self._payment_method_domain: typing.Optional[PaymentMethodDomainClient] = None
+        self._payout_subscription: typing.Optional[PayoutSubscriptionClient] = None
         self._paypoint: typing.Optional[PaypointClient] = None
         self._query: typing.Optional[QueryClient] = None
         self._statistic: typing.Optional[StatisticClient] = None
@@ -194,6 +198,14 @@ class payabli:
 
             self._export = ExportClient(client_wrapper=self._client_wrapper)
         return self._export
+
+    @property
+    def ghost_card(self):
+        if self._ghost_card is None:
+            from .ghost_card.client import GhostCardClient  # noqa: E402
+
+            self._ghost_card = GhostCardClient(client_wrapper=self._client_wrapper)
+        return self._ghost_card
 
     @property
     def hosted_payment_pages(self):
@@ -290,6 +302,14 @@ class payabli:
 
             self._payment_method_domain = PaymentMethodDomainClient(client_wrapper=self._client_wrapper)
         return self._payment_method_domain
+
+    @property
+    def payout_subscription(self):
+        if self._payout_subscription is None:
+            from .payout_subscription.client import PayoutSubscriptionClient  # noqa: E402
+
+            self._payout_subscription = PayoutSubscriptionClient(client_wrapper=self._client_wrapper)
+        return self._payout_subscription
 
     @property
     def paypoint(self):
@@ -441,6 +461,7 @@ class Asyncpayabli:
         self._cloud: typing.Optional[AsyncCloudClient] = None
         self._customer: typing.Optional[AsyncCustomerClient] = None
         self._export: typing.Optional[AsyncExportClient] = None
+        self._ghost_card: typing.Optional[AsyncGhostCardClient] = None
         self._hosted_payment_pages: typing.Optional[AsyncHostedPaymentPagesClient] = None
         self._import_: typing.Optional[AsyncImportClient] = None
         self._invoice: typing.Optional[AsyncInvoiceClient] = None
@@ -453,6 +474,7 @@ class Asyncpayabli:
         self._organization: typing.Optional[AsyncOrganizationClient] = None
         self._payment_link: typing.Optional[AsyncPaymentLinkClient] = None
         self._payment_method_domain: typing.Optional[AsyncPaymentMethodDomainClient] = None
+        self._payout_subscription: typing.Optional[AsyncPayoutSubscriptionClient] = None
         self._paypoint: typing.Optional[AsyncPaypointClient] = None
         self._query: typing.Optional[AsyncQueryClient] = None
         self._statistic: typing.Optional[AsyncStatisticClient] = None
@@ -518,6 +540,14 @@ class Asyncpayabli:
 
             self._export = AsyncExportClient(client_wrapper=self._client_wrapper)
         return self._export
+
+    @property
+    def ghost_card(self):
+        if self._ghost_card is None:
+            from .ghost_card.client import AsyncGhostCardClient  # noqa: E402
+
+            self._ghost_card = AsyncGhostCardClient(client_wrapper=self._client_wrapper)
+        return self._ghost_card
 
     @property
     def hosted_payment_pages(self):
@@ -614,6 +644,14 @@ class Asyncpayabli:
 
             self._payment_method_domain = AsyncPaymentMethodDomainClient(client_wrapper=self._client_wrapper)
         return self._payment_method_domain
+
+    @property
+    def payout_subscription(self):
+        if self._payout_subscription is None:
+            from .payout_subscription.client import AsyncPayoutSubscriptionClient  # noqa: E402
+
+            self._payout_subscription = AsyncPayoutSubscriptionClient(client_wrapper=self._client_wrapper)
+        return self._payout_subscription
 
     @property
     def paypoint(self):
