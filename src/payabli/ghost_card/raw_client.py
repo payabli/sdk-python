@@ -34,16 +34,16 @@ class RawGhostCardClient:
         *,
         vendor_id: int,
         expense_limit: float,
+        amount: float,
+        max_number_of_uses: int,
+        exact_amount: bool,
+        expense_limit_period: str,
+        billing_cycle: str,
+        billing_cycle_day: str,
+        daily_transaction_count: int,
+        daily_amount_limit: float,
+        transaction_amount_limit: int,
         expiration_date: typing.Optional[str] = OMIT,
-        amount: typing.Optional[float] = OMIT,
-        max_number_of_uses: typing.Optional[int] = OMIT,
-        exact_amount: typing.Optional[bool] = OMIT,
-        expense_limit_period: typing.Optional[str] = OMIT,
-        billing_cycle: typing.Optional[str] = OMIT,
-        billing_cycle_day: typing.Optional[str] = OMIT,
-        daily_transaction_count: typing.Optional[int] = OMIT,
-        daily_amount_limit: typing.Optional[float] = OMIT,
-        transaction_amount_limit: typing.Optional[int] = OMIT,
         mcc: typing.Optional[str] = OMIT,
         tcc: typing.Optional[str] = OMIT,
         misc_1: typing.Optional[str] = OMIT,
@@ -55,6 +55,8 @@ class RawGhostCardClient:
 
         Unlike single-use virtual cards issued as part of a payout transaction, ghost cards aren't tied to a specific payout. They're issued directly to a vendor and can be reused up to a configurable number of times within the card's spending limits.
 
+        Only one ghost card can exist per vendor per paypoint. To issue a new card to the same vendor, cancel the existing card first.
+
         Parameters
         ----------
         entry : Entry
@@ -65,35 +67,35 @@ class RawGhostCardClient:
         expense_limit : float
             Spending limit for the card. Must be greater than `0` and can't exceed the paypoint's configured payout credit limit.
 
-        expiration_date : typing.Optional[str]
-            Requested expiration date for the card. If not provided, defaults to 30 days from creation.
+        amount : float
+            Initial load amount for the card.
 
-        amount : typing.Optional[float]
-            Initial load amount for the card. Defaults to `0`.
+        max_number_of_uses : int
+            Maximum number of times the card can be used. Ignored and set to `1` when `exactAmount` is `true`.
 
-        max_number_of_uses : typing.Optional[int]
-            Maximum number of times the card can be used. If `0` or negative, defaults to `9999`. Ignored and set to `1` when `exactAmount` is `true`.
-
-        exact_amount : typing.Optional[bool]
+        exact_amount : bool
             When `true`, restricts the card to a single use. `maxNumberOfUses` is automatically set to `1` regardless of any other value provided.
 
-        expense_limit_period : typing.Optional[str]
-            Time period over which `expenseLimit` applies (for example, `monthly` or `weekly`). No server-side enforcement.
+        expense_limit_period : str
+            Time period over which `expenseLimit` applies (for example, `monthly` or `weekly`).
 
-        billing_cycle : typing.Optional[str]
+        billing_cycle : str
             Billing cycle identifier.
 
-        billing_cycle_day : typing.Optional[str]
+        billing_cycle_day : str
             Day within the billing cycle.
 
-        daily_transaction_count : typing.Optional[int]
-            Maximum number of transactions allowed per day. Defaults to `0` (unlimited).
+        daily_transaction_count : int
+            Maximum number of transactions allowed per day.
 
-        daily_amount_limit : typing.Optional[float]
-            Maximum total spend allowed per day. Defaults to `0` (unlimited).
+        daily_amount_limit : float
+            Maximum total spend allowed per day.
 
-        transaction_amount_limit : typing.Optional[int]
-            Maximum spend allowed per single transaction. Defaults to `0` (unlimited).
+        transaction_amount_limit : int
+            Maximum spend allowed per single transaction.
+
+        expiration_date : typing.Optional[str]
+            Requested expiration date for the card. If not provided, defaults to 30 days from creation.
 
         mcc : typing.Optional[str]
             Merchant Category Code to restrict where the card can be used. Must be a valid MCC if provided.
@@ -321,16 +323,16 @@ class AsyncRawGhostCardClient:
         *,
         vendor_id: int,
         expense_limit: float,
+        amount: float,
+        max_number_of_uses: int,
+        exact_amount: bool,
+        expense_limit_period: str,
+        billing_cycle: str,
+        billing_cycle_day: str,
+        daily_transaction_count: int,
+        daily_amount_limit: float,
+        transaction_amount_limit: int,
         expiration_date: typing.Optional[str] = OMIT,
-        amount: typing.Optional[float] = OMIT,
-        max_number_of_uses: typing.Optional[int] = OMIT,
-        exact_amount: typing.Optional[bool] = OMIT,
-        expense_limit_period: typing.Optional[str] = OMIT,
-        billing_cycle: typing.Optional[str] = OMIT,
-        billing_cycle_day: typing.Optional[str] = OMIT,
-        daily_transaction_count: typing.Optional[int] = OMIT,
-        daily_amount_limit: typing.Optional[float] = OMIT,
-        transaction_amount_limit: typing.Optional[int] = OMIT,
         mcc: typing.Optional[str] = OMIT,
         tcc: typing.Optional[str] = OMIT,
         misc_1: typing.Optional[str] = OMIT,
@@ -342,6 +344,8 @@ class AsyncRawGhostCardClient:
 
         Unlike single-use virtual cards issued as part of a payout transaction, ghost cards aren't tied to a specific payout. They're issued directly to a vendor and can be reused up to a configurable number of times within the card's spending limits.
 
+        Only one ghost card can exist per vendor per paypoint. To issue a new card to the same vendor, cancel the existing card first.
+
         Parameters
         ----------
         entry : Entry
@@ -352,35 +356,35 @@ class AsyncRawGhostCardClient:
         expense_limit : float
             Spending limit for the card. Must be greater than `0` and can't exceed the paypoint's configured payout credit limit.
 
-        expiration_date : typing.Optional[str]
-            Requested expiration date for the card. If not provided, defaults to 30 days from creation.
+        amount : float
+            Initial load amount for the card.
 
-        amount : typing.Optional[float]
-            Initial load amount for the card. Defaults to `0`.
+        max_number_of_uses : int
+            Maximum number of times the card can be used. Ignored and set to `1` when `exactAmount` is `true`.
 
-        max_number_of_uses : typing.Optional[int]
-            Maximum number of times the card can be used. If `0` or negative, defaults to `9999`. Ignored and set to `1` when `exactAmount` is `true`.
-
-        exact_amount : typing.Optional[bool]
+        exact_amount : bool
             When `true`, restricts the card to a single use. `maxNumberOfUses` is automatically set to `1` regardless of any other value provided.
 
-        expense_limit_period : typing.Optional[str]
-            Time period over which `expenseLimit` applies (for example, `monthly` or `weekly`). No server-side enforcement.
+        expense_limit_period : str
+            Time period over which `expenseLimit` applies (for example, `monthly` or `weekly`).
 
-        billing_cycle : typing.Optional[str]
+        billing_cycle : str
             Billing cycle identifier.
 
-        billing_cycle_day : typing.Optional[str]
+        billing_cycle_day : str
             Day within the billing cycle.
 
-        daily_transaction_count : typing.Optional[int]
-            Maximum number of transactions allowed per day. Defaults to `0` (unlimited).
+        daily_transaction_count : int
+            Maximum number of transactions allowed per day.
 
-        daily_amount_limit : typing.Optional[float]
-            Maximum total spend allowed per day. Defaults to `0` (unlimited).
+        daily_amount_limit : float
+            Maximum total spend allowed per day.
 
-        transaction_amount_limit : typing.Optional[int]
-            Maximum spend allowed per single transaction. Defaults to `0` (unlimited).
+        transaction_amount_limit : int
+            Maximum spend allowed per single transaction.
+
+        expiration_date : typing.Optional[str]
+            Requested expiration date for the card. If not provided, defaults to 30 days from creation.
 
         mcc : typing.Optional[str]
             Merchant Category Code to restrict where the card can be used. Must be a valid MCC if provided.

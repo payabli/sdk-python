@@ -8681,6 +8681,8 @@ Example: `netAmount(gt)=20` returns all records with a `netAmount` greater than 
 Creates a ghost card, a multi-use virtual debit card issued to a vendor for recurring or discretionary spend.
 
 Unlike single-use virtual cards issued as part of a payout transaction, ghost cards aren't tied to a specific payout. They're issued directly to a vendor and can be reused up to a configurable number of times within the card's spending limits.
+
+Only one ghost card can exist per vendor per paypoint. To issue a new card to the same vendor, cancel the existing card first.
 </dd>
 </dl>
 </dd>
@@ -8707,6 +8709,7 @@ client.ghost_card.create_ghost_card(
     entry="8cfec2e0fa",
     vendor_id=42,
     expense_limit=500,
+    amount=500,
     max_number_of_uses=3,
     exact_amount=False,
     expense_limit_period="monthly",
@@ -8759,79 +8762,79 @@ client.ghost_card.create_ghost_card(
 <dl>
 <dd>
 
+**amount:** `float` — Initial load amount for the card.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**max_number_of_uses:** `int` — Maximum number of times the card can be used. Ignored and set to `1` when `exactAmount` is `true`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**exact_amount:** `bool` — When `true`, restricts the card to a single use. `maxNumberOfUses` is automatically set to `1` regardless of any other value provided.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expense_limit_period:** `str` — Time period over which `expenseLimit` applies (for example, `monthly` or `weekly`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**billing_cycle:** `str` — Billing cycle identifier.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**billing_cycle_day:** `str` — Day within the billing cycle.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**daily_transaction_count:** `int` — Maximum number of transactions allowed per day.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**daily_amount_limit:** `float` — Maximum total spend allowed per day.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**transaction_amount_limit:** `int` — Maximum spend allowed per single transaction.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **expiration_date:** `typing.Optional[str]` — Requested expiration date for the card. If not provided, defaults to 30 days from creation.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**amount:** `typing.Optional[float]` — Initial load amount for the card. Defaults to `0`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**max_number_of_uses:** `typing.Optional[int]` — Maximum number of times the card can be used. If `0` or negative, defaults to `9999`. Ignored and set to `1` when `exactAmount` is `true`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**exact_amount:** `typing.Optional[bool]` — When `true`, restricts the card to a single use. `maxNumberOfUses` is automatically set to `1` regardless of any other value provided.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expense_limit_period:** `typing.Optional[str]` — Time period over which `expenseLimit` applies (for example, `monthly` or `weekly`). No server-side enforcement.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**billing_cycle:** `typing.Optional[str]` — Billing cycle identifier.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**billing_cycle_day:** `typing.Optional[str]` — Day within the billing cycle.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**daily_transaction_count:** `typing.Optional[int]` — Maximum number of transactions allowed per day. Defaults to `0` (unlimited).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**daily_amount_limit:** `typing.Optional[float]` — Maximum total spend allowed per day. Defaults to `0` (unlimited).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**transaction_amount_limit:** `typing.Optional[int]` — Maximum spend allowed per single transaction. Defaults to `0` (unlimited).
     
 </dd>
 </dl>
