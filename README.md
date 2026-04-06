@@ -11,6 +11,7 @@ The Payabli Python library provides convenient access to the Payabli APIs from P
 - [Installation](#installation)
 - [Reference](#reference)
 - [Changelog](#changelog)
+- [Getting Started](#getting-started)
 - [Passing Query Parameters](#passing-query-parameters)
 - [Usage](#usage)
 - [Environments](#environments)
@@ -40,6 +41,11 @@ A full reference for this library is available [here](https://github.com/payabli
 ## Changelog
 
 The changelog for the official Payabli Python SDK is available on the Payabli Docs site. See [Python SDK Changelog](https://docs.payabli.com/changelog/python-sdk) for more information.
+
+
+## Getting Started
+
+Visit the Payabli Docs site to get started with the official Payabli Python SDK. See [Use the Python SDK](https://docs.payabli.com/developers/platform-sdk-python-guide) for more information.
 
 
 ## Passing Query Parameters
