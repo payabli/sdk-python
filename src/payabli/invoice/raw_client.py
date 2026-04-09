@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import jsonable_encoder
+from ..core.jsonable_encoder import encode_path_param
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
@@ -80,7 +80,7 @@ class RawInvoiceClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Invoice/{jsonable_encoder(entry)}",
+            f"Invoice/{encode_path_param(entry)}",
             method="POST",
             params={
                 "forceCustomerCreation": force_customer_creation,
@@ -199,7 +199,7 @@ class RawInvoiceClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Invoice/attachedFileFromInvoice/{jsonable_encoder(id_invoice)}/{jsonable_encoder(filename)}",
+            f"Invoice/attachedFileFromInvoice/{encode_path_param(id_invoice)}/{encode_path_param(filename)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -286,7 +286,7 @@ class RawInvoiceClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Invoice/{jsonable_encoder(id_invoice)}",
+            f"Invoice/{encode_path_param(id_invoice)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -392,7 +392,7 @@ class RawInvoiceClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Invoice/{jsonable_encoder(id_invoice)}",
+            f"Invoice/{encode_path_param(id_invoice)}",
             method="PUT",
             params={
                 "forceCustomerCreation": force_customer_creation,
@@ -520,7 +520,7 @@ class RawInvoiceClient:
             A successful response returns a binary file when `returnObject` is `false`. When `returnObject` is `true`, the response contains the file content as a Base64-encoded string in an object. Due to technical limitations, only the object response is documented here.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Invoice/attachedFileFromInvoice/{jsonable_encoder(id_invoice)}/{jsonable_encoder(filename)}",
+            f"Invoice/attachedFileFromInvoice/{encode_path_param(id_invoice)}/{encode_path_param(filename)}",
             method="GET",
             params={
                 "returnObject": return_object,
@@ -610,7 +610,7 @@ class RawInvoiceClient:
             Success. Fields marked optional may return `null` if not set.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Invoice/{jsonable_encoder(id_invoice)}",
+            f"Invoice/{encode_path_param(id_invoice)}",
             method="GET",
             request_options=request_options,
         )
@@ -697,7 +697,7 @@ class RawInvoiceClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Invoice/getNumber/{jsonable_encoder(entry)}",
+            f"Invoice/getNumber/{encode_path_param(entry)}",
             method="GET",
             request_options=request_options,
         )
@@ -868,7 +868,7 @@ class RawInvoiceClient:
             Success. Fields marked optional may return `null` if not set.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/invoices/{jsonable_encoder(entry)}",
+            f"Query/invoices/{encode_path_param(entry)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -1046,7 +1046,7 @@ class RawInvoiceClient:
             Success. Fields marked optional may return `null` if not set.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/invoices/org/{jsonable_encoder(org_id)}",
+            f"Query/invoices/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -1151,7 +1151,7 @@ class RawInvoiceClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Invoice/send/{jsonable_encoder(id_invoice)}",
+            f"Invoice/send/{encode_path_param(id_invoice)}",
             method="GET",
             params={
                 "attachfile": attachfile,
@@ -1242,7 +1242,7 @@ class RawInvoiceClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Export/invoicePdf/{jsonable_encoder(id_invoice)}",
+            f"Export/invoicePdf/{encode_path_param(id_invoice)}",
             method="GET",
             request_options=request_options,
         )
@@ -1355,7 +1355,7 @@ class AsyncRawInvoiceClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Invoice/{jsonable_encoder(entry)}",
+            f"Invoice/{encode_path_param(entry)}",
             method="POST",
             params={
                 "forceCustomerCreation": force_customer_creation,
@@ -1474,7 +1474,7 @@ class AsyncRawInvoiceClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Invoice/attachedFileFromInvoice/{jsonable_encoder(id_invoice)}/{jsonable_encoder(filename)}",
+            f"Invoice/attachedFileFromInvoice/{encode_path_param(id_invoice)}/{encode_path_param(filename)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1561,7 +1561,7 @@ class AsyncRawInvoiceClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Invoice/{jsonable_encoder(id_invoice)}",
+            f"Invoice/{encode_path_param(id_invoice)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1667,7 +1667,7 @@ class AsyncRawInvoiceClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Invoice/{jsonable_encoder(id_invoice)}",
+            f"Invoice/{encode_path_param(id_invoice)}",
             method="PUT",
             params={
                 "forceCustomerCreation": force_customer_creation,
@@ -1795,7 +1795,7 @@ class AsyncRawInvoiceClient:
             A successful response returns a binary file when `returnObject` is `false`. When `returnObject` is `true`, the response contains the file content as a Base64-encoded string in an object. Due to technical limitations, only the object response is documented here.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Invoice/attachedFileFromInvoice/{jsonable_encoder(id_invoice)}/{jsonable_encoder(filename)}",
+            f"Invoice/attachedFileFromInvoice/{encode_path_param(id_invoice)}/{encode_path_param(filename)}",
             method="GET",
             params={
                 "returnObject": return_object,
@@ -1885,7 +1885,7 @@ class AsyncRawInvoiceClient:
             Success. Fields marked optional may return `null` if not set.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Invoice/{jsonable_encoder(id_invoice)}",
+            f"Invoice/{encode_path_param(id_invoice)}",
             method="GET",
             request_options=request_options,
         )
@@ -1972,7 +1972,7 @@ class AsyncRawInvoiceClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Invoice/getNumber/{jsonable_encoder(entry)}",
+            f"Invoice/getNumber/{encode_path_param(entry)}",
             method="GET",
             request_options=request_options,
         )
@@ -2143,7 +2143,7 @@ class AsyncRawInvoiceClient:
             Success. Fields marked optional may return `null` if not set.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/invoices/{jsonable_encoder(entry)}",
+            f"Query/invoices/{encode_path_param(entry)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -2321,7 +2321,7 @@ class AsyncRawInvoiceClient:
             Success. Fields marked optional may return `null` if not set.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/invoices/org/{jsonable_encoder(org_id)}",
+            f"Query/invoices/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -2426,7 +2426,7 @@ class AsyncRawInvoiceClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Invoice/send/{jsonable_encoder(id_invoice)}",
+            f"Invoice/send/{encode_path_param(id_invoice)}",
             method="GET",
             params={
                 "attachfile": attachfile,
@@ -2517,7 +2517,7 @@ class AsyncRawInvoiceClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Export/invoicePdf/{jsonable_encoder(id_invoice)}",
+            f"Export/invoicePdf/{encode_path_param(id_invoice)}",
             method="GET",
             request_options=request_options,
         )

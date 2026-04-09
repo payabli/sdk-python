@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import jsonable_encoder
+from ..core.jsonable_encoder import encode_path_param
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
@@ -204,7 +204,7 @@ class RawBoardingClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Boarding/app/{jsonable_encoder(app_id)}",
+            f"Boarding/app/{encode_path_param(app_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -291,7 +291,7 @@ class RawBoardingClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Boarding/read/{jsonable_encoder(app_id)}",
+            f"Boarding/read/{encode_path_param(app_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -389,7 +389,7 @@ class RawBoardingClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Boarding/read/{jsonable_encoder(x_id)}",
+            f"Boarding/read/{encode_path_param(x_id)}",
             method="POST",
             json={
                 "email": email,
@@ -484,7 +484,7 @@ class RawBoardingClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Boarding/linkbyId/{jsonable_encoder(boarding_link_id)}",
+            f"Boarding/linkbyId/{encode_path_param(boarding_link_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -571,7 +571,7 @@ class RawBoardingClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Boarding/linkbyTemplate/{jsonable_encoder(template_id)}",
+            f"Boarding/linkbyTemplate/{encode_path_param(template_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -669,7 +669,7 @@ class RawBoardingClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Boarding/applink/{jsonable_encoder(app_id)}/{jsonable_encoder(mail_2)}",
+            f"Boarding/applink/{encode_path_param(app_id)}/{encode_path_param(mail_2)}",
             method="PUT",
             params={
                 "sendEmail": send_email,
@@ -759,7 +759,7 @@ class RawBoardingClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Boarding/link/{jsonable_encoder(boarding_link_reference)}",
+            f"Boarding/link/{encode_path_param(boarding_link_reference)}",
             method="GET",
             request_options=request_options,
         )
@@ -902,7 +902,7 @@ class RawBoardingClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/boarding/{jsonable_encoder(org_id)}",
+            f"Query/boarding/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -1045,7 +1045,7 @@ class RawBoardingClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/boardinglinks/{jsonable_encoder(org_id)}",
+            f"Query/boardinglinks/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "fromRecord": from_record,
@@ -1310,7 +1310,7 @@ class RawBoardingClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Boarding/app/{jsonable_encoder(app_id)}",
+            f"Boarding/app/{encode_path_param(app_id)}",
             method="PUT",
             json={
                 "services": convert_and_respect_annotation_metadata(
@@ -1569,7 +1569,7 @@ class AsyncRawBoardingClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Boarding/app/{jsonable_encoder(app_id)}",
+            f"Boarding/app/{encode_path_param(app_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1656,7 +1656,7 @@ class AsyncRawBoardingClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Boarding/read/{jsonable_encoder(app_id)}",
+            f"Boarding/read/{encode_path_param(app_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -1754,7 +1754,7 @@ class AsyncRawBoardingClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Boarding/read/{jsonable_encoder(x_id)}",
+            f"Boarding/read/{encode_path_param(x_id)}",
             method="POST",
             json={
                 "email": email,
@@ -1849,7 +1849,7 @@ class AsyncRawBoardingClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Boarding/linkbyId/{jsonable_encoder(boarding_link_id)}",
+            f"Boarding/linkbyId/{encode_path_param(boarding_link_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -1936,7 +1936,7 @@ class AsyncRawBoardingClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Boarding/linkbyTemplate/{jsonable_encoder(template_id)}",
+            f"Boarding/linkbyTemplate/{encode_path_param(template_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -2034,7 +2034,7 @@ class AsyncRawBoardingClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Boarding/applink/{jsonable_encoder(app_id)}/{jsonable_encoder(mail_2)}",
+            f"Boarding/applink/{encode_path_param(app_id)}/{encode_path_param(mail_2)}",
             method="PUT",
             params={
                 "sendEmail": send_email,
@@ -2124,7 +2124,7 @@ class AsyncRawBoardingClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Boarding/link/{jsonable_encoder(boarding_link_reference)}",
+            f"Boarding/link/{encode_path_param(boarding_link_reference)}",
             method="GET",
             request_options=request_options,
         )
@@ -2267,7 +2267,7 @@ class AsyncRawBoardingClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/boarding/{jsonable_encoder(org_id)}",
+            f"Query/boarding/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -2410,7 +2410,7 @@ class AsyncRawBoardingClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/boardinglinks/{jsonable_encoder(org_id)}",
+            f"Query/boardinglinks/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "fromRecord": from_record,
@@ -2675,7 +2675,7 @@ class AsyncRawBoardingClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Boarding/app/{jsonable_encoder(app_id)}",
+            f"Boarding/app/{encode_path_param(app_id)}",
             method="PUT",
             json={
                 "services": convert_and_respect_annotation_metadata(

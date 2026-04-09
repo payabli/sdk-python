@@ -8,7 +8,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import jsonable_encoder
+from ..core.jsonable_encoder import encode_path_param
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
@@ -184,7 +184,7 @@ class RawNotificationlogsClient:
         HttpResponse[NotificationLogDetail]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v2/notificationlogs/{jsonable_encoder(uuid_)}",
+            f"v2/notificationlogs/{encode_path_param(uuid_)}",
             method="GET",
             request_options=request_options,
         )
@@ -272,7 +272,7 @@ class RawNotificationlogsClient:
         HttpResponse[NotificationLogDetail]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v2/notificationlogs/{jsonable_encoder(uuid_)}/retry",
+            f"v2/notificationlogs/{encode_path_param(uuid_)}/retry",
             method="GET",
             request_options=request_options,
         )
@@ -536,7 +536,7 @@ class AsyncRawNotificationlogsClient:
         AsyncHttpResponse[NotificationLogDetail]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v2/notificationlogs/{jsonable_encoder(uuid_)}",
+            f"v2/notificationlogs/{encode_path_param(uuid_)}",
             method="GET",
             request_options=request_options,
         )
@@ -624,7 +624,7 @@ class AsyncRawNotificationlogsClient:
         AsyncHttpResponse[NotificationLogDetail]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v2/notificationlogs/{jsonable_encoder(uuid_)}/retry",
+            f"v2/notificationlogs/{encode_path_param(uuid_)}/retry",
             method="GET",
             request_options=request_options,
         )

@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import jsonable_encoder
+from ..core.jsonable_encoder import encode_path_param
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
@@ -175,7 +175,7 @@ class RawPaymentMethodDomainClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"PaymentMethodDomain/{jsonable_encoder(domain_id)}/cascade",
+            f"PaymentMethodDomain/{encode_path_param(domain_id)}/cascade",
             method="POST",
             request_options=request_options,
         )
@@ -262,7 +262,7 @@ class RawPaymentMethodDomainClient:
             Success response for a deleted payment method domain.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"PaymentMethodDomain/{jsonable_encoder(domain_id)}",
+            f"PaymentMethodDomain/{encode_path_param(domain_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -349,7 +349,7 @@ class RawPaymentMethodDomainClient:
             Success response that includes a payment method domain's details.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"PaymentMethodDomain/{jsonable_encoder(domain_id)}",
+            f"PaymentMethodDomain/{encode_path_param(domain_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -557,7 +557,7 @@ class RawPaymentMethodDomainClient:
             Success response for configuration update.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"PaymentMethodDomain/{jsonable_encoder(domain_id)}",
+            f"PaymentMethodDomain/{encode_path_param(domain_id)}",
             method="PATCH",
             json={
                 "applePay": convert_and_respect_annotation_metadata(
@@ -656,7 +656,7 @@ class RawPaymentMethodDomainClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"PaymentMethodDomain/{jsonable_encoder(domain_id)}/verify",
+            f"PaymentMethodDomain/{encode_path_param(domain_id)}/verify",
             method="POST",
             request_options=request_options,
         )
@@ -822,7 +822,7 @@ class AsyncRawPaymentMethodDomainClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"PaymentMethodDomain/{jsonable_encoder(domain_id)}/cascade",
+            f"PaymentMethodDomain/{encode_path_param(domain_id)}/cascade",
             method="POST",
             request_options=request_options,
         )
@@ -909,7 +909,7 @@ class AsyncRawPaymentMethodDomainClient:
             Success response for a deleted payment method domain.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"PaymentMethodDomain/{jsonable_encoder(domain_id)}",
+            f"PaymentMethodDomain/{encode_path_param(domain_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -996,7 +996,7 @@ class AsyncRawPaymentMethodDomainClient:
             Success response that includes a payment method domain's details.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"PaymentMethodDomain/{jsonable_encoder(domain_id)}",
+            f"PaymentMethodDomain/{encode_path_param(domain_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -1204,7 +1204,7 @@ class AsyncRawPaymentMethodDomainClient:
             Success response for configuration update.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"PaymentMethodDomain/{jsonable_encoder(domain_id)}",
+            f"PaymentMethodDomain/{encode_path_param(domain_id)}",
             method="PATCH",
             json={
                 "applePay": convert_and_respect_annotation_metadata(
@@ -1303,7 +1303,7 @@ class AsyncRawPaymentMethodDomainClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"PaymentMethodDomain/{jsonable_encoder(domain_id)}/verify",
+            f"PaymentMethodDomain/{encode_path_param(domain_id)}/verify",
             method="POST",
             request_options=request_options,
         )

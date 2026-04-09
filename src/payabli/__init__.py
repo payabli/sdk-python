@@ -707,6 +707,7 @@ if typing.TYPE_CHECKING:
         vendor,
         wallet,
     )
+    from ._default_clients import DefaultAioHttpClient, DefaultAsyncHttpxClient
     from .bill import (
         BillOutData,
         BillOutDataScheduledOptions,
@@ -1205,6 +1206,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DeclinedCaptureResponseErrorV2": ".v_2_money_in_types",
     "DeclinedRefundResponseErrorV2": ".v_2_money_in_types",
     "DeclinedVoidResponseErrorV2": ".v_2_money_in_types",
+    "DefaultAioHttpClient": "._default_clients",
+    "DefaultAsyncHttpxClient": "._default_clients",
     "DeleteItemResponse": ".line_item",
     "DeleteOrganizationResponse": ".organization",
     "DeletePaymentMethodDomainResponse": ".payment_method_domain",
@@ -2150,6 +2153,8 @@ __all__ = [
     "DeclinedCaptureResponseErrorV2",
     "DeclinedRefundResponseErrorV2",
     "DeclinedVoidResponseErrorV2",
+    "DefaultAioHttpClient",
+    "DefaultAsyncHttpxClient",
     "DeleteItemResponse",
     "DeleteOrganizationResponse",
     "DeletePaymentMethodDomainResponse",

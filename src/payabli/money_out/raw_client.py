@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import jsonable_encoder
+from ..core.jsonable_encoder import encode_path_param
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
@@ -329,7 +329,7 @@ class RawMoneyOutClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"MoneyOut/cancel/{jsonable_encoder(reference_id)}",
+            f"MoneyOut/cancel/{encode_path_param(reference_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -416,7 +416,7 @@ class RawMoneyOutClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"MoneyOut/cancel/{jsonable_encoder(reference_id)}",
+            f"MoneyOut/cancel/{encode_path_param(reference_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -607,7 +607,7 @@ class RawMoneyOutClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"MoneyOut/capture/{jsonable_encoder(reference_id)}",
+            f"MoneyOut/capture/{encode_path_param(reference_id)}",
             method="GET",
             headers={
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
@@ -697,7 +697,7 @@ class RawMoneyOutClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"MoneyOut/details/{jsonable_encoder(trans_id)}",
+            f"MoneyOut/details/{encode_path_param(trans_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -784,7 +784,7 @@ class RawMoneyOutClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"MoneyOut/vcard/{jsonable_encoder(card_token)}",
+            f"MoneyOut/vcard/{encode_path_param(card_token)}",
             method="GET",
             request_options=request_options,
         )
@@ -972,7 +972,7 @@ class RawMoneyOutClient:
             A base64-encoded string of the check image.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"MoneyOut/checkimage/{jsonable_encoder(asset_name)}",
+            f"MoneyOut/checkimage/{encode_path_param(asset_name)}",
             method="GET",
             request_options=request_options,
         )
@@ -1077,7 +1077,7 @@ class RawMoneyOutClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"MoneyOut/status/{jsonable_encoder(trans_id)}/{jsonable_encoder(check_payment_status)}",
+            f"MoneyOut/status/{encode_path_param(trans_id)}/{encode_path_param(check_payment_status)}",
             method="PATCH",
             request_options=request_options,
         )
@@ -1552,7 +1552,7 @@ class AsyncRawMoneyOutClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"MoneyOut/cancel/{jsonable_encoder(reference_id)}",
+            f"MoneyOut/cancel/{encode_path_param(reference_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -1639,7 +1639,7 @@ class AsyncRawMoneyOutClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"MoneyOut/cancel/{jsonable_encoder(reference_id)}",
+            f"MoneyOut/cancel/{encode_path_param(reference_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1830,7 +1830,7 @@ class AsyncRawMoneyOutClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"MoneyOut/capture/{jsonable_encoder(reference_id)}",
+            f"MoneyOut/capture/{encode_path_param(reference_id)}",
             method="GET",
             headers={
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
@@ -1920,7 +1920,7 @@ class AsyncRawMoneyOutClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"MoneyOut/details/{jsonable_encoder(trans_id)}",
+            f"MoneyOut/details/{encode_path_param(trans_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -2007,7 +2007,7 @@ class AsyncRawMoneyOutClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"MoneyOut/vcard/{jsonable_encoder(card_token)}",
+            f"MoneyOut/vcard/{encode_path_param(card_token)}",
             method="GET",
             request_options=request_options,
         )
@@ -2195,7 +2195,7 @@ class AsyncRawMoneyOutClient:
             A base64-encoded string of the check image.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"MoneyOut/checkimage/{jsonable_encoder(asset_name)}",
+            f"MoneyOut/checkimage/{encode_path_param(asset_name)}",
             method="GET",
             request_options=request_options,
         )
@@ -2300,7 +2300,7 @@ class AsyncRawMoneyOutClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"MoneyOut/status/{jsonable_encoder(trans_id)}/{jsonable_encoder(check_payment_status)}",
+            f"MoneyOut/status/{encode_path_param(trans_id)}/{encode_path_param(check_payment_status)}",
             method="PATCH",
             request_options=request_options,
         )

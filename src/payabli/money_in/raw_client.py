@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import jsonable_encoder
+from ..core.jsonable_encoder import encode_path_param
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
@@ -264,7 +264,7 @@ class RawMoneyInClient:
             Ok
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"MoneyIn/capture/{jsonable_encoder(trans_id)}/{jsonable_encoder(amount)}",
+            f"MoneyIn/capture/{encode_path_param(trans_id)}/{encode_path_param(amount)}",
             method="GET",
             request_options=request_options,
         )
@@ -363,7 +363,7 @@ class RawMoneyInClient:
             Ok
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"MoneyIn/capture/{jsonable_encoder(trans_id)}",
+            f"MoneyIn/capture/{encode_path_param(trans_id)}",
             method="POST",
             json={
                 "paymentDetails": convert_and_respect_annotation_metadata(
@@ -606,7 +606,7 @@ class RawMoneyInClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"MoneyIn/details/{jsonable_encoder(trans_id)}",
+            f"MoneyIn/details/{encode_path_param(trans_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -881,7 +881,7 @@ class RawMoneyInClient:
             Ok
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"MoneyIn/reverse/{jsonable_encoder(trans_id)}/{jsonable_encoder(amount)}",
+            f"MoneyIn/reverse/{encode_path_param(trans_id)}/{encode_path_param(amount)}",
             method="GET",
             request_options=request_options,
         )
@@ -980,7 +980,7 @@ class RawMoneyInClient:
             Ok
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"MoneyIn/refund/{jsonable_encoder(trans_id)}/{jsonable_encoder(amount)}",
+            f"MoneyIn/refund/{encode_path_param(trans_id)}/{encode_path_param(amount)}",
             method="GET",
             request_options=request_options,
         )
@@ -1097,7 +1097,7 @@ class RawMoneyInClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"MoneyIn/refund/{jsonable_encoder(trans_id)}",
+            f"MoneyIn/refund/{encode_path_param(trans_id)}",
             method="POST",
             json={
                 "amount": amount,
@@ -1199,7 +1199,7 @@ class RawMoneyInClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"MoneyIn/reverseCredit/{jsonable_encoder(trans_id)}",
+            f"MoneyIn/reverseCredit/{encode_path_param(trans_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -1295,7 +1295,7 @@ class RawMoneyInClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"MoneyIn/sendreceipt/{jsonable_encoder(trans_id)}",
+            f"MoneyIn/sendreceipt/{encode_path_param(trans_id)}",
             method="GET",
             params={
                 "email": email,
@@ -1508,7 +1508,7 @@ class RawMoneyInClient:
             Ok
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"MoneyIn/void/{jsonable_encoder(trans_id)}",
+            f"MoneyIn/void/{encode_path_param(trans_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -1936,7 +1936,7 @@ class RawMoneyInClient:
             Ok
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v2/MoneyIn/capture/{jsonable_encoder(trans_id)}",
+            f"v2/MoneyIn/capture/{encode_path_param(trans_id)}",
             method="POST",
             json={
                 "paymentDetails": convert_and_respect_annotation_metadata(
@@ -2034,7 +2034,7 @@ class RawMoneyInClient:
             Ok
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v2/MoneyIn/refund/{jsonable_encoder(trans_id)}",
+            f"v2/MoneyIn/refund/{encode_path_param(trans_id)}",
             method="POST",
             request_options=request_options,
         )
@@ -2126,7 +2126,7 @@ class RawMoneyInClient:
             Ok
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v2/MoneyIn/refund/{jsonable_encoder(trans_id)}/{jsonable_encoder(amount)}",
+            f"v2/MoneyIn/refund/{encode_path_param(trans_id)}/{encode_path_param(amount)}",
             method="POST",
             request_options=request_options,
         )
@@ -2213,7 +2213,7 @@ class RawMoneyInClient:
             Ok
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v2/MoneyIn/void/{jsonable_encoder(trans_id)}",
+            f"v2/MoneyIn/void/{encode_path_param(trans_id)}",
             method="POST",
             request_options=request_options,
         )
@@ -2479,7 +2479,7 @@ class AsyncRawMoneyInClient:
             Ok
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"MoneyIn/capture/{jsonable_encoder(trans_id)}/{jsonable_encoder(amount)}",
+            f"MoneyIn/capture/{encode_path_param(trans_id)}/{encode_path_param(amount)}",
             method="GET",
             request_options=request_options,
         )
@@ -2578,7 +2578,7 @@ class AsyncRawMoneyInClient:
             Ok
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"MoneyIn/capture/{jsonable_encoder(trans_id)}",
+            f"MoneyIn/capture/{encode_path_param(trans_id)}",
             method="POST",
             json={
                 "paymentDetails": convert_and_respect_annotation_metadata(
@@ -2821,7 +2821,7 @@ class AsyncRawMoneyInClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"MoneyIn/details/{jsonable_encoder(trans_id)}",
+            f"MoneyIn/details/{encode_path_param(trans_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -3096,7 +3096,7 @@ class AsyncRawMoneyInClient:
             Ok
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"MoneyIn/reverse/{jsonable_encoder(trans_id)}/{jsonable_encoder(amount)}",
+            f"MoneyIn/reverse/{encode_path_param(trans_id)}/{encode_path_param(amount)}",
             method="GET",
             request_options=request_options,
         )
@@ -3195,7 +3195,7 @@ class AsyncRawMoneyInClient:
             Ok
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"MoneyIn/refund/{jsonable_encoder(trans_id)}/{jsonable_encoder(amount)}",
+            f"MoneyIn/refund/{encode_path_param(trans_id)}/{encode_path_param(amount)}",
             method="GET",
             request_options=request_options,
         )
@@ -3312,7 +3312,7 @@ class AsyncRawMoneyInClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"MoneyIn/refund/{jsonable_encoder(trans_id)}",
+            f"MoneyIn/refund/{encode_path_param(trans_id)}",
             method="POST",
             json={
                 "amount": amount,
@@ -3414,7 +3414,7 @@ class AsyncRawMoneyInClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"MoneyIn/reverseCredit/{jsonable_encoder(trans_id)}",
+            f"MoneyIn/reverseCredit/{encode_path_param(trans_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -3510,7 +3510,7 @@ class AsyncRawMoneyInClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"MoneyIn/sendreceipt/{jsonable_encoder(trans_id)}",
+            f"MoneyIn/sendreceipt/{encode_path_param(trans_id)}",
             method="GET",
             params={
                 "email": email,
@@ -3723,7 +3723,7 @@ class AsyncRawMoneyInClient:
             Ok
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"MoneyIn/void/{jsonable_encoder(trans_id)}",
+            f"MoneyIn/void/{encode_path_param(trans_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -4151,7 +4151,7 @@ class AsyncRawMoneyInClient:
             Ok
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v2/MoneyIn/capture/{jsonable_encoder(trans_id)}",
+            f"v2/MoneyIn/capture/{encode_path_param(trans_id)}",
             method="POST",
             json={
                 "paymentDetails": convert_and_respect_annotation_metadata(
@@ -4249,7 +4249,7 @@ class AsyncRawMoneyInClient:
             Ok
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v2/MoneyIn/refund/{jsonable_encoder(trans_id)}",
+            f"v2/MoneyIn/refund/{encode_path_param(trans_id)}",
             method="POST",
             request_options=request_options,
         )
@@ -4341,7 +4341,7 @@ class AsyncRawMoneyInClient:
             Ok
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v2/MoneyIn/refund/{jsonable_encoder(trans_id)}/{jsonable_encoder(amount)}",
+            f"v2/MoneyIn/refund/{encode_path_param(trans_id)}/{encode_path_param(amount)}",
             method="POST",
             request_options=request_options,
         )
@@ -4428,7 +4428,7 @@ class AsyncRawMoneyInClient:
             Ok
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v2/MoneyIn/void/{jsonable_encoder(trans_id)}",
+            f"v2/MoneyIn/void/{encode_path_param(trans_id)}",
             method="POST",
             request_options=request_options,
         )

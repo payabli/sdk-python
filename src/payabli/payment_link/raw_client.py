@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import jsonable_encoder
+from ..core.jsonable_encoder import encode_path_param
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
@@ -122,7 +122,7 @@ class RawPaymentLinkClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"PaymentLink/{jsonable_encoder(id_invoice)}",
+            f"PaymentLink/{encode_path_param(id_invoice)}",
             method="POST",
             params={
                 "amountFixed": amount_fixed,
@@ -305,7 +305,7 @@ class RawPaymentLinkClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"PaymentLink/bill/{jsonable_encoder(bill_id)}",
+            f"PaymentLink/bill/{encode_path_param(bill_id)}",
             method="POST",
             params={
                 "amountFixed": amount_fixed,
@@ -429,7 +429,7 @@ class RawPaymentLinkClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"PaymentLink/{jsonable_encoder(pay_link_id)}",
+            f"PaymentLink/{encode_path_param(pay_link_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -516,7 +516,7 @@ class RawPaymentLinkClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"PaymentLink/load/{jsonable_encoder(paylink_id)}",
+            f"PaymentLink/load/{encode_path_param(paylink_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -605,7 +605,7 @@ class RawPaymentLinkClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"PaymentLink/push/{jsonable_encoder(pay_link_id)}",
+            f"PaymentLink/push/{encode_path_param(pay_link_id)}",
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=PushPayLinkRequest, direction="write"
@@ -706,7 +706,7 @@ class RawPaymentLinkClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"PaymentLink/refresh/{jsonable_encoder(pay_link_id)}",
+            f"PaymentLink/refresh/{encode_path_param(pay_link_id)}",
             method="GET",
             params={
                 "amountFixed": amount_fixed,
@@ -807,7 +807,7 @@ class RawPaymentLinkClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"PaymentLink/send/{jsonable_encoder(pay_link_id)}",
+            f"PaymentLink/send/{encode_path_param(pay_link_id)}",
             method="GET",
             params={
                 "attachfile": attachfile,
@@ -937,7 +937,7 @@ class RawPaymentLinkClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"PaymentLink/update/{jsonable_encoder(pay_link_id)}",
+            f"PaymentLink/update/{encode_path_param(pay_link_id)}",
             method="PUT",
             json={
                 "contactUs": convert_and_respect_annotation_metadata(
@@ -1113,7 +1113,7 @@ class RawPaymentLinkClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"PaymentLink/bill/lotNumber/{jsonable_encoder(lot_number)}",
+            f"PaymentLink/bill/lotNumber/{encode_path_param(lot_number)}",
             method="POST",
             params={
                 "entryPoint": entry_point,
@@ -1209,7 +1209,7 @@ class RawPaymentLinkClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"PaymentLink/out/{jsonable_encoder(paylink_id)}",
+            f"PaymentLink/out/{encode_path_param(paylink_id)}",
             method="PATCH",
             json={
                 "billPageData": convert_and_respect_annotation_metadata(
@@ -1350,7 +1350,7 @@ class RawPaymentLinkClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"PaymentLink/updateOut/{jsonable_encoder(paylink_id)}",
+            f"PaymentLink/updateOut/{encode_path_param(paylink_id)}",
             method="PATCH",
             json={
                 "contactUs": convert_and_respect_annotation_metadata(
@@ -1532,7 +1532,7 @@ class AsyncRawPaymentLinkClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"PaymentLink/{jsonable_encoder(id_invoice)}",
+            f"PaymentLink/{encode_path_param(id_invoice)}",
             method="POST",
             params={
                 "amountFixed": amount_fixed,
@@ -1715,7 +1715,7 @@ class AsyncRawPaymentLinkClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"PaymentLink/bill/{jsonable_encoder(bill_id)}",
+            f"PaymentLink/bill/{encode_path_param(bill_id)}",
             method="POST",
             params={
                 "amountFixed": amount_fixed,
@@ -1839,7 +1839,7 @@ class AsyncRawPaymentLinkClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"PaymentLink/{jsonable_encoder(pay_link_id)}",
+            f"PaymentLink/{encode_path_param(pay_link_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1926,7 +1926,7 @@ class AsyncRawPaymentLinkClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"PaymentLink/load/{jsonable_encoder(paylink_id)}",
+            f"PaymentLink/load/{encode_path_param(paylink_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -2015,7 +2015,7 @@ class AsyncRawPaymentLinkClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"PaymentLink/push/{jsonable_encoder(pay_link_id)}",
+            f"PaymentLink/push/{encode_path_param(pay_link_id)}",
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=PushPayLinkRequest, direction="write"
@@ -2116,7 +2116,7 @@ class AsyncRawPaymentLinkClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"PaymentLink/refresh/{jsonable_encoder(pay_link_id)}",
+            f"PaymentLink/refresh/{encode_path_param(pay_link_id)}",
             method="GET",
             params={
                 "amountFixed": amount_fixed,
@@ -2217,7 +2217,7 @@ class AsyncRawPaymentLinkClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"PaymentLink/send/{jsonable_encoder(pay_link_id)}",
+            f"PaymentLink/send/{encode_path_param(pay_link_id)}",
             method="GET",
             params={
                 "attachfile": attachfile,
@@ -2347,7 +2347,7 @@ class AsyncRawPaymentLinkClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"PaymentLink/update/{jsonable_encoder(pay_link_id)}",
+            f"PaymentLink/update/{encode_path_param(pay_link_id)}",
             method="PUT",
             json={
                 "contactUs": convert_and_respect_annotation_metadata(
@@ -2523,7 +2523,7 @@ class AsyncRawPaymentLinkClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"PaymentLink/bill/lotNumber/{jsonable_encoder(lot_number)}",
+            f"PaymentLink/bill/lotNumber/{encode_path_param(lot_number)}",
             method="POST",
             params={
                 "entryPoint": entry_point,
@@ -2619,7 +2619,7 @@ class AsyncRawPaymentLinkClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"PaymentLink/out/{jsonable_encoder(paylink_id)}",
+            f"PaymentLink/out/{encode_path_param(paylink_id)}",
             method="PATCH",
             json={
                 "billPageData": convert_and_respect_annotation_metadata(
@@ -2760,7 +2760,7 @@ class AsyncRawPaymentLinkClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"PaymentLink/updateOut/{jsonable_encoder(paylink_id)}",
+            f"PaymentLink/updateOut/{encode_path_param(paylink_id)}",
             method="PATCH",
             json={
                 "contactUs": convert_and_respect_annotation_metadata(

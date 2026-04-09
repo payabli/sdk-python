@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import jsonable_encoder
+from ..core.jsonable_encoder import encode_path_param
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
@@ -106,7 +106,7 @@ class RawStatisticClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Statistic/basic/{jsonable_encoder(mode)}/{jsonable_encoder(freq)}/{jsonable_encoder(level)}/{jsonable_encoder(entry_id)}",
+            f"Statistic/basic/{encode_path_param(mode)}/{encode_path_param(freq)}/{encode_path_param(level)}/{encode_path_param(entry_id)}",
             method="GET",
             params={
                 "endDate": end_date,
@@ -232,7 +232,7 @@ class RawStatisticClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Statistic/customerbasic/{jsonable_encoder(mode)}/{jsonable_encoder(freq)}/{jsonable_encoder(customer_id)}",
+            f"Statistic/customerbasic/{encode_path_param(mode)}/{encode_path_param(freq)}/{encode_path_param(customer_id)}",
             method="GET",
             params={
                 "parameters": parameters,
@@ -345,7 +345,7 @@ class RawStatisticClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Statistic/subscriptions/{jsonable_encoder(interval)}/{jsonable_encoder(level)}/{jsonable_encoder(entry_id)}",
+            f"Statistic/subscriptions/{encode_path_param(interval)}/{encode_path_param(level)}/{encode_path_param(entry_id)}",
             method="GET",
             params={
                 "parameters": parameters,
@@ -469,7 +469,7 @@ class RawStatisticClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Statistic/vendorbasic/{jsonable_encoder(mode)}/{jsonable_encoder(freq)}/{jsonable_encoder(id_vendor)}",
+            f"Statistic/vendorbasic/{encode_path_param(mode)}/{encode_path_param(freq)}/{encode_path_param(id_vendor)}",
             method="GET",
             params={
                 "parameters": parameters,
@@ -580,7 +580,7 @@ class AsyncRawStatisticClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Statistic/basic/{jsonable_encoder(mode)}/{jsonable_encoder(freq)}/{jsonable_encoder(level)}/{jsonable_encoder(entry_id)}",
+            f"Statistic/basic/{encode_path_param(mode)}/{encode_path_param(freq)}/{encode_path_param(level)}/{encode_path_param(entry_id)}",
             method="GET",
             params={
                 "endDate": end_date,
@@ -706,7 +706,7 @@ class AsyncRawStatisticClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Statistic/customerbasic/{jsonable_encoder(mode)}/{jsonable_encoder(freq)}/{jsonable_encoder(customer_id)}",
+            f"Statistic/customerbasic/{encode_path_param(mode)}/{encode_path_param(freq)}/{encode_path_param(customer_id)}",
             method="GET",
             params={
                 "parameters": parameters,
@@ -819,7 +819,7 @@ class AsyncRawStatisticClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Statistic/subscriptions/{jsonable_encoder(interval)}/{jsonable_encoder(level)}/{jsonable_encoder(entry_id)}",
+            f"Statistic/subscriptions/{encode_path_param(interval)}/{encode_path_param(level)}/{encode_path_param(entry_id)}",
             method="GET",
             params={
                 "parameters": parameters,
@@ -943,7 +943,7 @@ class AsyncRawStatisticClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Statistic/vendorbasic/{jsonable_encoder(mode)}/{jsonable_encoder(freq)}/{jsonable_encoder(id_vendor)}",
+            f"Statistic/vendorbasic/{encode_path_param(mode)}/{encode_path_param(freq)}/{encode_path_param(id_vendor)}",
             method="GET",
             params={
                 "parameters": parameters,

@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import jsonable_encoder
+from ..core.jsonable_encoder import encode_path_param
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
@@ -164,7 +164,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/batchDetails/{jsonable_encoder(entry)}",
+            f"Query/batchDetails/{encode_path_param(entry)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -354,7 +354,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/batchDetails/org/{jsonable_encoder(org_id)}",
+            f"Query/batchDetails/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -522,7 +522,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/batches/{jsonable_encoder(entry)}",
+            f"Query/batches/{encode_path_param(entry)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -691,7 +691,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/batches/org/{jsonable_encoder(org_id)}",
+            f"Query/batches/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -821,7 +821,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/batchesOut/{jsonable_encoder(entry)}",
+            f"Query/batchesOut/{encode_path_param(entry)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -967,7 +967,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/batchesOut/org/{jsonable_encoder(org_id)}",
+            f"Query/batchesOut/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -1152,7 +1152,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/chargebacks/{jsonable_encoder(entry)}",
+            f"Query/chargebacks/{encode_path_param(entry)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -1340,7 +1340,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/chargebacks/org/{jsonable_encoder(org_id)}",
+            f"Query/chargebacks/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -1519,7 +1519,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/customers/{jsonable_encoder(entry)}",
+            f"Query/customers/{encode_path_param(entry)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -1699,7 +1699,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/customers/org/{jsonable_encoder(org_id)}",
+            f"Query/customers/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -1848,7 +1848,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/notificationReports/{jsonable_encoder(entry)}",
+            f"Query/notificationReports/{encode_path_param(entry)}",
             method="GET",
             params={
                 "fromRecord": from_record,
@@ -1995,7 +1995,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/notificationReports/org/{jsonable_encoder(org_id)}",
+            f"Query/notificationReports/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "fromRecord": from_record,
@@ -2145,7 +2145,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/notifications/{jsonable_encoder(entry)}",
+            f"Query/notifications/{encode_path_param(entry)}",
             method="GET",
             params={
                 "fromRecord": from_record,
@@ -2296,7 +2296,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/notifications/org/{jsonable_encoder(org_id)}",
+            f"Query/notifications/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "fromRecord": from_record,
@@ -2462,7 +2462,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/organizations/{jsonable_encoder(org_id)}",
+            f"Query/organizations/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -2655,7 +2655,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/payouts/{jsonable_encoder(entry)}",
+            f"Query/payouts/{encode_path_param(entry)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -2848,7 +2848,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/payouts/org/{jsonable_encoder(org_id)}",
+            f"Query/payouts/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -3020,7 +3020,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/paypoints/{jsonable_encoder(org_id)}",
+            f"Query/paypoints/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -3210,7 +3210,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/settlements/{jsonable_encoder(entry)}",
+            f"Query/settlements/{encode_path_param(entry)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -3401,7 +3401,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/settlements/org/{jsonable_encoder(org_id)}",
+            f"Query/settlements/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -3591,7 +3591,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/subscriptions/{jsonable_encoder(entry)}",
+            f"Query/subscriptions/{encode_path_param(entry)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -3782,7 +3782,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/subscriptions/org/{jsonable_encoder(org_id)}",
+            f"Query/subscriptions/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -3960,7 +3960,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/payoutsubscriptions/{jsonable_encoder(entry)}",
+            f"Query/payoutsubscriptions/{encode_path_param(entry)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -4139,7 +4139,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/payoutsubscriptions/org/{jsonable_encoder(org_id)}",
+            f"Query/payoutsubscriptions/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -4343,7 +4343,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/transactions/{jsonable_encoder(entry)}",
+            f"Query/transactions/{encode_path_param(entry)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -4554,7 +4554,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/transactions/org/{jsonable_encoder(org_id)}",
+            f"Query/transactions/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -4709,7 +4709,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/transferDetails/{jsonable_encoder(entry)}/{jsonable_encoder(transfer_id)}",
+            f"Query/transferDetails/{encode_path_param(entry)}/{encode_path_param(transfer_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -4858,7 +4858,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/transfers/{jsonable_encoder(entry)}",
+            f"Query/transfers/{encode_path_param(entry)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -5004,7 +5004,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/transfers/org/{jsonable_encoder(org_id)}",
+            f"Query/transfers/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -5144,7 +5144,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/transfersOut/org/{jsonable_encoder(org_id)}",
+            f"Query/transfersOut/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "fromRecord": from_record,
@@ -5282,7 +5282,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/transfersOut/{jsonable_encoder(entry)}",
+            f"Query/transfersOut/{encode_path_param(entry)}",
             method="GET",
             params={
                 "fromRecord": from_record,
@@ -5423,7 +5423,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/transferDetailsOut/{jsonable_encoder(entry)}/{jsonable_encoder(transfer_id)}",
+            f"Query/transferDetailsOut/{encode_path_param(entry)}/{encode_path_param(transfer_id)}",
             method="GET",
             params={
                 "fromRecord": from_record,
@@ -5576,7 +5576,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/users/org/{jsonable_encoder(org_id)}",
+            f"Query/users/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "fromRecord": from_record,
@@ -5729,7 +5729,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/users/point/{jsonable_encoder(entry)}",
+            f"Query/users/point/{encode_path_param(entry)}",
             method="GET",
             params={
                 "fromRecord": from_record,
@@ -5897,7 +5897,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/vendors/{jsonable_encoder(entry)}",
+            f"Query/vendors/{encode_path_param(entry)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -6066,7 +6066,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/vendors/org/{jsonable_encoder(org_id)}",
+            f"Query/vendors/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -6226,7 +6226,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/vcards/{jsonable_encoder(entry)}",
+            f"Query/vcards/{encode_path_param(entry)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -6387,7 +6387,7 @@ class RawQueryClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/vcards/org/{jsonable_encoder(org_id)}",
+            f"Query/vcards/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -6539,7 +6539,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/batchDetails/{jsonable_encoder(entry)}",
+            f"Query/batchDetails/{encode_path_param(entry)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -6729,7 +6729,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/batchDetails/org/{jsonable_encoder(org_id)}",
+            f"Query/batchDetails/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -6897,7 +6897,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/batches/{jsonable_encoder(entry)}",
+            f"Query/batches/{encode_path_param(entry)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -7066,7 +7066,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/batches/org/{jsonable_encoder(org_id)}",
+            f"Query/batches/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -7196,7 +7196,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/batchesOut/{jsonable_encoder(entry)}",
+            f"Query/batchesOut/{encode_path_param(entry)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -7342,7 +7342,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/batchesOut/org/{jsonable_encoder(org_id)}",
+            f"Query/batchesOut/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -7527,7 +7527,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/chargebacks/{jsonable_encoder(entry)}",
+            f"Query/chargebacks/{encode_path_param(entry)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -7715,7 +7715,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/chargebacks/org/{jsonable_encoder(org_id)}",
+            f"Query/chargebacks/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -7894,7 +7894,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/customers/{jsonable_encoder(entry)}",
+            f"Query/customers/{encode_path_param(entry)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -8074,7 +8074,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/customers/org/{jsonable_encoder(org_id)}",
+            f"Query/customers/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -8223,7 +8223,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/notificationReports/{jsonable_encoder(entry)}",
+            f"Query/notificationReports/{encode_path_param(entry)}",
             method="GET",
             params={
                 "fromRecord": from_record,
@@ -8370,7 +8370,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/notificationReports/org/{jsonable_encoder(org_id)}",
+            f"Query/notificationReports/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "fromRecord": from_record,
@@ -8520,7 +8520,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/notifications/{jsonable_encoder(entry)}",
+            f"Query/notifications/{encode_path_param(entry)}",
             method="GET",
             params={
                 "fromRecord": from_record,
@@ -8671,7 +8671,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/notifications/org/{jsonable_encoder(org_id)}",
+            f"Query/notifications/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "fromRecord": from_record,
@@ -8837,7 +8837,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/organizations/{jsonable_encoder(org_id)}",
+            f"Query/organizations/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -9030,7 +9030,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/payouts/{jsonable_encoder(entry)}",
+            f"Query/payouts/{encode_path_param(entry)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -9223,7 +9223,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/payouts/org/{jsonable_encoder(org_id)}",
+            f"Query/payouts/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -9395,7 +9395,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/paypoints/{jsonable_encoder(org_id)}",
+            f"Query/paypoints/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -9585,7 +9585,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/settlements/{jsonable_encoder(entry)}",
+            f"Query/settlements/{encode_path_param(entry)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -9776,7 +9776,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/settlements/org/{jsonable_encoder(org_id)}",
+            f"Query/settlements/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -9966,7 +9966,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/subscriptions/{jsonable_encoder(entry)}",
+            f"Query/subscriptions/{encode_path_param(entry)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -10157,7 +10157,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/subscriptions/org/{jsonable_encoder(org_id)}",
+            f"Query/subscriptions/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -10335,7 +10335,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/payoutsubscriptions/{jsonable_encoder(entry)}",
+            f"Query/payoutsubscriptions/{encode_path_param(entry)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -10514,7 +10514,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/payoutsubscriptions/org/{jsonable_encoder(org_id)}",
+            f"Query/payoutsubscriptions/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -10718,7 +10718,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/transactions/{jsonable_encoder(entry)}",
+            f"Query/transactions/{encode_path_param(entry)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -10929,7 +10929,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/transactions/org/{jsonable_encoder(org_id)}",
+            f"Query/transactions/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -11084,7 +11084,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/transferDetails/{jsonable_encoder(entry)}/{jsonable_encoder(transfer_id)}",
+            f"Query/transferDetails/{encode_path_param(entry)}/{encode_path_param(transfer_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -11233,7 +11233,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/transfers/{jsonable_encoder(entry)}",
+            f"Query/transfers/{encode_path_param(entry)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -11379,7 +11379,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/transfers/org/{jsonable_encoder(org_id)}",
+            f"Query/transfers/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -11519,7 +11519,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/transfersOut/org/{jsonable_encoder(org_id)}",
+            f"Query/transfersOut/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "fromRecord": from_record,
@@ -11657,7 +11657,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/transfersOut/{jsonable_encoder(entry)}",
+            f"Query/transfersOut/{encode_path_param(entry)}",
             method="GET",
             params={
                 "fromRecord": from_record,
@@ -11798,7 +11798,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/transferDetailsOut/{jsonable_encoder(entry)}/{jsonable_encoder(transfer_id)}",
+            f"Query/transferDetailsOut/{encode_path_param(entry)}/{encode_path_param(transfer_id)}",
             method="GET",
             params={
                 "fromRecord": from_record,
@@ -11951,7 +11951,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/users/org/{jsonable_encoder(org_id)}",
+            f"Query/users/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "fromRecord": from_record,
@@ -12104,7 +12104,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/users/point/{jsonable_encoder(entry)}",
+            f"Query/users/point/{encode_path_param(entry)}",
             method="GET",
             params={
                 "fromRecord": from_record,
@@ -12272,7 +12272,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/vendors/{jsonable_encoder(entry)}",
+            f"Query/vendors/{encode_path_param(entry)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -12441,7 +12441,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/vendors/org/{jsonable_encoder(org_id)}",
+            f"Query/vendors/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -12601,7 +12601,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/vcards/{jsonable_encoder(entry)}",
+            f"Query/vcards/{encode_path_param(entry)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -12762,7 +12762,7 @@ class AsyncRawQueryClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/vcards/org/{jsonable_encoder(org_id)}",
+            f"Query/vcards/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,

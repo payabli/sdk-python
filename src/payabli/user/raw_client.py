@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import jsonable_encoder
+from ..core.jsonable_encoder import encode_path_param
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
@@ -425,7 +425,7 @@ class RawUserClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"User/auth/{jsonable_encoder(provider)}",
+            f"User/auth/{encode_path_param(provider)}",
             method="POST",
             json={
                 "email": email,
@@ -618,7 +618,7 @@ class RawUserClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"User/{jsonable_encoder(user_id)}",
+            f"User/{encode_path_param(user_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -714,7 +714,7 @@ class RawUserClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"User/mfa/{jsonable_encoder(user_id)}",
+            f"User/mfa/{encode_path_param(user_id)}",
             method="PUT",
             json={
                 "mfa": mfa,
@@ -847,7 +847,7 @@ class RawUserClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"User/{jsonable_encoder(user_id)}",
+            f"User/{encode_path_param(user_id)}",
             method="PUT",
             json={
                 "access": convert_and_respect_annotation_metadata(
@@ -968,7 +968,7 @@ class RawUserClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"User/{jsonable_encoder(user_id)}",
+            f"User/{encode_path_param(user_id)}",
             method="GET",
             params={
                 "entry": entry,
@@ -1149,7 +1149,7 @@ class RawUserClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"User/resendmfa/{jsonable_encoder(usrname)}/{jsonable_encoder(entry)}/{jsonable_encoder(entry_type)}",
+            f"User/resendmfa/{encode_path_param(usrname)}/{encode_path_param(entry)}/{encode_path_param(entry_type)}",
             method="POST",
             request_options=request_options,
         )
@@ -1655,7 +1655,7 @@ class AsyncRawUserClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"User/auth/{jsonable_encoder(provider)}",
+            f"User/auth/{encode_path_param(provider)}",
             method="POST",
             json={
                 "email": email,
@@ -1848,7 +1848,7 @@ class AsyncRawUserClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"User/{jsonable_encoder(user_id)}",
+            f"User/{encode_path_param(user_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1944,7 +1944,7 @@ class AsyncRawUserClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"User/mfa/{jsonable_encoder(user_id)}",
+            f"User/mfa/{encode_path_param(user_id)}",
             method="PUT",
             json={
                 "mfa": mfa,
@@ -2077,7 +2077,7 @@ class AsyncRawUserClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"User/{jsonable_encoder(user_id)}",
+            f"User/{encode_path_param(user_id)}",
             method="PUT",
             json={
                 "access": convert_and_respect_annotation_metadata(
@@ -2198,7 +2198,7 @@ class AsyncRawUserClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"User/{jsonable_encoder(user_id)}",
+            f"User/{encode_path_param(user_id)}",
             method="GET",
             params={
                 "entry": entry,
@@ -2379,7 +2379,7 @@ class AsyncRawUserClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"User/resendmfa/{jsonable_encoder(usrname)}/{jsonable_encoder(entry)}/{jsonable_encoder(entry_type)}",
+            f"User/resendmfa/{encode_path_param(usrname)}/{encode_path_param(entry)}/{encode_path_param(entry_type)}",
             method="POST",
             request_options=request_options,
         )

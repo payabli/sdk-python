@@ -1,11 +1,11 @@
 {
   "cliVersion": "4.60.0",
   "generatorName": "fernapi/fern-python-sdk",
-  "generatorVersion": "5.1.0",
+  "generatorVersion": "5.3.6",
   "generatorConfig": {
     "client_class_name": "payabli",
     "enable_wire_tests": false
   },
-  "originGitCommit": "6415b5451c2da0d2c1cef85dc4081265a866360c",
-  "sdkVersion": "0.0.311"
+  "originGitCommit": "afb7f69ce5ae530e0d4896c3824b8b0467b6d32d",
+  "sdkVersion": "0.0.312"
 }

@@ -7,7 +7,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import jsonable_encoder
+from ..core.jsonable_encoder import encode_path_param
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
@@ -60,7 +60,7 @@ class RawHostedPaymentPagesClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Paypoint/load/{jsonable_encoder(entry)}/{jsonable_encoder(subdomain)}",
+            f"Paypoint/load/{encode_path_param(entry)}/{encode_path_param(subdomain)}",
             method="GET",
             request_options=request_options,
         )
@@ -197,7 +197,7 @@ class RawHostedPaymentPagesClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Paypoint/{jsonable_encoder(entry)}",
+            f"Paypoint/{encode_path_param(entry)}",
             method="POST",
             json={
                 "AdditionalData": additional_data,
@@ -359,7 +359,7 @@ class RawHostedPaymentPagesClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Paypoint/{jsonable_encoder(entry)}/{jsonable_encoder(subdomain_)}",
+            f"Paypoint/{encode_path_param(entry)}/{encode_path_param(subdomain_)}",
             method="PUT",
             json={
                 "AdditionalData": additional_data,
@@ -479,7 +479,7 @@ class AsyncRawHostedPaymentPagesClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Paypoint/load/{jsonable_encoder(entry)}/{jsonable_encoder(subdomain)}",
+            f"Paypoint/load/{encode_path_param(entry)}/{encode_path_param(subdomain)}",
             method="GET",
             request_options=request_options,
         )
@@ -616,7 +616,7 @@ class AsyncRawHostedPaymentPagesClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Paypoint/{jsonable_encoder(entry)}",
+            f"Paypoint/{encode_path_param(entry)}",
             method="POST",
             json={
                 "AdditionalData": additional_data,
@@ -778,7 +778,7 @@ class AsyncRawHostedPaymentPagesClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Paypoint/{jsonable_encoder(entry)}/{jsonable_encoder(subdomain_)}",
+            f"Paypoint/{encode_path_param(entry)}/{encode_path_param(subdomain_)}",
             method="PUT",
             json={
                 "AdditionalData": additional_data,

@@ -16402,7 +16402,7 @@ Send a payment link to the specified email addresses or phone numbers.
 <dd>
 
 ```python
-from payabli import payabli
+from payabli import payabli, PushPayLinkRequest_Sms
 from payabli.environment import payabliEnvironment
 
 client = payabli(
@@ -16412,9 +16412,7 @@ client = payabli(
 
 client.payment_link.push_pay_link_from_id(
     pay_link_id="payLinkId",
-    request={
-        "channel": "sms"
-    },
+    request=PushPayLinkRequest_Sms(),
 )
 
 ```

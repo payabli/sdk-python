@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import jsonable_encoder
+from ..core.jsonable_encoder import encode_path_param
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
@@ -249,7 +249,7 @@ class RawOrganizationClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Organization/{jsonable_encoder(org_id)}",
+            f"Organization/{encode_path_param(org_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -396,7 +396,7 @@ class RawOrganizationClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Organization/{jsonable_encoder(org_id)}",
+            f"Organization/{encode_path_param(org_id)}",
             method="PUT",
             json={
                 "services": convert_and_respect_annotation_metadata(
@@ -516,7 +516,7 @@ class RawOrganizationClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Organization/basic/{jsonable_encoder(entry)}",
+            f"Organization/basic/{encode_path_param(entry)}",
             method="GET",
             request_options=request_options,
         )
@@ -603,7 +603,7 @@ class RawOrganizationClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Organization/basicById/{jsonable_encoder(org_id)}",
+            f"Organization/basicById/{encode_path_param(org_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -690,7 +690,7 @@ class RawOrganizationClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Organization/read/{jsonable_encoder(org_id)}",
+            f"Organization/read/{encode_path_param(org_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -777,7 +777,7 @@ class RawOrganizationClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Organization/settings/{jsonable_encoder(org_id)}",
+            f"Organization/settings/{encode_path_param(org_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -1005,7 +1005,7 @@ class AsyncRawOrganizationClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Organization/{jsonable_encoder(org_id)}",
+            f"Organization/{encode_path_param(org_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1152,7 +1152,7 @@ class AsyncRawOrganizationClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Organization/{jsonable_encoder(org_id)}",
+            f"Organization/{encode_path_param(org_id)}",
             method="PUT",
             json={
                 "services": convert_and_respect_annotation_metadata(
@@ -1272,7 +1272,7 @@ class AsyncRawOrganizationClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Organization/basic/{jsonable_encoder(entry)}",
+            f"Organization/basic/{encode_path_param(entry)}",
             method="GET",
             request_options=request_options,
         )
@@ -1359,7 +1359,7 @@ class AsyncRawOrganizationClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Organization/basicById/{jsonable_encoder(org_id)}",
+            f"Organization/basicById/{encode_path_param(org_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -1446,7 +1446,7 @@ class AsyncRawOrganizationClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Organization/read/{jsonable_encoder(org_id)}",
+            f"Organization/read/{encode_path_param(org_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -1533,7 +1533,7 @@ class AsyncRawOrganizationClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Organization/settings/{jsonable_encoder(org_id)}",
+            f"Organization/settings/{encode_path_param(org_id)}",
             method="GET",
             request_options=request_options,
         )

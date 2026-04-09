@@ -7,7 +7,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import jsonable_encoder
+from ..core.jsonable_encoder import encode_path_param
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
@@ -145,7 +145,7 @@ class RawBillClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Bill/single/{jsonable_encoder(entry)}",
+            f"Bill/single/{encode_path_param(entry)}",
             method="POST",
             json={
                 "accountingField1": accounting_field_1,
@@ -293,7 +293,7 @@ class RawBillClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Bill/attachedFileFromBill/{jsonable_encoder(id_bill)}/{jsonable_encoder(filename)}",
+            f"Bill/attachedFileFromBill/{encode_path_param(id_bill)}/{encode_path_param(filename)}",
             method="DELETE",
             params={
                 "returnObject": return_object,
@@ -383,7 +383,7 @@ class RawBillClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Bill/{jsonable_encoder(id_bill)}",
+            f"Bill/{encode_path_param(id_bill)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -546,7 +546,7 @@ class RawBillClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Bill/{jsonable_encoder(id_bill)}",
+            f"Bill/{encode_path_param(id_bill)}",
             method="PUT",
             json={
                 "accountingField1": accounting_field_1,
@@ -688,7 +688,7 @@ class RawBillClient:
             A successful response returns a binary file when `returnObject` is `false`. When `returnObject` is `true`, the response contains the file content as a Base64-encoded string in an object. Due to technical limitations, only the object response is documented here.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Bill/attachedFileFromBill/{jsonable_encoder(id_bill)}/{jsonable_encoder(filename)}",
+            f"Bill/attachedFileFromBill/{encode_path_param(id_bill)}/{encode_path_param(filename)}",
             method="GET",
             params={
                 "returnObject": return_object,
@@ -778,7 +778,7 @@ class RawBillClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Bill/{jsonable_encoder(id_bill)}",
+            f"Bill/{encode_path_param(id_bill)}",
             method="GET",
             request_options=request_options,
         )
@@ -929,7 +929,7 @@ class RawBillClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/bills/{jsonable_encoder(entry)}",
+            f"Query/bills/{encode_path_param(entry)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -1087,7 +1087,7 @@ class RawBillClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Query/bills/org/{jsonable_encoder(org_id)}",
+            f"Query/bills/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -1183,7 +1183,7 @@ class RawBillClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Bill/approval/{jsonable_encoder(id_bill)}",
+            f"Bill/approval/{encode_path_param(id_bill)}",
             method="PUT",
             json=request,
             headers={
@@ -1288,7 +1288,7 @@ class RawBillClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Bill/approval/{jsonable_encoder(id_bill)}",
+            f"Bill/approval/{encode_path_param(id_bill)}",
             method="POST",
             params={
                 "autocreateUser": autocreate_user,
@@ -1395,7 +1395,7 @@ class RawBillClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Bill/approval/{jsonable_encoder(id_bill)}/{jsonable_encoder(approved)}",
+            f"Bill/approval/{encode_path_param(id_bill)}/{encode_path_param(approved)}",
             method="GET",
             params={
                 "email": email,
@@ -1569,7 +1569,7 @@ class AsyncRawBillClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Bill/single/{jsonable_encoder(entry)}",
+            f"Bill/single/{encode_path_param(entry)}",
             method="POST",
             json={
                 "accountingField1": accounting_field_1,
@@ -1717,7 +1717,7 @@ class AsyncRawBillClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Bill/attachedFileFromBill/{jsonable_encoder(id_bill)}/{jsonable_encoder(filename)}",
+            f"Bill/attachedFileFromBill/{encode_path_param(id_bill)}/{encode_path_param(filename)}",
             method="DELETE",
             params={
                 "returnObject": return_object,
@@ -1807,7 +1807,7 @@ class AsyncRawBillClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Bill/{jsonable_encoder(id_bill)}",
+            f"Bill/{encode_path_param(id_bill)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1970,7 +1970,7 @@ class AsyncRawBillClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Bill/{jsonable_encoder(id_bill)}",
+            f"Bill/{encode_path_param(id_bill)}",
             method="PUT",
             json={
                 "accountingField1": accounting_field_1,
@@ -2112,7 +2112,7 @@ class AsyncRawBillClient:
             A successful response returns a binary file when `returnObject` is `false`. When `returnObject` is `true`, the response contains the file content as a Base64-encoded string in an object. Due to technical limitations, only the object response is documented here.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Bill/attachedFileFromBill/{jsonable_encoder(id_bill)}/{jsonable_encoder(filename)}",
+            f"Bill/attachedFileFromBill/{encode_path_param(id_bill)}/{encode_path_param(filename)}",
             method="GET",
             params={
                 "returnObject": return_object,
@@ -2202,7 +2202,7 @@ class AsyncRawBillClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Bill/{jsonable_encoder(id_bill)}",
+            f"Bill/{encode_path_param(id_bill)}",
             method="GET",
             request_options=request_options,
         )
@@ -2353,7 +2353,7 @@ class AsyncRawBillClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/bills/{jsonable_encoder(entry)}",
+            f"Query/bills/{encode_path_param(entry)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -2511,7 +2511,7 @@ class AsyncRawBillClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Query/bills/org/{jsonable_encoder(org_id)}",
+            f"Query/bills/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "exportFormat": export_format,
@@ -2607,7 +2607,7 @@ class AsyncRawBillClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Bill/approval/{jsonable_encoder(id_bill)}",
+            f"Bill/approval/{encode_path_param(id_bill)}",
             method="PUT",
             json=request,
             headers={
@@ -2712,7 +2712,7 @@ class AsyncRawBillClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Bill/approval/{jsonable_encoder(id_bill)}",
+            f"Bill/approval/{encode_path_param(id_bill)}",
             method="POST",
             params={
                 "autocreateUser": autocreate_user,
@@ -2819,7 +2819,7 @@ class AsyncRawBillClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Bill/approval/{jsonable_encoder(id_bill)}/{jsonable_encoder(approved)}",
+            f"Bill/approval/{encode_path_param(id_bill)}/{encode_path_param(approved)}",
             method="GET",
             params={
                 "email": email,

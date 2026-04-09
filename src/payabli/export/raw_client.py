@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import jsonable_encoder
+from ..core.jsonable_encoder import encode_path_param
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
@@ -117,7 +117,7 @@ class RawExportClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Export/boarding/{jsonable_encoder(format)}/{jsonable_encoder(org_id)}",
+            f"Export/boarding/{encode_path_param(format)}/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -294,7 +294,7 @@ class RawExportClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Export/batchDetails/{jsonable_encoder(format)}/{jsonable_encoder(entry)}",
+            f"Export/batchDetails/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -471,7 +471,7 @@ class RawExportClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Export/batchDetails/{jsonable_encoder(format)}/org/{jsonable_encoder(org_id)}",
+            f"Export/batchDetails/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -638,7 +638,7 @@ class RawExportClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Export/batches/{jsonable_encoder(format)}/{jsonable_encoder(entry)}",
+            f"Export/batches/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -803,7 +803,7 @@ class RawExportClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Export/batches/{jsonable_encoder(format)}/org/{jsonable_encoder(org_id)}",
+            f"Export/batches/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -950,7 +950,7 @@ class RawExportClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Export/batchesOut/{jsonable_encoder(format)}/{jsonable_encoder(entry)}",
+            f"Export/batchesOut/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -1097,7 +1097,7 @@ class RawExportClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Export/batchesOut/{jsonable_encoder(format)}/org/{jsonable_encoder(org_id)}",
+            f"Export/batchesOut/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -1262,7 +1262,7 @@ class RawExportClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Export/bills/{jsonable_encoder(format)}/{jsonable_encoder(entry)}",
+            f"Export/bills/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -1427,7 +1427,7 @@ class RawExportClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Export/bills/{jsonable_encoder(format)}/org/{jsonable_encoder(org_id)}",
+            f"Export/bills/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -1613,7 +1613,7 @@ class RawExportClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Export/chargebacks/{jsonable_encoder(format)}/{jsonable_encoder(entry)}",
+            f"Export/chargebacks/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -1799,7 +1799,7 @@ class RawExportClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Export/chargebacks/{jsonable_encoder(format)}/org/{jsonable_encoder(org_id)}",
+            f"Export/chargebacks/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -1978,7 +1978,7 @@ class RawExportClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Export/customers/{jsonable_encoder(format)}/{jsonable_encoder(entry)}",
+            f"Export/customers/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -2157,7 +2157,7 @@ class RawExportClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Export/customers/{jsonable_encoder(format)}/org/{jsonable_encoder(org_id)}",
+            f"Export/customers/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -2346,7 +2346,7 @@ class RawExportClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Export/invoices/{jsonable_encoder(format)}/{jsonable_encoder(entry)}",
+            f"Export/invoices/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -2535,7 +2535,7 @@ class RawExportClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Export/invoices/{jsonable_encoder(format)}/org/{jsonable_encoder(org_id)}",
+            f"Export/invoices/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -2699,7 +2699,7 @@ class RawExportClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Export/organizations/{jsonable_encoder(format)}/org/{jsonable_encoder(org_id)}",
+            f"Export/organizations/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -2862,7 +2862,7 @@ class RawExportClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Export/payouts/{jsonable_encoder(format)}/{jsonable_encoder(entry)}",
+            f"Export/payouts/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -3025,7 +3025,7 @@ class RawExportClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Export/payouts/{jsonable_encoder(format)}/org/{jsonable_encoder(org_id)}",
+            f"Export/payouts/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -3190,7 +3190,7 @@ class RawExportClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Export/paypoints/{jsonable_encoder(format)}/{jsonable_encoder(org_id)}",
+            f"Export/paypoints/{encode_path_param(format)}/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -3375,7 +3375,7 @@ class RawExportClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Export/settlements/{jsonable_encoder(format)}/{jsonable_encoder(entry)}",
+            f"Export/settlements/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -3560,7 +3560,7 @@ class RawExportClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Export/settlements/{jsonable_encoder(format)}/org/{jsonable_encoder(org_id)}",
+            f"Export/settlements/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -3747,7 +3747,7 @@ class RawExportClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Export/subscriptions/{jsonable_encoder(format)}/{jsonable_encoder(entry)}",
+            f"Export/subscriptions/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -3934,7 +3934,7 @@ class RawExportClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Export/subscriptions/{jsonable_encoder(format)}/org/{jsonable_encoder(org_id)}",
+            f"Export/subscriptions/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -4125,7 +4125,7 @@ class RawExportClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Export/transactions/{jsonable_encoder(format)}/{jsonable_encoder(entry)}",
+            f"Export/transactions/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -4316,7 +4316,7 @@ class RawExportClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Export/transactions/{jsonable_encoder(format)}/org/{jsonable_encoder(org_id)}",
+            f"Export/transactions/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -4479,7 +4479,7 @@ class RawExportClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Export/transferDetails/{jsonable_encoder(format)}/{jsonable_encoder(entry)}/{jsonable_encoder(transfer_id)}",
+            f"Export/transferDetails/{encode_path_param(format)}/{encode_path_param(entry)}/{encode_path_param(transfer_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -4636,7 +4636,7 @@ class RawExportClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Export/transfers/{jsonable_encoder(entry)}",
+            f"Export/transfers/{encode_path_param(entry)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -4806,7 +4806,7 @@ class RawExportClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Export/vendors/{jsonable_encoder(format)}/{jsonable_encoder(entry)}",
+            f"Export/vendors/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -4975,7 +4975,7 @@ class RawExportClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Export/vendors/{jsonable_encoder(format)}/org/{jsonable_encoder(org_id)}",
+            f"Export/vendors/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -5102,7 +5102,7 @@ class AsyncRawExportClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Export/boarding/{jsonable_encoder(format)}/{jsonable_encoder(org_id)}",
+            f"Export/boarding/{encode_path_param(format)}/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -5279,7 +5279,7 @@ class AsyncRawExportClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Export/batchDetails/{jsonable_encoder(format)}/{jsonable_encoder(entry)}",
+            f"Export/batchDetails/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -5456,7 +5456,7 @@ class AsyncRawExportClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Export/batchDetails/{jsonable_encoder(format)}/org/{jsonable_encoder(org_id)}",
+            f"Export/batchDetails/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -5623,7 +5623,7 @@ class AsyncRawExportClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Export/batches/{jsonable_encoder(format)}/{jsonable_encoder(entry)}",
+            f"Export/batches/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -5788,7 +5788,7 @@ class AsyncRawExportClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Export/batches/{jsonable_encoder(format)}/org/{jsonable_encoder(org_id)}",
+            f"Export/batches/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -5935,7 +5935,7 @@ class AsyncRawExportClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Export/batchesOut/{jsonable_encoder(format)}/{jsonable_encoder(entry)}",
+            f"Export/batchesOut/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -6082,7 +6082,7 @@ class AsyncRawExportClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Export/batchesOut/{jsonable_encoder(format)}/org/{jsonable_encoder(org_id)}",
+            f"Export/batchesOut/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -6247,7 +6247,7 @@ class AsyncRawExportClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Export/bills/{jsonable_encoder(format)}/{jsonable_encoder(entry)}",
+            f"Export/bills/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -6412,7 +6412,7 @@ class AsyncRawExportClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Export/bills/{jsonable_encoder(format)}/org/{jsonable_encoder(org_id)}",
+            f"Export/bills/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -6598,7 +6598,7 @@ class AsyncRawExportClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Export/chargebacks/{jsonable_encoder(format)}/{jsonable_encoder(entry)}",
+            f"Export/chargebacks/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -6784,7 +6784,7 @@ class AsyncRawExportClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Export/chargebacks/{jsonable_encoder(format)}/org/{jsonable_encoder(org_id)}",
+            f"Export/chargebacks/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -6963,7 +6963,7 @@ class AsyncRawExportClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Export/customers/{jsonable_encoder(format)}/{jsonable_encoder(entry)}",
+            f"Export/customers/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -7142,7 +7142,7 @@ class AsyncRawExportClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Export/customers/{jsonable_encoder(format)}/org/{jsonable_encoder(org_id)}",
+            f"Export/customers/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -7331,7 +7331,7 @@ class AsyncRawExportClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Export/invoices/{jsonable_encoder(format)}/{jsonable_encoder(entry)}",
+            f"Export/invoices/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -7520,7 +7520,7 @@ class AsyncRawExportClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Export/invoices/{jsonable_encoder(format)}/org/{jsonable_encoder(org_id)}",
+            f"Export/invoices/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -7684,7 +7684,7 @@ class AsyncRawExportClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Export/organizations/{jsonable_encoder(format)}/org/{jsonable_encoder(org_id)}",
+            f"Export/organizations/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -7847,7 +7847,7 @@ class AsyncRawExportClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Export/payouts/{jsonable_encoder(format)}/{jsonable_encoder(entry)}",
+            f"Export/payouts/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -8010,7 +8010,7 @@ class AsyncRawExportClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Export/payouts/{jsonable_encoder(format)}/org/{jsonable_encoder(org_id)}",
+            f"Export/payouts/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -8175,7 +8175,7 @@ class AsyncRawExportClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Export/paypoints/{jsonable_encoder(format)}/{jsonable_encoder(org_id)}",
+            f"Export/paypoints/{encode_path_param(format)}/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -8360,7 +8360,7 @@ class AsyncRawExportClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Export/settlements/{jsonable_encoder(format)}/{jsonable_encoder(entry)}",
+            f"Export/settlements/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -8545,7 +8545,7 @@ class AsyncRawExportClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Export/settlements/{jsonable_encoder(format)}/org/{jsonable_encoder(org_id)}",
+            f"Export/settlements/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -8732,7 +8732,7 @@ class AsyncRawExportClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Export/subscriptions/{jsonable_encoder(format)}/{jsonable_encoder(entry)}",
+            f"Export/subscriptions/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -8919,7 +8919,7 @@ class AsyncRawExportClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Export/subscriptions/{jsonable_encoder(format)}/org/{jsonable_encoder(org_id)}",
+            f"Export/subscriptions/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -9110,7 +9110,7 @@ class AsyncRawExportClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Export/transactions/{jsonable_encoder(format)}/{jsonable_encoder(entry)}",
+            f"Export/transactions/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -9301,7 +9301,7 @@ class AsyncRawExportClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Export/transactions/{jsonable_encoder(format)}/org/{jsonable_encoder(org_id)}",
+            f"Export/transactions/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -9464,7 +9464,7 @@ class AsyncRawExportClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Export/transferDetails/{jsonable_encoder(format)}/{jsonable_encoder(entry)}/{jsonable_encoder(transfer_id)}",
+            f"Export/transferDetails/{encode_path_param(format)}/{encode_path_param(entry)}/{encode_path_param(transfer_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -9621,7 +9621,7 @@ class AsyncRawExportClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Export/transfers/{jsonable_encoder(entry)}",
+            f"Export/transfers/{encode_path_param(entry)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -9791,7 +9791,7 @@ class AsyncRawExportClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Export/vendors/{jsonable_encoder(format)}/{jsonable_encoder(entry)}",
+            f"Export/vendors/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
             params={
                 "columnsExport": columns_export,
@@ -9960,7 +9960,7 @@ class AsyncRawExportClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Export/vendors/{jsonable_encoder(format)}/org/{jsonable_encoder(org_id)}",
+            f"Export/vendors/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
             params={
                 "columnsExport": columns_export,

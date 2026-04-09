@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import jsonable_encoder
+from ..core.jsonable_encoder import encode_path_param
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
@@ -57,7 +57,7 @@ class RawPaypointClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Paypoint/basic/{jsonable_encoder(entry)}",
+            f"Paypoint/basic/{encode_path_param(entry)}",
             method="GET",
             request_options=request_options,
         )
@@ -144,7 +144,7 @@ class RawPaypointClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Paypoint/basicById/{jsonable_encoder(id_paypoint)}",
+            f"Paypoint/basicById/{encode_path_param(id_paypoint)}",
             method="GET",
             request_options=request_options,
         )
@@ -237,7 +237,7 @@ class RawPaypointClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Paypoint/{jsonable_encoder(entry)}",
+            f"Paypoint/{encode_path_param(entry)}",
             method="GET",
             params={
                 "entrypages": entrypages,
@@ -330,7 +330,7 @@ class RawPaypointClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Paypoint/{jsonable_encoder(entry)}/{jsonable_encoder(subdomain)}",
+            f"Paypoint/{encode_path_param(entry)}/{encode_path_param(subdomain)}",
             method="GET",
             request_options=request_options,
         )
@@ -420,7 +420,7 @@ class RawPaypointClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Paypoint/{jsonable_encoder(entry)}/{jsonable_encoder(subdomain)}",
+            f"Paypoint/{encode_path_param(entry)}/{encode_path_param(subdomain)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -526,7 +526,7 @@ class RawPaypointClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Paypoint/logo/{jsonable_encoder(entry)}",
+            f"Paypoint/logo/{encode_path_param(entry)}",
             method="PUT",
             json={
                 "fContent": f_content,
@@ -623,7 +623,7 @@ class RawPaypointClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Paypoint/settings/{jsonable_encoder(entry)}",
+            f"Paypoint/settings/{encode_path_param(entry)}",
             method="GET",
             request_options=request_options,
         )
@@ -779,7 +779,7 @@ class AsyncRawPaypointClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Paypoint/basic/{jsonable_encoder(entry)}",
+            f"Paypoint/basic/{encode_path_param(entry)}",
             method="GET",
             request_options=request_options,
         )
@@ -866,7 +866,7 @@ class AsyncRawPaypointClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Paypoint/basicById/{jsonable_encoder(id_paypoint)}",
+            f"Paypoint/basicById/{encode_path_param(id_paypoint)}",
             method="GET",
             request_options=request_options,
         )
@@ -959,7 +959,7 @@ class AsyncRawPaypointClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Paypoint/{jsonable_encoder(entry)}",
+            f"Paypoint/{encode_path_param(entry)}",
             method="GET",
             params={
                 "entrypages": entrypages,
@@ -1052,7 +1052,7 @@ class AsyncRawPaypointClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Paypoint/{jsonable_encoder(entry)}/{jsonable_encoder(subdomain)}",
+            f"Paypoint/{encode_path_param(entry)}/{encode_path_param(subdomain)}",
             method="GET",
             request_options=request_options,
         )
@@ -1142,7 +1142,7 @@ class AsyncRawPaypointClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Paypoint/{jsonable_encoder(entry)}/{jsonable_encoder(subdomain)}",
+            f"Paypoint/{encode_path_param(entry)}/{encode_path_param(subdomain)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1248,7 +1248,7 @@ class AsyncRawPaypointClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Paypoint/logo/{jsonable_encoder(entry)}",
+            f"Paypoint/logo/{encode_path_param(entry)}",
             method="PUT",
             json={
                 "fContent": f_content,
@@ -1345,7 +1345,7 @@ class AsyncRawPaypointClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Paypoint/settings/{jsonable_encoder(entry)}",
+            f"Paypoint/settings/{encode_path_param(entry)}",
             method="GET",
             request_options=request_options,
         )

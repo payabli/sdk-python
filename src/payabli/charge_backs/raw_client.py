@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import jsonable_encoder
+from ..core.jsonable_encoder import encode_path_param
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
@@ -73,7 +73,7 @@ class RawChargeBacksClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"ChargeBacks/response/{jsonable_encoder(id)}",
+            f"ChargeBacks/response/{encode_path_param(id)}",
             method="POST",
             json={
                 "attachments": convert_and_respect_annotation_metadata(
@@ -173,7 +173,7 @@ class RawChargeBacksClient:
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"ChargeBacks/read/{jsonable_encoder(id)}",
+            f"ChargeBacks/read/{encode_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -263,7 +263,7 @@ class RawChargeBacksClient:
             OK
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"ChargeBacks/getChargebackAttachments/{jsonable_encoder(id)}/{jsonable_encoder(file_name)}",
+            f"ChargeBacks/getChargebackAttachments/{encode_path_param(id)}/{encode_path_param(file_name)}",
             method="GET",
             request_options=request_options,
         )
@@ -370,7 +370,7 @@ class AsyncRawChargeBacksClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"ChargeBacks/response/{jsonable_encoder(id)}",
+            f"ChargeBacks/response/{encode_path_param(id)}",
             method="POST",
             json={
                 "attachments": convert_and_respect_annotation_metadata(
@@ -470,7 +470,7 @@ class AsyncRawChargeBacksClient:
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"ChargeBacks/read/{jsonable_encoder(id)}",
+            f"ChargeBacks/read/{encode_path_param(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -560,7 +560,7 @@ class AsyncRawChargeBacksClient:
             OK
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"ChargeBacks/getChargebackAttachments/{jsonable_encoder(id)}/{jsonable_encoder(file_name)}",
+            f"ChargeBacks/getChargebackAttachments/{encode_path_param(id)}/{encode_path_param(file_name)}",
             method="GET",
             request_options=request_options,
         )
