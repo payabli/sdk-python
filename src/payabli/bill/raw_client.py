@@ -92,6 +92,8 @@ class RawBillClient:
         attachments : typing.Optional[Attachments]
             An array of bill images. Attachments aren't required, but we strongly recommend including them. Including a bill image can make payouts smoother and prevent delays. You can include either the Base64-encoded file content, or you can include an fURL to a public file. The maximum file size for image uploads is 30 MB.
 
+            When vendor enrichment is enabled and the first attachment is a PDF, the invoice is scanned and extracted vendor contact information and bill details (invoice number, amount due, due date) are merged into the request. Fields in the request body take precedence over extracted data. If the scan fails, bill creation proceeds with the original request data. See the [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview) for details. Contact Payabli to enable this feature.
+
         bill_date : typing.Optional[dt.date]
             Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
 
@@ -492,6 +494,8 @@ class RawBillClient:
 
         attachments : typing.Optional[Attachments]
             An array of bill images. Attachments aren't required, but we strongly recommend including them. Including a bill image can make payouts smoother and prevent delays. You can include either the Base64-encoded file content, or you can include an fURL to a public file. The maximum file size for image uploads is 30 MB.
+
+            When vendor enrichment is enabled and the first attachment is a PDF, the invoice is scanned and extracted vendor contact information and bill details (invoice number, amount due, due date) are merged into the request. Fields in the request body take precedence over extracted data. If the scan fails, bill creation proceeds with the original request data. See the [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview) for details. Contact Payabli to enable this feature.
 
         bill_date : typing.Optional[dt.date]
             Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
@@ -1516,6 +1520,8 @@ class AsyncRawBillClient:
         attachments : typing.Optional[Attachments]
             An array of bill images. Attachments aren't required, but we strongly recommend including them. Including a bill image can make payouts smoother and prevent delays. You can include either the Base64-encoded file content, or you can include an fURL to a public file. The maximum file size for image uploads is 30 MB.
 
+            When vendor enrichment is enabled and the first attachment is a PDF, the invoice is scanned and extracted vendor contact information and bill details (invoice number, amount due, due date) are merged into the request. Fields in the request body take precedence over extracted data. If the scan fails, bill creation proceeds with the original request data. See the [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview) for details. Contact Payabli to enable this feature.
+
         bill_date : typing.Optional[dt.date]
             Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
 
@@ -1916,6 +1922,8 @@ class AsyncRawBillClient:
 
         attachments : typing.Optional[Attachments]
             An array of bill images. Attachments aren't required, but we strongly recommend including them. Including a bill image can make payouts smoother and prevent delays. You can include either the Base64-encoded file content, or you can include an fURL to a public file. The maximum file size for image uploads is 30 MB.
+
+            When vendor enrichment is enabled and the first attachment is a PDF, the invoice is scanned and extracted vendor contact information and bill details (invoice number, amount due, due date) are merged into the request. Fields in the request body take precedence over extracted data. If the scan fails, bill creation proceeds with the original request data. See the [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview) for details. Contact Payabli to enable this feature.
 
         bill_date : typing.Optional[dt.date]
             Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.

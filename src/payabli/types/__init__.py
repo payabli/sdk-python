@@ -74,6 +74,7 @@ if typing.TYPE_CHECKING:
     from .attachments import Attachments
     from .attestation_date import AttestationDate
     from .authcode import Authcode
+    from .auto_capture import AutoCapture
     from .auto_element import AutoElement
     from .avgmonthly import Avgmonthly
     from .avgticketamt import Avgticketamt
@@ -731,6 +732,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Attachments": ".attachments",
     "AttestationDate": ".attestation_date",
     "Authcode": ".authcode",
+    "AutoCapture": ".auto_capture",
     "AutoElement": ".auto_element",
     "Avgmonthly": ".avgmonthly",
     "Avgticketamt": ".avgticketamt",
@@ -1412,6 +1414,7 @@ __all__ = [
     "Attachments",
     "AttestationDate",
     "Authcode",
+    "AutoCapture",
     "AutoElement",
     "Avgmonthly",
     "Avgticketamt",

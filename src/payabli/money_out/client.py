@@ -16,6 +16,7 @@ from ..money_out_types.types.request_out_authorize_payment_details import Reques
 from ..money_out_types.types.request_out_authorize_vendor_data import RequestOutAuthorizeVendorData
 from ..money_out_types.types.v_card_get_response import VCardGetResponse
 from ..types.account_id import AccountId
+from ..types.auto_capture import AutoCapture
 from ..types.bill_detail_response import BillDetailResponse
 from ..types.entrypointfield import Entrypointfield
 from ..types.idempotency_key import IdempotencyKey
@@ -65,10 +66,11 @@ class MoneyOutClient:
         account_id: typing.Optional[AccountId] = OMIT,
         subdomain: typing.Optional[Subdomain] = OMIT,
         subscription_id: typing.Optional[Subscriptionid] = OMIT,
+        auto_capture: typing.Optional[AutoCapture] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AuthCapturePayoutResponse:
         """
-        Authorizes transaction for payout. Authorized transactions aren't flagged for settlement until captured. Use `referenceId` returned in the response to capture the transaction.
+        Authorizes transaction for payout.  If you don't pass the `autoCapture` field with a value of `true`, authorized transactions aren't flagged for settlement until captured.  Use `referenceId` returned in the response to capture the transaction.
 
         Parameters
         ----------
@@ -108,6 +110,8 @@ class MoneyOutClient:
 
         subscription_id : typing.Optional[Subscriptionid]
 
+        auto_capture : typing.Optional[AutoCapture]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -131,6 +135,7 @@ class MoneyOutClient:
         )
         client.money_out.authorize_out(
             entry_point="48acde49",
+            auto_capture=True,
             invoice_data=[
                 RequestOutAuthorizeInvoiceData(
                     bill_id=54323,
@@ -165,6 +170,7 @@ class MoneyOutClient:
             account_id=account_id,
             subdomain=subdomain,
             subscription_id=subscription_id,
+            auto_capture=auto_capture,
             request_options=request_options,
         )
         return _response.data
@@ -315,7 +321,7 @@ class MoneyOutClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AuthCapturePayoutResponse:
         """
-        Captures a single authorized payout transaction by ID.
+        Captures a single authorized payout transaction by ID. If the transaction was authorized with `autoCapture` set to `true`,  you don't need to call this endpoint to capture the transaction for processing.
 
         Parameters
         ----------
@@ -636,10 +642,11 @@ class AsyncMoneyOutClient:
         account_id: typing.Optional[AccountId] = OMIT,
         subdomain: typing.Optional[Subdomain] = OMIT,
         subscription_id: typing.Optional[Subscriptionid] = OMIT,
+        auto_capture: typing.Optional[AutoCapture] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AuthCapturePayoutResponse:
         """
-        Authorizes transaction for payout. Authorized transactions aren't flagged for settlement until captured. Use `referenceId` returned in the response to capture the transaction.
+        Authorizes transaction for payout.  If you don't pass the `autoCapture` field with a value of `true`, authorized transactions aren't flagged for settlement until captured.  Use `referenceId` returned in the response to capture the transaction.
 
         Parameters
         ----------
@@ -679,6 +686,8 @@ class AsyncMoneyOutClient:
 
         subscription_id : typing.Optional[Subscriptionid]
 
+        auto_capture : typing.Optional[AutoCapture]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -707,6 +716,7 @@ class AsyncMoneyOutClient:
         async def main() -> None:
             await client.money_out.authorize_out(
                 entry_point="48acde49",
+                auto_capture=True,
                 invoice_data=[
                     RequestOutAuthorizeInvoiceData(
                         bill_id=54323,
@@ -744,6 +754,7 @@ class AsyncMoneyOutClient:
             account_id=account_id,
             subdomain=subdomain,
             subscription_id=subscription_id,
+            auto_capture=auto_capture,
             request_options=request_options,
         )
         return _response.data
@@ -926,7 +937,7 @@ class AsyncMoneyOutClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AuthCapturePayoutResponse:
         """
-        Captures a single authorized payout transaction by ID.
+        Captures a single authorized payout transaction by ID. If the transaction was authorized with `autoCapture` set to `true`,  you don't need to call this endpoint to capture the transaction for processing.
 
         Parameters
         ----------

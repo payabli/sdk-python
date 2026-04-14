@@ -10,6 +10,7 @@ from ..types.address_nullable import AddressNullable
 from ..types.billing_data import BillingData
 from ..types.contacts_field import ContactsField
 from ..types.email import Email
+from ..types.file_content import FileContent
 from ..types.location_code import LocationCode
 from ..types.mcc import Mcc
 from ..types.payabli_api_response_vendors import PayabliApiResponseVendors
@@ -30,6 +31,7 @@ from ..types.vendor_phone import VendorPhone
 from ..types.vendor_query_record import VendorQueryRecord
 from ..types.vendorstatus import Vendorstatus
 from .raw_client import AsyncRawVendorClient, RawVendorClient
+from .types.vendor_enrich_response import VendorEnrichResponse
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -86,6 +88,8 @@ class VendorClient:
         state: typing.Optional[str] = OMIT,
         vendor_status: typing.Optional[Vendorstatus] = OMIT,
         zip: typing.Optional[str] = OMIT,
+        default_method_id: typing.Optional[str] = OMIT,
+        attachment: typing.Optional[FileContent] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PayabliApiResponseVendors:
         """
@@ -172,6 +176,18 @@ class VendorClient:
 
         zip : typing.Optional[str]
             Vendor's ZIP or postal code. Required if any address field is provided. For US addresses, use five digits (`12345`) or ZIP+4 format (`12345-6789`).
+
+        default_method_id : typing.Optional[str]
+            Identifier for the vendor's default stored payment method.
+
+        attachment : typing.Optional[FileContent]
+            PDF invoice attachment for AI-powered vendor enrichment.
+            When this feature is enabled and you include an attachment, the invoice is scanned and extracted vendor information is merged into the request.
+            Fields in the request body take precedence over extracted data.
+            If the scan fails, vendor creation proceeds with the original request data.
+
+            See the [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview) for details.
+            Contact Payabli to enable this feature.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -270,6 +286,8 @@ class VendorClient:
             state=state,
             vendor_status=vendor_status,
             zip=zip,
+            default_method_id=default_method_id,
+            attachment=attachment,
             request_options=request_options,
         )
         return _response.data
@@ -343,6 +361,8 @@ class VendorClient:
         state: typing.Optional[str] = OMIT,
         vendor_status: typing.Optional[Vendorstatus] = OMIT,
         zip: typing.Optional[str] = OMIT,
+        default_method_id: typing.Optional[str] = OMIT,
+        attachment: typing.Optional[FileContent] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PayabliApiResponseVendors:
         """
@@ -430,6 +450,18 @@ class VendorClient:
         zip : typing.Optional[str]
             Vendor's ZIP or postal code. Required if any address field is provided. For US addresses, use five digits (`12345`) or ZIP+4 format (`12345-6789`).
 
+        default_method_id : typing.Optional[str]
+            Identifier for the vendor's default stored payment method.
+
+        attachment : typing.Optional[FileContent]
+            PDF invoice attachment for AI-powered vendor enrichment.
+            When this feature is enabled and you include an attachment, the invoice is scanned and extracted vendor information is merged into the request.
+            Fields in the request body take precedence over extracted data.
+            If the scan fails, vendor creation proceeds with the original request data.
+
+            See the [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview) for details.
+            Contact Payabli to enable this feature.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -484,6 +516,8 @@ class VendorClient:
             state=state,
             vendor_status=vendor_status,
             zip=zip,
+            default_method_id=default_method_id,
+            attachment=attachment,
             request_options=request_options,
         )
         return _response.data
@@ -492,7 +526,7 @@ class VendorClient:
         self, id_vendor: int, *, request_options: typing.Optional[RequestOptions] = None
     ) -> VendorQueryRecord:
         """
-        Retrieves a vendor's details.
+        Retrieves a vendor's details, including enrichment status and payment acceptance info when available.
 
         Parameters
         ----------
@@ -519,6 +553,89 @@ class VendorClient:
         )
         """
         _response = self._raw_client.get_vendor(id_vendor, request_options=request_options)
+        return _response.data
+
+    def enrich_vendor(
+        self,
+        entry: str,
+        *,
+        vendor_id: int,
+        scope: typing.Optional[typing.Sequence[str]] = OMIT,
+        apply_enrichment_data: typing.Optional[bool] = OMIT,
+        schedule_call_if_needed: typing.Optional[bool] = OMIT,
+        invoice_file: typing.Optional[FileContent] = OMIT,
+        bill_id: typing.Optional[int] = OMIT,
+        fallback_method: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> VendorEnrichResponse:
+        """
+        Triggers AI-powered vendor enrichment for an existing vendor. Runs one or more enrichment stages (invoice scan, web search) based on the `scope` parameter. Can automatically apply extracted payment acceptance info and vendor contact information to the vendor record, or return raw results for manual review. Contact Payabli to enable this feature.
+
+        Parameters
+        ----------
+        entry : str
+            Entrypoint identifier.
+
+        vendor_id : int
+            ID of the vendor to enrich. Must be active and belong to the given entrypoint.
+
+        scope : typing.Optional[typing.Sequence[str]]
+            Enrichment stages to run. Valid values are `invoice_scan` and `web_search`. Stages run in order: invoice scan first, then web search. If the vendor becomes payout-ready after invoice scan, web search is skipped.
+
+        apply_enrichment_data : typing.Optional[bool]
+            When `true` (the default), extracted data is automatically written to the vendor record. Only empty fields are populated, existing values are never overwritten. When `false`, the vendor record isn't modified. In both cases, `enrichmentData` in the response contains the extracted results. Use `false` for UI flows where users review and confirm changes before applying them with the update vendor endpoint.
+
+        schedule_call_if_needed : typing.Optional[bool]
+            When `true`, triggers an AI outreach call if enrichment stages return insufficient payment acceptance info. This feature is currently in development.
+
+        invoice_file : typing.Optional[FileContent]
+            PDF invoice file, Base64-encoded. Required when `scope` includes `invoice_scan`.
+
+        bill_id : typing.Optional[int]
+            Bill ID to associate with this enrichment request.
+
+        fallback_method : typing.Optional[str]
+            Payment method to apply if enrichment can't find payment details. Values are `check`, `ach`, or `card`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        VendorEnrichResponse
+            Success
+
+        Examples
+        --------
+        from payabli import FileContent, payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.vendor.enrich_vendor(
+            entry="8cfec329267",
+            vendor_id=3890,
+            scope=["invoice_scan"],
+            apply_enrichment_data=False,
+            fallback_method="check",
+            invoice_file=FileContent(
+                ftype="pdf",
+                filename="invoice-2026-001.pdf",
+                f_content="<base64-encoded-pdf>",
+            ),
+        )
+        """
+        _response = self._raw_client.enrich_vendor(
+            entry,
+            vendor_id=vendor_id,
+            scope=scope,
+            apply_enrichment_data=apply_enrichment_data,
+            schedule_call_if_needed=schedule_call_if_needed,
+            invoice_file=invoice_file,
+            bill_id=bill_id,
+            fallback_method=fallback_method,
+            request_options=request_options,
+        )
         return _response.data
 
 
@@ -573,6 +690,8 @@ class AsyncVendorClient:
         state: typing.Optional[str] = OMIT,
         vendor_status: typing.Optional[Vendorstatus] = OMIT,
         zip: typing.Optional[str] = OMIT,
+        default_method_id: typing.Optional[str] = OMIT,
+        attachment: typing.Optional[FileContent] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PayabliApiResponseVendors:
         """
@@ -659,6 +778,18 @@ class AsyncVendorClient:
 
         zip : typing.Optional[str]
             Vendor's ZIP or postal code. Required if any address field is provided. For US addresses, use five digits (`12345`) or ZIP+4 format (`12345-6789`).
+
+        default_method_id : typing.Optional[str]
+            Identifier for the vendor's default stored payment method.
+
+        attachment : typing.Optional[FileContent]
+            PDF invoice attachment for AI-powered vendor enrichment.
+            When this feature is enabled and you include an attachment, the invoice is scanned and extracted vendor information is merged into the request.
+            Fields in the request body take precedence over extracted data.
+            If the scan fails, vendor creation proceeds with the original request data.
+
+            See the [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview) for details.
+            Contact Payabli to enable this feature.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -765,6 +896,8 @@ class AsyncVendorClient:
             state=state,
             vendor_status=vendor_status,
             zip=zip,
+            default_method_id=default_method_id,
+            attachment=attachment,
             request_options=request_options,
         )
         return _response.data
@@ -846,6 +979,8 @@ class AsyncVendorClient:
         state: typing.Optional[str] = OMIT,
         vendor_status: typing.Optional[Vendorstatus] = OMIT,
         zip: typing.Optional[str] = OMIT,
+        default_method_id: typing.Optional[str] = OMIT,
+        attachment: typing.Optional[FileContent] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PayabliApiResponseVendors:
         """
@@ -933,6 +1068,18 @@ class AsyncVendorClient:
         zip : typing.Optional[str]
             Vendor's ZIP or postal code. Required if any address field is provided. For US addresses, use five digits (`12345`) or ZIP+4 format (`12345-6789`).
 
+        default_method_id : typing.Optional[str]
+            Identifier for the vendor's default stored payment method.
+
+        attachment : typing.Optional[FileContent]
+            PDF invoice attachment for AI-powered vendor enrichment.
+            When this feature is enabled and you include an attachment, the invoice is scanned and extracted vendor information is merged into the request.
+            Fields in the request body take precedence over extracted data.
+            If the scan fails, vendor creation proceeds with the original request data.
+
+            See the [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview) for details.
+            Contact Payabli to enable this feature.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -995,6 +1142,8 @@ class AsyncVendorClient:
             state=state,
             vendor_status=vendor_status,
             zip=zip,
+            default_method_id=default_method_id,
+            attachment=attachment,
             request_options=request_options,
         )
         return _response.data
@@ -1003,7 +1152,7 @@ class AsyncVendorClient:
         self, id_vendor: int, *, request_options: typing.Optional[RequestOptions] = None
     ) -> VendorQueryRecord:
         """
-        Retrieves a vendor's details.
+        Retrieves a vendor's details, including enrichment status and payment acceptance info when available.
 
         Parameters
         ----------
@@ -1038,4 +1187,95 @@ class AsyncVendorClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.get_vendor(id_vendor, request_options=request_options)
+        return _response.data
+
+    async def enrich_vendor(
+        self,
+        entry: str,
+        *,
+        vendor_id: int,
+        scope: typing.Optional[typing.Sequence[str]] = OMIT,
+        apply_enrichment_data: typing.Optional[bool] = OMIT,
+        schedule_call_if_needed: typing.Optional[bool] = OMIT,
+        invoice_file: typing.Optional[FileContent] = OMIT,
+        bill_id: typing.Optional[int] = OMIT,
+        fallback_method: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> VendorEnrichResponse:
+        """
+        Triggers AI-powered vendor enrichment for an existing vendor. Runs one or more enrichment stages (invoice scan, web search) based on the `scope` parameter. Can automatically apply extracted payment acceptance info and vendor contact information to the vendor record, or return raw results for manual review. Contact Payabli to enable this feature.
+
+        Parameters
+        ----------
+        entry : str
+            Entrypoint identifier.
+
+        vendor_id : int
+            ID of the vendor to enrich. Must be active and belong to the given entrypoint.
+
+        scope : typing.Optional[typing.Sequence[str]]
+            Enrichment stages to run. Valid values are `invoice_scan` and `web_search`. Stages run in order: invoice scan first, then web search. If the vendor becomes payout-ready after invoice scan, web search is skipped.
+
+        apply_enrichment_data : typing.Optional[bool]
+            When `true` (the default), extracted data is automatically written to the vendor record. Only empty fields are populated, existing values are never overwritten. When `false`, the vendor record isn't modified. In both cases, `enrichmentData` in the response contains the extracted results. Use `false` for UI flows where users review and confirm changes before applying them with the update vendor endpoint.
+
+        schedule_call_if_needed : typing.Optional[bool]
+            When `true`, triggers an AI outreach call if enrichment stages return insufficient payment acceptance info. This feature is currently in development.
+
+        invoice_file : typing.Optional[FileContent]
+            PDF invoice file, Base64-encoded. Required when `scope` includes `invoice_scan`.
+
+        bill_id : typing.Optional[int]
+            Bill ID to associate with this enrichment request.
+
+        fallback_method : typing.Optional[str]
+            Payment method to apply if enrichment can't find payment details. Values are `check`, `ach`, or `card`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        VendorEnrichResponse
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli, FileContent
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.vendor.enrich_vendor(
+                entry="8cfec329267",
+                vendor_id=3890,
+                scope=["invoice_scan"],
+                apply_enrichment_data=False,
+                fallback_method="check",
+                invoice_file=FileContent(
+                    ftype="pdf",
+                    filename="invoice-2026-001.pdf",
+                    f_content="<base64-encoded-pdf>",
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.enrich_vendor(
+            entry,
+            vendor_id=vendor_id,
+            scope=scope,
+            apply_enrichment_data=apply_enrichment_data,
+            schedule_call_if_needed=schedule_call_if_needed,
+            invoice_file=invoice_file,
+            bill_id=bill_id,
+            fallback_method=fallback_method,
+            request_options=request_options,
+        )
         return _response.data

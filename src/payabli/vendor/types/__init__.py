@@ -6,21 +6,19 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .types import (
-        VendorEnrichRequest,
-        VendorEnrichResponse,
-        VendorEnrichResponseData,
-        VendorEnrichmentData,
-        VendorEnrichmentInvoiceScan,
-        VendorEnrichmentWebSearch,
-    )
+    from .vendor_enrich_request import VendorEnrichRequest
+    from .vendor_enrich_response import VendorEnrichResponse
+    from .vendor_enrich_response_data import VendorEnrichResponseData
+    from .vendor_enrichment_data import VendorEnrichmentData
+    from .vendor_enrichment_invoice_scan import VendorEnrichmentInvoiceScan
+    from .vendor_enrichment_web_search import VendorEnrichmentWebSearch
 _dynamic_imports: typing.Dict[str, str] = {
-    "VendorEnrichRequest": ".types",
-    "VendorEnrichResponse": ".types",
-    "VendorEnrichResponseData": ".types",
-    "VendorEnrichmentData": ".types",
-    "VendorEnrichmentInvoiceScan": ".types",
-    "VendorEnrichmentWebSearch": ".types",
+    "VendorEnrichRequest": ".vendor_enrich_request",
+    "VendorEnrichResponse": ".vendor_enrich_response",
+    "VendorEnrichResponseData": ".vendor_enrich_response_data",
+    "VendorEnrichmentData": ".vendor_enrichment_data",
+    "VendorEnrichmentInvoiceScan": ".vendor_enrichment_invoice_scan",
+    "VendorEnrichmentWebSearch": ".vendor_enrichment_web_search",
 }
 
 

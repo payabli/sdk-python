@@ -7,6 +7,7 @@ import typing_extensions
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ...core.serialization import FieldMetadata
 from ...types.account_id import AccountId
+from ...types.auto_capture import AutoCapture
 from ...types.entrypointfield import Entrypointfield
 from ...types.order_id import OrderId
 from ...types.orderdescription import Orderdescription
@@ -56,6 +57,9 @@ class AuthorizePayoutBody(UniversalBaseModel):
     subdomain: typing.Optional[Subdomain] = None
     subscription_id: typing_extensions.Annotated[
         typing.Optional[Subscriptionid], FieldMetadata(alias="subscriptionId"), pydantic.Field(alias="subscriptionId")
+    ] = None
+    auto_capture: typing_extensions.Annotated[
+        typing.Optional[AutoCapture], FieldMetadata(alias="autoCapture"), pydantic.Field(alias="autoCapture")
     ] = None
 
     if IS_PYDANTIC_V2:

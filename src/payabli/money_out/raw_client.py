@@ -28,6 +28,7 @@ from ..money_out_types.types.request_out_authorize_payment_details import Reques
 from ..money_out_types.types.request_out_authorize_vendor_data import RequestOutAuthorizeVendorData
 from ..money_out_types.types.v_card_get_response import VCardGetResponse
 from ..types.account_id import AccountId
+from ..types.auto_capture import AutoCapture
 from ..types.bill_detail_response import BillDetailResponse
 from ..types.entrypointfield import Entrypointfield
 from ..types.idempotency_key import IdempotencyKey
@@ -68,10 +69,11 @@ class RawMoneyOutClient:
         account_id: typing.Optional[AccountId] = OMIT,
         subdomain: typing.Optional[Subdomain] = OMIT,
         subscription_id: typing.Optional[Subscriptionid] = OMIT,
+        auto_capture: typing.Optional[AutoCapture] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[AuthCapturePayoutResponse]:
         """
-        Authorizes transaction for payout. Authorized transactions aren't flagged for settlement until captured. Use `referenceId` returned in the response to capture the transaction.
+        Authorizes transaction for payout.  If you don't pass the `autoCapture` field with a value of `true`, authorized transactions aren't flagged for settlement until captured.  Use `referenceId` returned in the response to capture the transaction.
 
         Parameters
         ----------
@@ -111,6 +113,8 @@ class RawMoneyOutClient:
 
         subscription_id : typing.Optional[Subscriptionid]
 
+        auto_capture : typing.Optional[AutoCapture]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -147,6 +151,7 @@ class RawMoneyOutClient:
                 "accountId": account_id,
                 "subdomain": subdomain,
                 "subscriptionId": subscription_id,
+                "autoCapture": auto_capture,
             },
             headers={
                 "content-type": "application/json",
@@ -589,7 +594,7 @@ class RawMoneyOutClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[AuthCapturePayoutResponse]:
         """
-        Captures a single authorized payout transaction by ID.
+        Captures a single authorized payout transaction by ID. If the transaction was authorized with `autoCapture` set to `true`,  you don't need to call this endpoint to capture the transaction for processing.
 
         Parameters
         ----------
@@ -1291,10 +1296,11 @@ class AsyncRawMoneyOutClient:
         account_id: typing.Optional[AccountId] = OMIT,
         subdomain: typing.Optional[Subdomain] = OMIT,
         subscription_id: typing.Optional[Subscriptionid] = OMIT,
+        auto_capture: typing.Optional[AutoCapture] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[AuthCapturePayoutResponse]:
         """
-        Authorizes transaction for payout. Authorized transactions aren't flagged for settlement until captured. Use `referenceId` returned in the response to capture the transaction.
+        Authorizes transaction for payout.  If you don't pass the `autoCapture` field with a value of `true`, authorized transactions aren't flagged for settlement until captured.  Use `referenceId` returned in the response to capture the transaction.
 
         Parameters
         ----------
@@ -1334,6 +1340,8 @@ class AsyncRawMoneyOutClient:
 
         subscription_id : typing.Optional[Subscriptionid]
 
+        auto_capture : typing.Optional[AutoCapture]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1370,6 +1378,7 @@ class AsyncRawMoneyOutClient:
                 "accountId": account_id,
                 "subdomain": subdomain,
                 "subscriptionId": subscription_id,
+                "autoCapture": auto_capture,
             },
             headers={
                 "content-type": "application/json",
@@ -1812,7 +1821,7 @@ class AsyncRawMoneyOutClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[AuthCapturePayoutResponse]:
         """
-        Captures a single authorized payout transaction by ID.
+        Captures a single authorized payout transaction by ID. If the transaction was authorized with `autoCapture` set to `true`,  you don't need to call this endpoint to capture the transaction for processing.
 
         Parameters
         ----------
