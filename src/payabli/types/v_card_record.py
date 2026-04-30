@@ -15,6 +15,7 @@ from .external_paypoint_id import ExternalPaypointId
 from .last_modified import LastModified
 from .legalname import Legalname
 from .org_parent_name import OrgParentName
+from .v_card_card_type import VCardCardType
 
 
 class VCardRecord(UniversalBaseModel):
@@ -27,6 +28,7 @@ class VCardRecord(UniversalBaseModel):
 
     VCardRecord(
         vcard_sent=True,
+        card_type=0,
         card_token="vcrd_5Ty8NrBzXjKuqHm9DwElfP",
         card_number="44XX XXXX XXXX 1234",
         cvc="XXX",
@@ -73,6 +75,9 @@ class VCardRecord(UniversalBaseModel):
         typing.Optional[bool],
         FieldMetadata(alias="vcardSent"),
         pydantic.Field(alias="vcardSent", description="When `true`, the vCard has been sent."),
+    ] = None
+    card_type: typing_extensions.Annotated[
+        typing.Optional[VCardCardType], FieldMetadata(alias="cardType"), pydantic.Field(alias="cardType")
     ] = None
     card_token: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="cardToken"), pydantic.Field(alias="cardToken")

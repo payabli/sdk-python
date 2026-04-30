@@ -8,12 +8,14 @@ from importlib import import_module
 if typing.TYPE_CHECKING:
     from .batch_detail_response_record import BatchDetailResponseRecord
     from .batch_detail_response_summary import BatchDetailResponseSummary
+    from .device_query_record import DeviceQueryRecord
     from .limit_record import LimitRecord
     from .list_organizations_response import ListOrganizationsResponse
     from .query_batches_detail_response import QueryBatchesDetailResponse
     from .query_batches_response import QueryBatchesResponse
     from .query_batches_response_records_item import QueryBatchesResponseRecordsItem
     from .query_batches_transfer import QueryBatchesTransfer
+    from .query_device_response import QueryDeviceResponse
     from .query_transfer_detail_response import QueryTransferDetailResponse
     from .query_transfer_response import QueryTransferResponse
     from .query_transfer_summary import QueryTransferSummary
@@ -37,12 +39,14 @@ if typing.TYPE_CHECKING:
 _dynamic_imports: typing.Dict[str, str] = {
     "BatchDetailResponseRecord": ".batch_detail_response_record",
     "BatchDetailResponseSummary": ".batch_detail_response_summary",
+    "DeviceQueryRecord": ".device_query_record",
     "LimitRecord": ".limit_record",
     "ListOrganizationsResponse": ".list_organizations_response",
     "QueryBatchesDetailResponse": ".query_batches_detail_response",
     "QueryBatchesResponse": ".query_batches_response",
     "QueryBatchesResponseRecordsItem": ".query_batches_response_records_item",
     "QueryBatchesTransfer": ".query_batches_transfer",
+    "QueryDeviceResponse": ".query_device_response",
     "QueryTransferDetailResponse": ".query_transfer_detail_response",
     "QueryTransferResponse": ".query_transfer_response",
     "QueryTransferSummary": ".query_transfer_summary",
@@ -90,12 +94,14 @@ def __dir__():
 __all__ = [
     "BatchDetailResponseRecord",
     "BatchDetailResponseSummary",
+    "DeviceQueryRecord",
     "LimitRecord",
     "ListOrganizationsResponse",
     "QueryBatchesDetailResponse",
     "QueryBatchesResponse",
     "QueryBatchesResponseRecordsItem",
     "QueryBatchesTransfer",
+    "QueryDeviceResponse",
     "QueryTransferDetailResponse",
     "QueryTransferResponse",
     "QueryTransferSummary",

@@ -76,7 +76,7 @@ client = payabli(
     api_key="<value>",
 )
 
-client.money_in.getpaid(
+client.money_in.getpaidv_2(
     customer_data=PayorDataRequest(
         customer_id=4440,
     ),
@@ -126,7 +126,7 @@ client = Asyncpayabli(
 
 
 async def main() -> None:
-    await client.money_in.getpaid(
+    await client.money_in.getpaidv_2(
         customer_data=PayorDataRequest(
             customer_id=4440,
         ),
@@ -160,7 +160,7 @@ will be thrown.
 from payabli.core.api_error import ApiError
 
 try:
-    client.money_in.getpaid(...)
+    client.money_in.getpaidv_2(...)
 except ApiError as e:
     print(e.status_code)
     print(e.body)
@@ -177,7 +177,7 @@ The `.with_raw_response` property returns a "raw" client that can be used to acc
 from payabli import payabli
 
 client = payabli(...)
-response = client.money_in.with_raw_response.getpaid(...)
+response = client.money_in.with_raw_response.getpaidv_2(...)
 print(response.headers)  # access the response headers
 print(response.status_code)  # access the response status code
 print(response.data)  # access the underlying object
@@ -198,7 +198,7 @@ A request is deemed retryable when any of the following HTTP status codes is ret
 Use the `max_retries` request option to configure this behavior.
 
 ```python
-client.money_in.getpaid(..., request_options={
+client.money_in.getpaidv_2(..., request_options={
     "max_retries": 1
 })
 ```
@@ -213,7 +213,7 @@ from payabli import payabli
 client = payabli(..., timeout=20.0)
 
 # Override timeout for a specific method
-client.money_in.getpaid(..., request_options={
+client.money_in.getpaidv_2(..., request_options={
     "timeout_in_seconds": 1
 })
 ```

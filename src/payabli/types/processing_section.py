@@ -40,6 +40,31 @@ class ProcessingSection(UniversalBaseModel):
     when_refunded: typing_extensions.Annotated[
         typing.Optional[TemplateElement], FieldMetadata(alias="whenRefunded"), pydantic.Field(alias="whenRefunded")
     ] = None
+    combined_batches: typing_extensions.Annotated[
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="CombinedBatches"),
+        pydantic.Field(alias="CombinedBatches"),
+    ] = None
+    payout_average_monthly_volume: typing_extensions.Annotated[
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="payoutAverageMonthlyVolume"),
+        pydantic.Field(alias="payoutAverageMonthlyVolume"),
+    ] = None
+    payout_high_ticket_amount: typing_extensions.Annotated[
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="payoutHighTicketAmount"),
+        pydantic.Field(alias="payoutHighTicketAmount"),
+    ] = None
+    payout_average_ticket_amount: typing_extensions.Annotated[
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="payoutAverageTicketAmount"),
+        pydantic.Field(alias="payoutAverageTicketAmount"),
+    ] = None
+    payout_credit_limit: typing_extensions.Annotated[
+        typing.Optional[TemplateElement],
+        FieldMetadata(alias="payoutCreditLimit"),
+        pydantic.Field(alias="payoutCreditLimit"),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

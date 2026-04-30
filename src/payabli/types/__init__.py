@@ -631,6 +631,7 @@ if typing.TYPE_CHECKING:
     from .user_query_record import UserQueryRecord
     from .usr_access import UsrAccess
     from .usr_status import UsrStatus
+    from .v_card_card_type import VCardCardType
     from .v_card_query_response import VCardQueryResponse
     from .v_card_record import VCardRecord
     from .v_card_summary import VCardSummary
@@ -1289,6 +1290,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UserQueryRecord": ".user_query_record",
     "UsrAccess": ".usr_access",
     "UsrStatus": ".usr_status",
+    "VCardCardType": ".v_card_card_type",
     "VCardQueryResponse": ".v_card_query_response",
     "VCardRecord": ".v_card_record",
     "VCardSummary": ".v_card_summary",
@@ -1971,6 +1973,7 @@ __all__ = [
     "UserQueryRecord",
     "UsrAccess",
     "UsrStatus",
+    "VCardCardType",
     "VCardQueryResponse",
     "VCardRecord",
     "VCardSummary",

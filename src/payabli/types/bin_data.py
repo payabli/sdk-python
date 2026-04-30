@@ -53,7 +53,10 @@ class BinData(UniversalBaseModel):
     bin_card_type: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="binCardType"),
-        pydantic.Field(alias="binCardType", description="The type of card: Credit or Debit."),
+        pydantic.Field(
+            alias="binCardType",
+            description="The type of card: `Credit` or `Debit`. Case can vary between\nprocessors, so compare this value case-insensitively.",
+        ),
     ] = None
     bin_card_category: typing_extensions.Annotated[
         typing.Optional[str],

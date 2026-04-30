@@ -19,6 +19,7 @@ from ..query_types.types.limit_record import LimitRecord
 from ..query_types.types.list_organizations_response import ListOrganizationsResponse
 from ..query_types.types.query_batches_detail_response import QueryBatchesDetailResponse
 from ..query_types.types.query_batches_response import QueryBatchesResponse
+from ..query_types.types.query_device_response import QueryDeviceResponse
 from ..query_types.types.query_transfer_detail_response import QueryTransferDetailResponse
 from ..query_types.types.transfer_out_detail_query_response import TransferOutDetailQueryResponse
 from ..query_types.types.transfer_out_query_response import TransferOutQueryResponse
@@ -1716,6 +1717,421 @@ class RawQueryClient:
                     QueryCustomerResponse,
                     parse_obj_as(
                         type_=QueryCustomerResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def list_devices(
+        self,
+        entry: Entry,
+        *,
+        export_format: typing.Optional[ExportFormat] = None,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[QueryDeviceResponse]:
+        """
+        Returns a list of cloud devices for a single paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
+
+        Parameters
+        ----------
+        entry : Entry
+
+        export_format : typing.Optional[ExportFormat]
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+
+            Collection of field names, conditions, and values used to filter
+            the query.
+
+            <Info>
+              **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+              For example:
+
+              --url https://api-sandbox.payabli.com/api/Query/devices/8cfec329267?parameters=status=1&limitRecord=20
+
+              should become:
+
+              --url https://api-sandbox.payabli.com/api/Query/devices/8cfec329267?status=1&limitRecord=20
+            </Info>
+
+            See [Filters and Conditions
+            Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference)
+            for more information.
+
+            **List of field names accepted:**
+
+
+            - `deviceId` (eq, ne, ct, nct)
+
+            - `serialNumber` (eq, ne, ct, nct)
+
+            - `friendlyName` (eq, ne, ct, nct)
+
+            - `description` (eq, ne, ct, nct)
+
+            - `model` (eq, ne, ct, nct)
+
+            - `make` (eq, ne, ct, nct)
+
+            - `macAddress` (eq, ne, ct, nct)
+
+            - `registrationCode` (eq, ne, ct, nct)
+
+            - `status` (eq, ne, in, nin)
+
+            - `deviceType` (eq, ne, in, nin)
+
+            - `deviceOs` (eq, ne, in, nin)
+
+            - `activationAttempts` (eq, ne, gt, ge, lt, le)
+
+            - `createdDate` (gt, ge, lt, le, eq, ne)
+
+            - `updatedDate` (gt, ge, lt, le, eq, ne)
+
+            - `lastHealthCheck` (gt, ge, lt, le, eq, ne)
+
+            - `activationExpiry` (gt, ge, lt, le, eq, ne). This filter corresponds to the `activationCodeExpiry` response field.
+
+            - `paypointId` (eq, ne)
+
+            - `paypointDba` (eq, ne, ct, nct)
+
+            - `paypointLegal` (eq, ne, ct, nct)
+
+            - `paypointEntry` (eq, ne, ct, nct)
+
+            - `externalPaypointId` (eq, ne, ct, nct)
+
+            - `parentOrgId` (eq, ne)
+
+            - `parentOrgName` (eq, ne, ct, nct)
+
+
+            **List of comparison operators accepted:**
+
+            - `eq` or empty => equal
+
+            - `gt` => greater than
+
+            - `ge` => greater or equal
+
+            - `lt` => less than
+
+            - `le` => less or equal
+
+            - `ne` => not equal
+
+            - `ct` => contains
+
+            - `nct` => not contains
+
+            - `in` => inside array
+
+            - `nin` => not inside array
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[QueryDeviceResponse]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"Query/devices/{encode_path_param(entry)}",
+            method="GET",
+            params={
+                "exportFormat": export_format,
+                "fromRecord": from_record,
+                "limitRecord": limit_record,
+                "parameters": parameters,
+                "sortBy": sort_by,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    QueryDeviceResponse,
+                    parse_obj_as(
+                        type_=QueryDeviceResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def list_devices_org(
+        self,
+        org_id: int,
+        *,
+        export_format: typing.Optional[ExportFormat] = None,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[QueryDeviceResponse]:
+        """
+        Returns a list of cloud devices for a single organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
+
+        Parameters
+        ----------
+        org_id : int
+            The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+
+            Collection of field names, conditions, and values used to filter
+            the query.
+
+            <Info>
+              **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+              For example:
+
+              --url https://api-sandbox.payabli.com/api/Query/devices/org/236?parameters=status=1&limitRecord=20
+
+              should become:
+
+              --url https://api-sandbox.payabli.com/api/Query/devices/org/236?status=1&limitRecord=20
+            </Info>
+
+            See [Filters and Conditions
+            Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference)
+            for more information.
+
+            **List of field names accepted:**
+
+
+            - `deviceId` (eq, ne, ct, nct)
+
+            - `serialNumber` (eq, ne, ct, nct)
+
+            - `friendlyName` (eq, ne, ct, nct)
+
+            - `description` (eq, ne, ct, nct)
+
+            - `model` (eq, ne, ct, nct)
+
+            - `make` (eq, ne, ct, nct)
+
+            - `macAddress` (eq, ne, ct, nct)
+
+            - `registrationCode` (eq, ne, ct, nct)
+
+            - `status` (eq, ne, in, nin)
+
+            - `deviceType` (eq, ne, in, nin)
+
+            - `deviceOs` (eq, ne, in, nin)
+
+            - `activationAttempts` (eq, ne, gt, ge, lt, le)
+
+            - `createdDate` (gt, ge, lt, le, eq, ne)
+
+            - `updatedDate` (gt, ge, lt, le, eq, ne)
+
+            - `lastHealthCheck` (gt, ge, lt, le, eq, ne)
+
+            - `activationExpiry` (gt, ge, lt, le, eq, ne). This filter corresponds to the `activationCodeExpiry` response field.
+
+            - `paypointId` (eq, ne)
+
+            - `paypointDba` (eq, ne, ct, nct)
+
+            - `paypointLegal` (eq, ne, ct, nct)
+
+            - `paypointEntry` (eq, ne, ct, nct)
+
+            - `externalPaypointId` (eq, ne, ct, nct)
+
+            - `parentOrgId` (eq, ne)
+
+            - `parentOrgName` (eq, ne, ct, nct)
+
+
+            **List of comparison operators accepted:**
+
+            - `eq` or empty => equal
+
+            - `gt` => greater than
+
+            - `ge` => greater or equal
+
+            - `lt` => less than
+
+            - `le` => less or equal
+
+            - `ne` => not equal
+
+            - `ct` => contains
+
+            - `nct` => not contains
+
+            - `in` => inside array
+
+            - `nin` => not inside array
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[QueryDeviceResponse]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"Query/devices/org/{encode_path_param(org_id)}",
+            method="GET",
+            params={
+                "exportFormat": export_format,
+                "fromRecord": from_record,
+                "limitRecord": limit_record,
+                "parameters": parameters,
+                "sortBy": sort_by,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    QueryDeviceResponse,
+                    parse_obj_as(
+                        type_=QueryDeviceResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -6200,6 +6616,7 @@ class RawQueryClient:
               - `orgName` (ne, eq, ct, nct)
               - `externalPaypointId` (ct, nct, eq, ne)
               - `paypointId` (in, nin, eq, ne)
+              - `cardType` (eq)
 
             List of comparison accepted - enclosed between parentheses:
 
@@ -6361,6 +6778,7 @@ class RawQueryClient:
               - `orgName` (ne, eq, ct, nct)
               - `externalPaypointId` (ct, nct, eq, ne)
               - `paypointId` (in, nin, eq, ne)
+              - `cardType` (eq)
 
             List of comparison accepted - enclosed between parentheses:
 
@@ -8091,6 +8509,421 @@ class AsyncRawQueryClient:
                     QueryCustomerResponse,
                     parse_obj_as(
                         type_=QueryCustomerResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def list_devices(
+        self,
+        entry: Entry,
+        *,
+        export_format: typing.Optional[ExportFormat] = None,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[QueryDeviceResponse]:
+        """
+        Returns a list of cloud devices for a single paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
+
+        Parameters
+        ----------
+        entry : Entry
+
+        export_format : typing.Optional[ExportFormat]
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+
+            Collection of field names, conditions, and values used to filter
+            the query.
+
+            <Info>
+              **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+              For example:
+
+              --url https://api-sandbox.payabli.com/api/Query/devices/8cfec329267?parameters=status=1&limitRecord=20
+
+              should become:
+
+              --url https://api-sandbox.payabli.com/api/Query/devices/8cfec329267?status=1&limitRecord=20
+            </Info>
+
+            See [Filters and Conditions
+            Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference)
+            for more information.
+
+            **List of field names accepted:**
+
+
+            - `deviceId` (eq, ne, ct, nct)
+
+            - `serialNumber` (eq, ne, ct, nct)
+
+            - `friendlyName` (eq, ne, ct, nct)
+
+            - `description` (eq, ne, ct, nct)
+
+            - `model` (eq, ne, ct, nct)
+
+            - `make` (eq, ne, ct, nct)
+
+            - `macAddress` (eq, ne, ct, nct)
+
+            - `registrationCode` (eq, ne, ct, nct)
+
+            - `status` (eq, ne, in, nin)
+
+            - `deviceType` (eq, ne, in, nin)
+
+            - `deviceOs` (eq, ne, in, nin)
+
+            - `activationAttempts` (eq, ne, gt, ge, lt, le)
+
+            - `createdDate` (gt, ge, lt, le, eq, ne)
+
+            - `updatedDate` (gt, ge, lt, le, eq, ne)
+
+            - `lastHealthCheck` (gt, ge, lt, le, eq, ne)
+
+            - `activationExpiry` (gt, ge, lt, le, eq, ne). This filter corresponds to the `activationCodeExpiry` response field.
+
+            - `paypointId` (eq, ne)
+
+            - `paypointDba` (eq, ne, ct, nct)
+
+            - `paypointLegal` (eq, ne, ct, nct)
+
+            - `paypointEntry` (eq, ne, ct, nct)
+
+            - `externalPaypointId` (eq, ne, ct, nct)
+
+            - `parentOrgId` (eq, ne)
+
+            - `parentOrgName` (eq, ne, ct, nct)
+
+
+            **List of comparison operators accepted:**
+
+            - `eq` or empty => equal
+
+            - `gt` => greater than
+
+            - `ge` => greater or equal
+
+            - `lt` => less than
+
+            - `le` => less or equal
+
+            - `ne` => not equal
+
+            - `ct` => contains
+
+            - `nct` => not contains
+
+            - `in` => inside array
+
+            - `nin` => not inside array
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[QueryDeviceResponse]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"Query/devices/{encode_path_param(entry)}",
+            method="GET",
+            params={
+                "exportFormat": export_format,
+                "fromRecord": from_record,
+                "limitRecord": limit_record,
+                "parameters": parameters,
+                "sortBy": sort_by,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    QueryDeviceResponse,
+                    parse_obj_as(
+                        type_=QueryDeviceResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def list_devices_org(
+        self,
+        org_id: int,
+        *,
+        export_format: typing.Optional[ExportFormat] = None,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[QueryDeviceResponse]:
+        """
+        Returns a list of cloud devices for a single organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
+
+        Parameters
+        ----------
+        org_id : int
+            The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+
+            Collection of field names, conditions, and values used to filter
+            the query.
+
+            <Info>
+              **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
+
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
+
+              For example:
+
+              --url https://api-sandbox.payabli.com/api/Query/devices/org/236?parameters=status=1&limitRecord=20
+
+              should become:
+
+              --url https://api-sandbox.payabli.com/api/Query/devices/org/236?status=1&limitRecord=20
+            </Info>
+
+            See [Filters and Conditions
+            Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference)
+            for more information.
+
+            **List of field names accepted:**
+
+
+            - `deviceId` (eq, ne, ct, nct)
+
+            - `serialNumber` (eq, ne, ct, nct)
+
+            - `friendlyName` (eq, ne, ct, nct)
+
+            - `description` (eq, ne, ct, nct)
+
+            - `model` (eq, ne, ct, nct)
+
+            - `make` (eq, ne, ct, nct)
+
+            - `macAddress` (eq, ne, ct, nct)
+
+            - `registrationCode` (eq, ne, ct, nct)
+
+            - `status` (eq, ne, in, nin)
+
+            - `deviceType` (eq, ne, in, nin)
+
+            - `deviceOs` (eq, ne, in, nin)
+
+            - `activationAttempts` (eq, ne, gt, ge, lt, le)
+
+            - `createdDate` (gt, ge, lt, le, eq, ne)
+
+            - `updatedDate` (gt, ge, lt, le, eq, ne)
+
+            - `lastHealthCheck` (gt, ge, lt, le, eq, ne)
+
+            - `activationExpiry` (gt, ge, lt, le, eq, ne). This filter corresponds to the `activationCodeExpiry` response field.
+
+            - `paypointId` (eq, ne)
+
+            - `paypointDba` (eq, ne, ct, nct)
+
+            - `paypointLegal` (eq, ne, ct, nct)
+
+            - `paypointEntry` (eq, ne, ct, nct)
+
+            - `externalPaypointId` (eq, ne, ct, nct)
+
+            - `parentOrgId` (eq, ne)
+
+            - `parentOrgName` (eq, ne, ct, nct)
+
+
+            **List of comparison operators accepted:**
+
+            - `eq` or empty => equal
+
+            - `gt` => greater than
+
+            - `ge` => greater or equal
+
+            - `lt` => less than
+
+            - `le` => less or equal
+
+            - `ne` => not equal
+
+            - `ct` => contains
+
+            - `nct` => not contains
+
+            - `in` => inside array
+
+            - `nin` => not inside array
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[QueryDeviceResponse]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"Query/devices/org/{encode_path_param(org_id)}",
+            method="GET",
+            params={
+                "exportFormat": export_format,
+                "fromRecord": from_record,
+                "limitRecord": limit_record,
+                "parameters": parameters,
+                "sortBy": sort_by,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    QueryDeviceResponse,
+                    parse_obj_as(
+                        type_=QueryDeviceResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -12575,6 +13408,7 @@ class AsyncRawQueryClient:
               - `orgName` (ne, eq, ct, nct)
               - `externalPaypointId` (ct, nct, eq, ne)
               - `paypointId` (in, nin, eq, ne)
+              - `cardType` (eq)
 
             List of comparison accepted - enclosed between parentheses:
 
@@ -12736,6 +13570,7 @@ class AsyncRawQueryClient:
               - `orgName` (ne, eq, ct, nct)
               - `externalPaypointId` (ct, nct, eq, ne)
               - `paypointId` (in, nin, eq, ne)
+              - `cardType` (eq)
 
             List of comparison accepted - enclosed between parentheses:
 

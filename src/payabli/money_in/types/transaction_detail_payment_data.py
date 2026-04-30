@@ -49,8 +49,10 @@ class TransactionDetailPaymentData(UniversalBaseModel):
     ] = None
     sequence: typing.Optional[Sequence] = None
     order_description: typing_extensions.Annotated[
-        Orderdescription, FieldMetadata(alias="orderDescription"), pydantic.Field(alias="orderDescription")
-    ]
+        typing.Optional[Orderdescription],
+        FieldMetadata(alias="orderDescription"),
+        pydantic.Field(alias="orderDescription"),
+    ] = None
     account_id: typing_extensions.Annotated[
         typing.Optional[AccountId], FieldMetadata(alias="accountId"), pydantic.Field(alias="accountId")
     ] = None

@@ -132,7 +132,10 @@ class QueryChargebacksResponseRecordsItem(UniversalBaseModel):
     status: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="Status"),
-        pydantic.Field(alias="Status", description="Status of the transaction."),
+        pydantic.Field(
+            alias="Status",
+            description="Status of the chargeback or ACH return.\n\n- 0: Open (chargebacks only)\n- 1: Pending (chargebacks only)\n- 2: ClosedWon (chargebacks only)\n- 3: ClosedLost (chargebacks only)\n- 4: ACH return (any Nacha return code except R29)\n- 5: AchDispute (R29 only — debit block)",
+        ),
     ] = None
     transaction: typing_extensions.Annotated[
         typing.Optional[TransactionQueryRecords],

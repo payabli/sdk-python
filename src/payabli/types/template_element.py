@@ -9,6 +9,7 @@ from ..core.serialization import FieldMetadata
 from .pos_col import PosCol
 from .pos_row import PosRow
 from .read_only import ReadOnly
+from .required_element import RequiredElement
 from .value_templates import ValueTemplates
 from .visible import Visible
 
@@ -25,6 +26,7 @@ class TemplateElement(UniversalBaseModel):
     ] = None
     value: typing.Optional[ValueTemplates] = None
     visible: typing.Optional[Visible] = None
+    required: typing.Optional[RequiredElement] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

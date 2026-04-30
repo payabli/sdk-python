@@ -22,6 +22,7 @@ if typing.TYPE_CHECKING:
     from .import_.client import AsyncImportClient, ImportClient
     from .invoice.client import AsyncInvoiceClient, InvoiceClient
     from .line_item.client import AsyncLineItemClient, LineItemClient
+    from .management.client import AsyncManagementClient, ManagementClient
     from .money_in.client import AsyncMoneyInClient, MoneyInClient
     from .money_out.client import AsyncMoneyOutClient, MoneyOutClient
     from .notification.client import AsyncNotificationClient, NotificationClient
@@ -124,6 +125,7 @@ class payabli:
         self._import_: typing.Optional[ImportClient] = None
         self._invoice: typing.Optional[InvoiceClient] = None
         self._line_item: typing.Optional[LineItemClient] = None
+        self._management: typing.Optional[ManagementClient] = None
         self._money_in: typing.Optional[MoneyInClient] = None
         self._money_out: typing.Optional[MoneyOutClient] = None
         self._notification: typing.Optional[NotificationClient] = None
@@ -238,6 +240,14 @@ class payabli:
 
             self._line_item = LineItemClient(client_wrapper=self._client_wrapper)
         return self._line_item
+
+    @property
+    def management(self):
+        if self._management is None:
+            from .management.client import ManagementClient  # noqa: E402
+
+            self._management = ManagementClient(client_wrapper=self._client_wrapper)
+        return self._management
 
     @property
     def money_in(self):
@@ -482,6 +492,7 @@ class Asyncpayabli:
         self._import_: typing.Optional[AsyncImportClient] = None
         self._invoice: typing.Optional[AsyncInvoiceClient] = None
         self._line_item: typing.Optional[AsyncLineItemClient] = None
+        self._management: typing.Optional[AsyncManagementClient] = None
         self._money_in: typing.Optional[AsyncMoneyInClient] = None
         self._money_out: typing.Optional[AsyncMoneyOutClient] = None
         self._notification: typing.Optional[AsyncNotificationClient] = None
@@ -596,6 +607,14 @@ class Asyncpayabli:
 
             self._line_item = AsyncLineItemClient(client_wrapper=self._client_wrapper)
         return self._line_item
+
+    @property
+    def management(self):
+        if self._management is None:
+            from .management.client import AsyncManagementClient  # noqa: E402
+
+            self._management = AsyncManagementClient(client_wrapper=self._client_wrapper)
+        return self._management
 
     @property
     def money_in(self):
