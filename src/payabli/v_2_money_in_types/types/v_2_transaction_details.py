@@ -315,8 +315,10 @@ class V2TransactionDetails(UniversalBaseModel):
         EntrypageId, FieldMetadata(alias="entrypageId"), pydantic.Field(alias="entrypageId")
     ]
     external_paypoint_id: typing_extensions.Annotated[
-        ExternalPaypointId, FieldMetadata(alias="externalPaypointID"), pydantic.Field(alias="externalPaypointID")
-    ]
+        typing.Optional[ExternalPaypointId],
+        FieldMetadata(alias="externalPaypointID"),
+        pydantic.Field(alias="externalPaypointID"),
+    ] = None
     is_validated_ach: typing_extensions.Annotated[
         bool,
         FieldMetadata(alias="isValidatedACH"),
