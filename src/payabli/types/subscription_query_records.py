@@ -62,7 +62,7 @@ class SubscriptionQueryRecords(UniversalBaseModel):
         pydantic.Field(alias="IdSub", description="The subscription's ID."),
     ] = None
     invoice_data: typing_extensions.Annotated[
-        typing.Optional[BillData], FieldMetadata(alias="InvoiceData"), pydantic.Field(alias="InvoiceData")
+        typing.Optional[BillData], FieldMetadata(alias="invoiceData"), pydantic.Field(alias="invoiceData")
     ] = None
     last_run: typing_extensions.Annotated[
         typing.Optional[dt.datetime],

@@ -12,25 +12,25 @@ from .transaction_query_records import TransactionQueryRecords
 class CustomerSummaryRecord(UniversalBaseModel):
     numberof_transactions: typing_extensions.Annotated[
         typing.Optional[int],
-        FieldMetadata(alias="numberofTransactions"),
-        pydantic.Field(alias="numberofTransactions", description="Number total of transactions or payments"),
+        FieldMetadata(alias="NumberofTransactions"),
+        pydantic.Field(alias="NumberofTransactions", description="Number total of transactions or payments"),
     ] = None
     recent_transactions: typing_extensions.Annotated[
         typing.Optional[typing.List[TransactionQueryRecords]],
-        FieldMetadata(alias="recentTransactions"),
+        FieldMetadata(alias="RecentTransactions"),
         pydantic.Field(
-            alias="recentTransactions", description="List of more recent 5 transactions belonging to the customer"
+            alias="RecentTransactions", description="List of more recent 5 transactions belonging to the customer"
         ),
     ] = None
     total_amount_transactions: typing_extensions.Annotated[
         typing.Optional[float],
-        FieldMetadata(alias="totalAmountTransactions"),
-        pydantic.Field(alias="totalAmountTransactions", description="Total amount in transactions"),
+        FieldMetadata(alias="TotalAmountTransactions"),
+        pydantic.Field(alias="TotalAmountTransactions", description="Total amount in transactions"),
     ] = None
     total_net_amount_transactions: typing_extensions.Annotated[
         typing.Optional[float],
-        FieldMetadata(alias="totalNetAmountTransactions"),
-        pydantic.Field(alias="totalNetAmountTransactions", description="Total net amount in transactions"),
+        FieldMetadata(alias="TotalNetAmountTransactions"),
+        pydantic.Field(alias="TotalNetAmountTransactions", description="Total net amount in transactions"),
     ] = None
 
     if IS_PYDANTIC_V2:

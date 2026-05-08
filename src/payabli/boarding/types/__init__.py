@@ -7,7 +7,15 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .add_application_request import AddApplicationRequest
-_dynamic_imports: typing.Dict[str, str] = {"AddApplicationRequest": ".add_application_request"}
+    from .create_application_from_paypoint_request import CreateApplicationFromPaypointRequest
+    from .create_application_from_paypoint_response import CreateApplicationFromPaypointResponse
+    from .create_application_from_paypoint_response_data import CreateApplicationFromPaypointResponseData
+_dynamic_imports: typing.Dict[str, str] = {
+    "AddApplicationRequest": ".add_application_request",
+    "CreateApplicationFromPaypointRequest": ".create_application_from_paypoint_request",
+    "CreateApplicationFromPaypointResponse": ".create_application_from_paypoint_response",
+    "CreateApplicationFromPaypointResponseData": ".create_application_from_paypoint_response_data",
+}
 
 
 def __getattr__(attr_name: str) -> typing.Any:
@@ -31,4 +39,9 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["AddApplicationRequest"]
+__all__ = [
+    "AddApplicationRequest",
+    "CreateApplicationFromPaypointRequest",
+    "CreateApplicationFromPaypointResponse",
+    "CreateApplicationFromPaypointResponseData",
+]

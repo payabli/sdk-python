@@ -70,6 +70,7 @@ from ..types.whenprovided import Whenprovided
 from ..types.whenrefunded import Whenrefunded
 from .raw_client import AsyncRawBoardingClient, RawBoardingClient
 from .types.add_application_request import AddApplicationRequest
+from .types.create_application_from_paypoint_response import CreateApplicationFromPaypointResponse
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -974,6 +975,102 @@ class BoardingClient:
             on_create=on_create,
             request_options=request_options,
         )
+        return _response.data
+
+    def add_service_to_paypoint_from_app(
+        self,
+        *,
+        paypoint_id: int,
+        template_id: int,
+        recipient_email: str,
+        return_boarding_access_info_in_line: typing.Optional[bool] = OMIT,
+        on_create: typing.Optional[typing.Sequence[str]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> CreateApplicationFromPaypointResponse:
+        """
+        Creates a new boarding application linked to an existing paypoint as part of the multi-product boarding flow. Use this endpoint to add new services to a paypoint without creating a duplicate record. The system copies eligible business, contact, banking, and address data from the paypoint to the new application based on 1:1 field matching. The merchant only needs to provide fields that are specific to the new service. See the [Multi-product boarding](/guides/pay-ops-developer-boarding-multi-product) guide for the full flow.
+
+        Parameters
+        ----------
+        paypoint_id : int
+            ID of the existing paypoint to link to this application.
+
+        template_id : int
+            ID of the boarding template to use for the new application.
+
+        recipient_email : str
+            Email address where the boarding link is sent. Required. If you don't want to email the merchant, send to an internal address and use `returnBoardingAccessInfoInLine` to retrieve the link from the response instead.
+
+        return_boarding_access_info_in_line : typing.Optional[bool]
+            When `true`, returns the boarding access information directly in the response.
+
+        on_create : typing.Optional[typing.Sequence[str]]
+            Additional actions to trigger when the application is created. Currently only `submitApplication` is supported, which automatically submits the application on creation and skips the draft state.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CreateApplicationFromPaypointResponse
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.boarding.add_service_to_paypoint_from_app(
+            paypoint_id=123,
+            template_id=456,
+            recipient_email="merchant@example.com",
+            return_boarding_access_info_in_line=True,
+            on_create=["submitApplication"],
+        )
+        """
+        _response = self._raw_client.add_service_to_paypoint_from_app(
+            paypoint_id=paypoint_id,
+            template_id=template_id,
+            recipient_email=recipient_email,
+            return_boarding_access_info_in_line=return_boarding_access_info_in_line,
+            on_create=on_create,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def get_applications_by_paypoint_id(
+        self, paypoint_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> QueryBoardingAppsListResponse:
+        """
+        Returns all boarding applications associated with a specific paypoint, including those created through the multi-product boarding flow. Use this endpoint to track underwriting progress across multiple service additions or to build reporting views. See the [Multi-product boarding](/guides/pay-ops-developer-boarding-multi-product) guide for the full flow.
+
+        Parameters
+        ----------
+        paypoint_id : int
+            ID of the paypoint to retrieve applications for.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        QueryBoardingAppsListResponse
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.boarding.get_applications_by_paypoint_id(
+            paypoint_id=12345,
+        )
+        """
+        _response = self._raw_client.get_applications_by_paypoint_id(paypoint_id, request_options=request_options)
         return _response.data
 
 
@@ -1968,4 +2065,116 @@ class AsyncBoardingClient:
             on_create=on_create,
             request_options=request_options,
         )
+        return _response.data
+
+    async def add_service_to_paypoint_from_app(
+        self,
+        *,
+        paypoint_id: int,
+        template_id: int,
+        recipient_email: str,
+        return_boarding_access_info_in_line: typing.Optional[bool] = OMIT,
+        on_create: typing.Optional[typing.Sequence[str]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> CreateApplicationFromPaypointResponse:
+        """
+        Creates a new boarding application linked to an existing paypoint as part of the multi-product boarding flow. Use this endpoint to add new services to a paypoint without creating a duplicate record. The system copies eligible business, contact, banking, and address data from the paypoint to the new application based on 1:1 field matching. The merchant only needs to provide fields that are specific to the new service. See the [Multi-product boarding](/guides/pay-ops-developer-boarding-multi-product) guide for the full flow.
+
+        Parameters
+        ----------
+        paypoint_id : int
+            ID of the existing paypoint to link to this application.
+
+        template_id : int
+            ID of the boarding template to use for the new application.
+
+        recipient_email : str
+            Email address where the boarding link is sent. Required. If you don't want to email the merchant, send to an internal address and use `returnBoardingAccessInfoInLine` to retrieve the link from the response instead.
+
+        return_boarding_access_info_in_line : typing.Optional[bool]
+            When `true`, returns the boarding access information directly in the response.
+
+        on_create : typing.Optional[typing.Sequence[str]]
+            Additional actions to trigger when the application is created. Currently only `submitApplication` is supported, which automatically submits the application on creation and skips the draft state.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CreateApplicationFromPaypointResponse
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.boarding.add_service_to_paypoint_from_app(
+                paypoint_id=123,
+                template_id=456,
+                recipient_email="merchant@example.com",
+                return_boarding_access_info_in_line=True,
+                on_create=["submitApplication"],
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.add_service_to_paypoint_from_app(
+            paypoint_id=paypoint_id,
+            template_id=template_id,
+            recipient_email=recipient_email,
+            return_boarding_access_info_in_line=return_boarding_access_info_in_line,
+            on_create=on_create,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def get_applications_by_paypoint_id(
+        self, paypoint_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> QueryBoardingAppsListResponse:
+        """
+        Returns all boarding applications associated with a specific paypoint, including those created through the multi-product boarding flow. Use this endpoint to track underwriting progress across multiple service additions or to build reporting views. See the [Multi-product boarding](/guides/pay-ops-developer-boarding-multi-product) guide for the full flow.
+
+        Parameters
+        ----------
+        paypoint_id : int
+            ID of the paypoint to retrieve applications for.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        QueryBoardingAppsListResponse
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.boarding.get_applications_by_paypoint_id(
+                paypoint_id=12345,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_applications_by_paypoint_id(paypoint_id, request_options=request_options)
         return _response.data

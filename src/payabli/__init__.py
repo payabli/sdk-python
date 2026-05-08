@@ -721,7 +721,12 @@ if typing.TYPE_CHECKING:
         ModifyApprovalBillResponse,
         SetApprovedBillResponse,
     )
-    from .boarding import AddApplicationRequest
+    from .boarding import (
+        AddApplicationRequest,
+        CreateApplicationFromPaypointRequest,
+        CreateApplicationFromPaypointResponse,
+        CreateApplicationFromPaypointResponseData,
+    )
     from .charge_backs import AddResponseResponse, ChargeBackResponse, ChargebackMessage, ChargebackQueryRecords
     from .check_capture import CheckCaptureRequest, CheckCaptureResponse
     from .client import Asyncpayabli, payabli
@@ -1200,6 +1205,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConvertToken": ".token_storage",
     "CountryNullable": ".types",
     "CreateAnonymous": ".token_storage",
+    "CreateApplicationFromPaypointRequest": ".boarding",
+    "CreateApplicationFromPaypointResponse": ".boarding",
+    "CreateApplicationFromPaypointResponseData": ".boarding",
     "CreateGhostCardResponse": ".ghost_card",
     "CreateGhostCardResponseData": ".ghost_card",
     "CreatedAt": ".types",
@@ -2160,6 +2168,9 @@ __all__ = [
     "ConvertToken",
     "CountryNullable",
     "CreateAnonymous",
+    "CreateApplicationFromPaypointRequest",
+    "CreateApplicationFromPaypointResponse",
+    "CreateApplicationFromPaypointResponseData",
     "CreateGhostCardResponse",
     "CreateGhostCardResponseData",
     "CreatedAt",

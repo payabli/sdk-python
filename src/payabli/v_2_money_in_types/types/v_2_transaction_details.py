@@ -373,8 +373,8 @@ class V2TransactionDetails(UniversalBaseModel):
         AchSecCode, FieldMetadata(alias="achSecCode"), pydantic.Field(alias="achSecCode")
     ]
     ach_holder_type: typing_extensions.Annotated[
-        AchHolderType, FieldMetadata(alias="achHolderType"), pydantic.Field(alias="achHolderType")
-    ]
+        typing.Optional[AchHolderType], FieldMetadata(alias="achHolderType"), pydantic.Field(alias="achHolderType")
+    ] = None
     ip_address: typing_extensions.Annotated[
         IpAddress, FieldMetadata(alias="ipAddress"), pydantic.Field(alias="ipAddress")
     ]

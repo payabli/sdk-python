@@ -87,7 +87,7 @@ class TransactionQueryRecords(UniversalBaseModel):
         pydantic.Field(alias="GatewayTransId", description="Internal identifier used for processing."),
     ] = None
     invoice_data: typing_extensions.Annotated[
-        typing.Optional[BillData], FieldMetadata(alias="InvoiceData"), pydantic.Field(alias="InvoiceData")
+        typing.Optional[BillData], FieldMetadata(alias="invoiceData"), pydantic.Field(alias="invoiceData")
     ] = None
     method: typing_extensions.Annotated[
         typing.Optional[str],
