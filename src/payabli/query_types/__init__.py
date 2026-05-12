@@ -37,6 +37,8 @@ if typing.TYPE_CHECKING:
         TransferOutQueryResponse,
         TransferOutRecord,
         TransferOutSummary,
+        VCardTransactionQueryResponse,
+        VCardTransactionRecord,
     )
 _dynamic_imports: typing.Dict[str, str] = {
     "BatchDetailResponseRecord": ".types",
@@ -69,6 +71,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "TransferOutQueryResponse": ".types",
     "TransferOutRecord": ".types",
     "TransferOutSummary": ".types",
+    "VCardTransactionQueryResponse": ".types",
+    "VCardTransactionRecord": ".types",
 }
 
 
@@ -124,4 +128,6 @@ __all__ = [
     "TransferOutQueryResponse",
     "TransferOutRecord",
     "TransferOutSummary",
+    "VCardTransactionQueryResponse",
+    "VCardTransactionRecord",
 ]

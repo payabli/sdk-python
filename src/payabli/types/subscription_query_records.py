@@ -22,6 +22,7 @@ from .paypoint_id import PaypointId
 from .query_payment_data import QueryPaymentData
 from .query_transaction_payor_data import QueryTransactionPayorData
 from .source import Source
+from .vendor_response_stored_method import VendorResponseStoredMethod
 
 
 class SubscriptionQueryRecords(UniversalBaseModel):
@@ -130,6 +131,14 @@ class SubscriptionQueryRecords(UniversalBaseModel):
         typing.Optional[dt.datetime],
         FieldMetadata(alias="StartDate"),
         pydantic.Field(alias="StartDate", description="The subscription start date."),
+    ] = None
+    stored_method: typing_extensions.Annotated[
+        typing.Optional[VendorResponseStoredMethod],
+        FieldMetadata(alias="StoredMethod"),
+        pydantic.Field(
+            alias="StoredMethod",
+            description="The full stored payment method record linked to the subscription\nand charged on each billing cycle. Returned as `null` for legacy\nsubscriptions that don't have a linked stored method.\n\nThe shape is the same across payment vehicles (card, ACH, check).\nOnly the populated fields differ. For example, `ABA` is populated\nfor ACH, while `ExpDate` and `binData` are populated for card.",
+        ),
     ] = None
     sub_events: typing_extensions.Annotated[
         typing.Optional[typing.List[GeneralEvents]],

@@ -7,6 +7,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .bin_data import BinData
 
 
 class VendorResponseStoredMethod(UniversalBaseModel):
@@ -45,7 +46,7 @@ class VendorResponseStoredMethod(UniversalBaseModel):
         None
     )
     bin_data: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="binData"), pydantic.Field(alias="binData")
+        typing.Optional[BinData], FieldMetadata(alias="binData"), pydantic.Field(alias="binData")
     ] = None
     aba: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="ABA"), pydantic.Field(alias="ABA")] = (
         None

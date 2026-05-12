@@ -574,6 +574,7 @@ if typing.TYPE_CHECKING:
     from .signer_zip import SignerZip
     from .signeraddress import Signeraddress
     from .source import Source
+    from .split_count import SplitCount
     from .split_funding import SplitFunding
     from .split_funding_content import SplitFundingContent
     from .split_funding_refund_content import SplitFundingRefundContent
@@ -1233,6 +1234,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SignerZip": ".signer_zip",
     "Signeraddress": ".signeraddress",
     "Source": ".source",
+    "SplitCount": ".split_count",
     "SplitFunding": ".split_funding",
     "SplitFundingContent": ".split_funding_content",
     "SplitFundingRefundContent": ".split_funding_refund_content",
@@ -1916,6 +1918,7 @@ __all__ = [
     "SignerZip",
     "Signeraddress",
     "Source",
+    "SplitCount",
     "SplitFunding",
     "SplitFundingContent",
     "SplitFundingRefundContent",

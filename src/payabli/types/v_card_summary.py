@@ -24,12 +24,17 @@ class VCardSummary(UniversalBaseModel):
         FieldMetadata(alias="totalAmount"),
         pydantic.Field(alias="totalAmount", description="Total amount for the records."),
     ]
+    total_net_amount: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="totalNetAmount"),
+        pydantic.Field(alias="totalNetAmount", description="Total net amount for the records."),
+    ] = None
     totalactive: int = pydantic.Field()
     """
     Total number of active vCards.
     """
 
-    totalamounteactive: float = pydantic.Field()
+    totalamountactive: float = pydantic.Field()
     """
     Total amount of active vCards.
     """
@@ -39,9 +44,7 @@ class VCardSummary(UniversalBaseModel):
     Total balance of active vCards.
     """
 
-    page_identifier: typing_extensions.Annotated[
-        typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier"), pydantic.Field(alias="pageIdentifier")
-    ] = None
+    pageidentifier: typing.Optional[PageIdentifier] = None
     page_size: typing_extensions.Annotated[
         typing.Optional[Pagesize], FieldMetadata(alias="pageSize"), pydantic.Field(alias="pageSize")
     ] = None

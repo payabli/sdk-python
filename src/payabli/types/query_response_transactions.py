@@ -13,6 +13,103 @@ from .transaction_query_records import TransactionQueryRecords
 class QueryResponseTransactions(UniversalBaseModel):
     """
     Response payload for queries related to transactions
+
+    Examples
+    --------
+    import datetime
+
+    from payabli import (
+        BinData,
+        PaymentDetail,
+        QueryPaymentData,
+        QueryResponseTransactions,
+        QuerySummary,
+        QueryTransactionEvents,
+        QueryTransactionPayorData,
+        SplitFundingContent,
+        TransactionQueryRecords,
+    )
+
+    QueryResponseTransactions(
+        records=[
+            TransactionQueryRecords(
+                parent_org_name="RealistRoofing",
+                paypoint_dbaname="Eagle-Pointe",
+                paypoint_legalname="Eagle-Pointe",
+                paypoint_entryname="entry399",
+                payment_trans_id="399-8e7e5fc7-f483-43cc-9e78-d8a36ac857bf",
+                connector_name="GP",
+                method="card",
+                payor_id=155974,
+                payment_data=QueryPaymentData(
+                    masked_account="5XXXXXXXXXXX4415",
+                    account_exp="12/29",
+                    holder_name="RENEE DESCARTES",
+                    bin_data=BinData(
+                        bin_matched_length="9",
+                        bin_card_brand="MASTERCARD",
+                        bin_card_type="CREDIT",
+                        bin_card_category="MIXED PRODUCT",
+                        bin_card_issuer="ALLIED IRISH BANKS, PLC",
+                        bin_card_issuer_country="IRELAND",
+                        bin_card_is_regulated="False",
+                        bin_card_use_category="PERSONAL",
+                    ),
+                    payment_details=PaymentDetail(
+                        total_amount=6.79,
+                        service_fee=0.0,
+                        currency="USD",
+                    ),
+                ),
+                trans_status=-4,
+                paypoint_id=399,
+                split_funding_instructions=[SplitFundingContent()],
+                split_count=1,
+                total_amount=-6.79,
+                net_amount=-6.79,
+                fee_amount=0.0,
+                settlement_status=0,
+                operation="Reject",
+                source="api",
+                org_id=39,
+                transaction_time=datetime.datetime.fromisoformat(
+                    "2026-03-02 18:56:23.109000+00:00",
+                ),
+                customer=QueryTransactionPayorData(
+                    first_name="Blaise",
+                    last_name="Pascal",
+                    company_name="Pensees LLC",
+                    billing_address_1="49912 Aufengrupt Pointe",
+                    billing_address_2="apt 6",
+                    billing_city="South Litzy",
+                    billing_state="FL",
+                    billing_zip="33000",
+                    billing_country="US",
+                    billing_phone="+18955791994",
+                    billing_email="blaise.pascal@gmail.com",
+                    customer_number="o99t",
+                    customer_id=155974,
+                    customer_status=1,
+                ),
+                transaction_events=[
+                    QueryTransactionEvents(
+                        trans_event="Created",
+                        event_data="Card Reject - CTDR Id: 1379241",
+                        event_time=datetime.datetime.fromisoformat(
+                            "2026-03-02 18:56:23.352000+00:00",
+                        ),
+                    )
+                ],
+            )
+        ],
+        summary=QuerySummary(
+            total_records=14,
+            total_amount=-79.48,
+            total_net_amount=-74.41,
+            total_pages=14,
+            page_size=1,
+        ),
+    )
     """
 
     records: typing_extensions.Annotated[

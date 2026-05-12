@@ -138,6 +138,14 @@ class TransferDetailRecord(UniversalBaseModel):
         FieldMetadata(alias="splitFundingAmount"),
         pydantic.Field(alias="splitFundingAmount", description="Total amount directed to split funding destinations"),
     ] = None
+    card_rejected_amount: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="cardRejectedAmount"),
+        pydantic.Field(
+            alias="cardRejectedAmount",
+            description="Total amount rejected by card networks or issuing banks after authorization or settling in this transaction",
+        ),
+    ] = None
     billing_fees_details: typing_extensions.Annotated[
         typing.Optional[typing.List[BillingFeeDetail]],
         FieldMetadata(alias="billingFeesDetails"),

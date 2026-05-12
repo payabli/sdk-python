@@ -33,6 +33,7 @@ from .query_transaction_payor_data import QueryTransactionPayorData
 from .refund_id import RefundId
 from .returned_id import ReturnedId
 from .source import Source
+from .split_count import SplitCount
 from .split_funding import SplitFunding
 
 
@@ -181,6 +182,9 @@ class TransactionQueryRecords(UniversalBaseModel):
         FieldMetadata(alias="splitFundingInstructions"),
         pydantic.Field(alias="splitFundingInstructions"),
     ] = None
+    split_count: typing_extensions.Annotated[
+        SplitCount, FieldMetadata(alias="splitCount"), pydantic.Field(alias="splitCount")
+    ]
     total_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="TotalAmount"),

@@ -99,6 +99,14 @@ class QueryTransferSummary(UniversalBaseModel):
         FieldMetadata(alias="heldAmount"),
         pydantic.Field(alias="heldAmount", description="Funds being held for fraud or risk concerns."),
     ] = None
+    card_rejected_amount: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="cardRejectedAmount"),
+        pydantic.Field(
+            alias="cardRejectedAmount",
+            description="Total amount rejected by card networks or issuing banks after authorization or settling. This value is the sum of all rejected amounts for transactions in the transfer.",
+        ),
+    ] = None
     total_records: typing_extensions.Annotated[
         typing.Optional[Totalrecords],
         FieldMetadata(alias="totalRecords"),

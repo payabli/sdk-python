@@ -182,6 +182,7 @@ class CustomerQueryRecords(UniversalBaseModel):
                     payor_id=1551,
                     paypoint_id=226,
                     settlement_status=2,
+                    split_count=0,
                     total_amount=30.22,
                     trans_status=1,
                 )
