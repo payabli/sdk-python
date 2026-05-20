@@ -22,7 +22,7 @@ class GeneralEvents(UniversalBaseModel):
         pydantic.Field(alias="eventTime", description="Event timestamp, in UTC."),
     ] = None
     extra_data: typing_extensions.Annotated[
-        typing.Optional[typing.Dict[str, typing.Any]],
+        typing.Optional[str],
         FieldMetadata(alias="extraData"),
         pydantic.Field(alias="extraData", description="Extra data."),
     ] = None

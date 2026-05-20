@@ -46,7 +46,6 @@ class GetPayoutSubscriptionResponse(UniversalBaseModel):
                     event_time=datetime.datetime.fromisoformat(
                         "2025-09-01 06:00:00+00:00",
                     ),
-                    extra_data={"key": "value"},
                     ref_data="refData",
                     source="api",
                 )
