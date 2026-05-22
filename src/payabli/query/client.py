@@ -200,7 +200,7 @@ class QueryClient:
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         sort_by: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> QueryResponseSettlements:
+    ) -> QueryBatchesDetailResponse:
         """
         Retrieve a list of batches and their details, including settled and unsettled transactions for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
@@ -302,7 +302,7 @@ class QueryClient:
 
         Returns
         -------
-        QueryResponseSettlements
+        QueryBatchesDetailResponse
             Success
 
         Examples
@@ -5288,7 +5288,7 @@ class AsyncQueryClient:
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         sort_by: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> QueryResponseSettlements:
+    ) -> QueryBatchesDetailResponse:
         """
         Retrieve a list of batches and their details, including settled and unsettled transactions for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
@@ -5390,7 +5390,7 @@ class AsyncQueryClient:
 
         Returns
         -------
-        QueryResponseSettlements
+        QueryBatchesDetailResponse
             Success
 
         Examples

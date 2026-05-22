@@ -404,7 +404,7 @@ class OrganizationClient:
         self, org_id: int, *, request_options: typing.Optional[RequestOptions] = None
     ) -> OrganizationQueryRecord:
         """
-        Gets an organizations basic details by org ID.
+        Gets an organization's basic details by org ID.
 
         Parameters
         ----------
@@ -903,7 +903,7 @@ class AsyncOrganizationClient:
         self, org_id: int, *, request_options: typing.Optional[RequestOptions] = None
     ) -> OrganizationQueryRecord:
         """
-        Gets an organizations basic details by org ID.
+        Gets an organization's basic details by org ID.
 
         Parameters
         ----------

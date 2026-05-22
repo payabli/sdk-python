@@ -186,7 +186,7 @@ class StatBasicExtendedQueryRecord(UniversalBaseModel):
     in_wallet_volume: typing_extensions.Annotated[
         float,
         FieldMetadata(alias="inWalletVolume"),
-        pydantic.Field(alias="inWalletVolume", description="Inbound wallet transactions."),
+        pydantic.Field(alias="inWalletVolume", description="Inbound wallet transactions volume."),
     ]
     in_card_charge_back_volume: typing_extensions.Annotated[
         float,

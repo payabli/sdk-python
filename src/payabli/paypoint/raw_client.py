@@ -311,7 +311,7 @@ class RawPaypointClient:
         self, entry: str, subdomain: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[PayabliPages]:
         """
-        Gets the details for single payment page for a paypoint.
+        Gets the details for a single payment page for a paypoint.
 
         Parameters
         ----------
@@ -319,7 +319,7 @@ class RawPaypointClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         subdomain : str
-            Payment page identifier. The subdomain value is the last portion of the payment page URL. For example, in`https://paypages-sandbox.payabli.com/513823dc10/pay-your-fees-1`, the subdomain is `pay-your-fees-1`.
+            Payment page identifier. The subdomain value is the last portion of the payment page URL. For example, in `https://paypages-sandbox.payabli.com/513823dc10/pay-your-fees-1`, the subdomain is `pay-your-fees-1`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -409,7 +409,7 @@ class RawPaypointClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         subdomain : str
-            Payment page identifier. The subdomain value is the last portion of the payment page URL. For example, in`https://paypages-sandbox.payabli.com/513823dc10/pay-your-fees-1`, the subdomain is `pay-your-fees-1`.
+            Payment page identifier. The subdomain value is the last portion of the payment page URL. For example, in `https://paypages-sandbox.payabli.com/513823dc10/pay-your-fees-1`, the subdomain is `pay-your-fees-1`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -607,7 +607,7 @@ class RawPaypointClient:
         self, entry: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[SettingsQueryRecord]:
         """
-        Retrieves an paypoint's basic settings like custom fields, identifiers, and invoicing settings.
+        Retrieves a paypoint's basic settings like custom fields, identifiers, and invoicing settings.
 
         Parameters
         ----------
@@ -745,6 +745,50 @@ class RawPaypointClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -1033,7 +1077,7 @@ class AsyncRawPaypointClient:
         self, entry: str, subdomain: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[PayabliPages]:
         """
-        Gets the details for single payment page for a paypoint.
+        Gets the details for a single payment page for a paypoint.
 
         Parameters
         ----------
@@ -1041,7 +1085,7 @@ class AsyncRawPaypointClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         subdomain : str
-            Payment page identifier. The subdomain value is the last portion of the payment page URL. For example, in`https://paypages-sandbox.payabli.com/513823dc10/pay-your-fees-1`, the subdomain is `pay-your-fees-1`.
+            Payment page identifier. The subdomain value is the last portion of the payment page URL. For example, in `https://paypages-sandbox.payabli.com/513823dc10/pay-your-fees-1`, the subdomain is `pay-your-fees-1`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1131,7 +1175,7 @@ class AsyncRawPaypointClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         subdomain : str
-            Payment page identifier. The subdomain value is the last portion of the payment page URL. For example, in`https://paypages-sandbox.payabli.com/513823dc10/pay-your-fees-1`, the subdomain is `pay-your-fees-1`.
+            Payment page identifier. The subdomain value is the last portion of the payment page URL. For example, in `https://paypages-sandbox.payabli.com/513823dc10/pay-your-fees-1`, the subdomain is `pay-your-fees-1`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1329,7 +1373,7 @@ class AsyncRawPaypointClient:
         self, entry: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[SettingsQueryRecord]:
         """
-        Retrieves an paypoint's basic settings like custom fields, identifiers, and invoicing settings.
+        Retrieves a paypoint's basic settings like custom fields, identifiers, and invoicing settings.
 
         Parameters
         ----------
@@ -1467,6 +1511,50 @@ class AsyncRawPaypointClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliApiResponse,
+                        parse_obj_as(
+                            type_=PayabliApiResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)

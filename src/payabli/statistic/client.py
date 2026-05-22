@@ -115,10 +115,10 @@ class StatisticClient:
         client.statistic.basic_stats(
             entry_id=1000000,
             freq="m",
-            level=1,
-            mode="ytd",
-            end_date="2025-11-01",
-            start_date="2025-11-30",
+            level=2,
+            mode="custom",
+            start_date="2025-11-01",
+            end_date="2025-11-30",
         )
         """
         _response = self._raw_client.basic_stats(
@@ -256,7 +256,7 @@ class StatisticClient:
         client.statistic.sub_stats(
             entry_id=1000000,
             interval="30",
-            level=1,
+            level=2,
         )
         """
         _response = self._raw_client.sub_stats(
@@ -445,10 +445,10 @@ class AsyncStatisticClient:
             await client.statistic.basic_stats(
                 entry_id=1000000,
                 freq="m",
-                level=1,
-                mode="ytd",
-                end_date="2025-11-01",
-                start_date="2025-11-30",
+                level=2,
+                mode="custom",
+                start_date="2025-11-01",
+                end_date="2025-11-30",
             )
 
 
@@ -602,7 +602,7 @@ class AsyncStatisticClient:
             await client.statistic.sub_stats(
                 entry_id=1000000,
                 interval="30",
-                level=1,
+                level=2,
             )
 
 

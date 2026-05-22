@@ -145,7 +145,7 @@ class PaypointClient:
         self, entry: str, subdomain: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> PayabliPages:
         """
-        Gets the details for single payment page for a paypoint.
+        Gets the details for a single payment page for a paypoint.
 
         Parameters
         ----------
@@ -153,7 +153,7 @@ class PaypointClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         subdomain : str
-            Payment page identifier. The subdomain value is the last portion of the payment page URL. For example, in`https://paypages-sandbox.payabli.com/513823dc10/pay-your-fees-1`, the subdomain is `pay-your-fees-1`.
+            Payment page identifier. The subdomain value is the last portion of the payment page URL. For example, in `https://paypages-sandbox.payabli.com/513823dc10/pay-your-fees-1`, the subdomain is `pay-your-fees-1`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -190,7 +190,7 @@ class PaypointClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         subdomain : str
-            Payment page identifier. The subdomain value is the last portion of the payment page URL. For example, in`https://paypages-sandbox.payabli.com/513823dc10/pay-your-fees-1`, the subdomain is `pay-your-fees-1`.
+            Payment page identifier. The subdomain value is the last portion of the payment page URL. For example, in `https://paypages-sandbox.payabli.com/513823dc10/pay-your-fees-1`, the subdomain is `pay-your-fees-1`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -273,7 +273,7 @@ class PaypointClient:
         self, entry: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> SettingsQueryRecord:
         """
-        Retrieves an paypoint's basic settings like custom fields, identifiers, and invoicing settings.
+        Retrieves a paypoint's basic settings like custom fields, identifiers, and invoicing settings.
 
         Parameters
         ----------
@@ -512,7 +512,7 @@ class AsyncPaypointClient:
         self, entry: str, subdomain: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> PayabliPages:
         """
-        Gets the details for single payment page for a paypoint.
+        Gets the details for a single payment page for a paypoint.
 
         Parameters
         ----------
@@ -520,7 +520,7 @@ class AsyncPaypointClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         subdomain : str
-            Payment page identifier. The subdomain value is the last portion of the payment page URL. For example, in`https://paypages-sandbox.payabli.com/513823dc10/pay-your-fees-1`, the subdomain is `pay-your-fees-1`.
+            Payment page identifier. The subdomain value is the last portion of the payment page URL. For example, in `https://paypages-sandbox.payabli.com/513823dc10/pay-your-fees-1`, the subdomain is `pay-your-fees-1`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -565,7 +565,7 @@ class AsyncPaypointClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         subdomain : str
-            Payment page identifier. The subdomain value is the last portion of the payment page URL. For example, in`https://paypages-sandbox.payabli.com/513823dc10/pay-your-fees-1`, the subdomain is `pay-your-fees-1`.
+            Payment page identifier. The subdomain value is the last portion of the payment page URL. For example, in `https://paypages-sandbox.payabli.com/513823dc10/pay-your-fees-1`, the subdomain is `pay-your-fees-1`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -664,7 +664,7 @@ class AsyncPaypointClient:
         self, entry: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> SettingsQueryRecord:
         """
-        Retrieves an paypoint's basic settings like custom fields, identifiers, and invoicing settings.
+        Retrieves a paypoint's basic settings like custom fields, identifiers, and invoicing settings.
 
         Parameters
         ----------

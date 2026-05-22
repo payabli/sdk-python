@@ -16,14 +16,14 @@ from .statusnotification import Statusnotification
 
 class NotificationStandardRequest(UniversalBaseModel):
     """
-    Information about the standard notification configuration (email, sms, web).
+    Information about the standard notification configuration (email, SMS, web).
     """
 
     content: typing.Optional[NotificationStandardRequestContent] = None
     frequency: NotificationStandardRequestFrequency
     method: NotificationStandardRequestMethod = pydantic.Field()
     """
-    Get near-instant notifications via email, SMS, or webhooks for important events like new payment disputes, merchant activations, fraud alerts, approved transactions, settlement history, vendor payouts, and more. Use webhooks with notifications to get real-time updates and automate operations based on key those key events. See [Notifications](/developers/developer-guides/notifications-and-webhooks-overview#notifications) for more.
+    Get near-instant notifications via email, SMS, or webhooks for important events like new payment disputes, merchant activations, fraud alerts, approved transactions, settlement history, vendor payouts, and more. Use webhooks with notifications to get real-time updates and automate operations based on those key events. See [Notifications](/developers/developer-guides/notifications-and-webhooks-overview#notifications) for more.
     """
 
     owner_id: typing_extensions.Annotated[

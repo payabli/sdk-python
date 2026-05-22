@@ -139,7 +139,7 @@ class InvoiceClient:
         self, id_invoice: int, filename: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> InvoiceResponseWithoutData:
         """
-        Deletes an invoice that's attached to a file.
+        Deletes a file attached to an invoice.
 
         Parameters
         ----------
@@ -147,17 +147,9 @@ class InvoiceClient:
             Invoice ID
 
         filename : str
-            The filename in Payabli. Filename is `zipName` in response to a request to `/api/Invoice/{idInvoice}`. Here, the filename is `0_Bill.pdf``.
-            "DocumentsRef": {
-              "zipfile": "inva_269.zip",
-              "filelist": [
-                {
-                  "originalName": "Bill.pdf",
-                  "zipName": "0_Bill.pdf",
-                  "descriptor": null
-                }
-              ]
-            }
+            The filename in Payabli. Get this from the `zipName` field
+            in the `DocumentsRef.filelist` array returned by
+            `/api/Invoice/{idInvoice}`. Example: `0_Bill.pdf`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -308,19 +300,9 @@ class InvoiceClient:
             Invoice ID
 
         filename : str
-            The filename in Payabli. Filename is `zipName` in the response to a request to `/api/Invoice/{idInvoice}`. Here, the filename is `0_Bill.pdf``.
-            ```
-              "DocumentsRef": {
-                "zipfile": "inva_269.zip",
-                "filelist": [
-                  {
-                    "originalName": "Bill.pdf",
-                    "zipName": "0_Bill.pdf",
-                    "descriptor": null
-                  }
-                ]
-              }
-              ```
+            The filename in Payabli. Get this from the `zipName` field
+            in the `DocumentsRef.filelist` array returned by
+            `/api/Invoice/{idInvoice}`. Example: `0_Bill.pdf`.
 
         return_object : typing.Optional[bool]
             When `true`, the request returns the file content as a Base64-encoded string.
@@ -875,7 +857,7 @@ class AsyncInvoiceClient:
         self, id_invoice: int, filename: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> InvoiceResponseWithoutData:
         """
-        Deletes an invoice that's attached to a file.
+        Deletes a file attached to an invoice.
 
         Parameters
         ----------
@@ -883,17 +865,9 @@ class AsyncInvoiceClient:
             Invoice ID
 
         filename : str
-            The filename in Payabli. Filename is `zipName` in response to a request to `/api/Invoice/{idInvoice}`. Here, the filename is `0_Bill.pdf``.
-            "DocumentsRef": {
-              "zipfile": "inva_269.zip",
-              "filelist": [
-                {
-                  "originalName": "Bill.pdf",
-                  "zipName": "0_Bill.pdf",
-                  "descriptor": null
-                }
-              ]
-            }
+            The filename in Payabli. Get this from the `zipName` field
+            in the `DocumentsRef.filelist` array returned by
+            `/api/Invoice/{idInvoice}`. Example: `0_Bill.pdf`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1069,19 +1043,9 @@ class AsyncInvoiceClient:
             Invoice ID
 
         filename : str
-            The filename in Payabli. Filename is `zipName` in the response to a request to `/api/Invoice/{idInvoice}`. Here, the filename is `0_Bill.pdf``.
-            ```
-              "DocumentsRef": {
-                "zipfile": "inva_269.zip",
-                "filelist": [
-                  {
-                    "originalName": "Bill.pdf",
-                    "zipName": "0_Bill.pdf",
-                    "descriptor": null
-                  }
-                ]
-              }
-              ```
+            The filename in Payabli. Get this from the `zipName` field
+            in the `DocumentsRef.filelist` array returned by
+            `/api/Invoice/{idInvoice}`. Example: `0_Bill.pdf`.
 
         return_object : typing.Optional[bool]
             When `true`, the request returns the file content as a Base64-encoded string.

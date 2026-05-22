@@ -32,7 +32,7 @@ class AddMethodResponseResponseData(UniversalBaseModel):
         FieldMetadata(alias="customerId"),
         pydantic.Field(
             alias="customerId",
-            description="Internal unique ID of customer owner of the stored method.  \n\nReturns `0` if the method wasn't assigned to an existing customer or no customer was created.\"",
+            description="Internal unique ID of customer owner of the stored method.  \n\nReturns `0` if the method wasn't assigned to an existing customer or no customer was created.",
         ),
     ] = None
     method_reference_id: typing_extensions.Annotated[

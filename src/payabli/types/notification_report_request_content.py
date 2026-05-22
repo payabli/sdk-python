@@ -36,7 +36,7 @@ class NotificationReportRequestContent(UniversalBaseModel):
     report_name: typing_extensions.Annotated[
         typing.Optional[NotificationReportRequestContentReportName],
         FieldMetadata(alias="reportName"),
-        pydantic.Field(alias="reportName", description="The kind report to generate."),
+        pydantic.Field(alias="reportName", description="The kind of report to generate."),
     ] = None
     time_zone: typing_extensions.Annotated[
         typing.Optional[Timezone], FieldMetadata(alias="timeZone"), pydantic.Field(alias="timeZone")

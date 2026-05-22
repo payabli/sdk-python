@@ -2,5 +2,5 @@
 
 Resulttext = str
 """
-Text describing the result. If `ResultCode` = 1, will return 'Approved' or a general success message. If `ResultCode`` = 2 or 3, will contain the cause of the error or decline.
+Text describing the result. If `ResultCode` = 1, will return 'Approved' or a general success message. If `ResultCode` = 2 or 3, will contain the cause of the error or decline.
 """

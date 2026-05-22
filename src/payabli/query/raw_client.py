@@ -250,7 +250,7 @@ class RawQueryClient:
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         sort_by: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[QueryResponseSettlements]:
+    ) -> HttpResponse[QueryBatchesDetailResponse]:
         """
         Retrieve a list of batches and their details, including settled and unsettled transactions for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
@@ -352,7 +352,7 @@ class RawQueryClient:
 
         Returns
         -------
-        HttpResponse[QueryResponseSettlements]
+        HttpResponse[QueryBatchesDetailResponse]
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -370,9 +370,9 @@ class RawQueryClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    QueryResponseSettlements,
+                    QueryBatchesDetailResponse,
                     parse_obj_as(
-                        type_=QueryResponseSettlements,  # type: ignore
+                        type_=QueryBatchesDetailResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -7379,7 +7379,7 @@ class AsyncRawQueryClient:
         parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         sort_by: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[QueryResponseSettlements]:
+    ) -> AsyncHttpResponse[QueryBatchesDetailResponse]:
         """
         Retrieve a list of batches and their details, including settled and unsettled transactions for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
@@ -7481,7 +7481,7 @@ class AsyncRawQueryClient:
 
         Returns
         -------
-        AsyncHttpResponse[QueryResponseSettlements]
+        AsyncHttpResponse[QueryBatchesDetailResponse]
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -7499,9 +7499,9 @@ class AsyncRawQueryClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    QueryResponseSettlements,
+                    QueryBatchesDetailResponse,
                     parse_obj_as(
-                        type_=QueryResponseSettlements,  # type: ignore
+                        type_=QueryBatchesDetailResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

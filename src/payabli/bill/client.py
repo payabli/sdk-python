@@ -245,25 +245,12 @@ class BillClient:
             Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
 
         filename : str
-            The filename in Payabli. Filename is `zipName` in response to a
-            request to `/api/Invoice/{idInvoice}`. Here, the filename is
-            `0_Bill.pdf`.
-
-            ```json
-              "DocumentsRef": {
-                "zipfile": "inva_269.zip",
-                "filelist": [
-                  {
-                    "originalName": "Bill.pdf",
-                    "zipName": "0_Bill.pdf",
-                    "descriptor": null
-                  }
-                ]
-              }
-              ```
+            The filename in Payabli. Get this from the `zipName` field
+            in the `DocumentsRef.filelist` array returned by
+            `/api/Bill/{idBill}`. Example: `0_Bill.pdf`.
 
         return_object : typing.Optional[bool]
-            When `true`, the request returns the file content as a Base64-encoded string.
+            When `true`, the response includes the full bill object.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -478,17 +465,9 @@ class BillClient:
             Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
 
         filename : str
-            The filename in Payabli. Filename is `zipName` in response to a request to `/api/Invoice/{idInvoice}`. Here, the filename is `0_Bill.pdf``.
-            "DocumentsRef": {
-              "zipfile": "inva_269.zip",
-              "filelist": [
-                {
-                  "originalName": "Bill.pdf",
-                  "zipName": "0_Bill.pdf",
-                  "descriptor": null
-                }
-              ]
-            }
+            The filename in Payabli. Get this from the `zipName` field
+            in the `DocumentsRef.filelist` array returned by
+            `/api/Bill/{idBill}`. Example: `0_Bill.pdf`.
 
         return_object : typing.Optional[bool]
             When `true`, the request returns the file content as a Base64-encoded string.
@@ -796,7 +775,7 @@ class BillClient:
         )
         client.bill.modify_approval_bill(
             id_bill=285,
-            request=["string"],
+            request=["approver1@example.com", "approver2@example.com"],
         )
         """
         _response = self._raw_client.modify_approval_bill(id_bill, request=request, request_options=request_options)
@@ -1124,25 +1103,12 @@ class AsyncBillClient:
             Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
 
         filename : str
-            The filename in Payabli. Filename is `zipName` in response to a
-            request to `/api/Invoice/{idInvoice}`. Here, the filename is
-            `0_Bill.pdf`.
-
-            ```json
-              "DocumentsRef": {
-                "zipfile": "inva_269.zip",
-                "filelist": [
-                  {
-                    "originalName": "Bill.pdf",
-                    "zipName": "0_Bill.pdf",
-                    "descriptor": null
-                  }
-                ]
-              }
-              ```
+            The filename in Payabli. Get this from the `zipName` field
+            in the `DocumentsRef.filelist` array returned by
+            `/api/Bill/{idBill}`. Example: `0_Bill.pdf`.
 
         return_object : typing.Optional[bool]
-            When `true`, the request returns the file content as a Base64-encoded string.
+            When `true`, the response includes the full bill object.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1382,17 +1348,9 @@ class AsyncBillClient:
             Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
 
         filename : str
-            The filename in Payabli. Filename is `zipName` in response to a request to `/api/Invoice/{idInvoice}`. Here, the filename is `0_Bill.pdf``.
-            "DocumentsRef": {
-              "zipfile": "inva_269.zip",
-              "filelist": [
-                {
-                  "originalName": "Bill.pdf",
-                  "zipName": "0_Bill.pdf",
-                  "descriptor": null
-                }
-              ]
-            }
+            The filename in Payabli. Get this from the `zipName` field
+            in the `DocumentsRef.filelist` array returned by
+            `/api/Bill/{idBill}`. Example: `0_Bill.pdf`.
 
         return_object : typing.Optional[bool]
             When `true`, the request returns the file content as a Base64-encoded string.
@@ -1739,7 +1697,7 @@ class AsyncBillClient:
         async def main() -> None:
             await client.bill.modify_approval_bill(
                 id_bill=285,
-                request=["string"],
+                request=["approver1@example.com", "approver2@example.com"],
             )
 
 

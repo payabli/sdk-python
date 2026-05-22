@@ -40,7 +40,7 @@ class NotificationContent(UniversalBaseModel):
         FieldMetadata(alias="reportName"),
         pydantic.Field(
             alias="reportName",
-            description="The kind report to generate. For [automated reports](/developers/developer-guides/notifications-and-webhooks-overview#automated-reports) only.",
+            description="The kind of report to generate. For [automated reports](/developers/developer-guides/notifications-and-webhooks-overview#automated-reports) only.",
         ),
     ] = None
     time_zone: typing_extensions.Annotated[

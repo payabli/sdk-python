@@ -20,7 +20,7 @@ class NotificationRequest(UniversalBaseModel):
         FieldMetadata(alias="webHeaderParameters"),
         pydantic.Field(
             alias="webHeaderParameters",
-            description="A dictionary of key-value pairs to be inserted in the header when the notification request is submitted",
+            description="List of key-value header parameters to include in the notification request",
         ),
     ] = None
 

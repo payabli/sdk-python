@@ -400,7 +400,7 @@ class RawUserClient:
         Parameters
         ----------
         provider : str
-            Auth provider. This fields is optional and defaults to null for the built-in provider.
+            Auth provider. Pass `null` to use the built-in provider.
 
         email : typing.Optional[Email]
 
@@ -1630,7 +1630,7 @@ class AsyncRawUserClient:
         Parameters
         ----------
         provider : str
-            Auth provider. This fields is optional and defaults to null for the built-in provider.
+            Auth provider. Pass `null` to use the built-in provider.
 
         email : typing.Optional[Email]
 

@@ -33,7 +33,7 @@ class QueryResponseItemsRecordsItem(UniversalBaseModel):
     paypoint_legalname: typing_extensions.Annotated[
         typing.Optional[Legalname],
         FieldMetadata(alias="PaypointLegalname"),
-        pydantic.Field(alias="PaypointLegalname", description="the Paypoint's legal name."),
+        pydantic.Field(alias="PaypointLegalname", description="The paypoint's legal name."),
     ] = None
 
     if IS_PYDANTIC_V2:

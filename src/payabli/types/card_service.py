@@ -21,7 +21,7 @@ class CardService(UniversalBaseModel):
         FieldMetadata(alias="batchCutoffTime"),
         pydantic.Field(
             alias="batchCutoffTime",
-            description="Controls how to present the `batchCutoffTime` field on the application. If this field isn't sent, batch cut off time defaults to 5 ET.",
+            description="Controls how to present the `batchCutoffTime` field on the application. If this field isn't sent, batch cutoff time defaults to 5 ET.",
         ),
     ] = None
     card_acceptance: typing_extensions.Annotated[

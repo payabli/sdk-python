@@ -131,7 +131,7 @@ class BillQueryResponse(UniversalBaseModel):
                 paypoint_legalname="MiCasa Sports LLC",
                 source="web",
                 status=2,
-                terms="Net30",
+                terms="NET30",
                 total_amount=200.0,
                 vendor=VendorOutData(
                     address_1="1234 Liberdad St.",

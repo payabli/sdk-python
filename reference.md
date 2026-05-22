@@ -193,22 +193,9 @@ client.bill.delete_attached_from_bill(
 
 **filename:** `str` 
 
-The filename in Payabli. Filename is `zipName` in response to a
-request to `/api/Invoice/{idInvoice}`. Here, the filename is
-`0_Bill.pdf`. 
-
-```json
-  "DocumentsRef": {
-    "zipfile": "inva_269.zip",
-    "filelist": [
-      {
-        "originalName": "Bill.pdf",
-        "zipName": "0_Bill.pdf",
-        "descriptor": null
-      }
-    ]
-  }
-  ```
+The filename in Payabli. Get this from the `zipName` field
+in the `DocumentsRef.filelist` array returned by
+`/api/Bill/{idBill}`. Example: `0_Bill.pdf`.
     
 </dd>
 </dl>
@@ -216,7 +203,7 @@ request to `/api/Invoice/{idInvoice}`. Here, the filename is
 <dl>
 <dd>
 
-**return_object:** `typing.Optional[bool]` — When `true`, the request returns the file content as a Base64-encoded string.
+**return_object:** `typing.Optional[bool]` — When `true`, the response includes the full bill object.
     
 </dd>
 </dl>
@@ -458,17 +445,9 @@ client.bill.get_attached_from_bill(
 
 **filename:** `str` 
 
-The filename in Payabli. Filename is `zipName` in response to a request to `/api/Invoice/{idInvoice}`. Here, the filename is `0_Bill.pdf``. 
-"DocumentsRef": {
-  "zipfile": "inva_269.zip",
-  "filelist": [
-    {
-      "originalName": "Bill.pdf",
-      "zipName": "0_Bill.pdf",
-      "descriptor": null
-    }
-  ]
-}
+The filename in Payabli. Get this from the `zipName` field
+in the `DocumentsRef.filelist` array returned by
+`/api/Bill/{idBill}`. Example: `0_Bill.pdf`.
     
 </dd>
 </dl>
@@ -927,7 +906,8 @@ client = payabli(
 client.bill.modify_approval_bill(
     id_bill=285,
     request=[
-        "string"
+        "approver1@example.com",
+        "approver2@example.com"
     ],
 )
 
@@ -2605,7 +2585,7 @@ client.charge_backs.get_chargeback(
 <dl>
 <dd>
 
-**id:** `int` — ID of the chargeback or return record. This is returned as `chargebackId` in the [RecievedChargeback](/developers/developer-guides/webhook-payloads#receivedChargeback) and [ReceivedAchReturn](/developers/developer-guides/webhook-payloads#receivedachreturn) webhook notifications.
+**id:** `int` — ID of the chargeback or return record. This is returned as `chargebackID` in the [ReceivedChargeBack](/guides/pay-ops-webhooks-payloads#receivedchargeback) and [ReceivedAchReturn](/guides/pay-ops-webhooks-payloads#receivedachreturn) webhook notifications.
     
 </dd>
 </dl>
@@ -9194,7 +9174,7 @@ client.hosted_payment_pages.load_page(
 <dl>
 <dd>
 
-**subdomain:** `str` — Payment page identifier. The subdomain value is the last part of the payment page URL. For example, in`https://paypages-sandbox.payabli.com/513823dc10/pay-your-fees-1`, the subdomain is `pay-your-fees-1`.
+**subdomain:** `str` — Payment page identifier. The subdomain value is the last part of the payment page URL. For example, in `https://paypages-sandbox.payabli.com/513823dc10/pay-your-fees-1`, the subdomain is `pay-your-fees-1`.
     
 </dd>
 </dl>
@@ -9368,7 +9348,7 @@ client.hosted_payment_pages.save_page(
 <dl>
 <dd>
 
-**subdomain:** `str` — Payment page identifier. The subdomain value is the last part of the payment page URL. For example, in`https://paypages-sandbox.payabli.com/513823dc10/pay-your-fees-1`, the subdomain is `pay-your-fees-1`.
+**subdomain:** `str` — Payment page identifier. The subdomain value is the last part of the payment page URL. For example, in `https://paypages-sandbox.payabli.com/513823dc10/pay-your-fees-1`, the subdomain is `pay-your-fees-1`.
     
 </dd>
 </dl>
@@ -9793,7 +9773,7 @@ client.invoice.add_invoice(
 <dl>
 <dd>
 
-Deletes an invoice that's attached to a file.
+Deletes a file attached to an invoice.
 </dd>
 </dl>
 </dd>
@@ -9845,17 +9825,9 @@ client.invoice.delete_attached_from_invoice(
 
 **filename:** `str` 
 
-The filename in Payabli. Filename is `zipName` in response to a request to `/api/Invoice/{idInvoice}`. Here, the filename is `0_Bill.pdf``. 
-"DocumentsRef": {
-  "zipfile": "inva_269.zip",
-  "filelist": [
-    {
-      "originalName": "Bill.pdf",
-      "zipName": "0_Bill.pdf",
-      "descriptor": null
-    }
-  ]
-}
+The filename in Payabli. Get this from the `zipName` field
+in the `DocumentsRef.filelist` array returned by
+`/api/Invoice/{idInvoice}`. Example: `0_Bill.pdf`.
     
 </dd>
 </dl>
@@ -10115,19 +10087,9 @@ client.invoice.get_attached_file_from_invoice(
 
 **filename:** `str` 
 
-The filename in Payabli. Filename is `zipName` in the response to a request to `/api/Invoice/{idInvoice}`. Here, the filename is `0_Bill.pdf``. 
-```
-  "DocumentsRef": {
-    "zipfile": "inva_269.zip",
-    "filelist": [
-      {
-        "originalName": "Bill.pdf",
-        "zipName": "0_Bill.pdf",
-        "descriptor": null
-      }
-    ]
-  }
-  ```
+The filename in Payabli. Get this from the `zipName` field
+in the `DocumentsRef.filelist` array returned by
+`/api/Invoice/{idInvoice}`. Example: `0_Bill.pdf`.
     
 </dd>
 </dl>
@@ -14391,7 +14353,7 @@ client.money_out.reissue_out(
 <dl>
 <dd>
 
-Create a new notification or autogenerated report. 
+Create a new notification or auto-generated report. 
 </dd>
 </dl>
 </dd>
@@ -14474,7 +14436,7 @@ client.notification.add_notification(
 <dl>
 <dd>
 
-Deletes a single notification or autogenerated report.
+Deletes a single notification or auto-generated report.
 </dd>
 </dl>
 </dd>
@@ -14547,7 +14509,7 @@ client.notification.delete_notification(
 <dl>
 <dd>
 
-Retrieves a single notification or autogenerated report's details.
+Retrieves a single notification or auto-generated report's details.
 </dd>
 </dl>
 </dd>
@@ -14620,7 +14582,7 @@ client.notification.get_notification(
 <dl>
 <dd>
 
-Update a notification or autogenerated report. 
+Update a notification or auto-generated report. 
 </dd>
 </dl>
 </dd>
@@ -15934,7 +15896,7 @@ client.organization.get_basic_organization(
 <dl>
 <dd>
 
-Gets an organizations basic details by org ID.
+Gets an organization's basic details by org ID.
 </dd>
 </dl>
 </dd>
@@ -18149,7 +18111,7 @@ client.payout_subscription.create_payout_subscription(
         )
     ],
     schedule_details=PayoutScheduleDetail(
-        start_date="09/01/2025",
+        start_date="09/01/2027",
         end_date="09/01/2026",
         frequency="monthly",
     ),
@@ -18665,7 +18627,7 @@ client.paypoint.get_entry_config(
 <dl>
 <dd>
 
-Gets the details for single payment page for a paypoint. 
+Gets the details for a single payment page for a paypoint. 
 </dd>
 </dl>
 </dd>
@@ -18715,7 +18677,7 @@ client.paypoint.get_page(
 <dl>
 <dd>
 
-**subdomain:** `str` — Payment page identifier. The subdomain value is the last portion of the payment page URL. For example, in`https://paypages-sandbox.payabli.com/513823dc10/pay-your-fees-1`, the subdomain is `pay-your-fees-1`.
+**subdomain:** `str` — Payment page identifier. The subdomain value is the last portion of the payment page URL. For example, in `https://paypages-sandbox.payabli.com/513823dc10/pay-your-fees-1`, the subdomain is `pay-your-fees-1`.
     
 </dd>
 </dl>
@@ -18797,7 +18759,7 @@ client.paypoint.remove_page(
 <dl>
 <dd>
 
-**subdomain:** `str` — Payment page identifier. The subdomain value is the last portion of the payment page URL. For example, in`https://paypages-sandbox.payabli.com/513823dc10/pay-your-fees-1`, the subdomain is `pay-your-fees-1`.
+**subdomain:** `str` — Payment page identifier. The subdomain value is the last portion of the payment page URL. For example, in `https://paypages-sandbox.payabli.com/513823dc10/pay-your-fees-1`, the subdomain is `pay-your-fees-1`.
     
 </dd>
 </dl>
@@ -18910,7 +18872,7 @@ client.paypoint.save_logo(
 <dl>
 <dd>
 
-Retrieves an paypoint's basic settings like custom fields, identifiers, and invoicing settings.
+Retrieves a paypoint's basic settings like custom fields, identifiers, and invoicing settings.
 </dd>
 </dl>
 </dd>
@@ -19250,7 +19212,7 @@ Example: `settledAmount(gt)=20` returns all records with a `settledAmount` great
 </dl>
 </details>
 
-<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_batch_details_org</a>(...) -> QueryResponseSettlements</code></summary>
+<details><summary><code>client.query.<a href="src/payabli/query/client.py">list_batch_details_org</a>(...) -> QueryBatchesDetailResponse</code></summary>
 <dl>
 <dd>
 
@@ -26326,10 +26288,10 @@ client = payabli(
 client.statistic.basic_stats(
     entry_id=1000000,
     freq="m",
-    level=1,
-    mode="ytd",
-    end_date="2025-11-01",
-    start_date="2025-11-30",
+    level=2,
+    mode="custom",
+    start_date="2025-11-01",
+    end_date="2025-11-30",
 )
 
 ```
@@ -26617,7 +26579,7 @@ client = payabli(
 client.statistic.sub_stats(
     entry_id=1000000,
     interval="30",
-    level=1,
+    level=2,
 )
 
 ```
@@ -27222,7 +27184,7 @@ client.templates.delete_template(
 <dl>
 <dd>
 
-**template_id:** `float` — The boarding template ID. Can be found at the end of the boarding template URL in PartnerHub. Example: `https://partner-sandbox.payabli.com/myorganization/boarding/edittemplate/80`. Here, the template ID is `80`.
+**template_id:** `float` — The boarding template ID. You can find this at the end of the boarding template URL in PartnerHub. Example: `https://partner-sandbox.payabli.com/myorganization/boarding/edittemplate/80`. Here, the template ID is `80`.
     
 </dd>
 </dl>
@@ -27296,7 +27258,7 @@ client.templates.getlink_template(
 <dl>
 <dd>
 
-**template_id:** `float` — The boarding template ID. Can be found at the end of the boarding template URL in PartnerHub. Example: `https://partner-sandbox.payabli.com/myorganization/boarding/edittemplate/80`. Here, the template ID is `80`.
+**template_id:** `float` — The boarding template ID. You can find this at the end of the boarding template URL in PartnerHub. Example: `https://partner-sandbox.payabli.com/myorganization/boarding/edittemplate/80`. Here, the template ID is `80`.
     
 </dd>
 </dl>
@@ -27304,7 +27266,7 @@ client.templates.getlink_template(
 <dl>
 <dd>
 
-**ignore_empty:** `bool` — Ignore read-only and empty fields Default is `false`. If `ignoreEmpty` = `false` and any field is empty, then the request returns a failure response. If `ignoreEmpty` = `true`, the request returns the boarding link name regardless of whether fields are empty.
+**ignore_empty:** `bool` — Ignore read-only and empty fields. Default is `false`. If `ignoreEmpty` = `false` and any field is empty, then the request returns a failure response. If `ignoreEmpty` = `true`, the request returns the boarding link name regardless of whether fields are empty.
     
 </dd>
 </dl>
@@ -27377,7 +27339,7 @@ client.templates.get_template(
 <dl>
 <dd>
 
-**template_id:** `float` — The boarding template ID. Can be found at the end of the boarding template URL in PartnerHub. Example: `https://partner-sandbox.payabli.com/myorganization/boarding/edittemplate/80`. Here, the template ID is `80`.
+**template_id:** `float` — The boarding template ID. You can find this at the end of the boarding template URL in PartnerHub. Example: `https://partner-sandbox.payabli.com/myorganization/boarding/edittemplate/80`. Here, the template ID is `80`.
     
 </dd>
 </dl>
@@ -28232,7 +28194,7 @@ client.user.auth_user(
 <dl>
 <dd>
 
-**provider:** `str` — Auth provider. This fields is optional and defaults to null for the built-in provider.
+**provider:** `str` — Auth provider. Pass `null` to use the built-in provider.
     
 </dd>
 </dl>

@@ -32,7 +32,7 @@ class CaptureAllOutResponseResponseDataItem(UniversalBaseModel):
         FieldMetadata(alias="ResultText"),
         pydantic.Field(
             alias="ResultText",
-            description="Text describing the result. \nIf `ResultCode`` = 1, returns 'Authorized'. \nIf `ResultCode` = 2 or 3, this contains the cause of the decline.",
+            description="Text describing the result. \nIf `ResultCode` = 1, returns 'Authorized'.\nIf `ResultCode` = 2 or 3, this contains the cause of the decline.",
         ),
     ] = None
 
