@@ -22,6 +22,8 @@ class Bank(UniversalBaseModel):
     Object that contains bank account details.
     """
 
+    default: typing.Optional[bool] = None
+    country: typing.Optional[str] = None
     id: typing.Optional[int] = pydantic.Field(default=None)
     """
     The Payabli-assigned internal identifier for the bank account.

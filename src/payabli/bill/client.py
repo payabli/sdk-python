@@ -8,23 +8,23 @@ from ..core.request_options import RequestOptions
 from ..types.accounting_field import AccountingField
 from ..types.additional_data_string import AdditionalDataString
 from ..types.attachments import Attachments
+from ..types.bill_out_data_scheduled_options import BillOutDataScheduledOptions
+from ..types.bill_out_data_vendor import BillOutDataVendor
 from ..types.bill_query_response import BillQueryResponse
+from ..types.bill_response import BillResponse
 from ..types.billitems import Billitems
 from ..types.billstatus import Billstatus
 from ..types.comments import Comments
+from ..types.edit_bill_response import EditBillResponse
 from ..types.export_format import ExportFormat
 from ..types.file_content import FileContent
 from ..types.frequency import Frequency
+from ..types.get_bill_response import GetBillResponse
 from ..types.idempotency_key import IdempotencyKey
+from ..types.modify_approval_bill_response import ModifyApprovalBillResponse
+from ..types.set_approved_bill_response import SetApprovedBillResponse
 from ..types.terms import Terms
-from ..types.vendor_data import VendorData
 from .raw_client import AsyncRawBillClient, RawBillClient
-from .types.bill_out_data_scheduled_options import BillOutDataScheduledOptions
-from .types.bill_response import BillResponse
-from .types.edit_bill_response import EditBillResponse
-from .types.get_bill_response import GetBillResponse
-from .types.modify_approval_bill_response import ModifyApprovalBillResponse
-from .types.set_approved_bill_response import SetApprovedBillResponse
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -69,7 +69,7 @@ class BillClient:
         status: typing.Optional[Billstatus] = OMIT,
         terms: typing.Optional[Terms] = OMIT,
         total_amount: typing.Optional[float] = OMIT,
-        vendor: typing.Optional[VendorData] = OMIT,
+        vendor: typing.Optional[BillOutDataVendor] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BillResponse:
         """
@@ -81,6 +81,7 @@ class BillClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         accounting_field_1 : typing.Optional[AccountingField]
 
@@ -89,9 +90,20 @@ class BillClient:
         additional_data : typing.Optional[AdditionalDataString]
 
         attachments : typing.Optional[Attachments]
-            An array of bill images. Attachments aren't required, but we strongly recommend including them. Including a bill image can make payouts smoother and prevent delays. You can include either the Base64-encoded file content, or you can include an fURL to a public file. The maximum file size for image uploads is 30 MB.
+            An array of bill images. Attachments aren't required, but we strongly
+            recommend including them. Including a bill image can make payouts
+            smoother and prevent delays. You can include either the Base64-encoded
+            file content, or you can include a `furl` to a public file. The maximum
+            file size for image uploads is 30 MB.
 
-            When vendor enrichment is enabled and the first attachment is a PDF, the invoice is scanned and extracted vendor contact information and bill details (invoice number, amount due, due date) are merged into the request. Fields in the request body take precedence over extracted data. If the scan fails, bill creation proceeds with the original request data. See the [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview) for details. Contact Payabli to enable this feature.
+            When vendor enrichment is enabled and the first attachment is a PDF,
+            the invoice is scanned and extracted vendor contact information and
+            bill details (invoice number, amount due, due date) are merged into
+            the request. Fields in the request body take precedence over extracted
+            data. If the scan fails, bill creation proceeds with the original
+            request data. See the
+            [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview)
+            for details. Contact Payabli to enable this feature.
 
         bill_date : typing.Optional[dt.date]
             Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
@@ -110,10 +122,10 @@ class BillClient:
             Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
 
         end_date : typing.Optional[dt.date]
-            End Date for scheduled bills. Applied only in `Mode` = 1. Accepted formats: YYYY-MM-DD, MM/DD/YYYY
+            End date for scheduled bills. Applied only in `Mode` = 1. Accepted
+            formats: YYYY-MM-DD, MM/DD/YYYY.
 
         frequency : typing.Optional[Frequency]
-            Frequency for scheduled bills. Applied only in `Mode` = 1.
 
         lot_number : typing.Optional[str]
             Lot number associated with the bill.
@@ -122,10 +134,9 @@ class BillClient:
             Bill mode: value `0` for one-time bills, `1` for scheduled bills.
 
         net_amount : typing.Optional[float]
-            Net Amount owed in bill. Required when adding a bill.
+            Net amount owed in bill. Required when adding a bill.
 
         scheduled_options : typing.Optional[BillOutDataScheduledOptions]
-            Options for scheduled bills.
 
         status : typing.Optional[Billstatus]
 
@@ -134,8 +145,11 @@ class BillClient:
         total_amount : typing.Optional[float]
             Total amount of the bill.
 
-        vendor : typing.Optional[VendorData]
-            The vendor associated with the bill. Although you can create a vendor in a create bill request, Payabli recommends creating a vendor separately and passing a valid `vendorNumber` here. At minimum, the `vendorNumber` is required.
+        vendor : typing.Optional[BillOutDataVendor]
+            The vendor associated with the bill. Although you can create a vendor
+            in a create bill request, Payabli recommends creating a vendor
+            separately and passing a valid `vendorNumber` here. At minimum, the
+            `vendorNumber` is required.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -149,7 +163,7 @@ class BillClient:
         --------
         import datetime
 
-        from payabli import BillItem, FileContent, VendorData, payabli
+        from payabli import BillItem, BillOutDataVendor, FileContent, payabli
 
         client = payabli(
             api_key="YOUR_API_KEY",
@@ -183,15 +197,15 @@ class BillClient:
             ],
             mode=0,
             accounting_field_1="MyInternalId",
-            vendor=VendorData(
-                vendor_number="1234-A",
+            vendor=BillOutDataVendor(
+                vendor_number="VEN-123",
             ),
             end_date=datetime.date.fromisoformat(
                 "2024-07-01",
             ),
             frequency="monthly",
             terms="NET30",
-            status=-99,
+            status=1,
             attachments=[
                 FileContent(
                     ftype="pdf",
@@ -228,58 +242,9 @@ class BillClient:
         )
         return _response.data
 
-    def delete_attached_from_bill(
-        self,
-        id_bill: int,
-        filename: str,
-        *,
-        return_object: typing.Optional[bool] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> BillResponse:
+    def get_bill(self, id_bill: int, *, request_options: typing.Optional[RequestOptions] = None) -> GetBillResponse:
         """
-        Delete a file attached to a bill.
-
-        Parameters
-        ----------
-        id_bill : int
-            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
-
-        filename : str
-            The filename in Payabli. Get this from the `zipName` field
-            in the `DocumentsRef.filelist` array returned by
-            `/api/Bill/{idBill}`. Example: `0_Bill.pdf`.
-
-        return_object : typing.Optional[bool]
-            When `true`, the response includes the full bill object.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        BillResponse
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.bill.delete_attached_from_bill(
-            filename="0_Bill.pdf",
-            id_bill=285,
-        )
-        """
-        _response = self._raw_client.delete_attached_from_bill(
-            id_bill, filename, return_object=return_object, request_options=request_options
-        )
-        return _response.data
-
-    def delete_bill(self, id_bill: int, *, request_options: typing.Optional[RequestOptions] = None) -> BillResponse:
-        """
-        Deletes a bill by ID.
+        Retrieves a bill by ID from an entrypoint.
 
         Parameters
         ----------
@@ -291,7 +256,7 @@ class BillClient:
 
         Returns
         -------
-        BillResponse
+        GetBillResponse
             Success
 
         Examples
@@ -301,11 +266,11 @@ class BillClient:
         client = payabli(
             api_key="YOUR_API_KEY",
         )
-        client.bill.delete_bill(
+        client.bill.get_bill(
             id_bill=285,
         )
         """
-        _response = self._raw_client.delete_bill(id_bill, request_options=request_options)
+        _response = self._raw_client.get_bill(id_bill, request_options=request_options)
         return _response.data
 
     def edit_bill(
@@ -331,7 +296,7 @@ class BillClient:
         status: typing.Optional[Billstatus] = OMIT,
         terms: typing.Optional[Terms] = OMIT,
         total_amount: typing.Optional[float] = OMIT,
-        vendor: typing.Optional[VendorData] = OMIT,
+        vendor: typing.Optional[BillOutDataVendor] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> EditBillResponse:
         """
@@ -349,9 +314,20 @@ class BillClient:
         additional_data : typing.Optional[AdditionalDataString]
 
         attachments : typing.Optional[Attachments]
-            An array of bill images. Attachments aren't required, but we strongly recommend including them. Including a bill image can make payouts smoother and prevent delays. You can include either the Base64-encoded file content, or you can include an fURL to a public file. The maximum file size for image uploads is 30 MB.
+            An array of bill images. Attachments aren't required, but we strongly
+            recommend including them. Including a bill image can make payouts
+            smoother and prevent delays. You can include either the Base64-encoded
+            file content, or you can include a `furl` to a public file. The maximum
+            file size for image uploads is 30 MB.
 
-            When vendor enrichment is enabled and the first attachment is a PDF, the invoice is scanned and extracted vendor contact information and bill details (invoice number, amount due, due date) are merged into the request. Fields in the request body take precedence over extracted data. If the scan fails, bill creation proceeds with the original request data. See the [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview) for details. Contact Payabli to enable this feature.
+            When vendor enrichment is enabled and the first attachment is a PDF,
+            the invoice is scanned and extracted vendor contact information and
+            bill details (invoice number, amount due, due date) are merged into
+            the request. Fields in the request body take precedence over extracted
+            data. If the scan fails, bill creation proceeds with the original
+            request data. See the
+            [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview)
+            for details. Contact Payabli to enable this feature.
 
         bill_date : typing.Optional[dt.date]
             Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
@@ -370,10 +346,10 @@ class BillClient:
             Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
 
         end_date : typing.Optional[dt.date]
-            End Date for scheduled bills. Applied only in `Mode` = 1. Accepted formats: YYYY-MM-DD, MM/DD/YYYY
+            End date for scheduled bills. Applied only in `Mode` = 1. Accepted
+            formats: YYYY-MM-DD, MM/DD/YYYY.
 
         frequency : typing.Optional[Frequency]
-            Frequency for scheduled bills. Applied only in `Mode` = 1.
 
         lot_number : typing.Optional[str]
             Lot number associated with the bill.
@@ -382,10 +358,9 @@ class BillClient:
             Bill mode: value `0` for one-time bills, `1` for scheduled bills.
 
         net_amount : typing.Optional[float]
-            Net Amount owed in bill. Required when adding a bill.
+            Net amount owed in bill. Required when adding a bill.
 
         scheduled_options : typing.Optional[BillOutDataScheduledOptions]
-            Options for scheduled bills.
 
         status : typing.Optional[Billstatus]
 
@@ -394,8 +369,11 @@ class BillClient:
         total_amount : typing.Optional[float]
             Total amount of the bill.
 
-        vendor : typing.Optional[VendorData]
-            The vendor associated with the bill. Although you can create a vendor in a create bill request, Payabli recommends creating a vendor separately and passing a valid `vendorNumber` here. At minimum, the `vendorNumber` is required.
+        vendor : typing.Optional[BillOutDataVendor]
+            The vendor associated with the bill. Although you can create a vendor
+            in a create bill request, Payabli recommends creating a vendor
+            separately and passing a valid `vendorNumber` here. At minimum, the
+            `vendorNumber` is required.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -448,6 +426,37 @@ class BillClient:
         )
         return _response.data
 
+    def delete_bill(self, id_bill: int, *, request_options: typing.Optional[RequestOptions] = None) -> BillResponse:
+        """
+        Deletes a bill by ID.
+
+        Parameters
+        ----------
+        id_bill : int
+            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        BillResponse
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.bill.delete_bill(
+            id_bill=285,
+        )
+        """
+        _response = self._raw_client.delete_bill(id_bill, request_options=request_options)
+        return _response.data
+
     def get_attached_from_bill(
         self,
         id_bill: int,
@@ -498,21 +507,36 @@ class BillClient:
         )
         return _response.data
 
-    def get_bill(self, id_bill: int, *, request_options: typing.Optional[RequestOptions] = None) -> GetBillResponse:
+    def delete_attached_from_bill(
+        self,
+        id_bill: int,
+        filename: str,
+        *,
+        return_object: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> BillResponse:
         """
-        Retrieves a bill by ID from an entrypoint.
+        Delete a file attached to a bill.
 
         Parameters
         ----------
         id_bill : int
             Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
 
+        filename : str
+            The filename in Payabli. Get this from the `zipName` field
+            in the `DocumentsRef.filelist` array returned by
+            `/api/Bill/{idBill}`. Example: `0_Bill.pdf`.
+
+        return_object : typing.Optional[bool]
+            When `true`, the response includes the full bill object.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        GetBillResponse
+        BillResponse
             Success
 
         Examples
@@ -522,11 +546,150 @@ class BillClient:
         client = payabli(
             api_key="YOUR_API_KEY",
         )
-        client.bill.get_bill(
+        client.bill.delete_attached_from_bill(
+            filename="0_Bill.pdf",
             id_bill=285,
         )
         """
-        _response = self._raw_client.get_bill(id_bill, request_options=request_options)
+        _response = self._raw_client.delete_attached_from_bill(
+            id_bill, filename, return_object=return_object, request_options=request_options
+        )
+        return _response.data
+
+    def send_to_approval_bill(
+        self,
+        id_bill: int,
+        *,
+        request: typing.Sequence[str],
+        autocreate_user: typing.Optional[bool] = None,
+        idempotency_key: typing.Optional[IdempotencyKey] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> BillResponse:
+        """
+        Send a bill to a user or list of users to approve.
+
+        Parameters
+        ----------
+        id_bill : int
+            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
+
+        request : typing.Sequence[str]
+
+        autocreate_user : typing.Optional[bool]
+            Automatically create the target user for approval if they don't exist.
+
+        idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        BillResponse
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.bill.send_to_approval_bill(
+            id_bill=285,
+            idempotency_key="6B29FC40-CA47-1067-B31D-00DD010662DA",
+            request=["approver@example.com"],
+        )
+        """
+        _response = self._raw_client.send_to_approval_bill(
+            id_bill,
+            request=request,
+            autocreate_user=autocreate_user,
+            idempotency_key=idempotency_key,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def modify_approval_bill(
+        self, id_bill: int, *, request: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
+    ) -> ModifyApprovalBillResponse:
+        """
+        Modify the list of users the bill is sent to for approval.
+
+        Parameters
+        ----------
+        id_bill : int
+            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
+
+        request : typing.Sequence[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ModifyApprovalBillResponse
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.bill.modify_approval_bill(
+            id_bill=285,
+            request=["approver1@example.com", "approver2@example.com"],
+        )
+        """
+        _response = self._raw_client.modify_approval_bill(id_bill, request=request, request_options=request_options)
+        return _response.data
+
+    def set_approved_bill(
+        self,
+        id_bill: int,
+        approved: str,
+        *,
+        email: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SetApprovedBillResponse:
+        """
+        Approve or disapprove a bill by ID.
+
+        Parameters
+        ----------
+        id_bill : int
+            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
+
+        approved : str
+            String representing the approved status. Accepted values: 'true' or 'false'.
+
+        email : typing.Optional[str]
+            Email or username of user modifying approval status.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SetApprovedBillResponse
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.bill.set_approved_bill(
+            approved="true",
+            id_bill=285,
+        )
+        """
+        _response = self._raw_client.set_approved_bill(id_bill, approved, email=email, request_options=request_options)
         return _response.data
 
     def list_bills(
@@ -549,6 +712,7 @@ class BillClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -657,6 +821,7 @@ class BillClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -745,141 +910,6 @@ class BillClient:
         )
         return _response.data
 
-    def modify_approval_bill(
-        self, id_bill: int, *, request: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
-    ) -> ModifyApprovalBillResponse:
-        """
-        Modify the list of users the bill is sent to for approval.
-
-        Parameters
-        ----------
-        id_bill : int
-            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
-
-        request : typing.Sequence[str]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ModifyApprovalBillResponse
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.bill.modify_approval_bill(
-            id_bill=285,
-            request=["approver1@example.com", "approver2@example.com"],
-        )
-        """
-        _response = self._raw_client.modify_approval_bill(id_bill, request=request, request_options=request_options)
-        return _response.data
-
-    def send_to_approval_bill(
-        self,
-        id_bill: int,
-        *,
-        request: typing.Sequence[str],
-        autocreate_user: typing.Optional[bool] = None,
-        idempotency_key: typing.Optional[IdempotencyKey] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> BillResponse:
-        """
-        Send a bill to a user or list of users to approve.
-
-        Parameters
-        ----------
-        id_bill : int
-            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
-
-        request : typing.Sequence[str]
-
-        autocreate_user : typing.Optional[bool]
-            Automatically create the target user for approval if they don't exist.
-
-        idempotency_key : typing.Optional[IdempotencyKey]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        BillResponse
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.bill.send_to_approval_bill(
-            id_bill=285,
-            idempotency_key="6B29FC40-CA47-1067-B31D-00DD010662DA",
-            request=["string"],
-        )
-        """
-        _response = self._raw_client.send_to_approval_bill(
-            id_bill,
-            request=request,
-            autocreate_user=autocreate_user,
-            idempotency_key=idempotency_key,
-            request_options=request_options,
-        )
-        return _response.data
-
-    def set_approved_bill(
-        self,
-        id_bill: int,
-        approved: str,
-        *,
-        email: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> SetApprovedBillResponse:
-        """
-        Approve or disapprove a bill by ID.
-
-        Parameters
-        ----------
-        id_bill : int
-            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
-
-        approved : str
-            String representing the approved status. Accepted values: 'true' or 'false'.
-
-        email : typing.Optional[str]
-            Email or username of user modifying approval status.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        SetApprovedBillResponse
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.bill.set_approved_bill(
-            approved="true",
-            id_bill=285,
-        )
-        """
-        _response = self._raw_client.set_approved_bill(id_bill, approved, email=email, request_options=request_options)
-        return _response.data
-
 
 class AsyncBillClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -920,7 +950,7 @@ class AsyncBillClient:
         status: typing.Optional[Billstatus] = OMIT,
         terms: typing.Optional[Terms] = OMIT,
         total_amount: typing.Optional[float] = OMIT,
-        vendor: typing.Optional[VendorData] = OMIT,
+        vendor: typing.Optional[BillOutDataVendor] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BillResponse:
         """
@@ -932,6 +962,7 @@ class AsyncBillClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         accounting_field_1 : typing.Optional[AccountingField]
 
@@ -940,9 +971,20 @@ class AsyncBillClient:
         additional_data : typing.Optional[AdditionalDataString]
 
         attachments : typing.Optional[Attachments]
-            An array of bill images. Attachments aren't required, but we strongly recommend including them. Including a bill image can make payouts smoother and prevent delays. You can include either the Base64-encoded file content, or you can include an fURL to a public file. The maximum file size for image uploads is 30 MB.
+            An array of bill images. Attachments aren't required, but we strongly
+            recommend including them. Including a bill image can make payouts
+            smoother and prevent delays. You can include either the Base64-encoded
+            file content, or you can include a `furl` to a public file. The maximum
+            file size for image uploads is 30 MB.
 
-            When vendor enrichment is enabled and the first attachment is a PDF, the invoice is scanned and extracted vendor contact information and bill details (invoice number, amount due, due date) are merged into the request. Fields in the request body take precedence over extracted data. If the scan fails, bill creation proceeds with the original request data. See the [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview) for details. Contact Payabli to enable this feature.
+            When vendor enrichment is enabled and the first attachment is a PDF,
+            the invoice is scanned and extracted vendor contact information and
+            bill details (invoice number, amount due, due date) are merged into
+            the request. Fields in the request body take precedence over extracted
+            data. If the scan fails, bill creation proceeds with the original
+            request data. See the
+            [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview)
+            for details. Contact Payabli to enable this feature.
 
         bill_date : typing.Optional[dt.date]
             Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
@@ -961,10 +1003,10 @@ class AsyncBillClient:
             Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
 
         end_date : typing.Optional[dt.date]
-            End Date for scheduled bills. Applied only in `Mode` = 1. Accepted formats: YYYY-MM-DD, MM/DD/YYYY
+            End date for scheduled bills. Applied only in `Mode` = 1. Accepted
+            formats: YYYY-MM-DD, MM/DD/YYYY.
 
         frequency : typing.Optional[Frequency]
-            Frequency for scheduled bills. Applied only in `Mode` = 1.
 
         lot_number : typing.Optional[str]
             Lot number associated with the bill.
@@ -973,10 +1015,9 @@ class AsyncBillClient:
             Bill mode: value `0` for one-time bills, `1` for scheduled bills.
 
         net_amount : typing.Optional[float]
-            Net Amount owed in bill. Required when adding a bill.
+            Net amount owed in bill. Required when adding a bill.
 
         scheduled_options : typing.Optional[BillOutDataScheduledOptions]
-            Options for scheduled bills.
 
         status : typing.Optional[Billstatus]
 
@@ -985,8 +1026,11 @@ class AsyncBillClient:
         total_amount : typing.Optional[float]
             Total amount of the bill.
 
-        vendor : typing.Optional[VendorData]
-            The vendor associated with the bill. Although you can create a vendor in a create bill request, Payabli recommends creating a vendor separately and passing a valid `vendorNumber` here. At minimum, the `vendorNumber` is required.
+        vendor : typing.Optional[BillOutDataVendor]
+            The vendor associated with the bill. Although you can create a vendor
+            in a create bill request, Payabli recommends creating a vendor
+            separately and passing a valid `vendorNumber` here. At minimum, the
+            `vendorNumber` is required.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1001,7 +1045,7 @@ class AsyncBillClient:
         import asyncio
         import datetime
 
-        from payabli import Asyncpayabli, BillItem, FileContent, VendorData
+        from payabli import Asyncpayabli, BillItem, BillOutDataVendor, FileContent
 
         client = Asyncpayabli(
             api_key="YOUR_API_KEY",
@@ -1038,15 +1082,15 @@ class AsyncBillClient:
                 ],
                 mode=0,
                 accounting_field_1="MyInternalId",
-                vendor=VendorData(
-                    vendor_number="1234-A",
+                vendor=BillOutDataVendor(
+                    vendor_number="VEN-123",
                 ),
                 end_date=datetime.date.fromisoformat(
                     "2024-07-01",
                 ),
                 frequency="monthly",
                 terms="NET30",
-                status=-99,
+                status=1,
                 attachments=[
                     FileContent(
                         ftype="pdf",
@@ -1086,68 +1130,11 @@ class AsyncBillClient:
         )
         return _response.data
 
-    async def delete_attached_from_bill(
-        self,
-        id_bill: int,
-        filename: str,
-        *,
-        return_object: typing.Optional[bool] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> BillResponse:
-        """
-        Delete a file attached to a bill.
-
-        Parameters
-        ----------
-        id_bill : int
-            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
-
-        filename : str
-            The filename in Payabli. Get this from the `zipName` field
-            in the `DocumentsRef.filelist` array returned by
-            `/api/Bill/{idBill}`. Example: `0_Bill.pdf`.
-
-        return_object : typing.Optional[bool]
-            When `true`, the response includes the full bill object.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        BillResponse
-            Success
-
-        Examples
-        --------
-        import asyncio
-
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.bill.delete_attached_from_bill(
-                filename="0_Bill.pdf",
-                id_bill=285,
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.delete_attached_from_bill(
-            id_bill, filename, return_object=return_object, request_options=request_options
-        )
-        return _response.data
-
-    async def delete_bill(
+    async def get_bill(
         self, id_bill: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> BillResponse:
+    ) -> GetBillResponse:
         """
-        Deletes a bill by ID.
+        Retrieves a bill by ID from an entrypoint.
 
         Parameters
         ----------
@@ -1159,7 +1146,7 @@ class AsyncBillClient:
 
         Returns
         -------
-        BillResponse
+        GetBillResponse
             Success
 
         Examples
@@ -1174,14 +1161,14 @@ class AsyncBillClient:
 
 
         async def main() -> None:
-            await client.bill.delete_bill(
+            await client.bill.get_bill(
                 id_bill=285,
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.delete_bill(id_bill, request_options=request_options)
+        _response = await self._raw_client.get_bill(id_bill, request_options=request_options)
         return _response.data
 
     async def edit_bill(
@@ -1207,7 +1194,7 @@ class AsyncBillClient:
         status: typing.Optional[Billstatus] = OMIT,
         terms: typing.Optional[Terms] = OMIT,
         total_amount: typing.Optional[float] = OMIT,
-        vendor: typing.Optional[VendorData] = OMIT,
+        vendor: typing.Optional[BillOutDataVendor] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> EditBillResponse:
         """
@@ -1225,9 +1212,20 @@ class AsyncBillClient:
         additional_data : typing.Optional[AdditionalDataString]
 
         attachments : typing.Optional[Attachments]
-            An array of bill images. Attachments aren't required, but we strongly recommend including them. Including a bill image can make payouts smoother and prevent delays. You can include either the Base64-encoded file content, or you can include an fURL to a public file. The maximum file size for image uploads is 30 MB.
+            An array of bill images. Attachments aren't required, but we strongly
+            recommend including them. Including a bill image can make payouts
+            smoother and prevent delays. You can include either the Base64-encoded
+            file content, or you can include a `furl` to a public file. The maximum
+            file size for image uploads is 30 MB.
 
-            When vendor enrichment is enabled and the first attachment is a PDF, the invoice is scanned and extracted vendor contact information and bill details (invoice number, amount due, due date) are merged into the request. Fields in the request body take precedence over extracted data. If the scan fails, bill creation proceeds with the original request data. See the [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview) for details. Contact Payabli to enable this feature.
+            When vendor enrichment is enabled and the first attachment is a PDF,
+            the invoice is scanned and extracted vendor contact information and
+            bill details (invoice number, amount due, due date) are merged into
+            the request. Fields in the request body take precedence over extracted
+            data. If the scan fails, bill creation proceeds with the original
+            request data. See the
+            [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview)
+            for details. Contact Payabli to enable this feature.
 
         bill_date : typing.Optional[dt.date]
             Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
@@ -1246,10 +1244,10 @@ class AsyncBillClient:
             Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
 
         end_date : typing.Optional[dt.date]
-            End Date for scheduled bills. Applied only in `Mode` = 1. Accepted formats: YYYY-MM-DD, MM/DD/YYYY
+            End date for scheduled bills. Applied only in `Mode` = 1. Accepted
+            formats: YYYY-MM-DD, MM/DD/YYYY.
 
         frequency : typing.Optional[Frequency]
-            Frequency for scheduled bills. Applied only in `Mode` = 1.
 
         lot_number : typing.Optional[str]
             Lot number associated with the bill.
@@ -1258,10 +1256,9 @@ class AsyncBillClient:
             Bill mode: value `0` for one-time bills, `1` for scheduled bills.
 
         net_amount : typing.Optional[float]
-            Net Amount owed in bill. Required when adding a bill.
+            Net amount owed in bill. Required when adding a bill.
 
         scheduled_options : typing.Optional[BillOutDataScheduledOptions]
-            Options for scheduled bills.
 
         status : typing.Optional[Billstatus]
 
@@ -1270,8 +1267,11 @@ class AsyncBillClient:
         total_amount : typing.Optional[float]
             Total amount of the bill.
 
-        vendor : typing.Optional[VendorData]
-            The vendor associated with the bill. Although you can create a vendor in a create bill request, Payabli recommends creating a vendor separately and passing a valid `vendorNumber` here. At minimum, the `vendorNumber` is required.
+        vendor : typing.Optional[BillOutDataVendor]
+            The vendor associated with the bill. Although you can create a vendor
+            in a create bill request, Payabli recommends creating a vendor
+            separately and passing a valid `vendorNumber` here. At minimum, the
+            `vendorNumber` is required.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1329,6 +1329,47 @@ class AsyncBillClient:
             vendor=vendor,
             request_options=request_options,
         )
+        return _response.data
+
+    async def delete_bill(
+        self, id_bill: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> BillResponse:
+        """
+        Deletes a bill by ID.
+
+        Parameters
+        ----------
+        id_bill : int
+            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        BillResponse
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.bill.delete_bill(
+                id_bill=285,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.delete_bill(id_bill, request_options=request_options)
         return _response.data
 
     async def get_attached_from_bill(
@@ -1389,23 +1430,36 @@ class AsyncBillClient:
         )
         return _response.data
 
-    async def get_bill(
-        self, id_bill: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> GetBillResponse:
+    async def delete_attached_from_bill(
+        self,
+        id_bill: int,
+        filename: str,
+        *,
+        return_object: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> BillResponse:
         """
-        Retrieves a bill by ID from an entrypoint.
+        Delete a file attached to a bill.
 
         Parameters
         ----------
         id_bill : int
             Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
 
+        filename : str
+            The filename in Payabli. Get this from the `zipName` field
+            in the `DocumentsRef.filelist` array returned by
+            `/api/Bill/{idBill}`. Example: `0_Bill.pdf`.
+
+        return_object : typing.Optional[bool]
+            When `true`, the response includes the full bill object.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        GetBillResponse
+        BillResponse
             Success
 
         Examples
@@ -1420,14 +1474,181 @@ class AsyncBillClient:
 
 
         async def main() -> None:
-            await client.bill.get_bill(
+            await client.bill.delete_attached_from_bill(
+                filename="0_Bill.pdf",
                 id_bill=285,
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.get_bill(id_bill, request_options=request_options)
+        _response = await self._raw_client.delete_attached_from_bill(
+            id_bill, filename, return_object=return_object, request_options=request_options
+        )
+        return _response.data
+
+    async def send_to_approval_bill(
+        self,
+        id_bill: int,
+        *,
+        request: typing.Sequence[str],
+        autocreate_user: typing.Optional[bool] = None,
+        idempotency_key: typing.Optional[IdempotencyKey] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> BillResponse:
+        """
+        Send a bill to a user or list of users to approve.
+
+        Parameters
+        ----------
+        id_bill : int
+            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
+
+        request : typing.Sequence[str]
+
+        autocreate_user : typing.Optional[bool]
+            Automatically create the target user for approval if they don't exist.
+
+        idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        BillResponse
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.bill.send_to_approval_bill(
+                id_bill=285,
+                idempotency_key="6B29FC40-CA47-1067-B31D-00DD010662DA",
+                request=["approver@example.com"],
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.send_to_approval_bill(
+            id_bill,
+            request=request,
+            autocreate_user=autocreate_user,
+            idempotency_key=idempotency_key,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def modify_approval_bill(
+        self, id_bill: int, *, request: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
+    ) -> ModifyApprovalBillResponse:
+        """
+        Modify the list of users the bill is sent to for approval.
+
+        Parameters
+        ----------
+        id_bill : int
+            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
+
+        request : typing.Sequence[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ModifyApprovalBillResponse
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.bill.modify_approval_bill(
+                id_bill=285,
+                request=["approver1@example.com", "approver2@example.com"],
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.modify_approval_bill(
+            id_bill, request=request, request_options=request_options
+        )
+        return _response.data
+
+    async def set_approved_bill(
+        self,
+        id_bill: int,
+        approved: str,
+        *,
+        email: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SetApprovedBillResponse:
+        """
+        Approve or disapprove a bill by ID.
+
+        Parameters
+        ----------
+        id_bill : int
+            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
+
+        approved : str
+            String representing the approved status. Accepted values: 'true' or 'false'.
+
+        email : typing.Optional[str]
+            Email or username of user modifying approval status.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SetApprovedBillResponse
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.bill.set_approved_bill(
+                approved="true",
+                id_bill=285,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.set_approved_bill(
+            id_bill, approved, email=email, request_options=request_options
+        )
         return _response.data
 
     async def list_bills(
@@ -1450,6 +1671,7 @@ class AsyncBillClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -1566,6 +1788,7 @@ class AsyncBillClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -1659,168 +1882,5 @@ class AsyncBillClient:
             parameters=parameters,
             sort_by=sort_by,
             request_options=request_options,
-        )
-        return _response.data
-
-    async def modify_approval_bill(
-        self, id_bill: int, *, request: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
-    ) -> ModifyApprovalBillResponse:
-        """
-        Modify the list of users the bill is sent to for approval.
-
-        Parameters
-        ----------
-        id_bill : int
-            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
-
-        request : typing.Sequence[str]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ModifyApprovalBillResponse
-            Success
-
-        Examples
-        --------
-        import asyncio
-
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.bill.modify_approval_bill(
-                id_bill=285,
-                request=["approver1@example.com", "approver2@example.com"],
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.modify_approval_bill(
-            id_bill, request=request, request_options=request_options
-        )
-        return _response.data
-
-    async def send_to_approval_bill(
-        self,
-        id_bill: int,
-        *,
-        request: typing.Sequence[str],
-        autocreate_user: typing.Optional[bool] = None,
-        idempotency_key: typing.Optional[IdempotencyKey] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> BillResponse:
-        """
-        Send a bill to a user or list of users to approve.
-
-        Parameters
-        ----------
-        id_bill : int
-            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
-
-        request : typing.Sequence[str]
-
-        autocreate_user : typing.Optional[bool]
-            Automatically create the target user for approval if they don't exist.
-
-        idempotency_key : typing.Optional[IdempotencyKey]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        BillResponse
-            Success
-
-        Examples
-        --------
-        import asyncio
-
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.bill.send_to_approval_bill(
-                id_bill=285,
-                idempotency_key="6B29FC40-CA47-1067-B31D-00DD010662DA",
-                request=["string"],
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.send_to_approval_bill(
-            id_bill,
-            request=request,
-            autocreate_user=autocreate_user,
-            idempotency_key=idempotency_key,
-            request_options=request_options,
-        )
-        return _response.data
-
-    async def set_approved_bill(
-        self,
-        id_bill: int,
-        approved: str,
-        *,
-        email: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> SetApprovedBillResponse:
-        """
-        Approve or disapprove a bill by ID.
-
-        Parameters
-        ----------
-        id_bill : int
-            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
-
-        approved : str
-            String representing the approved status. Accepted values: 'true' or 'false'.
-
-        email : typing.Optional[str]
-            Email or username of user modifying approval status.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        SetApprovedBillResponse
-            Success
-
-        Examples
-        --------
-        import asyncio
-
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.bill.set_approved_bill(
-                approved="true",
-                id_bill=285,
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.set_approved_bill(
-            id_bill, approved, email=email, request_options=request_options
         )
         return _response.data

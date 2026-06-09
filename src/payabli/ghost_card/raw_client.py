@@ -14,10 +14,11 @@ from ..errors.bad_request_error import BadRequestError
 from ..errors.internal_server_error import InternalServerError
 from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.unauthorized_error import UnauthorizedError
+from ..types.card_status import CardStatus
+from ..types.create_ghost_card_response import CreateGhostCardResponse
 from ..types.entry import Entry
 from ..types.payabli_api_response import PayabliApiResponse
-from .types.card_status import CardStatus
-from .types.create_ghost_card_response import CreateGhostCardResponse
+from ..types.payabli_error_body import PayabliErrorBody
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -60,6 +61,7 @@ class RawGhostCardClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         vendor_id : int
             ID of the vendor who receives the card. The vendor must belong to the paypoint and have an active status.
@@ -169,9 +171,9 @@ class RawGhostCardClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -191,9 +193,9 @@ class RawGhostCardClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -221,6 +223,7 @@ class RawGhostCardClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         card_token : str
             Token that uniquely identifies the card. This is the `ReferenceId` returned when the card was created.
@@ -274,9 +277,9 @@ class RawGhostCardClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -296,9 +299,9 @@ class RawGhostCardClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -349,6 +352,7 @@ class AsyncRawGhostCardClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         vendor_id : int
             ID of the vendor who receives the card. The vendor must belong to the paypoint and have an active status.
@@ -458,9 +462,9 @@ class AsyncRawGhostCardClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -480,9 +484,9 @@ class AsyncRawGhostCardClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -510,6 +514,7 @@ class AsyncRawGhostCardClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         card_token : str
             Token that uniquely identifies the card. This is the `ReferenceId` returned when the card was created.
@@ -563,9 +568,9 @@ class AsyncRawGhostCardClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -585,9 +590,9 @@ class AsyncRawGhostCardClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

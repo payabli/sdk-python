@@ -16,7 +16,6 @@ if typing.TYPE_CHECKING:
     from .accounting_field import AccountingField
     from .accounttype import Accounttype
     from .accountzip import Accountzip
-    from .ach import Ach
     from .ach_absorb_section import AchAbsorbSection
     from .ach_acceptance_element import AchAcceptanceElement
     from .ach_fee_section import AchFeeSection
@@ -24,7 +23,6 @@ if typing.TYPE_CHECKING:
     from .ach_holder_type import AchHolderType
     from .ach_link_types import AchLinkTypes
     from .ach_pass_through_section import AchPassThroughSection
-    from .ach_payment_method import AchPaymentMethod
     from .ach_sec_code import AchSecCode
     from .ach_section import AchSection
     from .ach_service import AchService
@@ -36,13 +34,26 @@ if typing.TYPE_CHECKING:
     from .achaccount import Achaccount
     from .achaccounttype import Achaccounttype
     from .achrouting import Achrouting
+    from .add_application_request import AddApplicationRequest
+    from .add_device_response import AddDeviceResponse
+    from .add_method_response import AddMethodResponse
+    from .add_method_response_response_data import AddMethodResponseResponseData
+    from .add_notification_request import AddNotificationRequest
+    from .add_organization_response import AddOrganizationResponse
     from .add_payment_method_domain_api_response import AddPaymentMethodDomainApiResponse
+    from .add_payment_method_domain_request_apple_pay import AddPaymentMethodDomainRequestApplePay
+    from .add_payment_method_domain_request_google_pay import AddPaymentMethodDomainRequestGooglePay
+    from .add_payout_subscription_response import AddPayoutSubscriptionResponse
+    from .add_response_response import AddResponseResponse
+    from .add_subscription_response import AddSubscriptionResponse
+    from .add_user_response import AddUserResponse
     from .additional_data import AdditionalData
     from .additional_data_map import AdditionalDataMap
     from .additional_data_string import AdditionalDataString
     from .address_addtl_nullable import AddressAddtlNullable
     from .address_nullable import AddressNullable
     from .allow_override import AllowOverride
+    from .allowed_check_payment_status import AllowedCheckPaymentStatus
     from .amount_element import AmountElement
     from .annualrevenue import Annualrevenue
     from .app_id import AppId
@@ -73,7 +84,13 @@ if typing.TYPE_CHECKING:
     from .associated_vendor import AssociatedVendor
     from .attachments import Attachments
     from .attestation_date import AttestationDate
+    from .auth_capture_payout_response import AuthCapturePayoutResponse
+    from .auth_capture_payout_response_data import AuthCapturePayoutResponseData
+    from .auth_reset_user_response import AuthResetUserResponse
+    from .auth_response import AuthResponse
+    from .auth_response_response_data import AuthResponseResponseData
     from .authcode import Authcode
+    from .authorize_payment_method import AuthorizePaymentMethod
     from .auto_capture import AutoCapture
     from .auto_element import AutoElement
     from .avgmonthly import Avgmonthly
@@ -89,12 +106,15 @@ if typing.TYPE_CHECKING:
     from .bank_account_function import BankAccountFunction
     from .bank_account_holder_name import BankAccountHolderName
     from .bank_account_holder_type import BankAccountHolderType
+    from .bank_account_verification_details_response import BankAccountVerificationDetailsResponse
     from .bank_data import BankData
     from .bank_name import BankName
     from .bank_nickname import BankNickname
     from .bank_section import BankSection
     from .basic_table import BasicTable
     from .basic_template_element import BasicTemplateElement
+    from .batch_detail_response_record import BatchDetailResponseRecord
+    from .batch_detail_response_summary import BatchDetailResponseSummary
     from .batch_number import BatchNumber
     from .batch_summary import BatchSummary
     from .bcity import Bcity
@@ -108,6 +128,9 @@ if typing.TYPE_CHECKING:
     from .bill_id import BillId
     from .bill_item import BillItem
     from .bill_options import BillOptions
+    from .bill_out_data import BillOutData
+    from .bill_out_data_scheduled_options import BillOutDataScheduledOptions
+    from .bill_out_data_vendor import BillOutDataVendor
     from .bill_pay_out_data import BillPayOutData
     from .bill_pay_out_data_request import BillPayOutDataRequest
     from .bill_query_record_2 import BillQueryRecord2
@@ -115,6 +138,8 @@ if typing.TYPE_CHECKING:
     from .bill_query_record_2_payment_method import BillQueryRecord2PaymentMethod
     from .bill_query_response import BillQueryResponse
     from .bill_query_response_summary import BillQueryResponseSummary
+    from .bill_response import BillResponse
+    from .bill_response_data import BillResponseData
     from .billing_address_addtl_nullable import BillingAddressAddtlNullable
     from .billing_address_nullable import BillingAddressNullable
     from .billing_city_nullable import BillingCityNullable
@@ -146,12 +171,19 @@ if typing.TYPE_CHECKING:
     from .bstate import Bstate
     from .bsummary import Bsummary
     from .builder_data import BuilderData
+    from .bulk_retry_request import BulkRetryRequest
     from .business_section import BusinessSection
     from .busstartdate import Busstartdate
     from .button_element import ButtonElement
     from .button_element_size import ButtonElementSize
     from .bzip import Bzip
     from .c_list import CList
+    from .capture_all_out_response import CaptureAllOutResponse
+    from .capture_all_out_response_response_data_item import CaptureAllOutResponseResponseDataItem
+    from .capture_payment_details import CapturePaymentDetails
+    from .capture_request import CaptureRequest
+    from .capture_response import CaptureResponse
+    from .capture_response_data import CaptureResponseData
     from .card_acceptance_element import CardAcceptanceElement
     from .card_fee_section import CardFeeSection
     from .card_flat_section import CardFlatSection
@@ -161,6 +193,7 @@ if typing.TYPE_CHECKING:
     from .card_section import CardSection
     from .card_service import CardService
     from .card_setup import CardSetup
+    from .card_status import CardStatus
     from .card_type import CardType
     from .card_type_pass import CardTypePass
     from .card_types import CardTypes
@@ -172,9 +205,16 @@ if typing.TYPE_CHECKING:
     from .cascade import Cascade
     from .cascade_job_details import CascadeJobDetails
     from .cash import Cash
+    from .cash_method import CashMethod
     from .category import Category
+    from .change_psw_user_response import ChangePswUserResponse
+    from .charge_back_response import ChargeBackResponse
     from .chargeback_id import ChargebackId
+    from .chargeback_message import ChargebackMessage
+    from .chargeback_query_records import ChargebackQueryRecords
     from .check import Check
+    from .check_capture_response import CheckCaptureResponse
+    from .check_method import CheckMethod
     from .city_nullable import CityNullable
     from .cloud_query_api_response import CloudQueryApiResponse
     from .comments import Comments
@@ -185,7 +225,13 @@ if typing.TYPE_CHECKING:
     from .contacts import Contacts
     from .contacts_field import ContactsField
     from .contacts_response import ContactsResponse
+    from .convert_token import ConvertToken
     from .country_nullable import CountryNullable
+    from .create_anonymous import CreateAnonymous
+    from .create_application_from_paypoint_response import CreateApplicationFromPaypointResponse
+    from .create_application_from_paypoint_response_data import CreateApplicationFromPaypointResponseData
+    from .create_ghost_card_response import CreateGhostCardResponse
+    from .create_ghost_card_response_data import CreateGhostCardResponseData
     from .created_at import CreatedAt
     from .customer_data import CustomerData
     from .customer_id import CustomerId
@@ -204,10 +250,15 @@ if typing.TYPE_CHECKING:
     from .cvv_response_text import CvvResponseText
     from .d_section import DSection
     from .dbaname import Dbaname
+    from .delete_item_response import DeleteItemResponse
+    from .delete_organization_response import DeleteOrganizationResponse
+    from .delete_payment_method_domain_response import DeletePaymentMethodDomainResponse
+    from .delete_payout_subscription_response import DeletePayoutSubscriptionResponse
+    from .delete_user_response import DeleteUserResponse
     from .deposit_date import DepositDate
     from .descriptor import Descriptor
     from .device import Device
-    from .device_id import DeviceId
+    from .device_query_record import DeviceQueryRecord
     from .discount import Discount
     from .display_property import DisplayProperty
     from .document_section import DocumentSection
@@ -216,6 +267,9 @@ if typing.TYPE_CHECKING:
     from .documents_ref import DocumentsRef
     from .domain_name import DomainName
     from .duty_amount import DutyAmount
+    from .edit_bill_response import EditBillResponse
+    from .edit_mfa_user_response import EditMfaUserResponse
+    from .edit_organization_response import EditOrganizationResponse
     from .ein import Ein
     from .element import Element
     from .email import Email
@@ -231,6 +285,7 @@ if typing.TYPE_CHECKING:
     from .expected_deposit_date import ExpectedDepositDate
     from .expected_processing_date_time import ExpectedProcessingDateTime
     from .export_format import ExportFormat
+    from .export_format_1 import ExportFormat1
     from .external_paypoint_id import ExternalPaypointId
     from .external_processor_information import ExternalProcessorInformation
     from .fax_number import FaxNumber
@@ -238,6 +293,7 @@ if typing.TYPE_CHECKING:
     from .file import File
     from .file_content import FileContent
     from .file_content_ftype import FileContentFtype
+    from .file_content_image_only import FileContentImageOnly
     from .finishtype import Finishtype
     from .force_customer_creation import ForceCustomerCreation
     from .freight_amount import FreightAmount
@@ -246,6 +302,19 @@ if typing.TYPE_CHECKING:
     from .frequencynotification import Frequencynotification
     from .gatewayfield import Gatewayfield
     from .general_events import GeneralEvents
+    from .get_basic_entry_by_id_response import GetBasicEntryByIdResponse
+    from .get_basic_entry_response import GetBasicEntryResponse
+    from .get_bill_response import GetBillResponse
+    from .get_entry_config_response import GetEntryConfigResponse
+    from .get_invoice_record import GetInvoiceRecord
+    from .get_method_response import GetMethodResponse
+    from .get_method_response_response_data import GetMethodResponseResponseData
+    from .get_method_response_response_data_customers_item import GetMethodResponseResponseDataCustomersItem
+    from .get_method_response_response_data_vendors_item import GetMethodResponseResponseDataVendorsItem
+    from .get_paid_response_data import GetPaidResponseData
+    from .get_pay_link_from_id_response import GetPayLinkFromIdResponse
+    from .get_pay_link_from_id_response_response_data import GetPayLinkFromIdResponseResponseData
+    from .get_payout_subscription_response import GetPayoutSubscriptionResponse
     from .google_pay_data import GooglePayData
     from .google_pay_metadata import GooglePayMetadata
     from .google_pay_paypoint_registration_data import GooglePayPaypointRegistrationData
@@ -263,8 +332,13 @@ if typing.TYPE_CHECKING:
     from .instrument import Instrument
     from .internal_reference_id import InternalReferenceId
     from .invoice_amount import InvoiceAmount
+    from .invoice_data_request import InvoiceDataRequest
     from .invoice_element import InvoiceElement
+    from .invoice_id import InvoiceId
     from .invoice_number import InvoiceNumber
+    from .invoice_number_response import InvoiceNumberResponse
+    from .invoice_paid_amount import InvoicePaidAmount
+    from .invoice_response_without_data import InvoiceResponseWithoutData
     from .invoice_type import InvoiceType
     from .invoicestatus import Invoicestatus
     from .ip_address import IpAddress
@@ -280,6 +354,7 @@ if typing.TYPE_CHECKING:
     from .job_id import JobId
     from .job_status import JobStatus
     from .key_value import KeyValue
+    from .key_value_array import KeyValueArray
     from .key_value_duo import KeyValueDuo
     from .label_element import LabelElement
     from .language import Language
@@ -287,11 +362,16 @@ if typing.TYPE_CHECKING:
     from .legalname import Legalname
     from .license import License
     from .licensestate import Licensestate
+    from .limit_record import LimitRecord
     from .line_item import LineItem
     from .line_item_query_record import LineItemQueryRecord
     from .link_data import LinkData
     from .link_row import LinkRow
+    from .list_organizations_response import ListOrganizationsResponse
+    from .list_payment_method_domains_response import ListPaymentMethodDomainsResponse
     from .location_code import LocationCode
+    from .logout_user_response import LogoutUserResponse
+    from .lot_number import LotNumber
     from .maddress import Maddress
     from .maddress_1 import Maddress1
     from .maskedaccount import Maskedaccount
@@ -300,6 +380,7 @@ if typing.TYPE_CHECKING:
     from .mcity import Mcity
     from .mcountry import Mcountry
     from .method_element import MethodElement
+    from .method_element_out import MethodElementOut
     from .method_element_settings import MethodElementSettings
     from .method_element_settings_apple_pay import MethodElementSettingsApplePay
     from .method_element_settings_apple_pay_button_style import MethodElementSettingsApplePayButtonStyle
@@ -310,11 +391,14 @@ if typing.TYPE_CHECKING:
     from .methodall import Methodall
     from .methodnotification import Methodnotification
     from .methods_list import MethodsList
+    from .methods_list_out import MethodsListOut
     from .mfa import Mfa
     from .mfa_data import MfaData
     from .mfa_mode import MfaMode
     from .mfa_validation_code import MfaValidationCode
+    from .migrate_paypoint_response import MigratePaypointResponse
     from .min_ticket import MinTicket
+    from .modify_approval_bill_response import ModifyApprovalBillResponse
     from .mstate import Mstate
     from .mzip import Mzip
     from .name_user import NameUser
@@ -326,13 +410,17 @@ if typing.TYPE_CHECKING:
     from .notification_content_file_format import NotificationContentFileFormat
     from .notification_content_report_name import NotificationContentReportName
     from .notification_id import NotificationId
+    from .notification_log import NotificationLog
+    from .notification_log_detail import NotificationLogDetail
     from .notification_query_record import NotificationQueryRecord
     from .notification_report_request import NotificationReportRequest
     from .notification_report_request_content import NotificationReportRequestContent
+    from .notification_report_request_content_event_type import NotificationReportRequestContentEventType
     from .notification_report_request_content_file_format import NotificationReportRequestContentFileFormat
     from .notification_report_request_content_report_name import NotificationReportRequestContentReportName
     from .notification_report_request_frequency import NotificationReportRequestFrequency
     from .notification_report_request_method import NotificationReportRequestMethod
+    from .notification_request import NotificationRequest
     from .notification_standard_request import NotificationStandardRequest
     from .notification_standard_request_content import NotificationStandardRequestContent
     from .notification_standard_request_content_event_type import NotificationStandardRequestContentEventType
@@ -340,10 +428,19 @@ if typing.TYPE_CHECKING:
     from .notification_standard_request_method import NotificationStandardRequestMethod
     from .o_list import OList
     from .o_section import OSection
+    from .ocr_attachment import OcrAttachment
+    from .ocr_bill_item import OcrBillItem
+    from .ocr_bill_item_additional_data import OcrBillItemAdditionalData
+    from .ocr_response_data import OcrResponseData
+    from .ocr_result_data import OcrResultData
+    from .ocr_vendor import OcrVendor
+    from .ocr_vendor_additional_data import OcrVendorAdditionalData
+    from .ocr_vendor_billing_data import OcrVendorBillingData
     from .odp_setup import OdpSetup
     from .odp_setup_processing_region import OdpSetupProcessingRegion
     from .on_create import OnCreate
     from .operation import Operation
+    from .operation_result import OperationResult
     from .optin_status import OptinStatus
     from .order import Order
     from .order_id import OrderId
@@ -387,9 +484,12 @@ if typing.TYPE_CHECKING:
     from .pair_files import PairFiles
     from .pay_category import PayCategory
     from .pay_method_ach import PayMethodAch
+    from .pay_method_ach_method import PayMethodAchMethod
     from .pay_method_body_all_fields import PayMethodBodyAllFields
     from .pay_method_cloud import PayMethodCloud
+    from .pay_method_cloud_method import PayMethodCloudMethod
     from .pay_method_credit import PayMethodCredit
+    from .pay_method_credit_method import PayMethodCreditMethod
     from .pay_method_stored_method import PayMethodStoredMethod
     from .pay_method_stored_method_method import PayMethodStoredMethodMethod
     from .payabli_api_response import PayabliApiResponse
@@ -400,15 +500,15 @@ if typing.TYPE_CHECKING:
     from .payabli_api_response_0_response_data import PayabliApiResponse0ResponseData
     from .payabli_api_response_6 import PayabliApiResponse6
     from .payabli_api_response_customer_query import PayabliApiResponseCustomerQuery
-    from .payabli_api_response_error_400 import PayabliApiResponseError400
-    from .payabli_api_response_error_400_response_data import PayabliApiResponseError400ResponseData
     from .payabli_api_response_generic_2_part import PayabliApiResponseGeneric2Part
+    from .payabli_api_response_get_paid import PayabliApiResponseGetPaid
     from .payabli_api_response_import import PayabliApiResponseImport
     from .payabli_api_response_import_response_data import PayabliApiResponseImportResponseData
     from .payabli_api_response_mfa_basic import PayabliApiResponseMfaBasic
     from .payabli_api_response_notifications import PayabliApiResponseNotifications
     from .payabli_api_response_notifications_response_data import PayabliApiResponseNotificationsResponseData
-    from .payabli_api_response_paylinks import PayabliApiResponsePaylinks
+    from .payabli_api_response_ocr import PayabliApiResponseOcr
+    from .payabli_api_response_payment_links import PayabliApiResponsePaymentLinks
     from .payabli_api_response_paymethod_delete import PayabliApiResponsePaymethodDelete
     from .payabli_api_response_paymethod_delete_response_data import PayabliApiResponsePaymethodDeleteResponseData
     from .payabli_api_response_template_id import PayabliApiResponseTemplateId
@@ -416,6 +516,8 @@ if typing.TYPE_CHECKING:
     from .payabli_api_response_vendors import PayabliApiResponseVendors
     from .payabli_credentials import PayabliCredentials
     from .payabli_credentials_pascal import PayabliCredentialsPascal
+    from .payabli_error_body import PayabliErrorBody
+    from .payabli_error_body_response_data import PayabliErrorBodyResponseData
     from .payabli_pages import PayabliPages
     from .payee_name import PayeeName
     from .paylink_id import PaylinkId
@@ -423,12 +525,12 @@ if typing.TYPE_CHECKING:
     from .payment_detail import PaymentDetail
     from .payment_detail_credit import PaymentDetailCredit
     from .payment_id_string import PaymentIdString
+    from .payment_link_status import PaymentLinkStatus
     from .payment_method import PaymentMethod
     from .payment_method_domain_api_response import PaymentMethodDomainApiResponse
     from .payment_method_domain_general_response import PaymentMethodDomainGeneralResponse
     from .payment_method_domain_id import PaymentMethodDomainId
-    from .payment_trans_status_description import PaymentTransStatusDescription
-    from .paymentid import Paymentid
+    from .payment_page_request_body_out import PaymentPageRequestBodyOut
     from .payor_data_request import PayorDataRequest
     from .payor_data_response import PayorDataResponse
     from .payor_element import PayorElement
@@ -439,7 +541,12 @@ if typing.TYPE_CHECKING:
     from .payout_credit_limit import PayoutCreditLimit
     from .payout_gateway_connector import PayoutGatewayConnector
     from .payout_high_ticket_amount import PayoutHighTicketAmount
+    from .payout_payment_detail import PayoutPaymentDetail
     from .payout_program import PayoutProgram
+    from .payout_schedule_detail import PayoutScheduleDetail
+    from .payout_set_pause import PayoutSetPause
+    from .payout_subscription_query_record import PayoutSubscriptionQueryRecord
+    from .payout_subscription_query_record_pascal import PayoutSubscriptionQueryRecordPascal
     from .paypoint_data import PaypointData
     from .paypoint_entry_config import PaypointEntryConfig
     from .paypoint_id import PaypointId
@@ -458,8 +565,12 @@ if typing.TYPE_CHECKING:
     from .push_pay_link_request import PushPayLinkRequest, PushPayLinkRequest_Email, PushPayLinkRequest_Sms
     from .push_pay_link_request_email import PushPayLinkRequestEmail
     from .push_pay_link_request_sms import PushPayLinkRequestSms
+    from .query_batches_detail_response import QueryBatchesDetailResponse
     from .query_batches_out_response import QueryBatchesOutResponse
     from .query_batches_out_response_records_item import QueryBatchesOutResponseRecordsItem
+    from .query_batches_response import QueryBatchesResponse
+    from .query_batches_response_records_item import QueryBatchesResponseRecordsItem
+    from .query_batches_transfer import QueryBatchesTransfer
     from .query_boarding_apps_list_response import QueryBoardingAppsListResponse
     from .query_boarding_links_response import QueryBoardingLinksResponse
     from .query_boarding_links_response_records_item import QueryBoardingLinksResponseRecordsItem
@@ -467,14 +578,17 @@ if typing.TYPE_CHECKING:
     from .query_chargebacks_response import QueryChargebacksResponse
     from .query_chargebacks_response_records_item import QueryChargebacksResponseRecordsItem
     from .query_customer_response import QueryCustomerResponse
+    from .query_device_response import QueryDeviceResponse
     from .query_entrypoint_response import QueryEntrypointResponse
     from .query_entrypoint_response_records_item import QueryEntrypointResponseRecordsItem
+    from .query_invoice_response import QueryInvoiceResponse
+    from .query_invoice_response_records_item import QueryInvoiceResponseRecordsItem
     from .query_payment_data import QueryPaymentData
+    from .query_payout_subscription_response import QueryPayoutSubscriptionResponse
     from .query_payout_transaction import QueryPayoutTransaction
     from .query_payout_transaction_records_item import QueryPayoutTransactionRecordsItem
     from .query_payout_transaction_records_item_payment_data import QueryPayoutTransactionRecordsItemPaymentData
     from .query_payout_transaction_summary import QueryPayoutTransactionSummary
-    from .query_response import QueryResponse
     from .query_response_data import QueryResponseData
     from .query_response_items import QueryResponseItems
     from .query_response_items_records_item import QueryResponseItemsRecordsItem
@@ -494,15 +608,23 @@ if typing.TYPE_CHECKING:
     from .query_transaction_events_event_data import QueryTransactionEventsEventData
     from .query_transaction_payor_data import QueryTransactionPayorData
     from .query_transaction_payor_data_customer import QueryTransactionPayorDataCustomer
+    from .query_transfer_detail_response import QueryTransferDetailResponse
+    from .query_transfer_summary import QueryTransferSummary
     from .query_user_response import QueryUserResponse
     from .read_only import ReadOnly
     from .receipt_content import ReceiptContent
+    from .receipt_response import ReceiptResponse
     from .recipient_email_notification import RecipientEmailNotification
     from .reference_name import ReferenceName
     from .reference_template_id import ReferenceTemplateId
     from .referenceidtrans import Referenceidtrans
     from .refund_detail import RefundDetail
     from .refund_id import RefundId
+    from .refund_response import RefundResponse
+    from .refund_with_instructions_response import RefundWithInstructionsResponse
+    from .reissue_payment_method import ReissuePaymentMethod
+    from .reissue_payout_response import ReissuePayoutResponse
+    from .reissue_payout_response_data import ReissuePayoutResponseData
     from .remit_email import RemitEmail
     from .remitaddress_1 import Remitaddress1
     from .remitaddress_2 import Remitaddress2
@@ -510,12 +632,27 @@ if typing.TYPE_CHECKING:
     from .remitcountry import Remitcountry
     from .remitstate import Remitstate
     from .remitzip import Remitzip
+    from .remove_device_response import RemoveDeviceResponse
+    from .remove_subscription_response import RemoveSubscriptionResponse
     from .rep_code import RepCode
     from .rep_name import RepName
     from .rep_office import RepOffice
     from .reply_to_email import ReplyToEmail
     from .replyby import Replyby
+    from .request_credit_payment_method import RequestCreditPaymentMethod
+    from .request_credit_payment_method_method import RequestCreditPaymentMethodMethod
+    from .request_out_authorize_invoice_data import RequestOutAuthorizeInvoiceData
+    from .request_out_authorize_payment_details import RequestOutAuthorizePaymentDetails
+    from .request_out_authorize_vendor_billing_data import RequestOutAuthorizeVendorBillingData
+    from .request_out_authorize_vendor_data import RequestOutAuthorizeVendorData
+    from .request_payment_validate_payment_method import RequestPaymentValidatePaymentMethod
+    from .request_payment_validate_payment_method_method import RequestPaymentValidatePaymentMethodMethod
+    from .request_schedule_payment_method import RequestSchedulePaymentMethod
+    from .request_schedule_payment_method_initiator import RequestSchedulePaymentMethodInitiator
+    from .request_token_storage import RequestTokenStorage
+    from .request_token_storage_payment_method import RequestTokenStoragePaymentMethod
     from .required_element import RequiredElement
+    from .response_data_refunds import ResponseDataRefunds
     from .response_text import ResponseText
     from .responsecode import Responsecode
     from .responsedata import Responsedata
@@ -527,6 +664,7 @@ if typing.TYPE_CHECKING:
     from .resumable import Resumable
     from .retrieval_id import RetrievalId
     from .returned_id import ReturnedId
+    from .reverse_response import ReverseResponse
     from .risk_action import RiskAction
     from .risk_action_code import RiskActionCode
     from .risk_flagged import RiskFlagged
@@ -541,10 +679,13 @@ if typing.TYPE_CHECKING:
     from .save_if_success import SaveIfSuccess
     from .schedule_detail import ScheduleDetail
     from .schedule_id import ScheduleId
+    from .send_invoice_response import SendInvoiceResponse
     from .sequence import Sequence
     from .service_cost import ServiceCost
     from .services import Services
     from .services_section import ServicesSection
+    from .set_approved_bill_response import SetApprovedBillResponse
+    from .set_pause import SetPause
     from .setting_element import SettingElement
     from .settings_query_record import SettingsQueryRecord
     from .settlement_status import SettlementStatus
@@ -578,15 +719,21 @@ if typing.TYPE_CHECKING:
     from .split_funding import SplitFunding
     from .split_funding_content import SplitFundingContent
     from .split_funding_refund_content import SplitFundingRefundContent
+    from .stat_basic_extended_query_record import StatBasicExtendedQueryRecord
+    from .stat_basic_query_record import StatBasicQueryRecord
     from .state_nullable import StateNullable
     from .statement_email_config import StatementEmailConfig
+    from .statistics_vendor_query_record import StatisticsVendorQueryRecord
     from .statusnotification import Statusnotification
     from .stored_method_usage_type import StoredMethodUsageType
     from .storedmethodid import Storedmethodid
+    from .string_string_key_value_pair import StringStringKeyValuePair
     from .sub_footer import SubFooter
     from .sub_header import SubHeader
     from .subdomain import Subdomain
     from .subscription_query_records import SubscriptionQueryRecords
+    from .subscription_stats_query_record import SubscriptionStatsQueryRecord
+    from .subscription_type import SubscriptionType
     from .subscriptionid import Subscriptionid
     from .summary_commodity_code import SummaryCommodityCode
     from .summary_org import SummaryOrg
@@ -596,52 +743,109 @@ if typing.TYPE_CHECKING:
     from .template_additional_data_field import TemplateAdditionalDataField
     from .template_additional_data_section import TemplateAdditionalDataSection
     from .template_code import TemplateCode
-    from .template_content import TemplateContent
     from .template_content_response import TemplateContentResponse
-    from .template_data import TemplateData
     from .template_element import TemplateElement
     from .template_id import TemplateId
     from .template_name import TemplateName
     from .template_query_record import TemplateQueryRecord
     from .template_query_response import TemplateQueryResponse
+    from .temporary import Temporary
     from .terms import Terms
     from .terms_conditions import TermsConditions
     from .ticketamt import Ticketamt
     from .tier_item import TierItem
     from .tier_item_pass import TierItemPass
     from .timezone import Timezone
+    from .tokenize_ach import TokenizeAch
+    from .tokenize_card import TokenizeCard
     from .totalpages import Totalpages
     from .totalrecords import Totalrecords
+    from .trans_request_body import TransRequestBody
     from .trans_status import TransStatus
+    from .transaction_detail_customer import TransactionDetailCustomer
+    from .transaction_detail_event import TransactionDetailEvent
+    from .transaction_detail_invoice_data import TransactionDetailInvoiceData
+    from .transaction_detail_payment_data import TransactionDetailPaymentData
+    from .transaction_detail_payment_details import TransactionDetailPaymentDetails
+    from .transaction_detail_record import TransactionDetailRecord
+    from .transaction_detail_record_method import TransactionDetailRecordMethod
+    from .transaction_detail_response_data import TransactionDetailResponseData
     from .transaction_out_query_record import TransactionOutQueryRecord
     from .transaction_query_records import TransactionQueryRecords
     from .transaction_query_records_customer import TransactionQueryRecordsCustomer
     from .transaction_time import TransactionTime
     from .transfer import Transfer
     from .transfer_bank_account import TransferBankAccount
+    from .transfer_detail_record import TransferDetailRecord
     from .transfer_identifier import TransferIdentifier
     from .transfer_message import TransferMessage
     from .transfer_message_properties import TransferMessageProperties
+    from .transfer_out_bank_account import TransferOutBankAccount
+    from .transfer_out_detail_bill import TransferOutDetailBill
+    from .transfer_out_detail_bill_attachment import TransferOutDetailBillAttachment
+    from .transfer_out_detail_check_data import TransferOutDetailCheckData
+    from .transfer_out_detail_event import TransferOutDetailEvent
+    from .transfer_out_detail_payment_data import TransferOutDetailPaymentData
+    from .transfer_out_detail_query_response import TransferOutDetailQueryResponse
+    from .transfer_out_detail_record import TransferOutDetailRecord
+    from .transfer_out_detail_vendor import TransferOutDetailVendor
+    from .transfer_out_detail_vendor_billing_data import TransferOutDetailVendorBillingData
+    from .transfer_out_event_data import TransferOutEventData
+    from .transfer_out_message import TransferOutMessage
+    from .transfer_out_message_properties import TransferOutMessageProperties
+    from .transfer_out_query_response import TransferOutQueryResponse
+    from .transfer_out_record import TransferOutRecord
+    from .transfer_out_summary import TransferOutSummary
     from .transfer_query_response import TransferQueryResponse
     from .transfer_summary import TransferSummary
     from .type_account import TypeAccount
+    from .type_result import TypeResult
     from .under_writing_method import UnderWritingMethod
-    from .underwriting_data import UnderwritingData
     from .underwriting_data_response import UnderwritingDataResponse
+    from .update_notification_request import UpdateNotificationRequest
+    from .update_payment_method_domain_request_wallet import UpdatePaymentMethodDomainRequestWallet
+    from .update_payout_subscription_response import UpdatePayoutSubscriptionResponse
+    from .update_subscription_response import UpdateSubscriptionResponse
     from .user_data import UserData
     from .user_query_record import UserQueryRecord
     from .usr_access import UsrAccess
     from .usr_status import UsrStatus
+    from .v_2_bad_request_error import V2BadRequestError
+    from .v_2_bad_request_error_detail import V2BadRequestErrorDetail
+    from .v_2_declined_transaction_response_wrapper import V2DeclinedTransactionResponseWrapper
+    from .v_2_internal_server_error import V2InternalServerError
+    from .v_2_response_action import V2ResponseAction
+    from .v_2_response_code import V2ResponseCode
+    from .v_2_response_explanation import V2ResponseExplanation
+    from .v_2_response_reason import V2ResponseReason
+    from .v_2_transaction_detail_response_data import V2TransactionDetailResponseData
+    from .v_2_transaction_details import V2TransactionDetails
+    from .v_2_transaction_response_wrapper import V2TransactionResponseWrapper
     from .v_card_card_type import VCardCardType
+    from .v_card_get_response import VCardGetResponse
+    from .v_card_get_response_associated_vendor import VCardGetResponseAssociatedVendor
+    from .v_card_get_response_associated_vendor_billing_data import VCardGetResponseAssociatedVendorBillingData
+    from .v_card_get_response_associated_vendor_summary import VCardGetResponseAssociatedVendorSummary
+    from .v_card_get_response_contact import VCardGetResponseContact
     from .v_card_query_response import VCardQueryResponse
     from .v_card_record import VCardRecord
     from .v_card_summary import VCardSummary
+    from .v_card_transaction_query_response import VCardTransactionQueryResponse
+    from .v_card_transaction_record import VCardTransactionRecord
+    from .validate_response import ValidateResponse
+    from .validate_response_data import ValidateResponseData
     from .value_templates import ValueTemplates
     from .vendor_check_number import VendorCheckNumber
     from .vendor_data import VendorData
+    from .vendor_data_request import VendorDataRequest
     from .vendor_data_response import VendorDataResponse
     from .vendor_data_response_payment_method import VendorDataResponsePaymentMethod
     from .vendor_ein import VendorEin
+    from .vendor_enrich_response import VendorEnrichResponse
+    from .vendor_enrich_response_data import VendorEnrichResponseData
+    from .vendor_enrichment_data import VendorEnrichmentData
+    from .vendor_enrichment_invoice_scan import VendorEnrichmentInvoiceScan
+    from .vendor_enrichment_web_search import VendorEnrichmentWebSearch
     from .vendor_name_1 import VendorName1
     from .vendor_name_2 import VendorName2
     from .vendor_number import VendorNumber
@@ -656,9 +860,13 @@ if typing.TYPE_CHECKING:
     from .vendor_summary import VendorSummary
     from .vendorid import Vendorid
     from .vendorstatus import Vendorstatus
+    from .verify_account_details_response import VerifyAccountDetailsResponse
     from .visible import Visible
+    from .void_response import VoidResponse
+    from .void_response_data import VoidResponseData
     from .wallet_cascade import WalletCascade
     from .wallet_is_enabled import WalletIsEnabled
+    from .web_header_parameter import WebHeaderParameter
     from .website import Website
     from .whencharged import Whencharged
     from .whendelivered import Whendelivered
@@ -676,7 +884,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AccountingField": ".accounting_field",
     "Accounttype": ".accounttype",
     "Accountzip": ".accountzip",
-    "Ach": ".ach",
     "AchAbsorbSection": ".ach_absorb_section",
     "AchAcceptanceElement": ".ach_acceptance_element",
     "AchFeeSection": ".ach_fee_section",
@@ -684,7 +891,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AchHolderType": ".ach_holder_type",
     "AchLinkTypes": ".ach_link_types",
     "AchPassThroughSection": ".ach_pass_through_section",
-    "AchPaymentMethod": ".ach_payment_method",
     "AchSecCode": ".ach_sec_code",
     "AchSection": ".ach_section",
     "AchService": ".ach_service",
@@ -696,13 +902,26 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Achaccount": ".achaccount",
     "Achaccounttype": ".achaccounttype",
     "Achrouting": ".achrouting",
+    "AddApplicationRequest": ".add_application_request",
+    "AddDeviceResponse": ".add_device_response",
+    "AddMethodResponse": ".add_method_response",
+    "AddMethodResponseResponseData": ".add_method_response_response_data",
+    "AddNotificationRequest": ".add_notification_request",
+    "AddOrganizationResponse": ".add_organization_response",
     "AddPaymentMethodDomainApiResponse": ".add_payment_method_domain_api_response",
+    "AddPaymentMethodDomainRequestApplePay": ".add_payment_method_domain_request_apple_pay",
+    "AddPaymentMethodDomainRequestGooglePay": ".add_payment_method_domain_request_google_pay",
+    "AddPayoutSubscriptionResponse": ".add_payout_subscription_response",
+    "AddResponseResponse": ".add_response_response",
+    "AddSubscriptionResponse": ".add_subscription_response",
+    "AddUserResponse": ".add_user_response",
     "AdditionalData": ".additional_data",
     "AdditionalDataMap": ".additional_data_map",
     "AdditionalDataString": ".additional_data_string",
     "AddressAddtlNullable": ".address_addtl_nullable",
     "AddressNullable": ".address_nullable",
     "AllowOverride": ".allow_override",
+    "AllowedCheckPaymentStatus": ".allowed_check_payment_status",
     "AmountElement": ".amount_element",
     "Annualrevenue": ".annualrevenue",
     "AppId": ".app_id",
@@ -733,7 +952,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AssociatedVendor": ".associated_vendor",
     "Attachments": ".attachments",
     "AttestationDate": ".attestation_date",
+    "AuthCapturePayoutResponse": ".auth_capture_payout_response",
+    "AuthCapturePayoutResponseData": ".auth_capture_payout_response_data",
+    "AuthResetUserResponse": ".auth_reset_user_response",
+    "AuthResponse": ".auth_response",
+    "AuthResponseResponseData": ".auth_response_response_data",
     "Authcode": ".authcode",
+    "AuthorizePaymentMethod": ".authorize_payment_method",
     "AutoCapture": ".auto_capture",
     "AutoElement": ".auto_element",
     "Avgmonthly": ".avgmonthly",
@@ -749,12 +974,15 @@ _dynamic_imports: typing.Dict[str, str] = {
     "BankAccountFunction": ".bank_account_function",
     "BankAccountHolderName": ".bank_account_holder_name",
     "BankAccountHolderType": ".bank_account_holder_type",
+    "BankAccountVerificationDetailsResponse": ".bank_account_verification_details_response",
     "BankData": ".bank_data",
     "BankName": ".bank_name",
     "BankNickname": ".bank_nickname",
     "BankSection": ".bank_section",
     "BasicTable": ".basic_table",
     "BasicTemplateElement": ".basic_template_element",
+    "BatchDetailResponseRecord": ".batch_detail_response_record",
+    "BatchDetailResponseSummary": ".batch_detail_response_summary",
     "BatchNumber": ".batch_number",
     "BatchSummary": ".batch_summary",
     "Bcity": ".bcity",
@@ -768,6 +996,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "BillId": ".bill_id",
     "BillItem": ".bill_item",
     "BillOptions": ".bill_options",
+    "BillOutData": ".bill_out_data",
+    "BillOutDataScheduledOptions": ".bill_out_data_scheduled_options",
+    "BillOutDataVendor": ".bill_out_data_vendor",
     "BillPayOutData": ".bill_pay_out_data",
     "BillPayOutDataRequest": ".bill_pay_out_data_request",
     "BillQueryRecord2": ".bill_query_record_2",
@@ -775,6 +1006,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "BillQueryRecord2PaymentMethod": ".bill_query_record_2_payment_method",
     "BillQueryResponse": ".bill_query_response",
     "BillQueryResponseSummary": ".bill_query_response_summary",
+    "BillResponse": ".bill_response",
+    "BillResponseData": ".bill_response_data",
     "BillingAddressAddtlNullable": ".billing_address_addtl_nullable",
     "BillingAddressNullable": ".billing_address_nullable",
     "BillingCityNullable": ".billing_city_nullable",
@@ -806,12 +1039,19 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Bstate": ".bstate",
     "Bsummary": ".bsummary",
     "BuilderData": ".builder_data",
+    "BulkRetryRequest": ".bulk_retry_request",
     "BusinessSection": ".business_section",
     "Busstartdate": ".busstartdate",
     "ButtonElement": ".button_element",
     "ButtonElementSize": ".button_element_size",
     "Bzip": ".bzip",
     "CList": ".c_list",
+    "CaptureAllOutResponse": ".capture_all_out_response",
+    "CaptureAllOutResponseResponseDataItem": ".capture_all_out_response_response_data_item",
+    "CapturePaymentDetails": ".capture_payment_details",
+    "CaptureRequest": ".capture_request",
+    "CaptureResponse": ".capture_response",
+    "CaptureResponseData": ".capture_response_data",
     "CardAcceptanceElement": ".card_acceptance_element",
     "CardFeeSection": ".card_fee_section",
     "CardFlatSection": ".card_flat_section",
@@ -821,6 +1061,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CardSection": ".card_section",
     "CardService": ".card_service",
     "CardSetup": ".card_setup",
+    "CardStatus": ".card_status",
     "CardType": ".card_type",
     "CardTypePass": ".card_type_pass",
     "CardTypes": ".card_types",
@@ -832,9 +1073,16 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Cascade": ".cascade",
     "CascadeJobDetails": ".cascade_job_details",
     "Cash": ".cash",
+    "CashMethod": ".cash_method",
     "Category": ".category",
+    "ChangePswUserResponse": ".change_psw_user_response",
+    "ChargeBackResponse": ".charge_back_response",
     "ChargebackId": ".chargeback_id",
+    "ChargebackMessage": ".chargeback_message",
+    "ChargebackQueryRecords": ".chargeback_query_records",
     "Check": ".check",
+    "CheckCaptureResponse": ".check_capture_response",
+    "CheckMethod": ".check_method",
     "CityNullable": ".city_nullable",
     "CloudQueryApiResponse": ".cloud_query_api_response",
     "Comments": ".comments",
@@ -845,7 +1093,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Contacts": ".contacts",
     "ContactsField": ".contacts_field",
     "ContactsResponse": ".contacts_response",
+    "ConvertToken": ".convert_token",
     "CountryNullable": ".country_nullable",
+    "CreateAnonymous": ".create_anonymous",
+    "CreateApplicationFromPaypointResponse": ".create_application_from_paypoint_response",
+    "CreateApplicationFromPaypointResponseData": ".create_application_from_paypoint_response_data",
+    "CreateGhostCardResponse": ".create_ghost_card_response",
+    "CreateGhostCardResponseData": ".create_ghost_card_response_data",
     "CreatedAt": ".created_at",
     "CustomerData": ".customer_data",
     "CustomerId": ".customer_id",
@@ -862,10 +1116,15 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CvvResponseText": ".cvv_response_text",
     "DSection": ".d_section",
     "Dbaname": ".dbaname",
+    "DeleteItemResponse": ".delete_item_response",
+    "DeleteOrganizationResponse": ".delete_organization_response",
+    "DeletePaymentMethodDomainResponse": ".delete_payment_method_domain_response",
+    "DeletePayoutSubscriptionResponse": ".delete_payout_subscription_response",
+    "DeleteUserResponse": ".delete_user_response",
     "DepositDate": ".deposit_date",
     "Descriptor": ".descriptor",
     "Device": ".device",
-    "DeviceId": ".device_id",
+    "DeviceQueryRecord": ".device_query_record",
     "Discount": ".discount",
     "DisplayProperty": ".display_property",
     "DocumentSection": ".document_section",
@@ -874,6 +1133,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DocumentsRef": ".documents_ref",
     "DomainName": ".domain_name",
     "DutyAmount": ".duty_amount",
+    "EditBillResponse": ".edit_bill_response",
+    "EditMfaUserResponse": ".edit_mfa_user_response",
+    "EditOrganizationResponse": ".edit_organization_response",
     "Ein": ".ein",
     "Element": ".element",
     "Email": ".email",
@@ -889,6 +1151,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ExpectedDepositDate": ".expected_deposit_date",
     "ExpectedProcessingDateTime": ".expected_processing_date_time",
     "ExportFormat": ".export_format",
+    "ExportFormat1": ".export_format_1",
     "ExternalPaypointId": ".external_paypoint_id",
     "ExternalProcessorInformation": ".external_processor_information",
     "FaxNumber": ".fax_number",
@@ -896,6 +1159,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "File": ".file",
     "FileContent": ".file_content",
     "FileContentFtype": ".file_content_ftype",
+    "FileContentImageOnly": ".file_content_image_only",
     "Finishtype": ".finishtype",
     "ForceCustomerCreation": ".force_customer_creation",
     "FreightAmount": ".freight_amount",
@@ -904,6 +1168,19 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Frequencynotification": ".frequencynotification",
     "Gatewayfield": ".gatewayfield",
     "GeneralEvents": ".general_events",
+    "GetBasicEntryByIdResponse": ".get_basic_entry_by_id_response",
+    "GetBasicEntryResponse": ".get_basic_entry_response",
+    "GetBillResponse": ".get_bill_response",
+    "GetEntryConfigResponse": ".get_entry_config_response",
+    "GetInvoiceRecord": ".get_invoice_record",
+    "GetMethodResponse": ".get_method_response",
+    "GetMethodResponseResponseData": ".get_method_response_response_data",
+    "GetMethodResponseResponseDataCustomersItem": ".get_method_response_response_data_customers_item",
+    "GetMethodResponseResponseDataVendorsItem": ".get_method_response_response_data_vendors_item",
+    "GetPaidResponseData": ".get_paid_response_data",
+    "GetPayLinkFromIdResponse": ".get_pay_link_from_id_response",
+    "GetPayLinkFromIdResponseResponseData": ".get_pay_link_from_id_response_response_data",
+    "GetPayoutSubscriptionResponse": ".get_payout_subscription_response",
     "GooglePayData": ".google_pay_data",
     "GooglePayMetadata": ".google_pay_metadata",
     "GooglePayPaypointRegistrationData": ".google_pay_paypoint_registration_data",
@@ -921,8 +1198,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Instrument": ".instrument",
     "InternalReferenceId": ".internal_reference_id",
     "InvoiceAmount": ".invoice_amount",
+    "InvoiceDataRequest": ".invoice_data_request",
     "InvoiceElement": ".invoice_element",
+    "InvoiceId": ".invoice_id",
     "InvoiceNumber": ".invoice_number",
+    "InvoiceNumberResponse": ".invoice_number_response",
+    "InvoicePaidAmount": ".invoice_paid_amount",
+    "InvoiceResponseWithoutData": ".invoice_response_without_data",
     "InvoiceType": ".invoice_type",
     "Invoicestatus": ".invoicestatus",
     "IpAddress": ".ip_address",
@@ -938,6 +1220,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "JobId": ".job_id",
     "JobStatus": ".job_status",
     "KeyValue": ".key_value",
+    "KeyValueArray": ".key_value_array",
     "KeyValueDuo": ".key_value_duo",
     "LabelElement": ".label_element",
     "Language": ".language",
@@ -945,11 +1228,16 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Legalname": ".legalname",
     "License": ".license",
     "Licensestate": ".licensestate",
+    "LimitRecord": ".limit_record",
     "LineItem": ".line_item",
     "LineItemQueryRecord": ".line_item_query_record",
     "LinkData": ".link_data",
     "LinkRow": ".link_row",
+    "ListOrganizationsResponse": ".list_organizations_response",
+    "ListPaymentMethodDomainsResponse": ".list_payment_method_domains_response",
     "LocationCode": ".location_code",
+    "LogoutUserResponse": ".logout_user_response",
+    "LotNumber": ".lot_number",
     "Maddress": ".maddress",
     "Maddress1": ".maddress_1",
     "Maskedaccount": ".maskedaccount",
@@ -958,6 +1246,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Mcity": ".mcity",
     "Mcountry": ".mcountry",
     "MethodElement": ".method_element",
+    "MethodElementOut": ".method_element_out",
     "MethodElementSettings": ".method_element_settings",
     "MethodElementSettingsApplePay": ".method_element_settings_apple_pay",
     "MethodElementSettingsApplePayButtonStyle": ".method_element_settings_apple_pay_button_style",
@@ -968,11 +1257,14 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Methodall": ".methodall",
     "Methodnotification": ".methodnotification",
     "MethodsList": ".methods_list",
+    "MethodsListOut": ".methods_list_out",
     "Mfa": ".mfa",
     "MfaData": ".mfa_data",
     "MfaMode": ".mfa_mode",
     "MfaValidationCode": ".mfa_validation_code",
+    "MigratePaypointResponse": ".migrate_paypoint_response",
     "MinTicket": ".min_ticket",
+    "ModifyApprovalBillResponse": ".modify_approval_bill_response",
     "Mstate": ".mstate",
     "Mzip": ".mzip",
     "NameUser": ".name_user",
@@ -984,13 +1276,17 @@ _dynamic_imports: typing.Dict[str, str] = {
     "NotificationContentFileFormat": ".notification_content_file_format",
     "NotificationContentReportName": ".notification_content_report_name",
     "NotificationId": ".notification_id",
+    "NotificationLog": ".notification_log",
+    "NotificationLogDetail": ".notification_log_detail",
     "NotificationQueryRecord": ".notification_query_record",
     "NotificationReportRequest": ".notification_report_request",
     "NotificationReportRequestContent": ".notification_report_request_content",
+    "NotificationReportRequestContentEventType": ".notification_report_request_content_event_type",
     "NotificationReportRequestContentFileFormat": ".notification_report_request_content_file_format",
     "NotificationReportRequestContentReportName": ".notification_report_request_content_report_name",
     "NotificationReportRequestFrequency": ".notification_report_request_frequency",
     "NotificationReportRequestMethod": ".notification_report_request_method",
+    "NotificationRequest": ".notification_request",
     "NotificationStandardRequest": ".notification_standard_request",
     "NotificationStandardRequestContent": ".notification_standard_request_content",
     "NotificationStandardRequestContentEventType": ".notification_standard_request_content_event_type",
@@ -998,10 +1294,19 @@ _dynamic_imports: typing.Dict[str, str] = {
     "NotificationStandardRequestMethod": ".notification_standard_request_method",
     "OList": ".o_list",
     "OSection": ".o_section",
+    "OcrAttachment": ".ocr_attachment",
+    "OcrBillItem": ".ocr_bill_item",
+    "OcrBillItemAdditionalData": ".ocr_bill_item_additional_data",
+    "OcrResponseData": ".ocr_response_data",
+    "OcrResultData": ".ocr_result_data",
+    "OcrVendor": ".ocr_vendor",
+    "OcrVendorAdditionalData": ".ocr_vendor_additional_data",
+    "OcrVendorBillingData": ".ocr_vendor_billing_data",
     "OdpSetup": ".odp_setup",
     "OdpSetupProcessingRegion": ".odp_setup_processing_region",
     "OnCreate": ".on_create",
     "Operation": ".operation",
+    "OperationResult": ".operation_result",
     "OptinStatus": ".optin_status",
     "Order": ".order",
     "OrderId": ".order_id",
@@ -1045,9 +1350,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PairFiles": ".pair_files",
     "PayCategory": ".pay_category",
     "PayMethodAch": ".pay_method_ach",
+    "PayMethodAchMethod": ".pay_method_ach_method",
     "PayMethodBodyAllFields": ".pay_method_body_all_fields",
     "PayMethodCloud": ".pay_method_cloud",
+    "PayMethodCloudMethod": ".pay_method_cloud_method",
     "PayMethodCredit": ".pay_method_credit",
+    "PayMethodCreditMethod": ".pay_method_credit_method",
     "PayMethodStoredMethod": ".pay_method_stored_method",
     "PayMethodStoredMethodMethod": ".pay_method_stored_method_method",
     "PayabliApiResponse": ".payabli_api_response",
@@ -1058,15 +1366,15 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PayabliApiResponse0ResponseData": ".payabli_api_response_0_response_data",
     "PayabliApiResponse6": ".payabli_api_response_6",
     "PayabliApiResponseCustomerQuery": ".payabli_api_response_customer_query",
-    "PayabliApiResponseError400": ".payabli_api_response_error_400",
-    "PayabliApiResponseError400ResponseData": ".payabli_api_response_error_400_response_data",
     "PayabliApiResponseGeneric2Part": ".payabli_api_response_generic_2_part",
+    "PayabliApiResponseGetPaid": ".payabli_api_response_get_paid",
     "PayabliApiResponseImport": ".payabli_api_response_import",
     "PayabliApiResponseImportResponseData": ".payabli_api_response_import_response_data",
     "PayabliApiResponseMfaBasic": ".payabli_api_response_mfa_basic",
     "PayabliApiResponseNotifications": ".payabli_api_response_notifications",
     "PayabliApiResponseNotificationsResponseData": ".payabli_api_response_notifications_response_data",
-    "PayabliApiResponsePaylinks": ".payabli_api_response_paylinks",
+    "PayabliApiResponseOcr": ".payabli_api_response_ocr",
+    "PayabliApiResponsePaymentLinks": ".payabli_api_response_payment_links",
     "PayabliApiResponsePaymethodDelete": ".payabli_api_response_paymethod_delete",
     "PayabliApiResponsePaymethodDeleteResponseData": ".payabli_api_response_paymethod_delete_response_data",
     "PayabliApiResponseTemplateId": ".payabli_api_response_template_id",
@@ -1074,6 +1382,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PayabliApiResponseVendors": ".payabli_api_response_vendors",
     "PayabliCredentials": ".payabli_credentials",
     "PayabliCredentialsPascal": ".payabli_credentials_pascal",
+    "PayabliErrorBody": ".payabli_error_body",
+    "PayabliErrorBodyResponseData": ".payabli_error_body_response_data",
     "PayabliPages": ".payabli_pages",
     "PayeeName": ".payee_name",
     "PaylinkId": ".paylink_id",
@@ -1081,12 +1391,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaymentDetail": ".payment_detail",
     "PaymentDetailCredit": ".payment_detail_credit",
     "PaymentIdString": ".payment_id_string",
+    "PaymentLinkStatus": ".payment_link_status",
     "PaymentMethod": ".payment_method",
     "PaymentMethodDomainApiResponse": ".payment_method_domain_api_response",
     "PaymentMethodDomainGeneralResponse": ".payment_method_domain_general_response",
     "PaymentMethodDomainId": ".payment_method_domain_id",
-    "PaymentTransStatusDescription": ".payment_trans_status_description",
-    "Paymentid": ".paymentid",
+    "PaymentPageRequestBodyOut": ".payment_page_request_body_out",
     "PayorDataRequest": ".payor_data_request",
     "PayorDataResponse": ".payor_data_response",
     "PayorElement": ".payor_element",
@@ -1097,7 +1407,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PayoutCreditLimit": ".payout_credit_limit",
     "PayoutGatewayConnector": ".payout_gateway_connector",
     "PayoutHighTicketAmount": ".payout_high_ticket_amount",
+    "PayoutPaymentDetail": ".payout_payment_detail",
     "PayoutProgram": ".payout_program",
+    "PayoutScheduleDetail": ".payout_schedule_detail",
+    "PayoutSetPause": ".payout_set_pause",
+    "PayoutSubscriptionQueryRecord": ".payout_subscription_query_record",
+    "PayoutSubscriptionQueryRecordPascal": ".payout_subscription_query_record_pascal",
     "PaypointData": ".paypoint_data",
     "PaypointEntryConfig": ".paypoint_entry_config",
     "PaypointId": ".paypoint_id",
@@ -1118,8 +1433,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PushPayLinkRequestSms": ".push_pay_link_request_sms",
     "PushPayLinkRequest_Email": ".push_pay_link_request",
     "PushPayLinkRequest_Sms": ".push_pay_link_request",
+    "QueryBatchesDetailResponse": ".query_batches_detail_response",
     "QueryBatchesOutResponse": ".query_batches_out_response",
     "QueryBatchesOutResponseRecordsItem": ".query_batches_out_response_records_item",
+    "QueryBatchesResponse": ".query_batches_response",
+    "QueryBatchesResponseRecordsItem": ".query_batches_response_records_item",
+    "QueryBatchesTransfer": ".query_batches_transfer",
     "QueryBoardingAppsListResponse": ".query_boarding_apps_list_response",
     "QueryBoardingLinksResponse": ".query_boarding_links_response",
     "QueryBoardingLinksResponseRecordsItem": ".query_boarding_links_response_records_item",
@@ -1127,14 +1446,17 @@ _dynamic_imports: typing.Dict[str, str] = {
     "QueryChargebacksResponse": ".query_chargebacks_response",
     "QueryChargebacksResponseRecordsItem": ".query_chargebacks_response_records_item",
     "QueryCustomerResponse": ".query_customer_response",
+    "QueryDeviceResponse": ".query_device_response",
     "QueryEntrypointResponse": ".query_entrypoint_response",
     "QueryEntrypointResponseRecordsItem": ".query_entrypoint_response_records_item",
+    "QueryInvoiceResponse": ".query_invoice_response",
+    "QueryInvoiceResponseRecordsItem": ".query_invoice_response_records_item",
     "QueryPaymentData": ".query_payment_data",
+    "QueryPayoutSubscriptionResponse": ".query_payout_subscription_response",
     "QueryPayoutTransaction": ".query_payout_transaction",
     "QueryPayoutTransactionRecordsItem": ".query_payout_transaction_records_item",
     "QueryPayoutTransactionRecordsItemPaymentData": ".query_payout_transaction_records_item_payment_data",
     "QueryPayoutTransactionSummary": ".query_payout_transaction_summary",
-    "QueryResponse": ".query_response",
     "QueryResponseData": ".query_response_data",
     "QueryResponseItems": ".query_response_items",
     "QueryResponseItemsRecordsItem": ".query_response_items_records_item",
@@ -1154,15 +1476,23 @@ _dynamic_imports: typing.Dict[str, str] = {
     "QueryTransactionEventsEventData": ".query_transaction_events_event_data",
     "QueryTransactionPayorData": ".query_transaction_payor_data",
     "QueryTransactionPayorDataCustomer": ".query_transaction_payor_data_customer",
+    "QueryTransferDetailResponse": ".query_transfer_detail_response",
+    "QueryTransferSummary": ".query_transfer_summary",
     "QueryUserResponse": ".query_user_response",
     "ReadOnly": ".read_only",
     "ReceiptContent": ".receipt_content",
+    "ReceiptResponse": ".receipt_response",
     "RecipientEmailNotification": ".recipient_email_notification",
     "ReferenceName": ".reference_name",
     "ReferenceTemplateId": ".reference_template_id",
     "Referenceidtrans": ".referenceidtrans",
     "RefundDetail": ".refund_detail",
     "RefundId": ".refund_id",
+    "RefundResponse": ".refund_response",
+    "RefundWithInstructionsResponse": ".refund_with_instructions_response",
+    "ReissuePaymentMethod": ".reissue_payment_method",
+    "ReissuePayoutResponse": ".reissue_payout_response",
+    "ReissuePayoutResponseData": ".reissue_payout_response_data",
     "RemitEmail": ".remit_email",
     "Remitaddress1": ".remitaddress_1",
     "Remitaddress2": ".remitaddress_2",
@@ -1170,12 +1500,27 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Remitcountry": ".remitcountry",
     "Remitstate": ".remitstate",
     "Remitzip": ".remitzip",
+    "RemoveDeviceResponse": ".remove_device_response",
+    "RemoveSubscriptionResponse": ".remove_subscription_response",
     "RepCode": ".rep_code",
     "RepName": ".rep_name",
     "RepOffice": ".rep_office",
     "ReplyToEmail": ".reply_to_email",
     "Replyby": ".replyby",
+    "RequestCreditPaymentMethod": ".request_credit_payment_method",
+    "RequestCreditPaymentMethodMethod": ".request_credit_payment_method_method",
+    "RequestOutAuthorizeInvoiceData": ".request_out_authorize_invoice_data",
+    "RequestOutAuthorizePaymentDetails": ".request_out_authorize_payment_details",
+    "RequestOutAuthorizeVendorBillingData": ".request_out_authorize_vendor_billing_data",
+    "RequestOutAuthorizeVendorData": ".request_out_authorize_vendor_data",
+    "RequestPaymentValidatePaymentMethod": ".request_payment_validate_payment_method",
+    "RequestPaymentValidatePaymentMethodMethod": ".request_payment_validate_payment_method_method",
+    "RequestSchedulePaymentMethod": ".request_schedule_payment_method",
+    "RequestSchedulePaymentMethodInitiator": ".request_schedule_payment_method_initiator",
+    "RequestTokenStorage": ".request_token_storage",
+    "RequestTokenStoragePaymentMethod": ".request_token_storage_payment_method",
     "RequiredElement": ".required_element",
+    "ResponseDataRefunds": ".response_data_refunds",
     "ResponseText": ".response_text",
     "Responsecode": ".responsecode",
     "Responsedata": ".responsedata",
@@ -1187,6 +1532,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Resumable": ".resumable",
     "RetrievalId": ".retrieval_id",
     "ReturnedId": ".returned_id",
+    "ReverseResponse": ".reverse_response",
     "RiskAction": ".risk_action",
     "RiskActionCode": ".risk_action_code",
     "RiskFlagged": ".risk_flagged",
@@ -1201,10 +1547,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SaveIfSuccess": ".save_if_success",
     "ScheduleDetail": ".schedule_detail",
     "ScheduleId": ".schedule_id",
+    "SendInvoiceResponse": ".send_invoice_response",
     "Sequence": ".sequence",
     "ServiceCost": ".service_cost",
     "Services": ".services",
     "ServicesSection": ".services_section",
+    "SetApprovedBillResponse": ".set_approved_bill_response",
+    "SetPause": ".set_pause",
     "SettingElement": ".setting_element",
     "SettingsQueryRecord": ".settings_query_record",
     "SettlementStatus": ".settlement_status",
@@ -1238,15 +1587,21 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SplitFunding": ".split_funding",
     "SplitFundingContent": ".split_funding_content",
     "SplitFundingRefundContent": ".split_funding_refund_content",
+    "StatBasicExtendedQueryRecord": ".stat_basic_extended_query_record",
+    "StatBasicQueryRecord": ".stat_basic_query_record",
     "StateNullable": ".state_nullable",
     "StatementEmailConfig": ".statement_email_config",
+    "StatisticsVendorQueryRecord": ".statistics_vendor_query_record",
     "Statusnotification": ".statusnotification",
     "StoredMethodUsageType": ".stored_method_usage_type",
     "Storedmethodid": ".storedmethodid",
+    "StringStringKeyValuePair": ".string_string_key_value_pair",
     "SubFooter": ".sub_footer",
     "SubHeader": ".sub_header",
     "Subdomain": ".subdomain",
     "SubscriptionQueryRecords": ".subscription_query_records",
+    "SubscriptionStatsQueryRecord": ".subscription_stats_query_record",
+    "SubscriptionType": ".subscription_type",
     "Subscriptionid": ".subscriptionid",
     "SummaryCommodityCode": ".summary_commodity_code",
     "SummaryOrg": ".summary_org",
@@ -1256,52 +1611,109 @@ _dynamic_imports: typing.Dict[str, str] = {
     "TemplateAdditionalDataField": ".template_additional_data_field",
     "TemplateAdditionalDataSection": ".template_additional_data_section",
     "TemplateCode": ".template_code",
-    "TemplateContent": ".template_content",
     "TemplateContentResponse": ".template_content_response",
-    "TemplateData": ".template_data",
     "TemplateElement": ".template_element",
     "TemplateId": ".template_id",
     "TemplateName": ".template_name",
     "TemplateQueryRecord": ".template_query_record",
     "TemplateQueryResponse": ".template_query_response",
+    "Temporary": ".temporary",
     "Terms": ".terms",
     "TermsConditions": ".terms_conditions",
     "Ticketamt": ".ticketamt",
     "TierItem": ".tier_item",
     "TierItemPass": ".tier_item_pass",
     "Timezone": ".timezone",
+    "TokenizeAch": ".tokenize_ach",
+    "TokenizeCard": ".tokenize_card",
     "Totalpages": ".totalpages",
     "Totalrecords": ".totalrecords",
+    "TransRequestBody": ".trans_request_body",
     "TransStatus": ".trans_status",
+    "TransactionDetailCustomer": ".transaction_detail_customer",
+    "TransactionDetailEvent": ".transaction_detail_event",
+    "TransactionDetailInvoiceData": ".transaction_detail_invoice_data",
+    "TransactionDetailPaymentData": ".transaction_detail_payment_data",
+    "TransactionDetailPaymentDetails": ".transaction_detail_payment_details",
+    "TransactionDetailRecord": ".transaction_detail_record",
+    "TransactionDetailRecordMethod": ".transaction_detail_record_method",
+    "TransactionDetailResponseData": ".transaction_detail_response_data",
     "TransactionOutQueryRecord": ".transaction_out_query_record",
     "TransactionQueryRecords": ".transaction_query_records",
     "TransactionQueryRecordsCustomer": ".transaction_query_records_customer",
     "TransactionTime": ".transaction_time",
     "Transfer": ".transfer",
     "TransferBankAccount": ".transfer_bank_account",
+    "TransferDetailRecord": ".transfer_detail_record",
     "TransferIdentifier": ".transfer_identifier",
     "TransferMessage": ".transfer_message",
     "TransferMessageProperties": ".transfer_message_properties",
+    "TransferOutBankAccount": ".transfer_out_bank_account",
+    "TransferOutDetailBill": ".transfer_out_detail_bill",
+    "TransferOutDetailBillAttachment": ".transfer_out_detail_bill_attachment",
+    "TransferOutDetailCheckData": ".transfer_out_detail_check_data",
+    "TransferOutDetailEvent": ".transfer_out_detail_event",
+    "TransferOutDetailPaymentData": ".transfer_out_detail_payment_data",
+    "TransferOutDetailQueryResponse": ".transfer_out_detail_query_response",
+    "TransferOutDetailRecord": ".transfer_out_detail_record",
+    "TransferOutDetailVendor": ".transfer_out_detail_vendor",
+    "TransferOutDetailVendorBillingData": ".transfer_out_detail_vendor_billing_data",
+    "TransferOutEventData": ".transfer_out_event_data",
+    "TransferOutMessage": ".transfer_out_message",
+    "TransferOutMessageProperties": ".transfer_out_message_properties",
+    "TransferOutQueryResponse": ".transfer_out_query_response",
+    "TransferOutRecord": ".transfer_out_record",
+    "TransferOutSummary": ".transfer_out_summary",
     "TransferQueryResponse": ".transfer_query_response",
     "TransferSummary": ".transfer_summary",
     "TypeAccount": ".type_account",
+    "TypeResult": ".type_result",
     "UnderWritingMethod": ".under_writing_method",
-    "UnderwritingData": ".underwriting_data",
     "UnderwritingDataResponse": ".underwriting_data_response",
+    "UpdateNotificationRequest": ".update_notification_request",
+    "UpdatePaymentMethodDomainRequestWallet": ".update_payment_method_domain_request_wallet",
+    "UpdatePayoutSubscriptionResponse": ".update_payout_subscription_response",
+    "UpdateSubscriptionResponse": ".update_subscription_response",
     "UserData": ".user_data",
     "UserQueryRecord": ".user_query_record",
     "UsrAccess": ".usr_access",
     "UsrStatus": ".usr_status",
+    "V2BadRequestError": ".v_2_bad_request_error",
+    "V2BadRequestErrorDetail": ".v_2_bad_request_error_detail",
+    "V2DeclinedTransactionResponseWrapper": ".v_2_declined_transaction_response_wrapper",
+    "V2InternalServerError": ".v_2_internal_server_error",
+    "V2ResponseAction": ".v_2_response_action",
+    "V2ResponseCode": ".v_2_response_code",
+    "V2ResponseExplanation": ".v_2_response_explanation",
+    "V2ResponseReason": ".v_2_response_reason",
+    "V2TransactionDetailResponseData": ".v_2_transaction_detail_response_data",
+    "V2TransactionDetails": ".v_2_transaction_details",
+    "V2TransactionResponseWrapper": ".v_2_transaction_response_wrapper",
     "VCardCardType": ".v_card_card_type",
+    "VCardGetResponse": ".v_card_get_response",
+    "VCardGetResponseAssociatedVendor": ".v_card_get_response_associated_vendor",
+    "VCardGetResponseAssociatedVendorBillingData": ".v_card_get_response_associated_vendor_billing_data",
+    "VCardGetResponseAssociatedVendorSummary": ".v_card_get_response_associated_vendor_summary",
+    "VCardGetResponseContact": ".v_card_get_response_contact",
     "VCardQueryResponse": ".v_card_query_response",
     "VCardRecord": ".v_card_record",
     "VCardSummary": ".v_card_summary",
+    "VCardTransactionQueryResponse": ".v_card_transaction_query_response",
+    "VCardTransactionRecord": ".v_card_transaction_record",
+    "ValidateResponse": ".validate_response",
+    "ValidateResponseData": ".validate_response_data",
     "ValueTemplates": ".value_templates",
     "VendorCheckNumber": ".vendor_check_number",
     "VendorData": ".vendor_data",
+    "VendorDataRequest": ".vendor_data_request",
     "VendorDataResponse": ".vendor_data_response",
     "VendorDataResponsePaymentMethod": ".vendor_data_response_payment_method",
     "VendorEin": ".vendor_ein",
+    "VendorEnrichResponse": ".vendor_enrich_response",
+    "VendorEnrichResponseData": ".vendor_enrich_response_data",
+    "VendorEnrichmentData": ".vendor_enrichment_data",
+    "VendorEnrichmentInvoiceScan": ".vendor_enrichment_invoice_scan",
+    "VendorEnrichmentWebSearch": ".vendor_enrichment_web_search",
     "VendorName1": ".vendor_name_1",
     "VendorName2": ".vendor_name_2",
     "VendorNumber": ".vendor_number",
@@ -1316,9 +1728,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "VendorSummary": ".vendor_summary",
     "Vendorid": ".vendorid",
     "Vendorstatus": ".vendorstatus",
+    "VerifyAccountDetailsResponse": ".verify_account_details_response",
     "Visible": ".visible",
+    "VoidResponse": ".void_response",
+    "VoidResponseData": ".void_response_data",
     "WalletCascade": ".wallet_cascade",
     "WalletIsEnabled": ".wallet_is_enabled",
+    "WebHeaderParameter": ".web_header_parameter",
     "Website": ".website",
     "Whencharged": ".whencharged",
     "Whendelivered": ".whendelivered",
@@ -1360,7 +1776,6 @@ __all__ = [
     "AccountingField",
     "Accounttype",
     "Accountzip",
-    "Ach",
     "AchAbsorbSection",
     "AchAcceptanceElement",
     "AchFeeSection",
@@ -1368,7 +1783,6 @@ __all__ = [
     "AchHolderType",
     "AchLinkTypes",
     "AchPassThroughSection",
-    "AchPaymentMethod",
     "AchSecCode",
     "AchSection",
     "AchService",
@@ -1380,13 +1794,26 @@ __all__ = [
     "Achaccount",
     "Achaccounttype",
     "Achrouting",
+    "AddApplicationRequest",
+    "AddDeviceResponse",
+    "AddMethodResponse",
+    "AddMethodResponseResponseData",
+    "AddNotificationRequest",
+    "AddOrganizationResponse",
     "AddPaymentMethodDomainApiResponse",
+    "AddPaymentMethodDomainRequestApplePay",
+    "AddPaymentMethodDomainRequestGooglePay",
+    "AddPayoutSubscriptionResponse",
+    "AddResponseResponse",
+    "AddSubscriptionResponse",
+    "AddUserResponse",
     "AdditionalData",
     "AdditionalDataMap",
     "AdditionalDataString",
     "AddressAddtlNullable",
     "AddressNullable",
     "AllowOverride",
+    "AllowedCheckPaymentStatus",
     "AmountElement",
     "Annualrevenue",
     "AppId",
@@ -1417,7 +1844,13 @@ __all__ = [
     "AssociatedVendor",
     "Attachments",
     "AttestationDate",
+    "AuthCapturePayoutResponse",
+    "AuthCapturePayoutResponseData",
+    "AuthResetUserResponse",
+    "AuthResponse",
+    "AuthResponseResponseData",
     "Authcode",
+    "AuthorizePaymentMethod",
     "AutoCapture",
     "AutoElement",
     "Avgmonthly",
@@ -1433,12 +1866,15 @@ __all__ = [
     "BankAccountFunction",
     "BankAccountHolderName",
     "BankAccountHolderType",
+    "BankAccountVerificationDetailsResponse",
     "BankData",
     "BankName",
     "BankNickname",
     "BankSection",
     "BasicTable",
     "BasicTemplateElement",
+    "BatchDetailResponseRecord",
+    "BatchDetailResponseSummary",
     "BatchNumber",
     "BatchSummary",
     "Bcity",
@@ -1452,6 +1888,9 @@ __all__ = [
     "BillId",
     "BillItem",
     "BillOptions",
+    "BillOutData",
+    "BillOutDataScheduledOptions",
+    "BillOutDataVendor",
     "BillPayOutData",
     "BillPayOutDataRequest",
     "BillQueryRecord2",
@@ -1459,6 +1898,8 @@ __all__ = [
     "BillQueryRecord2PaymentMethod",
     "BillQueryResponse",
     "BillQueryResponseSummary",
+    "BillResponse",
+    "BillResponseData",
     "BillingAddressAddtlNullable",
     "BillingAddressNullable",
     "BillingCityNullable",
@@ -1490,12 +1931,19 @@ __all__ = [
     "Bstate",
     "Bsummary",
     "BuilderData",
+    "BulkRetryRequest",
     "BusinessSection",
     "Busstartdate",
     "ButtonElement",
     "ButtonElementSize",
     "Bzip",
     "CList",
+    "CaptureAllOutResponse",
+    "CaptureAllOutResponseResponseDataItem",
+    "CapturePaymentDetails",
+    "CaptureRequest",
+    "CaptureResponse",
+    "CaptureResponseData",
     "CardAcceptanceElement",
     "CardFeeSection",
     "CardFlatSection",
@@ -1505,6 +1953,7 @@ __all__ = [
     "CardSection",
     "CardService",
     "CardSetup",
+    "CardStatus",
     "CardType",
     "CardTypePass",
     "CardTypes",
@@ -1516,9 +1965,16 @@ __all__ = [
     "Cascade",
     "CascadeJobDetails",
     "Cash",
+    "CashMethod",
     "Category",
+    "ChangePswUserResponse",
+    "ChargeBackResponse",
     "ChargebackId",
+    "ChargebackMessage",
+    "ChargebackQueryRecords",
     "Check",
+    "CheckCaptureResponse",
+    "CheckMethod",
     "CityNullable",
     "CloudQueryApiResponse",
     "Comments",
@@ -1529,7 +1985,13 @@ __all__ = [
     "Contacts",
     "ContactsField",
     "ContactsResponse",
+    "ConvertToken",
     "CountryNullable",
+    "CreateAnonymous",
+    "CreateApplicationFromPaypointResponse",
+    "CreateApplicationFromPaypointResponseData",
+    "CreateGhostCardResponse",
+    "CreateGhostCardResponseData",
     "CreatedAt",
     "CustomerData",
     "CustomerId",
@@ -1546,10 +2008,15 @@ __all__ = [
     "CvvResponseText",
     "DSection",
     "Dbaname",
+    "DeleteItemResponse",
+    "DeleteOrganizationResponse",
+    "DeletePaymentMethodDomainResponse",
+    "DeletePayoutSubscriptionResponse",
+    "DeleteUserResponse",
     "DepositDate",
     "Descriptor",
     "Device",
-    "DeviceId",
+    "DeviceQueryRecord",
     "Discount",
     "DisplayProperty",
     "DocumentSection",
@@ -1558,6 +2025,9 @@ __all__ = [
     "DocumentsRef",
     "DomainName",
     "DutyAmount",
+    "EditBillResponse",
+    "EditMfaUserResponse",
+    "EditOrganizationResponse",
     "Ein",
     "Element",
     "Email",
@@ -1573,6 +2043,7 @@ __all__ = [
     "ExpectedDepositDate",
     "ExpectedProcessingDateTime",
     "ExportFormat",
+    "ExportFormat1",
     "ExternalPaypointId",
     "ExternalProcessorInformation",
     "FaxNumber",
@@ -1580,6 +2051,7 @@ __all__ = [
     "File",
     "FileContent",
     "FileContentFtype",
+    "FileContentImageOnly",
     "Finishtype",
     "ForceCustomerCreation",
     "FreightAmount",
@@ -1588,6 +2060,19 @@ __all__ = [
     "Frequencynotification",
     "Gatewayfield",
     "GeneralEvents",
+    "GetBasicEntryByIdResponse",
+    "GetBasicEntryResponse",
+    "GetBillResponse",
+    "GetEntryConfigResponse",
+    "GetInvoiceRecord",
+    "GetMethodResponse",
+    "GetMethodResponseResponseData",
+    "GetMethodResponseResponseDataCustomersItem",
+    "GetMethodResponseResponseDataVendorsItem",
+    "GetPaidResponseData",
+    "GetPayLinkFromIdResponse",
+    "GetPayLinkFromIdResponseResponseData",
+    "GetPayoutSubscriptionResponse",
     "GooglePayData",
     "GooglePayMetadata",
     "GooglePayPaypointRegistrationData",
@@ -1605,8 +2090,13 @@ __all__ = [
     "Instrument",
     "InternalReferenceId",
     "InvoiceAmount",
+    "InvoiceDataRequest",
     "InvoiceElement",
+    "InvoiceId",
     "InvoiceNumber",
+    "InvoiceNumberResponse",
+    "InvoicePaidAmount",
+    "InvoiceResponseWithoutData",
     "InvoiceType",
     "Invoicestatus",
     "IpAddress",
@@ -1622,6 +2112,7 @@ __all__ = [
     "JobId",
     "JobStatus",
     "KeyValue",
+    "KeyValueArray",
     "KeyValueDuo",
     "LabelElement",
     "Language",
@@ -1629,11 +2120,16 @@ __all__ = [
     "Legalname",
     "License",
     "Licensestate",
+    "LimitRecord",
     "LineItem",
     "LineItemQueryRecord",
     "LinkData",
     "LinkRow",
+    "ListOrganizationsResponse",
+    "ListPaymentMethodDomainsResponse",
     "LocationCode",
+    "LogoutUserResponse",
+    "LotNumber",
     "Maddress",
     "Maddress1",
     "Maskedaccount",
@@ -1642,6 +2138,7 @@ __all__ = [
     "Mcity",
     "Mcountry",
     "MethodElement",
+    "MethodElementOut",
     "MethodElementSettings",
     "MethodElementSettingsApplePay",
     "MethodElementSettingsApplePayButtonStyle",
@@ -1652,11 +2149,14 @@ __all__ = [
     "Methodall",
     "Methodnotification",
     "MethodsList",
+    "MethodsListOut",
     "Mfa",
     "MfaData",
     "MfaMode",
     "MfaValidationCode",
+    "MigratePaypointResponse",
     "MinTicket",
+    "ModifyApprovalBillResponse",
     "Mstate",
     "Mzip",
     "NameUser",
@@ -1668,13 +2168,17 @@ __all__ = [
     "NotificationContentFileFormat",
     "NotificationContentReportName",
     "NotificationId",
+    "NotificationLog",
+    "NotificationLogDetail",
     "NotificationQueryRecord",
     "NotificationReportRequest",
     "NotificationReportRequestContent",
+    "NotificationReportRequestContentEventType",
     "NotificationReportRequestContentFileFormat",
     "NotificationReportRequestContentReportName",
     "NotificationReportRequestFrequency",
     "NotificationReportRequestMethod",
+    "NotificationRequest",
     "NotificationStandardRequest",
     "NotificationStandardRequestContent",
     "NotificationStandardRequestContentEventType",
@@ -1682,10 +2186,19 @@ __all__ = [
     "NotificationStandardRequestMethod",
     "OList",
     "OSection",
+    "OcrAttachment",
+    "OcrBillItem",
+    "OcrBillItemAdditionalData",
+    "OcrResponseData",
+    "OcrResultData",
+    "OcrVendor",
+    "OcrVendorAdditionalData",
+    "OcrVendorBillingData",
     "OdpSetup",
     "OdpSetupProcessingRegion",
     "OnCreate",
     "Operation",
+    "OperationResult",
     "OptinStatus",
     "Order",
     "OrderId",
@@ -1729,9 +2242,12 @@ __all__ = [
     "PairFiles",
     "PayCategory",
     "PayMethodAch",
+    "PayMethodAchMethod",
     "PayMethodBodyAllFields",
     "PayMethodCloud",
+    "PayMethodCloudMethod",
     "PayMethodCredit",
+    "PayMethodCreditMethod",
     "PayMethodStoredMethod",
     "PayMethodStoredMethodMethod",
     "PayabliApiResponse",
@@ -1742,15 +2258,15 @@ __all__ = [
     "PayabliApiResponse0ResponseData",
     "PayabliApiResponse6",
     "PayabliApiResponseCustomerQuery",
-    "PayabliApiResponseError400",
-    "PayabliApiResponseError400ResponseData",
     "PayabliApiResponseGeneric2Part",
+    "PayabliApiResponseGetPaid",
     "PayabliApiResponseImport",
     "PayabliApiResponseImportResponseData",
     "PayabliApiResponseMfaBasic",
     "PayabliApiResponseNotifications",
     "PayabliApiResponseNotificationsResponseData",
-    "PayabliApiResponsePaylinks",
+    "PayabliApiResponseOcr",
+    "PayabliApiResponsePaymentLinks",
     "PayabliApiResponsePaymethodDelete",
     "PayabliApiResponsePaymethodDeleteResponseData",
     "PayabliApiResponseTemplateId",
@@ -1758,6 +2274,8 @@ __all__ = [
     "PayabliApiResponseVendors",
     "PayabliCredentials",
     "PayabliCredentialsPascal",
+    "PayabliErrorBody",
+    "PayabliErrorBodyResponseData",
     "PayabliPages",
     "PayeeName",
     "PaylinkId",
@@ -1765,12 +2283,12 @@ __all__ = [
     "PaymentDetail",
     "PaymentDetailCredit",
     "PaymentIdString",
+    "PaymentLinkStatus",
     "PaymentMethod",
     "PaymentMethodDomainApiResponse",
     "PaymentMethodDomainGeneralResponse",
     "PaymentMethodDomainId",
-    "PaymentTransStatusDescription",
-    "Paymentid",
+    "PaymentPageRequestBodyOut",
     "PayorDataRequest",
     "PayorDataResponse",
     "PayorElement",
@@ -1781,7 +2299,12 @@ __all__ = [
     "PayoutCreditLimit",
     "PayoutGatewayConnector",
     "PayoutHighTicketAmount",
+    "PayoutPaymentDetail",
     "PayoutProgram",
+    "PayoutScheduleDetail",
+    "PayoutSetPause",
+    "PayoutSubscriptionQueryRecord",
+    "PayoutSubscriptionQueryRecordPascal",
     "PaypointData",
     "PaypointEntryConfig",
     "PaypointId",
@@ -1802,8 +2325,12 @@ __all__ = [
     "PushPayLinkRequestSms",
     "PushPayLinkRequest_Email",
     "PushPayLinkRequest_Sms",
+    "QueryBatchesDetailResponse",
     "QueryBatchesOutResponse",
     "QueryBatchesOutResponseRecordsItem",
+    "QueryBatchesResponse",
+    "QueryBatchesResponseRecordsItem",
+    "QueryBatchesTransfer",
     "QueryBoardingAppsListResponse",
     "QueryBoardingLinksResponse",
     "QueryBoardingLinksResponseRecordsItem",
@@ -1811,14 +2338,17 @@ __all__ = [
     "QueryChargebacksResponse",
     "QueryChargebacksResponseRecordsItem",
     "QueryCustomerResponse",
+    "QueryDeviceResponse",
     "QueryEntrypointResponse",
     "QueryEntrypointResponseRecordsItem",
+    "QueryInvoiceResponse",
+    "QueryInvoiceResponseRecordsItem",
     "QueryPaymentData",
+    "QueryPayoutSubscriptionResponse",
     "QueryPayoutTransaction",
     "QueryPayoutTransactionRecordsItem",
     "QueryPayoutTransactionRecordsItemPaymentData",
     "QueryPayoutTransactionSummary",
-    "QueryResponse",
     "QueryResponseData",
     "QueryResponseItems",
     "QueryResponseItemsRecordsItem",
@@ -1838,15 +2368,23 @@ __all__ = [
     "QueryTransactionEventsEventData",
     "QueryTransactionPayorData",
     "QueryTransactionPayorDataCustomer",
+    "QueryTransferDetailResponse",
+    "QueryTransferSummary",
     "QueryUserResponse",
     "ReadOnly",
     "ReceiptContent",
+    "ReceiptResponse",
     "RecipientEmailNotification",
     "ReferenceName",
     "ReferenceTemplateId",
     "Referenceidtrans",
     "RefundDetail",
     "RefundId",
+    "RefundResponse",
+    "RefundWithInstructionsResponse",
+    "ReissuePaymentMethod",
+    "ReissuePayoutResponse",
+    "ReissuePayoutResponseData",
     "RemitEmail",
     "Remitaddress1",
     "Remitaddress2",
@@ -1854,12 +2392,27 @@ __all__ = [
     "Remitcountry",
     "Remitstate",
     "Remitzip",
+    "RemoveDeviceResponse",
+    "RemoveSubscriptionResponse",
     "RepCode",
     "RepName",
     "RepOffice",
     "ReplyToEmail",
     "Replyby",
+    "RequestCreditPaymentMethod",
+    "RequestCreditPaymentMethodMethod",
+    "RequestOutAuthorizeInvoiceData",
+    "RequestOutAuthorizePaymentDetails",
+    "RequestOutAuthorizeVendorBillingData",
+    "RequestOutAuthorizeVendorData",
+    "RequestPaymentValidatePaymentMethod",
+    "RequestPaymentValidatePaymentMethodMethod",
+    "RequestSchedulePaymentMethod",
+    "RequestSchedulePaymentMethodInitiator",
+    "RequestTokenStorage",
+    "RequestTokenStoragePaymentMethod",
     "RequiredElement",
+    "ResponseDataRefunds",
     "ResponseText",
     "Responsecode",
     "Responsedata",
@@ -1871,6 +2424,7 @@ __all__ = [
     "Resumable",
     "RetrievalId",
     "ReturnedId",
+    "ReverseResponse",
     "RiskAction",
     "RiskActionCode",
     "RiskFlagged",
@@ -1885,10 +2439,13 @@ __all__ = [
     "SaveIfSuccess",
     "ScheduleDetail",
     "ScheduleId",
+    "SendInvoiceResponse",
     "Sequence",
     "ServiceCost",
     "Services",
     "ServicesSection",
+    "SetApprovedBillResponse",
+    "SetPause",
     "SettingElement",
     "SettingsQueryRecord",
     "SettlementStatus",
@@ -1922,15 +2479,21 @@ __all__ = [
     "SplitFunding",
     "SplitFundingContent",
     "SplitFundingRefundContent",
+    "StatBasicExtendedQueryRecord",
+    "StatBasicQueryRecord",
     "StateNullable",
     "StatementEmailConfig",
+    "StatisticsVendorQueryRecord",
     "Statusnotification",
     "StoredMethodUsageType",
     "Storedmethodid",
+    "StringStringKeyValuePair",
     "SubFooter",
     "SubHeader",
     "Subdomain",
     "SubscriptionQueryRecords",
+    "SubscriptionStatsQueryRecord",
+    "SubscriptionType",
     "Subscriptionid",
     "SummaryCommodityCode",
     "SummaryOrg",
@@ -1940,52 +2503,109 @@ __all__ = [
     "TemplateAdditionalDataField",
     "TemplateAdditionalDataSection",
     "TemplateCode",
-    "TemplateContent",
     "TemplateContentResponse",
-    "TemplateData",
     "TemplateElement",
     "TemplateId",
     "TemplateName",
     "TemplateQueryRecord",
     "TemplateQueryResponse",
+    "Temporary",
     "Terms",
     "TermsConditions",
     "Ticketamt",
     "TierItem",
     "TierItemPass",
     "Timezone",
+    "TokenizeAch",
+    "TokenizeCard",
     "Totalpages",
     "Totalrecords",
+    "TransRequestBody",
     "TransStatus",
+    "TransactionDetailCustomer",
+    "TransactionDetailEvent",
+    "TransactionDetailInvoiceData",
+    "TransactionDetailPaymentData",
+    "TransactionDetailPaymentDetails",
+    "TransactionDetailRecord",
+    "TransactionDetailRecordMethod",
+    "TransactionDetailResponseData",
     "TransactionOutQueryRecord",
     "TransactionQueryRecords",
     "TransactionQueryRecordsCustomer",
     "TransactionTime",
     "Transfer",
     "TransferBankAccount",
+    "TransferDetailRecord",
     "TransferIdentifier",
     "TransferMessage",
     "TransferMessageProperties",
+    "TransferOutBankAccount",
+    "TransferOutDetailBill",
+    "TransferOutDetailBillAttachment",
+    "TransferOutDetailCheckData",
+    "TransferOutDetailEvent",
+    "TransferOutDetailPaymentData",
+    "TransferOutDetailQueryResponse",
+    "TransferOutDetailRecord",
+    "TransferOutDetailVendor",
+    "TransferOutDetailVendorBillingData",
+    "TransferOutEventData",
+    "TransferOutMessage",
+    "TransferOutMessageProperties",
+    "TransferOutQueryResponse",
+    "TransferOutRecord",
+    "TransferOutSummary",
     "TransferQueryResponse",
     "TransferSummary",
     "TypeAccount",
+    "TypeResult",
     "UnderWritingMethod",
-    "UnderwritingData",
     "UnderwritingDataResponse",
+    "UpdateNotificationRequest",
+    "UpdatePaymentMethodDomainRequestWallet",
+    "UpdatePayoutSubscriptionResponse",
+    "UpdateSubscriptionResponse",
     "UserData",
     "UserQueryRecord",
     "UsrAccess",
     "UsrStatus",
+    "V2BadRequestError",
+    "V2BadRequestErrorDetail",
+    "V2DeclinedTransactionResponseWrapper",
+    "V2InternalServerError",
+    "V2ResponseAction",
+    "V2ResponseCode",
+    "V2ResponseExplanation",
+    "V2ResponseReason",
+    "V2TransactionDetailResponseData",
+    "V2TransactionDetails",
+    "V2TransactionResponseWrapper",
     "VCardCardType",
+    "VCardGetResponse",
+    "VCardGetResponseAssociatedVendor",
+    "VCardGetResponseAssociatedVendorBillingData",
+    "VCardGetResponseAssociatedVendorSummary",
+    "VCardGetResponseContact",
     "VCardQueryResponse",
     "VCardRecord",
     "VCardSummary",
+    "VCardTransactionQueryResponse",
+    "VCardTransactionRecord",
+    "ValidateResponse",
+    "ValidateResponseData",
     "ValueTemplates",
     "VendorCheckNumber",
     "VendorData",
+    "VendorDataRequest",
     "VendorDataResponse",
     "VendorDataResponsePaymentMethod",
     "VendorEin",
+    "VendorEnrichResponse",
+    "VendorEnrichResponseData",
+    "VendorEnrichmentData",
+    "VendorEnrichmentInvoiceScan",
+    "VendorEnrichmentWebSearch",
     "VendorName1",
     "VendorName2",
     "VendorNumber",
@@ -2000,9 +2620,13 @@ __all__ = [
     "VendorSummary",
     "Vendorid",
     "Vendorstatus",
+    "VerifyAccountDetailsResponse",
     "Visible",
+    "VoidResponse",
+    "VoidResponseData",
     "WalletCascade",
     "WalletIsEnabled",
+    "WebHeaderParameter",
     "Website",
     "Whencharged",
     "Whendelivered",

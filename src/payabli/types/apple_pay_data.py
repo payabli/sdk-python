@@ -17,13 +17,13 @@ class ApplePayData(UniversalBaseModel):
 
     data: typing.Optional[ApplePayStatusData] = pydantic.Field(default=None)
     """
-    This object is only returned when the domain verification check fails. If a domain has failed validation, this object contains information about the failure.
+    This object is only returned when the domain verification check
+    fails. If a domain has failed validation, this object contains
+    information about the failure.
     """
 
     is_enabled: typing_extensions.Annotated[
-        typing.Optional[IsEnabled],
-        FieldMetadata(alias="isEnabled"),
-        pydantic.Field(alias="isEnabled", description="When `true`, Apple Pay is enabled."),
+        typing.Optional[IsEnabled], FieldMetadata(alias="isEnabled"), pydantic.Field(alias="isEnabled")
     ] = None
 
     if IS_PYDANTIC_V2:

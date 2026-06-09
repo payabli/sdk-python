@@ -2,5 +2,7 @@
 
 Mcc = str
 """
-Business Merchant Category Code (MCC). [This resource](https://github.com/greggles/mcc-codes/blob/main/mcc_codes.csv) lists MCC codes.
+Business Merchant Category Code (MCC).
+[This resource](https://github.com/greggles/mcc-codes/blob/main/mcc_codes.csv)
+lists MCC codes.
 """

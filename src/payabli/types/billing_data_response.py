@@ -16,29 +16,6 @@ from .type_account import TypeAccount
 
 
 class BillingDataResponse(UniversalBaseModel):
-    """
-    Examples
-    --------
-    from payabli import BillingDataResponse
-
-    BillingDataResponse(
-        id=123456,
-        account_id="bank-account-001",
-        nickname="Main Checking Account",
-        bank_name="Example Bank",
-        routing_account="123456789",
-        account_number="9876543210",
-        type_account="Checking",
-        bank_account_holder_name="John Doe",
-        bank_account_holder_type="Business",
-        bank_account_function=2,
-        verified=True,
-        status=1,
-        services=[],
-        default=True,
-    )
-    """
-
     id: int = pydantic.Field()
     """
     The bank's ID in Payabli.
@@ -78,7 +55,7 @@ class BillingDataResponse(UniversalBaseModel):
         FieldMetadata(alias="bankAccountFunction"),
         pydantic.Field(
             alias="bankAccountFunction",
-            description="Describes whether the bank account is used for deposits or withdrawals in Payabli:\n  - `0`: Deposit\n  - `1`: Withdrawal \n  - `2`: Deposit and withdrawal",
+            description="Describes whether the bank account is used for deposits or withdrawals in Payabli:\n  - `0`: Deposit\n  - `1`: Withdrawal\n  - `2`: Deposit and withdrawal",
         ),
     ]
     verified: bool

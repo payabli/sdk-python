@@ -2,5 +2,5 @@
 
 ChargebackId = int
 """
-Identifier of chargeback transaction
+Identifier of chargeback transaction.
 """

@@ -92,7 +92,6 @@ class HostedPaymentPagesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PayabliApiResponse00Responsedatanonobject:
         """
-
         Creates a new payment page for a paypoint.
         Note: this operation doesn't create a new paypoint, just a payment page for an existing paypoint. Paypoints are created by the Payabli team when a boarding application is approved.
 
@@ -102,6 +101,7 @@ class HostedPaymentPagesClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         additional_data : typing.Optional[AdditionalData]
 
@@ -350,7 +350,6 @@ class AsyncHostedPaymentPagesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PayabliApiResponse00Responsedatanonobject:
         """
-
         Creates a new payment page for a paypoint.
         Note: this operation doesn't create a new paypoint, just a payment page for an existing paypoint. Paypoints are created by the Payabli team when a boarding application is approved.
 
@@ -360,6 +359,7 @@ class AsyncHostedPaymentPagesClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         additional_data : typing.Optional[AdditionalData]
 

@@ -2,5 +2,6 @@
 
 PciAttestation = bool
 """
-When `true`, indicates that the merchant acknowledges PCI responsibilities and can be enrolled in the PCI program for breach insurance
+When `true`, indicates that the merchant acknowledges PCI responsibilities
+and can be enrolled in the PCI program for breach insurance.
 """

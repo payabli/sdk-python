@@ -154,7 +154,6 @@ class TemplatesClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
 
             <Info>
@@ -402,7 +401,6 @@ class AsyncTemplatesClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
 
             <Info>

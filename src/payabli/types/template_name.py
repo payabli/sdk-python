@@ -2,5 +2,5 @@
 
 TemplateName = str
 """
-The template name. 
+The template name.
 """

@@ -15,12 +15,12 @@ from ..errors.bad_request_error import BadRequestError
 from ..errors.internal_server_error import InternalServerError
 from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.unauthorized_error import UnauthorizedError
+from ..types.add_notification_request import AddNotificationRequest
 from ..types.file import File
 from ..types.notification_query_record import NotificationQueryRecord
-from ..types.payabli_api_response import PayabliApiResponse
 from ..types.payabli_api_response_notifications import PayabliApiResponseNotifications
-from .types.add_notification_request import AddNotificationRequest
-from .types.update_notification_request import UpdateNotificationRequest
+from ..types.payabli_error_body import PayabliErrorBody
+from ..types.update_notification_request import UpdateNotificationRequest
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -86,9 +86,9 @@ class RawNotificationClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -108,96 +108,9 @@ class RawNotificationClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def delete_notification(
-        self, n_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[PayabliApiResponseNotifications]:
-        """
-        Deletes a single notification or auto-generated report.
-
-        Parameters
-        ----------
-        n_id : str
-            Notification ID.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[PayabliApiResponseNotifications]
-            Success
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"Notification/{encode_path_param(n_id)}",
-            method="DELETE",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    PayabliApiResponseNotifications,
-                    parse_obj_as(
-                        type_=PayabliApiResponseNotifications,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -260,9 +173,9 @@ class RawNotificationClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -282,9 +195,9 @@ class RawNotificationClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -356,9 +269,9 @@ class RawNotificationClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -378,9 +291,96 @@ class RawNotificationClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def delete_notification(
+        self, n_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[PayabliApiResponseNotifications]:
+        """
+        Deletes a single notification or auto-generated report.
+
+        Parameters
+        ----------
+        n_id : str
+            Notification ID.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[PayabliApiResponseNotifications]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"Notification/{encode_path_param(n_id)}",
+            method="DELETE",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PayabliApiResponseNotifications,
+                    parse_obj_as(
+                        type_=PayabliApiResponseNotifications,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -497,9 +497,9 @@ class AsyncRawNotificationClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -519,96 +519,9 @@ class AsyncRawNotificationClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def delete_notification(
-        self, n_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[PayabliApiResponseNotifications]:
-        """
-        Deletes a single notification or auto-generated report.
-
-        Parameters
-        ----------
-        n_id : str
-            Notification ID.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[PayabliApiResponseNotifications]
-            Success
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"Notification/{encode_path_param(n_id)}",
-            method="DELETE",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    PayabliApiResponseNotifications,
-                    parse_obj_as(
-                        type_=PayabliApiResponseNotifications,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -671,9 +584,9 @@ class AsyncRawNotificationClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -693,9 +606,9 @@ class AsyncRawNotificationClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -767,9 +680,9 @@ class AsyncRawNotificationClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -789,9 +702,96 @@ class AsyncRawNotificationClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def delete_notification(
+        self, n_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[PayabliApiResponseNotifications]:
+        """
+        Deletes a single notification or auto-generated report.
+
+        Parameters
+        ----------
+        n_id : str
+            Notification ID.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[PayabliApiResponseNotifications]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"Notification/{encode_path_param(n_id)}",
+            method="DELETE",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PayabliApiResponseNotifications,
+                    parse_obj_as(
+                        type_=PayabliApiResponseNotifications,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

@@ -35,185 +35,6 @@ from .timezone import Timezone
 
 
 class CustomerQueryRecords(UniversalBaseModel):
-    """
-    Examples
-    --------
-    import datetime
-
-    from payabli import (
-        BinData,
-        CustomerQueryRecords,
-        CustomerQueryRecordsCustomerConsent,
-        CustomerQueryRecordsCustomerConsentECommunication,
-        CustomerQueryRecordsCustomerConsentSms,
-        CustomerSummaryRecord,
-        GeneralEvents,
-        MethodQueryRecords,
-        PaymentDetail,
-        QueryPaymentData,
-        SubscriptionQueryRecords,
-        TransactionQueryRecords,
-    )
-
-    CustomerQueryRecords(
-        customer_id=4440,
-        customer_number="3456-7645A",
-        customer_username="myusername",
-        customer_status=1,
-        company="AA LLC",
-        firstname="John",
-        lastname="Smith",
-        phone="1234567890",
-        email="example@email.com",
-        address="3245 Main St",
-        address_1="STE 900",
-        city="Miami",
-        state="FL",
-        zip="77777",
-        country="US",
-        shipping_address="123 Walnut St",
-        shipping_address_1="STE 900",
-        shipping_city="Johnson City",
-        shipping_state="TN",
-        shipping_zip="37619",
-        shipping_country="US",
-        balance=1.1,
-        time_zone=-5,
-        mfa=False,
-        mfa_mode=0,
-        sn_provider="facebook",
-        sn_identifier="6677fgttyudd999",
-        sn_data="",
-        last_updated=datetime.datetime.fromisoformat(
-            "2021-06-16 05:00:00+00:00",
-        ),
-        created=datetime.datetime.fromisoformat(
-            "2021-06-10 05:00:00+00:00",
-        ),
-        additional_fields={"property1": "string", "property2": "string"},
-        identifier_fields=["email"],
-        subscriptions=[
-            SubscriptionQueryRecords(
-                created_at=datetime.datetime.fromisoformat(
-                    "2022-07-01 15:00:01+00:00",
-                ),
-                end_date=datetime.datetime.fromisoformat(
-                    "2025-10-19 00:00:00+00:00",
-                ),
-                entrypage_id=0,
-                external_paypoint_id="Paypoint-100",
-                fee_amount=3.0,
-                frequency="monthly",
-                id_sub=396,
-                last_run=datetime.datetime.fromisoformat(
-                    "2025-10-19 00:00:00+00:00",
-                ),
-                last_updated=datetime.datetime.fromisoformat(
-                    "2022-07-01 15:00:01+00:00",
-                ),
-                left_cycles=15,
-                method="card",
-                net_amount=3762.87,
-                next_date=datetime.datetime.fromisoformat(
-                    "2025-10-19 00:00:00+00:00",
-                ),
-                parent_org_name="PropertyManager Pro",
-                payment_data=QueryPaymentData(
-                    payment_details=PaymentDetail(
-                        total_amount=100.0,
-                    ),
-                ),
-                paypoint_dbaname="Sunshine Gutters",
-                paypoint_entryname="d193cf9a46",
-                paypoint_id=255,
-                paypoint_legalname="Sunshine Services, LLC",
-                plan_id=0,
-                source="api",
-                start_date=datetime.datetime.fromisoformat(
-                    "2025-10-19 00:00:00+00:00",
-                ),
-                sub_events=[
-                    GeneralEvents(
-                        description="TransferCreated",
-                        event_time=datetime.datetime.fromisoformat(
-                            "2023-07-05 22:31:06+00:00",
-                        ),
-                    )
-                ],
-                sub_status=1,
-                total_amount=103.0,
-                total_cycles=24,
-                until_cancelled=True,
-            )
-        ],
-        stored_methods=[
-            MethodQueryRecords(
-                bin="411111",
-                bin_data=BinData(
-                    bin_matched_length="6",
-                    bin_card_brand="Visa",
-                    bin_card_type="Credit",
-                    bin_card_category="PLATINUM",
-                    bin_card_issuer="Bank of Example",
-                    bin_card_issuer_country="United States",
-                    bin_card_issuer_country_code_a_2="US",
-                    bin_card_issuer_country_number="840",
-                    bin_card_is_regulated="false",
-                    bin_card_use_category="Consumer",
-                    bin_card_issuer_country_code_a_3="USA",
-                ),
-                descriptor="visa",
-                exp_date="1227",
-                holder_name="Chad Mercia",
-                id_pmethod="6edcbb56-9c0e-4003-b3d1-99abf149ba0e",
-                last_updated=datetime.datetime.fromisoformat(
-                    "2022-07-01 15:00:01+00:00",
-                ),
-                masked_account="4XXXXXXXX1111",
-                method="card",
-            )
-        ],
-        customer_summary=CustomerSummaryRecord(
-            numberof_transactions=30,
-            recent_transactions=[
-                TransactionQueryRecords(
-                    entrypage_id=0,
-                    fee_amount=1.0,
-                    payor_id=1551,
-                    paypoint_id=226,
-                    settlement_status=2,
-                    split_count=0,
-                    total_amount=30.22,
-                    trans_status=1,
-                )
-            ],
-            total_amount_transactions=1500.0,
-            total_net_amount_transactions=1500.0,
-        ),
-        paypoint_legalname="Sunshine Services, LLC",
-        paypoint_dbaname="Sunshine Gutters",
-        parent_org_name="PropertyManager Pro",
-        parent_org_id=123,
-        paypoint_entryname="d193cf9a46",
-        pageidentifier="null",
-        external_paypoint_id="Paypoint-100",
-        customer_consent=CustomerQueryRecordsCustomerConsent(
-            e_communication=CustomerQueryRecordsCustomerConsentECommunication(
-                status=1,
-                updated_at=datetime.datetime.fromisoformat(
-                    "2022-07-01 15:00:01+00:00",
-                ),
-            ),
-            sms=CustomerQueryRecordsCustomerConsentSms(
-                status=1,
-                updated_at=datetime.datetime.fromisoformat(
-                    "2022-07-01 15:00:01+00:00",
-                ),
-            ),
-        ),
-    )
-    """
-
     customer_id: typing_extensions.Annotated[
         typing.Optional[CustomerId], FieldMetadata(alias="customerId"), pydantic.Field(alias="customerId")
     ] = None
@@ -324,7 +145,7 @@ class CustomerQueryRecords(UniversalBaseModel):
         FieldMetadata(alias="snProvider"),
         pydantic.Field(
             alias="snProvider",
-            description="Social network linked to customer. Possible values:\n\n- `facebook`\n\n- `google`\n\n- `twitter`\n\n- `microsoft`",
+            description="Social network linked to customer. Possible values:\n- `facebook`\n- `google`\n- `twitter`\n- `microsoft`",
         ),
     ] = None
     sn_identifier: typing_extensions.Annotated[
@@ -350,7 +171,7 @@ class CustomerQueryRecords(UniversalBaseModel):
         pydantic.Field(alias="Created", description="Date and time created."),
     ] = None
     additional_fields: typing_extensions.Annotated[
-        typing.Optional[typing.Dict[str, typing.Optional[str]]],
+        typing.Optional[typing.Dict[str, str]],
         FieldMetadata(alias="AdditionalFields"),
         pydantic.Field(alias="AdditionalFields", description="List of additional custom fields in format key:value."),
     ] = None
@@ -405,6 +226,9 @@ class CustomerQueryRecords(UniversalBaseModel):
         typing.Optional[CustomerQueryRecordsCustomerConsent],
         FieldMetadata(alias="customerConsent"),
         pydantic.Field(alias="customerConsent"),
+    ] = None
+    customer_portal: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="customerPortal"), pydantic.Field(alias="customerPortal")
     ] = None
 
     if IS_PYDANTIC_V2:

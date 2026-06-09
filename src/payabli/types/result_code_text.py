@@ -2,5 +2,7 @@
 
 ResultCodeText = str
 """
-Description of the result code. See [Pay In unified response codes](/developers/references/pay-in-unified-response-codes-reference) for more information.
+Description of the result code. See
+[Pay In unified response codes](/developers/references/pay-in-unified-response-codes-reference)
+for more information.
 """

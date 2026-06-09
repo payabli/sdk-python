@@ -2,5 +2,7 @@
 
 ResultCodev2 = str
 """
-Unified result code for the transaction. See [Pay In unified response codes](/developers/references/pay-in-unified-response-codes-reference) for more information.
+Unified result code for the transaction. See
+[Pay In unified response codes](/developers/references/pay-in-unified-response-codes-reference)
+for more information.
 """

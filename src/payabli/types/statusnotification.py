@@ -2,7 +2,8 @@
 
 Statusnotification = int
 """
-Status of notification: 
-  - `0`: Inactive
-  - `1`: Active
+Status of notification:
+
+- `0`: Inactive
+- `1`: Active
 """

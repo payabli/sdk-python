@@ -2,5 +2,5 @@
 
 Ein = str
 """
-Business EIN or tax ID. This value is masked in API responses, for example `XXXX6789`.
+Business EIN or tax ID. This value is masked in API responses.
 """

@@ -16,8 +16,8 @@ from ..errors.internal_server_error import InternalServerError
 from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.entrypointfield import Entrypointfield
-from ..types.payabli_api_response import PayabliApiResponse
 from ..types.payabli_api_response_import import PayabliApiResponseImport
+from ..types.payabli_error_body import PayabliErrorBody
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -86,9 +86,9 @@ class RawImportClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -108,9 +108,9 @@ class RawImportClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -138,6 +138,7 @@ class RawImportClient:
         Parameters
         ----------
         entry : Entrypointfield
+            The entrypoint identifier.
 
         file : core.File
             See core.File for more documentation
@@ -192,9 +193,9 @@ class RawImportClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -214,9 +215,9 @@ class RawImportClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -239,6 +240,7 @@ class RawImportClient:
         Parameters
         ----------
         entry : Entrypointfield
+            The entrypoint identifier.
 
         file : core.File
             See core.File for more documentation
@@ -287,9 +289,9 @@ class RawImportClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -309,9 +311,9 @@ class RawImportClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -388,9 +390,9 @@ class AsyncRawImportClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -410,9 +412,9 @@ class AsyncRawImportClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -440,6 +442,7 @@ class AsyncRawImportClient:
         Parameters
         ----------
         entry : Entrypointfield
+            The entrypoint identifier.
 
         file : core.File
             See core.File for more documentation
@@ -494,9 +497,9 @@ class AsyncRawImportClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -516,9 +519,9 @@ class AsyncRawImportClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -541,6 +544,7 @@ class AsyncRawImportClient:
         Parameters
         ----------
         entry : Entrypointfield
+            The entrypoint identifier.
 
         file : core.File
             See core.File for more documentation
@@ -589,9 +593,9 @@ class AsyncRawImportClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -611,9 +615,9 @@ class AsyncRawImportClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

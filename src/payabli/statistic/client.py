@@ -4,11 +4,11 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
+from ..types.stat_basic_extended_query_record import StatBasicExtendedQueryRecord
+from ..types.stat_basic_query_record import StatBasicQueryRecord
+from ..types.statistics_vendor_query_record import StatisticsVendorQueryRecord
+from ..types.subscription_stats_query_record import SubscriptionStatsQueryRecord
 from .raw_client import AsyncRawStatisticClient, RawStatisticClient
-from .types.stat_basic_extended_query_record import StatBasicExtendedQueryRecord
-from .types.stat_basic_query_record import StatBasicQueryRecord
-from .types.statistics_vendor_query_record import StatisticsVendorQueryRecord
-from .types.subscription_stats_query_record import SubscriptionStatsQueryRecord
 
 
 class StatisticClient:
@@ -58,7 +58,6 @@ class StatisticClient:
             - `lastm` - Last Month
             - `lastw` - Last Week
             - `yesterday` - Last Day
-
 
         freq : str
             Frequency to group series. Allowed values:
@@ -194,7 +193,7 @@ class StatisticClient:
             api_key="YOUR_API_KEY",
         )
         client.statistic.customer_basic_stats(
-            customer_id=998,
+            customer_id=4440,
             freq="m",
             mode="ytd",
         )
@@ -384,7 +383,6 @@ class AsyncStatisticClient:
             - `lastw` - Last Week
             - `yesterday` - Last Day
 
-
         freq : str
             Frequency to group series. Allowed values:
 
@@ -532,7 +530,7 @@ class AsyncStatisticClient:
 
         async def main() -> None:
             await client.statistic.customer_basic_stats(
-                customer_id=998,
+                customer_id=4440,
                 freq="m",
                 mode="ytd",
             )

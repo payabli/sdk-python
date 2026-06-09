@@ -2,5 +2,8 @@
 
 RecipientEmailNotification = bool
 """
-When `true`, Payabli will send the applicant a boarding link. Set this value to `false` if you are sending pre-filled applications via the API and don't want Payabli to send the applicant an email to complete the boarding application.
+When `true`, Payabli will send the applicant a boarding link. Set this
+value to `false` if you are sending pre-filled applications via the API
+and don't want Payabli to send the applicant an email to complete the
+boarding application.
 """

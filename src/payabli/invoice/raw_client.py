@@ -21,14 +21,14 @@ from ..types.export_format import ExportFormat
 from ..types.file import File
 from ..types.file_content import FileContent
 from ..types.force_customer_creation import ForceCustomerCreation
+from ..types.get_invoice_record import GetInvoiceRecord
 from ..types.idempotency_key import IdempotencyKey
-from ..types.payabli_api_response import PayabliApiResponse
+from ..types.invoice_number_response import InvoiceNumberResponse
+from ..types.invoice_response_without_data import InvoiceResponseWithoutData
+from ..types.payabli_error_body import PayabliErrorBody
 from ..types.payor_data_request import PayorDataRequest
-from .types.get_invoice_record import GetInvoiceRecord
-from .types.invoice_number_response import InvoiceNumberResponse
-from .types.invoice_response_without_data import InvoiceResponseWithoutData
-from .types.query_invoice_response import QueryInvoiceResponse
-from .types.send_invoice_response import SendInvoiceResponse
+from ..types.query_invoice_response import QueryInvoiceResponse
+from ..types.send_invoice_response import SendInvoiceResponse
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -59,8 +59,10 @@ class RawInvoiceClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer. Defaults to `false`.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         customer_data : typing.Optional[PayorDataRequest]
             Object describing the customer/payor. Required for POST requests. Which fields are required depends on the paypoint's custom identifier settings.
@@ -128,9 +130,9 @@ class RawInvoiceClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -150,9 +152,112 @@ class RawInvoiceClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def get_attached_file_from_invoice(
+        self,
+        id_invoice: int,
+        filename: str,
+        *,
+        return_object: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[FileContent]:
+        """
+        Retrieves a file attached to an invoice.
+
+        Parameters
+        ----------
+        id_invoice : int
+            Invoice ID
+
+        filename : str
+            The filename in Payabli. Get this from the `zipName` field
+            in the `DocumentsRef.filelist` array returned by
+            `/api/Invoice/{idInvoice}`. Example: `0_Bill.pdf`.
+
+        return_object : typing.Optional[bool]
+            When `true`, the request returns the file content as a Base64-encoded string.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[FileContent]
+            A successful response returns a binary file when `returnObject` is `false`. When `returnObject` is `true`, the response contains the file content as a Base64-encoded string in an object. Due to technical limitations, only the object response is documented here.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"Invoice/attachedFileFromInvoice/{encode_path_param(id_invoice)}/{encode_path_param(filename)}",
+            method="GET",
+            params={
+                "returnObject": return_object,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    FileContent,
+                    parse_obj_as(
+                        type_=FileContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -220,9 +325,9 @@ class RawInvoiceClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -242,9 +347,9 @@ class RawInvoiceClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -258,11 +363,11 @@ class RawInvoiceClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def delete_invoice(
+    def get_invoice(
         self, id_invoice: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[InvoiceResponseWithoutData]:
+    ) -> HttpResponse[GetInvoiceRecord]:
         """
-        Deletes a single invoice from an entrypoint.
+        Retrieves a single invoice by ID.
 
         Parameters
         ----------
@@ -274,20 +379,20 @@ class RawInvoiceClient:
 
         Returns
         -------
-        HttpResponse[InvoiceResponseWithoutData]
-            Success
+        HttpResponse[GetInvoiceRecord]
+            Success. Fields marked optional may return `null` if not set.
         """
         _response = self._client_wrapper.httpx_client.request(
             f"Invoice/{encode_path_param(id_invoice)}",
-            method="DELETE",
+            method="GET",
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    InvoiceResponseWithoutData,
+                    GetInvoiceRecord,
                     parse_obj_as(
-                        type_=InvoiceResponseWithoutData,  # type: ignore
+                        type_=GetInvoiceRecord,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -307,9 +412,9 @@ class RawInvoiceClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -329,9 +434,9 @@ class RawInvoiceClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -431,9 +536,9 @@ class RawInvoiceClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -453,9 +558,9 @@ class RawInvoiceClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -469,114 +574,11 @@ class RawInvoiceClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def get_attached_file_from_invoice(
-        self,
-        id_invoice: int,
-        filename: str,
-        *,
-        return_object: typing.Optional[bool] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[FileContent]:
-        """
-        Retrieves a file attached to an invoice.
-
-        Parameters
-        ----------
-        id_invoice : int
-            Invoice ID
-
-        filename : str
-            The filename in Payabli. Get this from the `zipName` field
-            in the `DocumentsRef.filelist` array returned by
-            `/api/Invoice/{idInvoice}`. Example: `0_Bill.pdf`.
-
-        return_object : typing.Optional[bool]
-            When `true`, the request returns the file content as a Base64-encoded string.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[FileContent]
-            A successful response returns a binary file when `returnObject` is `false`. When `returnObject` is `true`, the response contains the file content as a Base64-encoded string in an object. Due to technical limitations, only the object response is documented here.
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"Invoice/attachedFileFromInvoice/{encode_path_param(id_invoice)}/{encode_path_param(filename)}",
-            method="GET",
-            params={
-                "returnObject": return_object,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    FileContent,
-                    parse_obj_as(
-                        type_=FileContent,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def get_invoice(
+    def delete_invoice(
         self, id_invoice: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[GetInvoiceRecord]:
+    ) -> HttpResponse[InvoiceResponseWithoutData]:
         """
-        Retrieves a single invoice by ID.
+        Deletes a single invoice from an entrypoint.
 
         Parameters
         ----------
@@ -588,20 +590,20 @@ class RawInvoiceClient:
 
         Returns
         -------
-        HttpResponse[GetInvoiceRecord]
-            Success. Fields marked optional may return `null` if not set.
+        HttpResponse[InvoiceResponseWithoutData]
+            Success
         """
         _response = self._client_wrapper.httpx_client.request(
             f"Invoice/{encode_path_param(id_invoice)}",
-            method="GET",
+            method="DELETE",
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    GetInvoiceRecord,
+                    InvoiceResponseWithoutData,
                     parse_obj_as(
-                        type_=GetInvoiceRecord,  # type: ignore
+                        type_=InvoiceResponseWithoutData,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -621,9 +623,9 @@ class RawInvoiceClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -643,9 +645,9 @@ class RawInvoiceClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -708,9 +710,9 @@ class RawInvoiceClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -730,9 +732,9 @@ class RawInvoiceClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -766,6 +768,7 @@ class RawInvoiceClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -886,9 +889,9 @@ class RawInvoiceClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -908,9 +911,9 @@ class RawInvoiceClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -944,6 +947,7 @@ class RawInvoiceClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -1064,9 +1068,9 @@ class RawInvoiceClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1086,9 +1090,9 @@ class RawInvoiceClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1166,9 +1170,9 @@ class RawInvoiceClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1188,9 +1192,9 @@ class RawInvoiceClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1253,9 +1257,9 @@ class RawInvoiceClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1275,9 +1279,9 @@ class RawInvoiceClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1316,8 +1320,10 @@ class AsyncRawInvoiceClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer. Defaults to `false`.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         customer_data : typing.Optional[PayorDataRequest]
             Object describing the customer/payor. Required for POST requests. Which fields are required depends on the paypoint's custom identifier settings.
@@ -1385,9 +1391,9 @@ class AsyncRawInvoiceClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1407,9 +1413,112 @@ class AsyncRawInvoiceClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def get_attached_file_from_invoice(
+        self,
+        id_invoice: int,
+        filename: str,
+        *,
+        return_object: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[FileContent]:
+        """
+        Retrieves a file attached to an invoice.
+
+        Parameters
+        ----------
+        id_invoice : int
+            Invoice ID
+
+        filename : str
+            The filename in Payabli. Get this from the `zipName` field
+            in the `DocumentsRef.filelist` array returned by
+            `/api/Invoice/{idInvoice}`. Example: `0_Bill.pdf`.
+
+        return_object : typing.Optional[bool]
+            When `true`, the request returns the file content as a Base64-encoded string.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[FileContent]
+            A successful response returns a binary file when `returnObject` is `false`. When `returnObject` is `true`, the response contains the file content as a Base64-encoded string in an object. Due to technical limitations, only the object response is documented here.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"Invoice/attachedFileFromInvoice/{encode_path_param(id_invoice)}/{encode_path_param(filename)}",
+            method="GET",
+            params={
+                "returnObject": return_object,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    FileContent,
+                    parse_obj_as(
+                        type_=FileContent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1477,9 +1586,9 @@ class AsyncRawInvoiceClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1499,9 +1608,9 @@ class AsyncRawInvoiceClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1515,11 +1624,11 @@ class AsyncRawInvoiceClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def delete_invoice(
+    async def get_invoice(
         self, id_invoice: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[InvoiceResponseWithoutData]:
+    ) -> AsyncHttpResponse[GetInvoiceRecord]:
         """
-        Deletes a single invoice from an entrypoint.
+        Retrieves a single invoice by ID.
 
         Parameters
         ----------
@@ -1531,20 +1640,20 @@ class AsyncRawInvoiceClient:
 
         Returns
         -------
-        AsyncHttpResponse[InvoiceResponseWithoutData]
-            Success
+        AsyncHttpResponse[GetInvoiceRecord]
+            Success. Fields marked optional may return `null` if not set.
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"Invoice/{encode_path_param(id_invoice)}",
-            method="DELETE",
+            method="GET",
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    InvoiceResponseWithoutData,
+                    GetInvoiceRecord,
                     parse_obj_as(
-                        type_=InvoiceResponseWithoutData,  # type: ignore
+                        type_=GetInvoiceRecord,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1564,9 +1673,9 @@ class AsyncRawInvoiceClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1586,9 +1695,9 @@ class AsyncRawInvoiceClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1688,9 +1797,9 @@ class AsyncRawInvoiceClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1710,9 +1819,9 @@ class AsyncRawInvoiceClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1726,114 +1835,11 @@ class AsyncRawInvoiceClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def get_attached_file_from_invoice(
-        self,
-        id_invoice: int,
-        filename: str,
-        *,
-        return_object: typing.Optional[bool] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[FileContent]:
-        """
-        Retrieves a file attached to an invoice.
-
-        Parameters
-        ----------
-        id_invoice : int
-            Invoice ID
-
-        filename : str
-            The filename in Payabli. Get this from the `zipName` field
-            in the `DocumentsRef.filelist` array returned by
-            `/api/Invoice/{idInvoice}`. Example: `0_Bill.pdf`.
-
-        return_object : typing.Optional[bool]
-            When `true`, the request returns the file content as a Base64-encoded string.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[FileContent]
-            A successful response returns a binary file when `returnObject` is `false`. When `returnObject` is `true`, the response contains the file content as a Base64-encoded string in an object. Due to technical limitations, only the object response is documented here.
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"Invoice/attachedFileFromInvoice/{encode_path_param(id_invoice)}/{encode_path_param(filename)}",
-            method="GET",
-            params={
-                "returnObject": return_object,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    FileContent,
-                    parse_obj_as(
-                        type_=FileContent,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def get_invoice(
+    async def delete_invoice(
         self, id_invoice: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[GetInvoiceRecord]:
+    ) -> AsyncHttpResponse[InvoiceResponseWithoutData]:
         """
-        Retrieves a single invoice by ID.
+        Deletes a single invoice from an entrypoint.
 
         Parameters
         ----------
@@ -1845,20 +1851,20 @@ class AsyncRawInvoiceClient:
 
         Returns
         -------
-        AsyncHttpResponse[GetInvoiceRecord]
-            Success. Fields marked optional may return `null` if not set.
+        AsyncHttpResponse[InvoiceResponseWithoutData]
+            Success
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"Invoice/{encode_path_param(id_invoice)}",
-            method="GET",
+            method="DELETE",
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    GetInvoiceRecord,
+                    InvoiceResponseWithoutData,
                     parse_obj_as(
-                        type_=GetInvoiceRecord,  # type: ignore
+                        type_=InvoiceResponseWithoutData,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1878,9 +1884,9 @@ class AsyncRawInvoiceClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1900,9 +1906,9 @@ class AsyncRawInvoiceClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1965,9 +1971,9 @@ class AsyncRawInvoiceClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1987,9 +1993,9 @@ class AsyncRawInvoiceClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2023,6 +2029,7 @@ class AsyncRawInvoiceClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -2143,9 +2150,9 @@ class AsyncRawInvoiceClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2165,9 +2172,9 @@ class AsyncRawInvoiceClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2201,6 +2208,7 @@ class AsyncRawInvoiceClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -2321,9 +2329,9 @@ class AsyncRawInvoiceClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2343,9 +2351,9 @@ class AsyncRawInvoiceClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2423,9 +2431,9 @@ class AsyncRawInvoiceClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2445,9 +2453,9 @@ class AsyncRawInvoiceClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2510,9 +2518,9 @@ class AsyncRawInvoiceClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2532,9 +2540,9 @@ class AsyncRawInvoiceClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

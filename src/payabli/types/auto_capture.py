@@ -2,9 +2,16 @@
 
 AutoCapture = bool
 """
-When `true`, Payabli captures the transaction asynchronously after a successful authorization. The authorization request returns once the transaction is authorized; capture happens later, and the response doesn't confirm capture. To confirm capture succeeded, listen for the [`payout_transaction_approvedcaptured`](/developers/webhooks/payout-transaction-approved-captured) webhook event.
+When `true`, Payabli captures the transaction asynchronously after a
+successful authorization. The authorization request returns once the
+transaction is authorized; capture happens later, and the response
+doesn't confirm capture. To confirm capture succeeded, listen for the
+[`payout_transaction_approvedcaptured`](/developers/webhooks/payout-transaction-approved-captured)
+webhook event.
 
-When `false`, you must manually capture the transaction after a successful authorization. Defaults to `false`.
+When `false`, you must manually capture the transaction after a
+successful authorization. Defaults to `false`.
 
-See [Manage payouts with the API](/guides/pay-out-developer-payouts-manage) for more information.
+See [Manage payouts with the API](/guides/pay-out-developer-payouts-manage)
+for more information.
 """

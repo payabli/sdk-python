@@ -20,28 +20,30 @@ class PayabliPages(UniversalBaseModel):
     additional_data: typing_extensions.Annotated[
         typing.Optional[AdditionalData], FieldMetadata(alias="AdditionalData"), pydantic.Field(alias="AdditionalData")
     ] = None
-    credentials: typing.Optional[typing.List[PayabliCredentials]] = pydantic.Field(default=None)
-    """
-    Array of credential objects with active services for the page
-    """
-
+    credentials: typing_extensions.Annotated[
+        typing.Optional[typing.List[PayabliCredentials]],
+        FieldMetadata(alias="Credentials"),
+        pydantic.Field(
+            alias="Credentials", description="Array of credential objects with active services for the page"
+        ),
+    ] = None
     last_access: typing_extensions.Annotated[
         typing.Optional[dt.datetime],
-        FieldMetadata(alias="lastAccess"),
-        pydantic.Field(alias="lastAccess", description="Timestamp of last access to page structure"),
+        FieldMetadata(alias="LastAccess"),
+        pydantic.Field(alias="LastAccess", description="Timestamp of last access to page structure"),
     ] = None
     page_content: typing_extensions.Annotated[
         typing.Optional[PageContent],
-        FieldMetadata(alias="pageContent"),
-        pydantic.Field(alias="pageContent", description="Sections of page"),
+        FieldMetadata(alias="PageContent"),
+        pydantic.Field(alias="PageContent", description="Sections of page"),
     ] = None
     page_identifier: typing_extensions.Annotated[
         typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier"), pydantic.Field(alias="pageIdentifier")
     ] = None
     page_settings: typing_extensions.Annotated[
         typing.Optional[PageSetting],
-        FieldMetadata(alias="pageSettings"),
-        pydantic.Field(alias="pageSettings", description="Settings of page"),
+        FieldMetadata(alias="PageSettings"),
+        pydantic.Field(alias="PageSettings", description="Settings of page"),
     ] = None
     published: typing.Optional[int] = pydantic.Field(default=None)
     """
@@ -50,14 +52,14 @@ class PayabliPages(UniversalBaseModel):
 
     receipt_content: typing_extensions.Annotated[
         typing.Optional[ReceiptContent],
-        FieldMetadata(alias="receiptContent"),
-        pydantic.Field(alias="receiptContent", description="Sections of payment receipt"),
+        FieldMetadata(alias="ReceiptContent"),
+        pydantic.Field(alias="ReceiptContent", description="Sections of payment receipt"),
     ] = None
-    subdomain: typing.Optional[Subdomain] = pydantic.Field(default=None)
-    """
-    Page identifier. Must be unique in platform.
-    """
-
+    subdomain: typing_extensions.Annotated[
+        typing.Optional[Subdomain],
+        FieldMetadata(alias="Subdomain"),
+        pydantic.Field(alias="Subdomain", description="Page identifier. Must be unique in platform."),
+    ] = None
     total_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="totalAmount"),

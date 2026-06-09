@@ -16,31 +16,30 @@ from ..errors.forbidden_error import ForbiddenError
 from ..errors.internal_server_error import InternalServerError
 from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.unauthorized_error import UnauthorizedError
-from ..money_out_types.types.allowed_check_payment_status import AllowedCheckPaymentStatus
-from ..money_out_types.types.auth_capture_payout_response import AuthCapturePayoutResponse
-from ..money_out_types.types.authorize_payment_method import AuthorizePaymentMethod
-from ..money_out_types.types.capture_all_out_response import CaptureAllOutResponse
-from ..money_out_types.types.operation_result import OperationResult
-from ..money_out_types.types.reissue_payment_method import ReissuePaymentMethod
-from ..money_out_types.types.reissue_payout_response import ReissuePayoutResponse
-from ..money_out_types.types.request_out_authorize_invoice_data import RequestOutAuthorizeInvoiceData
-from ..money_out_types.types.request_out_authorize_payment_details import RequestOutAuthorizePaymentDetails
-from ..money_out_types.types.request_out_authorize_vendor_data import RequestOutAuthorizeVendorData
-from ..money_out_types.types.v_card_get_response import VCardGetResponse
 from ..types.account_id import AccountId
+from ..types.allowed_check_payment_status import AllowedCheckPaymentStatus
+from ..types.auth_capture_payout_response import AuthCapturePayoutResponse
+from ..types.authorize_payment_method import AuthorizePaymentMethod
 from ..types.auto_capture import AutoCapture
 from ..types.bill_detail_response import BillDetailResponse
+from ..types.capture_all_out_response import CaptureAllOutResponse
 from ..types.entrypointfield import Entrypointfield
 from ..types.idempotency_key import IdempotencyKey
+from ..types.operation_result import OperationResult
 from ..types.order_id import OrderId
 from ..types.orderdescription import Orderdescription
-from ..types.payabli_api_response import PayabliApiResponse
 from ..types.payabli_api_response_00_responsedatanonobject import PayabliApiResponse00Responsedatanonobject
 from ..types.payabli_api_response_0000 import PayabliApiResponse0000
-from ..types.payabli_api_response_paylinks import PayabliApiResponsePaylinks
+from ..types.payabli_error_body import PayabliErrorBody
+from ..types.reissue_payment_method import ReissuePaymentMethod
+from ..types.reissue_payout_response import ReissuePayoutResponse
+from ..types.request_out_authorize_invoice_data import RequestOutAuthorizeInvoiceData
+from ..types.request_out_authorize_payment_details import RequestOutAuthorizePaymentDetails
+from ..types.request_out_authorize_vendor_data import RequestOutAuthorizeVendorData
 from ..types.source import Source
 from ..types.subdomain import Subdomain
 from ..types.subscriptionid import Subscriptionid
+from ..types.v_card_get_response import VCardGetResponse
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -104,6 +103,7 @@ class RawMoneyOutClient:
             When `true`, the request creates a new vendor record, regardless of whether the vendor already exists.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         source : typing.Optional[Source]
 
@@ -189,9 +189,9 @@ class RawMoneyOutClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -211,9 +211,9 @@ class RawMoneyOutClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -280,9 +280,9 @@ class RawMoneyOutClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -302,9 +302,9 @@ class RawMoneyOutClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -367,9 +367,9 @@ class RawMoneyOutClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -389,9 +389,9 @@ class RawMoneyOutClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -454,9 +454,9 @@ class RawMoneyOutClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -476,9 +476,9 @@ class RawMoneyOutClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -507,6 +507,7 @@ class RawMoneyOutClient:
         request : typing.Sequence[str]
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -552,9 +553,9 @@ class RawMoneyOutClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -574,9 +575,9 @@ class RawMoneyOutClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -606,6 +607,7 @@ class RawMoneyOutClient:
             The ID for the payout transaction.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -648,9 +650,9 @@ class RawMoneyOutClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -670,9 +672,9 @@ class RawMoneyOutClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -735,9 +737,9 @@ class RawMoneyOutClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -757,9 +759,9 @@ class RawMoneyOutClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -822,9 +824,9 @@ class RawMoneyOutClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -844,9 +846,9 @@ class RawMoneyOutClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -877,12 +879,16 @@ class RawMoneyOutClient:
         Returns
         -------
         HttpResponse[OperationResult]
+            Success
         """
         _response = self._client_wrapper.httpx_client.request(
             "vcard/send-card-link",
             method="POST",
             json={
                 "transId": trans_id,
+            },
+            headers={
+                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
@@ -912,9 +918,9 @@ class RawMoneyOutClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -934,9 +940,9 @@ class RawMoneyOutClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1010,9 +1016,9 @@ class RawMoneyOutClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1032,9 +1038,9 @@ class RawMoneyOutClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1115,9 +1121,9 @@ class RawMoneyOutClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1137,9 +1143,9 @@ class RawMoneyOutClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1176,6 +1182,7 @@ class RawMoneyOutClient:
         payment_method : ReissuePaymentMethod
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1228,9 +1235,9 @@ class RawMoneyOutClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1239,9 +1246,9 @@ class RawMoneyOutClient:
                 raise ForbiddenError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponsePaylinks,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponsePaylinks,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1261,9 +1268,9 @@ class RawMoneyOutClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1335,6 +1342,7 @@ class AsyncRawMoneyOutClient:
             When `true`, the request creates a new vendor record, regardless of whether the vendor already exists.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         source : typing.Optional[Source]
 
@@ -1420,9 +1428,9 @@ class AsyncRawMoneyOutClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1442,9 +1450,9 @@ class AsyncRawMoneyOutClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1511,9 +1519,9 @@ class AsyncRawMoneyOutClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1533,9 +1541,9 @@ class AsyncRawMoneyOutClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1598,9 +1606,9 @@ class AsyncRawMoneyOutClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1620,9 +1628,9 @@ class AsyncRawMoneyOutClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1685,9 +1693,9 @@ class AsyncRawMoneyOutClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1707,9 +1715,9 @@ class AsyncRawMoneyOutClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1738,6 +1746,7 @@ class AsyncRawMoneyOutClient:
         request : typing.Sequence[str]
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1783,9 +1792,9 @@ class AsyncRawMoneyOutClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1805,9 +1814,9 @@ class AsyncRawMoneyOutClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1837,6 +1846,7 @@ class AsyncRawMoneyOutClient:
             The ID for the payout transaction.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1879,9 +1889,9 @@ class AsyncRawMoneyOutClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1901,9 +1911,9 @@ class AsyncRawMoneyOutClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1966,9 +1976,9 @@ class AsyncRawMoneyOutClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1988,9 +1998,9 @@ class AsyncRawMoneyOutClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2053,9 +2063,9 @@ class AsyncRawMoneyOutClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2075,9 +2085,9 @@ class AsyncRawMoneyOutClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2108,12 +2118,16 @@ class AsyncRawMoneyOutClient:
         Returns
         -------
         AsyncHttpResponse[OperationResult]
+            Success
         """
         _response = await self._client_wrapper.httpx_client.request(
             "vcard/send-card-link",
             method="POST",
             json={
                 "transId": trans_id,
+            },
+            headers={
+                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
@@ -2143,9 +2157,9 @@ class AsyncRawMoneyOutClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2165,9 +2179,9 @@ class AsyncRawMoneyOutClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2241,9 +2255,9 @@ class AsyncRawMoneyOutClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2263,9 +2277,9 @@ class AsyncRawMoneyOutClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2346,9 +2360,9 @@ class AsyncRawMoneyOutClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2368,9 +2382,9 @@ class AsyncRawMoneyOutClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2407,6 +2421,7 @@ class AsyncRawMoneyOutClient:
         payment_method : ReissuePaymentMethod
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2459,9 +2474,9 @@ class AsyncRawMoneyOutClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2470,9 +2485,9 @@ class AsyncRawMoneyOutClient:
                 raise ForbiddenError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponsePaylinks,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponsePaylinks,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2492,9 +2507,9 @@ class AsyncRawMoneyOutClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

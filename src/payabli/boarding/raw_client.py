@@ -15,6 +15,7 @@ from ..errors.bad_request_error import BadRequestError
 from ..errors.internal_server_error import InternalServerError
 from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.unauthorized_error import UnauthorizedError
+from ..types.add_application_request import AddApplicationRequest
 from ..types.annualrevenue import Annualrevenue
 from ..types.application_details_record import ApplicationDetailsRecord
 from ..types.application_query_record import ApplicationQueryRecord
@@ -36,6 +37,7 @@ from ..types.bsummary import Bsummary
 from ..types.busstartdate import Busstartdate
 from ..types.bzip import Bzip
 from ..types.contacts_field import ContactsField
+from ..types.create_application_from_paypoint_response import CreateApplicationFromPaypointResponse
 from ..types.dbaname import Dbaname
 from ..types.ein import Ein
 from ..types.email import Email
@@ -56,9 +58,9 @@ from ..types.on_create import OnCreate
 from ..types.orgid import Orgid
 from ..types.own_type import OwnType
 from ..types.ownership import Ownership
-from ..types.payabli_api_response import PayabliApiResponse
 from ..types.payabli_api_response_00 import PayabliApiResponse00
 from ..types.payabli_api_response_00_responsedatanonobject import PayabliApiResponse00Responsedatanonobject
+from ..types.payabli_error_body import PayabliErrorBody
 from ..types.payout_average_monthly_volume import PayoutAverageMonthlyVolume
 from ..types.payout_average_ticket_limit import PayoutAverageTicketLimit
 from ..types.payout_credit_limit import PayoutCreditLimit
@@ -80,8 +82,6 @@ from ..types.whencharged import Whencharged
 from ..types.whendelivered import Whendelivered
 from ..types.whenprovided import Whenprovided
 from ..types.whenrefunded import Whenrefunded
-from .types.add_application_request import AddApplicationRequest
-from .types.create_application_from_paypoint_response import CreateApplicationFromPaypointResponse
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -147,9 +147,9 @@ class RawBoardingClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -169,943 +169,9 @@ class RawBoardingClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def delete_application(
-        self, app_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[PayabliApiResponse00Responsedatanonobject]:
-        """
-        Deletes a boarding application by ID.
-
-        Parameters
-        ----------
-        app_id : int
-            Boarding application ID.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[PayabliApiResponse00Responsedatanonobject]
-            Success
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"Boarding/app/{encode_path_param(app_id)}",
-            method="DELETE",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    PayabliApiResponse00Responsedatanonobject,
-                    parse_obj_as(
-                        type_=PayabliApiResponse00Responsedatanonobject,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def get_application(
-        self, app_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[ApplicationDetailsRecord]:
-        """
-        Retrieves the details for a boarding application by ID.
-
-        Parameters
-        ----------
-        app_id : int
-            Boarding application ID.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[ApplicationDetailsRecord]
-            Success
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"Boarding/read/{encode_path_param(app_id)}",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    ApplicationDetailsRecord,
-                    parse_obj_as(
-                        type_=ApplicationDetailsRecord,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def get_application_by_auth(
-        self,
-        x_id: str,
-        *,
-        email: typing.Optional[Email] = OMIT,
-        reference_id: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[ApplicationQueryRecord]:
-        """
-        Gets a boarding application by authentication information. This endpoint requires an `application` API token.
-
-        Parameters
-        ----------
-        x_id : str
-            The application ID in Hex format. Find this at the end of the boarding link URL returned in a call to api/Boarding/applink/{appId}/{mail2}. For example in:  `https://boarding-sandbox.payabli.com/boarding/externalapp/load/17E`, the xId is `17E`.
-
-        email : typing.Optional[Email]
-            The email address the applicant used to save the application.
-
-        reference_id : typing.Optional[str]
-            The referenceId is sent to the applicant via email when they save the application.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[ApplicationQueryRecord]
-            Success
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"Boarding/read/{encode_path_param(x_id)}",
-            method="POST",
-            json={
-                "email": email,
-                "referenceId": reference_id,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    ApplicationQueryRecord,
-                    parse_obj_as(
-                        type_=ApplicationQueryRecord,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def get_by_id_link_application(
-        self, boarding_link_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[BoardingLinkQueryRecord]:
-        """
-        Retrieves details for a boarding link, by ID.
-
-        Parameters
-        ----------
-        boarding_link_id : int
-            The boarding link ID. You can find this at the end of the boarding link reference name. For example `https://boarding.payabli.com/boarding/app/myorgaccountname-00091`. The ID is `91`.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[BoardingLinkQueryRecord]
-            Success
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"Boarding/linkbyId/{encode_path_param(boarding_link_id)}",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    BoardingLinkQueryRecord,
-                    parse_obj_as(
-                        type_=BoardingLinkQueryRecord,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def get_by_template_id_link_application(
-        self, template_id: float, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[BoardingLinkQueryRecord]:
-        """
-        Get details for a boarding link using the boarding template ID. This endpoint requires an application API token.
-
-        Parameters
-        ----------
-        template_id : float
-            The boarding template ID. You can find this at the end of the boarding template URL in PartnerHub. Example: `https://partner-sandbox.payabli.com/myorganization/boarding/edittemplate/80`. Here, the template ID is `80`.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[BoardingLinkQueryRecord]
-            Success
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"Boarding/linkbyTemplate/{encode_path_param(template_id)}",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    BoardingLinkQueryRecord,
-                    parse_obj_as(
-                        type_=BoardingLinkQueryRecord,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def get_external_application(
-        self,
-        app_id: int,
-        mail_2: str,
-        *,
-        send_email: typing.Optional[bool] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PayabliApiResponse00]:
-        """
-        Retrieves a link and the verification code used to log into an existing boarding application. You can also use this endpoint to send a link and referenceId for an existing boarding application to an email address. The recipient can use the referenceId and email address to access and edit the application.
-
-        Parameters
-        ----------
-        app_id : int
-            Boarding application ID.
-
-        mail_2 : str
-            Email address used to access the application. If `sendEmail` parameter is true, a link to the application is sent to this email address.
-
-        send_email : typing.Optional[bool]
-            If `true`, sends an email that includes the link to the application to the `mail2` address. Defaults to `false`.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[PayabliApiResponse00]
-            Success
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"Boarding/applink/{encode_path_param(app_id)}/{encode_path_param(mail_2)}",
-            method="PUT",
-            params={
-                "sendEmail": send_email,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    PayabliApiResponse00,
-                    parse_obj_as(
-                        type_=PayabliApiResponse00,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def get_link_application(
-        self, boarding_link_reference: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[BoardingLinkQueryRecord]:
-        """
-        Retrieves the details for a boarding link, by reference name. This endpoint requires an application API token.
-
-        Parameters
-        ----------
-        boarding_link_reference : str
-            The boarding link reference name. You can find this at the end of the boarding link URL. For example `https://boarding.payabli.com/boarding/app/myorgaccountname-00091`
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[BoardingLinkQueryRecord]
-            Success
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"Boarding/link/{encode_path_param(boarding_link_reference)}",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    BoardingLinkQueryRecord,
-                    parse_obj_as(
-                        type_=BoardingLinkQueryRecord,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def list_applications(
-        self,
-        org_id: int,
-        *,
-        export_format: typing.Optional[ExportFormat] = None,
-        from_record: typing.Optional[int] = None,
-        limit_record: typing.Optional[int] = None,
-        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
-        sort_by: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[QueryBoardingAppsListResponse]:
-        """
-        Returns a list of boarding applications for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
-
-        Parameters
-        ----------
-        org_id : int
-            The numeric identifier for organization, assigned by Payabli.
-
-        export_format : typing.Optional[ExportFormat]
-
-        from_record : typing.Optional[int]
-            The number of records to skip before starting to collect the result set.
-
-        limit_record : typing.Optional[int]
-            Max number of records to return for the query. Use `0` or negative value to return all records.
-
-        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-            Collection of field names, conditions, and values used to filter the query
-
-            See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
-
-            List of field names accepted:
-            - `createdAt` (gt, ge, lt, le, eq, ne)
-            - `startDate` (gt, ge, lt, le, eq, ne)
-            - `dbaname` (ct, nct)
-            - `legalname` (ct, nct)
-            - `ein` (ct, nct)
-            - `address` (ct, nct)
-            - `city` (ct, nct)
-            - `state` (ct, nct)
-            - `phone` (ct, nct)
-            - `mcc` (ct, nct)
-            - `owntype` (ct, nct)
-            - `ownerName` (ct, nct)
-            - `contactName` (ct, nct)
-            - `status` (in, nin, eq,ne)
-            - `orgParentname` (ct, nct)
-            - `externalpaypointID` (ct, nct, eq, ne)
-            - `repCode` (ct, nct, eq, ne)
-            - `repName` (ct, nct, eq, ne)
-            - `repOffice` (ct, nct, eq, ne)
-            List of comparison accepted - enclosed between parentheses:
-            - eq or empty => equal
-            - gt => greater than
-            - ge => greater or equal
-            - lt => less than
-            - le => less or equal
-            - ne => not equal
-            - ct => contains
-            - nct => not contains
-            - in => inside array
-            - nin => not inside array
-
-        sort_by : typing.Optional[str]
-            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[QueryBoardingAppsListResponse]
-            Success
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"Query/boarding/{encode_path_param(org_id)}",
-            method="GET",
-            params={
-                "exportFormat": export_format,
-                "fromRecord": from_record,
-                "limitRecord": limit_record,
-                "parameters": parameters,
-                "sortBy": sort_by,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    QueryBoardingAppsListResponse,
-                    parse_obj_as(
-                        type_=QueryBoardingAppsListResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def list_boarding_links(
-        self,
-        org_id: int,
-        *,
-        from_record: typing.Optional[int] = None,
-        limit_record: typing.Optional[int] = None,
-        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
-        sort_by: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[QueryBoardingLinksResponse]:
-        """
-        Return a list of boarding links for an organization. Use filters to limit results.
-
-        Parameters
-        ----------
-        org_id : int
-            The numeric identifier for organization, assigned by Payabli.
-
-        from_record : typing.Optional[int]
-            The number of records to skip before starting to collect the result set.
-
-        limit_record : typing.Optional[int]
-            Max number of records to return for the query. Use `0` or negative value to return all records.
-
-        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-            Collection of field names, conditions, and values used to filter the query
-
-            See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
-
-            List of field names accepted:
-            - `lastUpdated` (gt, ge, lt, le, eq, ne)
-            - `templateName` (ct, nct)
-            - `referenceName` (ct, nct)
-            - `acceptRegister` (eq, ne)
-            - `acceptAuth` (eq, ne)
-            - `templateCode` (ct, nct)
-            - `templateId` (eq, ne)
-            - `orgParentname` (ct, nct)
-
-            List of comparison accepted - enclosed between parentheses:
-            - eq or empty => equal
-            - gt => greater than
-            - ge => greater or equal
-            - lt => less than
-            - le => less or equal
-            - ne => not equal
-            - ct => contains
-            - nct => not contains
-            - in => inside array
-            - nin => not inside array
-
-            List of parameters accepted:
-            - limitRecord : max number of records for query (default="20", "0" or negative value for all)
-            - fromRecord : initial record in query
-
-            Example: templateName(ct)=hoa return all records with template title containing "hoa"
-
-        sort_by : typing.Optional[str]
-            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[QueryBoardingLinksResponse]
-            Success
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"Query/boardinglinks/{encode_path_param(org_id)}",
-            method="GET",
-            params={
-                "fromRecord": from_record,
-                "limitRecord": limit_record,
-                "parameters": parameters,
-                "sortBy": sort_by,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    QueryBoardingLinksResponse,
-                    parse_obj_as(
-                        type_=QueryBoardingLinksResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1414,9 +480,9 @@ class RawBoardingClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1436,9 +502,944 @@ class RawBoardingClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def delete_application(
+        self, app_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[PayabliApiResponse00Responsedatanonobject]:
+        """
+        Deletes a boarding application by ID.
+
+        Parameters
+        ----------
+        app_id : int
+            Boarding application ID.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[PayabliApiResponse00Responsedatanonobject]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"Boarding/app/{encode_path_param(app_id)}",
+            method="DELETE",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PayabliApiResponse00Responsedatanonobject,
+                    parse_obj_as(
+                        type_=PayabliApiResponse00Responsedatanonobject,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def get_application(
+        self, app_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[ApplicationDetailsRecord]:
+        """
+        Retrieves the details for a boarding application by ID.
+
+        Parameters
+        ----------
+        app_id : int
+            Boarding application ID.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[ApplicationDetailsRecord]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"Boarding/read/{encode_path_param(app_id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ApplicationDetailsRecord,
+                    parse_obj_as(
+                        type_=ApplicationDetailsRecord,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def get_application_by_auth(
+        self,
+        x_id: str,
+        *,
+        email: typing.Optional[Email] = OMIT,
+        reference_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[ApplicationQueryRecord]:
+        """
+        Gets a boarding application by authentication information. This endpoint requires an `application` API token.
+
+        Parameters
+        ----------
+        x_id : str
+            The application ID in Hex format. Find this at the end of the boarding link URL returned in a call to api/Boarding/applink/{appId}/{mail2}. For example in:  `https://boarding-sandbox.payabli.com/boarding/externalapp/load/17E`, the xId is `17E`.
+
+        email : typing.Optional[Email]
+            The email address the applicant used to save the application.
+
+        reference_id : typing.Optional[str]
+            The referenceId is sent to the applicant via email when they save the application.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[ApplicationQueryRecord]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"Boarding/read/{encode_path_param(x_id)}",
+            method="POST",
+            json={
+                "email": email,
+                "referenceId": reference_id,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ApplicationQueryRecord,
+                    parse_obj_as(
+                        type_=ApplicationQueryRecord,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def get_by_id_link_application(
+        self, boarding_link_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[BoardingLinkQueryRecord]:
+        """
+        Retrieves details for a boarding link, by ID.
+
+        Parameters
+        ----------
+        boarding_link_id : int
+            The boarding link ID. You can find this at the end of the boarding link reference name. For example `https://boarding.payabli.com/boarding/app/myorgaccountname-00091`. The ID is `91`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[BoardingLinkQueryRecord]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"Boarding/linkbyId/{encode_path_param(boarding_link_id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    BoardingLinkQueryRecord,
+                    parse_obj_as(
+                        type_=BoardingLinkQueryRecord,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def get_by_template_id_link_application(
+        self, template_id: float, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[BoardingLinkQueryRecord]:
+        """
+        Get details for a boarding link using the boarding template ID. This endpoint requires an application API token.
+
+        Parameters
+        ----------
+        template_id : float
+            The boarding template ID. You can find this at the end of the boarding template URL in PartnerHub. Example: `https://partner-sandbox.payabli.com/myorganization/boarding/edittemplate/80`. Here, the template ID is `80`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[BoardingLinkQueryRecord]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"Boarding/linkbyTemplate/{encode_path_param(template_id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    BoardingLinkQueryRecord,
+                    parse_obj_as(
+                        type_=BoardingLinkQueryRecord,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def get_external_application(
+        self,
+        app_id: int,
+        mail_2: str,
+        *,
+        send_email: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[PayabliApiResponse00]:
+        """
+        Retrieves a link and the verification code used to log into an existing boarding application. You can also use this endpoint to send a link and referenceId for an existing boarding application to an email address. The recipient can use the referenceId and email address to access and edit the application.
+
+        Parameters
+        ----------
+        app_id : int
+            Boarding application ID.
+
+        mail_2 : str
+            Email address used to access the application. If `sendEmail` parameter is true, a link to the application is sent to this email address.
+
+        send_email : typing.Optional[bool]
+            If `true`, sends an email that includes the link to the application to the `mail2` address. Defaults to `false`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[PayabliApiResponse00]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"Boarding/applink/{encode_path_param(app_id)}/{encode_path_param(mail_2)}",
+            method="PUT",
+            params={
+                "sendEmail": send_email,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PayabliApiResponse00,
+                    parse_obj_as(
+                        type_=PayabliApiResponse00,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def get_link_application(
+        self, boarding_link_reference: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[BoardingLinkQueryRecord]:
+        """
+        Retrieves the details for a boarding link, by reference name. This endpoint requires an application API token.
+
+        Parameters
+        ----------
+        boarding_link_reference : str
+            The boarding link reference name. You can find this at the end of the boarding link URL. For example `https://boarding.payabli.com/boarding/app/myorgaccountname-00091`
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[BoardingLinkQueryRecord]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"Boarding/link/{encode_path_param(boarding_link_reference)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    BoardingLinkQueryRecord,
+                    parse_obj_as(
+                        type_=BoardingLinkQueryRecord,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def list_applications(
+        self,
+        org_id: int,
+        *,
+        export_format: typing.Optional[ExportFormat] = None,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[QueryBoardingAppsListResponse]:
+        """
+        Returns a list of boarding applications for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
+
+        Parameters
+        ----------
+        org_id : int
+            The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Collection of field names, conditions, and values used to filter the query
+
+            See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
+
+            List of field names accepted:
+            - `createdAt` (gt, ge, lt, le, eq, ne)
+            - `startDate` (gt, ge, lt, le, eq, ne)
+            - `dbaname` (ct, nct)
+            - `legalname` (ct, nct)
+            - `ein` (ct, nct)
+            - `address` (ct, nct)
+            - `city` (ct, nct)
+            - `state` (ct, nct)
+            - `phone` (ct, nct)
+            - `mcc` (ct, nct)
+            - `owntype` (ct, nct)
+            - `ownerName` (ct, nct)
+            - `contactName` (ct, nct)
+            - `status` (in, nin, eq,ne)
+            - `orgParentname` (ct, nct)
+            - `externalpaypointID` (ct, nct, eq, ne)
+            - `repCode` (ct, nct, eq, ne)
+            - `repName` (ct, nct, eq, ne)
+            - `repOffice` (ct, nct, eq, ne)
+            List of comparison accepted - enclosed between parentheses:
+            - eq or empty => equal
+            - gt => greater than
+            - ge => greater or equal
+            - lt => less than
+            - le => less or equal
+            - ne => not equal
+            - ct => contains
+            - nct => not contains
+            - in => inside array
+            - nin => not inside array
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[QueryBoardingAppsListResponse]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"Query/boarding/{encode_path_param(org_id)}",
+            method="GET",
+            params={
+                "exportFormat": export_format,
+                "fromRecord": from_record,
+                "limitRecord": limit_record,
+                "parameters": parameters,
+                "sortBy": sort_by,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    QueryBoardingAppsListResponse,
+                    parse_obj_as(
+                        type_=QueryBoardingAppsListResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def list_boarding_links(
+        self,
+        org_id: int,
+        *,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[QueryBoardingLinksResponse]:
+        """
+        Return a list of boarding links for an organization. Use filters to limit results.
+
+        Parameters
+        ----------
+        org_id : int
+            The numeric identifier for organization, assigned by Payabli.
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Collection of field names, conditions, and values used to filter the query
+
+            See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
+
+            List of field names accepted:
+            - `lastUpdated` (gt, ge, lt, le, eq, ne)
+            - `templateName` (ct, nct)
+            - `referenceName` (ct, nct)
+            - `acceptRegister` (eq, ne)
+            - `acceptAuth` (eq, ne)
+            - `templateCode` (ct, nct)
+            - `templateId` (eq, ne)
+            - `orgParentname` (ct, nct)
+
+            List of comparison accepted - enclosed between parentheses:
+            - eq or empty => equal
+            - gt => greater than
+            - ge => greater or equal
+            - lt => less than
+            - le => less or equal
+            - ne => not equal
+            - ct => contains
+            - nct => not contains
+            - in => inside array
+            - nin => not inside array
+
+            List of parameters accepted:
+            - limitRecord : max number of records for query (default="20", "0" or negative value for all)
+            - fromRecord : initial record in query
+
+            Example: templateName(ct)=hoa return all records with template title containing "hoa"
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[QueryBoardingLinksResponse]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"Query/boardinglinks/{encode_path_param(org_id)}",
+            method="GET",
+            params={
+                "fromRecord": from_record,
+                "limitRecord": limit_record,
+                "parameters": parameters,
+                "sortBy": sort_by,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    QueryBoardingLinksResponse,
+                    parse_obj_as(
+                        type_=QueryBoardingLinksResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1531,9 +1532,9 @@ class RawBoardingClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1553,9 +1554,9 @@ class RawBoardingClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1618,9 +1619,9 @@ class RawBoardingClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1640,9 +1641,9 @@ class RawBoardingClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1716,9 +1717,9 @@ class AsyncRawBoardingClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1738,943 +1739,9 @@ class AsyncRawBoardingClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def delete_application(
-        self, app_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]:
-        """
-        Deletes a boarding application by ID.
-
-        Parameters
-        ----------
-        app_id : int
-            Boarding application ID.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]
-            Success
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"Boarding/app/{encode_path_param(app_id)}",
-            method="DELETE",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    PayabliApiResponse00Responsedatanonobject,
-                    parse_obj_as(
-                        type_=PayabliApiResponse00Responsedatanonobject,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def get_application(
-        self, app_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[ApplicationDetailsRecord]:
-        """
-        Retrieves the details for a boarding application by ID.
-
-        Parameters
-        ----------
-        app_id : int
-            Boarding application ID.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[ApplicationDetailsRecord]
-            Success
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"Boarding/read/{encode_path_param(app_id)}",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    ApplicationDetailsRecord,
-                    parse_obj_as(
-                        type_=ApplicationDetailsRecord,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def get_application_by_auth(
-        self,
-        x_id: str,
-        *,
-        email: typing.Optional[Email] = OMIT,
-        reference_id: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[ApplicationQueryRecord]:
-        """
-        Gets a boarding application by authentication information. This endpoint requires an `application` API token.
-
-        Parameters
-        ----------
-        x_id : str
-            The application ID in Hex format. Find this at the end of the boarding link URL returned in a call to api/Boarding/applink/{appId}/{mail2}. For example in:  `https://boarding-sandbox.payabli.com/boarding/externalapp/load/17E`, the xId is `17E`.
-
-        email : typing.Optional[Email]
-            The email address the applicant used to save the application.
-
-        reference_id : typing.Optional[str]
-            The referenceId is sent to the applicant via email when they save the application.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[ApplicationQueryRecord]
-            Success
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"Boarding/read/{encode_path_param(x_id)}",
-            method="POST",
-            json={
-                "email": email,
-                "referenceId": reference_id,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    ApplicationQueryRecord,
-                    parse_obj_as(
-                        type_=ApplicationQueryRecord,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def get_by_id_link_application(
-        self, boarding_link_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[BoardingLinkQueryRecord]:
-        """
-        Retrieves details for a boarding link, by ID.
-
-        Parameters
-        ----------
-        boarding_link_id : int
-            The boarding link ID. You can find this at the end of the boarding link reference name. For example `https://boarding.payabli.com/boarding/app/myorgaccountname-00091`. The ID is `91`.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[BoardingLinkQueryRecord]
-            Success
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"Boarding/linkbyId/{encode_path_param(boarding_link_id)}",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    BoardingLinkQueryRecord,
-                    parse_obj_as(
-                        type_=BoardingLinkQueryRecord,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def get_by_template_id_link_application(
-        self, template_id: float, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[BoardingLinkQueryRecord]:
-        """
-        Get details for a boarding link using the boarding template ID. This endpoint requires an application API token.
-
-        Parameters
-        ----------
-        template_id : float
-            The boarding template ID. You can find this at the end of the boarding template URL in PartnerHub. Example: `https://partner-sandbox.payabli.com/myorganization/boarding/edittemplate/80`. Here, the template ID is `80`.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[BoardingLinkQueryRecord]
-            Success
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"Boarding/linkbyTemplate/{encode_path_param(template_id)}",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    BoardingLinkQueryRecord,
-                    parse_obj_as(
-                        type_=BoardingLinkQueryRecord,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def get_external_application(
-        self,
-        app_id: int,
-        mail_2: str,
-        *,
-        send_email: typing.Optional[bool] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PayabliApiResponse00]:
-        """
-        Retrieves a link and the verification code used to log into an existing boarding application. You can also use this endpoint to send a link and referenceId for an existing boarding application to an email address. The recipient can use the referenceId and email address to access and edit the application.
-
-        Parameters
-        ----------
-        app_id : int
-            Boarding application ID.
-
-        mail_2 : str
-            Email address used to access the application. If `sendEmail` parameter is true, a link to the application is sent to this email address.
-
-        send_email : typing.Optional[bool]
-            If `true`, sends an email that includes the link to the application to the `mail2` address. Defaults to `false`.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[PayabliApiResponse00]
-            Success
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"Boarding/applink/{encode_path_param(app_id)}/{encode_path_param(mail_2)}",
-            method="PUT",
-            params={
-                "sendEmail": send_email,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    PayabliApiResponse00,
-                    parse_obj_as(
-                        type_=PayabliApiResponse00,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def get_link_application(
-        self, boarding_link_reference: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[BoardingLinkQueryRecord]:
-        """
-        Retrieves the details for a boarding link, by reference name. This endpoint requires an application API token.
-
-        Parameters
-        ----------
-        boarding_link_reference : str
-            The boarding link reference name. You can find this at the end of the boarding link URL. For example `https://boarding.payabli.com/boarding/app/myorgaccountname-00091`
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[BoardingLinkQueryRecord]
-            Success
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"Boarding/link/{encode_path_param(boarding_link_reference)}",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    BoardingLinkQueryRecord,
-                    parse_obj_as(
-                        type_=BoardingLinkQueryRecord,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def list_applications(
-        self,
-        org_id: int,
-        *,
-        export_format: typing.Optional[ExportFormat] = None,
-        from_record: typing.Optional[int] = None,
-        limit_record: typing.Optional[int] = None,
-        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
-        sort_by: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[QueryBoardingAppsListResponse]:
-        """
-        Returns a list of boarding applications for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
-
-        Parameters
-        ----------
-        org_id : int
-            The numeric identifier for organization, assigned by Payabli.
-
-        export_format : typing.Optional[ExportFormat]
-
-        from_record : typing.Optional[int]
-            The number of records to skip before starting to collect the result set.
-
-        limit_record : typing.Optional[int]
-            Max number of records to return for the query. Use `0` or negative value to return all records.
-
-        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-            Collection of field names, conditions, and values used to filter the query
-
-            See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
-
-            List of field names accepted:
-            - `createdAt` (gt, ge, lt, le, eq, ne)
-            - `startDate` (gt, ge, lt, le, eq, ne)
-            - `dbaname` (ct, nct)
-            - `legalname` (ct, nct)
-            - `ein` (ct, nct)
-            - `address` (ct, nct)
-            - `city` (ct, nct)
-            - `state` (ct, nct)
-            - `phone` (ct, nct)
-            - `mcc` (ct, nct)
-            - `owntype` (ct, nct)
-            - `ownerName` (ct, nct)
-            - `contactName` (ct, nct)
-            - `status` (in, nin, eq,ne)
-            - `orgParentname` (ct, nct)
-            - `externalpaypointID` (ct, nct, eq, ne)
-            - `repCode` (ct, nct, eq, ne)
-            - `repName` (ct, nct, eq, ne)
-            - `repOffice` (ct, nct, eq, ne)
-            List of comparison accepted - enclosed between parentheses:
-            - eq or empty => equal
-            - gt => greater than
-            - ge => greater or equal
-            - lt => less than
-            - le => less or equal
-            - ne => not equal
-            - ct => contains
-            - nct => not contains
-            - in => inside array
-            - nin => not inside array
-
-        sort_by : typing.Optional[str]
-            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[QueryBoardingAppsListResponse]
-            Success
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"Query/boarding/{encode_path_param(org_id)}",
-            method="GET",
-            params={
-                "exportFormat": export_format,
-                "fromRecord": from_record,
-                "limitRecord": limit_record,
-                "parameters": parameters,
-                "sortBy": sort_by,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    QueryBoardingAppsListResponse,
-                    parse_obj_as(
-                        type_=QueryBoardingAppsListResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def list_boarding_links(
-        self,
-        org_id: int,
-        *,
-        from_record: typing.Optional[int] = None,
-        limit_record: typing.Optional[int] = None,
-        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
-        sort_by: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[QueryBoardingLinksResponse]:
-        """
-        Return a list of boarding links for an organization. Use filters to limit results.
-
-        Parameters
-        ----------
-        org_id : int
-            The numeric identifier for organization, assigned by Payabli.
-
-        from_record : typing.Optional[int]
-            The number of records to skip before starting to collect the result set.
-
-        limit_record : typing.Optional[int]
-            Max number of records to return for the query. Use `0` or negative value to return all records.
-
-        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-            Collection of field names, conditions, and values used to filter the query
-
-            See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
-
-            List of field names accepted:
-            - `lastUpdated` (gt, ge, lt, le, eq, ne)
-            - `templateName` (ct, nct)
-            - `referenceName` (ct, nct)
-            - `acceptRegister` (eq, ne)
-            - `acceptAuth` (eq, ne)
-            - `templateCode` (ct, nct)
-            - `templateId` (eq, ne)
-            - `orgParentname` (ct, nct)
-
-            List of comparison accepted - enclosed between parentheses:
-            - eq or empty => equal
-            - gt => greater than
-            - ge => greater or equal
-            - lt => less than
-            - le => less or equal
-            - ne => not equal
-            - ct => contains
-            - nct => not contains
-            - in => inside array
-            - nin => not inside array
-
-            List of parameters accepted:
-            - limitRecord : max number of records for query (default="20", "0" or negative value for all)
-            - fromRecord : initial record in query
-
-            Example: templateName(ct)=hoa return all records with template title containing "hoa"
-
-        sort_by : typing.Optional[str]
-            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[QueryBoardingLinksResponse]
-            Success
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"Query/boardinglinks/{encode_path_param(org_id)}",
-            method="GET",
-            params={
-                "fromRecord": from_record,
-                "limitRecord": limit_record,
-                "parameters": parameters,
-                "sortBy": sort_by,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    QueryBoardingLinksResponse,
-                    parse_obj_as(
-                        type_=QueryBoardingLinksResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2983,9 +2050,9 @@ class AsyncRawBoardingClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3005,9 +2072,944 @@ class AsyncRawBoardingClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def delete_application(
+        self, app_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]:
+        """
+        Deletes a boarding application by ID.
+
+        Parameters
+        ----------
+        app_id : int
+            Boarding application ID.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"Boarding/app/{encode_path_param(app_id)}",
+            method="DELETE",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PayabliApiResponse00Responsedatanonobject,
+                    parse_obj_as(
+                        type_=PayabliApiResponse00Responsedatanonobject,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def get_application(
+        self, app_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[ApplicationDetailsRecord]:
+        """
+        Retrieves the details for a boarding application by ID.
+
+        Parameters
+        ----------
+        app_id : int
+            Boarding application ID.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[ApplicationDetailsRecord]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"Boarding/read/{encode_path_param(app_id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ApplicationDetailsRecord,
+                    parse_obj_as(
+                        type_=ApplicationDetailsRecord,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def get_application_by_auth(
+        self,
+        x_id: str,
+        *,
+        email: typing.Optional[Email] = OMIT,
+        reference_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[ApplicationQueryRecord]:
+        """
+        Gets a boarding application by authentication information. This endpoint requires an `application` API token.
+
+        Parameters
+        ----------
+        x_id : str
+            The application ID in Hex format. Find this at the end of the boarding link URL returned in a call to api/Boarding/applink/{appId}/{mail2}. For example in:  `https://boarding-sandbox.payabli.com/boarding/externalapp/load/17E`, the xId is `17E`.
+
+        email : typing.Optional[Email]
+            The email address the applicant used to save the application.
+
+        reference_id : typing.Optional[str]
+            The referenceId is sent to the applicant via email when they save the application.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[ApplicationQueryRecord]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"Boarding/read/{encode_path_param(x_id)}",
+            method="POST",
+            json={
+                "email": email,
+                "referenceId": reference_id,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ApplicationQueryRecord,
+                    parse_obj_as(
+                        type_=ApplicationQueryRecord,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def get_by_id_link_application(
+        self, boarding_link_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[BoardingLinkQueryRecord]:
+        """
+        Retrieves details for a boarding link, by ID.
+
+        Parameters
+        ----------
+        boarding_link_id : int
+            The boarding link ID. You can find this at the end of the boarding link reference name. For example `https://boarding.payabli.com/boarding/app/myorgaccountname-00091`. The ID is `91`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[BoardingLinkQueryRecord]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"Boarding/linkbyId/{encode_path_param(boarding_link_id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    BoardingLinkQueryRecord,
+                    parse_obj_as(
+                        type_=BoardingLinkQueryRecord,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def get_by_template_id_link_application(
+        self, template_id: float, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[BoardingLinkQueryRecord]:
+        """
+        Get details for a boarding link using the boarding template ID. This endpoint requires an application API token.
+
+        Parameters
+        ----------
+        template_id : float
+            The boarding template ID. You can find this at the end of the boarding template URL in PartnerHub. Example: `https://partner-sandbox.payabli.com/myorganization/boarding/edittemplate/80`. Here, the template ID is `80`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[BoardingLinkQueryRecord]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"Boarding/linkbyTemplate/{encode_path_param(template_id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    BoardingLinkQueryRecord,
+                    parse_obj_as(
+                        type_=BoardingLinkQueryRecord,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def get_external_application(
+        self,
+        app_id: int,
+        mail_2: str,
+        *,
+        send_email: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[PayabliApiResponse00]:
+        """
+        Retrieves a link and the verification code used to log into an existing boarding application. You can also use this endpoint to send a link and referenceId for an existing boarding application to an email address. The recipient can use the referenceId and email address to access and edit the application.
+
+        Parameters
+        ----------
+        app_id : int
+            Boarding application ID.
+
+        mail_2 : str
+            Email address used to access the application. If `sendEmail` parameter is true, a link to the application is sent to this email address.
+
+        send_email : typing.Optional[bool]
+            If `true`, sends an email that includes the link to the application to the `mail2` address. Defaults to `false`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[PayabliApiResponse00]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"Boarding/applink/{encode_path_param(app_id)}/{encode_path_param(mail_2)}",
+            method="PUT",
+            params={
+                "sendEmail": send_email,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PayabliApiResponse00,
+                    parse_obj_as(
+                        type_=PayabliApiResponse00,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def get_link_application(
+        self, boarding_link_reference: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[BoardingLinkQueryRecord]:
+        """
+        Retrieves the details for a boarding link, by reference name. This endpoint requires an application API token.
+
+        Parameters
+        ----------
+        boarding_link_reference : str
+            The boarding link reference name. You can find this at the end of the boarding link URL. For example `https://boarding.payabli.com/boarding/app/myorgaccountname-00091`
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[BoardingLinkQueryRecord]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"Boarding/link/{encode_path_param(boarding_link_reference)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    BoardingLinkQueryRecord,
+                    parse_obj_as(
+                        type_=BoardingLinkQueryRecord,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def list_applications(
+        self,
+        org_id: int,
+        *,
+        export_format: typing.Optional[ExportFormat] = None,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[QueryBoardingAppsListResponse]:
+        """
+        Returns a list of boarding applications for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
+
+        Parameters
+        ----------
+        org_id : int
+            The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Collection of field names, conditions, and values used to filter the query
+
+            See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
+
+            List of field names accepted:
+            - `createdAt` (gt, ge, lt, le, eq, ne)
+            - `startDate` (gt, ge, lt, le, eq, ne)
+            - `dbaname` (ct, nct)
+            - `legalname` (ct, nct)
+            - `ein` (ct, nct)
+            - `address` (ct, nct)
+            - `city` (ct, nct)
+            - `state` (ct, nct)
+            - `phone` (ct, nct)
+            - `mcc` (ct, nct)
+            - `owntype` (ct, nct)
+            - `ownerName` (ct, nct)
+            - `contactName` (ct, nct)
+            - `status` (in, nin, eq,ne)
+            - `orgParentname` (ct, nct)
+            - `externalpaypointID` (ct, nct, eq, ne)
+            - `repCode` (ct, nct, eq, ne)
+            - `repName` (ct, nct, eq, ne)
+            - `repOffice` (ct, nct, eq, ne)
+            List of comparison accepted - enclosed between parentheses:
+            - eq or empty => equal
+            - gt => greater than
+            - ge => greater or equal
+            - lt => less than
+            - le => less or equal
+            - ne => not equal
+            - ct => contains
+            - nct => not contains
+            - in => inside array
+            - nin => not inside array
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[QueryBoardingAppsListResponse]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"Query/boarding/{encode_path_param(org_id)}",
+            method="GET",
+            params={
+                "exportFormat": export_format,
+                "fromRecord": from_record,
+                "limitRecord": limit_record,
+                "parameters": parameters,
+                "sortBy": sort_by,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    QueryBoardingAppsListResponse,
+                    parse_obj_as(
+                        type_=QueryBoardingAppsListResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def list_boarding_links(
+        self,
+        org_id: int,
+        *,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[QueryBoardingLinksResponse]:
+        """
+        Return a list of boarding links for an organization. Use filters to limit results.
+
+        Parameters
+        ----------
+        org_id : int
+            The numeric identifier for organization, assigned by Payabli.
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Collection of field names, conditions, and values used to filter the query
+
+            See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
+
+            List of field names accepted:
+            - `lastUpdated` (gt, ge, lt, le, eq, ne)
+            - `templateName` (ct, nct)
+            - `referenceName` (ct, nct)
+            - `acceptRegister` (eq, ne)
+            - `acceptAuth` (eq, ne)
+            - `templateCode` (ct, nct)
+            - `templateId` (eq, ne)
+            - `orgParentname` (ct, nct)
+
+            List of comparison accepted - enclosed between parentheses:
+            - eq or empty => equal
+            - gt => greater than
+            - ge => greater or equal
+            - lt => less than
+            - le => less or equal
+            - ne => not equal
+            - ct => contains
+            - nct => not contains
+            - in => inside array
+            - nin => not inside array
+
+            List of parameters accepted:
+            - limitRecord : max number of records for query (default="20", "0" or negative value for all)
+            - fromRecord : initial record in query
+
+            Example: templateName(ct)=hoa return all records with template title containing "hoa"
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[QueryBoardingLinksResponse]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"Query/boardinglinks/{encode_path_param(org_id)}",
+            method="GET",
+            params={
+                "fromRecord": from_record,
+                "limitRecord": limit_record,
+                "parameters": parameters,
+                "sortBy": sort_by,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    QueryBoardingLinksResponse,
+                    parse_obj_as(
+                        type_=QueryBoardingLinksResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3100,9 +3102,9 @@ class AsyncRawBoardingClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3122,9 +3124,9 @@ class AsyncRawBoardingClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3187,9 +3189,9 @@ class AsyncRawBoardingClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3209,9 +3211,9 @@ class AsyncRawBoardingClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

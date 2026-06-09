@@ -15,9 +15,9 @@ from ..errors.internal_server_error import InternalServerError
 from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.file_content_ftype import FileContentFtype
-from ..types.payabli_api_response import PayabliApiResponse
-from .types.payabli_api_response_ocr import PayabliApiResponseOcr
-from .types.type_result import TypeResult
+from ..types.payabli_api_response_ocr import PayabliApiResponseOcr
+from ..types.payabli_error_body import PayabliErrorBody
+from ..types.type_result import TypeResult
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -44,6 +44,7 @@ class RawOcrClient:
         Parameters
         ----------
         type_result : TypeResult
+            The type of object to create in Payabli. Accepted values are `bill` and `invoice`.
 
         ftype : typing.Optional[FileContentFtype]
 
@@ -73,6 +74,9 @@ class RawOcrClient:
                 "furl": furl,
                 "fContent": f_content,
             },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -101,9 +105,9 @@ class RawOcrClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -123,9 +127,9 @@ class RawOcrClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -155,6 +159,7 @@ class RawOcrClient:
         Parameters
         ----------
         type_result : TypeResult
+            The type of object to create in Payabli. Accepted values are `bill` and `invoice`.
 
         ftype : typing.Optional[FileContentFtype]
 
@@ -183,6 +188,9 @@ class RawOcrClient:
                 "filename": filename,
                 "furl": furl,
                 "fContent": f_content,
+            },
+            headers={
+                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
@@ -227,6 +235,7 @@ class AsyncRawOcrClient:
         Parameters
         ----------
         type_result : TypeResult
+            The type of object to create in Payabli. Accepted values are `bill` and `invoice`.
 
         ftype : typing.Optional[FileContentFtype]
 
@@ -256,6 +265,9 @@ class AsyncRawOcrClient:
                 "furl": furl,
                 "fContent": f_content,
             },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -284,9 +296,9 @@ class AsyncRawOcrClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -306,9 +318,9 @@ class AsyncRawOcrClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -338,6 +350,7 @@ class AsyncRawOcrClient:
         Parameters
         ----------
         type_result : TypeResult
+            The type of object to create in Payabli. Accepted values are `bill` and `invoice`.
 
         ftype : typing.Optional[FileContentFtype]
 
@@ -366,6 +379,9 @@ class AsyncRawOcrClient:
                 "filename": filename,
                 "furl": furl,
                 "fContent": f_content,
+            },
+            headers={
+                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,

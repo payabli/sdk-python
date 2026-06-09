@@ -2,9 +2,8 @@
 
 Paypointstatus = int
 """
-The paypoint's status. 
+The paypoint's status.
 
-Active - `1`
-
-Inactive - 0
+- `1` — Active
+- `0` — Inactive
 """

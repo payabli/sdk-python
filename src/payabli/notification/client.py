@@ -4,12 +4,12 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
+from ..types.add_notification_request import AddNotificationRequest
 from ..types.file import File
 from ..types.notification_query_record import NotificationQueryRecord
 from ..types.payabli_api_response_notifications import PayabliApiResponseNotifications
+from ..types.update_notification_request import UpdateNotificationRequest
 from .raw_client import AsyncRawNotificationClient, RawNotificationClient
-from .types.add_notification_request import AddNotificationRequest
-from .types.update_notification_request import UpdateNotificationRequest
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -74,39 +74,6 @@ class NotificationClient:
         )
         """
         _response = self._raw_client.add_notification(request=request, request_options=request_options)
-        return _response.data
-
-    def delete_notification(
-        self, n_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> PayabliApiResponseNotifications:
-        """
-        Deletes a single notification or auto-generated report.
-
-        Parameters
-        ----------
-        n_id : str
-            Notification ID.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        PayabliApiResponseNotifications
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.notification.delete_notification(
-            n_id="1717",
-        )
-        """
-        _response = self._raw_client.delete_notification(n_id, request_options=request_options)
         return _response.data
 
     def get_notification(
@@ -190,6 +157,39 @@ class NotificationClient:
         )
         """
         _response = self._raw_client.update_notification(n_id, request=request, request_options=request_options)
+        return _response.data
+
+    def delete_notification(
+        self, n_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> PayabliApiResponseNotifications:
+        """
+        Deletes a single notification or auto-generated report.
+
+        Parameters
+        ----------
+        n_id : str
+            Notification ID.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayabliApiResponseNotifications
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.notification.delete_notification(
+            n_id="1717",
+        )
+        """
+        _response = self._raw_client.delete_notification(n_id, request_options=request_options)
         return _response.data
 
     def get_report_file(self, id: int, *, request_options: typing.Optional[RequestOptions] = None) -> File:
@@ -293,47 +293,6 @@ class AsyncNotificationClient:
         _response = await self._raw_client.add_notification(request=request, request_options=request_options)
         return _response.data
 
-    async def delete_notification(
-        self, n_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> PayabliApiResponseNotifications:
-        """
-        Deletes a single notification or auto-generated report.
-
-        Parameters
-        ----------
-        n_id : str
-            Notification ID.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        PayabliApiResponseNotifications
-            Success
-
-        Examples
-        --------
-        import asyncio
-
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.notification.delete_notification(
-                n_id="1717",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.delete_notification(n_id, request_options=request_options)
-        return _response.data
-
     async def get_notification(
         self, n_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> NotificationQueryRecord:
@@ -431,6 +390,47 @@ class AsyncNotificationClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.update_notification(n_id, request=request, request_options=request_options)
+        return _response.data
+
+    async def delete_notification(
+        self, n_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> PayabliApiResponseNotifications:
+        """
+        Deletes a single notification or auto-generated report.
+
+        Parameters
+        ----------
+        n_id : str
+            Notification ID.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayabliApiResponseNotifications
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.notification.delete_notification(
+                n_id="1717",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.delete_notification(n_id, request_options=request_options)
         return _response.data
 
     async def get_report_file(self, id: int, *, request_options: typing.Optional[RequestOptions] = None) -> File:

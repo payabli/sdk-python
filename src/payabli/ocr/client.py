@@ -5,9 +5,9 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.file_content_ftype import FileContentFtype
+from ..types.payabli_api_response_ocr import PayabliApiResponseOcr
+from ..types.type_result import TypeResult
 from .raw_client import AsyncRawOcrClient, RawOcrClient
-from .types.payabli_api_response_ocr import PayabliApiResponseOcr
-from .types.type_result import TypeResult
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -44,6 +44,7 @@ class OcrClient:
         Parameters
         ----------
         type_result : TypeResult
+            The type of object to create in Payabli. Accepted values are `bill` and `invoice`.
 
         ftype : typing.Optional[FileContentFtype]
 
@@ -96,6 +97,7 @@ class OcrClient:
         Parameters
         ----------
         type_result : TypeResult
+            The type of object to create in Payabli. Accepted values are `bill` and `invoice`.
 
         ftype : typing.Optional[FileContentFtype]
 
@@ -164,6 +166,7 @@ class AsyncOcrClient:
         Parameters
         ----------
         type_result : TypeResult
+            The type of object to create in Payabli. Accepted values are `bill` and `invoice`.
 
         ftype : typing.Optional[FileContentFtype]
 
@@ -224,6 +227,7 @@ class AsyncOcrClient:
         Parameters
         ----------
         type_result : TypeResult
+            The type of object to create in Payabli. Accepted values are `bill` and `invoice`.
 
         ftype : typing.Optional[FileContentFtype]
 

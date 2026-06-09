@@ -21,9 +21,9 @@ from ..types.idempotency_key import IdempotencyKey
 from ..types.page_content import PageContent
 from ..types.page_identifier import PageIdentifier
 from ..types.page_setting import PageSetting
-from ..types.payabli_api_response import PayabliApiResponse
 from ..types.payabli_api_response_00_responsedatanonobject import PayabliApiResponse00Responsedatanonobject
 from ..types.payabli_credentials import PayabliCredentials
+from ..types.payabli_error_body import PayabliErrorBody
 from ..types.payabli_pages import PayabliPages
 from ..types.receipt_content import ReceiptContent
 from ..types.subdomain import Subdomain
@@ -89,9 +89,9 @@ class RawHostedPaymentPagesClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -111,9 +111,9 @@ class RawHostedPaymentPagesClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -146,7 +146,6 @@ class RawHostedPaymentPagesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PayabliApiResponse00Responsedatanonobject]:
         """
-
         Creates a new payment page for a paypoint.
         Note: this operation doesn't create a new paypoint, just a payment page for an existing paypoint. Paypoints are created by the Payabli team when a boarding application is approved.
 
@@ -156,6 +155,7 @@ class RawHostedPaymentPagesClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         additional_data : typing.Optional[AdditionalData]
 
@@ -201,22 +201,22 @@ class RawHostedPaymentPagesClient:
             method="POST",
             json={
                 "AdditionalData": additional_data,
-                "credentials": convert_and_respect_annotation_metadata(
+                "Credentials": convert_and_respect_annotation_metadata(
                     object_=credentials, annotation=typing.Sequence[PayabliCredentials], direction="write"
                 ),
-                "lastAccess": last_access,
-                "pageContent": convert_and_respect_annotation_metadata(
+                "LastAccess": last_access,
+                "PageContent": convert_and_respect_annotation_metadata(
                     object_=page_content, annotation=PageContent, direction="write"
                 ),
                 "pageIdentifier": page_identifier,
-                "pageSettings": convert_and_respect_annotation_metadata(
+                "PageSettings": convert_and_respect_annotation_metadata(
                     object_=page_settings, annotation=PageSetting, direction="write"
                 ),
                 "published": published,
-                "receiptContent": convert_and_respect_annotation_metadata(
+                "ReceiptContent": convert_and_respect_annotation_metadata(
                     object_=receipt_content, annotation=ReceiptContent, direction="write"
                 ),
-                "subdomain": subdomain,
+                "Subdomain": subdomain,
                 "totalAmount": total_amount,
                 "validationCode": validation_code,
             },
@@ -252,9 +252,9 @@ class RawHostedPaymentPagesClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -274,9 +274,9 @@ class RawHostedPaymentPagesClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -363,22 +363,22 @@ class RawHostedPaymentPagesClient:
             method="PUT",
             json={
                 "AdditionalData": additional_data,
-                "credentials": convert_and_respect_annotation_metadata(
+                "Credentials": convert_and_respect_annotation_metadata(
                     object_=credentials, annotation=typing.Sequence[PayabliCredentials], direction="write"
                 ),
-                "lastAccess": last_access,
-                "pageContent": convert_and_respect_annotation_metadata(
+                "LastAccess": last_access,
+                "PageContent": convert_and_respect_annotation_metadata(
                     object_=page_content, annotation=PageContent, direction="write"
                 ),
                 "pageIdentifier": page_identifier,
-                "pageSettings": convert_and_respect_annotation_metadata(
+                "PageSettings": convert_and_respect_annotation_metadata(
                     object_=page_settings, annotation=PageSetting, direction="write"
                 ),
                 "published": published,
-                "receiptContent": convert_and_respect_annotation_metadata(
+                "ReceiptContent": convert_and_respect_annotation_metadata(
                     object_=receipt_content, annotation=ReceiptContent, direction="write"
                 ),
-                "subdomain": subdomain,
+                "Subdomain": subdomain,
                 "totalAmount": total_amount,
                 "validationCode": validation_code,
             },
@@ -413,9 +413,9 @@ class RawHostedPaymentPagesClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -435,9 +435,9 @@ class RawHostedPaymentPagesClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -508,9 +508,9 @@ class AsyncRawHostedPaymentPagesClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -530,9 +530,9 @@ class AsyncRawHostedPaymentPagesClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -565,7 +565,6 @@ class AsyncRawHostedPaymentPagesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]:
         """
-
         Creates a new payment page for a paypoint.
         Note: this operation doesn't create a new paypoint, just a payment page for an existing paypoint. Paypoints are created by the Payabli team when a boarding application is approved.
 
@@ -575,6 +574,7 @@ class AsyncRawHostedPaymentPagesClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         additional_data : typing.Optional[AdditionalData]
 
@@ -620,22 +620,22 @@ class AsyncRawHostedPaymentPagesClient:
             method="POST",
             json={
                 "AdditionalData": additional_data,
-                "credentials": convert_and_respect_annotation_metadata(
+                "Credentials": convert_and_respect_annotation_metadata(
                     object_=credentials, annotation=typing.Sequence[PayabliCredentials], direction="write"
                 ),
-                "lastAccess": last_access,
-                "pageContent": convert_and_respect_annotation_metadata(
+                "LastAccess": last_access,
+                "PageContent": convert_and_respect_annotation_metadata(
                     object_=page_content, annotation=PageContent, direction="write"
                 ),
                 "pageIdentifier": page_identifier,
-                "pageSettings": convert_and_respect_annotation_metadata(
+                "PageSettings": convert_and_respect_annotation_metadata(
                     object_=page_settings, annotation=PageSetting, direction="write"
                 ),
                 "published": published,
-                "receiptContent": convert_and_respect_annotation_metadata(
+                "ReceiptContent": convert_and_respect_annotation_metadata(
                     object_=receipt_content, annotation=ReceiptContent, direction="write"
                 ),
-                "subdomain": subdomain,
+                "Subdomain": subdomain,
                 "totalAmount": total_amount,
                 "validationCode": validation_code,
             },
@@ -671,9 +671,9 @@ class AsyncRawHostedPaymentPagesClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -693,9 +693,9 @@ class AsyncRawHostedPaymentPagesClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -782,22 +782,22 @@ class AsyncRawHostedPaymentPagesClient:
             method="PUT",
             json={
                 "AdditionalData": additional_data,
-                "credentials": convert_and_respect_annotation_metadata(
+                "Credentials": convert_and_respect_annotation_metadata(
                     object_=credentials, annotation=typing.Sequence[PayabliCredentials], direction="write"
                 ),
-                "lastAccess": last_access,
-                "pageContent": convert_and_respect_annotation_metadata(
+                "LastAccess": last_access,
+                "PageContent": convert_and_respect_annotation_metadata(
                     object_=page_content, annotation=PageContent, direction="write"
                 ),
                 "pageIdentifier": page_identifier,
-                "pageSettings": convert_and_respect_annotation_metadata(
+                "PageSettings": convert_and_respect_annotation_metadata(
                     object_=page_settings, annotation=PageSetting, direction="write"
                 ),
                 "published": published,
-                "receiptContent": convert_and_respect_annotation_metadata(
+                "ReceiptContent": convert_and_respect_annotation_metadata(
                     object_=receipt_content, annotation=ReceiptContent, direction="write"
                 ),
-                "subdomain": subdomain,
+                "Subdomain": subdomain,
                 "totalAmount": total_amount,
                 "validationCode": validation_code,
             },
@@ -832,9 +832,9 @@ class AsyncRawHostedPaymentPagesClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -854,9 +854,9 @@ class AsyncRawHostedPaymentPagesClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

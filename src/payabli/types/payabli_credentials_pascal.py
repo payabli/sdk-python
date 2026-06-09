@@ -64,7 +64,7 @@ class PayabliCredentialsPascal(UniversalBaseModel):
         typing.Optional[bool], FieldMetadata(alias="acceptSameDayACH"), pydantic.Field(alias="acceptSameDayACH")
     ] = None
     currency: typing_extensions.Annotated[
-        typing.Optional[str],
+        typing.Optional[typing.List[str]],
         FieldMetadata(alias="Currency"),
         pydantic.Field(alias="Currency", description="The default currency for the paypoint, either `USD` or `CAD`."),
     ] = None

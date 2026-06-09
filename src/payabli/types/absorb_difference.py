@@ -2,5 +2,6 @@
 
 AbsorbDifference = bool
 """
-Whether the paypoint absorbs the difference between the configured service fee and the actual fee charged to the customer.
+Whether the paypoint absorbs the difference between the configured service
+fee and the actual fee charged to the customer.
 """

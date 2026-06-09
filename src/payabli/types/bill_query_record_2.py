@@ -37,7 +37,7 @@ class BillQueryRecord2(UniversalBaseModel):
         pydantic.Field(alias="AccountingField2"),
     ] = None
     additional_data: typing_extensions.Annotated[
-        typing.Optional[typing.Dict[str, str]],
+        typing.Optional[typing.Dict[str, typing.Optional[str]]],
         FieldMetadata(alias="AdditionalData"),
         pydantic.Field(alias="AdditionalData", description="Additional data associated with the bill."),
     ] = None

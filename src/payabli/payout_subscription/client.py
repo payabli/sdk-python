@@ -4,22 +4,22 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
-from ..money_out_types.types.authorize_payment_method import AuthorizePaymentMethod
-from ..money_out_types.types.request_out_authorize_vendor_data import RequestOutAuthorizeVendorData
 from ..types.account_id import AccountId
+from ..types.add_payout_subscription_response import AddPayoutSubscriptionResponse
+from ..types.authorize_payment_method import AuthorizePaymentMethod
 from ..types.bill_pay_out_data_request import BillPayOutDataRequest
+from ..types.delete_payout_subscription_response import DeletePayoutSubscriptionResponse
 from ..types.entrypointfield import Entrypointfield
+from ..types.get_payout_subscription_response import GetPayoutSubscriptionResponse
 from ..types.idempotency_key import IdempotencyKey
+from ..types.payout_payment_detail import PayoutPaymentDetail
+from ..types.payout_schedule_detail import PayoutScheduleDetail
+from ..types.payout_set_pause import PayoutSetPause
+from ..types.request_out_authorize_vendor_data import RequestOutAuthorizeVendorData
 from ..types.source import Source
 from ..types.subdomain import Subdomain
+from ..types.update_payout_subscription_response import UpdatePayoutSubscriptionResponse
 from .raw_client import AsyncRawPayoutSubscriptionClient, RawPayoutSubscriptionClient
-from .types.add_payout_subscription_response import AddPayoutSubscriptionResponse
-from .types.delete_payout_subscription_response import DeletePayoutSubscriptionResponse
-from .types.get_payout_subscription_response import GetPayoutSubscriptionResponse
-from .types.payout_payment_detail import PayoutPaymentDetail
-from .types.payout_schedule_detail import PayoutScheduleDetail
-from .types.payout_set_pause import PayoutSetPause
-from .types.update_payout_subscription_response import UpdatePayoutSubscriptionResponse
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -70,6 +70,7 @@ class PayoutSubscriptionClient:
             Object identifying the vendor for this subscription. Only a `vendorId` or `vendorNumber` is needed to link to an existing vendor.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         subdomain : typing.Optional[Subdomain]
 
@@ -100,21 +101,20 @@ class PayoutSubscriptionClient:
         --------
         import datetime
 
-        from payabli import BillPayOutDataRequest, payabli
-        from payabli.money_out_types import (
+        from payabli import (
             AuthorizePaymentMethod,
-            RequestOutAuthorizeVendorData,
-        )
-        from payabli.payout_subscription import (
+            BillPayOutDataRequest,
             PayoutPaymentDetail,
             PayoutScheduleDetail,
+            RequestOutAuthorizeVendorData,
+            payabli,
         )
 
         client = payabli(
             api_key="YOUR_API_KEY",
         )
         client.payout_subscription.create_payout_subscription(
-            entry_point="d193cf9a46",
+            entry_point="8cfec329267",
             payment_method=AuthorizePaymentMethod(
                 method="ach",
                 ach_holder="Herman Coatings",
@@ -128,11 +128,11 @@ class PayoutSubscriptionClient:
                 currency="USD",
             ),
             vendor_data=RequestOutAuthorizeVendorData(
-                vendor_id=1501,
+                vendor_id=456,
             ),
             bill_data=[
                 BillPayOutDataRequest(
-                    invoice_number="INV-5001",
+                    invoice_number="INV-2345",
                     net_amount="500",
                     invoice_date=datetime.date.fromisoformat(
                         "2025-08-01",
@@ -335,6 +335,7 @@ class AsyncPayoutSubscriptionClient:
             Object identifying the vendor for this subscription. Only a `vendorId` or `vendorNumber` is needed to link to an existing vendor.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         subdomain : typing.Optional[Subdomain]
 
@@ -366,14 +367,13 @@ class AsyncPayoutSubscriptionClient:
         import asyncio
         import datetime
 
-        from payabli import Asyncpayabli, BillPayOutDataRequest
-        from payabli.money_out_types import (
+        from payabli import (
+            Asyncpayabli,
             AuthorizePaymentMethod,
-            RequestOutAuthorizeVendorData,
-        )
-        from payabli.payout_subscription import (
+            BillPayOutDataRequest,
             PayoutPaymentDetail,
             PayoutScheduleDetail,
+            RequestOutAuthorizeVendorData,
         )
 
         client = Asyncpayabli(
@@ -383,7 +383,7 @@ class AsyncPayoutSubscriptionClient:
 
         async def main() -> None:
             await client.payout_subscription.create_payout_subscription(
-                entry_point="d193cf9a46",
+                entry_point="8cfec329267",
                 payment_method=AuthorizePaymentMethod(
                     method="ach",
                     ach_holder="Herman Coatings",
@@ -397,11 +397,11 @@ class AsyncPayoutSubscriptionClient:
                     currency="USD",
                 ),
                 vendor_data=RequestOutAuthorizeVendorData(
-                    vendor_id=1501,
+                    vendor_id=456,
                 ),
                 bill_data=[
                     BillPayOutDataRequest(
-                        invoice_number="INV-5001",
+                        invoice_number="INV-2345",
                         net_amount="500",
                         invoice_date=datetime.date.fromisoformat(
                             "2025-08-01",

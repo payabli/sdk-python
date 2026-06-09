@@ -15,9 +15,15 @@ from ..errors.bad_request_error import BadRequestError
 from ..errors.internal_server_error import InternalServerError
 from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.unauthorized_error import UnauthorizedError
+from ..types.add_user_response import AddUserResponse
 from ..types.additional_data import AdditionalData
+from ..types.auth_reset_user_response import AuthResetUserResponse
+from ..types.change_psw_user_response import ChangePswUserResponse
+from ..types.delete_user_response import DeleteUserResponse
+from ..types.edit_mfa_user_response import EditMfaUserResponse
 from ..types.email import Email
 from ..types.language import Language
+from ..types.logout_user_response import LogoutUserResponse
 from ..types.mfa_data import MfaData
 from ..types.mfa_mode import MfaMode
 from ..types.mfa_validation_code import MfaValidationCode
@@ -26,17 +32,12 @@ from ..types.org_scope import OrgScope
 from ..types.payabli_api_response import PayabliApiResponse
 from ..types.payabli_api_response_mfa_basic import PayabliApiResponseMfaBasic
 from ..types.payabli_api_response_user_mfa import PayabliApiResponseUserMfa
+from ..types.payabli_error_body import PayabliErrorBody
 from ..types.phone_number import PhoneNumber
 from ..types.timezone import Timezone
 from ..types.user_query_record import UserQueryRecord
 from ..types.usr_access import UsrAccess
 from ..types.usr_status import UsrStatus
-from .types.add_user_response import AddUserResponse
-from .types.auth_reset_user_response import AuthResetUserResponse
-from .types.change_psw_user_response import ChangePswUserResponse
-from .types.delete_user_response import DeleteUserResponse
-from .types.edit_mfa_user_response import EditMfaUserResponse
-from .types.logout_user_response import LogoutUserResponse
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -153,9 +154,9 @@ class RawUserClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -175,9 +176,9 @@ class RawUserClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -191,443 +192,51 @@ class RawUserClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def auth_refresh_user(
-        self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[PayabliApiResponseUserMfa]:
-        """
-        Use this endpoint to refresh the authentication token for a user within an organization.
-
-        Parameters
-        ----------
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[PayabliApiResponseUserMfa]
-            Success
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            "User/authrefresh",
-            method="POST",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    PayabliApiResponseUserMfa,
-                    parse_obj_as(
-                        type_=PayabliApiResponseUserMfa,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def auth_reset_user(
+    def get_user(
         self,
+        user_id: int,
         *,
-        email: typing.Optional[Email] = OMIT,
-        entry: typing.Optional[str] = OMIT,
-        entry_type: typing.Optional[int] = OMIT,
+        entry: typing.Optional[str] = None,
+        level: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[AuthResetUserResponse]:
+    ) -> HttpResponse[UserQueryRecord]:
         """
-        Use this endpoint to initiate a password reset for a user within an organization.
-
-        Parameters
-        ----------
-        email : typing.Optional[Email]
-            The user's email address.
-
-        entry : typing.Optional[str]
-            Identifier for entrypoint originating the request (used by front-end apps)
-
-        entry_type : typing.Optional[int]
-            Type of entry identifier: 0 - partner, 2 - paypoint. This is used by front-end apps, required if an Entry is indicated.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[AuthResetUserResponse]
-            Success
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            "User/authreset",
-            method="POST",
-            json={
-                "email": email,
-                "entry": entry,
-                "entryType": entry_type,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    AuthResetUserResponse,
-                    parse_obj_as(
-                        type_=AuthResetUserResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def auth_user(
-        self,
-        provider: str,
-        *,
-        email: typing.Optional[Email] = OMIT,
-        entry: typing.Optional[str] = OMIT,
-        entry_type: typing.Optional[int] = OMIT,
-        psw: typing.Optional[str] = OMIT,
-        user_id: typing.Optional[int] = OMIT,
-        user_token_id: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PayabliApiResponseMfaBasic]:
-        """
-        This endpoint requires an application API token.
-
-        Parameters
-        ----------
-        provider : str
-            Auth provider. Pass `null` to use the built-in provider.
-
-        email : typing.Optional[Email]
-
-        entry : typing.Optional[str]
-            Identifier for entry point originating the request (used by front-end apps)
-
-        entry_type : typing.Optional[int]
-            Type of entry identifier: 0 - partner, 2 - paypoint. This is used by front-end apps, required if an Entry is indicated.
-
-        psw : typing.Optional[str]
-
-        user_id : typing.Optional[int]
-
-        user_token_id : typing.Optional[str]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[PayabliApiResponseMfaBasic]
-            Success
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"User/auth/{encode_path_param(provider)}",
-            method="POST",
-            json={
-                "email": email,
-                "entry": entry,
-                "entryType": entry_type,
-                "psw": psw,
-                "userId": user_id,
-                "userTokenId": user_token_id,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    PayabliApiResponseMfaBasic,
-                    parse_obj_as(
-                        type_=PayabliApiResponseMfaBasic,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def change_psw_user(
-        self, *, psw: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[ChangePswUserResponse]:
-        """
-        Use this endpoint to change the password for a user within an organization.
-
-        Parameters
-        ----------
-        psw : typing.Optional[str]
-            New User password
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[ChangePswUserResponse]
-            Success
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            "User/authpsw",
-            method="PUT",
-            json={
-                "psw": psw,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    ChangePswUserResponse,
-                    parse_obj_as(
-                        type_=ChangePswUserResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def delete_user(
-        self, user_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[DeleteUserResponse]:
-        """
-        Use this endpoint to delete a specific user within an organization.
+        Use this endpoint to retrieve information about a specific user within an organization.
 
         Parameters
         ----------
         user_id : int
             The Payabli-generated `userId` value.
 
+        entry : typing.Optional[str]
+            The entrypoint identifier.
+
+        level : typing.Optional[int]
+            Entry level: 0 - partner, 2 - paypoint
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[DeleteUserResponse]
+        HttpResponse[UserQueryRecord]
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
             f"User/{encode_path_param(user_id)}",
-            method="DELETE",
+            method="GET",
+            params={
+                "entry": entry,
+                "level": level,
+            },
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    DeleteUserResponse,
+                    UserQueryRecord,
                     parse_obj_as(
-                        type_=DeleteUserResponse,  # type: ignore
+                        type_=UserQueryRecord,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -647,9 +256,9 @@ class RawUserClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -669,113 +278,9 @@ class RawUserClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def edit_mfa_user(
-        self,
-        user_id: int,
-        *,
-        mfa: typing.Optional[bool] = OMIT,
-        mfa_mode: typing.Optional[MfaMode] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[EditMfaUserResponse]:
-        """
-        Use this endpoint to enable or disable multi-factor authentication (MFA) for a user within an organization.
-
-        Parameters
-        ----------
-        user_id : int
-            User Identifier
-
-        mfa : typing.Optional[bool]
-
-        mfa_mode : typing.Optional[MfaMode]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[EditMfaUserResponse]
-            Success
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"User/mfa/{encode_path_param(user_id)}",
-            method="PUT",
-            json={
-                "mfa": mfa,
-                "mfaMode": mfa_mode,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    EditMfaUserResponse,
-                    parse_obj_as(
-                        type_=EditMfaUserResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -899,9 +404,9 @@ class RawUserClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -921,9 +426,9 @@ class RawUserClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -937,51 +442,36 @@ class RawUserClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def get_user(
-        self,
-        user_id: int,
-        *,
-        entry: typing.Optional[str] = None,
-        level: typing.Optional[int] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[UserQueryRecord]:
+    def delete_user(
+        self, user_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[DeleteUserResponse]:
         """
-        Use this endpoint to retrieve information about a specific user within an organization.
+        Use this endpoint to delete a specific user within an organization.
 
         Parameters
         ----------
         user_id : int
             The Payabli-generated `userId` value.
 
-        entry : typing.Optional[str]
-            The entrypoint identifier.
-
-        level : typing.Optional[int]
-            Entry level: 0 - partner, 2 - paypoint
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[UserQueryRecord]
+        HttpResponse[DeleteUserResponse]
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
             f"User/{encode_path_param(user_id)}",
-            method="GET",
-            params={
-                "entry": entry,
-                "level": level,
-            },
+            method="DELETE",
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    UserQueryRecord,
+                    DeleteUserResponse,
                     parse_obj_as(
-                        type_=UserQueryRecord,  # type: ignore
+                        type_=DeleteUserResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1001,9 +491,9 @@ class RawUserClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1023,9 +513,416 @@ class RawUserClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def auth_user(
+        self,
+        provider: str,
+        *,
+        email: typing.Optional[Email] = OMIT,
+        entry: typing.Optional[str] = OMIT,
+        entry_type: typing.Optional[int] = OMIT,
+        psw: typing.Optional[str] = OMIT,
+        user_id: typing.Optional[int] = OMIT,
+        user_token_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[PayabliApiResponseMfaBasic]:
+        """
+        This endpoint requires an application API token.
+
+        Parameters
+        ----------
+        provider : str
+            Auth provider. Pass `null` to use the built-in provider.
+
+        email : typing.Optional[Email]
+
+        entry : typing.Optional[str]
+            Identifier for entry point originating the request (used by front-end apps)
+
+        entry_type : typing.Optional[int]
+            Type of entry identifier: 0 - partner, 2 - paypoint. This is used by front-end apps, required if an Entry is indicated.
+
+        psw : typing.Optional[str]
+
+        user_id : typing.Optional[int]
+
+        user_token_id : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[PayabliApiResponseMfaBasic]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"User/auth/{encode_path_param(provider)}",
+            method="POST",
+            json={
+                "email": email,
+                "entry": entry,
+                "entryType": entry_type,
+                "psw": psw,
+                "userId": user_id,
+                "userTokenId": user_token_id,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PayabliApiResponseMfaBasic,
+                    parse_obj_as(
+                        type_=PayabliApiResponseMfaBasic,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def auth_refresh_user(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[PayabliApiResponseUserMfa]:
+        """
+        Use this endpoint to refresh the authentication token for a user within an organization.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[PayabliApiResponseUserMfa]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "User/authrefresh",
+            method="POST",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PayabliApiResponseUserMfa,
+                    parse_obj_as(
+                        type_=PayabliApiResponseUserMfa,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def auth_reset_user(
+        self,
+        *,
+        email: typing.Optional[Email] = OMIT,
+        entry: typing.Optional[str] = OMIT,
+        entry_type: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[AuthResetUserResponse]:
+        """
+        Use this endpoint to initiate a password reset for a user within an organization.
+
+        Parameters
+        ----------
+        email : typing.Optional[Email]
+            The user's email address.
+
+        entry : typing.Optional[str]
+            Identifier for entrypoint originating the request (used by front-end apps)
+
+        entry_type : typing.Optional[int]
+            Type of entry identifier: 0 - partner, 2 - paypoint. This is used by front-end apps, required if an Entry is indicated.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[AuthResetUserResponse]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "User/authreset",
+            method="POST",
+            json={
+                "email": email,
+                "entry": entry,
+                "entryType": entry_type,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    AuthResetUserResponse,
+                    parse_obj_as(
+                        type_=AuthResetUserResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def change_psw_user(
+        self, *, psw: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[ChangePswUserResponse]:
+        """
+        Use this endpoint to change the password for a user within an organization.
+
+        Parameters
+        ----------
+        psw : typing.Optional[str]
+            New User password
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[ChangePswUserResponse]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "User/authpsw",
+            method="PUT",
+            json={
+                "psw": psw,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ChangePswUserResponse,
+                    parse_obj_as(
+                        type_=ChangePswUserResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1085,9 +982,9 @@ class RawUserClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1107,9 +1004,169 @@ class RawUserClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def validate_mfa_user(
+        self,
+        *,
+        mfa_code: typing.Optional[str] = OMIT,
+        mfa_validation_code: typing.Optional[MfaValidationCode] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[PayabliApiResponseUserMfa]:
+        """
+        Use this endpoint to validate the multi-factor authentication (MFA) code for a user within an organization.
+
+        Parameters
+        ----------
+        mfa_code : typing.Optional[str]
+
+        mfa_validation_code : typing.Optional[MfaValidationCode]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[PayabliApiResponseUserMfa]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "User/mfa",
+            method="POST",
+            json={
+                "mfaCode": mfa_code,
+                "mfaValidationCode": mfa_validation_code,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PayabliApiResponseUserMfa,
+                    parse_obj_as(
+                        type_=PayabliApiResponseUserMfa,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def edit_mfa_user(
+        self,
+        user_id: int,
+        *,
+        mfa: typing.Optional[bool] = OMIT,
+        mfa_mode: typing.Optional[MfaMode] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[EditMfaUserResponse]:
+        """
+        Use this endpoint to enable or disable multi-factor authentication (MFA) for a user within an organization.
+
+        Parameters
+        ----------
+        user_id : int
+            User Identifier
+
+        mfa : typing.Optional[bool]
+
+        mfa_mode : typing.Optional[MfaMode]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[EditMfaUserResponse]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"User/mfa/{encode_path_param(user_id)}",
+            method="PUT",
+            json={
+                "mfa": mfa,
+                "mfaMode": mfa_mode,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    EditMfaUserResponse,
+                    parse_obj_as(
+                        type_=EditMfaUserResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1178,9 +1235,9 @@ class RawUserClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1200,69 +1257,13 @@ class RawUserClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
                 )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def validate_mfa_user(
-        self,
-        *,
-        mfa_code: typing.Optional[str] = OMIT,
-        mfa_validation_code: typing.Optional[MfaValidationCode] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PayabliApiResponseUserMfa]:
-        """
-        Use this endpoint to validate the multi-factor authentication (MFA) code for a user within an organization.
-
-        Parameters
-        ----------
-        mfa_code : typing.Optional[str]
-
-        mfa_validation_code : typing.Optional[MfaValidationCode]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[PayabliApiResponseUserMfa]
-            Success
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            "User/mfa",
-            method="POST",
-            json={
-                "mfaCode": mfa_code,
-                "mfaValidationCode": mfa_validation_code,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    PayabliApiResponseUserMfa,
-                    parse_obj_as(
-                        type_=PayabliApiResponseUserMfa,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -1383,9 +1384,9 @@ class AsyncRawUserClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1405,9 +1406,9 @@ class AsyncRawUserClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1421,443 +1422,51 @@ class AsyncRawUserClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def auth_refresh_user(
-        self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[PayabliApiResponseUserMfa]:
-        """
-        Use this endpoint to refresh the authentication token for a user within an organization.
-
-        Parameters
-        ----------
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[PayabliApiResponseUserMfa]
-            Success
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "User/authrefresh",
-            method="POST",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    PayabliApiResponseUserMfa,
-                    parse_obj_as(
-                        type_=PayabliApiResponseUserMfa,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def auth_reset_user(
+    async def get_user(
         self,
+        user_id: int,
         *,
-        email: typing.Optional[Email] = OMIT,
-        entry: typing.Optional[str] = OMIT,
-        entry_type: typing.Optional[int] = OMIT,
+        entry: typing.Optional[str] = None,
+        level: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[AuthResetUserResponse]:
+    ) -> AsyncHttpResponse[UserQueryRecord]:
         """
-        Use this endpoint to initiate a password reset for a user within an organization.
-
-        Parameters
-        ----------
-        email : typing.Optional[Email]
-            The user's email address.
-
-        entry : typing.Optional[str]
-            Identifier for entrypoint originating the request (used by front-end apps)
-
-        entry_type : typing.Optional[int]
-            Type of entry identifier: 0 - partner, 2 - paypoint. This is used by front-end apps, required if an Entry is indicated.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[AuthResetUserResponse]
-            Success
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "User/authreset",
-            method="POST",
-            json={
-                "email": email,
-                "entry": entry,
-                "entryType": entry_type,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    AuthResetUserResponse,
-                    parse_obj_as(
-                        type_=AuthResetUserResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def auth_user(
-        self,
-        provider: str,
-        *,
-        email: typing.Optional[Email] = OMIT,
-        entry: typing.Optional[str] = OMIT,
-        entry_type: typing.Optional[int] = OMIT,
-        psw: typing.Optional[str] = OMIT,
-        user_id: typing.Optional[int] = OMIT,
-        user_token_id: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PayabliApiResponseMfaBasic]:
-        """
-        This endpoint requires an application API token.
-
-        Parameters
-        ----------
-        provider : str
-            Auth provider. Pass `null` to use the built-in provider.
-
-        email : typing.Optional[Email]
-
-        entry : typing.Optional[str]
-            Identifier for entry point originating the request (used by front-end apps)
-
-        entry_type : typing.Optional[int]
-            Type of entry identifier: 0 - partner, 2 - paypoint. This is used by front-end apps, required if an Entry is indicated.
-
-        psw : typing.Optional[str]
-
-        user_id : typing.Optional[int]
-
-        user_token_id : typing.Optional[str]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[PayabliApiResponseMfaBasic]
-            Success
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"User/auth/{encode_path_param(provider)}",
-            method="POST",
-            json={
-                "email": email,
-                "entry": entry,
-                "entryType": entry_type,
-                "psw": psw,
-                "userId": user_id,
-                "userTokenId": user_token_id,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    PayabliApiResponseMfaBasic,
-                    parse_obj_as(
-                        type_=PayabliApiResponseMfaBasic,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def change_psw_user(
-        self, *, psw: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[ChangePswUserResponse]:
-        """
-        Use this endpoint to change the password for a user within an organization.
-
-        Parameters
-        ----------
-        psw : typing.Optional[str]
-            New User password
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[ChangePswUserResponse]
-            Success
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "User/authpsw",
-            method="PUT",
-            json={
-                "psw": psw,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    ChangePswUserResponse,
-                    parse_obj_as(
-                        type_=ChangePswUserResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def delete_user(
-        self, user_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[DeleteUserResponse]:
-        """
-        Use this endpoint to delete a specific user within an organization.
+        Use this endpoint to retrieve information about a specific user within an organization.
 
         Parameters
         ----------
         user_id : int
             The Payabli-generated `userId` value.
 
+        entry : typing.Optional[str]
+            The entrypoint identifier.
+
+        level : typing.Optional[int]
+            Entry level: 0 - partner, 2 - paypoint
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[DeleteUserResponse]
+        AsyncHttpResponse[UserQueryRecord]
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"User/{encode_path_param(user_id)}",
-            method="DELETE",
+            method="GET",
+            params={
+                "entry": entry,
+                "level": level,
+            },
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    DeleteUserResponse,
+                    UserQueryRecord,
                     parse_obj_as(
-                        type_=DeleteUserResponse,  # type: ignore
+                        type_=UserQueryRecord,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1877,9 +1486,9 @@ class AsyncRawUserClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1899,113 +1508,9 @@ class AsyncRawUserClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def edit_mfa_user(
-        self,
-        user_id: int,
-        *,
-        mfa: typing.Optional[bool] = OMIT,
-        mfa_mode: typing.Optional[MfaMode] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[EditMfaUserResponse]:
-        """
-        Use this endpoint to enable or disable multi-factor authentication (MFA) for a user within an organization.
-
-        Parameters
-        ----------
-        user_id : int
-            User Identifier
-
-        mfa : typing.Optional[bool]
-
-        mfa_mode : typing.Optional[MfaMode]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[EditMfaUserResponse]
-            Success
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"User/mfa/{encode_path_param(user_id)}",
-            method="PUT",
-            json={
-                "mfa": mfa,
-                "mfaMode": mfa_mode,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    EditMfaUserResponse,
-                    parse_obj_as(
-                        type_=EditMfaUserResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2129,9 +1634,9 @@ class AsyncRawUserClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2151,9 +1656,9 @@ class AsyncRawUserClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2167,51 +1672,36 @@ class AsyncRawUserClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def get_user(
-        self,
-        user_id: int,
-        *,
-        entry: typing.Optional[str] = None,
-        level: typing.Optional[int] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[UserQueryRecord]:
+    async def delete_user(
+        self, user_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[DeleteUserResponse]:
         """
-        Use this endpoint to retrieve information about a specific user within an organization.
+        Use this endpoint to delete a specific user within an organization.
 
         Parameters
         ----------
         user_id : int
             The Payabli-generated `userId` value.
 
-        entry : typing.Optional[str]
-            The entrypoint identifier.
-
-        level : typing.Optional[int]
-            Entry level: 0 - partner, 2 - paypoint
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[UserQueryRecord]
+        AsyncHttpResponse[DeleteUserResponse]
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"User/{encode_path_param(user_id)}",
-            method="GET",
-            params={
-                "entry": entry,
-                "level": level,
-            },
+            method="DELETE",
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    UserQueryRecord,
+                    DeleteUserResponse,
                     parse_obj_as(
-                        type_=UserQueryRecord,  # type: ignore
+                        type_=DeleteUserResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -2231,9 +1721,9 @@ class AsyncRawUserClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2253,9 +1743,416 @@ class AsyncRawUserClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def auth_user(
+        self,
+        provider: str,
+        *,
+        email: typing.Optional[Email] = OMIT,
+        entry: typing.Optional[str] = OMIT,
+        entry_type: typing.Optional[int] = OMIT,
+        psw: typing.Optional[str] = OMIT,
+        user_id: typing.Optional[int] = OMIT,
+        user_token_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[PayabliApiResponseMfaBasic]:
+        """
+        This endpoint requires an application API token.
+
+        Parameters
+        ----------
+        provider : str
+            Auth provider. Pass `null` to use the built-in provider.
+
+        email : typing.Optional[Email]
+
+        entry : typing.Optional[str]
+            Identifier for entry point originating the request (used by front-end apps)
+
+        entry_type : typing.Optional[int]
+            Type of entry identifier: 0 - partner, 2 - paypoint. This is used by front-end apps, required if an Entry is indicated.
+
+        psw : typing.Optional[str]
+
+        user_id : typing.Optional[int]
+
+        user_token_id : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[PayabliApiResponseMfaBasic]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"User/auth/{encode_path_param(provider)}",
+            method="POST",
+            json={
+                "email": email,
+                "entry": entry,
+                "entryType": entry_type,
+                "psw": psw,
+                "userId": user_id,
+                "userTokenId": user_token_id,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PayabliApiResponseMfaBasic,
+                    parse_obj_as(
+                        type_=PayabliApiResponseMfaBasic,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def auth_refresh_user(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[PayabliApiResponseUserMfa]:
+        """
+        Use this endpoint to refresh the authentication token for a user within an organization.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[PayabliApiResponseUserMfa]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "User/authrefresh",
+            method="POST",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PayabliApiResponseUserMfa,
+                    parse_obj_as(
+                        type_=PayabliApiResponseUserMfa,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def auth_reset_user(
+        self,
+        *,
+        email: typing.Optional[Email] = OMIT,
+        entry: typing.Optional[str] = OMIT,
+        entry_type: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[AuthResetUserResponse]:
+        """
+        Use this endpoint to initiate a password reset for a user within an organization.
+
+        Parameters
+        ----------
+        email : typing.Optional[Email]
+            The user's email address.
+
+        entry : typing.Optional[str]
+            Identifier for entrypoint originating the request (used by front-end apps)
+
+        entry_type : typing.Optional[int]
+            Type of entry identifier: 0 - partner, 2 - paypoint. This is used by front-end apps, required if an Entry is indicated.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[AuthResetUserResponse]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "User/authreset",
+            method="POST",
+            json={
+                "email": email,
+                "entry": entry,
+                "entryType": entry_type,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    AuthResetUserResponse,
+                    parse_obj_as(
+                        type_=AuthResetUserResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def change_psw_user(
+        self, *, psw: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[ChangePswUserResponse]:
+        """
+        Use this endpoint to change the password for a user within an organization.
+
+        Parameters
+        ----------
+        psw : typing.Optional[str]
+            New User password
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[ChangePswUserResponse]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "User/authpsw",
+            method="PUT",
+            json={
+                "psw": psw,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ChangePswUserResponse,
+                    parse_obj_as(
+                        type_=ChangePswUserResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2315,9 +2212,9 @@ class AsyncRawUserClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2337,9 +2234,169 @@ class AsyncRawUserClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def validate_mfa_user(
+        self,
+        *,
+        mfa_code: typing.Optional[str] = OMIT,
+        mfa_validation_code: typing.Optional[MfaValidationCode] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[PayabliApiResponseUserMfa]:
+        """
+        Use this endpoint to validate the multi-factor authentication (MFA) code for a user within an organization.
+
+        Parameters
+        ----------
+        mfa_code : typing.Optional[str]
+
+        mfa_validation_code : typing.Optional[MfaValidationCode]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[PayabliApiResponseUserMfa]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "User/mfa",
+            method="POST",
+            json={
+                "mfaCode": mfa_code,
+                "mfaValidationCode": mfa_validation_code,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PayabliApiResponseUserMfa,
+                    parse_obj_as(
+                        type_=PayabliApiResponseUserMfa,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def edit_mfa_user(
+        self,
+        user_id: int,
+        *,
+        mfa: typing.Optional[bool] = OMIT,
+        mfa_mode: typing.Optional[MfaMode] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[EditMfaUserResponse]:
+        """
+        Use this endpoint to enable or disable multi-factor authentication (MFA) for a user within an organization.
+
+        Parameters
+        ----------
+        user_id : int
+            User Identifier
+
+        mfa : typing.Optional[bool]
+
+        mfa_mode : typing.Optional[MfaMode]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[EditMfaUserResponse]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"User/mfa/{encode_path_param(user_id)}",
+            method="PUT",
+            json={
+                "mfa": mfa,
+                "mfaMode": mfa_mode,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    EditMfaUserResponse,
+                    parse_obj_as(
+                        type_=EditMfaUserResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2408,9 +2465,9 @@ class AsyncRawUserClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2430,69 +2487,13 @@ class AsyncRawUserClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
                 )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def validate_mfa_user(
-        self,
-        *,
-        mfa_code: typing.Optional[str] = OMIT,
-        mfa_validation_code: typing.Optional[MfaValidationCode] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PayabliApiResponseUserMfa]:
-        """
-        Use this endpoint to validate the multi-factor authentication (MFA) code for a user within an organization.
-
-        Parameters
-        ----------
-        mfa_code : typing.Optional[str]
-
-        mfa_validation_code : typing.Optional[MfaValidationCode]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[PayabliApiResponseUserMfa]
-            Success
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "User/mfa",
-            method="POST",
-            json={
-                "mfaCode": mfa_code,
-                "mfaValidationCode": mfa_validation_code,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    PayabliApiResponseUserMfa,
-                    parse_obj_as(
-                        type_=PayabliApiResponseUserMfa,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)

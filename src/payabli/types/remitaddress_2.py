@@ -2,5 +2,6 @@
 
 Remitaddress2 = str
 """
-Remittance address additional line, such as a suite or unit number. Used for mailing paper checks. Always optional.
+Remittance address additional line, such as a suite or unit number. Used
+for mailing paper checks. Always optional.
 """

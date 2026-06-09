@@ -2,5 +2,9 @@
 
 OnCreate = str
 """
-Action to take when the application is created. The only currently supported option is `submitApplication`. Use this when you have collected eSignature elsewhere or are adding additional locations for an applicant, or when you want to submit an application via API with one call without using the hosted boarding UI or embedded boarding components
+Action to take when the application is created. The only currently
+supported option is `submitApplication`. Use this when you have collected
+eSignature elsewhere or are adding additional locations for an applicant,
+or when you want to submit an application via API with one call without
+using the hosted boarding UI or embedded boarding components.
 """

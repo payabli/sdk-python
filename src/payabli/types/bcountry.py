@@ -2,5 +2,7 @@
 
 Bcountry = str
 """
-Business country in ISO-3166-1 alpha 2 format. See: https://en.wikipedia.org/wiki/ISO_3166-1 for more information.
+Business country in ISO-3166-1 alpha 2 format.
+See [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1) for more
+information.
 """

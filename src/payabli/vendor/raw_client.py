@@ -24,8 +24,8 @@ from ..types.email import Email
 from ..types.file_content import FileContent
 from ..types.location_code import LocationCode
 from ..types.mcc import Mcc
-from ..types.payabli_api_response import PayabliApiResponse
 from ..types.payabli_api_response_vendors import PayabliApiResponseVendors
+from ..types.payabli_error_body import PayabliErrorBody
 from ..types.payee_name import PayeeName
 from ..types.remit_email import RemitEmail
 from ..types.remitaddress_1 import Remitaddress1
@@ -35,6 +35,7 @@ from ..types.remitcountry import Remitcountry
 from ..types.remitstate import Remitstate
 from ..types.remitzip import Remitzip
 from ..types.vendor_ein import VendorEin
+from ..types.vendor_enrich_response import VendorEnrichResponse
 from ..types.vendor_name_1 import VendorName1
 from ..types.vendor_name_2 import VendorName2
 from ..types.vendor_number import VendorNumber
@@ -42,7 +43,6 @@ from ..types.vendor_payment_method_string import VendorPaymentMethodString
 from ..types.vendor_phone import VendorPhone
 from ..types.vendor_query_record import VendorQueryRecord
 from ..types.vendorstatus import Vendorstatus
-from .types.vendor_enrich_response import VendorEnrichResponse
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -186,7 +186,6 @@ class RawVendorClient:
             When this feature is enabled and you include an attachment, the invoice is scanned and extracted vendor information is merged into the request.
             Fields in the request body take precedence over extracted data.
             If the scan fails, vendor creation proceeds with the original request data.
-
             See the [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview) for details.
             Contact Payabli to enable this feature.
 
@@ -274,9 +273,9 @@ class RawVendorClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -296,9 +295,9 @@ class RawVendorClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -312,11 +311,11 @@ class RawVendorClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def delete_vendor(
+    def get_vendor(
         self, id_vendor: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[PayabliApiResponseVendors]:
+    ) -> HttpResponse[VendorQueryRecord]:
         """
-        Delete a vendor.
+        Retrieves a vendor's details, including enrichment status and payment acceptance info when available.
 
         Parameters
         ----------
@@ -328,68 +327,24 @@ class RawVendorClient:
 
         Returns
         -------
-        HttpResponse[PayabliApiResponseVendors]
+        HttpResponse[VendorQueryRecord]
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
             f"Vendor/{encode_path_param(id_vendor)}",
-            method="DELETE",
+            method="GET",
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    PayabliApiResponseVendors,
+                    VendorQueryRecord,
                     parse_obj_as(
-                        type_=PayabliApiResponseVendors,  # type: ignore
+                        type_=VendorQueryRecord,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -532,7 +487,6 @@ class RawVendorClient:
             When this feature is enabled and you include an attachment, the invoice is scanned and extracted vendor information is merged into the request.
             Fields in the request body take precedence over extracted data.
             If the scan fails, vendor creation proceeds with the original request data.
-
             See the [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview) for details.
             Contact Payabli to enable this feature.
 
@@ -620,9 +574,9 @@ class RawVendorClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -642,9 +596,9 @@ class RawVendorClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -658,11 +612,11 @@ class RawVendorClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def get_vendor(
+    def delete_vendor(
         self, id_vendor: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[VendorQueryRecord]:
+    ) -> HttpResponse[PayabliApiResponseVendors]:
         """
-        Retrieves a vendor's details, including enrichment status and payment acceptance info when available.
+        Delete a vendor.
 
         Parameters
         ----------
@@ -674,24 +628,68 @@ class RawVendorClient:
 
         Returns
         -------
-        HttpResponse[VendorQueryRecord]
+        HttpResponse[PayabliApiResponseVendors]
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
             f"Vendor/{encode_path_param(id_vendor)}",
-            method="GET",
+            method="DELETE",
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    VendorQueryRecord,
+                    PayabliApiResponseVendors,
                     parse_obj_as(
-                        type_=VendorQueryRecord,  # type: ignore
+                        type_=PayabliApiResponseVendors,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -796,9 +794,9 @@ class RawVendorClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -818,9 +816,9 @@ class RawVendorClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -972,7 +970,6 @@ class AsyncRawVendorClient:
             When this feature is enabled and you include an attachment, the invoice is scanned and extracted vendor information is merged into the request.
             Fields in the request body take precedence over extracted data.
             If the scan fails, vendor creation proceeds with the original request data.
-
             See the [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview) for details.
             Contact Payabli to enable this feature.
 
@@ -1060,9 +1057,9 @@ class AsyncRawVendorClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1082,9 +1079,9 @@ class AsyncRawVendorClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1098,11 +1095,11 @@ class AsyncRawVendorClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def delete_vendor(
+    async def get_vendor(
         self, id_vendor: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[PayabliApiResponseVendors]:
+    ) -> AsyncHttpResponse[VendorQueryRecord]:
         """
-        Delete a vendor.
+        Retrieves a vendor's details, including enrichment status and payment acceptance info when available.
 
         Parameters
         ----------
@@ -1114,68 +1111,24 @@ class AsyncRawVendorClient:
 
         Returns
         -------
-        AsyncHttpResponse[PayabliApiResponseVendors]
+        AsyncHttpResponse[VendorQueryRecord]
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"Vendor/{encode_path_param(id_vendor)}",
-            method="DELETE",
+            method="GET",
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    PayabliApiResponseVendors,
+                    VendorQueryRecord,
                     parse_obj_as(
-                        type_=PayabliApiResponseVendors,  # type: ignore
+                        type_=VendorQueryRecord,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -1318,7 +1271,6 @@ class AsyncRawVendorClient:
             When this feature is enabled and you include an attachment, the invoice is scanned and extracted vendor information is merged into the request.
             Fields in the request body take precedence over extracted data.
             If the scan fails, vendor creation proceeds with the original request data.
-
             See the [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview) for details.
             Contact Payabli to enable this feature.
 
@@ -1406,9 +1358,9 @@ class AsyncRawVendorClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1428,9 +1380,9 @@ class AsyncRawVendorClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1444,11 +1396,11 @@ class AsyncRawVendorClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def get_vendor(
+    async def delete_vendor(
         self, id_vendor: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[VendorQueryRecord]:
+    ) -> AsyncHttpResponse[PayabliApiResponseVendors]:
         """
-        Retrieves a vendor's details, including enrichment status and payment acceptance info when available.
+        Delete a vendor.
 
         Parameters
         ----------
@@ -1460,24 +1412,68 @@ class AsyncRawVendorClient:
 
         Returns
         -------
-        AsyncHttpResponse[VendorQueryRecord]
+        AsyncHttpResponse[PayabliApiResponseVendors]
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"Vendor/{encode_path_param(id_vendor)}",
-            method="GET",
+            method="DELETE",
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    VendorQueryRecord,
+                    PayabliApiResponseVendors,
                     parse_obj_as(
-                        type_=VendorQueryRecord,  # type: ignore
+                        type_=PayabliApiResponseVendors,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -1582,9 +1578,9 @@ class AsyncRawVendorClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1604,9 +1600,9 @@ class AsyncRawVendorClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

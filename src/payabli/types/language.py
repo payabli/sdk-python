@@ -2,7 +2,5 @@
 
 Language = str
 """
-The user's locale for PartnerHub and PayHub localization. Supported values: 
-  - `en`
-  - `es`
+The language code.
 """

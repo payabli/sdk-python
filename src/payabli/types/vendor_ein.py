@@ -2,5 +2,6 @@
 
 VendorEin = str
 """
-EIN/Tax ID for vendor. Must be nine digits formatted as `XX-XXXXXXX` (for example, `12-3456789`).
+EIN/Tax ID for vendor. Must be nine digits formatted as `XX-XXXXXXX`
+(for example, `12-3456789`).
 """

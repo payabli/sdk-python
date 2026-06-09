@@ -2,5 +2,6 @@
 
 Baddress2 = str
 """
-Business address additional line. If used, this must be the physical address of the business, not a P.O. box.
+Business address additional line. If used, this must be the physical
+address of the business, not a P.O. box.
 """

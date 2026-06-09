@@ -2,5 +2,6 @@
 
 GreaterValueAllowed = bool
 """
-Whether a customer fee greater than the configured service fee is allowed for this credential.
+When `true`, the customer can pay an amount greater than the invoice or
+bill amount.
 """

@@ -19,7 +19,7 @@ class FileContent(UniversalBaseModel):
         FieldMetadata(alias="fContent"),
         pydantic.Field(
             alias="fContent",
-            description="Content of file, Base64-encoded. Ignored if furl is specified. Max upload size is 30 MB.",
+            description="Content of file, Base64-encoded. Ignored if `furl` is specified. Max\nupload size is 30 MB.",
         ),
     ] = None
     filename: typing.Optional[str] = pydantic.Field(default=None)
@@ -27,14 +27,10 @@ class FileContent(UniversalBaseModel):
     The name of the attached file.
     """
 
-    ftype: typing.Optional[FileContentFtype] = pydantic.Field(default=None)
-    """
-    The MIME type of the file (if content is provided)
-    """
-
+    ftype: typing.Optional[FileContentFtype] = None
     furl: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Optional URL provided to show or download the file remotely
+    Optional URL provided to show or download the file remotely.
     """
 
     if IS_PYDANTIC_V2:

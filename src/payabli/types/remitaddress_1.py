@@ -2,5 +2,6 @@
 
 Remitaddress1 = str
 """
-Remittance street address. Used for mailing paper checks. Required if any remittance address field is provided. Allowed characters are letters, numbers, spaces, and `. ,
+Remittance street address. Used for mailing paper checks. Required if any
+remittance address field is provided.
 """

@@ -4,7 +4,9 @@ Ownerid = int
 """
 ID for the paypoint or organization that owns the notification.
 
-If the `ownerType` field is `0`, this field is the same as the `orgId` for the organization that owns this notification.
+If the `ownerType` field is `0`, this field is the same as the `orgId`
+for the organization that owns this notification.
 
-If the `ownerType` field is `2`, this field is the same as the `paypointId` for the paypoint that owns this notification.
+If the `ownerType` field is `2`, this field is the same as the
+`paypointId` for the paypoint that owns this notification.
 """

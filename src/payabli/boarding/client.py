@@ -4,6 +4,7 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
+from ..types.add_application_request import AddApplicationRequest
 from ..types.annualrevenue import Annualrevenue
 from ..types.application_details_record import ApplicationDetailsRecord
 from ..types.application_query_record import ApplicationQueryRecord
@@ -25,6 +26,7 @@ from ..types.bsummary import Bsummary
 from ..types.busstartdate import Busstartdate
 from ..types.bzip import Bzip
 from ..types.contacts_field import ContactsField
+from ..types.create_application_from_paypoint_response import CreateApplicationFromPaypointResponse
 from ..types.dbaname import Dbaname
 from ..types.ein import Ein
 from ..types.email import Email
@@ -69,8 +71,6 @@ from ..types.whendelivered import Whendelivered
 from ..types.whenprovided import Whenprovided
 from ..types.whenrefunded import Whenrefunded
 from .raw_client import AsyncRawBoardingClient, RawBoardingClient
-from .types.add_application_request import AddApplicationRequest
-from .types.create_application_from_paypoint_response import CreateApplicationFromPaypointResponse
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -112,13 +112,13 @@ class BoardingClient:
         Examples
         --------
         from payabli import (
+            AchSetup,
             ApplicationDataPayIn,
-            ApplicationDataPayInContactsItem,
-            ApplicationDataPayInOwnershipItem,
             ApplicationDataPayInServices,
-            ApplicationDataPayInServicesAch,
-            ApplicationDataPayInServicesCard,
             Bank,
+            CardSetup,
+            Contacts,
+            Owners,
             SignerDataRequest,
             payabli,
         )
@@ -129,8 +129,8 @@ class BoardingClient:
         client.boarding.add_application(
             request=ApplicationDataPayIn(
                 services=ApplicationDataPayInServices(
-                    ach=ApplicationDataPayInServicesAch(),
-                    card=ApplicationDataPayInServicesCard(
+                    ach=AchSetup(),
+                    card=CardSetup(
                         accept_amex=True,
                         accept_discover=True,
                         accept_mastercard=True,
@@ -145,26 +145,26 @@ class BoardingClient:
                 baddress_1="Suite 103",
                 bank_data=[
                     Bank(
-                        account_number="123123123",
+                        account_number="123123100",
                         bank_account_function=1,
                         bank_account_holder_name="Gruzya Adventure Outfitters LLC",
                         bank_account_holder_type="Business",
-                        bank_name="Test Bank",
+                        bank_name="Test Bank 1",
                         nickname="Withdrawal Account",
                         routing_account="123123123",
                         type_account="Checking",
                         account_id="123-456",
                     ),
                     Bank(
-                        account_number="123123123",
+                        account_number="123123200",
                         bank_account_function=0,
                         bank_account_holder_name="Gruzya Adventure Outfitters LLC",
                         bank_account_holder_type="Business",
-                        bank_name="Test Bank",
+                        bank_name="Test Bank 2",
                         nickname="Deposit Account",
-                        routing_account="123123123",
+                        routing_account="321321321",
                         type_account="Checking",
-                        account_id="123-456",
+                        account_id="123-789",
                     ),
                 ],
                 bcity="New Vegas",
@@ -177,7 +177,7 @@ class BoardingClient:
                 btype="Limited Liability Company",
                 bzip="33000",
                 contacts=[
-                    ApplicationDataPayInContactsItem(
+                    Contacts(
                         contact_email="herman@hermanscoatings.com",
                         contact_name="Herman Martinez",
                         contact_phone="3055550000",
@@ -201,7 +201,7 @@ class BoardingClient:
                 mzip="37615",
                 org_id=123,
                 ownership=[
-                    ApplicationDataPayInOwnershipItem(
+                    Owners(
                         oaddress="33 North St",
                         ocity="Any City",
                         ocountry="US",
@@ -259,458 +259,6 @@ class BoardingClient:
         )
         """
         _response = self._raw_client.add_application(request=request, request_options=request_options)
-        return _response.data
-
-    def delete_application(
-        self, app_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> PayabliApiResponse00Responsedatanonobject:
-        """
-        Deletes a boarding application by ID.
-
-        Parameters
-        ----------
-        app_id : int
-            Boarding application ID.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        PayabliApiResponse00Responsedatanonobject
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.boarding.delete_application(
-            app_id=352,
-        )
-        """
-        _response = self._raw_client.delete_application(app_id, request_options=request_options)
-        return _response.data
-
-    def get_application(
-        self, app_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> ApplicationDetailsRecord:
-        """
-        Retrieves the details for a boarding application by ID.
-
-        Parameters
-        ----------
-        app_id : int
-            Boarding application ID.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ApplicationDetailsRecord
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.boarding.get_application(
-            app_id=352,
-        )
-        """
-        _response = self._raw_client.get_application(app_id, request_options=request_options)
-        return _response.data
-
-    def get_application_by_auth(
-        self,
-        x_id: str,
-        *,
-        email: typing.Optional[Email] = OMIT,
-        reference_id: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> ApplicationQueryRecord:
-        """
-        Gets a boarding application by authentication information. This endpoint requires an `application` API token.
-
-        Parameters
-        ----------
-        x_id : str
-            The application ID in Hex format. Find this at the end of the boarding link URL returned in a call to api/Boarding/applink/{appId}/{mail2}. For example in:  `https://boarding-sandbox.payabli.com/boarding/externalapp/load/17E`, the xId is `17E`.
-
-        email : typing.Optional[Email]
-            The email address the applicant used to save the application.
-
-        reference_id : typing.Optional[str]
-            The referenceId is sent to the applicant via email when they save the application.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ApplicationQueryRecord
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.boarding.get_application_by_auth(
-            x_id="17E",
-            email="admin@email.com",
-            reference_id="n6UCd1f1ygG7",
-        )
-        """
-        _response = self._raw_client.get_application_by_auth(
-            x_id, email=email, reference_id=reference_id, request_options=request_options
-        )
-        return _response.data
-
-    def get_by_id_link_application(
-        self, boarding_link_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> BoardingLinkQueryRecord:
-        """
-        Retrieves details for a boarding link, by ID.
-
-        Parameters
-        ----------
-        boarding_link_id : int
-            The boarding link ID. You can find this at the end of the boarding link reference name. For example `https://boarding.payabli.com/boarding/app/myorgaccountname-00091`. The ID is `91`.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        BoardingLinkQueryRecord
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.boarding.get_by_id_link_application(
-            boarding_link_id=91,
-        )
-        """
-        _response = self._raw_client.get_by_id_link_application(boarding_link_id, request_options=request_options)
-        return _response.data
-
-    def get_by_template_id_link_application(
-        self, template_id: float, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> BoardingLinkQueryRecord:
-        """
-        Get details for a boarding link using the boarding template ID. This endpoint requires an application API token.
-
-        Parameters
-        ----------
-        template_id : float
-            The boarding template ID. You can find this at the end of the boarding template URL in PartnerHub. Example: `https://partner-sandbox.payabli.com/myorganization/boarding/edittemplate/80`. Here, the template ID is `80`.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        BoardingLinkQueryRecord
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.boarding.get_by_template_id_link_application(
-            template_id=80.0,
-        )
-        """
-        _response = self._raw_client.get_by_template_id_link_application(template_id, request_options=request_options)
-        return _response.data
-
-    def get_external_application(
-        self,
-        app_id: int,
-        mail_2: str,
-        *,
-        send_email: typing.Optional[bool] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> PayabliApiResponse00:
-        """
-        Retrieves a link and the verification code used to log into an existing boarding application. You can also use this endpoint to send a link and referenceId for an existing boarding application to an email address. The recipient can use the referenceId and email address to access and edit the application.
-
-        Parameters
-        ----------
-        app_id : int
-            Boarding application ID.
-
-        mail_2 : str
-            Email address used to access the application. If `sendEmail` parameter is true, a link to the application is sent to this email address.
-
-        send_email : typing.Optional[bool]
-            If `true`, sends an email that includes the link to the application to the `mail2` address. Defaults to `false`.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        PayabliApiResponse00
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.boarding.get_external_application(
-            app_id=352,
-            mail_2="mail2",
-        )
-        """
-        _response = self._raw_client.get_external_application(
-            app_id, mail_2, send_email=send_email, request_options=request_options
-        )
-        return _response.data
-
-    def get_link_application(
-        self, boarding_link_reference: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> BoardingLinkQueryRecord:
-        """
-        Retrieves the details for a boarding link, by reference name. This endpoint requires an application API token.
-
-        Parameters
-        ----------
-        boarding_link_reference : str
-            The boarding link reference name. You can find this at the end of the boarding link URL. For example `https://boarding.payabli.com/boarding/app/myorgaccountname-00091`
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        BoardingLinkQueryRecord
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.boarding.get_link_application(
-            boarding_link_reference="myorgaccountname-00091",
-        )
-        """
-        _response = self._raw_client.get_link_application(boarding_link_reference, request_options=request_options)
-        return _response.data
-
-    def list_applications(
-        self,
-        org_id: int,
-        *,
-        export_format: typing.Optional[ExportFormat] = None,
-        from_record: typing.Optional[int] = None,
-        limit_record: typing.Optional[int] = None,
-        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
-        sort_by: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> QueryBoardingAppsListResponse:
-        """
-        Returns a list of boarding applications for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
-
-        Parameters
-        ----------
-        org_id : int
-            The numeric identifier for organization, assigned by Payabli.
-
-        export_format : typing.Optional[ExportFormat]
-
-        from_record : typing.Optional[int]
-            The number of records to skip before starting to collect the result set.
-
-        limit_record : typing.Optional[int]
-            Max number of records to return for the query. Use `0` or negative value to return all records.
-
-        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-            Collection of field names, conditions, and values used to filter the query
-
-            See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
-
-            List of field names accepted:
-            - `createdAt` (gt, ge, lt, le, eq, ne)
-            - `startDate` (gt, ge, lt, le, eq, ne)
-            - `dbaname` (ct, nct)
-            - `legalname` (ct, nct)
-            - `ein` (ct, nct)
-            - `address` (ct, nct)
-            - `city` (ct, nct)
-            - `state` (ct, nct)
-            - `phone` (ct, nct)
-            - `mcc` (ct, nct)
-            - `owntype` (ct, nct)
-            - `ownerName` (ct, nct)
-            - `contactName` (ct, nct)
-            - `status` (in, nin, eq,ne)
-            - `orgParentname` (ct, nct)
-            - `externalpaypointID` (ct, nct, eq, ne)
-            - `repCode` (ct, nct, eq, ne)
-            - `repName` (ct, nct, eq, ne)
-            - `repOffice` (ct, nct, eq, ne)
-            List of comparison accepted - enclosed between parentheses:
-            - eq or empty => equal
-            - gt => greater than
-            - ge => greater or equal
-            - lt => less than
-            - le => less or equal
-            - ne => not equal
-            - ct => contains
-            - nct => not contains
-            - in => inside array
-            - nin => not inside array
-
-        sort_by : typing.Optional[str]
-            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        QueryBoardingAppsListResponse
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.boarding.list_applications(
-            org_id=123,
-            from_record=251,
-            limit_record=0,
-            sort_by="desc(field_name)",
-        )
-        """
-        _response = self._raw_client.list_applications(
-            org_id,
-            export_format=export_format,
-            from_record=from_record,
-            limit_record=limit_record,
-            parameters=parameters,
-            sort_by=sort_by,
-            request_options=request_options,
-        )
-        return _response.data
-
-    def list_boarding_links(
-        self,
-        org_id: int,
-        *,
-        from_record: typing.Optional[int] = None,
-        limit_record: typing.Optional[int] = None,
-        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
-        sort_by: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> QueryBoardingLinksResponse:
-        """
-        Return a list of boarding links for an organization. Use filters to limit results.
-
-        Parameters
-        ----------
-        org_id : int
-            The numeric identifier for organization, assigned by Payabli.
-
-        from_record : typing.Optional[int]
-            The number of records to skip before starting to collect the result set.
-
-        limit_record : typing.Optional[int]
-            Max number of records to return for the query. Use `0` or negative value to return all records.
-
-        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-            Collection of field names, conditions, and values used to filter the query
-
-            See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
-
-            List of field names accepted:
-            - `lastUpdated` (gt, ge, lt, le, eq, ne)
-            - `templateName` (ct, nct)
-            - `referenceName` (ct, nct)
-            - `acceptRegister` (eq, ne)
-            - `acceptAuth` (eq, ne)
-            - `templateCode` (ct, nct)
-            - `templateId` (eq, ne)
-            - `orgParentname` (ct, nct)
-
-            List of comparison accepted - enclosed between parentheses:
-            - eq or empty => equal
-            - gt => greater than
-            - ge => greater or equal
-            - lt => less than
-            - le => less or equal
-            - ne => not equal
-            - ct => contains
-            - nct => not contains
-            - in => inside array
-            - nin => not inside array
-
-            List of parameters accepted:
-            - limitRecord : max number of records for query (default="20", "0" or negative value for all)
-            - fromRecord : initial record in query
-
-            Example: templateName(ct)=hoa return all records with template title containing "hoa"
-
-        sort_by : typing.Optional[str]
-            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        QueryBoardingLinksResponse
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.boarding.list_boarding_links(
-            org_id=123,
-            from_record=251,
-            limit_record=0,
-            sort_by="desc(field_name)",
-        )
-        """
-        _response = self._raw_client.list_boarding_links(
-            org_id,
-            from_record=from_record,
-            limit_record=limit_record,
-            parameters=parameters,
-            sort_by=sort_by,
-            request_options=request_options,
-        )
         return _response.data
 
     def update_application(
@@ -977,297 +525,7 @@ class BoardingClient:
         )
         return _response.data
 
-    def add_service_to_paypoint_from_app(
-        self,
-        *,
-        paypoint_id: int,
-        template_id: int,
-        recipient_email: str,
-        return_boarding_access_info_in_line: typing.Optional[bool] = OMIT,
-        on_create: typing.Optional[typing.Sequence[str]] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> CreateApplicationFromPaypointResponse:
-        """
-        Creates a new boarding application linked to an existing paypoint as part of the multi-product boarding flow. Use this endpoint to add new services to a paypoint without creating a duplicate record. The system copies eligible business, contact, banking, and address data from the paypoint to the new application based on 1:1 field matching. The merchant only needs to provide fields that are specific to the new service. See the [Multi-product boarding](/guides/pay-ops-developer-boarding-multi-product) guide for the full flow.
-
-        Parameters
-        ----------
-        paypoint_id : int
-            ID of the existing paypoint to link to this application.
-
-        template_id : int
-            ID of the boarding template to use for the new application.
-
-        recipient_email : str
-            Email address where the boarding link is sent. Required. If you don't want to email the merchant, send to an internal address and use `returnBoardingAccessInfoInLine` to retrieve the link from the response instead.
-
-        return_boarding_access_info_in_line : typing.Optional[bool]
-            When `true`, returns the boarding access information directly in the response.
-
-        on_create : typing.Optional[typing.Sequence[str]]
-            Additional actions to trigger when the application is created. Currently only `submitApplication` is supported, which automatically submits the application on creation and skips the draft state.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        CreateApplicationFromPaypointResponse
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.boarding.add_service_to_paypoint_from_app(
-            paypoint_id=123,
-            template_id=456,
-            recipient_email="merchant@example.com",
-            return_boarding_access_info_in_line=True,
-            on_create=["submitApplication"],
-        )
-        """
-        _response = self._raw_client.add_service_to_paypoint_from_app(
-            paypoint_id=paypoint_id,
-            template_id=template_id,
-            recipient_email=recipient_email,
-            return_boarding_access_info_in_line=return_boarding_access_info_in_line,
-            on_create=on_create,
-            request_options=request_options,
-        )
-        return _response.data
-
-    def get_applications_by_paypoint_id(
-        self, paypoint_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> QueryBoardingAppsListResponse:
-        """
-        Returns all boarding applications associated with a specific paypoint, including those created through the multi-product boarding flow. Use this endpoint to track underwriting progress across multiple service additions or to build reporting views. See the [Multi-product boarding](/guides/pay-ops-developer-boarding-multi-product) guide for the full flow.
-
-        Parameters
-        ----------
-        paypoint_id : int
-            ID of the paypoint to retrieve applications for.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        QueryBoardingAppsListResponse
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.boarding.get_applications_by_paypoint_id(
-            paypoint_id=12345,
-        )
-        """
-        _response = self._raw_client.get_applications_by_paypoint_id(paypoint_id, request_options=request_options)
-        return _response.data
-
-
-class AsyncBoardingClient:
-    def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._raw_client = AsyncRawBoardingClient(client_wrapper=client_wrapper)
-
-    @property
-    def with_raw_response(self) -> AsyncRawBoardingClient:
-        """
-        Retrieves a raw implementation of this client that returns raw responses.
-
-        Returns
-        -------
-        AsyncRawBoardingClient
-        """
-        return self._raw_client
-
-    async def add_application(
-        self, *, request: AddApplicationRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> PayabliApiResponse00Responsedatanonobject:
-        """
-        Creates a boarding application in an organization. This endpoint requires an application API token.
-
-        Parameters
-        ----------
-        request : AddApplicationRequest
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        PayabliApiResponse00Responsedatanonobject
-            Success
-
-        Examples
-        --------
-        import asyncio
-
-        from payabli import (
-            ApplicationDataPayIn,
-            ApplicationDataPayInContactsItem,
-            ApplicationDataPayInOwnershipItem,
-            ApplicationDataPayInServices,
-            ApplicationDataPayInServicesAch,
-            ApplicationDataPayInServicesCard,
-            Asyncpayabli,
-            Bank,
-            SignerDataRequest,
-        )
-
-        client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.boarding.add_application(
-                request=ApplicationDataPayIn(
-                    services=ApplicationDataPayInServices(
-                        ach=ApplicationDataPayInServicesAch(),
-                        card=ApplicationDataPayInServicesCard(
-                            accept_amex=True,
-                            accept_discover=True,
-                            accept_mastercard=True,
-                            accept_visa=True,
-                        ),
-                    ),
-                    annual_revenue=1000.0,
-                    average_bill_size="500",
-                    average_monthly_bill="5650",
-                    avgmonthly=1000.0,
-                    baddress="123 Walnut Street",
-                    baddress_1="Suite 103",
-                    bank_data=[
-                        Bank(
-                            account_number="123123123",
-                            bank_account_function=1,
-                            bank_account_holder_name="Gruzya Adventure Outfitters LLC",
-                            bank_account_holder_type="Business",
-                            bank_name="Test Bank",
-                            nickname="Withdrawal Account",
-                            routing_account="123123123",
-                            type_account="Checking",
-                            account_id="123-456",
-                        ),
-                        Bank(
-                            account_number="123123123",
-                            bank_account_function=0,
-                            bank_account_holder_name="Gruzya Adventure Outfitters LLC",
-                            bank_account_holder_type="Business",
-                            bank_name="Test Bank",
-                            nickname="Deposit Account",
-                            routing_account="123123123",
-                            type_account="Checking",
-                            account_id="123-456",
-                        ),
-                    ],
-                    bcity="New Vegas",
-                    bcountry="US",
-                    binperson=60,
-                    binphone=20,
-                    binweb=20,
-                    bstate="FL",
-                    bsummary="Brick and mortar store that sells office supplies",
-                    btype="Limited Liability Company",
-                    bzip="33000",
-                    contacts=[
-                        ApplicationDataPayInContactsItem(
-                            contact_email="herman@hermanscoatings.com",
-                            contact_name="Herman Martinez",
-                            contact_phone="3055550000",
-                            contact_title="Owner",
-                        )
-                    ],
-                    credit_limit="creditLimit",
-                    dba_name="Sunshine Gutters",
-                    ein="123456789",
-                    faxnumber="1234567890",
-                    highticketamt=1000.0,
-                    legal_name="Sunshine Services, LLC",
-                    license="2222222FFG",
-                    licstate="CA",
-                    maddress="123 Walnut Street",
-                    maddress_1="STE 900",
-                    mcc="7777",
-                    mcity="Johnson City",
-                    mcountry="US",
-                    mstate="TN",
-                    mzip="37615",
-                    org_id=123,
-                    ownership=[
-                        ApplicationDataPayInOwnershipItem(
-                            oaddress="33 North St",
-                            ocity="Any City",
-                            ocountry="US",
-                            odriverstate="CA",
-                            ostate="CA",
-                            ownerdob="01/01/1990",
-                            ownerdriver="CA6677778",
-                            owneremail="test@email.com",
-                            ownername="John Smith",
-                            ownerpercent=100,
-                            ownerphone_1="555888111",
-                            ownerphone_2="555888111",
-                            ownerssn="123456789",
-                            ownertitle="CEO",
-                            ozip="55555",
-                        )
-                    ],
-                    phonenumber="1234567890",
-                    processing_region="US",
-                    recipient_email="josephray@example.com",
-                    recipient_email_notification=True,
-                    resumable=True,
-                    signer=SignerDataRequest(
-                        address="33 North St",
-                        address_1="STE 900",
-                        city="Bristol",
-                        country="US",
-                        dob="01/01/1976",
-                        email="test@email.com",
-                        name="John Smith",
-                        phone="555888111",
-                        ssn="123456789",
-                        state="TN",
-                        zip="55555",
-                        pci_attestation=True,
-                        signed_document_reference="https://example.com/signed-document.pdf",
-                        attestation_date="04/20/2025",
-                        sign_date="04/20/2025",
-                        additional_data={
-                            "deviceId": "499585-389fj484-3jcj8hj3",
-                            "session": "fifji4-fiu443-fn4843",
-                            "timeWithCompany": "6 Years",
-                        },
-                    ),
-                    startdate="01/01/1990",
-                    tax_fill_name="Sunshine LLC",
-                    template_id=22,
-                    ticketamt=1000.0,
-                    website="www.example.com",
-                    when_charged="When Service Provided",
-                    when_delivered="Over 30 Days",
-                    when_provided="30 Days or Less",
-                    when_refunded="30 Days or Less",
-                ),
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.add_application(request=request, request_options=request_options)
-        return _response.data
-
-    async def delete_application(
+    def delete_application(
         self, app_id: int, *, request_options: typing.Optional[RequestOptions] = None
     ) -> PayabliApiResponse00Responsedatanonobject:
         """
@@ -1288,27 +546,19 @@ class AsyncBoardingClient:
 
         Examples
         --------
-        import asyncio
+        from payabli import payabli
 
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
+        client = payabli(
             api_key="YOUR_API_KEY",
         )
-
-
-        async def main() -> None:
-            await client.boarding.delete_application(
-                app_id=352,
-            )
-
-
-        asyncio.run(main())
+        client.boarding.delete_application(
+            app_id=352,
+        )
         """
-        _response = await self._raw_client.delete_application(app_id, request_options=request_options)
+        _response = self._raw_client.delete_application(app_id, request_options=request_options)
         return _response.data
 
-    async def get_application(
+    def get_application(
         self, app_id: int, *, request_options: typing.Optional[RequestOptions] = None
     ) -> ApplicationDetailsRecord:
         """
@@ -1329,27 +579,19 @@ class AsyncBoardingClient:
 
         Examples
         --------
-        import asyncio
+        from payabli import payabli
 
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
+        client = payabli(
             api_key="YOUR_API_KEY",
         )
-
-
-        async def main() -> None:
-            await client.boarding.get_application(
-                app_id=352,
-            )
-
-
-        asyncio.run(main())
+        client.boarding.get_application(
+            app_id=352,
+        )
         """
-        _response = await self._raw_client.get_application(app_id, request_options=request_options)
+        _response = self._raw_client.get_application(app_id, request_options=request_options)
         return _response.data
 
-    async def get_application_by_auth(
+    def get_application_by_auth(
         self,
         x_id: str,
         *,
@@ -1381,31 +623,23 @@ class AsyncBoardingClient:
 
         Examples
         --------
-        import asyncio
+        from payabli import payabli
 
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
+        client = payabli(
             api_key="YOUR_API_KEY",
         )
-
-
-        async def main() -> None:
-            await client.boarding.get_application_by_auth(
-                x_id="17E",
-                email="admin@email.com",
-                reference_id="n6UCd1f1ygG7",
-            )
-
-
-        asyncio.run(main())
+        client.boarding.get_application_by_auth(
+            x_id="17E",
+            email="admin@email.com",
+            reference_id="129-219",
+        )
         """
-        _response = await self._raw_client.get_application_by_auth(
+        _response = self._raw_client.get_application_by_auth(
             x_id, email=email, reference_id=reference_id, request_options=request_options
         )
         return _response.data
 
-    async def get_by_id_link_application(
+    def get_by_id_link_application(
         self, boarding_link_id: int, *, request_options: typing.Optional[RequestOptions] = None
     ) -> BoardingLinkQueryRecord:
         """
@@ -1426,27 +660,19 @@ class AsyncBoardingClient:
 
         Examples
         --------
-        import asyncio
+        from payabli import payabli
 
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
+        client = payabli(
             api_key="YOUR_API_KEY",
         )
-
-
-        async def main() -> None:
-            await client.boarding.get_by_id_link_application(
-                boarding_link_id=91,
-            )
-
-
-        asyncio.run(main())
+        client.boarding.get_by_id_link_application(
+            boarding_link_id=91,
+        )
         """
-        _response = await self._raw_client.get_by_id_link_application(boarding_link_id, request_options=request_options)
+        _response = self._raw_client.get_by_id_link_application(boarding_link_id, request_options=request_options)
         return _response.data
 
-    async def get_by_template_id_link_application(
+    def get_by_template_id_link_application(
         self, template_id: float, *, request_options: typing.Optional[RequestOptions] = None
     ) -> BoardingLinkQueryRecord:
         """
@@ -1467,29 +693,19 @@ class AsyncBoardingClient:
 
         Examples
         --------
-        import asyncio
+        from payabli import payabli
 
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
+        client = payabli(
             api_key="YOUR_API_KEY",
         )
-
-
-        async def main() -> None:
-            await client.boarding.get_by_template_id_link_application(
-                template_id=80.0,
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.get_by_template_id_link_application(
-            template_id, request_options=request_options
+        client.boarding.get_by_template_id_link_application(
+            template_id=80.0,
         )
+        """
+        _response = self._raw_client.get_by_template_id_link_application(template_id, request_options=request_options)
         return _response.data
 
-    async def get_external_application(
+    def get_external_application(
         self,
         app_id: int,
         mail_2: str,
@@ -1521,30 +737,22 @@ class AsyncBoardingClient:
 
         Examples
         --------
-        import asyncio
+        from payabli import payabli
 
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
+        client = payabli(
             api_key="YOUR_API_KEY",
         )
-
-
-        async def main() -> None:
-            await client.boarding.get_external_application(
-                app_id=352,
-                mail_2="mail2",
-            )
-
-
-        asyncio.run(main())
+        client.boarding.get_external_application(
+            app_id=352,
+            mail_2="mail2",
+        )
         """
-        _response = await self._raw_client.get_external_application(
+        _response = self._raw_client.get_external_application(
             app_id, mail_2, send_email=send_email, request_options=request_options
         )
         return _response.data
 
-    async def get_link_application(
+    def get_link_application(
         self, boarding_link_reference: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> BoardingLinkQueryRecord:
         """
@@ -1565,29 +773,19 @@ class AsyncBoardingClient:
 
         Examples
         --------
-        import asyncio
+        from payabli import payabli
 
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
+        client = payabli(
             api_key="YOUR_API_KEY",
         )
-
-
-        async def main() -> None:
-            await client.boarding.get_link_application(
-                boarding_link_reference="myorgaccountname-00091",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.get_link_application(
-            boarding_link_reference, request_options=request_options
+        client.boarding.get_link_application(
+            boarding_link_reference="myorgaccountname-00091",
         )
+        """
+        _response = self._raw_client.get_link_application(boarding_link_reference, request_options=request_options)
         return _response.data
 
-    async def list_applications(
+    def list_applications(
         self,
         org_id: int,
         *,
@@ -1607,6 +805,7 @@ class AsyncBoardingClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -1664,27 +863,19 @@ class AsyncBoardingClient:
 
         Examples
         --------
-        import asyncio
+        from payabli import payabli
 
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
+        client = payabli(
             api_key="YOUR_API_KEY",
         )
-
-
-        async def main() -> None:
-            await client.boarding.list_applications(
-                org_id=123,
-                from_record=251,
-                limit_record=0,
-                sort_by="desc(field_name)",
-            )
-
-
-        asyncio.run(main())
+        client.boarding.list_applications(
+            org_id=123,
+            from_record=251,
+            limit_record=0,
+            sort_by="desc(field_name)",
+        )
         """
-        _response = await self._raw_client.list_applications(
+        _response = self._raw_client.list_applications(
             org_id,
             export_format=export_format,
             from_record=from_record,
@@ -1695,7 +886,7 @@ class AsyncBoardingClient:
         )
         return _response.data
 
-    async def list_boarding_links(
+    def list_boarding_links(
         self,
         org_id: int,
         *,
@@ -1765,27 +956,19 @@ class AsyncBoardingClient:
 
         Examples
         --------
-        import asyncio
+        from payabli import payabli
 
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
+        client = payabli(
             api_key="YOUR_API_KEY",
         )
-
-
-        async def main() -> None:
-            await client.boarding.list_boarding_links(
-                org_id=123,
-                from_record=251,
-                limit_record=0,
-                sort_by="desc(field_name)",
-            )
-
-
-        asyncio.run(main())
+        client.boarding.list_boarding_links(
+            org_id=123,
+            from_record=251,
+            limit_record=0,
+            sort_by="desc(field_name)",
+        )
         """
-        _response = await self._raw_client.list_boarding_links(
+        _response = self._raw_client.list_boarding_links(
             org_id,
             from_record=from_record,
             limit_record=limit_record,
@@ -1793,6 +976,296 @@ class AsyncBoardingClient:
             sort_by=sort_by,
             request_options=request_options,
         )
+        return _response.data
+
+    def add_service_to_paypoint_from_app(
+        self,
+        *,
+        paypoint_id: int,
+        template_id: int,
+        recipient_email: str,
+        return_boarding_access_info_in_line: typing.Optional[bool] = OMIT,
+        on_create: typing.Optional[typing.Sequence[str]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> CreateApplicationFromPaypointResponse:
+        """
+        Creates a new boarding application linked to an existing paypoint as part of the multi-product boarding flow. Use this endpoint to add new services to a paypoint without creating a duplicate record. The system copies eligible business, contact, banking, and address data from the paypoint to the new application based on 1:1 field matching. The merchant only needs to provide fields that are specific to the new service. See the [Multi-product boarding](/guides/pay-ops-developer-boarding-multi-product) guide for the full flow.
+
+        Parameters
+        ----------
+        paypoint_id : int
+            ID of the existing paypoint to link to this application.
+
+        template_id : int
+            ID of the boarding template to use for the new application.
+
+        recipient_email : str
+            Email address where the boarding link is sent. Required. If you don't want to email the merchant, send to an internal address and use `returnBoardingAccessInfoInLine` to retrieve the link from the response instead.
+
+        return_boarding_access_info_in_line : typing.Optional[bool]
+            When `true`, returns the boarding access information directly in the response.
+
+        on_create : typing.Optional[typing.Sequence[str]]
+            Additional actions to trigger when the application is created. Currently only `submitApplication` is supported, which automatically submits the application on creation and skips the draft state.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CreateApplicationFromPaypointResponse
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.boarding.add_service_to_paypoint_from_app(
+            paypoint_id=3040,
+            template_id=456,
+            recipient_email="merchant@example.com",
+            return_boarding_access_info_in_line=True,
+            on_create=["submitApplication"],
+        )
+        """
+        _response = self._raw_client.add_service_to_paypoint_from_app(
+            paypoint_id=paypoint_id,
+            template_id=template_id,
+            recipient_email=recipient_email,
+            return_boarding_access_info_in_line=return_boarding_access_info_in_line,
+            on_create=on_create,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def get_applications_by_paypoint_id(
+        self, paypoint_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> QueryBoardingAppsListResponse:
+        """
+        Returns all boarding applications associated with a specific paypoint, including those created through the multi-product boarding flow. Use this endpoint to track underwriting progress across multiple service additions or to build reporting views. See the [Multi-product boarding](/guides/pay-ops-developer-boarding-multi-product) guide for the full flow.
+
+        Parameters
+        ----------
+        paypoint_id : int
+            ID of the paypoint to retrieve applications for.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        QueryBoardingAppsListResponse
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.boarding.get_applications_by_paypoint_id(
+            paypoint_id=3040,
+        )
+        """
+        _response = self._raw_client.get_applications_by_paypoint_id(paypoint_id, request_options=request_options)
+        return _response.data
+
+
+class AsyncBoardingClient:
+    def __init__(self, *, client_wrapper: AsyncClientWrapper):
+        self._raw_client = AsyncRawBoardingClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> AsyncRawBoardingClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        AsyncRawBoardingClient
+        """
+        return self._raw_client
+
+    async def add_application(
+        self, *, request: AddApplicationRequest, request_options: typing.Optional[RequestOptions] = None
+    ) -> PayabliApiResponse00Responsedatanonobject:
+        """
+        Creates a boarding application in an organization. This endpoint requires an application API token.
+
+        Parameters
+        ----------
+        request : AddApplicationRequest
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayabliApiResponse00Responsedatanonobject
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import (
+            AchSetup,
+            ApplicationDataPayIn,
+            ApplicationDataPayInServices,
+            Asyncpayabli,
+            Bank,
+            CardSetup,
+            Contacts,
+            Owners,
+            SignerDataRequest,
+        )
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.boarding.add_application(
+                request=ApplicationDataPayIn(
+                    services=ApplicationDataPayInServices(
+                        ach=AchSetup(),
+                        card=CardSetup(
+                            accept_amex=True,
+                            accept_discover=True,
+                            accept_mastercard=True,
+                            accept_visa=True,
+                        ),
+                    ),
+                    annual_revenue=1000.0,
+                    average_bill_size="500",
+                    average_monthly_bill="5650",
+                    avgmonthly=1000.0,
+                    baddress="123 Walnut Street",
+                    baddress_1="Suite 103",
+                    bank_data=[
+                        Bank(
+                            account_number="123123100",
+                            bank_account_function=1,
+                            bank_account_holder_name="Gruzya Adventure Outfitters LLC",
+                            bank_account_holder_type="Business",
+                            bank_name="Test Bank 1",
+                            nickname="Withdrawal Account",
+                            routing_account="123123123",
+                            type_account="Checking",
+                            account_id="123-456",
+                        ),
+                        Bank(
+                            account_number="123123200",
+                            bank_account_function=0,
+                            bank_account_holder_name="Gruzya Adventure Outfitters LLC",
+                            bank_account_holder_type="Business",
+                            bank_name="Test Bank 2",
+                            nickname="Deposit Account",
+                            routing_account="321321321",
+                            type_account="Checking",
+                            account_id="123-789",
+                        ),
+                    ],
+                    bcity="New Vegas",
+                    bcountry="US",
+                    binperson=60,
+                    binphone=20,
+                    binweb=20,
+                    bstate="FL",
+                    bsummary="Brick and mortar store that sells office supplies",
+                    btype="Limited Liability Company",
+                    bzip="33000",
+                    contacts=[
+                        Contacts(
+                            contact_email="herman@hermanscoatings.com",
+                            contact_name="Herman Martinez",
+                            contact_phone="3055550000",
+                            contact_title="Owner",
+                        )
+                    ],
+                    credit_limit="creditLimit",
+                    dba_name="Sunshine Gutters",
+                    ein="123456789",
+                    faxnumber="1234567890",
+                    highticketamt=1000.0,
+                    legal_name="Sunshine Services, LLC",
+                    license="2222222FFG",
+                    licstate="CA",
+                    maddress="123 Walnut Street",
+                    maddress_1="STE 900",
+                    mcc="7777",
+                    mcity="Johnson City",
+                    mcountry="US",
+                    mstate="TN",
+                    mzip="37615",
+                    org_id=123,
+                    ownership=[
+                        Owners(
+                            oaddress="33 North St",
+                            ocity="Any City",
+                            ocountry="US",
+                            odriverstate="CA",
+                            ostate="CA",
+                            ownerdob="01/01/1990",
+                            ownerdriver="CA6677778",
+                            owneremail="test@email.com",
+                            ownername="John Smith",
+                            ownerpercent=100,
+                            ownerphone_1="555888111",
+                            ownerphone_2="555888111",
+                            ownerssn="123456789",
+                            ownertitle="CEO",
+                            ozip="55555",
+                        )
+                    ],
+                    phonenumber="1234567890",
+                    processing_region="US",
+                    recipient_email="josephray@example.com",
+                    recipient_email_notification=True,
+                    resumable=True,
+                    signer=SignerDataRequest(
+                        address="33 North St",
+                        address_1="STE 900",
+                        city="Bristol",
+                        country="US",
+                        dob="01/01/1976",
+                        email="test@email.com",
+                        name="John Smith",
+                        phone="555888111",
+                        ssn="123456789",
+                        state="TN",
+                        zip="55555",
+                        pci_attestation=True,
+                        signed_document_reference="https://example.com/signed-document.pdf",
+                        attestation_date="04/20/2025",
+                        sign_date="04/20/2025",
+                        additional_data={
+                            "deviceId": "499585-389fj484-3jcj8hj3",
+                            "session": "fifji4-fiu443-fn4843",
+                            "timeWithCompany": "6 Years",
+                        },
+                    ),
+                    startdate="01/01/1990",
+                    tax_fill_name="Sunshine LLC",
+                    template_id=22,
+                    ticketamt=1000.0,
+                    website="www.example.com",
+                    when_charged="When Service Provided",
+                    when_delivered="Over 30 Days",
+                    when_provided="30 Days or Less",
+                    when_refunded="30 Days or Less",
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.add_application(request=request, request_options=request_options)
         return _response.data
 
     async def update_application(
@@ -2067,6 +1540,535 @@ class AsyncBoardingClient:
         )
         return _response.data
 
+    async def delete_application(
+        self, app_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> PayabliApiResponse00Responsedatanonobject:
+        """
+        Deletes a boarding application by ID.
+
+        Parameters
+        ----------
+        app_id : int
+            Boarding application ID.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayabliApiResponse00Responsedatanonobject
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.boarding.delete_application(
+                app_id=352,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.delete_application(app_id, request_options=request_options)
+        return _response.data
+
+    async def get_application(
+        self, app_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ApplicationDetailsRecord:
+        """
+        Retrieves the details for a boarding application by ID.
+
+        Parameters
+        ----------
+        app_id : int
+            Boarding application ID.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ApplicationDetailsRecord
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.boarding.get_application(
+                app_id=352,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_application(app_id, request_options=request_options)
+        return _response.data
+
+    async def get_application_by_auth(
+        self,
+        x_id: str,
+        *,
+        email: typing.Optional[Email] = OMIT,
+        reference_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ApplicationQueryRecord:
+        """
+        Gets a boarding application by authentication information. This endpoint requires an `application` API token.
+
+        Parameters
+        ----------
+        x_id : str
+            The application ID in Hex format. Find this at the end of the boarding link URL returned in a call to api/Boarding/applink/{appId}/{mail2}. For example in:  `https://boarding-sandbox.payabli.com/boarding/externalapp/load/17E`, the xId is `17E`.
+
+        email : typing.Optional[Email]
+            The email address the applicant used to save the application.
+
+        reference_id : typing.Optional[str]
+            The referenceId is sent to the applicant via email when they save the application.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ApplicationQueryRecord
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.boarding.get_application_by_auth(
+                x_id="17E",
+                email="admin@email.com",
+                reference_id="129-219",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_application_by_auth(
+            x_id, email=email, reference_id=reference_id, request_options=request_options
+        )
+        return _response.data
+
+    async def get_by_id_link_application(
+        self, boarding_link_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> BoardingLinkQueryRecord:
+        """
+        Retrieves details for a boarding link, by ID.
+
+        Parameters
+        ----------
+        boarding_link_id : int
+            The boarding link ID. You can find this at the end of the boarding link reference name. For example `https://boarding.payabli.com/boarding/app/myorgaccountname-00091`. The ID is `91`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        BoardingLinkQueryRecord
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.boarding.get_by_id_link_application(
+                boarding_link_id=91,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_by_id_link_application(boarding_link_id, request_options=request_options)
+        return _response.data
+
+    async def get_by_template_id_link_application(
+        self, template_id: float, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> BoardingLinkQueryRecord:
+        """
+        Get details for a boarding link using the boarding template ID. This endpoint requires an application API token.
+
+        Parameters
+        ----------
+        template_id : float
+            The boarding template ID. You can find this at the end of the boarding template URL in PartnerHub. Example: `https://partner-sandbox.payabli.com/myorganization/boarding/edittemplate/80`. Here, the template ID is `80`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        BoardingLinkQueryRecord
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.boarding.get_by_template_id_link_application(
+                template_id=80.0,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_by_template_id_link_application(
+            template_id, request_options=request_options
+        )
+        return _response.data
+
+    async def get_external_application(
+        self,
+        app_id: int,
+        mail_2: str,
+        *,
+        send_email: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PayabliApiResponse00:
+        """
+        Retrieves a link and the verification code used to log into an existing boarding application. You can also use this endpoint to send a link and referenceId for an existing boarding application to an email address. The recipient can use the referenceId and email address to access and edit the application.
+
+        Parameters
+        ----------
+        app_id : int
+            Boarding application ID.
+
+        mail_2 : str
+            Email address used to access the application. If `sendEmail` parameter is true, a link to the application is sent to this email address.
+
+        send_email : typing.Optional[bool]
+            If `true`, sends an email that includes the link to the application to the `mail2` address. Defaults to `false`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayabliApiResponse00
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.boarding.get_external_application(
+                app_id=352,
+                mail_2="mail2",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_external_application(
+            app_id, mail_2, send_email=send_email, request_options=request_options
+        )
+        return _response.data
+
+    async def get_link_application(
+        self, boarding_link_reference: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> BoardingLinkQueryRecord:
+        """
+        Retrieves the details for a boarding link, by reference name. This endpoint requires an application API token.
+
+        Parameters
+        ----------
+        boarding_link_reference : str
+            The boarding link reference name. You can find this at the end of the boarding link URL. For example `https://boarding.payabli.com/boarding/app/myorgaccountname-00091`
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        BoardingLinkQueryRecord
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.boarding.get_link_application(
+                boarding_link_reference="myorgaccountname-00091",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_link_application(
+            boarding_link_reference, request_options=request_options
+        )
+        return _response.data
+
+    async def list_applications(
+        self,
+        org_id: int,
+        *,
+        export_format: typing.Optional[ExportFormat] = None,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> QueryBoardingAppsListResponse:
+        """
+        Returns a list of boarding applications for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
+
+        Parameters
+        ----------
+        org_id : int
+            The numeric identifier for organization, assigned by Payabli.
+
+        export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Collection of field names, conditions, and values used to filter the query
+
+            See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
+
+            List of field names accepted:
+            - `createdAt` (gt, ge, lt, le, eq, ne)
+            - `startDate` (gt, ge, lt, le, eq, ne)
+            - `dbaname` (ct, nct)
+            - `legalname` (ct, nct)
+            - `ein` (ct, nct)
+            - `address` (ct, nct)
+            - `city` (ct, nct)
+            - `state` (ct, nct)
+            - `phone` (ct, nct)
+            - `mcc` (ct, nct)
+            - `owntype` (ct, nct)
+            - `ownerName` (ct, nct)
+            - `contactName` (ct, nct)
+            - `status` (in, nin, eq,ne)
+            - `orgParentname` (ct, nct)
+            - `externalpaypointID` (ct, nct, eq, ne)
+            - `repCode` (ct, nct, eq, ne)
+            - `repName` (ct, nct, eq, ne)
+            - `repOffice` (ct, nct, eq, ne)
+            List of comparison accepted - enclosed between parentheses:
+            - eq or empty => equal
+            - gt => greater than
+            - ge => greater or equal
+            - lt => less than
+            - le => less or equal
+            - ne => not equal
+            - ct => contains
+            - nct => not contains
+            - in => inside array
+            - nin => not inside array
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        QueryBoardingAppsListResponse
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.boarding.list_applications(
+                org_id=123,
+                from_record=251,
+                limit_record=0,
+                sort_by="desc(field_name)",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_applications(
+            org_id,
+            export_format=export_format,
+            from_record=from_record,
+            limit_record=limit_record,
+            parameters=parameters,
+            sort_by=sort_by,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def list_boarding_links(
+        self,
+        org_id: int,
+        *,
+        from_record: typing.Optional[int] = None,
+        limit_record: typing.Optional[int] = None,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
+        sort_by: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> QueryBoardingLinksResponse:
+        """
+        Return a list of boarding links for an organization. Use filters to limit results.
+
+        Parameters
+        ----------
+        org_id : int
+            The numeric identifier for organization, assigned by Payabli.
+
+        from_record : typing.Optional[int]
+            The number of records to skip before starting to collect the result set.
+
+        limit_record : typing.Optional[int]
+            Max number of records to return for the query. Use `0` or negative value to return all records.
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Collection of field names, conditions, and values used to filter the query
+
+            See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
+
+            List of field names accepted:
+            - `lastUpdated` (gt, ge, lt, le, eq, ne)
+            - `templateName` (ct, nct)
+            - `referenceName` (ct, nct)
+            - `acceptRegister` (eq, ne)
+            - `acceptAuth` (eq, ne)
+            - `templateCode` (ct, nct)
+            - `templateId` (eq, ne)
+            - `orgParentname` (ct, nct)
+
+            List of comparison accepted - enclosed between parentheses:
+            - eq or empty => equal
+            - gt => greater than
+            - ge => greater or equal
+            - lt => less than
+            - le => less or equal
+            - ne => not equal
+            - ct => contains
+            - nct => not contains
+            - in => inside array
+            - nin => not inside array
+
+            List of parameters accepted:
+            - limitRecord : max number of records for query (default="20", "0" or negative value for all)
+            - fromRecord : initial record in query
+
+            Example: templateName(ct)=hoa return all records with template title containing "hoa"
+
+        sort_by : typing.Optional[str]
+            The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        QueryBoardingLinksResponse
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.boarding.list_boarding_links(
+                org_id=123,
+                from_record=251,
+                limit_record=0,
+                sort_by="desc(field_name)",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_boarding_links(
+            org_id,
+            from_record=from_record,
+            limit_record=limit_record,
+            parameters=parameters,
+            sort_by=sort_by,
+            request_options=request_options,
+        )
+        return _response.data
+
     async def add_service_to_paypoint_from_app(
         self,
         *,
@@ -2118,7 +2120,7 @@ class AsyncBoardingClient:
 
         async def main() -> None:
             await client.boarding.add_service_to_paypoint_from_app(
-                paypoint_id=123,
+                paypoint_id=3040,
                 template_id=456,
                 recipient_email="merchant@example.com",
                 return_boarding_access_info_in_line=True,
@@ -2170,7 +2172,7 @@ class AsyncBoardingClient:
 
         async def main() -> None:
             await client.boarding.get_applications_by_paypoint_id(
-                paypoint_id=12345,
+                paypoint_id=3040,
             )
 
 

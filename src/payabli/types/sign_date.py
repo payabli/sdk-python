@@ -3,5 +3,5 @@
 SignDate = str
 """
 Date when the signer signed the document. Accepted formats:
-YYYY-MM-DD, MM/DD/YYYY
+YYYY-MM-DD, MM/DD/YYYY.
 """

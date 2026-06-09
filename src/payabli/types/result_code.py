@@ -2,7 +2,7 @@
 
 ResultCode = int
 """
-Result code for the operation. Value 1 indicates a successful operation,
-values 2 and 3 indicate errors. A value of 10 indicates that an operation
-has been initiated and is pending.
+Result code for the operation. Value `1` indicates a successful
+operation, values `2` and `3` indicate errors. A value of `10` indicates
+that an operation has been initiated and is pending.
 """

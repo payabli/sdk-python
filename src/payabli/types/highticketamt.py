@@ -2,5 +2,5 @@
 
 Highticketamt = float
 """
-High ticket amount.
+Highest ticket amount.
 """

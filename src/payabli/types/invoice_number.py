@@ -2,5 +2,5 @@
 
 InvoiceNumber = str
 """
-Custom number identifying the bill or invoice. Must be unique in paypoint.
+Invoice number. Identifies the invoice under a paypoint.
 """

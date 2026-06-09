@@ -4,23 +4,19 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
-from ..payout_subscription.types.query_payout_subscription_response import QueryPayoutSubscriptionResponse
-from ..query_types.types.limit_record import LimitRecord
-from ..query_types.types.list_organizations_response import ListOrganizationsResponse
-from ..query_types.types.query_batches_detail_response import QueryBatchesDetailResponse
-from ..query_types.types.query_batches_response import QueryBatchesResponse
-from ..query_types.types.query_device_response import QueryDeviceResponse
-from ..query_types.types.query_transfer_detail_response import QueryTransferDetailResponse
-from ..query_types.types.transfer_out_detail_query_response import TransferOutDetailQueryResponse
-from ..query_types.types.transfer_out_query_response import TransferOutQueryResponse
-from ..query_types.types.v_card_transaction_query_response import VCardTransactionQueryResponse
 from ..types.entry import Entry
 from ..types.export_format import ExportFormat
+from ..types.limit_record import LimitRecord
+from ..types.list_organizations_response import ListOrganizationsResponse
 from ..types.orgid import Orgid
+from ..types.query_batches_detail_response import QueryBatchesDetailResponse
 from ..types.query_batches_out_response import QueryBatchesOutResponse
+from ..types.query_batches_response import QueryBatchesResponse
 from ..types.query_chargebacks_response import QueryChargebacksResponse
 from ..types.query_customer_response import QueryCustomerResponse
+from ..types.query_device_response import QueryDeviceResponse
 from ..types.query_entrypoint_response import QueryEntrypointResponse
+from ..types.query_payout_subscription_response import QueryPayoutSubscriptionResponse
 from ..types.query_payout_transaction import QueryPayoutTransaction
 from ..types.query_response_notification_reports import QueryResponseNotificationReports
 from ..types.query_response_notifications import QueryResponseNotifications
@@ -28,9 +24,13 @@ from ..types.query_response_settlements import QueryResponseSettlements
 from ..types.query_response_transactions import QueryResponseTransactions
 from ..types.query_response_vendors import QueryResponseVendors
 from ..types.query_subscription_response import QuerySubscriptionResponse
+from ..types.query_transfer_detail_response import QueryTransferDetailResponse
 from ..types.query_user_response import QueryUserResponse
+from ..types.transfer_out_detail_query_response import TransferOutDetailQueryResponse
+from ..types.transfer_out_query_response import TransferOutQueryResponse
 from ..types.transfer_query_response import TransferQueryResponse
 from ..types.v_card_query_response import VCardQueryResponse
+from ..types.v_card_transaction_query_response import VCardTransactionQueryResponse
 from .raw_client import AsyncRawQueryClient, RawQueryClient
 
 
@@ -67,8 +67,10 @@ class QueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -77,7 +79,6 @@ class QueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -210,6 +211,7 @@ class QueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -218,7 +220,6 @@ class QueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -347,8 +348,10 @@ class QueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -468,6 +471,7 @@ class QueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -584,8 +588,10 @@ class QueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -594,7 +600,6 @@ class QueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query. See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
 
             **List of field names accepted**:
@@ -667,6 +672,7 @@ class QueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -675,7 +681,6 @@ class QueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -760,8 +765,10 @@ class QueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -898,6 +905,7 @@ class QueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -1033,8 +1041,10 @@ class QueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -1165,6 +1175,7 @@ class QueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -1292,8 +1303,10 @@ class QueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -1302,7 +1315,6 @@ class QueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter
             the query.
 
@@ -1452,6 +1464,7 @@ class QueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -1460,7 +1473,6 @@ class QueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter
             the query.
 
@@ -1573,7 +1585,7 @@ class QueryClient:
             api_key="YOUR_API_KEY",
         )
         client.query.list_devices_org(
-            org_id=100,
+            org_id=123,
             from_record=0,
             limit_record=20,
             sort_by="desc(createdAt)",
@@ -1606,6 +1618,7 @@ class QueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -1801,6 +1814,7 @@ class QueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -2006,6 +2020,7 @@ class QueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -2120,8 +2135,10 @@ class QueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -2266,6 +2283,7 @@ class QueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -2409,6 +2427,7 @@ class QueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -2528,8 +2547,10 @@ class QueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -2538,7 +2559,6 @@ class QueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -2671,6 +2691,7 @@ class QueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -2679,7 +2700,6 @@ class QueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -2809,8 +2829,10 @@ class QueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -2819,7 +2841,6 @@ class QueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -2848,6 +2869,7 @@ class QueryClient:
             - `feeAmount` (gt, ge, lt, le, eq, ne)
             - `status` (in, nin, eq, ne)
             - `untilcancelled` (eq, ne)
+            - `subscriptionType` (eq, ne, in, nin). Filters by subscription type. Accepts `Regular` or `BalanceDriven`. Case-insensitive. Example: `subscriptionType(in)=Regular|BalanceDriven`.
             - `payaccountLastfour` (nct, ct)
             - `payaccountType` (ne, eq, in, nin)
             - `payaccountCurrency` (ne, eq, in, nin)
@@ -2953,6 +2975,7 @@ class QueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -2961,7 +2984,6 @@ class QueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -2990,6 +3012,7 @@ class QueryClient:
             - `feeAmount` (gt, ge, lt, le, eq, ne)
             - `status` (in, nin, eq, ne)
             - `untilcancelled` (eq, ne)
+            - `subscriptionType` (eq, ne, in, nin). Filters by subscription type. Accepts `Regular` or `BalanceDriven`. Case-insensitive. Example: `subscriptionType(in)=Regular|BalanceDriven`.
             - `payaccountLastfour` (nct, ct)
             - `payaccountType` (ne, eq, in, nin)
             - `payaccountCurrency` (ne, eq, in, nin)
@@ -3092,8 +3115,10 @@ class QueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -3102,7 +3127,6 @@ class QueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -3223,6 +3247,7 @@ class QueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -3231,7 +3256,6 @@ class QueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -3345,18 +3369,23 @@ class QueryClient:
     ) -> QueryResponseTransactions:
         """
         Retrieve a list of transactions for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
-        By default, this endpoint returns only transactions from the last 60 days. To query transactions outside of this period, include `transactionDate` filters.
-        For example, this request parameters filter for transactions between April 01, 2024 and April 09, 2024. 
-        ``` curl -X GET https://sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59\\
-          -H 'requestToken: <API TOKEN>'
         
-          ```
+        By default, this endpoint returns only transactions from the last 60 days. To query transactions outside of this period, include `transactionDate` filters.
+        
+        These request parameters filter for transactions between April 1, 2024 and April 9, 2024.
+        
+        ```bash
+        curl -X GET https://api-sandbox.payabli.com/api/Query/transactions/8cfec329267?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59 \\
+          -H 'requestToken: <API TOKEN>'
+        ```
         
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
         
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
         
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -3365,8 +3394,7 @@ class QueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
         
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-            
-            Collection of field names, conditions, and values used to filter the query. 
+            Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
             
@@ -3499,20 +3527,16 @@ class QueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> QueryResponseTransactions:
         """
-        
-        Retrieve a list of transactions for an organization. Use filters to
-        limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
-        
+        Retrieve a list of transactions for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
         
         By default, this endpoint returns only transactions from the last 60 days. To query transactions outside of this period, include `transactionDate` filters.
         
-        For example, this request parameters filter for transactions between April 01, 2024 and April 09, 2024. 
+        These request parameters filter for transactions between April 1, 2024 and April 9, 2024.
         
-        ```
-        curl -X GET "https://sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59"\\
+        ```bash
+        curl -X GET "https://api-sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59" \\
           -H 'requestToken: <API TOKEN>'
-        
-          ```
+        ```
         
         Parameters
         ----------
@@ -3520,6 +3544,7 @@ class QueryClient:
             The numeric identifier for organization, assigned by Payabli.
         
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
         
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -3528,8 +3553,7 @@ class QueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
         
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-            
-            Collection of field names, conditions, and values used to filter the query. 
+            Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
             
@@ -3667,19 +3691,21 @@ class QueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         transfer_id : int
             The numeric identifier for the transfer, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
 
         limit_record : typing.Optional[LimitRecord]
+            Max number of records to return for the query. Use `0` or negative value to return all records. Defaults to 20.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter
             the query.
 
@@ -3737,8 +3763,8 @@ class QueryClient:
             api_key="YOUR_API_KEY",
         )
         client.query.list_transfer_details(
-            entry="47862acd",
-            transfer_id=123456,
+            entry="8cfec329267",
+            transfer_id=4521,
         )
         """
         _response = self._raw_client.list_transfer_details(
@@ -3770,8 +3796,10 @@ class QueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -3835,7 +3863,7 @@ class QueryClient:
             api_key="YOUR_API_KEY",
         )
         client.query.list_transfers(
-            entry="47862acd",
+            entry="8cfec329267",
             from_record=0,
             limit_record=20,
         )
@@ -3868,8 +3896,10 @@ class QueryClient:
         Parameters
         ----------
         org_id : Orgid
+            Organization ID. Unique identifier assigned to an org by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -4019,7 +4049,7 @@ class QueryClient:
             api_key="YOUR_API_KEY",
         )
         client.query.list_transfers_out_org(
-            org_id=77,
+            org_id=123,
             from_record=0,
             limit_record=20,
         )
@@ -4050,6 +4080,7 @@ class QueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -4106,7 +4137,7 @@ class QueryClient:
             api_key="YOUR_API_KEY",
         )
         client.query.list_transfers_out_paypoint(
-            entry="47cade237",
+            entry="8cfec329267",
             from_record=0,
             limit_record=20,
         )
@@ -4138,6 +4169,7 @@ class QueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         transfer_id : int
             The numeric identifier for the transfer, assigned by Payabli.
@@ -4196,7 +4228,7 @@ class QueryClient:
             api_key="YOUR_API_KEY",
         )
         client.query.list_transfer_details_out(
-            entry="47ace2b25",
+            entry="8cfec329267",
             transfer_id=4521,
             from_record=0,
             limit_record=20,
@@ -4439,6 +4471,7 @@ class QueryClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -4559,6 +4592,7 @@ class QueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -4676,8 +4710,10 @@ class QueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -4788,6 +4824,7 @@ class QueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -5019,6 +5056,7 @@ class QueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -5147,8 +5185,10 @@ class AsyncQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -5157,7 +5197,6 @@ class AsyncQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -5298,6 +5337,7 @@ class AsyncQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -5306,7 +5346,6 @@ class AsyncQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -5443,8 +5482,10 @@ class AsyncQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -5572,6 +5613,7 @@ class AsyncQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -5696,8 +5738,10 @@ class AsyncQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -5706,7 +5750,6 @@ class AsyncQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query. See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
 
             **List of field names accepted**:
@@ -5787,6 +5830,7 @@ class AsyncQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -5795,7 +5839,6 @@ class AsyncQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -5888,8 +5931,10 @@ class AsyncQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -6034,6 +6079,7 @@ class AsyncQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -6177,8 +6223,10 @@ class AsyncQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -6317,6 +6365,7 @@ class AsyncQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -6452,8 +6501,10 @@ class AsyncQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -6462,7 +6513,6 @@ class AsyncQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter
             the query.
 
@@ -6620,6 +6670,7 @@ class AsyncQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -6628,7 +6679,6 @@ class AsyncQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter
             the query.
 
@@ -6746,7 +6796,7 @@ class AsyncQueryClient:
 
         async def main() -> None:
             await client.query.list_devices_org(
-                org_id=100,
+                org_id=123,
                 from_record=0,
                 limit_record=20,
                 sort_by="desc(createdAt)",
@@ -6782,6 +6832,7 @@ class AsyncQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -6993,6 +7044,7 @@ class AsyncQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -7214,6 +7266,7 @@ class AsyncQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -7336,8 +7389,10 @@ class AsyncQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -7490,6 +7545,7 @@ class AsyncQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -7641,6 +7697,7 @@ class AsyncQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -7768,8 +7825,10 @@ class AsyncQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -7778,7 +7837,6 @@ class AsyncQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -7919,6 +7977,7 @@ class AsyncQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -7927,7 +7986,6 @@ class AsyncQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -8065,8 +8123,10 @@ class AsyncQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -8075,7 +8135,6 @@ class AsyncQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -8104,6 +8163,7 @@ class AsyncQueryClient:
             - `feeAmount` (gt, ge, lt, le, eq, ne)
             - `status` (in, nin, eq, ne)
             - `untilcancelled` (eq, ne)
+            - `subscriptionType` (eq, ne, in, nin). Filters by subscription type. Accepts `Regular` or `BalanceDriven`. Case-insensitive. Example: `subscriptionType(in)=Regular|BalanceDriven`.
             - `payaccountLastfour` (nct, ct)
             - `payaccountType` (ne, eq, in, nin)
             - `payaccountCurrency` (ne, eq, in, nin)
@@ -8217,6 +8277,7 @@ class AsyncQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -8225,7 +8286,6 @@ class AsyncQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -8254,6 +8314,7 @@ class AsyncQueryClient:
             - `feeAmount` (gt, ge, lt, le, eq, ne)
             - `status` (in, nin, eq, ne)
             - `untilcancelled` (eq, ne)
+            - `subscriptionType` (eq, ne, in, nin). Filters by subscription type. Accepts `Regular` or `BalanceDriven`. Case-insensitive. Example: `subscriptionType(in)=Regular|BalanceDriven`.
             - `payaccountLastfour` (nct, ct)
             - `payaccountType` (ne, eq, in, nin)
             - `payaccountCurrency` (ne, eq, in, nin)
@@ -8364,8 +8425,10 @@ class AsyncQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -8374,7 +8437,6 @@ class AsyncQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -8503,6 +8565,7 @@ class AsyncQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -8511,7 +8574,6 @@ class AsyncQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -8633,18 +8695,23 @@ class AsyncQueryClient:
     ) -> QueryResponseTransactions:
         """
         Retrieve a list of transactions for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
-        By default, this endpoint returns only transactions from the last 60 days. To query transactions outside of this period, include `transactionDate` filters.
-        For example, this request parameters filter for transactions between April 01, 2024 and April 09, 2024. 
-        ``` curl -X GET https://sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59\\
-          -H 'requestToken: <API TOKEN>'
         
-          ```
+        By default, this endpoint returns only transactions from the last 60 days. To query transactions outside of this period, include `transactionDate` filters.
+        
+        These request parameters filter for transactions between April 1, 2024 and April 9, 2024.
+        
+        ```bash
+        curl -X GET https://api-sandbox.payabli.com/api/Query/transactions/8cfec329267?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59 \\
+          -H 'requestToken: <API TOKEN>'
+        ```
         
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
         
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
         
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -8653,8 +8720,7 @@ class AsyncQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
         
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-            
-            Collection of field names, conditions, and values used to filter the query. 
+            Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
             
@@ -8795,20 +8861,16 @@ class AsyncQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> QueryResponseTransactions:
         """
-        
-        Retrieve a list of transactions for an organization. Use filters to
-        limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
-        
+        Retrieve a list of transactions for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
         
         By default, this endpoint returns only transactions from the last 60 days. To query transactions outside of this period, include `transactionDate` filters.
         
-        For example, this request parameters filter for transactions between April 01, 2024 and April 09, 2024. 
+        These request parameters filter for transactions between April 1, 2024 and April 9, 2024.
         
-        ```
-        curl -X GET "https://sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59"\\
+        ```bash
+        curl -X GET "https://api-sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59" \\
           -H 'requestToken: <API TOKEN>'
-        
-          ```
+        ```
         
         Parameters
         ----------
@@ -8816,6 +8878,7 @@ class AsyncQueryClient:
             The numeric identifier for organization, assigned by Payabli.
         
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
         
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -8824,8 +8887,7 @@ class AsyncQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
         
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-            
-            Collection of field names, conditions, and values used to filter the query. 
+            Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
             
@@ -8971,19 +9033,21 @@ class AsyncQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         transfer_id : int
             The numeric identifier for the transfer, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
 
         limit_record : typing.Optional[LimitRecord]
+            Max number of records to return for the query. Use `0` or negative value to return all records. Defaults to 20.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter
             the query.
 
@@ -9046,8 +9110,8 @@ class AsyncQueryClient:
 
         async def main() -> None:
             await client.query.list_transfer_details(
-                entry="47862acd",
-                transfer_id=123456,
+                entry="8cfec329267",
+                transfer_id=4521,
             )
 
 
@@ -9082,8 +9146,10 @@ class AsyncQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -9152,7 +9218,7 @@ class AsyncQueryClient:
 
         async def main() -> None:
             await client.query.list_transfers(
-                entry="47862acd",
+                entry="8cfec329267",
                 from_record=0,
                 limit_record=20,
             )
@@ -9188,8 +9254,10 @@ class AsyncQueryClient:
         Parameters
         ----------
         org_id : Orgid
+            Organization ID. Unique identifier assigned to an org by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -9352,7 +9420,7 @@ class AsyncQueryClient:
 
         async def main() -> None:
             await client.query.list_transfers_out_org(
-                org_id=77,
+                org_id=123,
                 from_record=0,
                 limit_record=20,
             )
@@ -9386,6 +9454,7 @@ class AsyncQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -9447,7 +9516,7 @@ class AsyncQueryClient:
 
         async def main() -> None:
             await client.query.list_transfers_out_paypoint(
-                entry="47cade237",
+                entry="8cfec329267",
                 from_record=0,
                 limit_record=20,
             )
@@ -9482,6 +9551,7 @@ class AsyncQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         transfer_id : int
             The numeric identifier for the transfer, assigned by Payabli.
@@ -9545,7 +9615,7 @@ class AsyncQueryClient:
 
         async def main() -> None:
             await client.query.list_transfer_details_out(
-                entry="47ace2b25",
+                entry="8cfec329267",
                 transfer_id=4521,
                 from_record=0,
                 limit_record=20,
@@ -9807,6 +9877,7 @@ class AsyncQueryClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -9935,6 +10006,7 @@ class AsyncQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -10060,8 +10132,10 @@ class AsyncQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -10180,6 +10254,7 @@ class AsyncQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -10427,6 +10502,7 @@ class AsyncQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.

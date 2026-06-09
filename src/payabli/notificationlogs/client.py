@@ -2,15 +2,14 @@
 
 import datetime as dt
 import typing
-import uuid
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
+from ..types.bulk_retry_request import BulkRetryRequest
+from ..types.notification_log import NotificationLog
+from ..types.notification_log_detail import NotificationLogDetail
 from ..types.pagesize import Pagesize
 from .raw_client import AsyncRawNotificationlogsClient, RawNotificationlogsClient
-from .types.bulk_retry_request import BulkRetryRequest
-from .types.notification_log import NotificationLog
-from .types.notification_log_detail import NotificationLogDetail
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -60,6 +59,7 @@ class NotificationlogsClient:
             The end date for the search.
 
         page_size : typing.Optional[Pagesize]
+            Number of records on each response page.
 
         page : typing.Optional[int]
             The page number to retrieve. Defaults to 1 if not provided.
@@ -82,6 +82,7 @@ class NotificationlogsClient:
         Returns
         -------
         typing.List[NotificationLog]
+            Success
 
         Examples
         --------
@@ -100,7 +101,7 @@ class NotificationlogsClient:
             end_date=datetime.datetime.fromisoformat(
                 "2024-01-31 23:59:59+00:00",
             ),
-            org_id=12345,
+            org_id=123,
             notification_event="ActivatedMerchant",
             succeeded=True,
         )
@@ -119,7 +120,7 @@ class NotificationlogsClient:
         return _response.data
 
     def get_notification_log(
-        self, uuid_: uuid.UUID, *, request_options: typing.Optional[RequestOptions] = None
+        self, uuid_: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> NotificationLogDetail:
         """
         Get detailed information for a specific notification log entry.
@@ -127,7 +128,7 @@ class NotificationlogsClient:
 
         Parameters
         ----------
-        uuid_ : uuid.UUID
+        uuid_ : str
             The notification log entry.
 
         request_options : typing.Optional[RequestOptions]
@@ -136,27 +137,24 @@ class NotificationlogsClient:
         Returns
         -------
         NotificationLogDetail
+            Success
 
         Examples
         --------
-        import uuid
-
         from payabli import payabli
 
         client = payabli(
             api_key="YOUR_API_KEY",
         )
         client.notificationlogs.get_notification_log(
-            uuid_=uuid.UUID(
-                "550e8400-e29b-41d4-a716-446655440000",
-            ),
+            uuid_="550e8400-e29b-41d4-a716-446655440000",
         )
         """
         _response = self._raw_client.get_notification_log(uuid_, request_options=request_options)
         return _response.data
 
     def retry_notification_log(
-        self, uuid_: uuid.UUID, *, request_options: typing.Optional[RequestOptions] = None
+        self, uuid_: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> NotificationLogDetail:
         """
         Retry sending a specific notification.
@@ -165,7 +163,7 @@ class NotificationlogsClient:
 
         Parameters
         ----------
-        uuid_ : uuid.UUID
+        uuid_ : str
             Unique id
 
         request_options : typing.Optional[RequestOptions]
@@ -174,20 +172,17 @@ class NotificationlogsClient:
         Returns
         -------
         NotificationLogDetail
+            Success
 
         Examples
         --------
-        import uuid
-
         from payabli import payabli
 
         client = payabli(
             api_key="YOUR_API_KEY",
         )
         client.notificationlogs.retry_notification_log(
-            uuid_=uuid.UUID(
-                "550e8400-e29b-41d4-a716-446655440000",
-            ),
+            uuid_="550e8400-e29b-41d4-a716-446655440000",
         )
         """
         _response = self._raw_client.retry_notification_log(uuid_, request_options=request_options)
@@ -215,8 +210,6 @@ class NotificationlogsClient:
 
         Examples
         --------
-        import uuid
-
         from payabli import payabli
 
         client = payabli(
@@ -224,15 +217,9 @@ class NotificationlogsClient:
         )
         client.notificationlogs.bulk_retry_notification_logs(
             request=[
-                uuid.UUID(
-                    "550e8400-e29b-41d4-a716-446655440000",
-                ),
-                uuid.UUID(
-                    "550e8400-e29b-41d4-a716-446655440001",
-                ),
-                uuid.UUID(
-                    "550e8400-e29b-41d4-a716-446655440002",
-                ),
+                "550e8400-e29b-41d4-a716-446655440000",
+                "550e8400-e29b-41d4-a716-446655440001",
+                "550e8400-e29b-41d4-a716-446655440002",
             ],
         )
         """
@@ -284,6 +271,7 @@ class AsyncNotificationlogsClient:
             The end date for the search.
 
         page_size : typing.Optional[Pagesize]
+            Number of records on each response page.
 
         page : typing.Optional[int]
             The page number to retrieve. Defaults to 1 if not provided.
@@ -306,6 +294,7 @@ class AsyncNotificationlogsClient:
         Returns
         -------
         typing.List[NotificationLog]
+            Success
 
         Examples
         --------
@@ -328,7 +317,7 @@ class AsyncNotificationlogsClient:
                 end_date=datetime.datetime.fromisoformat(
                     "2024-01-31 23:59:59+00:00",
                 ),
-                org_id=12345,
+                org_id=123,
                 notification_event="ActivatedMerchant",
                 succeeded=True,
             )
@@ -350,7 +339,7 @@ class AsyncNotificationlogsClient:
         return _response.data
 
     async def get_notification_log(
-        self, uuid_: uuid.UUID, *, request_options: typing.Optional[RequestOptions] = None
+        self, uuid_: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> NotificationLogDetail:
         """
         Get detailed information for a specific notification log entry.
@@ -358,7 +347,7 @@ class AsyncNotificationlogsClient:
 
         Parameters
         ----------
-        uuid_ : uuid.UUID
+        uuid_ : str
             The notification log entry.
 
         request_options : typing.Optional[RequestOptions]
@@ -367,11 +356,11 @@ class AsyncNotificationlogsClient:
         Returns
         -------
         NotificationLogDetail
+            Success
 
         Examples
         --------
         import asyncio
-        import uuid
 
         from payabli import Asyncpayabli
 
@@ -382,9 +371,7 @@ class AsyncNotificationlogsClient:
 
         async def main() -> None:
             await client.notificationlogs.get_notification_log(
-                uuid_=uuid.UUID(
-                    "550e8400-e29b-41d4-a716-446655440000",
-                ),
+                uuid_="550e8400-e29b-41d4-a716-446655440000",
             )
 
 
@@ -394,7 +381,7 @@ class AsyncNotificationlogsClient:
         return _response.data
 
     async def retry_notification_log(
-        self, uuid_: uuid.UUID, *, request_options: typing.Optional[RequestOptions] = None
+        self, uuid_: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> NotificationLogDetail:
         """
         Retry sending a specific notification.
@@ -403,7 +390,7 @@ class AsyncNotificationlogsClient:
 
         Parameters
         ----------
-        uuid_ : uuid.UUID
+        uuid_ : str
             Unique id
 
         request_options : typing.Optional[RequestOptions]
@@ -412,11 +399,11 @@ class AsyncNotificationlogsClient:
         Returns
         -------
         NotificationLogDetail
+            Success
 
         Examples
         --------
         import asyncio
-        import uuid
 
         from payabli import Asyncpayabli
 
@@ -427,9 +414,7 @@ class AsyncNotificationlogsClient:
 
         async def main() -> None:
             await client.notificationlogs.retry_notification_log(
-                uuid_=uuid.UUID(
-                    "550e8400-e29b-41d4-a716-446655440000",
-                ),
+                uuid_="550e8400-e29b-41d4-a716-446655440000",
             )
 
 
@@ -461,7 +446,6 @@ class AsyncNotificationlogsClient:
         Examples
         --------
         import asyncio
-        import uuid
 
         from payabli import Asyncpayabli
 
@@ -473,15 +457,9 @@ class AsyncNotificationlogsClient:
         async def main() -> None:
             await client.notificationlogs.bulk_retry_notification_logs(
                 request=[
-                    uuid.UUID(
-                        "550e8400-e29b-41d4-a716-446655440000",
-                    ),
-                    uuid.UUID(
-                        "550e8400-e29b-41d4-a716-446655440001",
-                    ),
-                    uuid.UUID(
-                        "550e8400-e29b-41d4-a716-446655440002",
-                    ),
+                    "550e8400-e29b-41d4-a716-446655440000",
+                    "550e8400-e29b-41d4-a716-446655440001",
+                    "550e8400-e29b-41d4-a716-446655440002",
                 ],
             )
 

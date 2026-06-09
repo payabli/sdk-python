@@ -14,24 +14,20 @@ from ..errors.bad_request_error import BadRequestError
 from ..errors.internal_server_error import InternalServerError
 from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.unauthorized_error import UnauthorizedError
-from ..payout_subscription.types.query_payout_subscription_response import QueryPayoutSubscriptionResponse
-from ..query_types.types.limit_record import LimitRecord
-from ..query_types.types.list_organizations_response import ListOrganizationsResponse
-from ..query_types.types.query_batches_detail_response import QueryBatchesDetailResponse
-from ..query_types.types.query_batches_response import QueryBatchesResponse
-from ..query_types.types.query_device_response import QueryDeviceResponse
-from ..query_types.types.query_transfer_detail_response import QueryTransferDetailResponse
-from ..query_types.types.transfer_out_detail_query_response import TransferOutDetailQueryResponse
-from ..query_types.types.transfer_out_query_response import TransferOutQueryResponse
-from ..query_types.types.v_card_transaction_query_response import VCardTransactionQueryResponse
 from ..types.entry import Entry
 from ..types.export_format import ExportFormat
+from ..types.limit_record import LimitRecord
+from ..types.list_organizations_response import ListOrganizationsResponse
 from ..types.orgid import Orgid
-from ..types.payabli_api_response import PayabliApiResponse
+from ..types.payabli_error_body import PayabliErrorBody
+from ..types.query_batches_detail_response import QueryBatchesDetailResponse
 from ..types.query_batches_out_response import QueryBatchesOutResponse
+from ..types.query_batches_response import QueryBatchesResponse
 from ..types.query_chargebacks_response import QueryChargebacksResponse
 from ..types.query_customer_response import QueryCustomerResponse
+from ..types.query_device_response import QueryDeviceResponse
 from ..types.query_entrypoint_response import QueryEntrypointResponse
+from ..types.query_payout_subscription_response import QueryPayoutSubscriptionResponse
 from ..types.query_payout_transaction import QueryPayoutTransaction
 from ..types.query_response_notification_reports import QueryResponseNotificationReports
 from ..types.query_response_notifications import QueryResponseNotifications
@@ -39,9 +35,13 @@ from ..types.query_response_settlements import QueryResponseSettlements
 from ..types.query_response_transactions import QueryResponseTransactions
 from ..types.query_response_vendors import QueryResponseVendors
 from ..types.query_subscription_response import QuerySubscriptionResponse
+from ..types.query_transfer_detail_response import QueryTransferDetailResponse
 from ..types.query_user_response import QueryUserResponse
+from ..types.transfer_out_detail_query_response import TransferOutDetailQueryResponse
+from ..types.transfer_out_query_response import TransferOutQueryResponse
 from ..types.transfer_query_response import TransferQueryResponse
 from ..types.v_card_query_response import VCardQueryResponse
+from ..types.v_card_transaction_query_response import VCardTransactionQueryResponse
 from pydantic import ValidationError
 
 
@@ -67,8 +67,10 @@ class RawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -77,7 +79,6 @@ class RawQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -202,9 +203,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -224,9 +225,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -260,6 +261,7 @@ class RawQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -268,7 +270,6 @@ class RawQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -392,9 +393,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -414,9 +415,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -447,8 +448,10 @@ class RawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -560,9 +563,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -582,9 +585,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -618,6 +621,7 @@ class RawQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -729,9 +733,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -751,9 +755,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -784,8 +788,10 @@ class RawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -794,7 +800,6 @@ class RawQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query. See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
 
             **List of field names accepted**:
@@ -859,9 +864,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -881,9 +886,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -917,6 +922,7 @@ class RawQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -925,7 +931,6 @@ class RawQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -1005,9 +1010,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1027,9 +1032,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1060,8 +1065,10 @@ class RawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -1190,9 +1197,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1212,9 +1219,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1248,6 +1255,7 @@ class RawQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -1378,9 +1386,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1400,9 +1408,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1433,8 +1441,10 @@ class RawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -1557,9 +1567,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1579,9 +1589,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1615,6 +1625,7 @@ class RawQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -1737,9 +1748,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1759,9 +1770,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1792,8 +1803,10 @@ class RawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -1802,7 +1815,6 @@ class RawQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter
             the query.
 
@@ -1944,9 +1956,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1966,9 +1978,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2002,6 +2014,7 @@ class RawQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -2010,7 +2023,6 @@ class RawQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter
             the query.
 
@@ -2152,9 +2164,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2174,9 +2186,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2206,6 +2218,7 @@ class RawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -2300,9 +2313,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2322,9 +2335,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2447,9 +2460,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2469,9 +2482,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2501,6 +2514,7 @@ class RawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -2597,9 +2611,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2619,9 +2633,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2748,9 +2762,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2770,9 +2784,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2806,6 +2820,7 @@ class RawQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -2915,9 +2930,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2937,9 +2952,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2970,8 +2985,10 @@ class RawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -3108,9 +3125,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3130,9 +3147,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3166,6 +3183,7 @@ class RawQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -3301,9 +3319,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3323,9 +3341,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3359,6 +3377,7 @@ class RawQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -3473,9 +3492,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3495,9 +3514,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3528,8 +3547,10 @@ class RawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -3538,7 +3559,6 @@ class RawQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -3663,9 +3683,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3685,9 +3705,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3721,6 +3741,7 @@ class RawQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -3729,7 +3750,6 @@ class RawQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -3854,9 +3874,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3876,9 +3896,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3909,8 +3929,10 @@ class RawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -3919,7 +3941,6 @@ class RawQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -3948,6 +3969,7 @@ class RawQueryClient:
             - `feeAmount` (gt, ge, lt, le, eq, ne)
             - `status` (in, nin, eq, ne)
             - `untilcancelled` (eq, ne)
+            - `subscriptionType` (eq, ne, in, nin). Filters by subscription type. Accepts `Regular` or `BalanceDriven`. Case-insensitive. Example: `subscriptionType(in)=Regular|BalanceDriven`.
             - `payaccountLastfour` (nct, ct)
             - `payaccountType` (ne, eq, in, nin)
             - `payaccountCurrency` (ne, eq, in, nin)
@@ -4045,9 +4067,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -4067,9 +4089,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -4103,6 +4125,7 @@ class RawQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -4111,7 +4134,6 @@ class RawQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -4140,6 +4162,7 @@ class RawQueryClient:
             - `feeAmount` (gt, ge, lt, le, eq, ne)
             - `status` (in, nin, eq, ne)
             - `untilcancelled` (eq, ne)
+            - `subscriptionType` (eq, ne, in, nin). Filters by subscription type. Accepts `Regular` or `BalanceDriven`. Case-insensitive. Example: `subscriptionType(in)=Regular|BalanceDriven`.
             - `payaccountLastfour` (nct, ct)
             - `payaccountType` (ne, eq, in, nin)
             - `payaccountCurrency` (ne, eq, in, nin)
@@ -4237,9 +4260,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -4259,9 +4282,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -4292,8 +4315,10 @@ class RawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -4302,7 +4327,6 @@ class RawQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -4415,9 +4439,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -4437,9 +4461,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -4473,6 +4497,7 @@ class RawQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -4481,7 +4506,6 @@ class RawQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -4594,9 +4618,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -4616,9 +4640,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -4645,18 +4669,23 @@ class RawQueryClient:
     ) -> HttpResponse[QueryResponseTransactions]:
         """
         Retrieve a list of transactions for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
-        By default, this endpoint returns only transactions from the last 60 days. To query transactions outside of this period, include `transactionDate` filters.
-        For example, this request parameters filter for transactions between April 01, 2024 and April 09, 2024. 
-        ``` curl -X GET https://sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59\\
-          -H 'requestToken: <API TOKEN>'
         
-          ```
+        By default, this endpoint returns only transactions from the last 60 days. To query transactions outside of this period, include `transactionDate` filters.
+        
+        These request parameters filter for transactions between April 1, 2024 and April 9, 2024.
+        
+        ```bash
+        curl -X GET https://api-sandbox.payabli.com/api/Query/transactions/8cfec329267?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59 \\
+          -H 'requestToken: <API TOKEN>'
+        ```
         
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
         
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
         
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -4665,8 +4694,7 @@ class RawQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
         
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-            
-            Collection of field names, conditions, and values used to filter the query. 
+            Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
             
@@ -4799,9 +4827,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -4821,9 +4849,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -4849,20 +4877,16 @@ class RawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[QueryResponseTransactions]:
         """
-        
-        Retrieve a list of transactions for an organization. Use filters to
-        limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
-        
+        Retrieve a list of transactions for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
         
         By default, this endpoint returns only transactions from the last 60 days. To query transactions outside of this period, include `transactionDate` filters.
         
-        For example, this request parameters filter for transactions between April 01, 2024 and April 09, 2024. 
+        These request parameters filter for transactions between April 1, 2024 and April 9, 2024.
         
-        ```
-        curl -X GET "https://sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59"\\
+        ```bash
+        curl -X GET "https://api-sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59" \\
           -H 'requestToken: <API TOKEN>'
-        
-          ```
+        ```
         
         Parameters
         ----------
@@ -4870,6 +4894,7 @@ class RawQueryClient:
             The numeric identifier for organization, assigned by Payabli.
         
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
         
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -4878,8 +4903,7 @@ class RawQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
         
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-            
-            Collection of field names, conditions, and values used to filter the query. 
+            Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
             
@@ -5011,9 +5035,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -5033,9 +5057,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -5067,19 +5091,21 @@ class RawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         transfer_id : int
             The numeric identifier for the transfer, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
 
         limit_record : typing.Optional[LimitRecord]
+            Max number of records to return for the query. Use `0` or negative value to return all records. Defaults to 20.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter
             the query.
 
@@ -5166,9 +5192,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -5188,9 +5214,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -5221,8 +5247,10 @@ class RawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -5315,9 +5343,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -5337,9 +5365,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -5370,8 +5398,10 @@ class RawQueryClient:
         Parameters
         ----------
         org_id : Orgid
+            Organization ID. Unique identifier assigned to an org by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -5461,9 +5491,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -5483,9 +5513,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -5600,9 +5630,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -5622,9 +5652,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -5654,6 +5684,7 @@ class RawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -5738,9 +5769,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -5760,9 +5791,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -5793,6 +5824,7 @@ class RawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         transfer_id : int
             The numeric identifier for the transfer, assigned by Payabli.
@@ -5879,9 +5911,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -5901,9 +5933,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -6032,9 +6064,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -6054,9 +6086,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -6185,9 +6217,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -6207,9 +6239,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -6243,6 +6275,7 @@ class RawQueryClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -6355,9 +6388,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -6377,9 +6410,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -6413,6 +6446,7 @@ class RawQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -6525,9 +6559,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -6547,9 +6581,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -6580,8 +6614,10 @@ class RawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -6688,9 +6724,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -6710,9 +6746,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -6742,6 +6778,7 @@ class RawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -6851,9 +6888,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -6873,9 +6910,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -7015,9 +7052,9 @@ class RawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -7037,9 +7074,9 @@ class RawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -7073,6 +7110,7 @@ class RawQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -7196,8 +7234,10 @@ class AsyncRawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -7206,7 +7246,6 @@ class AsyncRawQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -7331,9 +7370,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -7353,9 +7392,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -7389,6 +7428,7 @@ class AsyncRawQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -7397,7 +7437,6 @@ class AsyncRawQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -7521,9 +7560,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -7543,9 +7582,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -7576,8 +7615,10 @@ class AsyncRawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -7689,9 +7730,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -7711,9 +7752,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -7747,6 +7788,7 @@ class AsyncRawQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -7858,9 +7900,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -7880,9 +7922,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -7913,8 +7955,10 @@ class AsyncRawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -7923,7 +7967,6 @@ class AsyncRawQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query. See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for more information.
 
             **List of field names accepted**:
@@ -7988,9 +8031,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -8010,9 +8053,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -8046,6 +8089,7 @@ class AsyncRawQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -8054,7 +8098,6 @@ class AsyncRawQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -8134,9 +8177,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -8156,9 +8199,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -8189,8 +8232,10 @@ class AsyncRawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -8319,9 +8364,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -8341,9 +8386,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -8377,6 +8422,7 @@ class AsyncRawQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -8507,9 +8553,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -8529,9 +8575,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -8562,8 +8608,10 @@ class AsyncRawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -8686,9 +8734,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -8708,9 +8756,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -8744,6 +8792,7 @@ class AsyncRawQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -8866,9 +8915,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -8888,9 +8937,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -8921,8 +8970,10 @@ class AsyncRawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -8931,7 +8982,6 @@ class AsyncRawQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter
             the query.
 
@@ -9073,9 +9123,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -9095,9 +9145,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -9131,6 +9181,7 @@ class AsyncRawQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -9139,7 +9190,6 @@ class AsyncRawQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter
             the query.
 
@@ -9281,9 +9331,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -9303,9 +9353,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -9335,6 +9385,7 @@ class AsyncRawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -9429,9 +9480,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -9451,9 +9502,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -9576,9 +9627,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -9598,9 +9649,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -9630,6 +9681,7 @@ class AsyncRawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -9726,9 +9778,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -9748,9 +9800,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -9877,9 +9929,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -9899,9 +9951,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -9935,6 +9987,7 @@ class AsyncRawQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -10044,9 +10097,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -10066,9 +10119,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -10099,8 +10152,10 @@ class AsyncRawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -10237,9 +10292,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -10259,9 +10314,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -10295,6 +10350,7 @@ class AsyncRawQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -10430,9 +10486,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -10452,9 +10508,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -10488,6 +10544,7 @@ class AsyncRawQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -10602,9 +10659,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -10624,9 +10681,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -10657,8 +10714,10 @@ class AsyncRawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -10667,7 +10726,6 @@ class AsyncRawQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -10792,9 +10850,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -10814,9 +10872,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -10850,6 +10908,7 @@ class AsyncRawQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -10858,7 +10917,6 @@ class AsyncRawQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -10983,9 +11041,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -11005,9 +11063,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -11038,8 +11096,10 @@ class AsyncRawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -11048,7 +11108,6 @@ class AsyncRawQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -11077,6 +11136,7 @@ class AsyncRawQueryClient:
             - `feeAmount` (gt, ge, lt, le, eq, ne)
             - `status` (in, nin, eq, ne)
             - `untilcancelled` (eq, ne)
+            - `subscriptionType` (eq, ne, in, nin). Filters by subscription type. Accepts `Regular` or `BalanceDriven`. Case-insensitive. Example: `subscriptionType(in)=Regular|BalanceDriven`.
             - `payaccountLastfour` (nct, ct)
             - `payaccountType` (ne, eq, in, nin)
             - `payaccountCurrency` (ne, eq, in, nin)
@@ -11174,9 +11234,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -11196,9 +11256,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -11232,6 +11292,7 @@ class AsyncRawQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -11240,7 +11301,6 @@ class AsyncRawQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -11269,6 +11329,7 @@ class AsyncRawQueryClient:
             - `feeAmount` (gt, ge, lt, le, eq, ne)
             - `status` (in, nin, eq, ne)
             - `untilcancelled` (eq, ne)
+            - `subscriptionType` (eq, ne, in, nin). Filters by subscription type. Accepts `Regular` or `BalanceDriven`. Case-insensitive. Example: `subscriptionType(in)=Regular|BalanceDriven`.
             - `payaccountLastfour` (nct, ct)
             - `payaccountType` (ne, eq, in, nin)
             - `payaccountCurrency` (ne, eq, in, nin)
@@ -11366,9 +11427,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -11388,9 +11449,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -11421,8 +11482,10 @@ class AsyncRawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -11431,7 +11494,6 @@ class AsyncRawQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -11544,9 +11606,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -11566,9 +11628,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -11602,6 +11664,7 @@ class AsyncRawQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -11610,7 +11673,6 @@ class AsyncRawQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -11723,9 +11785,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -11745,9 +11807,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -11774,18 +11836,23 @@ class AsyncRawQueryClient:
     ) -> AsyncHttpResponse[QueryResponseTransactions]:
         """
         Retrieve a list of transactions for a paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
-        By default, this endpoint returns only transactions from the last 60 days. To query transactions outside of this period, include `transactionDate` filters.
-        For example, this request parameters filter for transactions between April 01, 2024 and April 09, 2024. 
-        ``` curl -X GET https://sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59\\
-          -H 'requestToken: <API TOKEN>'
         
-          ```
+        By default, this endpoint returns only transactions from the last 60 days. To query transactions outside of this period, include `transactionDate` filters.
+        
+        These request parameters filter for transactions between April 1, 2024 and April 9, 2024.
+        
+        ```bash
+        curl -X GET https://api-sandbox.payabli.com/api/Query/transactions/8cfec329267?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59 \\
+          -H 'requestToken: <API TOKEN>'
+        ```
         
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
         
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
         
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -11794,8 +11861,7 @@ class AsyncRawQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
         
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-            
-            Collection of field names, conditions, and values used to filter the query. 
+            Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
             
@@ -11928,9 +11994,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -11950,9 +12016,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -11978,20 +12044,16 @@ class AsyncRawQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[QueryResponseTransactions]:
         """
-        
-        Retrieve a list of transactions for an organization. Use filters to
-        limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
-        
+        Retrieve a list of transactions for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
         
         By default, this endpoint returns only transactions from the last 60 days. To query transactions outside of this period, include `transactionDate` filters.
         
-        For example, this request parameters filter for transactions between April 01, 2024 and April 09, 2024. 
+        These request parameters filter for transactions between April 1, 2024 and April 9, 2024.
         
-        ```
-        curl -X GET "https://sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59"\\
+        ```bash
+        curl -X GET "https://api-sandbox.payabli.com/api/Query/transactions/org/1?limitRecord=20&fromRecord=0&transactionDate(ge)=2024-04-01T00:00:00&transactionDate(le)=2024-04-09T23:59:59" \\
           -H 'requestToken: <API TOKEN>'
-        
-          ```
+        ```
         
         Parameters
         ----------
@@ -11999,6 +12061,7 @@ class AsyncRawQueryClient:
             The numeric identifier for organization, assigned by Payabli.
         
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
         
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -12007,8 +12070,7 @@ class AsyncRawQueryClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
         
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-            
-            Collection of field names, conditions, and values used to filter the query. 
+            Collection of field names, conditions, and values used to filter the query.
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
             
@@ -12140,9 +12202,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -12162,9 +12224,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -12196,19 +12258,21 @@ class AsyncRawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         transfer_id : int
             The numeric identifier for the transfer, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
 
         limit_record : typing.Optional[LimitRecord]
+            Max number of records to return for the query. Use `0` or negative value to return all records. Defaults to 20.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter
             the query.
 
@@ -12295,9 +12359,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -12317,9 +12381,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -12350,8 +12414,10 @@ class AsyncRawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -12444,9 +12510,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -12466,9 +12532,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -12499,8 +12565,10 @@ class AsyncRawQueryClient:
         Parameters
         ----------
         org_id : Orgid
+            Organization ID. Unique identifier assigned to an org by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -12590,9 +12658,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -12612,9 +12680,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -12729,9 +12797,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -12751,9 +12819,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -12783,6 +12851,7 @@ class AsyncRawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -12867,9 +12936,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -12889,9 +12958,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -12922,6 +12991,7 @@ class AsyncRawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         transfer_id : int
             The numeric identifier for the transfer, assigned by Payabli.
@@ -13008,9 +13078,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -13030,9 +13100,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -13161,9 +13231,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -13183,9 +13253,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -13314,9 +13384,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -13336,9 +13406,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -13372,6 +13442,7 @@ class AsyncRawQueryClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -13484,9 +13555,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -13506,9 +13577,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -13542,6 +13613,7 @@ class AsyncRawQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -13654,9 +13726,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -13676,9 +13748,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -13709,8 +13781,10 @@ class AsyncRawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -13817,9 +13891,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -13839,9 +13913,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -13871,6 +13945,7 @@ class AsyncRawQueryClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -13980,9 +14055,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -14002,9 +14077,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -14144,9 +14219,9 @@ class AsyncRawQueryClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -14166,9 +14241,9 @@ class AsyncRawQueryClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -14202,6 +14277,7 @@ class AsyncRawQueryClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.

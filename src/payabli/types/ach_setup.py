@@ -9,12 +9,16 @@ from ..core.serialization import FieldMetadata
 
 
 class AchSetup(UniversalBaseModel):
+    """
+    Configuration for which ACH SEC codes the user is allowed to use.
+    """
+
     accept_ccd: typing_extensions.Annotated[
         typing.Optional[bool],
         FieldMetadata(alias="acceptCCD"),
         pydantic.Field(
             alias="acceptCCD",
-            description="CCD is an ACH SEC Code that can be used in ACH transactions by the user that indicates the transaction is a Corporate Credit or Debit Entry. Options are: `true` and `false`",
+            description="CCD is an ACH SEC Code that can be used in ACH transactions by the\nuser that indicates the transaction is a Corporate Credit or Debit\nEntry.",
         ),
     ] = None
     accept_ppd: typing_extensions.Annotated[
@@ -22,7 +26,7 @@ class AchSetup(UniversalBaseModel):
         FieldMetadata(alias="acceptPPD"),
         pydantic.Field(
             alias="acceptPPD",
-            description="PPD is an ACH SEC Code that can be used in ACH transactions by the user that indicates the transaction is a Prearranged Payment and Deposit.",
+            description="PPD is an ACH SEC Code that can be used in ACH transactions by the\nuser that indicates the transaction is a Prearranged Payment and\nDeposit.",
         ),
     ] = None
     accept_web: typing_extensions.Annotated[
@@ -30,7 +34,7 @@ class AchSetup(UniversalBaseModel):
         FieldMetadata(alias="acceptWeb"),
         pydantic.Field(
             alias="acceptWeb",
-            description="Web is an ACH SEC Code that can be used in ACH transactions by the user that indicates the transaction is a Internet Initiated/Mobile Entry Options are `true` and `false`.",
+            description="Web is an ACH SEC Code that can be used in ACH transactions by the\nuser that indicates the transaction is an Internet-Initiated/Mobile\nEntry.",
         ),
     ] = None
 

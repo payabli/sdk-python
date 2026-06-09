@@ -15,7 +15,7 @@ from .item_unitof_measure import ItemUnitofMeasure
 
 class BillItem(UniversalBaseModel):
     item_categories: typing_extensions.Annotated[
-        typing.Optional[typing.List[typing.Optional[str]]],
+        typing.Optional[typing.List[str]],
         FieldMetadata(alias="itemCategories"),
         pydantic.Field(alias="itemCategories", description="Array of tags classifying item or product."),
     ] = None
@@ -25,10 +25,10 @@ class BillItem(UniversalBaseModel):
         pydantic.Field(alias="itemCommodityCode"),
     ] = None
     item_cost: typing_extensions.Annotated[
-        float,
+        typing.Optional[float],
         FieldMetadata(alias="itemCost"),
         pydantic.Field(alias="itemCost", description="Item or product price per unit."),
-    ]
+    ] = None
     item_description: typing_extensions.Annotated[
         typing.Optional[ItemDescription],
         FieldMetadata(alias="itemDescription"),
@@ -39,7 +39,7 @@ class BillItem(UniversalBaseModel):
         FieldMetadata(alias="itemMode"),
         pydantic.Field(
             alias="itemMode",
-            description="Internal class of item or product: value '0' is only for invoices , '1' for bills and, '2' common for both.",
+            description="Internal class of item or product: value `0` is only for invoices,\n`1` for bills, and `2` is common for both. Required on invoice line\nitems — invoice creation fails with `Invalid item data` if it's omitted.",
         ),
     ] = None
     item_product_code: typing_extensions.Annotated[
@@ -70,7 +70,10 @@ class BillItem(UniversalBaseModel):
     item_total_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="itemTotalAmount"),
-        pydantic.Field(alias="itemTotalAmount", description="Total amount in item or product."),
+        pydantic.Field(
+            alias="itemTotalAmount",
+            description="Per-line total for this item (unit cost times quantity). Distinct from\nthe invoice's overall total, `invoiceAmount`. Required on invoice line items.",
+        ),
     ] = None
     item_unit_of_measure: typing_extensions.Annotated[
         typing.Optional[ItemUnitofMeasure],

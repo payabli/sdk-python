@@ -4,12 +4,12 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
+from ..types.add_response_response import AddResponseResponse
 from ..types.attachments import Attachments
+from ..types.chargeback_query_records import ChargebackQueryRecords
 from ..types.email import Email
 from ..types.idempotency_key import IdempotencyKey
 from .raw_client import AsyncRawChargeBacksClient, RawChargeBacksClient
-from .types.add_response_response import AddResponseResponse
-from .types.chargeback_query_records import ChargebackQueryRecords
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -50,6 +50,7 @@ class ChargeBacksClient:
             ID of the chargeback or return record.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         attachments : typing.Optional[Attachments]
             Array of attached files to response.
@@ -200,6 +201,7 @@ class AsyncChargeBacksClient:
             ID of the chargeback or return record.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         attachments : typing.Optional[Attachments]
             Array of attached files to response.

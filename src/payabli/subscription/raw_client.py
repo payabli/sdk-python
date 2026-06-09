@@ -15,22 +15,23 @@ from ..errors.bad_request_error import BadRequestError
 from ..errors.internal_server_error import InternalServerError
 from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.unauthorized_error import UnauthorizedError
+from ..types.add_subscription_response import AddSubscriptionResponse
 from ..types.bill_data import BillData
 from ..types.entrypointfield import Entrypointfield
 from ..types.force_customer_creation import ForceCustomerCreation
 from ..types.idempotency_key import IdempotencyKey
-from ..types.payabli_api_response import PayabliApiResponse
+from ..types.payabli_error_body import PayabliErrorBody
 from ..types.payment_detail import PaymentDetail
 from ..types.payor_data_request import PayorDataRequest
+from ..types.remove_subscription_response import RemoveSubscriptionResponse
+from ..types.request_schedule_payment_method import RequestSchedulePaymentMethod
 from ..types.schedule_detail import ScheduleDetail
+from ..types.set_pause import SetPause
 from ..types.source import Source
 from ..types.subdomain import Subdomain
 from ..types.subscription_query_records import SubscriptionQueryRecords
-from .types.add_subscription_response import AddSubscriptionResponse
-from .types.remove_subscription_response import RemoveSubscriptionResponse
-from .types.request_schedule_payment_method import RequestSchedulePaymentMethod
-from .types.set_pause import SetPause
-from .types.update_subscription_response import UpdateSubscriptionResponse
+from ..types.subscription_type import SubscriptionType
+from ..types.update_subscription_response import UpdateSubscriptionResponse
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -90,9 +91,9 @@ class RawSubscriptionClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -112,9 +113,9 @@ class RawSubscriptionClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -128,92 +129,53 @@ class RawSubscriptionClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def new_subscription(
+    def update_subscription(
         self,
+        sub_id: int,
         *,
-        force_customer_creation: typing.Optional[ForceCustomerCreation] = None,
-        idempotency_key: typing.Optional[IdempotencyKey] = None,
-        customer_data: typing.Optional[PayorDataRequest] = OMIT,
-        entry_point: typing.Optional[Entrypointfield] = OMIT,
-        invoice_data: typing.Optional[BillData] = OMIT,
         payment_details: typing.Optional[PaymentDetail] = OMIT,
-        payment_method: typing.Optional[RequestSchedulePaymentMethod] = OMIT,
         schedule_details: typing.Optional[ScheduleDetail] = OMIT,
         set_pause: typing.Optional[SetPause] = OMIT,
-        source: typing.Optional[Source] = OMIT,
-        subdomain: typing.Optional[Subdomain] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[AddSubscriptionResponse]:
+    ) -> HttpResponse[UpdateSubscriptionResponse]:
         """
-        Creates a subscription or scheduled payment to run at a specified time and frequency.
+        Updates a subscription's details.
 
         Parameters
         ----------
-        force_customer_creation : typing.Optional[ForceCustomerCreation]
-
-        idempotency_key : typing.Optional[IdempotencyKey]
-
-        customer_data : typing.Optional[PayorDataRequest]
-            Object describing the customer/payor.
-
-        entry_point : typing.Optional[Entrypointfield]
-
-        invoice_data : typing.Optional[BillData]
-            Object describing an Invoice linked to the subscription.
+        sub_id : int
+            The subscription ID.
 
         payment_details : typing.Optional[PaymentDetail]
-            Object describing details of the payment. To skip the payment, set the `totalAmount` to 0. Payments will be paused until the amount is updated to a non-zero value. When `totalAmount` is set to 0, the `serviceFee` must also be set to 0.
-
-        payment_method : typing.Optional[RequestSchedulePaymentMethod]
-            Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.
+            Object describing details of the payment. For Regular subscriptions, skip a payment by setting `totalAmount` to 0; payments pause until you update it to a non-zero value, and `serviceFee` must also be 0 when `totalAmount` is 0. For BalanceDriven subscriptions, any `totalAmount` you send is accepted but ignored at run time. Each run charges the payor's live balance, and a zero balance is skipped.
 
         schedule_details : typing.Optional[ScheduleDetail]
-            Object describing the schedule for subscription.
+            Object describing the schedule for subscription
 
         set_pause : typing.Optional[SetPause]
-
-        source : typing.Optional[Source]
-
-        subdomain : typing.Optional[Subdomain]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[AddSubscriptionResponse]
+        HttpResponse[UpdateSubscriptionResponse]
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            "Subscription/add",
-            method="POST",
-            params={
-                "forceCustomerCreation": force_customer_creation,
-            },
+            f"Subscription/{encode_path_param(sub_id)}",
+            method="PUT",
             json={
-                "customerData": convert_and_respect_annotation_metadata(
-                    object_=customer_data, annotation=PayorDataRequest, direction="write"
-                ),
-                "entryPoint": entry_point,
-                "invoiceData": convert_and_respect_annotation_metadata(
-                    object_=invoice_data, annotation=BillData, direction="write"
-                ),
                 "paymentDetails": convert_and_respect_annotation_metadata(
                     object_=payment_details, annotation=PaymentDetail, direction="write"
-                ),
-                "paymentMethod": convert_and_respect_annotation_metadata(
-                    object_=payment_method, annotation=RequestSchedulePaymentMethod, direction="write"
                 ),
                 "scheduleDetails": convert_and_respect_annotation_metadata(
                     object_=schedule_details, annotation=ScheduleDetail, direction="write"
                 ),
                 "setPause": set_pause,
-                "source": source,
-                "subdomain": subdomain,
             },
             headers={
                 "content-type": "application/json",
-                "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -221,57 +183,13 @@ class RawSubscriptionClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    AddSubscriptionResponse,
+                    UpdateSubscriptionResponse,
                     parse_obj_as(
-                        type_=AddSubscriptionResponse,  # type: ignore
+                        type_=UpdateSubscriptionResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -330,9 +248,9 @@ class RawSubscriptionClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -352,9 +270,9 @@ class RawSubscriptionClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -368,53 +286,99 @@ class RawSubscriptionClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def update_subscription(
+    def new_subscription(
         self,
-        sub_id: int,
         *,
+        force_customer_creation: typing.Optional[ForceCustomerCreation] = None,
+        idempotency_key: typing.Optional[IdempotencyKey] = None,
+        customer_data: typing.Optional[PayorDataRequest] = OMIT,
+        entry_point: typing.Optional[Entrypointfield] = OMIT,
+        invoice_data: typing.Optional[BillData] = OMIT,
         payment_details: typing.Optional[PaymentDetail] = OMIT,
+        payment_method: typing.Optional[RequestSchedulePaymentMethod] = OMIT,
         schedule_details: typing.Optional[ScheduleDetail] = OMIT,
         set_pause: typing.Optional[SetPause] = OMIT,
+        source: typing.Optional[Source] = OMIT,
+        subdomain: typing.Optional[Subdomain] = OMIT,
+        subscription_type: typing.Optional[SubscriptionType] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[UpdateSubscriptionResponse]:
+    ) -> HttpResponse[AddSubscriptionResponse]:
         """
-        Updates a subscription's details.
+        Creates a subscription or scheduled payment to run at a specified time and frequency. You can use stored payment method tokens for card, ACH, and digital wallets by passing them into the `paymentMethod.storedMethodId` field.
 
         Parameters
         ----------
-        sub_id : int
-            The subscription ID.
+        force_customer_creation : typing.Optional[ForceCustomerCreation]
+            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer. Defaults to `false`.
+
+        idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
+
+        customer_data : typing.Optional[PayorDataRequest]
+            Object describing the customer/payor.
+
+        entry_point : typing.Optional[Entrypointfield]
+
+        invoice_data : typing.Optional[BillData]
+            Object describing an Invoice linked to the subscription.
 
         payment_details : typing.Optional[PaymentDetail]
-            Object describing details of the payment. To skip the payment, set the `totalAmount` to 0. Payments will be paused until the amount is updated to a non-zero value. When `totalAmount` is set to 0, the `serviceFee` must also be set to 0.
+            Object describing details of the payment. For Regular subscriptions, skip a payment by setting `totalAmount` to 0; payments pause until you update it to a non-zero value, and `serviceFee` must also be 0 when `totalAmount` is 0. For BalanceDriven subscriptions, any `totalAmount` you send is accepted but ignored at run time. Each run charges the payor's live balance, and a zero balance is skipped.
+
+        payment_method : typing.Optional[RequestSchedulePaymentMethod]
+            Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.
 
         schedule_details : typing.Optional[ScheduleDetail]
-            Object describing the schedule for subscription
+            Object describing the schedule for subscription.
 
         set_pause : typing.Optional[SetPause]
+
+        source : typing.Optional[Source]
+
+        subdomain : typing.Optional[Subdomain]
+
+        subscription_type : typing.Optional[SubscriptionType]
+            Subscription type. Defaults to `Regular` when omitted. Can't be changed after the subscription is created. If you send it to the update endpoint, it's ignored.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[UpdateSubscriptionResponse]
+        HttpResponse[AddSubscriptionResponse]
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Subscription/{encode_path_param(sub_id)}",
-            method="PUT",
+            "Subscription/add",
+            method="POST",
+            params={
+                "forceCustomerCreation": force_customer_creation,
+            },
             json={
+                "customerData": convert_and_respect_annotation_metadata(
+                    object_=customer_data, annotation=PayorDataRequest, direction="write"
+                ),
+                "entryPoint": entry_point,
+                "invoiceData": convert_and_respect_annotation_metadata(
+                    object_=invoice_data, annotation=BillData, direction="write"
+                ),
                 "paymentDetails": convert_and_respect_annotation_metadata(
                     object_=payment_details, annotation=PaymentDetail, direction="write"
+                ),
+                "paymentMethod": convert_and_respect_annotation_metadata(
+                    object_=payment_method, annotation=RequestSchedulePaymentMethod, direction="write"
                 ),
                 "scheduleDetails": convert_and_respect_annotation_metadata(
                     object_=schedule_details, annotation=ScheduleDetail, direction="write"
                 ),
                 "setPause": set_pause,
+                "source": source,
+                "subdomain": subdomain,
+                "subscriptionType": subscription_type,
             },
             headers={
                 "content-type": "application/json",
+                "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -422,13 +386,57 @@ class RawSubscriptionClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    UpdateSubscriptionResponse,
+                    AddSubscriptionResponse,
                     parse_obj_as(
-                        type_=UpdateSubscriptionResponse,  # type: ignore
+                        type_=AddSubscriptionResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -492,9 +500,9 @@ class AsyncRawSubscriptionClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -514,9 +522,9 @@ class AsyncRawSubscriptionClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -530,92 +538,53 @@ class AsyncRawSubscriptionClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def new_subscription(
+    async def update_subscription(
         self,
+        sub_id: int,
         *,
-        force_customer_creation: typing.Optional[ForceCustomerCreation] = None,
-        idempotency_key: typing.Optional[IdempotencyKey] = None,
-        customer_data: typing.Optional[PayorDataRequest] = OMIT,
-        entry_point: typing.Optional[Entrypointfield] = OMIT,
-        invoice_data: typing.Optional[BillData] = OMIT,
         payment_details: typing.Optional[PaymentDetail] = OMIT,
-        payment_method: typing.Optional[RequestSchedulePaymentMethod] = OMIT,
         schedule_details: typing.Optional[ScheduleDetail] = OMIT,
         set_pause: typing.Optional[SetPause] = OMIT,
-        source: typing.Optional[Source] = OMIT,
-        subdomain: typing.Optional[Subdomain] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[AddSubscriptionResponse]:
+    ) -> AsyncHttpResponse[UpdateSubscriptionResponse]:
         """
-        Creates a subscription or scheduled payment to run at a specified time and frequency.
+        Updates a subscription's details.
 
         Parameters
         ----------
-        force_customer_creation : typing.Optional[ForceCustomerCreation]
-
-        idempotency_key : typing.Optional[IdempotencyKey]
-
-        customer_data : typing.Optional[PayorDataRequest]
-            Object describing the customer/payor.
-
-        entry_point : typing.Optional[Entrypointfield]
-
-        invoice_data : typing.Optional[BillData]
-            Object describing an Invoice linked to the subscription.
+        sub_id : int
+            The subscription ID.
 
         payment_details : typing.Optional[PaymentDetail]
-            Object describing details of the payment. To skip the payment, set the `totalAmount` to 0. Payments will be paused until the amount is updated to a non-zero value. When `totalAmount` is set to 0, the `serviceFee` must also be set to 0.
-
-        payment_method : typing.Optional[RequestSchedulePaymentMethod]
-            Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.
+            Object describing details of the payment. For Regular subscriptions, skip a payment by setting `totalAmount` to 0; payments pause until you update it to a non-zero value, and `serviceFee` must also be 0 when `totalAmount` is 0. For BalanceDriven subscriptions, any `totalAmount` you send is accepted but ignored at run time. Each run charges the payor's live balance, and a zero balance is skipped.
 
         schedule_details : typing.Optional[ScheduleDetail]
-            Object describing the schedule for subscription.
+            Object describing the schedule for subscription
 
         set_pause : typing.Optional[SetPause]
-
-        source : typing.Optional[Source]
-
-        subdomain : typing.Optional[Subdomain]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[AddSubscriptionResponse]
+        AsyncHttpResponse[UpdateSubscriptionResponse]
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "Subscription/add",
-            method="POST",
-            params={
-                "forceCustomerCreation": force_customer_creation,
-            },
+            f"Subscription/{encode_path_param(sub_id)}",
+            method="PUT",
             json={
-                "customerData": convert_and_respect_annotation_metadata(
-                    object_=customer_data, annotation=PayorDataRequest, direction="write"
-                ),
-                "entryPoint": entry_point,
-                "invoiceData": convert_and_respect_annotation_metadata(
-                    object_=invoice_data, annotation=BillData, direction="write"
-                ),
                 "paymentDetails": convert_and_respect_annotation_metadata(
                     object_=payment_details, annotation=PaymentDetail, direction="write"
-                ),
-                "paymentMethod": convert_and_respect_annotation_metadata(
-                    object_=payment_method, annotation=RequestSchedulePaymentMethod, direction="write"
                 ),
                 "scheduleDetails": convert_and_respect_annotation_metadata(
                     object_=schedule_details, annotation=ScheduleDetail, direction="write"
                 ),
                 "setPause": set_pause,
-                "source": source,
-                "subdomain": subdomain,
             },
             headers={
                 "content-type": "application/json",
-                "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -623,57 +592,13 @@ class AsyncRawSubscriptionClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    AddSubscriptionResponse,
+                    UpdateSubscriptionResponse,
                     parse_obj_as(
-                        type_=AddSubscriptionResponse,  # type: ignore
+                        type_=UpdateSubscriptionResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -732,9 +657,9 @@ class AsyncRawSubscriptionClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -754,9 +679,9 @@ class AsyncRawSubscriptionClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -770,53 +695,99 @@ class AsyncRawSubscriptionClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def update_subscription(
+    async def new_subscription(
         self,
-        sub_id: int,
         *,
+        force_customer_creation: typing.Optional[ForceCustomerCreation] = None,
+        idempotency_key: typing.Optional[IdempotencyKey] = None,
+        customer_data: typing.Optional[PayorDataRequest] = OMIT,
+        entry_point: typing.Optional[Entrypointfield] = OMIT,
+        invoice_data: typing.Optional[BillData] = OMIT,
         payment_details: typing.Optional[PaymentDetail] = OMIT,
+        payment_method: typing.Optional[RequestSchedulePaymentMethod] = OMIT,
         schedule_details: typing.Optional[ScheduleDetail] = OMIT,
         set_pause: typing.Optional[SetPause] = OMIT,
+        source: typing.Optional[Source] = OMIT,
+        subdomain: typing.Optional[Subdomain] = OMIT,
+        subscription_type: typing.Optional[SubscriptionType] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[UpdateSubscriptionResponse]:
+    ) -> AsyncHttpResponse[AddSubscriptionResponse]:
         """
-        Updates a subscription's details.
+        Creates a subscription or scheduled payment to run at a specified time and frequency. You can use stored payment method tokens for card, ACH, and digital wallets by passing them into the `paymentMethod.storedMethodId` field.
 
         Parameters
         ----------
-        sub_id : int
-            The subscription ID.
+        force_customer_creation : typing.Optional[ForceCustomerCreation]
+            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer. Defaults to `false`.
+
+        idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
+
+        customer_data : typing.Optional[PayorDataRequest]
+            Object describing the customer/payor.
+
+        entry_point : typing.Optional[Entrypointfield]
+
+        invoice_data : typing.Optional[BillData]
+            Object describing an Invoice linked to the subscription.
 
         payment_details : typing.Optional[PaymentDetail]
-            Object describing details of the payment. To skip the payment, set the `totalAmount` to 0. Payments will be paused until the amount is updated to a non-zero value. When `totalAmount` is set to 0, the `serviceFee` must also be set to 0.
+            Object describing details of the payment. For Regular subscriptions, skip a payment by setting `totalAmount` to 0; payments pause until you update it to a non-zero value, and `serviceFee` must also be 0 when `totalAmount` is 0. For BalanceDriven subscriptions, any `totalAmount` you send is accepted but ignored at run time. Each run charges the payor's live balance, and a zero balance is skipped.
+
+        payment_method : typing.Optional[RequestSchedulePaymentMethod]
+            Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.
 
         schedule_details : typing.Optional[ScheduleDetail]
-            Object describing the schedule for subscription
+            Object describing the schedule for subscription.
 
         set_pause : typing.Optional[SetPause]
+
+        source : typing.Optional[Source]
+
+        subdomain : typing.Optional[Subdomain]
+
+        subscription_type : typing.Optional[SubscriptionType]
+            Subscription type. Defaults to `Regular` when omitted. Can't be changed after the subscription is created. If you send it to the update endpoint, it's ignored.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[UpdateSubscriptionResponse]
+        AsyncHttpResponse[AddSubscriptionResponse]
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Subscription/{encode_path_param(sub_id)}",
-            method="PUT",
+            "Subscription/add",
+            method="POST",
+            params={
+                "forceCustomerCreation": force_customer_creation,
+            },
             json={
+                "customerData": convert_and_respect_annotation_metadata(
+                    object_=customer_data, annotation=PayorDataRequest, direction="write"
+                ),
+                "entryPoint": entry_point,
+                "invoiceData": convert_and_respect_annotation_metadata(
+                    object_=invoice_data, annotation=BillData, direction="write"
+                ),
                 "paymentDetails": convert_and_respect_annotation_metadata(
                     object_=payment_details, annotation=PaymentDetail, direction="write"
+                ),
+                "paymentMethod": convert_and_respect_annotation_metadata(
+                    object_=payment_method, annotation=RequestSchedulePaymentMethod, direction="write"
                 ),
                 "scheduleDetails": convert_and_respect_annotation_metadata(
                     object_=schedule_details, annotation=ScheduleDetail, direction="write"
                 ),
                 "setPause": set_pause,
+                "source": source,
+                "subdomain": subdomain,
+                "subscriptionType": subscription_type,
             },
             headers={
                 "content-type": "application/json",
+                "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -824,13 +795,57 @@ class AsyncRawSubscriptionClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    UpdateSubscriptionResponse,
+                    AddSubscriptionResponse,
                     parse_obj_as(
-                        type_=UpdateSubscriptionResponse,  # type: ignore
+                        type_=AddSubscriptionResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)

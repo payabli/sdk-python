@@ -2,5 +2,6 @@
 
 Taxfillname = str
 """
-Business name in tax document. This is only relevant if a government entity has given you an alternative name to file tax documents with.
+Business name in tax document. This is only relevant if a government
+entity has given you an alternative name to file tax documents with.
 """

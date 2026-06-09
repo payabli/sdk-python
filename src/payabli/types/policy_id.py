@@ -2,5 +2,7 @@
 
 PolicyId = str
 """
-Used to identify the risk workflow used to review this account. Policy IDs must be created before using automatic underwriting, and is **required** when `method` is `automatic`.
+Used to identify the risk workflow used to review this account. Policy
+IDs must be created before using automatic underwriting, and is
+**required** when `method` is `automatic`.
 """

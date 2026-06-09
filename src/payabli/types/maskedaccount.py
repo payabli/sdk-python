@@ -2,5 +2,6 @@
 
 Maskedaccount = str
 """
-Masked card or bank account used in transaction. In the case of Apple Pay, this is a masked DPAN (device primary account number).
+Masked card or bank account used in transaction. In the case of Apple
+Pay, this is a masked DPAN (device primary account number).
 """

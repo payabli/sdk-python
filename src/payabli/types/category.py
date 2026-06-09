@@ -2,10 +2,12 @@
 
 Category = str
 """
-A field used internally by Payabli to categorize the transaction details. Values are:
-  - `auth`: Any payment
-  - `refund`: ACH return or Refund
-  - `adj`: Adjustments
-  - `cb`: Chargeback
-  - `split`: Split amount
+A field used internally by Payabli to categorize the transaction details.
+Values are:
+
+- `auth`: Any payment
+- `refund`: ACH return or Refund
+- `adj`: Adjustments
+- `cb`: Chargeback
+- `split`: Split amount
 """

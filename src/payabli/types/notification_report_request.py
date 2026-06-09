@@ -23,7 +23,7 @@ class NotificationReportRequest(UniversalBaseModel):
     frequency: NotificationReportRequestFrequency
     method: NotificationReportRequestMethod = pydantic.Field()
     """
-    Automated reporting lets you gather critical reports without manually filtering and exporting the data. Get automated daily, weekly, and monthly report for daily sales, ACH returns, settlements, and more. You can send these reports via email or via webhook. See [Automated Reports](/developers/developer-guides/notifications-and-webhooks-overview#automated-reports) for more.
+    Automated reporting lets you gather critical reports without manually filtering and exporting the data. Get automated daily, weekly, and monthly reports for daily sales, ACH returns, settlements, and more. You can send these reports via email or via webhook. See [Automated Reports](/developers/developer-guides/notifications-and-webhooks-overview#automated-reports) for more.
     """
 
     owner_id: typing_extensions.Annotated[
@@ -36,9 +36,7 @@ class NotificationReportRequest(UniversalBaseModel):
     target: str = pydantic.Field()
     """
     Specify the notification target.
-    
     For method=report-email the expected value is a list of email addresses separated by semicolon.
-    
     For method=report-web the expected value is a valid and complete URL. Webhooks support only standard HTTP ports: 80, 443, 8080, or 4443.
     """
 

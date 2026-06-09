@@ -72,7 +72,7 @@ class CustomerClient:
         shipping_country: typing.Optional[Shippingcountry] = OMIT,
         balance: typing.Optional[float] = OMIT,
         time_zone: typing.Optional[Timezone] = OMIT,
-        additional_fields: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
+        additional_fields: typing.Optional[typing.Dict[str, str]] = OMIT,
         identifier_fields: typing.Optional[Identifierfields] = OMIT,
         created_at: typing.Optional[CreatedAt] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -84,6 +84,7 @@ class CustomerClient:
         Parameters
         ----------
         entry : Entrypointfield
+            The entrypoint identifier.
 
         force_customer_creation : typing.Optional[bool]
             When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer.
@@ -92,6 +93,7 @@ class CustomerClient:
             Flag indicating to replace existing customer with a new record. Possible values: 0 (don't replace), 1 (replace). Default is `0`.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         customer_number : typing.Optional[CustomerNumberNullable]
 
@@ -153,7 +155,7 @@ class CustomerClient:
 
         time_zone : typing.Optional[Timezone]
 
-        additional_fields : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+        additional_fields : typing.Optional[typing.Dict[str, str]]
             Additional Custom fields in format "key":"value".
 
         identifier_fields : typing.Optional[Identifierfields]
@@ -177,7 +179,7 @@ class CustomerClient:
         )
         client.customer.add_customer(
             entry="8cfec329267",
-            customer_number="12356ACB",
+            customer_number="C-90010",
             firstname="Irene",
             lastname="Canizales",
             address_1="123 Bishop's Trail",
@@ -225,39 +227,6 @@ class CustomerClient:
         )
         return _response.data
 
-    def delete_customer(
-        self, customer_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> PayabliApiResponse00Responsedatanonobject:
-        """
-        Delete a customer record.
-
-        Parameters
-        ----------
-        customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        PayabliApiResponse00Responsedatanonobject
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.customer.delete_customer(
-            customer_id=998,
-        )
-        """
-        _response = self._raw_client.delete_customer(customer_id, request_options=request_options)
-        return _response.data
-
     def get_customer(
         self, customer_id: int, *, request_options: typing.Optional[RequestOptions] = None
     ) -> CustomerQueryRecords:
@@ -285,80 +254,10 @@ class CustomerClient:
             api_key="YOUR_API_KEY",
         )
         client.customer.get_customer(
-            customer_id=998,
+            customer_id=4440,
         )
         """
         _response = self._raw_client.get_customer(customer_id, request_options=request_options)
-        return _response.data
-
-    def link_customer_transaction(
-        self, customer_id: int, trans_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> PayabliApiResponse00Responsedatanonobject:
-        """
-        Links a customer to a transaction by ID.
-
-        Parameters
-        ----------
-        customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
-
-        trans_id : str
-            ReferenceId for the transaction (PaymentId).
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        PayabliApiResponse00Responsedatanonobject
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.customer.link_customer_transaction(
-            customer_id=998,
-            trans_id="45-as456777hhhhhhhhhh77777777-324",
-        )
-        """
-        _response = self._raw_client.link_customer_transaction(customer_id, trans_id, request_options=request_options)
-        return _response.data
-
-    def request_consent(
-        self, customer_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> PayabliApiResponse00Responsedatanonobject:
-        """
-        Sends the consent opt-in email to the customer email address in the customer record.
-
-        Parameters
-        ----------
-        customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        PayabliApiResponse00Responsedatanonobject
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.customer.request_consent(
-            customer_id=998,
-        )
-        """
-        _response = self._raw_client.request_consent(customer_id, request_options=request_options)
         return _response.data
 
     def update_customer(
@@ -388,7 +287,7 @@ class CustomerClient:
         shipping_country: typing.Optional[Shippingcountry] = OMIT,
         balance: typing.Optional[float] = OMIT,
         time_zone: typing.Optional[Timezone] = OMIT,
-        additional_fields: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
+        additional_fields: typing.Optional[typing.Dict[str, str]] = OMIT,
         identifier_fields: typing.Optional[Identifierfields] = OMIT,
         created_at: typing.Optional[CreatedAt] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -461,7 +360,7 @@ class CustomerClient:
 
         time_zone : typing.Optional[Timezone]
 
-        additional_fields : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+        additional_fields : typing.Optional[typing.Dict[str, str]]
             Additional Custom fields in format "key":"value".
 
         identifier_fields : typing.Optional[Identifierfields]
@@ -484,7 +383,7 @@ class CustomerClient:
             api_key="YOUR_API_KEY",
         )
         client.customer.update_customer(
-            customer_id=998,
+            customer_id=4440,
             firstname="Irene",
             lastname="Canizales",
             address_1="145 Bishop's Trail",
@@ -524,6 +423,109 @@ class CustomerClient:
             created_at=created_at,
             request_options=request_options,
         )
+        return _response.data
+
+    def delete_customer(
+        self, customer_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> PayabliApiResponse00Responsedatanonobject:
+        """
+        Delete a customer record.
+
+        Parameters
+        ----------
+        customer_id : int
+            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayabliApiResponse00Responsedatanonobject
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.customer.delete_customer(
+            customer_id=4440,
+        )
+        """
+        _response = self._raw_client.delete_customer(customer_id, request_options=request_options)
+        return _response.data
+
+    def request_consent(
+        self, customer_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> PayabliApiResponse00Responsedatanonobject:
+        """
+        Sends the consent opt-in email to the customer email address in the customer record.
+
+        Parameters
+        ----------
+        customer_id : int
+            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayabliApiResponse00Responsedatanonobject
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.customer.request_consent(
+            customer_id=4440,
+        )
+        """
+        _response = self._raw_client.request_consent(customer_id, request_options=request_options)
+        return _response.data
+
+    def link_customer_transaction(
+        self, customer_id: int, trans_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> PayabliApiResponse00Responsedatanonobject:
+        """
+        Links a customer to a transaction by ID.
+
+        Parameters
+        ----------
+        customer_id : int
+            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+
+        trans_id : str
+            ReferenceId for the transaction (PaymentId).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayabliApiResponse00Responsedatanonobject
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.customer.link_customer_transaction(
+            customer_id=4440,
+            trans_id="45-as456777hhhhhhhhhh77777777-324",
+        )
+        """
+        _response = self._raw_client.link_customer_transaction(customer_id, trans_id, request_options=request_options)
         return _response.data
 
 
@@ -572,7 +574,7 @@ class AsyncCustomerClient:
         shipping_country: typing.Optional[Shippingcountry] = OMIT,
         balance: typing.Optional[float] = OMIT,
         time_zone: typing.Optional[Timezone] = OMIT,
-        additional_fields: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
+        additional_fields: typing.Optional[typing.Dict[str, str]] = OMIT,
         identifier_fields: typing.Optional[Identifierfields] = OMIT,
         created_at: typing.Optional[CreatedAt] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -584,6 +586,7 @@ class AsyncCustomerClient:
         Parameters
         ----------
         entry : Entrypointfield
+            The entrypoint identifier.
 
         force_customer_creation : typing.Optional[bool]
             When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer.
@@ -592,6 +595,7 @@ class AsyncCustomerClient:
             Flag indicating to replace existing customer with a new record. Possible values: 0 (don't replace), 1 (replace). Default is `0`.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         customer_number : typing.Optional[CustomerNumberNullable]
 
@@ -653,7 +657,7 @@ class AsyncCustomerClient:
 
         time_zone : typing.Optional[Timezone]
 
-        additional_fields : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+        additional_fields : typing.Optional[typing.Dict[str, str]]
             Additional Custom fields in format "key":"value".
 
         identifier_fields : typing.Optional[Identifierfields]
@@ -682,7 +686,7 @@ class AsyncCustomerClient:
         async def main() -> None:
             await client.customer.add_customer(
                 entry="8cfec329267",
-                customer_number="12356ACB",
+                customer_number="C-90010",
                 firstname="Irene",
                 lastname="Canizales",
                 address_1="123 Bishop's Trail",
@@ -703,6 +707,220 @@ class AsyncCustomerClient:
             force_customer_creation=force_customer_creation,
             replace_existing=replace_existing,
             idempotency_key=idempotency_key,
+            customer_number=customer_number,
+            customer_username=customer_username,
+            customer_psw=customer_psw,
+            customer_status=customer_status,
+            company=company,
+            firstname=firstname,
+            lastname=lastname,
+            phone=phone,
+            email=email,
+            address=address,
+            address_1=address_1,
+            city=city,
+            state=state,
+            zip=zip,
+            country=country,
+            shipping_address=shipping_address,
+            shipping_address_1=shipping_address_1,
+            shipping_city=shipping_city,
+            shipping_state=shipping_state,
+            shipping_zip=shipping_zip,
+            shipping_country=shipping_country,
+            balance=balance,
+            time_zone=time_zone,
+            additional_fields=additional_fields,
+            identifier_fields=identifier_fields,
+            created_at=created_at,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def get_customer(
+        self, customer_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> CustomerQueryRecords:
+        """
+        Retrieves a customer's record and details.
+
+        Parameters
+        ----------
+        customer_id : int
+            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CustomerQueryRecords
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.customer.get_customer(
+                customer_id=4440,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_customer(customer_id, request_options=request_options)
+        return _response.data
+
+    async def update_customer(
+        self,
+        customer_id: int,
+        *,
+        customer_number: typing.Optional[CustomerNumberNullable] = OMIT,
+        customer_username: typing.Optional[str] = OMIT,
+        customer_psw: typing.Optional[str] = OMIT,
+        customer_status: typing.Optional[CustomerStatus] = OMIT,
+        company: typing.Optional[str] = OMIT,
+        firstname: typing.Optional[str] = OMIT,
+        lastname: typing.Optional[str] = OMIT,
+        phone: typing.Optional[str] = OMIT,
+        email: typing.Optional[Email] = OMIT,
+        address: typing.Optional[str] = OMIT,
+        address_1: typing.Optional[str] = OMIT,
+        city: typing.Optional[str] = OMIT,
+        state: typing.Optional[str] = OMIT,
+        zip: typing.Optional[str] = OMIT,
+        country: typing.Optional[str] = OMIT,
+        shipping_address: typing.Optional[Shippingaddress] = OMIT,
+        shipping_address_1: typing.Optional[Shippingaddressadditional] = OMIT,
+        shipping_city: typing.Optional[Shippingcity] = OMIT,
+        shipping_state: typing.Optional[Shippingstate] = OMIT,
+        shipping_zip: typing.Optional[Shippingzip] = OMIT,
+        shipping_country: typing.Optional[Shippingcountry] = OMIT,
+        balance: typing.Optional[float] = OMIT,
+        time_zone: typing.Optional[Timezone] = OMIT,
+        additional_fields: typing.Optional[typing.Dict[str, str]] = OMIT,
+        identifier_fields: typing.Optional[Identifierfields] = OMIT,
+        created_at: typing.Optional[CreatedAt] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PayabliApiResponse00Responsedatanonobject:
+        """
+        Update a customer record. Include only the fields you want to change.
+
+        Parameters
+        ----------
+        customer_id : int
+            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+
+        customer_number : typing.Optional[CustomerNumberNullable]
+
+        customer_username : typing.Optional[str]
+            Customer username for customer portal
+
+        customer_psw : typing.Optional[str]
+            Customer password for customer portal
+
+        customer_status : typing.Optional[CustomerStatus]
+
+        company : typing.Optional[str]
+            Company name
+
+        firstname : typing.Optional[str]
+            Customer first name
+
+        lastname : typing.Optional[str]
+            Customer last name
+
+        phone : typing.Optional[str]
+            Customer phone number
+
+        email : typing.Optional[Email]
+            Customer email address.
+
+        address : typing.Optional[str]
+            Customer address
+
+        address_1 : typing.Optional[str]
+            Additional customer address
+
+        city : typing.Optional[str]
+            Customer city
+
+        state : typing.Optional[str]
+            Customer State
+
+        zip : typing.Optional[str]
+            Customer postal code
+
+        country : typing.Optional[str]
+            Customer country in ISO-3166-1 alpha 2 format. See https://en.wikipedia.org/wiki/ISO_3166-1 for reference.
+
+        shipping_address : typing.Optional[Shippingaddress]
+
+        shipping_address_1 : typing.Optional[Shippingaddressadditional]
+
+        shipping_city : typing.Optional[Shippingcity]
+
+        shipping_state : typing.Optional[Shippingstate]
+
+        shipping_zip : typing.Optional[Shippingzip]
+
+        shipping_country : typing.Optional[Shippingcountry]
+
+        balance : typing.Optional[float]
+            Customer balance.
+
+        time_zone : typing.Optional[Timezone]
+
+        additional_fields : typing.Optional[typing.Dict[str, str]]
+            Additional Custom fields in format "key":"value".
+
+        identifier_fields : typing.Optional[Identifierfields]
+
+        created_at : typing.Optional[CreatedAt]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayabliApiResponse00Responsedatanonobject
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.customer.update_customer(
+                customer_id=4440,
+                firstname="Irene",
+                lastname="Canizales",
+                address_1="145 Bishop's Trail",
+                city="Mountain City",
+                state="TN",
+                zip="37612",
+                country="US",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.update_customer(
+            customer_id,
             customer_number=customer_number,
             customer_username=customer_username,
             customer_psw=customer_psw,
@@ -765,7 +983,7 @@ class AsyncCustomerClient:
 
         async def main() -> None:
             await client.customer.delete_customer(
-                customer_id=998,
+                customer_id=4440,
             )
 
 
@@ -774,11 +992,11 @@ class AsyncCustomerClient:
         _response = await self._raw_client.delete_customer(customer_id, request_options=request_options)
         return _response.data
 
-    async def get_customer(
+    async def request_consent(
         self, customer_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> CustomerQueryRecords:
+    ) -> PayabliApiResponse00Responsedatanonobject:
         """
-        Retrieves a customer's record and details.
+        Sends the consent opt-in email to the customer email address in the customer record.
 
         Parameters
         ----------
@@ -790,7 +1008,7 @@ class AsyncCustomerClient:
 
         Returns
         -------
-        CustomerQueryRecords
+        PayabliApiResponse00Responsedatanonobject
             Success
 
         Examples
@@ -805,14 +1023,14 @@ class AsyncCustomerClient:
 
 
         async def main() -> None:
-            await client.customer.get_customer(
-                customer_id=998,
+            await client.customer.request_consent(
+                customer_id=4440,
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.get_customer(customer_id, request_options=request_options)
+        _response = await self._raw_client.request_consent(customer_id, request_options=request_options)
         return _response.data
 
     async def link_customer_transaction(
@@ -850,7 +1068,7 @@ class AsyncCustomerClient:
 
         async def main() -> None:
             await client.customer.link_customer_transaction(
-                customer_id=998,
+                customer_id=4440,
                 trans_id="45-as456777hhhhhhhhhh77777777-324",
             )
 
@@ -859,219 +1077,5 @@ class AsyncCustomerClient:
         """
         _response = await self._raw_client.link_customer_transaction(
             customer_id, trans_id, request_options=request_options
-        )
-        return _response.data
-
-    async def request_consent(
-        self, customer_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> PayabliApiResponse00Responsedatanonobject:
-        """
-        Sends the consent opt-in email to the customer email address in the customer record.
-
-        Parameters
-        ----------
-        customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        PayabliApiResponse00Responsedatanonobject
-            Success
-
-        Examples
-        --------
-        import asyncio
-
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.customer.request_consent(
-                customer_id=998,
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.request_consent(customer_id, request_options=request_options)
-        return _response.data
-
-    async def update_customer(
-        self,
-        customer_id: int,
-        *,
-        customer_number: typing.Optional[CustomerNumberNullable] = OMIT,
-        customer_username: typing.Optional[str] = OMIT,
-        customer_psw: typing.Optional[str] = OMIT,
-        customer_status: typing.Optional[CustomerStatus] = OMIT,
-        company: typing.Optional[str] = OMIT,
-        firstname: typing.Optional[str] = OMIT,
-        lastname: typing.Optional[str] = OMIT,
-        phone: typing.Optional[str] = OMIT,
-        email: typing.Optional[Email] = OMIT,
-        address: typing.Optional[str] = OMIT,
-        address_1: typing.Optional[str] = OMIT,
-        city: typing.Optional[str] = OMIT,
-        state: typing.Optional[str] = OMIT,
-        zip: typing.Optional[str] = OMIT,
-        country: typing.Optional[str] = OMIT,
-        shipping_address: typing.Optional[Shippingaddress] = OMIT,
-        shipping_address_1: typing.Optional[Shippingaddressadditional] = OMIT,
-        shipping_city: typing.Optional[Shippingcity] = OMIT,
-        shipping_state: typing.Optional[Shippingstate] = OMIT,
-        shipping_zip: typing.Optional[Shippingzip] = OMIT,
-        shipping_country: typing.Optional[Shippingcountry] = OMIT,
-        balance: typing.Optional[float] = OMIT,
-        time_zone: typing.Optional[Timezone] = OMIT,
-        additional_fields: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
-        identifier_fields: typing.Optional[Identifierfields] = OMIT,
-        created_at: typing.Optional[CreatedAt] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> PayabliApiResponse00Responsedatanonobject:
-        """
-        Update a customer record. Include only the fields you want to change.
-
-        Parameters
-        ----------
-        customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
-
-        customer_number : typing.Optional[CustomerNumberNullable]
-
-        customer_username : typing.Optional[str]
-            Customer username for customer portal
-
-        customer_psw : typing.Optional[str]
-            Customer password for customer portal
-
-        customer_status : typing.Optional[CustomerStatus]
-
-        company : typing.Optional[str]
-            Company name
-
-        firstname : typing.Optional[str]
-            Customer first name
-
-        lastname : typing.Optional[str]
-            Customer last name
-
-        phone : typing.Optional[str]
-            Customer phone number
-
-        email : typing.Optional[Email]
-            Customer email address.
-
-        address : typing.Optional[str]
-            Customer address
-
-        address_1 : typing.Optional[str]
-            Additional customer address
-
-        city : typing.Optional[str]
-            Customer city
-
-        state : typing.Optional[str]
-            Customer State
-
-        zip : typing.Optional[str]
-            Customer postal code
-
-        country : typing.Optional[str]
-            Customer country in ISO-3166-1 alpha 2 format. See https://en.wikipedia.org/wiki/ISO_3166-1 for reference.
-
-        shipping_address : typing.Optional[Shippingaddress]
-
-        shipping_address_1 : typing.Optional[Shippingaddressadditional]
-
-        shipping_city : typing.Optional[Shippingcity]
-
-        shipping_state : typing.Optional[Shippingstate]
-
-        shipping_zip : typing.Optional[Shippingzip]
-
-        shipping_country : typing.Optional[Shippingcountry]
-
-        balance : typing.Optional[float]
-            Customer balance.
-
-        time_zone : typing.Optional[Timezone]
-
-        additional_fields : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-            Additional Custom fields in format "key":"value".
-
-        identifier_fields : typing.Optional[Identifierfields]
-
-        created_at : typing.Optional[CreatedAt]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        PayabliApiResponse00Responsedatanonobject
-            Success
-
-        Examples
-        --------
-        import asyncio
-
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.customer.update_customer(
-                customer_id=998,
-                firstname="Irene",
-                lastname="Canizales",
-                address_1="145 Bishop's Trail",
-                city="Mountain City",
-                state="TN",
-                zip="37612",
-                country="US",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.update_customer(
-            customer_id,
-            customer_number=customer_number,
-            customer_username=customer_username,
-            customer_psw=customer_psw,
-            customer_status=customer_status,
-            company=company,
-            firstname=firstname,
-            lastname=lastname,
-            phone=phone,
-            email=email,
-            address=address,
-            address_1=address_1,
-            city=city,
-            state=state,
-            zip=zip,
-            country=country,
-            shipping_address=shipping_address,
-            shipping_address_1=shipping_address_1,
-            shipping_city=shipping_city,
-            shipping_state=shipping_state,
-            shipping_zip=shipping_zip,
-            shipping_country=shipping_country,
-            balance=balance,
-            time_zone=time_zone,
-            additional_fields=additional_fields,
-            identifier_fields=identifier_fields,
-            created_at=created_at,
-            request_options=request_options,
         )
         return _response.data

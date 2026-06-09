@@ -2,8 +2,7 @@
 
 Billstatus = int
 """
-
-The bill's status. Values are: 
+The bill's status. Values are:
 
 - `-99`: deleted or canceled
 - `1`: Active
@@ -12,5 +11,5 @@ The bill's status. Values are:
 - `11`: Rejected
 - `20`: Approved
 - `50`: Payment in transit
-- `100`: Paid "
+- `100`: Paid
 """

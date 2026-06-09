@@ -75,6 +75,7 @@ NotificationStandardRequestContentEventType = typing.Union[
         "TransferError",
         "SendReceipt",
         "RecoveredTransaction",
+        "CardUpdaterComplete",
         "CreatedApplication",
         "ApprovedApplication",
         "FailedBoardingApplication",

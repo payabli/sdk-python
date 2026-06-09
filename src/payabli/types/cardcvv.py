@@ -2,5 +2,7 @@
 
 Cardcvv = str
 """
-Card Verification Value (CVV) associated with the card number. We **strongly recommend** that you include this field when using `card` as a method.
+Card Verification Value (CVV) associated with the card number. We
+**strongly recommend** that you include this field when using `card`
+as a method.
 """

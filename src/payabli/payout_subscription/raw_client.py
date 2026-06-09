@@ -15,22 +15,22 @@ from ..errors.bad_request_error import BadRequestError
 from ..errors.internal_server_error import InternalServerError
 from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.unauthorized_error import UnauthorizedError
-from ..money_out_types.types.authorize_payment_method import AuthorizePaymentMethod
-from ..money_out_types.types.request_out_authorize_vendor_data import RequestOutAuthorizeVendorData
 from ..types.account_id import AccountId
+from ..types.add_payout_subscription_response import AddPayoutSubscriptionResponse
+from ..types.authorize_payment_method import AuthorizePaymentMethod
 from ..types.bill_pay_out_data_request import BillPayOutDataRequest
+from ..types.delete_payout_subscription_response import DeletePayoutSubscriptionResponse
 from ..types.entrypointfield import Entrypointfield
+from ..types.get_payout_subscription_response import GetPayoutSubscriptionResponse
 from ..types.idempotency_key import IdempotencyKey
-from ..types.payabli_api_response import PayabliApiResponse
+from ..types.payabli_error_body import PayabliErrorBody
+from ..types.payout_payment_detail import PayoutPaymentDetail
+from ..types.payout_schedule_detail import PayoutScheduleDetail
+from ..types.payout_set_pause import PayoutSetPause
+from ..types.request_out_authorize_vendor_data import RequestOutAuthorizeVendorData
 from ..types.source import Source
 from ..types.subdomain import Subdomain
-from .types.add_payout_subscription_response import AddPayoutSubscriptionResponse
-from .types.delete_payout_subscription_response import DeletePayoutSubscriptionResponse
-from .types.get_payout_subscription_response import GetPayoutSubscriptionResponse
-from .types.payout_payment_detail import PayoutPaymentDetail
-from .types.payout_schedule_detail import PayoutScheduleDetail
-from .types.payout_set_pause import PayoutSetPause
-from .types.update_payout_subscription_response import UpdatePayoutSubscriptionResponse
+from ..types.update_payout_subscription_response import UpdatePayoutSubscriptionResponse
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -71,6 +71,7 @@ class RawPayoutSubscriptionClient:
             Object identifying the vendor for this subscription. Only a `vendorId` or `vendorNumber` is needed to link to an existing vendor.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         subdomain : typing.Optional[Subdomain]
 
@@ -154,9 +155,9 @@ class RawPayoutSubscriptionClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -176,9 +177,9 @@ class RawPayoutSubscriptionClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -241,9 +242,9 @@ class RawPayoutSubscriptionClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -263,9 +264,9 @@ class RawPayoutSubscriptionClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -361,9 +362,9 @@ class RawPayoutSubscriptionClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -383,9 +384,9 @@ class RawPayoutSubscriptionClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -448,9 +449,9 @@ class RawPayoutSubscriptionClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -470,9 +471,9 @@ class RawPayoutSubscriptionClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -521,6 +522,7 @@ class AsyncRawPayoutSubscriptionClient:
             Object identifying the vendor for this subscription. Only a `vendorId` or `vendorNumber` is needed to link to an existing vendor.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         subdomain : typing.Optional[Subdomain]
 
@@ -604,9 +606,9 @@ class AsyncRawPayoutSubscriptionClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -626,9 +628,9 @@ class AsyncRawPayoutSubscriptionClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -691,9 +693,9 @@ class AsyncRawPayoutSubscriptionClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -713,9 +715,9 @@ class AsyncRawPayoutSubscriptionClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -811,9 +813,9 @@ class AsyncRawPayoutSubscriptionClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -833,9 +835,9 @@ class AsyncRawPayoutSubscriptionClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -898,9 +900,9 @@ class AsyncRawPayoutSubscriptionClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -920,9 +922,9 @@ class AsyncRawPayoutSubscriptionClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

@@ -2,5 +2,6 @@
 
 NotificationId = int
 """
-The notification's Payabli identifier. This is the ID used to manage the notification.
+The notification's Payabli identifier. This is the ID used to manage the
+notification.
 """

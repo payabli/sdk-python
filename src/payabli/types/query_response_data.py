@@ -20,26 +20,6 @@ from .result_codev_2 import ResultCodev2
 class QueryResponseData(UniversalBaseModel):
     """
     The transaction's response data.
-
-    Examples
-    --------
-    from payabli import QueryResponseData
-
-    QueryResponseData(
-        authcode="123456",
-        avsresponse="N",
-        avsresponse_text="No address or ZIP match only",
-        cvvresponse="M",
-        cvvresponse_text="CVV2/CVC2 match",
-        orderid="10-bfcd5a17861d4a8690ca53c00000X",
-        response="Success",
-        response_code="100",
-        response_code_text="Transaction was approved.",
-        responsetext="SUCCESS",
-        result_code="A0000",
-        result_code_text="Approved",
-        transactionid="8082800000",
-    )
     """
 
     authcode: typing.Optional[Authcode] = None

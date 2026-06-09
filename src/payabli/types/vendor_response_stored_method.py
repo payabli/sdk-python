@@ -57,11 +57,18 @@ class VendorResponseStoredMethod(UniversalBaseModel):
     method_type: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="MethodType"), pydantic.Field(alias="MethodType")
     ] = None
+    wallet_type: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="WalletType"),
+        pydantic.Field(alias="WalletType", description="Digital wallet type if applicable."),
+    ] = None
     last_updated: typing_extensions.Annotated[
         typing.Optional[dt.datetime], FieldMetadata(alias="LastUpdated"), pydantic.Field(alias="LastUpdated")
     ] = None
     card_updated_on: typing_extensions.Annotated[
-        typing.Optional[dt.datetime], FieldMetadata(alias="CardUpdatedOn"), pydantic.Field(alias="CardUpdatedOn")
+        typing.Optional[dt.datetime],
+        FieldMetadata(alias="CardUpdatedOn"),
+        pydantic.Field(alias="CardUpdatedOn", description="Date and time the card was last updated."),
     ] = None
 
     if IS_PYDANTIC_V2:

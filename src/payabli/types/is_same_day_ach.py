@@ -2,6 +2,5 @@
 
 IsSameDayAch = bool
 """
-Indicates if the payout transaction is processed as Same Day ACH. This
-is only applicable for ACH transactions.
+When `true`, this is a same-day ACH transaction.
 """

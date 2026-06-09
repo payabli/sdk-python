@@ -131,7 +131,7 @@ class CustomerData(UniversalBaseModel):
         typing.Optional[Timezone], FieldMetadata(alias="timeZone"), pydantic.Field(alias="timeZone")
     ] = None
     additional_fields: typing_extensions.Annotated[
-        typing.Optional[typing.Dict[str, typing.Optional[str]]],
+        typing.Optional[typing.Dict[str, str]],
         FieldMetadata(alias="additionalFields"),
         pydantic.Field(alias="additionalFields", description='Additional Custom fields in format "key":"value".'),
     ] = None

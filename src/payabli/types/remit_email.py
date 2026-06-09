@@ -2,5 +2,6 @@
 
 RemitEmail = str
 """
-Remittance email address. Used for sending virtual cards and other information about payouts.
+Remittance email address. Used for sending virtual cards and other
+information about payouts.
 """

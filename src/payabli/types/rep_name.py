@@ -2,5 +2,6 @@
 
 RepName = str
 """
-Sales representative name. This is an optional field that can be used to track the sales representative associated with the application.
+Sales representative name. This is an optional field that can be used
+to track the sales representative associated with the application.
 """

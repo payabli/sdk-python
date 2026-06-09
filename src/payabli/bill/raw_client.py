@@ -19,23 +19,23 @@ from ..errors.unauthorized_error import UnauthorizedError
 from ..types.accounting_field import AccountingField
 from ..types.additional_data_string import AdditionalDataString
 from ..types.attachments import Attachments
+from ..types.bill_out_data_scheduled_options import BillOutDataScheduledOptions
+from ..types.bill_out_data_vendor import BillOutDataVendor
 from ..types.bill_query_response import BillQueryResponse
+from ..types.bill_response import BillResponse
 from ..types.billitems import Billitems
 from ..types.billstatus import Billstatus
 from ..types.comments import Comments
+from ..types.edit_bill_response import EditBillResponse
 from ..types.export_format import ExportFormat
 from ..types.file_content import FileContent
 from ..types.frequency import Frequency
+from ..types.get_bill_response import GetBillResponse
 from ..types.idempotency_key import IdempotencyKey
-from ..types.payabli_api_response import PayabliApiResponse
+from ..types.modify_approval_bill_response import ModifyApprovalBillResponse
+from ..types.payabli_error_body import PayabliErrorBody
+from ..types.set_approved_bill_response import SetApprovedBillResponse
 from ..types.terms import Terms
-from ..types.vendor_data import VendorData
-from .types.bill_out_data_scheduled_options import BillOutDataScheduledOptions
-from .types.bill_response import BillResponse
-from .types.edit_bill_response import EditBillResponse
-from .types.get_bill_response import GetBillResponse
-from .types.modify_approval_bill_response import ModifyApprovalBillResponse
-from .types.set_approved_bill_response import SetApprovedBillResponse
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -70,7 +70,7 @@ class RawBillClient:
         status: typing.Optional[Billstatus] = OMIT,
         terms: typing.Optional[Terms] = OMIT,
         total_amount: typing.Optional[float] = OMIT,
-        vendor: typing.Optional[VendorData] = OMIT,
+        vendor: typing.Optional[BillOutDataVendor] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[BillResponse]:
         """
@@ -82,6 +82,7 @@ class RawBillClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         accounting_field_1 : typing.Optional[AccountingField]
 
@@ -90,9 +91,20 @@ class RawBillClient:
         additional_data : typing.Optional[AdditionalDataString]
 
         attachments : typing.Optional[Attachments]
-            An array of bill images. Attachments aren't required, but we strongly recommend including them. Including a bill image can make payouts smoother and prevent delays. You can include either the Base64-encoded file content, or you can include an fURL to a public file. The maximum file size for image uploads is 30 MB.
+            An array of bill images. Attachments aren't required, but we strongly
+            recommend including them. Including a bill image can make payouts
+            smoother and prevent delays. You can include either the Base64-encoded
+            file content, or you can include a `furl` to a public file. The maximum
+            file size for image uploads is 30 MB.
 
-            When vendor enrichment is enabled and the first attachment is a PDF, the invoice is scanned and extracted vendor contact information and bill details (invoice number, amount due, due date) are merged into the request. Fields in the request body take precedence over extracted data. If the scan fails, bill creation proceeds with the original request data. See the [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview) for details. Contact Payabli to enable this feature.
+            When vendor enrichment is enabled and the first attachment is a PDF,
+            the invoice is scanned and extracted vendor contact information and
+            bill details (invoice number, amount due, due date) are merged into
+            the request. Fields in the request body take precedence over extracted
+            data. If the scan fails, bill creation proceeds with the original
+            request data. See the
+            [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview)
+            for details. Contact Payabli to enable this feature.
 
         bill_date : typing.Optional[dt.date]
             Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
@@ -111,10 +123,10 @@ class RawBillClient:
             Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
 
         end_date : typing.Optional[dt.date]
-            End Date for scheduled bills. Applied only in `Mode` = 1. Accepted formats: YYYY-MM-DD, MM/DD/YYYY
+            End date for scheduled bills. Applied only in `Mode` = 1. Accepted
+            formats: YYYY-MM-DD, MM/DD/YYYY.
 
         frequency : typing.Optional[Frequency]
-            Frequency for scheduled bills. Applied only in `Mode` = 1.
 
         lot_number : typing.Optional[str]
             Lot number associated with the bill.
@@ -123,10 +135,9 @@ class RawBillClient:
             Bill mode: value `0` for one-time bills, `1` for scheduled bills.
 
         net_amount : typing.Optional[float]
-            Net Amount owed in bill. Required when adding a bill.
+            Net amount owed in bill. Required when adding a bill.
 
         scheduled_options : typing.Optional[BillOutDataScheduledOptions]
-            Options for scheduled bills.
 
         status : typing.Optional[Billstatus]
 
@@ -135,8 +146,11 @@ class RawBillClient:
         total_amount : typing.Optional[float]
             Total amount of the bill.
 
-        vendor : typing.Optional[VendorData]
-            The vendor associated with the bill. Although you can create a vendor in a create bill request, Payabli recommends creating a vendor separately and passing a valid `vendorNumber` here. At minimum, the `vendorNumber` is required.
+        vendor : typing.Optional[BillOutDataVendor]
+            The vendor associated with the bill. Although you can create a vendor
+            in a create bill request, Payabli recommends creating a vendor
+            separately and passing a valid `vendorNumber` here. At minimum, the
+            `vendorNumber` is required.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -176,7 +190,7 @@ class RawBillClient:
                 "terms": terms,
                 "totalAmount": total_amount,
                 "vendor": convert_and_respect_annotation_metadata(
-                    object_=vendor, annotation=VendorData, direction="write"
+                    object_=vendor, annotation=BillOutDataVendor, direction="write"
                 ),
             },
             headers={
@@ -211,9 +225,9 @@ class RawBillClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -233,9 +247,9 @@ class RawBillClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -249,52 +263,36 @@ class RawBillClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def delete_attached_from_bill(
-        self,
-        id_bill: int,
-        filename: str,
-        *,
-        return_object: typing.Optional[bool] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[BillResponse]:
+    def get_bill(
+        self, id_bill: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[GetBillResponse]:
         """
-        Delete a file attached to a bill.
+        Retrieves a bill by ID from an entrypoint.
 
         Parameters
         ----------
         id_bill : int
             Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
 
-        filename : str
-            The filename in Payabli. Get this from the `zipName` field
-            in the `DocumentsRef.filelist` array returned by
-            `/api/Bill/{idBill}`. Example: `0_Bill.pdf`.
-
-        return_object : typing.Optional[bool]
-            When `true`, the response includes the full bill object.
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[BillResponse]
+        HttpResponse[GetBillResponse]
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Bill/attachedFileFromBill/{encode_path_param(id_bill)}/{encode_path_param(filename)}",
-            method="DELETE",
-            params={
-                "returnObject": return_object,
-            },
+            f"Bill/{encode_path_param(id_bill)}",
+            method="GET",
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    BillResponse,
+                    GetBillResponse,
                     parse_obj_as(
-                        type_=BillResponse,  # type: ignore
+                        type_=GetBillResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -314,9 +312,9 @@ class RawBillClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -336,9 +334,221 @@ class RawBillClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def edit_bill(
+        self,
+        id_bill: int,
+        *,
+        accounting_field_1: typing.Optional[AccountingField] = OMIT,
+        accounting_field_2: typing.Optional[AccountingField] = OMIT,
+        additional_data: typing.Optional[AdditionalDataString] = OMIT,
+        attachments: typing.Optional[Attachments] = OMIT,
+        bill_date: typing.Optional[dt.date] = OMIT,
+        bill_items: typing.Optional[Billitems] = OMIT,
+        bill_number: typing.Optional[str] = OMIT,
+        comments: typing.Optional[Comments] = OMIT,
+        discount: typing.Optional[float] = OMIT,
+        due_date: typing.Optional[dt.date] = OMIT,
+        end_date: typing.Optional[dt.date] = OMIT,
+        frequency: typing.Optional[Frequency] = OMIT,
+        lot_number: typing.Optional[str] = OMIT,
+        mode: typing.Optional[int] = OMIT,
+        net_amount: typing.Optional[float] = OMIT,
+        scheduled_options: typing.Optional[BillOutDataScheduledOptions] = OMIT,
+        status: typing.Optional[Billstatus] = OMIT,
+        terms: typing.Optional[Terms] = OMIT,
+        total_amount: typing.Optional[float] = OMIT,
+        vendor: typing.Optional[BillOutDataVendor] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[EditBillResponse]:
+        """
+        Updates a bill by ID.
+
+        Parameters
+        ----------
+        id_bill : int
+            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
+
+        accounting_field_1 : typing.Optional[AccountingField]
+
+        accounting_field_2 : typing.Optional[AccountingField]
+
+        additional_data : typing.Optional[AdditionalDataString]
+
+        attachments : typing.Optional[Attachments]
+            An array of bill images. Attachments aren't required, but we strongly
+            recommend including them. Including a bill image can make payouts
+            smoother and prevent delays. You can include either the Base64-encoded
+            file content, or you can include a `furl` to a public file. The maximum
+            file size for image uploads is 30 MB.
+
+            When vendor enrichment is enabled and the first attachment is a PDF,
+            the invoice is scanned and extracted vendor contact information and
+            bill details (invoice number, amount due, due date) are merged into
+            the request. Fields in the request body take precedence over extracted
+            data. If the scan fails, bill creation proceeds with the original
+            request data. See the
+            [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview)
+            for details. Contact Payabli to enable this feature.
+
+        bill_date : typing.Optional[dt.date]
+            Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+
+        bill_items : typing.Optional[Billitems]
+
+        bill_number : typing.Optional[str]
+            Unique identifier for the bill. Required when adding a bill.
+
+        comments : typing.Optional[Comments]
+
+        discount : typing.Optional[float]
+            Discount amount applied to the bill.
+
+        due_date : typing.Optional[dt.date]
+            Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+
+        end_date : typing.Optional[dt.date]
+            End date for scheduled bills. Applied only in `Mode` = 1. Accepted
+            formats: YYYY-MM-DD, MM/DD/YYYY.
+
+        frequency : typing.Optional[Frequency]
+
+        lot_number : typing.Optional[str]
+            Lot number associated with the bill.
+
+        mode : typing.Optional[int]
+            Bill mode: value `0` for one-time bills, `1` for scheduled bills.
+
+        net_amount : typing.Optional[float]
+            Net amount owed in bill. Required when adding a bill.
+
+        scheduled_options : typing.Optional[BillOutDataScheduledOptions]
+
+        status : typing.Optional[Billstatus]
+
+        terms : typing.Optional[Terms]
+
+        total_amount : typing.Optional[float]
+            Total amount of the bill.
+
+        vendor : typing.Optional[BillOutDataVendor]
+            The vendor associated with the bill. Although you can create a vendor
+            in a create bill request, Payabli recommends creating a vendor
+            separately and passing a valid `vendorNumber` here. At minimum, the
+            `vendorNumber` is required.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[EditBillResponse]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"Bill/{encode_path_param(id_bill)}",
+            method="PUT",
+            json={
+                "accountingField1": accounting_field_1,
+                "accountingField2": accounting_field_2,
+                "additionalData": additional_data,
+                "attachments": convert_and_respect_annotation_metadata(
+                    object_=attachments, annotation=Attachments, direction="write"
+                ),
+                "billDate": bill_date,
+                "billItems": convert_and_respect_annotation_metadata(
+                    object_=bill_items, annotation=Billitems, direction="write"
+                ),
+                "billNumber": bill_number,
+                "comments": comments,
+                "discount": discount,
+                "dueDate": due_date,
+                "endDate": end_date,
+                "frequency": frequency,
+                "lotNumber": lot_number,
+                "mode": mode,
+                "netAmount": net_amount,
+                "scheduledOptions": convert_and_respect_annotation_metadata(
+                    object_=scheduled_options, annotation=BillOutDataScheduledOptions, direction="write"
+                ),
+                "status": status,
+                "terms": terms,
+                "totalAmount": total_amount,
+                "vendor": convert_and_respect_annotation_metadata(
+                    object_=vendor, annotation=BillOutDataVendor, direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    EditBillResponse,
+                    parse_obj_as(
+                        type_=EditBillResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -401,9 +611,9 @@ class RawBillClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -423,208 +633,9 @@ class RawBillClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def edit_bill(
-        self,
-        id_bill: int,
-        *,
-        accounting_field_1: typing.Optional[AccountingField] = OMIT,
-        accounting_field_2: typing.Optional[AccountingField] = OMIT,
-        additional_data: typing.Optional[AdditionalDataString] = OMIT,
-        attachments: typing.Optional[Attachments] = OMIT,
-        bill_date: typing.Optional[dt.date] = OMIT,
-        bill_items: typing.Optional[Billitems] = OMIT,
-        bill_number: typing.Optional[str] = OMIT,
-        comments: typing.Optional[Comments] = OMIT,
-        discount: typing.Optional[float] = OMIT,
-        due_date: typing.Optional[dt.date] = OMIT,
-        end_date: typing.Optional[dt.date] = OMIT,
-        frequency: typing.Optional[Frequency] = OMIT,
-        lot_number: typing.Optional[str] = OMIT,
-        mode: typing.Optional[int] = OMIT,
-        net_amount: typing.Optional[float] = OMIT,
-        scheduled_options: typing.Optional[BillOutDataScheduledOptions] = OMIT,
-        status: typing.Optional[Billstatus] = OMIT,
-        terms: typing.Optional[Terms] = OMIT,
-        total_amount: typing.Optional[float] = OMIT,
-        vendor: typing.Optional[VendorData] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[EditBillResponse]:
-        """
-        Updates a bill by ID.
-
-        Parameters
-        ----------
-        id_bill : int
-            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
-
-        accounting_field_1 : typing.Optional[AccountingField]
-
-        accounting_field_2 : typing.Optional[AccountingField]
-
-        additional_data : typing.Optional[AdditionalDataString]
-
-        attachments : typing.Optional[Attachments]
-            An array of bill images. Attachments aren't required, but we strongly recommend including them. Including a bill image can make payouts smoother and prevent delays. You can include either the Base64-encoded file content, or you can include an fURL to a public file. The maximum file size for image uploads is 30 MB.
-
-            When vendor enrichment is enabled and the first attachment is a PDF, the invoice is scanned and extracted vendor contact information and bill details (invoice number, amount due, due date) are merged into the request. Fields in the request body take precedence over extracted data. If the scan fails, bill creation proceeds with the original request data. See the [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview) for details. Contact Payabli to enable this feature.
-
-        bill_date : typing.Optional[dt.date]
-            Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
-
-        bill_items : typing.Optional[Billitems]
-
-        bill_number : typing.Optional[str]
-            Unique identifier for the bill. Required when adding a bill.
-
-        comments : typing.Optional[Comments]
-
-        discount : typing.Optional[float]
-            Discount amount applied to the bill.
-
-        due_date : typing.Optional[dt.date]
-            Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
-
-        end_date : typing.Optional[dt.date]
-            End Date for scheduled bills. Applied only in `Mode` = 1. Accepted formats: YYYY-MM-DD, MM/DD/YYYY
-
-        frequency : typing.Optional[Frequency]
-            Frequency for scheduled bills. Applied only in `Mode` = 1.
-
-        lot_number : typing.Optional[str]
-            Lot number associated with the bill.
-
-        mode : typing.Optional[int]
-            Bill mode: value `0` for one-time bills, `1` for scheduled bills.
-
-        net_amount : typing.Optional[float]
-            Net Amount owed in bill. Required when adding a bill.
-
-        scheduled_options : typing.Optional[BillOutDataScheduledOptions]
-            Options for scheduled bills.
-
-        status : typing.Optional[Billstatus]
-
-        terms : typing.Optional[Terms]
-
-        total_amount : typing.Optional[float]
-            Total amount of the bill.
-
-        vendor : typing.Optional[VendorData]
-            The vendor associated with the bill. Although you can create a vendor in a create bill request, Payabli recommends creating a vendor separately and passing a valid `vendorNumber` here. At minimum, the `vendorNumber` is required.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[EditBillResponse]
-            Success
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"Bill/{encode_path_param(id_bill)}",
-            method="PUT",
-            json={
-                "accountingField1": accounting_field_1,
-                "accountingField2": accounting_field_2,
-                "additionalData": additional_data,
-                "attachments": convert_and_respect_annotation_metadata(
-                    object_=attachments, annotation=Attachments, direction="write"
-                ),
-                "billDate": bill_date,
-                "billItems": convert_and_respect_annotation_metadata(
-                    object_=bill_items, annotation=Billitems, direction="write"
-                ),
-                "billNumber": bill_number,
-                "comments": comments,
-                "discount": discount,
-                "dueDate": due_date,
-                "endDate": end_date,
-                "frequency": frequency,
-                "lotNumber": lot_number,
-                "mode": mode,
-                "netAmount": net_amount,
-                "scheduledOptions": convert_and_respect_annotation_metadata(
-                    object_=scheduled_options, annotation=BillOutDataScheduledOptions, direction="write"
-                ),
-                "status": status,
-                "terms": terms,
-                "totalAmount": total_amount,
-                "vendor": convert_and_respect_annotation_metadata(
-                    object_=vendor, annotation=VendorData, direction="write"
-                ),
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    EditBillResponse,
-                    parse_obj_as(
-                        type_=EditBillResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -703,9 +714,9 @@ class RawBillClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -725,9 +736,9 @@ class RawBillClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -741,36 +752,52 @@ class RawBillClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def get_bill(
-        self, id_bill: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[GetBillResponse]:
+    def delete_attached_from_bill(
+        self,
+        id_bill: int,
+        filename: str,
+        *,
+        return_object: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[BillResponse]:
         """
-        Retrieves a bill by ID from an entrypoint.
+        Delete a file attached to a bill.
 
         Parameters
         ----------
         id_bill : int
             Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
 
+        filename : str
+            The filename in Payabli. Get this from the `zipName` field
+            in the `DocumentsRef.filelist` array returned by
+            `/api/Bill/{idBill}`. Example: `0_Bill.pdf`.
+
+        return_object : typing.Optional[bool]
+            When `true`, the response includes the full bill object.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[GetBillResponse]
+        HttpResponse[BillResponse]
             Success
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"Bill/{encode_path_param(id_bill)}",
-            method="GET",
+            f"Bill/attachedFileFromBill/{encode_path_param(id_bill)}/{encode_path_param(filename)}",
+            method="DELETE",
+            params={
+                "returnObject": return_object,
+            },
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    GetBillResponse,
+                    BillResponse,
                     parse_obj_as(
-                        type_=GetBillResponse,  # type: ignore
+                        type_=BillResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -790,9 +817,9 @@ class RawBillClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -812,9 +839,314 @@ class RawBillClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def send_to_approval_bill(
+        self,
+        id_bill: int,
+        *,
+        request: typing.Sequence[str],
+        autocreate_user: typing.Optional[bool] = None,
+        idempotency_key: typing.Optional[IdempotencyKey] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[BillResponse]:
+        """
+        Send a bill to a user or list of users to approve.
+
+        Parameters
+        ----------
+        id_bill : int
+            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
+
+        request : typing.Sequence[str]
+
+        autocreate_user : typing.Optional[bool]
+            Automatically create the target user for approval if they don't exist.
+
+        idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[BillResponse]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"Bill/approval/{encode_path_param(id_bill)}",
+            method="POST",
+            params={
+                "autocreateUser": autocreate_user,
+            },
+            json=request,
+            headers={
+                "content-type": "application/json",
+                "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    BillResponse,
+                    parse_obj_as(
+                        type_=BillResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def modify_approval_bill(
+        self, id_bill: int, *, request: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[ModifyApprovalBillResponse]:
+        """
+        Modify the list of users the bill is sent to for approval.
+
+        Parameters
+        ----------
+        id_bill : int
+            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
+
+        request : typing.Sequence[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[ModifyApprovalBillResponse]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"Bill/approval/{encode_path_param(id_bill)}",
+            method="PUT",
+            json=request,
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ModifyApprovalBillResponse,
+                    parse_obj_as(
+                        type_=ModifyApprovalBillResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def set_approved_bill(
+        self,
+        id_bill: int,
+        approved: str,
+        *,
+        email: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[SetApprovedBillResponse]:
+        """
+        Approve or disapprove a bill by ID.
+
+        Parameters
+        ----------
+        id_bill : int
+            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
+
+        approved : str
+            String representing the approved status. Accepted values: 'true' or 'false'.
+
+        email : typing.Optional[str]
+            Email or username of user modifying approval status.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[SetApprovedBillResponse]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"Bill/approval/{encode_path_param(id_bill)}/{encode_path_param(approved)}",
+            method="GET",
+            params={
+                "email": email,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    SetApprovedBillResponse,
+                    parse_obj_as(
+                        type_=SetApprovedBillResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -848,6 +1180,7 @@ class RawBillClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -948,9 +1281,9 @@ class RawBillClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -970,9 +1303,9 @@ class RawBillClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1006,6 +1339,7 @@ class RawBillClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -1106,9 +1440,9 @@ class RawBillClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1128,313 +1462,9 @@ class RawBillClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def modify_approval_bill(
-        self, id_bill: int, *, request: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[ModifyApprovalBillResponse]:
-        """
-        Modify the list of users the bill is sent to for approval.
-
-        Parameters
-        ----------
-        id_bill : int
-            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
-
-        request : typing.Sequence[str]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[ModifyApprovalBillResponse]
-            Success
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"Bill/approval/{encode_path_param(id_bill)}",
-            method="PUT",
-            json=request,
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    ModifyApprovalBillResponse,
-                    parse_obj_as(
-                        type_=ModifyApprovalBillResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def send_to_approval_bill(
-        self,
-        id_bill: int,
-        *,
-        request: typing.Sequence[str],
-        autocreate_user: typing.Optional[bool] = None,
-        idempotency_key: typing.Optional[IdempotencyKey] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[BillResponse]:
-        """
-        Send a bill to a user or list of users to approve.
-
-        Parameters
-        ----------
-        id_bill : int
-            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
-
-        request : typing.Sequence[str]
-
-        autocreate_user : typing.Optional[bool]
-            Automatically create the target user for approval if they don't exist.
-
-        idempotency_key : typing.Optional[IdempotencyKey]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[BillResponse]
-            Success
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"Bill/approval/{encode_path_param(id_bill)}",
-            method="POST",
-            params={
-                "autocreateUser": autocreate_user,
-            },
-            json=request,
-            headers={
-                "content-type": "application/json",
-                "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    BillResponse,
-                    parse_obj_as(
-                        type_=BillResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def set_approved_bill(
-        self,
-        id_bill: int,
-        approved: str,
-        *,
-        email: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[SetApprovedBillResponse]:
-        """
-        Approve or disapprove a bill by ID.
-
-        Parameters
-        ----------
-        id_bill : int
-            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
-
-        approved : str
-            String representing the approved status. Accepted values: 'true' or 'false'.
-
-        email : typing.Optional[str]
-            Email or username of user modifying approval status.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[SetApprovedBillResponse]
-            Success
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"Bill/approval/{encode_path_param(id_bill)}/{encode_path_param(approved)}",
-            method="GET",
-            params={
-                "email": email,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    SetApprovedBillResponse,
-                    parse_obj_as(
-                        type_=SetApprovedBillResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1477,7 +1507,7 @@ class AsyncRawBillClient:
         status: typing.Optional[Billstatus] = OMIT,
         terms: typing.Optional[Terms] = OMIT,
         total_amount: typing.Optional[float] = OMIT,
-        vendor: typing.Optional[VendorData] = OMIT,
+        vendor: typing.Optional[BillOutDataVendor] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[BillResponse]:
         """
@@ -1489,6 +1519,7 @@ class AsyncRawBillClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         accounting_field_1 : typing.Optional[AccountingField]
 
@@ -1497,9 +1528,20 @@ class AsyncRawBillClient:
         additional_data : typing.Optional[AdditionalDataString]
 
         attachments : typing.Optional[Attachments]
-            An array of bill images. Attachments aren't required, but we strongly recommend including them. Including a bill image can make payouts smoother and prevent delays. You can include either the Base64-encoded file content, or you can include an fURL to a public file. The maximum file size for image uploads is 30 MB.
+            An array of bill images. Attachments aren't required, but we strongly
+            recommend including them. Including a bill image can make payouts
+            smoother and prevent delays. You can include either the Base64-encoded
+            file content, or you can include a `furl` to a public file. The maximum
+            file size for image uploads is 30 MB.
 
-            When vendor enrichment is enabled and the first attachment is a PDF, the invoice is scanned and extracted vendor contact information and bill details (invoice number, amount due, due date) are merged into the request. Fields in the request body take precedence over extracted data. If the scan fails, bill creation proceeds with the original request data. See the [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview) for details. Contact Payabli to enable this feature.
+            When vendor enrichment is enabled and the first attachment is a PDF,
+            the invoice is scanned and extracted vendor contact information and
+            bill details (invoice number, amount due, due date) are merged into
+            the request. Fields in the request body take precedence over extracted
+            data. If the scan fails, bill creation proceeds with the original
+            request data. See the
+            [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview)
+            for details. Contact Payabli to enable this feature.
 
         bill_date : typing.Optional[dt.date]
             Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
@@ -1518,10 +1560,10 @@ class AsyncRawBillClient:
             Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
 
         end_date : typing.Optional[dt.date]
-            End Date for scheduled bills. Applied only in `Mode` = 1. Accepted formats: YYYY-MM-DD, MM/DD/YYYY
+            End date for scheduled bills. Applied only in `Mode` = 1. Accepted
+            formats: YYYY-MM-DD, MM/DD/YYYY.
 
         frequency : typing.Optional[Frequency]
-            Frequency for scheduled bills. Applied only in `Mode` = 1.
 
         lot_number : typing.Optional[str]
             Lot number associated with the bill.
@@ -1530,10 +1572,9 @@ class AsyncRawBillClient:
             Bill mode: value `0` for one-time bills, `1` for scheduled bills.
 
         net_amount : typing.Optional[float]
-            Net Amount owed in bill. Required when adding a bill.
+            Net amount owed in bill. Required when adding a bill.
 
         scheduled_options : typing.Optional[BillOutDataScheduledOptions]
-            Options for scheduled bills.
 
         status : typing.Optional[Billstatus]
 
@@ -1542,8 +1583,11 @@ class AsyncRawBillClient:
         total_amount : typing.Optional[float]
             Total amount of the bill.
 
-        vendor : typing.Optional[VendorData]
-            The vendor associated with the bill. Although you can create a vendor in a create bill request, Payabli recommends creating a vendor separately and passing a valid `vendorNumber` here. At minimum, the `vendorNumber` is required.
+        vendor : typing.Optional[BillOutDataVendor]
+            The vendor associated with the bill. Although you can create a vendor
+            in a create bill request, Payabli recommends creating a vendor
+            separately and passing a valid `vendorNumber` here. At minimum, the
+            `vendorNumber` is required.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1583,7 +1627,7 @@ class AsyncRawBillClient:
                 "terms": terms,
                 "totalAmount": total_amount,
                 "vendor": convert_and_respect_annotation_metadata(
-                    object_=vendor, annotation=VendorData, direction="write"
+                    object_=vendor, annotation=BillOutDataVendor, direction="write"
                 ),
             },
             headers={
@@ -1618,9 +1662,9 @@ class AsyncRawBillClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1640,9 +1684,9 @@ class AsyncRawBillClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1656,52 +1700,36 @@ class AsyncRawBillClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def delete_attached_from_bill(
-        self,
-        id_bill: int,
-        filename: str,
-        *,
-        return_object: typing.Optional[bool] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[BillResponse]:
+    async def get_bill(
+        self, id_bill: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[GetBillResponse]:
         """
-        Delete a file attached to a bill.
+        Retrieves a bill by ID from an entrypoint.
 
         Parameters
         ----------
         id_bill : int
             Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
 
-        filename : str
-            The filename in Payabli. Get this from the `zipName` field
-            in the `DocumentsRef.filelist` array returned by
-            `/api/Bill/{idBill}`. Example: `0_Bill.pdf`.
-
-        return_object : typing.Optional[bool]
-            When `true`, the response includes the full bill object.
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[BillResponse]
+        AsyncHttpResponse[GetBillResponse]
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Bill/attachedFileFromBill/{encode_path_param(id_bill)}/{encode_path_param(filename)}",
-            method="DELETE",
-            params={
-                "returnObject": return_object,
-            },
+            f"Bill/{encode_path_param(id_bill)}",
+            method="GET",
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    BillResponse,
+                    GetBillResponse,
                     parse_obj_as(
-                        type_=BillResponse,  # type: ignore
+                        type_=GetBillResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1721,9 +1749,9 @@ class AsyncRawBillClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1743,9 +1771,221 @@ class AsyncRawBillClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def edit_bill(
+        self,
+        id_bill: int,
+        *,
+        accounting_field_1: typing.Optional[AccountingField] = OMIT,
+        accounting_field_2: typing.Optional[AccountingField] = OMIT,
+        additional_data: typing.Optional[AdditionalDataString] = OMIT,
+        attachments: typing.Optional[Attachments] = OMIT,
+        bill_date: typing.Optional[dt.date] = OMIT,
+        bill_items: typing.Optional[Billitems] = OMIT,
+        bill_number: typing.Optional[str] = OMIT,
+        comments: typing.Optional[Comments] = OMIT,
+        discount: typing.Optional[float] = OMIT,
+        due_date: typing.Optional[dt.date] = OMIT,
+        end_date: typing.Optional[dt.date] = OMIT,
+        frequency: typing.Optional[Frequency] = OMIT,
+        lot_number: typing.Optional[str] = OMIT,
+        mode: typing.Optional[int] = OMIT,
+        net_amount: typing.Optional[float] = OMIT,
+        scheduled_options: typing.Optional[BillOutDataScheduledOptions] = OMIT,
+        status: typing.Optional[Billstatus] = OMIT,
+        terms: typing.Optional[Terms] = OMIT,
+        total_amount: typing.Optional[float] = OMIT,
+        vendor: typing.Optional[BillOutDataVendor] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[EditBillResponse]:
+        """
+        Updates a bill by ID.
+
+        Parameters
+        ----------
+        id_bill : int
+            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
+
+        accounting_field_1 : typing.Optional[AccountingField]
+
+        accounting_field_2 : typing.Optional[AccountingField]
+
+        additional_data : typing.Optional[AdditionalDataString]
+
+        attachments : typing.Optional[Attachments]
+            An array of bill images. Attachments aren't required, but we strongly
+            recommend including them. Including a bill image can make payouts
+            smoother and prevent delays. You can include either the Base64-encoded
+            file content, or you can include a `furl` to a public file. The maximum
+            file size for image uploads is 30 MB.
+
+            When vendor enrichment is enabled and the first attachment is a PDF,
+            the invoice is scanned and extracted vendor contact information and
+            bill details (invoice number, amount due, due date) are merged into
+            the request. Fields in the request body take precedence over extracted
+            data. If the scan fails, bill creation proceeds with the original
+            request data. See the
+            [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview)
+            for details. Contact Payabli to enable this feature.
+
+        bill_date : typing.Optional[dt.date]
+            Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+
+        bill_items : typing.Optional[Billitems]
+
+        bill_number : typing.Optional[str]
+            Unique identifier for the bill. Required when adding a bill.
+
+        comments : typing.Optional[Comments]
+
+        discount : typing.Optional[float]
+            Discount amount applied to the bill.
+
+        due_date : typing.Optional[dt.date]
+            Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+
+        end_date : typing.Optional[dt.date]
+            End date for scheduled bills. Applied only in `Mode` = 1. Accepted
+            formats: YYYY-MM-DD, MM/DD/YYYY.
+
+        frequency : typing.Optional[Frequency]
+
+        lot_number : typing.Optional[str]
+            Lot number associated with the bill.
+
+        mode : typing.Optional[int]
+            Bill mode: value `0` for one-time bills, `1` for scheduled bills.
+
+        net_amount : typing.Optional[float]
+            Net amount owed in bill. Required when adding a bill.
+
+        scheduled_options : typing.Optional[BillOutDataScheduledOptions]
+
+        status : typing.Optional[Billstatus]
+
+        terms : typing.Optional[Terms]
+
+        total_amount : typing.Optional[float]
+            Total amount of the bill.
+
+        vendor : typing.Optional[BillOutDataVendor]
+            The vendor associated with the bill. Although you can create a vendor
+            in a create bill request, Payabli recommends creating a vendor
+            separately and passing a valid `vendorNumber` here. At minimum, the
+            `vendorNumber` is required.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[EditBillResponse]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"Bill/{encode_path_param(id_bill)}",
+            method="PUT",
+            json={
+                "accountingField1": accounting_field_1,
+                "accountingField2": accounting_field_2,
+                "additionalData": additional_data,
+                "attachments": convert_and_respect_annotation_metadata(
+                    object_=attachments, annotation=Attachments, direction="write"
+                ),
+                "billDate": bill_date,
+                "billItems": convert_and_respect_annotation_metadata(
+                    object_=bill_items, annotation=Billitems, direction="write"
+                ),
+                "billNumber": bill_number,
+                "comments": comments,
+                "discount": discount,
+                "dueDate": due_date,
+                "endDate": end_date,
+                "frequency": frequency,
+                "lotNumber": lot_number,
+                "mode": mode,
+                "netAmount": net_amount,
+                "scheduledOptions": convert_and_respect_annotation_metadata(
+                    object_=scheduled_options, annotation=BillOutDataScheduledOptions, direction="write"
+                ),
+                "status": status,
+                "terms": terms,
+                "totalAmount": total_amount,
+                "vendor": convert_and_respect_annotation_metadata(
+                    object_=vendor, annotation=BillOutDataVendor, direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    EditBillResponse,
+                    parse_obj_as(
+                        type_=EditBillResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1808,9 +2048,9 @@ class AsyncRawBillClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1830,208 +2070,9 @@ class AsyncRawBillClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def edit_bill(
-        self,
-        id_bill: int,
-        *,
-        accounting_field_1: typing.Optional[AccountingField] = OMIT,
-        accounting_field_2: typing.Optional[AccountingField] = OMIT,
-        additional_data: typing.Optional[AdditionalDataString] = OMIT,
-        attachments: typing.Optional[Attachments] = OMIT,
-        bill_date: typing.Optional[dt.date] = OMIT,
-        bill_items: typing.Optional[Billitems] = OMIT,
-        bill_number: typing.Optional[str] = OMIT,
-        comments: typing.Optional[Comments] = OMIT,
-        discount: typing.Optional[float] = OMIT,
-        due_date: typing.Optional[dt.date] = OMIT,
-        end_date: typing.Optional[dt.date] = OMIT,
-        frequency: typing.Optional[Frequency] = OMIT,
-        lot_number: typing.Optional[str] = OMIT,
-        mode: typing.Optional[int] = OMIT,
-        net_amount: typing.Optional[float] = OMIT,
-        scheduled_options: typing.Optional[BillOutDataScheduledOptions] = OMIT,
-        status: typing.Optional[Billstatus] = OMIT,
-        terms: typing.Optional[Terms] = OMIT,
-        total_amount: typing.Optional[float] = OMIT,
-        vendor: typing.Optional[VendorData] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[EditBillResponse]:
-        """
-        Updates a bill by ID.
-
-        Parameters
-        ----------
-        id_bill : int
-            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
-
-        accounting_field_1 : typing.Optional[AccountingField]
-
-        accounting_field_2 : typing.Optional[AccountingField]
-
-        additional_data : typing.Optional[AdditionalDataString]
-
-        attachments : typing.Optional[Attachments]
-            An array of bill images. Attachments aren't required, but we strongly recommend including them. Including a bill image can make payouts smoother and prevent delays. You can include either the Base64-encoded file content, or you can include an fURL to a public file. The maximum file size for image uploads is 30 MB.
-
-            When vendor enrichment is enabled and the first attachment is a PDF, the invoice is scanned and extracted vendor contact information and bill details (invoice number, amount due, due date) are merged into the request. Fields in the request body take precedence over extracted data. If the scan fails, bill creation proceeds with the original request data. See the [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview) for details. Contact Payabli to enable this feature.
-
-        bill_date : typing.Optional[dt.date]
-            Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
-
-        bill_items : typing.Optional[Billitems]
-
-        bill_number : typing.Optional[str]
-            Unique identifier for the bill. Required when adding a bill.
-
-        comments : typing.Optional[Comments]
-
-        discount : typing.Optional[float]
-            Discount amount applied to the bill.
-
-        due_date : typing.Optional[dt.date]
-            Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
-
-        end_date : typing.Optional[dt.date]
-            End Date for scheduled bills. Applied only in `Mode` = 1. Accepted formats: YYYY-MM-DD, MM/DD/YYYY
-
-        frequency : typing.Optional[Frequency]
-            Frequency for scheduled bills. Applied only in `Mode` = 1.
-
-        lot_number : typing.Optional[str]
-            Lot number associated with the bill.
-
-        mode : typing.Optional[int]
-            Bill mode: value `0` for one-time bills, `1` for scheduled bills.
-
-        net_amount : typing.Optional[float]
-            Net Amount owed in bill. Required when adding a bill.
-
-        scheduled_options : typing.Optional[BillOutDataScheduledOptions]
-            Options for scheduled bills.
-
-        status : typing.Optional[Billstatus]
-
-        terms : typing.Optional[Terms]
-
-        total_amount : typing.Optional[float]
-            Total amount of the bill.
-
-        vendor : typing.Optional[VendorData]
-            The vendor associated with the bill. Although you can create a vendor in a create bill request, Payabli recommends creating a vendor separately and passing a valid `vendorNumber` here. At minimum, the `vendorNumber` is required.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[EditBillResponse]
-            Success
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"Bill/{encode_path_param(id_bill)}",
-            method="PUT",
-            json={
-                "accountingField1": accounting_field_1,
-                "accountingField2": accounting_field_2,
-                "additionalData": additional_data,
-                "attachments": convert_and_respect_annotation_metadata(
-                    object_=attachments, annotation=Attachments, direction="write"
-                ),
-                "billDate": bill_date,
-                "billItems": convert_and_respect_annotation_metadata(
-                    object_=bill_items, annotation=Billitems, direction="write"
-                ),
-                "billNumber": bill_number,
-                "comments": comments,
-                "discount": discount,
-                "dueDate": due_date,
-                "endDate": end_date,
-                "frequency": frequency,
-                "lotNumber": lot_number,
-                "mode": mode,
-                "netAmount": net_amount,
-                "scheduledOptions": convert_and_respect_annotation_metadata(
-                    object_=scheduled_options, annotation=BillOutDataScheduledOptions, direction="write"
-                ),
-                "status": status,
-                "terms": terms,
-                "totalAmount": total_amount,
-                "vendor": convert_and_respect_annotation_metadata(
-                    object_=vendor, annotation=VendorData, direction="write"
-                ),
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    EditBillResponse,
-                    parse_obj_as(
-                        type_=EditBillResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2110,9 +2151,9 @@ class AsyncRawBillClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2132,9 +2173,9 @@ class AsyncRawBillClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2148,36 +2189,52 @@ class AsyncRawBillClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def get_bill(
-        self, id_bill: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[GetBillResponse]:
+    async def delete_attached_from_bill(
+        self,
+        id_bill: int,
+        filename: str,
+        *,
+        return_object: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[BillResponse]:
         """
-        Retrieves a bill by ID from an entrypoint.
+        Delete a file attached to a bill.
 
         Parameters
         ----------
         id_bill : int
             Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
 
+        filename : str
+            The filename in Payabli. Get this from the `zipName` field
+            in the `DocumentsRef.filelist` array returned by
+            `/api/Bill/{idBill}`. Example: `0_Bill.pdf`.
+
+        return_object : typing.Optional[bool]
+            When `true`, the response includes the full bill object.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[GetBillResponse]
+        AsyncHttpResponse[BillResponse]
             Success
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"Bill/{encode_path_param(id_bill)}",
-            method="GET",
+            f"Bill/attachedFileFromBill/{encode_path_param(id_bill)}/{encode_path_param(filename)}",
+            method="DELETE",
+            params={
+                "returnObject": return_object,
+            },
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    GetBillResponse,
+                    BillResponse,
                     parse_obj_as(
-                        type_=GetBillResponse,  # type: ignore
+                        type_=BillResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -2197,9 +2254,9 @@ class AsyncRawBillClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2219,9 +2276,314 @@ class AsyncRawBillClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def send_to_approval_bill(
+        self,
+        id_bill: int,
+        *,
+        request: typing.Sequence[str],
+        autocreate_user: typing.Optional[bool] = None,
+        idempotency_key: typing.Optional[IdempotencyKey] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[BillResponse]:
+        """
+        Send a bill to a user or list of users to approve.
+
+        Parameters
+        ----------
+        id_bill : int
+            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
+
+        request : typing.Sequence[str]
+
+        autocreate_user : typing.Optional[bool]
+            Automatically create the target user for approval if they don't exist.
+
+        idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[BillResponse]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"Bill/approval/{encode_path_param(id_bill)}",
+            method="POST",
+            params={
+                "autocreateUser": autocreate_user,
+            },
+            json=request,
+            headers={
+                "content-type": "application/json",
+                "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    BillResponse,
+                    parse_obj_as(
+                        type_=BillResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def modify_approval_bill(
+        self, id_bill: int, *, request: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[ModifyApprovalBillResponse]:
+        """
+        Modify the list of users the bill is sent to for approval.
+
+        Parameters
+        ----------
+        id_bill : int
+            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
+
+        request : typing.Sequence[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[ModifyApprovalBillResponse]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"Bill/approval/{encode_path_param(id_bill)}",
+            method="PUT",
+            json=request,
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ModifyApprovalBillResponse,
+                    parse_obj_as(
+                        type_=ModifyApprovalBillResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def set_approved_bill(
+        self,
+        id_bill: int,
+        approved: str,
+        *,
+        email: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[SetApprovedBillResponse]:
+        """
+        Approve or disapprove a bill by ID.
+
+        Parameters
+        ----------
+        id_bill : int
+            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
+
+        approved : str
+            String representing the approved status. Accepted values: 'true' or 'false'.
+
+        email : typing.Optional[str]
+            Email or username of user modifying approval status.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[SetApprovedBillResponse]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"Bill/approval/{encode_path_param(id_bill)}/{encode_path_param(approved)}",
+            method="GET",
+            params={
+                "email": email,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    SetApprovedBillResponse,
+                    parse_obj_as(
+                        type_=SetApprovedBillResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2255,6 +2617,7 @@ class AsyncRawBillClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -2355,9 +2718,9 @@ class AsyncRawBillClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2377,9 +2740,9 @@ class AsyncRawBillClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2413,6 +2776,7 @@ class AsyncRawBillClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -2513,9 +2877,9 @@ class AsyncRawBillClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2535,313 +2899,9 @@ class AsyncRawBillClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def modify_approval_bill(
-        self, id_bill: int, *, request: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[ModifyApprovalBillResponse]:
-        """
-        Modify the list of users the bill is sent to for approval.
-
-        Parameters
-        ----------
-        id_bill : int
-            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
-
-        request : typing.Sequence[str]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[ModifyApprovalBillResponse]
-            Success
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"Bill/approval/{encode_path_param(id_bill)}",
-            method="PUT",
-            json=request,
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    ModifyApprovalBillResponse,
-                    parse_obj_as(
-                        type_=ModifyApprovalBillResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def send_to_approval_bill(
-        self,
-        id_bill: int,
-        *,
-        request: typing.Sequence[str],
-        autocreate_user: typing.Optional[bool] = None,
-        idempotency_key: typing.Optional[IdempotencyKey] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[BillResponse]:
-        """
-        Send a bill to a user or list of users to approve.
-
-        Parameters
-        ----------
-        id_bill : int
-            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
-
-        request : typing.Sequence[str]
-
-        autocreate_user : typing.Optional[bool]
-            Automatically create the target user for approval if they don't exist.
-
-        idempotency_key : typing.Optional[IdempotencyKey]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[BillResponse]
-            Success
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"Bill/approval/{encode_path_param(id_bill)}",
-            method="POST",
-            params={
-                "autocreateUser": autocreate_user,
-            },
-            json=request,
-            headers={
-                "content-type": "application/json",
-                "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    BillResponse,
-                    parse_obj_as(
-                        type_=BillResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def set_approved_bill(
-        self,
-        id_bill: int,
-        approved: str,
-        *,
-        email: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[SetApprovedBillResponse]:
-        """
-        Approve or disapprove a bill by ID.
-
-        Parameters
-        ----------
-        id_bill : int
-            Payabli ID for the bill. Get this ID by querying `/api/Query/bills/` for the entrypoint or the organization.
-
-        approved : str
-            String representing the approved status. Accepted values: 'true' or 'false'.
-
-        email : typing.Optional[str]
-            Email or username of user modifying approval status.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[SetApprovedBillResponse]
-            Success
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"Bill/approval/{encode_path_param(id_bill)}/{encode_path_param(approved)}",
-            method="GET",
-            params={
-                "email": email,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    SetApprovedBillResponse,
-                    parse_obj_as(
-                        type_=SetApprovedBillResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

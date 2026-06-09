@@ -2,5 +2,6 @@
 
 MinTicket = float
 """
-Minimum ticket amount for transactions within the paypoint. Contact Payabli support to request a change to this value.
+Minimum ticket amount for transactions within the paypoint. Contact
+Payabli support to request a change to this value.
 """

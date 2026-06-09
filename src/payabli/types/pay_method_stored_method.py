@@ -20,7 +20,7 @@ class PayMethodStoredMethod(UniversalBaseModel):
     initiator: typing.Optional[Initiator] = None
     method: PayMethodStoredMethodMethod = pydantic.Field()
     """
-    Method to use for the transaction. Use either `card` or `ach`, depending on what kind of method was tokenized to use a saved payment method for this transaction.
+    Method to use for the transaction. Use `card`, `ach`, or `wallet` depending on what kind of method was tokenized to use a saved payment method for this transaction.
     """
 
     stored_method_id: typing_extensions.Annotated[

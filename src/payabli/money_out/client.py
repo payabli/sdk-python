@@ -4,29 +4,29 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
-from ..money_out_types.types.allowed_check_payment_status import AllowedCheckPaymentStatus
-from ..money_out_types.types.auth_capture_payout_response import AuthCapturePayoutResponse
-from ..money_out_types.types.authorize_payment_method import AuthorizePaymentMethod
-from ..money_out_types.types.capture_all_out_response import CaptureAllOutResponse
-from ..money_out_types.types.operation_result import OperationResult
-from ..money_out_types.types.reissue_payment_method import ReissuePaymentMethod
-from ..money_out_types.types.reissue_payout_response import ReissuePayoutResponse
-from ..money_out_types.types.request_out_authorize_invoice_data import RequestOutAuthorizeInvoiceData
-from ..money_out_types.types.request_out_authorize_payment_details import RequestOutAuthorizePaymentDetails
-from ..money_out_types.types.request_out_authorize_vendor_data import RequestOutAuthorizeVendorData
-from ..money_out_types.types.v_card_get_response import VCardGetResponse
 from ..types.account_id import AccountId
+from ..types.allowed_check_payment_status import AllowedCheckPaymentStatus
+from ..types.auth_capture_payout_response import AuthCapturePayoutResponse
+from ..types.authorize_payment_method import AuthorizePaymentMethod
 from ..types.auto_capture import AutoCapture
 from ..types.bill_detail_response import BillDetailResponse
+from ..types.capture_all_out_response import CaptureAllOutResponse
 from ..types.entrypointfield import Entrypointfield
 from ..types.idempotency_key import IdempotencyKey
+from ..types.operation_result import OperationResult
 from ..types.order_id import OrderId
 from ..types.orderdescription import Orderdescription
 from ..types.payabli_api_response_00_responsedatanonobject import PayabliApiResponse00Responsedatanonobject
 from ..types.payabli_api_response_0000 import PayabliApiResponse0000
+from ..types.reissue_payment_method import ReissuePaymentMethod
+from ..types.reissue_payout_response import ReissuePayoutResponse
+from ..types.request_out_authorize_invoice_data import RequestOutAuthorizeInvoiceData
+from ..types.request_out_authorize_payment_details import RequestOutAuthorizePaymentDetails
+from ..types.request_out_authorize_vendor_data import RequestOutAuthorizeVendorData
 from ..types.source import Source
 from ..types.subdomain import Subdomain
 from ..types.subscriptionid import Subscriptionid
+from ..types.v_card_get_response import VCardGetResponse
 from .raw_client import AsyncRawMoneyOutClient, RawMoneyOutClient
 
 # this is used as the default value for optional parameters
@@ -101,6 +101,7 @@ class MoneyOutClient:
             When `true`, the request creates a new vendor record, regardless of whether the vendor already exists.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         source : typing.Optional[Source]
 
@@ -126,19 +127,19 @@ class MoneyOutClient:
 
         Examples
         --------
-        from payabli import payabli
-        from payabli.money_out_types import (
+        from payabli import (
             AuthorizePaymentMethod,
             RequestOutAuthorizeInvoiceData,
             RequestOutAuthorizePaymentDetails,
             RequestOutAuthorizeVendorData,
+            payabli,
         )
 
         client = payabli(
             api_key="YOUR_API_KEY",
         )
         client.money_out.authorize_out(
-            entry_point="48acde49",
+            entry_point="8cfec329267",
             auto_capture=True,
             invoice_data=[
                 RequestOutAuthorizeInvoiceData(
@@ -154,7 +155,7 @@ class MoneyOutClient:
                 method="managed",
             ),
             vendor_data=RequestOutAuthorizeVendorData(
-                vendor_number="7895433",
+                vendor_number="VEN-123",
             ),
         )
         """
@@ -292,6 +293,7 @@ class MoneyOutClient:
         request : typing.Sequence[str]
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -333,6 +335,7 @@ class MoneyOutClient:
             The ID for the payout transaction.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -441,6 +444,7 @@ class MoneyOutClient:
         Returns
         -------
         OperationResult
+            Success
 
         Examples
         --------
@@ -575,6 +579,7 @@ class MoneyOutClient:
         payment_method : ReissuePaymentMethod
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -586,8 +591,7 @@ class MoneyOutClient:
 
         Examples
         --------
-        from payabli import payabli
-        from payabli.money_out_types import ReissuePaymentMethod
+        from payabli import ReissuePaymentMethod, payabli
 
         client = payabli(
             api_key="YOUR_API_KEY",
@@ -681,6 +685,7 @@ class AsyncMoneyOutClient:
             When `true`, the request creates a new vendor record, regardless of whether the vendor already exists.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         source : typing.Optional[Source]
 
@@ -708,8 +713,8 @@ class AsyncMoneyOutClient:
         --------
         import asyncio
 
-        from payabli import Asyncpayabli
-        from payabli.money_out_types import (
+        from payabli import (
+            Asyncpayabli,
             AuthorizePaymentMethod,
             RequestOutAuthorizeInvoiceData,
             RequestOutAuthorizePaymentDetails,
@@ -723,7 +728,7 @@ class AsyncMoneyOutClient:
 
         async def main() -> None:
             await client.money_out.authorize_out(
-                entry_point="48acde49",
+                entry_point="8cfec329267",
                 auto_capture=True,
                 invoice_data=[
                     RequestOutAuthorizeInvoiceData(
@@ -739,7 +744,7 @@ class AsyncMoneyOutClient:
                     method="managed",
                 ),
                 vendor_data=RequestOutAuthorizeVendorData(
-                    vendor_number="7895433",
+                    vendor_number="VEN-123",
                 ),
             )
 
@@ -904,6 +909,7 @@ class AsyncMoneyOutClient:
         request : typing.Sequence[str]
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -953,6 +959,7 @@ class AsyncMoneyOutClient:
             The ID for the payout transaction.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1085,6 +1092,7 @@ class AsyncMoneyOutClient:
         Returns
         -------
         OperationResult
+            Success
 
         Examples
         --------
@@ -1243,6 +1251,7 @@ class AsyncMoneyOutClient:
         payment_method : ReissuePaymentMethod
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1256,8 +1265,7 @@ class AsyncMoneyOutClient:
         --------
         import asyncio
 
-        from payabli import Asyncpayabli
-        from payabli.money_out_types import ReissuePaymentMethod
+        from payabli import Asyncpayabli, ReissuePaymentMethod
 
         client = Asyncpayabli(
             api_key="YOUR_API_KEY",

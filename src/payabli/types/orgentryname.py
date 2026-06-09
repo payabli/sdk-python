@@ -2,5 +2,6 @@
 
 Orgentryname = str
 """
-The entryname for the org, in string format. If you leave this blank, Payabli uses the DBA name.
+The entryname for the org, in string format. If you leave this blank,
+Payabli uses the DBA name.
 """

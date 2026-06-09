@@ -2,5 +2,6 @@
 
 Dbaname = str
 """
-The alternate or common name that this business is doing business under usually referred to as a DBA name.
+The alternate or common name that this business is doing business under,
+usually referred to as a DBA name.
 """

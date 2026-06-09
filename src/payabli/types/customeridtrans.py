@@ -2,5 +2,7 @@
 
 Customeridtrans = int
 """
-Payabli-generated unique ID of customer owner of transaction. Returns `0` if the transaction wasn't assigned to an existing customer or no customer was created.
+Payabli-generated unique ID of customer owner of transaction. Returns `0`
+if the transaction wasn't assigned to an existing customer or no customer
+was created.
 """

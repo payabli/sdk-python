@@ -2,5 +2,6 @@
 
 Entry = str
 """
-The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
+The entity's entrypoint identifier.
+[Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry).
 """

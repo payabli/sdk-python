@@ -11,6 +11,11 @@ from .response_text import ResponseText
 
 
 class PayabliApiResponseGeneric2Part(UniversalBaseModel):
+    """
+    Minimal response wrapper used by approval-style endpoints that don't carry
+    the standard response envelope.
+    """
+
     is_success: typing_extensions.Annotated[
         typing.Optional[IsSuccess], FieldMetadata(alias="isSuccess"), pydantic.Field(alias="isSuccess")
     ] = None

@@ -13,11 +13,15 @@ from ..core.request_options import RequestOptions
 from ..core.serialization import convert_and_respect_annotation_metadata
 from ..errors.bad_request_error import BadRequestError
 from ..errors.internal_server_error import InternalServerError
+from ..errors.payment_required_error import PaymentRequiredError
 from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.account_id import AccountId
 from ..types.ach_validation import AchValidation
+from ..types.auth_response import AuthResponse
 from ..types.bill_data import BillData
+from ..types.capture_payment_details import CapturePaymentDetails
+from ..types.capture_response import CaptureResponse
 from ..types.entrypointfield import Entrypointfield
 from ..types.force_customer_creation import ForceCustomerCreation
 from ..types.idempotency_key import IdempotencyKey
@@ -26,40 +30,27 @@ from ..types.order_id import OrderId
 from ..types.orderdescription import Orderdescription
 from ..types.payabli_api_response import PayabliApiResponse
 from ..types.payabli_api_response_0 import PayabliApiResponse0
+from ..types.payabli_api_response_get_paid import PayabliApiResponseGetPaid
+from ..types.payabli_error_body import PayabliErrorBody
 from ..types.payment_detail import PaymentDetail
 from ..types.payment_detail_credit import PaymentDetailCredit
 from ..types.payment_method import PaymentMethod
 from ..types.payor_data_request import PayorDataRequest
+from ..types.receipt_response import ReceiptResponse
 from ..types.refund_detail import RefundDetail
+from ..types.refund_response import RefundResponse
+from ..types.refund_with_instructions_response import RefundWithInstructionsResponse
+from ..types.request_credit_payment_method import RequestCreditPaymentMethod
+from ..types.request_payment_validate_payment_method import RequestPaymentValidatePaymentMethod
+from ..types.reverse_response import ReverseResponse
 from ..types.source import Source
 from ..types.subdomain import Subdomain
 from ..types.subscriptionid import Subscriptionid
 from ..types.transaction_query_records_customer import TransactionQueryRecordsCustomer
-from ..v_2_money_in_types.errors.bad_request_auth_response_error_v_2 import BadRequestAuthResponseErrorV2
-from ..v_2_money_in_types.errors.bad_request_capture_response_error_v_2 import BadRequestCaptureResponseErrorV2
-from ..v_2_money_in_types.errors.bad_request_refund_response_error_v_2 import BadRequestRefundResponseErrorV2
-from ..v_2_money_in_types.errors.bad_request_void_response_error_v_2 import BadRequestVoidResponseErrorV2
-from ..v_2_money_in_types.errors.declined_auth_response_error_v_2 import DeclinedAuthResponseErrorV2
-from ..v_2_money_in_types.errors.declined_capture_response_error_v_2 import DeclinedCaptureResponseErrorV2
-from ..v_2_money_in_types.errors.declined_refund_response_error_v_2 import DeclinedRefundResponseErrorV2
-from ..v_2_money_in_types.errors.declined_void_response_error_v_2 import DeclinedVoidResponseErrorV2
-from ..v_2_money_in_types.errors.internal_server_response_error_v_2 import InternalServerResponseErrorV2
-from ..v_2_money_in_types.types.v_2_bad_request_error import V2BadRequestError
-from ..v_2_money_in_types.types.v_2_declined_transaction_response_wrapper import V2DeclinedTransactionResponseWrapper
-from ..v_2_money_in_types.types.v_2_internal_server_error import V2InternalServerError
-from ..v_2_money_in_types.types.v_2_transaction_response_wrapper import V2TransactionResponseWrapper
-from .types.auth_response import AuthResponse
-from .types.capture_payment_details import CapturePaymentDetails
-from .types.capture_response import CaptureResponse
-from .types.payabli_api_response_get_paid import PayabliApiResponseGetPaid
-from .types.receipt_response import ReceiptResponse
-from .types.refund_response import RefundResponse
-from .types.refund_with_instructions_response import RefundWithInstructionsResponse
-from .types.request_credit_payment_method import RequestCreditPaymentMethod
-from .types.request_payment_validate_payment_method import RequestPaymentValidatePaymentMethod
-from .types.reverse_response import ReverseResponse
-from .types.validate_response import ValidateResponse
-from .types.void_response import VoidResponse
+from ..types.v_2_declined_transaction_response_wrapper import V2DeclinedTransactionResponseWrapper
+from ..types.v_2_transaction_response_wrapper import V2TransactionResponseWrapper
+from ..types.validate_response import ValidateResponse
+from ..types.void_response import VoidResponse
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -105,8 +96,10 @@ class RawMoneyInClient:
             Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer. Defaults to `false`.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         account_id : typing.Optional[AccountId]
 
@@ -198,9 +191,9 @@ class RawMoneyInClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -220,9 +213,9 @@ class RawMoneyInClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -293,9 +286,9 @@ class RawMoneyInClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -315,9 +308,9 @@ class RawMoneyInClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -370,6 +363,9 @@ class RawMoneyInClient:
                     object_=payment_details, annotation=CapturePaymentDetails, direction="write"
                 ),
             },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -398,9 +394,9 @@ class RawMoneyInClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -420,9 +416,9 @@ class RawMoneyInClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -468,8 +464,10 @@ class RawMoneyInClient:
             Object describing the ACH payment method to use for transaction.
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer. Defaults to `false`.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         account_id : typing.Optional[AccountId]
 
@@ -548,9 +546,9 @@ class RawMoneyInClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -570,9 +568,9 @@ class RawMoneyInClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -635,9 +633,9 @@ class RawMoneyInClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -657,9 +655,9 @@ class RawMoneyInClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -711,13 +709,16 @@ class RawMoneyInClient:
             Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.
 
         ach_validation : typing.Optional[AchValidation]
+            When `true`, enables real-time validation of ACH account and routing numbers. This is an add-on feature, contact Payabli for more information.
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer. Defaults to `false`.
 
         include_details : typing.Optional[bool]
             When `true`, transactionDetails object is returned in the response. See a full example of the `transactionDetails` object in the [Transaction integration guide](/developers/developer-guides/money-in-transaction-add#includedetailstrue-response).
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         validation_code : typing.Optional[str]
             Value obtained from user when an API generated CAPTCHA is used in payment page
@@ -815,9 +816,9 @@ class RawMoneyInClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -837,9 +838,9 @@ class RawMoneyInClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -865,7 +866,6 @@ class RawMoneyInClient:
             ReferenceId for the transaction (PaymentId).
 
         amount : float
-
             Amount to reverse from original transaction, minus any service fees charged on the original transaction.
 
             The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was $90 plus a $10 service fee, you can reverse up to $90.
@@ -910,9 +910,9 @@ class RawMoneyInClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -932,9 +932,9 @@ class RawMoneyInClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -964,7 +964,6 @@ class RawMoneyInClient:
             ReferenceId for the transaction (PaymentId).
 
         amount : float
-
             Amount to refund from original transaction, minus any service fees charged on the original transaction.
 
             The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was \\$90 plus a \\$10 service fee, you can refund up to \\$90.
@@ -1009,9 +1008,9 @@ class RawMoneyInClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1031,9 +1030,9 @@ class RawMoneyInClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1069,9 +1068,9 @@ class RawMoneyInClient:
             ReferenceId for the transaction (PaymentId).
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         amount : typing.Optional[float]
-
             Amount to refund from original transaction, minus any service fees charged on the original transaction.
 
             The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was $90 plus a $10 service fee, you can refund up to $90.
@@ -1141,9 +1140,9 @@ class RawMoneyInClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1163,9 +1162,9 @@ class RawMoneyInClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1228,9 +1227,9 @@ class RawMoneyInClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1250,9 +1249,9 @@ class RawMoneyInClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1327,9 +1326,9 @@ class RawMoneyInClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1349,9 +1348,9 @@ class RawMoneyInClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1387,6 +1386,7 @@ class RawMoneyInClient:
             Object describing payment method to use for transaction.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         account_id : typing.Optional[AccountId]
 
@@ -1446,9 +1446,9 @@ class RawMoneyInClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1468,9 +1468,9 @@ class RawMoneyInClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1537,9 +1537,9 @@ class RawMoneyInClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1559,9 +1559,9 @@ class RawMoneyInClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1608,10 +1608,13 @@ class RawMoneyInClient:
             Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.
 
         ach_validation : typing.Optional[AchValidation]
+            When `true`, enables real-time validation of ACH account and routing numbers. This is an add-on feature, contact Payabli for more information.
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer. Defaults to `false`.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         validation_code : typing.Optional[str]
             Value obtained from user when an API generated CAPTCHA is used in payment page
@@ -1694,18 +1697,7 @@ class RawMoneyInClient:
                 )
                 return HttpResponse(response=_response, data=_data)
             if _response.status_code == 400:
-                raise BadRequestAuthResponseErrorV2(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        V2BadRequestError,
-                        parse_obj_as(
-                            type_=V2BadRequestError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
+                raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -1715,8 +1707,19 @@ class RawMoneyInClient:
                         ),
                     ),
                 )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 402:
-                raise DeclinedAuthResponseErrorV2(
+                raise PaymentRequiredError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         V2DeclinedTransactionResponseWrapper,
@@ -1727,12 +1730,12 @@ class RawMoneyInClient:
                     ),
                 )
             if _response.status_code == 500:
-                raise InternalServerResponseErrorV2(
+                raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        V2InternalServerError,
+                        typing.Any,
                         parse_obj_as(
-                            type_=V2InternalServerError,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1779,8 +1782,10 @@ class RawMoneyInClient:
             Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer. Defaults to `false`.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         account_id : typing.Optional[AccountId]
 
@@ -1858,18 +1863,7 @@ class RawMoneyInClient:
                 )
                 return HttpResponse(response=_response, data=_data)
             if _response.status_code == 400:
-                raise BadRequestAuthResponseErrorV2(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        V2BadRequestError,
-                        parse_obj_as(
-                            type_=V2BadRequestError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
+                raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -1879,8 +1873,19 @@ class RawMoneyInClient:
                         ),
                     ),
                 )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 402:
-                raise DeclinedAuthResponseErrorV2(
+                raise PaymentRequiredError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         V2DeclinedTransactionResponseWrapper,
@@ -1891,12 +1896,12 @@ class RawMoneyInClient:
                     ),
                 )
             if _response.status_code == 500:
-                raise InternalServerResponseErrorV2(
+                raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        V2InternalServerError,
+                        typing.Any,
                         parse_obj_as(
-                            type_=V2InternalServerError,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1960,18 +1965,7 @@ class RawMoneyInClient:
                 )
                 return HttpResponse(response=_response, data=_data)
             if _response.status_code == 400:
-                raise BadRequestCaptureResponseErrorV2(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        V2BadRequestError,
-                        parse_obj_as(
-                            type_=V2BadRequestError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
+                raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -1981,8 +1975,19 @@ class RawMoneyInClient:
                         ),
                     ),
                 )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 402:
-                raise DeclinedCaptureResponseErrorV2(
+                raise PaymentRequiredError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         V2DeclinedTransactionResponseWrapper,
@@ -1993,12 +1998,12 @@ class RawMoneyInClient:
                     ),
                 )
             if _response.status_code == 500:
-                raise InternalServerResponseErrorV2(
+                raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        V2InternalServerError,
+                        typing.Any,
                         parse_obj_as(
-                            type_=V2InternalServerError,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2049,18 +2054,7 @@ class RawMoneyInClient:
                 )
                 return HttpResponse(response=_response, data=_data)
             if _response.status_code == 400:
-                raise BadRequestRefundResponseErrorV2(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        V2BadRequestError,
-                        parse_obj_as(
-                            type_=V2BadRequestError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
+                raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -2070,8 +2064,19 @@ class RawMoneyInClient:
                         ),
                     ),
                 )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 402:
-                raise DeclinedRefundResponseErrorV2(
+                raise PaymentRequiredError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         V2DeclinedTransactionResponseWrapper,
@@ -2082,12 +2087,12 @@ class RawMoneyInClient:
                     ),
                 )
             if _response.status_code == 500:
-                raise InternalServerResponseErrorV2(
+                raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        V2InternalServerError,
+                        typing.Any,
                         parse_obj_as(
-                            type_=V2InternalServerError,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2141,18 +2146,7 @@ class RawMoneyInClient:
                 )
                 return HttpResponse(response=_response, data=_data)
             if _response.status_code == 400:
-                raise BadRequestRefundResponseErrorV2(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        V2BadRequestError,
-                        parse_obj_as(
-                            type_=V2BadRequestError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
+                raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -2162,8 +2156,19 @@ class RawMoneyInClient:
                         ),
                     ),
                 )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 402:
-                raise DeclinedRefundResponseErrorV2(
+                raise PaymentRequiredError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         V2DeclinedTransactionResponseWrapper,
@@ -2174,12 +2179,12 @@ class RawMoneyInClient:
                     ),
                 )
             if _response.status_code == 500:
-                raise InternalServerResponseErrorV2(
+                raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        V2InternalServerError,
+                        typing.Any,
                         parse_obj_as(
-                            type_=V2InternalServerError,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2228,18 +2233,7 @@ class RawMoneyInClient:
                 )
                 return HttpResponse(response=_response, data=_data)
             if _response.status_code == 400:
-                raise BadRequestVoidResponseErrorV2(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        V2BadRequestError,
-                        parse_obj_as(
-                            type_=V2BadRequestError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
+                raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -2249,8 +2243,19 @@ class RawMoneyInClient:
                         ),
                     ),
                 )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 402:
-                raise DeclinedVoidResponseErrorV2(
+                raise PaymentRequiredError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         V2DeclinedTransactionResponseWrapper,
@@ -2261,12 +2266,12 @@ class RawMoneyInClient:
                     ),
                 )
             if _response.status_code == 500:
-                raise InternalServerResponseErrorV2(
+                raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        V2InternalServerError,
+                        typing.Any,
                         parse_obj_as(
-                            type_=V2InternalServerError,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2320,8 +2325,10 @@ class AsyncRawMoneyInClient:
             Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer. Defaults to `false`.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         account_id : typing.Optional[AccountId]
 
@@ -2413,9 +2420,9 @@ class AsyncRawMoneyInClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2435,9 +2442,9 @@ class AsyncRawMoneyInClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2508,9 +2515,9 @@ class AsyncRawMoneyInClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2530,9 +2537,9 @@ class AsyncRawMoneyInClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2585,6 +2592,9 @@ class AsyncRawMoneyInClient:
                     object_=payment_details, annotation=CapturePaymentDetails, direction="write"
                 ),
             },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -2613,9 +2623,9 @@ class AsyncRawMoneyInClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2635,9 +2645,9 @@ class AsyncRawMoneyInClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2683,8 +2693,10 @@ class AsyncRawMoneyInClient:
             Object describing the ACH payment method to use for transaction.
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer. Defaults to `false`.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         account_id : typing.Optional[AccountId]
 
@@ -2763,9 +2775,9 @@ class AsyncRawMoneyInClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2785,9 +2797,9 @@ class AsyncRawMoneyInClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2850,9 +2862,9 @@ class AsyncRawMoneyInClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2872,9 +2884,9 @@ class AsyncRawMoneyInClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2926,13 +2938,16 @@ class AsyncRawMoneyInClient:
             Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.
 
         ach_validation : typing.Optional[AchValidation]
+            When `true`, enables real-time validation of ACH account and routing numbers. This is an add-on feature, contact Payabli for more information.
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer. Defaults to `false`.
 
         include_details : typing.Optional[bool]
             When `true`, transactionDetails object is returned in the response. See a full example of the `transactionDetails` object in the [Transaction integration guide](/developers/developer-guides/money-in-transaction-add#includedetailstrue-response).
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         validation_code : typing.Optional[str]
             Value obtained from user when an API generated CAPTCHA is used in payment page
@@ -3030,9 +3045,9 @@ class AsyncRawMoneyInClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3052,9 +3067,9 @@ class AsyncRawMoneyInClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3080,7 +3095,6 @@ class AsyncRawMoneyInClient:
             ReferenceId for the transaction (PaymentId).
 
         amount : float
-
             Amount to reverse from original transaction, minus any service fees charged on the original transaction.
 
             The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was $90 plus a $10 service fee, you can reverse up to $90.
@@ -3125,9 +3139,9 @@ class AsyncRawMoneyInClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3147,9 +3161,9 @@ class AsyncRawMoneyInClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3179,7 +3193,6 @@ class AsyncRawMoneyInClient:
             ReferenceId for the transaction (PaymentId).
 
         amount : float
-
             Amount to refund from original transaction, minus any service fees charged on the original transaction.
 
             The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was \\$90 plus a \\$10 service fee, you can refund up to \\$90.
@@ -3224,9 +3237,9 @@ class AsyncRawMoneyInClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3246,9 +3259,9 @@ class AsyncRawMoneyInClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3284,9 +3297,9 @@ class AsyncRawMoneyInClient:
             ReferenceId for the transaction (PaymentId).
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         amount : typing.Optional[float]
-
             Amount to refund from original transaction, minus any service fees charged on the original transaction.
 
             The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was $90 plus a $10 service fee, you can refund up to $90.
@@ -3356,9 +3369,9 @@ class AsyncRawMoneyInClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3378,9 +3391,9 @@ class AsyncRawMoneyInClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3443,9 +3456,9 @@ class AsyncRawMoneyInClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3465,9 +3478,9 @@ class AsyncRawMoneyInClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3542,9 +3555,9 @@ class AsyncRawMoneyInClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3564,9 +3577,9 @@ class AsyncRawMoneyInClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3602,6 +3615,7 @@ class AsyncRawMoneyInClient:
             Object describing payment method to use for transaction.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         account_id : typing.Optional[AccountId]
 
@@ -3661,9 +3675,9 @@ class AsyncRawMoneyInClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3683,9 +3697,9 @@ class AsyncRawMoneyInClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3752,9 +3766,9 @@ class AsyncRawMoneyInClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3774,9 +3788,9 @@ class AsyncRawMoneyInClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3823,10 +3837,13 @@ class AsyncRawMoneyInClient:
             Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.
 
         ach_validation : typing.Optional[AchValidation]
+            When `true`, enables real-time validation of ACH account and routing numbers. This is an add-on feature, contact Payabli for more information.
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer. Defaults to `false`.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         validation_code : typing.Optional[str]
             Value obtained from user when an API generated CAPTCHA is used in payment page
@@ -3909,18 +3926,7 @@ class AsyncRawMoneyInClient:
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 400:
-                raise BadRequestAuthResponseErrorV2(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        V2BadRequestError,
-                        parse_obj_as(
-                            type_=V2BadRequestError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
+                raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -3930,8 +3936,19 @@ class AsyncRawMoneyInClient:
                         ),
                     ),
                 )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 402:
-                raise DeclinedAuthResponseErrorV2(
+                raise PaymentRequiredError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         V2DeclinedTransactionResponseWrapper,
@@ -3942,12 +3959,12 @@ class AsyncRawMoneyInClient:
                     ),
                 )
             if _response.status_code == 500:
-                raise InternalServerResponseErrorV2(
+                raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        V2InternalServerError,
+                        typing.Any,
                         parse_obj_as(
-                            type_=V2InternalServerError,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -3994,8 +4011,10 @@ class AsyncRawMoneyInClient:
             Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer. Defaults to `false`.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         account_id : typing.Optional[AccountId]
 
@@ -4073,18 +4092,7 @@ class AsyncRawMoneyInClient:
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 400:
-                raise BadRequestAuthResponseErrorV2(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        V2BadRequestError,
-                        parse_obj_as(
-                            type_=V2BadRequestError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
+                raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -4094,8 +4102,19 @@ class AsyncRawMoneyInClient:
                         ),
                     ),
                 )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 402:
-                raise DeclinedAuthResponseErrorV2(
+                raise PaymentRequiredError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         V2DeclinedTransactionResponseWrapper,
@@ -4106,12 +4125,12 @@ class AsyncRawMoneyInClient:
                     ),
                 )
             if _response.status_code == 500:
-                raise InternalServerResponseErrorV2(
+                raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        V2InternalServerError,
+                        typing.Any,
                         parse_obj_as(
-                            type_=V2InternalServerError,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -4175,18 +4194,7 @@ class AsyncRawMoneyInClient:
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 400:
-                raise BadRequestCaptureResponseErrorV2(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        V2BadRequestError,
-                        parse_obj_as(
-                            type_=V2BadRequestError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
+                raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -4196,8 +4204,19 @@ class AsyncRawMoneyInClient:
                         ),
                     ),
                 )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 402:
-                raise DeclinedCaptureResponseErrorV2(
+                raise PaymentRequiredError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         V2DeclinedTransactionResponseWrapper,
@@ -4208,12 +4227,12 @@ class AsyncRawMoneyInClient:
                     ),
                 )
             if _response.status_code == 500:
-                raise InternalServerResponseErrorV2(
+                raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        V2InternalServerError,
+                        typing.Any,
                         parse_obj_as(
-                            type_=V2InternalServerError,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -4264,18 +4283,7 @@ class AsyncRawMoneyInClient:
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 400:
-                raise BadRequestRefundResponseErrorV2(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        V2BadRequestError,
-                        parse_obj_as(
-                            type_=V2BadRequestError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
+                raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -4285,8 +4293,19 @@ class AsyncRawMoneyInClient:
                         ),
                     ),
                 )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 402:
-                raise DeclinedRefundResponseErrorV2(
+                raise PaymentRequiredError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         V2DeclinedTransactionResponseWrapper,
@@ -4297,12 +4316,12 @@ class AsyncRawMoneyInClient:
                     ),
                 )
             if _response.status_code == 500:
-                raise InternalServerResponseErrorV2(
+                raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        V2InternalServerError,
+                        typing.Any,
                         parse_obj_as(
-                            type_=V2InternalServerError,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -4356,18 +4375,7 @@ class AsyncRawMoneyInClient:
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 400:
-                raise BadRequestRefundResponseErrorV2(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        V2BadRequestError,
-                        parse_obj_as(
-                            type_=V2BadRequestError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
+                raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -4377,8 +4385,19 @@ class AsyncRawMoneyInClient:
                         ),
                     ),
                 )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 402:
-                raise DeclinedRefundResponseErrorV2(
+                raise PaymentRequiredError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         V2DeclinedTransactionResponseWrapper,
@@ -4389,12 +4408,12 @@ class AsyncRawMoneyInClient:
                     ),
                 )
             if _response.status_code == 500:
-                raise InternalServerResponseErrorV2(
+                raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        V2InternalServerError,
+                        typing.Any,
                         parse_obj_as(
-                            type_=V2InternalServerError,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -4443,18 +4462,7 @@ class AsyncRawMoneyInClient:
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 400:
-                raise BadRequestVoidResponseErrorV2(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        V2BadRequestError,
-                        parse_obj_as(
-                            type_=V2BadRequestError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
+                raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -4464,8 +4472,19 @@ class AsyncRawMoneyInClient:
                         ),
                     ),
                 )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 402:
-                raise DeclinedVoidResponseErrorV2(
+                raise PaymentRequiredError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         V2DeclinedTransactionResponseWrapper,
@@ -4476,12 +4495,12 @@ class AsyncRawMoneyInClient:
                     ),
                 )
             if _response.status_code == 500:
-                raise InternalServerResponseErrorV2(
+                raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        V2InternalServerError,
+                        typing.Any,
                         parse_obj_as(
-                            type_=V2InternalServerError,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

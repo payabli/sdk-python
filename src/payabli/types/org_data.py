@@ -29,7 +29,7 @@ class OrgData(UniversalBaseModel):
     org_status: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="orgStatus"),
-        pydantic.Field(alias="orgStatus", description="The paypoint's status. \n\nActive - `1`\n\nInactive - 0"),
+        pydantic.Field(alias="orgStatus", description="The paypoint's status.\nActive - `1`\nInactive - 0"),
     ] = None
     org_type: typing_extensions.Annotated[
         typing.Optional[Orgtype], FieldMetadata(alias="orgType"), pydantic.Field(alias="orgType")

@@ -7,12 +7,13 @@ import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 from .device import Device
+from .pay_method_cloud_method import PayMethodCloudMethod
 from .save_if_success import SaveIfSuccess
 
 
 class PayMethodCloud(UniversalBaseModel):
     device: typing.Optional[Device] = None
-    method: typing.Literal["cloud"] = pydantic.Field(default="cloud")
+    method: PayMethodCloudMethod = pydantic.Field()
     """
     Method to use for the transaction. For cloud device transactions, the method is `cloud`.
     """

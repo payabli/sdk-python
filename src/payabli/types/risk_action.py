@@ -2,5 +2,5 @@
 
 RiskAction = str
 """
-Action taken due to risk assessment
+Action taken due to risk assessment.
 """

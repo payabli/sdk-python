@@ -2,9 +2,10 @@
 
 UsrStatus = int
 """
-The user's status: 
-  - Inactive:    0
-  - Active:    1
-  - Deleted:    -99
-  - Locked:    85
+The user's status:
+
+- Inactive: `0`
+- Active: `1`
+- Deleted: `-99`
+- Locked: `85`
 """

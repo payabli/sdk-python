@@ -2,5 +2,6 @@
 
 CustomerNumberNullable = str
 """
-User-provided unique identifier for the customer. This is typically the customer ID from your own system.
+User-provided unique identifier for the customer. This is typically the
+customer ID from your own system.
 """

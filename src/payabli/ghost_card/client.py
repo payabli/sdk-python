@@ -4,11 +4,11 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
+from ..types.card_status import CardStatus
+from ..types.create_ghost_card_response import CreateGhostCardResponse
 from ..types.entry import Entry
 from ..types.payabli_api_response import PayabliApiResponse
 from .raw_client import AsyncRawGhostCardClient, RawGhostCardClient
-from .types.card_status import CardStatus
-from .types.create_ghost_card_response import CreateGhostCardResponse
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -61,6 +61,7 @@ class GhostCardClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         vendor_id : int
             ID of the vendor who receives the card. The vendor must belong to the paypoint and have an active status.
@@ -126,8 +127,8 @@ class GhostCardClient:
             api_key="YOUR_API_KEY",
         )
         client.ghost_card.create_ghost_card(
-            entry="8cfec2e0fa",
-            vendor_id=42,
+            entry="8cfec329267",
+            vendor_id=456,
             expense_limit=500.0,
             amount=500.0,
             max_number_of_uses=3,
@@ -180,6 +181,7 @@ class GhostCardClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         card_token : str
             Token that uniquely identifies the card. This is the `ReferenceId` returned when the card was created.
@@ -203,7 +205,7 @@ class GhostCardClient:
             api_key="YOUR_API_KEY",
         )
         client.ghost_card.update_card(
-            entry="8cfec2e0fa",
+            entry="8cfec329267",
             card_token="gc_abc123def456",
             status="Cancelled",
         )
@@ -261,6 +263,7 @@ class AsyncGhostCardClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         vendor_id : int
             ID of the vendor who receives the card. The vendor must belong to the paypoint and have an active status.
@@ -331,8 +334,8 @@ class AsyncGhostCardClient:
 
         async def main() -> None:
             await client.ghost_card.create_ghost_card(
-                entry="8cfec2e0fa",
-                vendor_id=42,
+                entry="8cfec329267",
+                vendor_id=456,
                 expense_limit=500.0,
                 amount=500.0,
                 max_number_of_uses=3,
@@ -388,6 +391,7 @@ class AsyncGhostCardClient:
         Parameters
         ----------
         entry : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         card_token : str
             Token that uniquely identifies the card. This is the `ReferenceId` returned when the card was created.
@@ -416,7 +420,7 @@ class AsyncGhostCardClient:
 
         async def main() -> None:
             await client.ghost_card.update_card(
-                entry="8cfec2e0fa",
+                entry="8cfec329267",
                 card_token="gc_abc123def456",
                 status="Cancelled",
             )

@@ -16,17 +16,17 @@ from ..errors.internal_server_error import InternalServerError
 from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.add_payment_method_domain_api_response import AddPaymentMethodDomainApiResponse
+from ..types.add_payment_method_domain_request_apple_pay import AddPaymentMethodDomainRequestApplePay
+from ..types.add_payment_method_domain_request_google_pay import AddPaymentMethodDomainRequestGooglePay
+from ..types.delete_payment_method_domain_response import DeletePaymentMethodDomainResponse
 from ..types.domain_name import DomainName
 from ..types.entity_id import EntityId
 from ..types.entity_type import EntityType
-from ..types.payabli_api_response import PayabliApiResponse
+from ..types.list_payment_method_domains_response import ListPaymentMethodDomainsResponse
+from ..types.payabli_error_body import PayabliErrorBody
 from ..types.payment_method_domain_api_response import PaymentMethodDomainApiResponse
 from ..types.payment_method_domain_general_response import PaymentMethodDomainGeneralResponse
-from .types.add_payment_method_domain_request_apple_pay import AddPaymentMethodDomainRequestApplePay
-from .types.add_payment_method_domain_request_google_pay import AddPaymentMethodDomainRequestGooglePay
-from .types.delete_payment_method_domain_response import DeletePaymentMethodDomainResponse
-from .types.list_payment_method_domains_response import ListPaymentMethodDomainsResponse
-from .types.update_payment_method_domain_request_wallet import UpdatePaymentMethodDomainRequestWallet
+from ..types.update_payment_method_domain_request_wallet import UpdatePaymentMethodDomainRequestWallet
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -117,9 +117,9 @@ class RawPaymentMethodDomainClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -139,9 +139,9 @@ class RawPaymentMethodDomainClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -204,9 +204,9 @@ class RawPaymentMethodDomainClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -226,96 +226,9 @@ class RawPaymentMethodDomainClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def delete_payment_method_domain(
-        self, domain_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[DeletePaymentMethodDomainResponse]:
-        """
-        Delete a payment method domain. You can't delete an inherited domain, you must delete a domain at the organization level.
-
-        Parameters
-        ----------
-        domain_id : str
-            The payment method domain's ID in Payabli.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[DeletePaymentMethodDomainResponse]
-            Success response for a deleted payment method domain.
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"PaymentMethodDomain/{encode_path_param(domain_id)}",
-            method="DELETE",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    DeletePaymentMethodDomainResponse,
-                    parse_obj_as(
-                        type_=DeletePaymentMethodDomainResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -378,9 +291,9 @@ class RawPaymentMethodDomainClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -400,9 +313,204 @@ class RawPaymentMethodDomainClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def delete_payment_method_domain(
+        self, domain_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[DeletePaymentMethodDomainResponse]:
+        """
+        Delete a payment method domain. You can't delete an inherited domain, you must delete a domain at the organization level.
+
+        Parameters
+        ----------
+        domain_id : str
+            The payment method domain's ID in Payabli.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[DeletePaymentMethodDomainResponse]
+            Success response for a deleted payment method domain.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"PaymentMethodDomain/{encode_path_param(domain_id)}",
+            method="DELETE",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    DeletePaymentMethodDomainResponse,
+                    parse_obj_as(
+                        type_=DeletePaymentMethodDomainResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def update_payment_method_domain(
+        self,
+        domain_id: str,
+        *,
+        apple_pay: typing.Optional[UpdatePaymentMethodDomainRequestWallet] = OMIT,
+        google_pay: typing.Optional[UpdatePaymentMethodDomainRequestWallet] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[PaymentMethodDomainGeneralResponse]:
+        """
+        Update a payment method domain's configuration values.
+
+        Parameters
+        ----------
+        domain_id : str
+            The payment method domain's ID in Payabli.
+
+        apple_pay : typing.Optional[UpdatePaymentMethodDomainRequestWallet]
+
+        google_pay : typing.Optional[UpdatePaymentMethodDomainRequestWallet]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[PaymentMethodDomainGeneralResponse]
+            Success response for configuration update.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"PaymentMethodDomain/{encode_path_param(domain_id)}",
+            method="PATCH",
+            json={
+                "applePay": convert_and_respect_annotation_metadata(
+                    object_=apple_pay, annotation=UpdatePaymentMethodDomainRequestWallet, direction="write"
+                ),
+                "googlePay": convert_and_respect_annotation_metadata(
+                    object_=google_pay, annotation=UpdatePaymentMethodDomainRequestWallet, direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PaymentMethodDomainGeneralResponse,
+                    parse_obj_as(
+                        type_=PaymentMethodDomainGeneralResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -490,9 +598,9 @@ class RawPaymentMethodDomainClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -512,117 +620,9 @@ class RawPaymentMethodDomainClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def update_payment_method_domain(
-        self,
-        domain_id: str,
-        *,
-        apple_pay: typing.Optional[UpdatePaymentMethodDomainRequestWallet] = OMIT,
-        google_pay: typing.Optional[UpdatePaymentMethodDomainRequestWallet] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaymentMethodDomainGeneralResponse]:
-        """
-        Update a payment method domain's configuration values.
-
-        Parameters
-        ----------
-        domain_id : str
-            The payment method domain's ID in Payabli.
-
-        apple_pay : typing.Optional[UpdatePaymentMethodDomainRequestWallet]
-
-        google_pay : typing.Optional[UpdatePaymentMethodDomainRequestWallet]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[PaymentMethodDomainGeneralResponse]
-            Success response for configuration update.
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"PaymentMethodDomain/{encode_path_param(domain_id)}",
-            method="PATCH",
-            json={
-                "applePay": convert_and_respect_annotation_metadata(
-                    object_=apple_pay, annotation=UpdatePaymentMethodDomainRequestWallet, direction="write"
-                ),
-                "googlePay": convert_and_respect_annotation_metadata(
-                    object_=google_pay, annotation=UpdatePaymentMethodDomainRequestWallet, direction="write"
-                ),
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    PaymentMethodDomainGeneralResponse,
-                    parse_obj_as(
-                        type_=PaymentMethodDomainGeneralResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -764,9 +764,9 @@ class AsyncRawPaymentMethodDomainClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -786,9 +786,9 @@ class AsyncRawPaymentMethodDomainClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -851,9 +851,9 @@ class AsyncRawPaymentMethodDomainClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -873,96 +873,9 @@ class AsyncRawPaymentMethodDomainClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def delete_payment_method_domain(
-        self, domain_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[DeletePaymentMethodDomainResponse]:
-        """
-        Delete a payment method domain. You can't delete an inherited domain, you must delete a domain at the organization level.
-
-        Parameters
-        ----------
-        domain_id : str
-            The payment method domain's ID in Payabli.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[DeletePaymentMethodDomainResponse]
-            Success response for a deleted payment method domain.
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"PaymentMethodDomain/{encode_path_param(domain_id)}",
-            method="DELETE",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    DeletePaymentMethodDomainResponse,
-                    parse_obj_as(
-                        type_=DeletePaymentMethodDomainResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1025,9 +938,9 @@ class AsyncRawPaymentMethodDomainClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1047,9 +960,204 @@ class AsyncRawPaymentMethodDomainClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def delete_payment_method_domain(
+        self, domain_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[DeletePaymentMethodDomainResponse]:
+        """
+        Delete a payment method domain. You can't delete an inherited domain, you must delete a domain at the organization level.
+
+        Parameters
+        ----------
+        domain_id : str
+            The payment method domain's ID in Payabli.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[DeletePaymentMethodDomainResponse]
+            Success response for a deleted payment method domain.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"PaymentMethodDomain/{encode_path_param(domain_id)}",
+            method="DELETE",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    DeletePaymentMethodDomainResponse,
+                    parse_obj_as(
+                        type_=DeletePaymentMethodDomainResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def update_payment_method_domain(
+        self,
+        domain_id: str,
+        *,
+        apple_pay: typing.Optional[UpdatePaymentMethodDomainRequestWallet] = OMIT,
+        google_pay: typing.Optional[UpdatePaymentMethodDomainRequestWallet] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[PaymentMethodDomainGeneralResponse]:
+        """
+        Update a payment method domain's configuration values.
+
+        Parameters
+        ----------
+        domain_id : str
+            The payment method domain's ID in Payabli.
+
+        apple_pay : typing.Optional[UpdatePaymentMethodDomainRequestWallet]
+
+        google_pay : typing.Optional[UpdatePaymentMethodDomainRequestWallet]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[PaymentMethodDomainGeneralResponse]
+            Success response for configuration update.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"PaymentMethodDomain/{encode_path_param(domain_id)}",
+            method="PATCH",
+            json={
+                "applePay": convert_and_respect_annotation_metadata(
+                    object_=apple_pay, annotation=UpdatePaymentMethodDomainRequestWallet, direction="write"
+                ),
+                "googlePay": convert_and_respect_annotation_metadata(
+                    object_=google_pay, annotation=UpdatePaymentMethodDomainRequestWallet, direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PaymentMethodDomainGeneralResponse,
+                    parse_obj_as(
+                        type_=PaymentMethodDomainGeneralResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1137,9 +1245,9 @@ class AsyncRawPaymentMethodDomainClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1159,117 +1267,9 @@ class AsyncRawPaymentMethodDomainClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def update_payment_method_domain(
-        self,
-        domain_id: str,
-        *,
-        apple_pay: typing.Optional[UpdatePaymentMethodDomainRequestWallet] = OMIT,
-        google_pay: typing.Optional[UpdatePaymentMethodDomainRequestWallet] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaymentMethodDomainGeneralResponse]:
-        """
-        Update a payment method domain's configuration values.
-
-        Parameters
-        ----------
-        domain_id : str
-            The payment method domain's ID in Payabli.
-
-        apple_pay : typing.Optional[UpdatePaymentMethodDomainRequestWallet]
-
-        google_pay : typing.Optional[UpdatePaymentMethodDomainRequestWallet]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[PaymentMethodDomainGeneralResponse]
-            Success response for configuration update.
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"PaymentMethodDomain/{encode_path_param(domain_id)}",
-            method="PATCH",
-            json={
-                "applePay": convert_and_respect_annotation_metadata(
-                    object_=apple_pay, annotation=UpdatePaymentMethodDomainRequestWallet, direction="write"
-                ),
-                "googlePay": convert_and_respect_annotation_metadata(
-                    object_=google_pay, annotation=UpdatePaymentMethodDomainRequestWallet, direction="write"
-                ),
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    PaymentMethodDomainGeneralResponse,
-                    parse_obj_as(
-                        type_=PaymentMethodDomainGeneralResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

@@ -14,19 +14,20 @@ class LinkData(UniversalBaseModel):
     rq: typing.Optional[RequiredElement] = None
     validator: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The type of validation applied to the field. Available values: 
-    - text
-    - alpha
-    - ein
-    - url
-    - phone
-    - alphanumeric
-    - zipcode
-    - numbers
-    - float
-    - ssn
-    - email
-    - routing
+    The type of validation applied to the field. Available values:
+    
+    - `text`
+    - `alpha`
+    - `ein`
+    - `url`
+    - `phone`
+    - `alphanumeric`
+    - `zipcode`
+    - `numbers`
+    - `float`
+    - `ssn`
+    - `email`
+    - `routing`
     """
 
     value: typing.Optional[ValueTemplates] = None

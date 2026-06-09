@@ -2,4 +2,4 @@
 
 import typing
 
-PayMethodStoredMethodMethod = typing.Union[typing.Literal["card", "ach"], typing.Any]
+PayMethodStoredMethodMethod = typing.Union[typing.Literal["card", "ach", "wallet"], typing.Any]

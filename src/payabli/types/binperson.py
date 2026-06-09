@@ -2,5 +2,6 @@
 
 Binperson = int
 """
-Numeric percent of volume processed in person. To pass validation, `binperson`, `binweb`, and `binphone` must total 100 together.
+Numeric percent of volume processed in person. To pass validation,
+`binperson`, `binweb`, and `binphone` must total 100 together.
 """

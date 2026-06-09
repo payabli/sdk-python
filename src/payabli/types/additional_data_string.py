@@ -2,7 +2,8 @@
 
 AdditionalDataString = str
 """
-Custom dictionary of key:value pairs. You can use this field to store any data related to the object or for your system. Example usage: 
+Custom dictionary of key:value pairs. You can use this field to store any
+data related to the object or for your system. Example usage:
 
 ```json
 {

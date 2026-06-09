@@ -2,5 +2,6 @@
 
 MfaValidationCode = str
 """
-The validation code for multi-factor authentication, typically a hash or similar encrypted format.
+The validation code for multi-factor authentication, typically a hash or
+similar encrypted format.
 """

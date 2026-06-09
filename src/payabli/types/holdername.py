@@ -2,5 +2,5 @@
 
 Holdername = str
 """
-Account holder name for the method.
+The cardholder name.
 """

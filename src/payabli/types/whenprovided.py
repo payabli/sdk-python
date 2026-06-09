@@ -2,4 +2,4 @@
 
 import typing
 
-Whenprovided = typing.Union[typing.Literal["30 Days or Less", "31 to 60 Days", "60+ Days"], typing.Any]
+Whenprovided = typing.Union[typing.Literal["30 Days or Less", "31 to 60 Days"], typing.Any]

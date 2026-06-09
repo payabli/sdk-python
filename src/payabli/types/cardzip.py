@@ -2,5 +2,6 @@
 
 Cardzip = str
 """
-ZIP or postal code for the billing address of cardholder. We **strongly recommend** that you include this field when using `card` as a method.
+ZIP or postal code for the billing address of cardholder. We **strongly
+recommend** that you include this field when using `card` as a method.
 """

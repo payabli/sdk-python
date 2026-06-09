@@ -2,5 +2,6 @@
 
 IsSuccess = bool
 """
-Boolean indicating whether the operation was successful. A `true` value indicates success. A `false` value indicates failure.
+Boolean indicating whether the operation was successful. A `true` value
+indicates success. A `false` value indicates failure.
 """

@@ -2,5 +2,5 @@
 
 AppId = int
 """
-Boarding application ID. 
+Boarding application ID.
 """

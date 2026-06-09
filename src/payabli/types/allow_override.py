@@ -2,5 +2,6 @@
 
 AllowOverride = bool
 """
-Whether the configured service fee can be overridden at the transaction level.
+Whether the configured service fee can be overridden at the transaction
+level.
 """

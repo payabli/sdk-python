@@ -2,5 +2,5 @@
 
 Idpaypoint = int
 """
-Paypoint ID.
+The paypoint's ID in Payabli.
 """

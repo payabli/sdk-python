@@ -2,5 +2,5 @@
 
 SignerZip = str
 """
-The signer's zip code.
+The signer's ZIP code.
 """

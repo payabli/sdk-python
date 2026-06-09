@@ -4,9 +4,15 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
+from ..types.add_user_response import AddUserResponse
 from ..types.additional_data import AdditionalData
+from ..types.auth_reset_user_response import AuthResetUserResponse
+from ..types.change_psw_user_response import ChangePswUserResponse
+from ..types.delete_user_response import DeleteUserResponse
+from ..types.edit_mfa_user_response import EditMfaUserResponse
 from ..types.email import Email
 from ..types.language import Language
+from ..types.logout_user_response import LogoutUserResponse
 from ..types.mfa_data import MfaData
 from ..types.mfa_mode import MfaMode
 from ..types.mfa_validation_code import MfaValidationCode
@@ -21,12 +27,6 @@ from ..types.user_query_record import UserQueryRecord
 from ..types.usr_access import UsrAccess
 from ..types.usr_status import UsrStatus
 from .raw_client import AsyncRawUserClient, RawUserClient
-from .types.add_user_response import AddUserResponse
-from .types.auth_reset_user_response import AuthResetUserResponse
-from .types.change_psw_user_response import ChangePswUserResponse
-from .types.delete_user_response import DeleteUserResponse
-from .types.edit_mfa_user_response import EditMfaUserResponse
-from .types.logout_user_response import LogoutUserResponse
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -125,191 +125,34 @@ class UserClient:
         )
         return _response.data
 
-    def auth_refresh_user(
-        self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> PayabliApiResponseUserMfa:
-        """
-        Use this endpoint to refresh the authentication token for a user within an organization.
-
-        Parameters
-        ----------
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        PayabliApiResponseUserMfa
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.user.auth_refresh_user()
-        """
-        _response = self._raw_client.auth_refresh_user(request_options=request_options)
-        return _response.data
-
-    def auth_reset_user(
+    def get_user(
         self,
+        user_id: int,
         *,
-        email: typing.Optional[Email] = OMIT,
-        entry: typing.Optional[str] = OMIT,
-        entry_type: typing.Optional[int] = OMIT,
+        entry: typing.Optional[str] = None,
+        level: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AuthResetUserResponse:
+    ) -> UserQueryRecord:
         """
-        Use this endpoint to initiate a password reset for a user within an organization.
-
-        Parameters
-        ----------
-        email : typing.Optional[Email]
-            The user's email address.
-
-        entry : typing.Optional[str]
-            Identifier for entrypoint originating the request (used by front-end apps)
-
-        entry_type : typing.Optional[int]
-            Type of entry identifier: 0 - partner, 2 - paypoint. This is used by front-end apps, required if an Entry is indicated.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AuthResetUserResponse
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.user.auth_reset_user()
-        """
-        _response = self._raw_client.auth_reset_user(
-            email=email, entry=entry, entry_type=entry_type, request_options=request_options
-        )
-        return _response.data
-
-    def auth_user(
-        self,
-        provider: str,
-        *,
-        email: typing.Optional[Email] = OMIT,
-        entry: typing.Optional[str] = OMIT,
-        entry_type: typing.Optional[int] = OMIT,
-        psw: typing.Optional[str] = OMIT,
-        user_id: typing.Optional[int] = OMIT,
-        user_token_id: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> PayabliApiResponseMfaBasic:
-        """
-        This endpoint requires an application API token.
-
-        Parameters
-        ----------
-        provider : str
-            Auth provider. Pass `null` to use the built-in provider.
-
-        email : typing.Optional[Email]
-
-        entry : typing.Optional[str]
-            Identifier for entry point originating the request (used by front-end apps)
-
-        entry_type : typing.Optional[int]
-            Type of entry identifier: 0 - partner, 2 - paypoint. This is used by front-end apps, required if an Entry is indicated.
-
-        psw : typing.Optional[str]
-
-        user_id : typing.Optional[int]
-
-        user_token_id : typing.Optional[str]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        PayabliApiResponseMfaBasic
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.user.auth_user(
-            provider="provider",
-        )
-        """
-        _response = self._raw_client.auth_user(
-            provider,
-            email=email,
-            entry=entry,
-            entry_type=entry_type,
-            psw=psw,
-            user_id=user_id,
-            user_token_id=user_token_id,
-            request_options=request_options,
-        )
-        return _response.data
-
-    def change_psw_user(
-        self, *, psw: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
-    ) -> ChangePswUserResponse:
-        """
-        Use this endpoint to change the password for a user within an organization.
-
-        Parameters
-        ----------
-        psw : typing.Optional[str]
-            New User password
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ChangePswUserResponse
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.user.change_psw_user()
-        """
-        _response = self._raw_client.change_psw_user(psw=psw, request_options=request_options)
-        return _response.data
-
-    def delete_user(
-        self, user_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> DeleteUserResponse:
-        """
-        Use this endpoint to delete a specific user within an organization.
+        Use this endpoint to retrieve information about a specific user within an organization.
 
         Parameters
         ----------
         user_id : int
             The Payabli-generated `userId` value.
 
+        entry : typing.Optional[str]
+            The entrypoint identifier.
+
+        level : typing.Optional[int]
+            Entry level: 0 - partner, 2 - paypoint
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        DeleteUserResponse
+        UserQueryRecord
             Success
 
         Examples
@@ -319,53 +162,12 @@ class UserClient:
         client = payabli(
             api_key="YOUR_API_KEY",
         )
-        client.user.delete_user(
+        client.user.get_user(
             user_id=1000000,
+            entry="8cfec329267",
         )
         """
-        _response = self._raw_client.delete_user(user_id, request_options=request_options)
-        return _response.data
-
-    def edit_mfa_user(
-        self,
-        user_id: int,
-        *,
-        mfa: typing.Optional[bool] = OMIT,
-        mfa_mode: typing.Optional[MfaMode] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> EditMfaUserResponse:
-        """
-        Use this endpoint to enable or disable multi-factor authentication (MFA) for a user within an organization.
-
-        Parameters
-        ----------
-        user_id : int
-            User Identifier
-
-        mfa : typing.Optional[bool]
-
-        mfa_mode : typing.Optional[MfaMode]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        EditMfaUserResponse
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.user.edit_mfa_user(
-            user_id=1000000,
-        )
-        """
-        _response = self._raw_client.edit_mfa_user(user_id, mfa=mfa, mfa_mode=mfa_mode, request_options=request_options)
+        _response = self._raw_client.get_user(user_id, entry=entry, level=level, request_options=request_options)
         return _response.data
 
     def edit_user(
@@ -453,34 +255,23 @@ class UserClient:
         )
         return _response.data
 
-    def get_user(
-        self,
-        user_id: int,
-        *,
-        entry: typing.Optional[str] = None,
-        level: typing.Optional[int] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> UserQueryRecord:
+    def delete_user(
+        self, user_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> DeleteUserResponse:
         """
-        Use this endpoint to retrieve information about a specific user within an organization.
+        Use this endpoint to delete a specific user within an organization.
 
         Parameters
         ----------
         user_id : int
             The Payabli-generated `userId` value.
 
-        entry : typing.Optional[str]
-            The entrypoint identifier.
-
-        level : typing.Optional[int]
-            Entry level: 0 - partner, 2 - paypoint
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        UserQueryRecord
+        DeleteUserResponse
             Success
 
         Examples
@@ -490,12 +281,179 @@ class UserClient:
         client = payabli(
             api_key="YOUR_API_KEY",
         )
-        client.user.get_user(
+        client.user.delete_user(
             user_id=1000000,
-            entry="478ae1234",
         )
         """
-        _response = self._raw_client.get_user(user_id, entry=entry, level=level, request_options=request_options)
+        _response = self._raw_client.delete_user(user_id, request_options=request_options)
+        return _response.data
+
+    def auth_user(
+        self,
+        provider: str,
+        *,
+        email: typing.Optional[Email] = OMIT,
+        entry: typing.Optional[str] = OMIT,
+        entry_type: typing.Optional[int] = OMIT,
+        psw: typing.Optional[str] = OMIT,
+        user_id: typing.Optional[int] = OMIT,
+        user_token_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PayabliApiResponseMfaBasic:
+        """
+        This endpoint requires an application API token.
+
+        Parameters
+        ----------
+        provider : str
+            Auth provider. Pass `null` to use the built-in provider.
+
+        email : typing.Optional[Email]
+
+        entry : typing.Optional[str]
+            Identifier for entry point originating the request (used by front-end apps)
+
+        entry_type : typing.Optional[int]
+            Type of entry identifier: 0 - partner, 2 - paypoint. This is used by front-end apps, required if an Entry is indicated.
+
+        psw : typing.Optional[str]
+
+        user_id : typing.Optional[int]
+
+        user_token_id : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayabliApiResponseMfaBasic
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.user.auth_user(
+            provider="provider",
+        )
+        """
+        _response = self._raw_client.auth_user(
+            provider,
+            email=email,
+            entry=entry,
+            entry_type=entry_type,
+            psw=psw,
+            user_id=user_id,
+            user_token_id=user_token_id,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def auth_refresh_user(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> PayabliApiResponseUserMfa:
+        """
+        Use this endpoint to refresh the authentication token for a user within an organization.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayabliApiResponseUserMfa
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.user.auth_refresh_user()
+        """
+        _response = self._raw_client.auth_refresh_user(request_options=request_options)
+        return _response.data
+
+    def auth_reset_user(
+        self,
+        *,
+        email: typing.Optional[Email] = OMIT,
+        entry: typing.Optional[str] = OMIT,
+        entry_type: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AuthResetUserResponse:
+        """
+        Use this endpoint to initiate a password reset for a user within an organization.
+
+        Parameters
+        ----------
+        email : typing.Optional[Email]
+            The user's email address.
+
+        entry : typing.Optional[str]
+            Identifier for entrypoint originating the request (used by front-end apps)
+
+        entry_type : typing.Optional[int]
+            Type of entry identifier: 0 - partner, 2 - paypoint. This is used by front-end apps, required if an Entry is indicated.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AuthResetUserResponse
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.user.auth_reset_user()
+        """
+        _response = self._raw_client.auth_reset_user(
+            email=email, entry=entry, entry_type=entry_type, request_options=request_options
+        )
+        return _response.data
+
+    def change_psw_user(
+        self, *, psw: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
+    ) -> ChangePswUserResponse:
+        """
+        Use this endpoint to change the password for a user within an organization.
+
+        Parameters
+        ----------
+        psw : typing.Optional[str]
+            New User password
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ChangePswUserResponse
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.user.change_psw_user()
+        """
+        _response = self._raw_client.change_psw_user(psw=psw, request_options=request_options)
         return _response.data
 
     def logout_user(self, *, request_options: typing.Optional[RequestOptions] = None) -> LogoutUserResponse:
@@ -522,47 +480,6 @@ class UserClient:
         client.user.logout_user()
         """
         _response = self._raw_client.logout_user(request_options=request_options)
-        return _response.data
-
-    def resend_mfa_code(
-        self, usrname: str, entry: str, entry_type: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> PayabliApiResponseMfaBasic:
-        """
-        Resends the MFA code to the user via the selected MFA mode (email or SMS).
-
-        Parameters
-        ----------
-        usrname : str
-
-
-        entry : str
-
-
-        entry_type : int
-
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        PayabliApiResponseMfaBasic
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.user.resend_mfa_code(
-            entry="Entry",
-            entry_type=1,
-            usrname="usrname",
-        )
-        """
-        _response = self._raw_client.resend_mfa_code(usrname, entry, entry_type, request_options=request_options)
         return _response.data
 
     def validate_mfa_user(
@@ -601,6 +518,89 @@ class UserClient:
         _response = self._raw_client.validate_mfa_user(
             mfa_code=mfa_code, mfa_validation_code=mfa_validation_code, request_options=request_options
         )
+        return _response.data
+
+    def edit_mfa_user(
+        self,
+        user_id: int,
+        *,
+        mfa: typing.Optional[bool] = OMIT,
+        mfa_mode: typing.Optional[MfaMode] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> EditMfaUserResponse:
+        """
+        Use this endpoint to enable or disable multi-factor authentication (MFA) for a user within an organization.
+
+        Parameters
+        ----------
+        user_id : int
+            User Identifier
+
+        mfa : typing.Optional[bool]
+
+        mfa_mode : typing.Optional[MfaMode]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        EditMfaUserResponse
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.user.edit_mfa_user(
+            user_id=1000000,
+        )
+        """
+        _response = self._raw_client.edit_mfa_user(user_id, mfa=mfa, mfa_mode=mfa_mode, request_options=request_options)
+        return _response.data
+
+    def resend_mfa_code(
+        self, usrname: str, entry: str, entry_type: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> PayabliApiResponseMfaBasic:
+        """
+        Resends the MFA code to the user via the selected MFA mode (email or SMS).
+
+        Parameters
+        ----------
+        usrname : str
+
+
+        entry : str
+
+
+        entry_type : int
+
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayabliApiResponseMfaBasic
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.user.resend_mfa_code(
+            entry="8cfec329267",
+            entry_type=1,
+            usrname="usrname",
+        )
+        """
+        _response = self._raw_client.resend_mfa_code(usrname, entry, entry_type, request_options=request_options)
         return _response.data
 
 
@@ -705,223 +705,34 @@ class AsyncUserClient:
         )
         return _response.data
 
-    async def auth_refresh_user(
-        self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> PayabliApiResponseUserMfa:
-        """
-        Use this endpoint to refresh the authentication token for a user within an organization.
-
-        Parameters
-        ----------
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        PayabliApiResponseUserMfa
-            Success
-
-        Examples
-        --------
-        import asyncio
-
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.user.auth_refresh_user()
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.auth_refresh_user(request_options=request_options)
-        return _response.data
-
-    async def auth_reset_user(
+    async def get_user(
         self,
+        user_id: int,
         *,
-        email: typing.Optional[Email] = OMIT,
-        entry: typing.Optional[str] = OMIT,
-        entry_type: typing.Optional[int] = OMIT,
+        entry: typing.Optional[str] = None,
+        level: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AuthResetUserResponse:
+    ) -> UserQueryRecord:
         """
-        Use this endpoint to initiate a password reset for a user within an organization.
-
-        Parameters
-        ----------
-        email : typing.Optional[Email]
-            The user's email address.
-
-        entry : typing.Optional[str]
-            Identifier for entrypoint originating the request (used by front-end apps)
-
-        entry_type : typing.Optional[int]
-            Type of entry identifier: 0 - partner, 2 - paypoint. This is used by front-end apps, required if an Entry is indicated.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AuthResetUserResponse
-            Success
-
-        Examples
-        --------
-        import asyncio
-
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.user.auth_reset_user()
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.auth_reset_user(
-            email=email, entry=entry, entry_type=entry_type, request_options=request_options
-        )
-        return _response.data
-
-    async def auth_user(
-        self,
-        provider: str,
-        *,
-        email: typing.Optional[Email] = OMIT,
-        entry: typing.Optional[str] = OMIT,
-        entry_type: typing.Optional[int] = OMIT,
-        psw: typing.Optional[str] = OMIT,
-        user_id: typing.Optional[int] = OMIT,
-        user_token_id: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> PayabliApiResponseMfaBasic:
-        """
-        This endpoint requires an application API token.
-
-        Parameters
-        ----------
-        provider : str
-            Auth provider. Pass `null` to use the built-in provider.
-
-        email : typing.Optional[Email]
-
-        entry : typing.Optional[str]
-            Identifier for entry point originating the request (used by front-end apps)
-
-        entry_type : typing.Optional[int]
-            Type of entry identifier: 0 - partner, 2 - paypoint. This is used by front-end apps, required if an Entry is indicated.
-
-        psw : typing.Optional[str]
-
-        user_id : typing.Optional[int]
-
-        user_token_id : typing.Optional[str]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        PayabliApiResponseMfaBasic
-            Success
-
-        Examples
-        --------
-        import asyncio
-
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.user.auth_user(
-                provider="provider",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.auth_user(
-            provider,
-            email=email,
-            entry=entry,
-            entry_type=entry_type,
-            psw=psw,
-            user_id=user_id,
-            user_token_id=user_token_id,
-            request_options=request_options,
-        )
-        return _response.data
-
-    async def change_psw_user(
-        self, *, psw: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
-    ) -> ChangePswUserResponse:
-        """
-        Use this endpoint to change the password for a user within an organization.
-
-        Parameters
-        ----------
-        psw : typing.Optional[str]
-            New User password
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ChangePswUserResponse
-            Success
-
-        Examples
-        --------
-        import asyncio
-
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.user.change_psw_user()
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.change_psw_user(psw=psw, request_options=request_options)
-        return _response.data
-
-    async def delete_user(
-        self, user_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> DeleteUserResponse:
-        """
-        Use this endpoint to delete a specific user within an organization.
+        Use this endpoint to retrieve information about a specific user within an organization.
 
         Parameters
         ----------
         user_id : int
             The Payabli-generated `userId` value.
 
+        entry : typing.Optional[str]
+            The entrypoint identifier.
+
+        level : typing.Optional[int]
+            Entry level: 0 - partner, 2 - paypoint
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        DeleteUserResponse
+        UserQueryRecord
             Success
 
         Examples
@@ -936,66 +747,15 @@ class AsyncUserClient:
 
 
         async def main() -> None:
-            await client.user.delete_user(
+            await client.user.get_user(
                 user_id=1000000,
+                entry="8cfec329267",
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.delete_user(user_id, request_options=request_options)
-        return _response.data
-
-    async def edit_mfa_user(
-        self,
-        user_id: int,
-        *,
-        mfa: typing.Optional[bool] = OMIT,
-        mfa_mode: typing.Optional[MfaMode] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> EditMfaUserResponse:
-        """
-        Use this endpoint to enable or disable multi-factor authentication (MFA) for a user within an organization.
-
-        Parameters
-        ----------
-        user_id : int
-            User Identifier
-
-        mfa : typing.Optional[bool]
-
-        mfa_mode : typing.Optional[MfaMode]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        EditMfaUserResponse
-            Success
-
-        Examples
-        --------
-        import asyncio
-
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.user.edit_mfa_user(
-                user_id=1000000,
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.edit_mfa_user(
-            user_id, mfa=mfa, mfa_mode=mfa_mode, request_options=request_options
-        )
+        _response = await self._raw_client.get_user(user_id, entry=entry, level=level, request_options=request_options)
         return _response.data
 
     async def edit_user(
@@ -1091,34 +851,23 @@ class AsyncUserClient:
         )
         return _response.data
 
-    async def get_user(
-        self,
-        user_id: int,
-        *,
-        entry: typing.Optional[str] = None,
-        level: typing.Optional[int] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> UserQueryRecord:
+    async def delete_user(
+        self, user_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> DeleteUserResponse:
         """
-        Use this endpoint to retrieve information about a specific user within an organization.
+        Use this endpoint to delete a specific user within an organization.
 
         Parameters
         ----------
         user_id : int
             The Payabli-generated `userId` value.
 
-        entry : typing.Optional[str]
-            The entrypoint identifier.
-
-        level : typing.Optional[int]
-            Entry level: 0 - partner, 2 - paypoint
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        UserQueryRecord
+        DeleteUserResponse
             Success
 
         Examples
@@ -1133,15 +882,214 @@ class AsyncUserClient:
 
 
         async def main() -> None:
-            await client.user.get_user(
+            await client.user.delete_user(
                 user_id=1000000,
-                entry="478ae1234",
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.get_user(user_id, entry=entry, level=level, request_options=request_options)
+        _response = await self._raw_client.delete_user(user_id, request_options=request_options)
+        return _response.data
+
+    async def auth_user(
+        self,
+        provider: str,
+        *,
+        email: typing.Optional[Email] = OMIT,
+        entry: typing.Optional[str] = OMIT,
+        entry_type: typing.Optional[int] = OMIT,
+        psw: typing.Optional[str] = OMIT,
+        user_id: typing.Optional[int] = OMIT,
+        user_token_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PayabliApiResponseMfaBasic:
+        """
+        This endpoint requires an application API token.
+
+        Parameters
+        ----------
+        provider : str
+            Auth provider. Pass `null` to use the built-in provider.
+
+        email : typing.Optional[Email]
+
+        entry : typing.Optional[str]
+            Identifier for entry point originating the request (used by front-end apps)
+
+        entry_type : typing.Optional[int]
+            Type of entry identifier: 0 - partner, 2 - paypoint. This is used by front-end apps, required if an Entry is indicated.
+
+        psw : typing.Optional[str]
+
+        user_id : typing.Optional[int]
+
+        user_token_id : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayabliApiResponseMfaBasic
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.user.auth_user(
+                provider="provider",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.auth_user(
+            provider,
+            email=email,
+            entry=entry,
+            entry_type=entry_type,
+            psw=psw,
+            user_id=user_id,
+            user_token_id=user_token_id,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def auth_refresh_user(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> PayabliApiResponseUserMfa:
+        """
+        Use this endpoint to refresh the authentication token for a user within an organization.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayabliApiResponseUserMfa
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.user.auth_refresh_user()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.auth_refresh_user(request_options=request_options)
+        return _response.data
+
+    async def auth_reset_user(
+        self,
+        *,
+        email: typing.Optional[Email] = OMIT,
+        entry: typing.Optional[str] = OMIT,
+        entry_type: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AuthResetUserResponse:
+        """
+        Use this endpoint to initiate a password reset for a user within an organization.
+
+        Parameters
+        ----------
+        email : typing.Optional[Email]
+            The user's email address.
+
+        entry : typing.Optional[str]
+            Identifier for entrypoint originating the request (used by front-end apps)
+
+        entry_type : typing.Optional[int]
+            Type of entry identifier: 0 - partner, 2 - paypoint. This is used by front-end apps, required if an Entry is indicated.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AuthResetUserResponse
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.user.auth_reset_user()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.auth_reset_user(
+            email=email, entry=entry, entry_type=entry_type, request_options=request_options
+        )
+        return _response.data
+
+    async def change_psw_user(
+        self, *, psw: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
+    ) -> ChangePswUserResponse:
+        """
+        Use this endpoint to change the password for a user within an organization.
+
+        Parameters
+        ----------
+        psw : typing.Optional[str]
+            New User password
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ChangePswUserResponse
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.user.change_psw_user()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.change_psw_user(psw=psw, request_options=request_options)
         return _response.data
 
     async def logout_user(self, *, request_options: typing.Optional[RequestOptions] = None) -> LogoutUserResponse:
@@ -1176,55 +1124,6 @@ class AsyncUserClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.logout_user(request_options=request_options)
-        return _response.data
-
-    async def resend_mfa_code(
-        self, usrname: str, entry: str, entry_type: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> PayabliApiResponseMfaBasic:
-        """
-        Resends the MFA code to the user via the selected MFA mode (email or SMS).
-
-        Parameters
-        ----------
-        usrname : str
-
-
-        entry : str
-
-
-        entry_type : int
-
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        PayabliApiResponseMfaBasic
-            Success
-
-        Examples
-        --------
-        import asyncio
-
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.user.resend_mfa_code(
-                entry="Entry",
-                entry_type=1,
-                usrname="usrname",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.resend_mfa_code(usrname, entry, entry_type, request_options=request_options)
         return _response.data
 
     async def validate_mfa_user(
@@ -1271,4 +1170,105 @@ class AsyncUserClient:
         _response = await self._raw_client.validate_mfa_user(
             mfa_code=mfa_code, mfa_validation_code=mfa_validation_code, request_options=request_options
         )
+        return _response.data
+
+    async def edit_mfa_user(
+        self,
+        user_id: int,
+        *,
+        mfa: typing.Optional[bool] = OMIT,
+        mfa_mode: typing.Optional[MfaMode] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> EditMfaUserResponse:
+        """
+        Use this endpoint to enable or disable multi-factor authentication (MFA) for a user within an organization.
+
+        Parameters
+        ----------
+        user_id : int
+            User Identifier
+
+        mfa : typing.Optional[bool]
+
+        mfa_mode : typing.Optional[MfaMode]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        EditMfaUserResponse
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.user.edit_mfa_user(
+                user_id=1000000,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.edit_mfa_user(
+            user_id, mfa=mfa, mfa_mode=mfa_mode, request_options=request_options
+        )
+        return _response.data
+
+    async def resend_mfa_code(
+        self, usrname: str, entry: str, entry_type: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> PayabliApiResponseMfaBasic:
+        """
+        Resends the MFA code to the user via the selected MFA mode (email or SMS).
+
+        Parameters
+        ----------
+        usrname : str
+
+
+        entry : str
+
+
+        entry_type : int
+
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayabliApiResponseMfaBasic
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.user.resend_mfa_code(
+                entry="8cfec329267",
+                entry_type=1,
+                usrname="usrname",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.resend_mfa_code(usrname, entry, entry_type, request_options=request_options)
         return _response.data

@@ -15,12 +15,14 @@ class ScheduleDetail(UniversalBaseModel):
         FieldMetadata(alias="endDate"),
         pydantic.Field(
             alias="endDate",
-            description="Subscription end date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY or the value `untilcancelled` to indicate a scheduled payment with infinite cycle.",
+            description="Subscription end date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY or the value `untilcancelled` to indicate a scheduled payment with infinite cycle.\n\nNot applicable for `BalanceDriven` subscriptions, which run until cancelled.",
         ),
     ] = None
     frequency: typing.Optional[Frequency] = pydantic.Field(default=None)
     """
     Frequency of the subscription.
+    
+    `BalanceDriven` subscriptions only accept the monthly cadences `firstofmonth`, `fifteenthofmonth`, and `endofmonth`.
     """
 
     plan_id: typing_extensions.Annotated[
@@ -36,7 +38,7 @@ class ScheduleDetail(UniversalBaseModel):
         FieldMetadata(alias="startDate"),
         pydantic.Field(
             alias="startDate",
-            description="Subscription start date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY. This must be a future date.",
+            description="Subscription start date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY. This must be a future date.\n\nNot applicable for `BalanceDriven` subscriptions, where the start date is calculated automatically from `frequency`.",
         ),
     ] = None
 

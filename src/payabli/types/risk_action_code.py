@@ -2,5 +2,5 @@
 
 RiskActionCode = int
 """
-Numeric code representing the risk action
+Numeric code representing the risk action.
 """

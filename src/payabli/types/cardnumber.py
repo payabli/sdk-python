@@ -2,5 +2,6 @@
 
 Cardnumber = str
 """
-The card number. Required when method is `card` and a `storedMethodId` isn't included.
+The card number. Required when method is `card` and a `storedMethodId`
+isn't included.
 """

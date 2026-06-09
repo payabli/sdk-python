@@ -2,8 +2,8 @@
 
 CustomerStatus = int
 """
-Customer Status. 
-Possible values:
+Customer Status. Possible values:
+
 - `-99` Deleted
 - `0` Inactive
 - `1` Active

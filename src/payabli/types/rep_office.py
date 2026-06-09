@@ -2,5 +2,7 @@
 
 RepOffice = str
 """
-Sales representative office location. This is an optional field that can be used to track the sales representative office associated with the application.
+Sales representative office location. This is an optional field that
+can be used to track the sales representative office associated with
+the application.
 """

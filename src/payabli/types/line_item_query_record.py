@@ -32,7 +32,7 @@ class LineItemQueryRecord(UniversalBaseModel):
     """
 
     item_categories: typing_extensions.Annotated[
-        typing.Optional[typing.List[typing.Optional[str]]],
+        typing.Optional[typing.List[str]],
         FieldMetadata(alias="itemCategories"),
         pydantic.Field(alias="itemCategories", description="Array of tags classifying item or product."),
     ] = None

@@ -2,11 +2,18 @@
 
 Sequence = str
 """
-The order of the transaction for cardholder-initiated transaction (CIT) and merchant-initiated transaction (MIT) purposes. This field is automatically detected and populated by Payabli.
+The order of the transaction for cardholder-initiated transaction (CIT)
+and merchant-initiated transaction (MIT) purposes. This field is
+automatically detected and populated by Payabli.
 
-Available values: 
-  - `first`: The first use of the payment method. This is almost always a cardholder-initiated transaction.
-  - `subsequent`: For merchant-initiated transactions after the first use of the payment method.
+Available values:
 
-  See [Understanding CIT and MIT Indicators](/guides/pay-in-transactions-cit-mit-overview) for more information.
+- `first`: The first use of the payment method. This is almost always
+  a cardholder-initiated transaction.
+- `subsequent`: For merchant-initiated transactions after the first use
+  of the payment method.
+
+See
+[Understanding CIT and MIT Indicators](/guides/pay-in-transactions-cit-mit-overview)
+for more information.
 """

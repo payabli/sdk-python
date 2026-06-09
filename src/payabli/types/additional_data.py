@@ -2,9 +2,13 @@
 
 import typing
 
-AdditionalData = typing.Dict[str, typing.Optional[typing.Dict[str, typing.Any]]]
+AdditionalData = typing.Dict[str, typing.Dict[str, typing.Any]]
 """
-Custom dictionary of key:value pairs. You can use this field to store any data related to the object or for your system. If you are using [custom identifiers](/developers/developer-guides/entities-customers), pass those in this object. Max length for a value is 100 characters. Example usage: 
+Custom dictionary of key:value pairs. You can use this field to store any
+data related to the object or for your system. If you are using
+[custom identifiers](/developers/developer-guides/entities-customers),
+pass those in this object. Max length for a value is 100 characters.
+Example usage:
 
 ```json
 {

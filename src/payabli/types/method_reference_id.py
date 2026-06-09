@@ -2,5 +2,7 @@
 
 MethodReferenceId = str
 """
-The stored method's identifier (sometimes referred to as 'token') in Payabli. When `null`, the method wasn't created, or doesn't exist, depending on the operation performed.
+The stored method's identifier (sometimes referred to as 'token') in
+Payabli. When `null`, the method wasn't created, or doesn't exist,
+depending on the operation performed.
 """

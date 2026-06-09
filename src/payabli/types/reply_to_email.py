@@ -2,5 +2,7 @@
 
 ReplyToEmail = str
 """
-Email address for organization-level communications, such as messages about why an application was declined. This is required by commerce laws in the US.
+Email address for organization-level communications, such as messages
+about why an application was declined. This is required by commerce
+laws in the US.
 """

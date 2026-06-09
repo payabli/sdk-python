@@ -27,33 +27,6 @@ from .signeraddress import Signeraddress
 class SignerData(UniversalBaseModel):
     """
     Information about the application's signer.
-
-    Examples
-    --------
-    from payabli import SignerData
-
-    SignerData(
-        address="33 North St",
-        address_1="STE 900",
-        city="Bristol",
-        country="US",
-        dob="01/01/1976",
-        email="test@email.com",
-        name="John Smith",
-        phone="555888111",
-        ssn="123456789",
-        state="TN",
-        zip="55555",
-        pci_attestation=True,
-        signed_document_reference="https://example.com/signed-document.pdf",
-        attestation_date="04/20/2025",
-        sign_date="04/20/2025",
-        additional_data={
-            "deviceId": "499585-389fj484-3jcj8hj3",
-            "session": "fifji4-fiu443-fn4843",
-            "timeWithCompany": "6 Years",
-        },
-    )
     """
 
     signer_uuid: typing_extensions.Annotated[

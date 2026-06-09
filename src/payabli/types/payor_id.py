@@ -2,5 +2,6 @@
 
 PayorId = int
 """
-Unique ID for the customer linked to the transaction. This is the same value as the `customerId` used when creating or referencing a customer.
+Unique ID for the customer linked to the transaction. This is the same
+value as the `customerId` used when creating or referencing a customer.
 """

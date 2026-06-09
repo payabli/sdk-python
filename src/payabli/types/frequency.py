@@ -3,6 +3,17 @@
 import typing
 
 Frequency = typing.Union[
-    typing.Literal["onetime", "weekly", "every2weeks", "every6months", "monthly", "every3months", "annually"],
+    typing.Literal[
+        "onetime",
+        "weekly",
+        "every2weeks",
+        "every6months",
+        "monthly",
+        "every3months",
+        "annually",
+        "firstofmonth",
+        "fifteenthofmonth",
+        "endofmonth",
+    ],
     typing.Any,
 ]

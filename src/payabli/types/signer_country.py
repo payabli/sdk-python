@@ -2,5 +2,6 @@
 
 SignerCountry = str
 """
-The signer's country in ISO-3166-1 alpha 2 format. See this reference for more: https://en.wikipedia.org/wiki/ISO_3166-1.
+The signer's country in ISO-3166-1 alpha 2 format. See
+[ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1) for more.
 """

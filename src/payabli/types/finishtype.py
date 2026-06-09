@@ -11,13 +11,13 @@ from ..core.serialization import FieldMetadata
 class Finishtype(UniversalBaseModel):
     calendar: typing.Optional[bool] = pydantic.Field(default=None)
     """
-    Flag to enable 'calendar' option
+    Flag to enable the 'calendar' option.
     """
 
     until_cancelled: typing_extensions.Annotated[
         typing.Optional[bool],
         FieldMetadata(alias="untilCancelled"),
-        pydantic.Field(alias="untilCancelled", description="Flag to enable 'untilCancelled' option"),
+        pydantic.Field(alias="untilCancelled", description="Flag to enable the 'untilCancelled' option."),
     ] = None
 
     if IS_PYDANTIC_V2:

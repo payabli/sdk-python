@@ -2,5 +2,6 @@
 
 EntrypageId = int
 """
-If applicable, the internal reference ID to the payment page capturing the payment.
+If applicable, the internal reference ID to the payment page associated
+with the transaction.
 """

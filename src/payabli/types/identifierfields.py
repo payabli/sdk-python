@@ -2,7 +2,7 @@
 
 import typing
 
-Identifierfields = typing.List[typing.Optional[str]]
+Identifierfields = typing.List[str]
 """
 List of fields acting as customer identifiers, to be used instead of CustomerNumber.
 """

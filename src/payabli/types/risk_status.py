@@ -2,5 +2,5 @@
 
 RiskStatus = str
 """
-Current risk status of the transaction
+Current risk status of the transaction.
 """

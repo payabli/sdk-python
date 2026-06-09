@@ -2,5 +2,5 @@
 
 RetrievalId = int
 """
-Identifier of retrieval request
+Identifier of retrieval request.
 """

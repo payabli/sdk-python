@@ -2,5 +2,5 @@
 
 ExternalProcessorInformation = str
 """
-Processor information, used for troubleshooting and reporting. This field contains a value when the API key used to make the request has management permissions.
+Information from the external processor about the transaction.
 """

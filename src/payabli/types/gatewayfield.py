@@ -2,5 +2,5 @@
 
 Gatewayfield = str
 """
-Gateway used to process the transaction.
+The payment gateway used to process the transaction.
 """

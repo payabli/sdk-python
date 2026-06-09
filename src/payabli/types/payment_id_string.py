@@ -2,5 +2,6 @@
 
 PaymentIdString = str
 """
-The unique transaction ID. This value is a string representation of a long integer.
+The unique transaction ID. This value is a string representation of a
+long integer.
 """

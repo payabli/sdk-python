@@ -2,5 +2,6 @@
 
 Responsecode = int
 """
-Code for the response. Learn more in [API Response Codes](/developers/api-reference/api-responses).
+Code for the response. Learn more in
+[API Response Codes](/developers/api-reference/api-responses).
 """

@@ -2,13 +2,5 @@
 
 Invoicestatus = int
 """
-Status for invoice.
-
-The accepted status values are: 
-
-  - 0 draft  
-  - 1 active  
-  - 2 partially paid  
-  - 4 paid/complete  
-  - 99 cancelled
+Invoice status code.
 """

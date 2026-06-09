@@ -9,31 +9,6 @@ from ..core.serialization import FieldMetadata
 
 
 class VendorSummary(UniversalBaseModel):
-    """
-    Examples
-    --------
-    from payabli import VendorSummary
-
-    VendorSummary(
-        active_bills=2,
-        pending_bills=4,
-        in_transit_bills=3,
-        paid_bills=18,
-        overdue_bills=1,
-        approved_bills=5,
-        disapproved_bills=1,
-        total_bills=34,
-        active_bills_amount=1250.75,
-        pending_bills_amount=2890.5,
-        in_transit_bills_amount=1675.25,
-        paid_bills_amount=15420.8,
-        overdue_bills_amount=425.0,
-        approved_bills_amount=3240.9,
-        disapproved_bills_amount=180.0,
-        total_bills_amount=25083.2,
-    )
-    """
-
     active_bills: typing_extensions.Annotated[
         typing.Optional[int], FieldMetadata(alias="ActiveBills"), pydantic.Field(alias="ActiveBills")
     ] = None

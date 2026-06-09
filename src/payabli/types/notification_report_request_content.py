@@ -7,6 +7,7 @@ import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 from .key_value_duo import KeyValueDuo
+from .notification_report_request_content_event_type import NotificationReportRequestContentEventType
 from .notification_report_request_content_file_format import NotificationReportRequestContentFileFormat
 from .notification_report_request_content_report_name import NotificationReportRequestContentReportName
 from .timezone import Timezone
@@ -14,7 +15,7 @@ from .timezone import Timezone
 
 class NotificationReportRequestContent(UniversalBaseModel):
     event_type: typing_extensions.Annotated[
-        typing.Optional[typing.Literal["Report"]],
+        typing.Optional[NotificationReportRequestContentEventType],
         FieldMetadata(alias="eventType"),
         pydantic.Field(alias="eventType", description="The notification's event name."),
     ] = None

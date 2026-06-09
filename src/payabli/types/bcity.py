@@ -2,5 +2,5 @@
 
 Bcity = str
 """
-Business city
+Business city.
 """

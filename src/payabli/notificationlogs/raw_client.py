@@ -2,7 +2,6 @@
 
 import datetime as dt
 import typing
-import uuid
 from json.decoder import JSONDecodeError
 
 from ..core.api_error import ApiError
@@ -16,11 +15,11 @@ from ..errors.bad_request_error import BadRequestError
 from ..errors.internal_server_error import InternalServerError
 from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.unauthorized_error import UnauthorizedError
+from ..types.bulk_retry_request import BulkRetryRequest
+from ..types.notification_log import NotificationLog
+from ..types.notification_log_detail import NotificationLogDetail
 from ..types.pagesize import Pagesize
-from ..types.payabli_api_response import PayabliApiResponse
-from .types.bulk_retry_request import BulkRetryRequest
-from .types.notification_log import NotificationLog
-from .types.notification_log_detail import NotificationLogDetail
+from ..types.payabli_error_body import PayabliErrorBody
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -60,6 +59,7 @@ class RawNotificationlogsClient:
             The end date for the search.
 
         page_size : typing.Optional[Pagesize]
+            Number of records on each response page.
 
         page : typing.Optional[int]
             The page number to retrieve. Defaults to 1 if not provided.
@@ -82,6 +82,7 @@ class RawNotificationlogsClient:
         Returns
         -------
         HttpResponse[typing.List[NotificationLog]]
+            Success
         """
         _response = self._client_wrapper.httpx_client.request(
             "v2/notificationlogs",
@@ -97,6 +98,9 @@ class RawNotificationlogsClient:
                 "succeeded": succeeded,
                 "orgId": org_id,
                 "paypointId": paypoint_id,
+            },
+            headers={
+                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
@@ -126,9 +130,9 @@ class RawNotificationlogsClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -148,9 +152,9 @@ class RawNotificationlogsClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -165,7 +169,7 @@ class RawNotificationlogsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get_notification_log(
-        self, uuid_: uuid.UUID, *, request_options: typing.Optional[RequestOptions] = None
+        self, uuid_: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[NotificationLogDetail]:
         """
         Get detailed information for a specific notification log entry.
@@ -173,7 +177,7 @@ class RawNotificationlogsClient:
 
         Parameters
         ----------
-        uuid_ : uuid.UUID
+        uuid_ : str
             The notification log entry.
 
         request_options : typing.Optional[RequestOptions]
@@ -182,6 +186,7 @@ class RawNotificationlogsClient:
         Returns
         -------
         HttpResponse[NotificationLogDetail]
+            Success
         """
         _response = self._client_wrapper.httpx_client.request(
             f"v2/notificationlogs/{encode_path_param(uuid_)}",
@@ -213,9 +218,9 @@ class RawNotificationlogsClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -235,9 +240,9 @@ class RawNotificationlogsClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -252,7 +257,7 @@ class RawNotificationlogsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def retry_notification_log(
-        self, uuid_: uuid.UUID, *, request_options: typing.Optional[RequestOptions] = None
+        self, uuid_: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[NotificationLogDetail]:
         """
         Retry sending a specific notification.
@@ -261,7 +266,7 @@ class RawNotificationlogsClient:
 
         Parameters
         ----------
-        uuid_ : uuid.UUID
+        uuid_ : str
             Unique id
 
         request_options : typing.Optional[RequestOptions]
@@ -270,6 +275,7 @@ class RawNotificationlogsClient:
         Returns
         -------
         HttpResponse[NotificationLogDetail]
+            Success
         """
         _response = self._client_wrapper.httpx_client.request(
             f"v2/notificationlogs/{encode_path_param(uuid_)}/retry",
@@ -301,9 +307,9 @@ class RawNotificationlogsClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -323,9 +329,9 @@ class RawNotificationlogsClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -363,6 +369,9 @@ class RawNotificationlogsClient:
             "v2/notificationlogs/retry",
             method="POST",
             json=request,
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -412,6 +421,7 @@ class AsyncRawNotificationlogsClient:
             The end date for the search.
 
         page_size : typing.Optional[Pagesize]
+            Number of records on each response page.
 
         page : typing.Optional[int]
             The page number to retrieve. Defaults to 1 if not provided.
@@ -434,6 +444,7 @@ class AsyncRawNotificationlogsClient:
         Returns
         -------
         AsyncHttpResponse[typing.List[NotificationLog]]
+            Success
         """
         _response = await self._client_wrapper.httpx_client.request(
             "v2/notificationlogs",
@@ -449,6 +460,9 @@ class AsyncRawNotificationlogsClient:
                 "succeeded": succeeded,
                 "orgId": org_id,
                 "paypointId": paypoint_id,
+            },
+            headers={
+                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
@@ -478,9 +492,9 @@ class AsyncRawNotificationlogsClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -500,9 +514,9 @@ class AsyncRawNotificationlogsClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -517,7 +531,7 @@ class AsyncRawNotificationlogsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get_notification_log(
-        self, uuid_: uuid.UUID, *, request_options: typing.Optional[RequestOptions] = None
+        self, uuid_: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[NotificationLogDetail]:
         """
         Get detailed information for a specific notification log entry.
@@ -525,7 +539,7 @@ class AsyncRawNotificationlogsClient:
 
         Parameters
         ----------
-        uuid_ : uuid.UUID
+        uuid_ : str
             The notification log entry.
 
         request_options : typing.Optional[RequestOptions]
@@ -534,6 +548,7 @@ class AsyncRawNotificationlogsClient:
         Returns
         -------
         AsyncHttpResponse[NotificationLogDetail]
+            Success
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"v2/notificationlogs/{encode_path_param(uuid_)}",
@@ -565,9 +580,9 @@ class AsyncRawNotificationlogsClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -587,9 +602,9 @@ class AsyncRawNotificationlogsClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -604,7 +619,7 @@ class AsyncRawNotificationlogsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def retry_notification_log(
-        self, uuid_: uuid.UUID, *, request_options: typing.Optional[RequestOptions] = None
+        self, uuid_: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[NotificationLogDetail]:
         """
         Retry sending a specific notification.
@@ -613,7 +628,7 @@ class AsyncRawNotificationlogsClient:
 
         Parameters
         ----------
-        uuid_ : uuid.UUID
+        uuid_ : str
             Unique id
 
         request_options : typing.Optional[RequestOptions]
@@ -622,6 +637,7 @@ class AsyncRawNotificationlogsClient:
         Returns
         -------
         AsyncHttpResponse[NotificationLogDetail]
+            Success
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"v2/notificationlogs/{encode_path_param(uuid_)}/retry",
@@ -653,9 +669,9 @@ class AsyncRawNotificationlogsClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -675,9 +691,9 @@ class AsyncRawNotificationlogsClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -715,6 +731,9 @@ class AsyncRawNotificationlogsClient:
             "v2/notificationlogs/retry",
             method="POST",
             json=request,
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
             omit=OMIT,
         )

@@ -2,5 +2,7 @@
 
 OwnerEntityId = int
 """
-The domain's owning entity's ID in Payabli. This value might be different than the `entityId`, depending on whether the domain is cascaded and whether it's inherited.`
+The domain's owning entity's ID in Payabli. This value might be different
+than the `entityId`, depending on whether the domain is cascaded and
+whether it's inherited.
 """

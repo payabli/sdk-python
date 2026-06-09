@@ -2,5 +2,6 @@
 
 Subdomain = str
 """
-Refers to the payment page identifier. If provided, then the transaction is linked to the payment page.
+Refers to the payment page identifier. If provided, then the
+transaction is linked to the payment page.
 """

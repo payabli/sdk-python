@@ -2,5 +2,6 @@
 
 InvoiceType = int
 """
-Type of invoice. Only `0` for one-time invoices is currently supported.
+Invoice type. Value `0` is for single/one-time invoices, `1` for
+scheduled invoices.
 """

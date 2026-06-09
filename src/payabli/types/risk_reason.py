@@ -2,5 +2,5 @@
 
 RiskReason = str
 """
-Reason for risk flagging
+Reason for risk flagging.
 """

@@ -24,7 +24,7 @@ class BillingData(UniversalBaseModel):
         FieldMetadata(alias="bankAccountFunction"),
         pydantic.Field(
             alias="bankAccountFunction",
-            description="Describes whether the bank account is used for deposits or withdrawals in Payabli:\n  - `0`: Deposit\n  - `1`: Withdrawal \n  - `2`: Deposit and withdrawal",
+            description="Describes whether the bank account is used for deposits or withdrawals in Payabli:\n  - `0`: Deposit\n  - `1`: Withdrawal\n  - `2`: Deposit and withdrawal",
         ),
     ] = None
     bank_account_holder_name: typing_extensions.Annotated[

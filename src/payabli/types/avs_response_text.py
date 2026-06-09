@@ -2,5 +2,6 @@
 
 AvsResponseText = str
 """
-Text code describing the result for address validation (applies only for card transactions).
+Text code describing the result for address validation (applies only for
+card transactions).
 """

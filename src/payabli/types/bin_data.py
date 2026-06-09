@@ -14,24 +14,6 @@ class BinData(UniversalBaseModel):
     unless the payment method is card. If the payment method is Apple Pay, the
     binData will be related to the DPAN (device primary account number), not
     the card connected to Apple Pay.
-
-    Examples
-    --------
-    from payabli import BinData
-
-    BinData(
-        bin_matched_length="6",
-        bin_card_brand="Visa",
-        bin_card_type="Credit",
-        bin_card_category="PLATINUM",
-        bin_card_issuer="Bank of Example",
-        bin_card_issuer_country="United States",
-        bin_card_issuer_country_code_a_2="US",
-        bin_card_issuer_country_number="840",
-        bin_card_is_regulated="false",
-        bin_card_use_category="Consumer",
-        bin_card_issuer_country_code_a_3="USA",
-    )
     """
 
     bin_matched_length: typing_extensions.Annotated[

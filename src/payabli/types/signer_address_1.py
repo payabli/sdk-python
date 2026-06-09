@@ -2,5 +2,6 @@
 
 SignerAddress1 = str
 """
-Additional line for the signer's address. If used, this must be the physical address of the signer, not a P.O. box.
+Additional line for the signer's address. If used, this must be the
+physical address of the signer, not a P.O. box.
 """

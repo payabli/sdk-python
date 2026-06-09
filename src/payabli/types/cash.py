@@ -4,10 +4,11 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .cash_method import CashMethod
 
 
 class Cash(UniversalBaseModel):
-    method: typing.Literal["cash"] = pydantic.Field(default="cash")
+    method: CashMethod = pydantic.Field()
     """
     Method to use for the transaction. For cash transactions, use `cash`.
     """

@@ -2,5 +2,6 @@
 
 WalletCascade = bool
 """
-When `true`, the wallet service configuration cascades to all paypoints and suborganizations belonging to the parent entity.
+When `true`, the wallet service configuration cascades to all paypoints
+and suborganizations belonging to the parent entity.
 """

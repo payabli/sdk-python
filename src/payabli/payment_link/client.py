@@ -4,25 +4,25 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
-from ..money_out_types.types.method_element_out import MethodElementOut
-from ..money_out_types.types.payment_link_status import PaymentLinkStatus
 from ..types.contact_element import ContactElement
 from ..types.element import Element
 from ..types.entry import Entry
+from ..types.get_pay_link_from_id_response import GetPayLinkFromIdResponse
 from ..types.header_element import HeaderElement
 from ..types.idempotency_key import IdempotencyKey
 from ..types.invoice_element import InvoiceElement
 from ..types.label_element import LabelElement
 from ..types.method_element import MethodElement
+from ..types.method_element_out import MethodElementOut
 from ..types.note_element import NoteElement
 from ..types.page_element import PageElement
 from ..types.pagelink_setting import PagelinkSetting
+from ..types.payabli_api_response_payment_links import PayabliApiResponsePaymentLinks
+from ..types.payment_link_status import PaymentLinkStatus
+from ..types.payment_page_request_body_out import PaymentPageRequestBodyOut
 from ..types.payor_element import PayorElement
 from ..types.push_pay_link_request import PushPayLinkRequest
 from .raw_client import AsyncRawPaymentLinkClient, RawPaymentLinkClient
-from .types.get_pay_link_from_id_response import GetPayLinkFromIdResponse
-from .types.payabli_api_response_payment_links import PayabliApiResponsePaymentLinks
-from .types.payment_page_request_body_out import PaymentPageRequestBodyOut
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -78,6 +78,7 @@ class PaymentLinkClient:
             List of recipient email addresses. When there is more than one, separate them by a semicolon (;).
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         contact_us : typing.Optional[ContactElement]
             ContactUs section of payment link page
@@ -310,6 +311,7 @@ class PaymentLinkClient:
             List of recipient email addresses. When there is more than one, separate them by a semicolon (;).
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         contact_us : typing.Optional[ContactElement]
             ContactUs section of payment link page.
@@ -356,18 +358,19 @@ class PaymentLinkClient:
             Element,
             HeaderElement,
             LabelElement,
+            MethodElementOut,
+            MethodsListOut,
             NoteElement,
             PageElement,
             PagelinkSetting,
             payabli,
         )
-        from payabli.money_out_types import MethodElementOut, MethodsListOut
 
         client = payabli(
             api_key="YOUR_API_KEY",
         )
         client.payment_link.add_pay_link_from_bill(
-            bill_id=23548884,
+            bill_id=54323,
             mail_2="jo@example.com; ceo@example.com",
             contact_us=ContactElement(
                 email_label="Email",
@@ -508,7 +511,7 @@ class PaymentLinkClient:
             api_key="YOUR_API_KEY",
         )
         client.payment_link.get_pay_link_from_id(
-            paylink_id="paylinkId",
+            paylink_id="2325-XXXXXXX-90b1-4598-b6c7-44cdcbf495d7-1234",
         )
         """
         _response = self._raw_client.get_pay_link_from_id(paylink_id, request_options=request_options)
@@ -543,7 +546,7 @@ class PaymentLinkClient:
             api_key="YOUR_API_KEY",
         )
         client.payment_link.push_pay_link_from_id(
-            pay_link_id="payLinkId",
+            pay_link_id="2325-XXXXXXX-90b1-4598-b6c7-44cdcbf495d7-1234",
             request=PushPayLinkRequest_Sms(),
         )
         """
@@ -586,7 +589,7 @@ class PaymentLinkClient:
             api_key="YOUR_API_KEY",
         )
         client.payment_link.refresh_pay_link_from_id(
-            pay_link_id="payLinkId",
+            pay_link_id="2325-XXXXXXX-90b1-4598-b6c7-44cdcbf495d7-1234",
         )
         """
         _response = self._raw_client.refresh_pay_link_from_id(
@@ -632,7 +635,7 @@ class PaymentLinkClient:
             api_key="YOUR_API_KEY",
         )
         client.payment_link.send_pay_link_from_id(
-            pay_link_id="payLinkId",
+            pay_link_id="2325-XXXXXXX-90b1-4598-b6c7-44cdcbf495d7-1234",
             mail_2="jo@example.com; ceo@example.com",
         )
         """
@@ -707,7 +710,7 @@ class PaymentLinkClient:
             api_key="YOUR_API_KEY",
         )
         client.payment_link.update_pay_link_from_id(
-            pay_link_id="332-c277b704-1301",
+            pay_link_id="2325-XXXXXXX-90b1-4598-b6c7-44cdcbf495d7-1234",
             notes=NoteElement(
                 enabled=True,
                 header="Additional Notes",
@@ -766,6 +769,7 @@ class PaymentLinkClient:
             Lot number of the bills to pay. All bills with this lot number will be included.
 
         entry_point : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         vendor_number : str
             The vendor number for the vendor being paid with this payment link.
@@ -821,20 +825,21 @@ class PaymentLinkClient:
             Element,
             HeaderElement,
             LabelElement,
+            MethodElementOut,
+            MethodsListOut,
             NoteElement,
             PageElement,
             PagelinkSetting,
             payabli,
         )
-        from payabli.money_out_types import MethodElementOut, MethodsListOut
 
         client = payabli(
             api_key="YOUR_API_KEY",
         )
         client.payment_link.add_pay_link_from_bill_lot_number(
             lot_number="LOT-2024-001",
-            entry_point="billing",
-            vendor_number="VENDOR-123",
+            entry_point="8cfec329267",
+            vendor_number="VEN-123",
             mail_2="customer@example.com; billing@example.com",
             amount_fixed="true",
             contact_us=ContactElement(
@@ -1042,12 +1047,13 @@ class PaymentLinkClient:
             Element,
             HeaderElement,
             LabelElement,
+            MethodElementOut,
+            MethodsListOut,
             NoteElement,
             PageElement,
             PagelinkSetting,
             payabli,
         )
-        from payabli.money_out_types import MethodElementOut, MethodsListOut
 
         client = payabli(
             api_key="YOUR_API_KEY",
@@ -1181,6 +1187,7 @@ class AsyncPaymentLinkClient:
             List of recipient email addresses. When there is more than one, separate them by a semicolon (;).
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         contact_us : typing.Optional[ContactElement]
             ContactUs section of payment link page
@@ -1421,6 +1428,7 @@ class AsyncPaymentLinkClient:
             List of recipient email addresses. When there is more than one, separate them by a semicolon (;).
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         contact_us : typing.Optional[ContactElement]
             ContactUs section of payment link page.
@@ -1470,11 +1478,12 @@ class AsyncPaymentLinkClient:
             Element,
             HeaderElement,
             LabelElement,
+            MethodElementOut,
+            MethodsListOut,
             NoteElement,
             PageElement,
             PagelinkSetting,
         )
-        from payabli.money_out_types import MethodElementOut, MethodsListOut
 
         client = Asyncpayabli(
             api_key="YOUR_API_KEY",
@@ -1483,7 +1492,7 @@ class AsyncPaymentLinkClient:
 
         async def main() -> None:
             await client.payment_link.add_pay_link_from_bill(
-                bill_id=23548884,
+                bill_id=54323,
                 mail_2="jo@example.com; ceo@example.com",
                 contact_us=ContactElement(
                     email_label="Email",
@@ -1640,7 +1649,7 @@ class AsyncPaymentLinkClient:
 
         async def main() -> None:
             await client.payment_link.get_pay_link_from_id(
-                paylink_id="paylinkId",
+                paylink_id="2325-XXXXXXX-90b1-4598-b6c7-44cdcbf495d7-1234",
             )
 
 
@@ -1683,7 +1692,7 @@ class AsyncPaymentLinkClient:
 
         async def main() -> None:
             await client.payment_link.push_pay_link_from_id(
-                pay_link_id="payLinkId",
+                pay_link_id="2325-XXXXXXX-90b1-4598-b6c7-44cdcbf495d7-1234",
                 request=PushPayLinkRequest_Sms(),
             )
 
@@ -1734,7 +1743,7 @@ class AsyncPaymentLinkClient:
 
         async def main() -> None:
             await client.payment_link.refresh_pay_link_from_id(
-                pay_link_id="payLinkId",
+                pay_link_id="2325-XXXXXXX-90b1-4598-b6c7-44cdcbf495d7-1234",
             )
 
 
@@ -1788,7 +1797,7 @@ class AsyncPaymentLinkClient:
 
         async def main() -> None:
             await client.payment_link.send_pay_link_from_id(
-                pay_link_id="payLinkId",
+                pay_link_id="2325-XXXXXXX-90b1-4598-b6c7-44cdcbf495d7-1234",
                 mail_2="jo@example.com; ceo@example.com",
             )
 
@@ -1871,7 +1880,7 @@ class AsyncPaymentLinkClient:
 
         async def main() -> None:
             await client.payment_link.update_pay_link_from_id(
-                pay_link_id="332-c277b704-1301",
+                pay_link_id="2325-XXXXXXX-90b1-4598-b6c7-44cdcbf495d7-1234",
                 notes=NoteElement(
                     enabled=True,
                     header="Additional Notes",
@@ -1933,6 +1942,7 @@ class AsyncPaymentLinkClient:
             Lot number of the bills to pay. All bills with this lot number will be included.
 
         entry_point : Entry
+            The entity's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         vendor_number : str
             The vendor number for the vendor being paid with this payment link.
@@ -1991,11 +2001,12 @@ class AsyncPaymentLinkClient:
             Element,
             HeaderElement,
             LabelElement,
+            MethodElementOut,
+            MethodsListOut,
             NoteElement,
             PageElement,
             PagelinkSetting,
         )
-        from payabli.money_out_types import MethodElementOut, MethodsListOut
 
         client = Asyncpayabli(
             api_key="YOUR_API_KEY",
@@ -2005,8 +2016,8 @@ class AsyncPaymentLinkClient:
         async def main() -> None:
             await client.payment_link.add_pay_link_from_bill_lot_number(
                 lot_number="LOT-2024-001",
-                entry_point="billing",
-                vendor_number="VENDOR-123",
+                entry_point="8cfec329267",
+                vendor_number="VEN-123",
                 mail_2="customer@example.com; billing@example.com",
                 amount_fixed="true",
                 contact_us=ContactElement(
@@ -2228,11 +2239,12 @@ class AsyncPaymentLinkClient:
             Element,
             HeaderElement,
             LabelElement,
+            MethodElementOut,
+            MethodsListOut,
             NoteElement,
             PageElement,
             PagelinkSetting,
         )
-        from payabli.money_out_types import MethodElementOut, MethodsListOut
 
         client = Asyncpayabli(
             api_key="YOUR_API_KEY",

@@ -5,20 +5,20 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.ach_validation import AchValidation
+from ..types.add_method_response import AddMethodResponse
+from ..types.create_anonymous import CreateAnonymous
 from ..types.entrypointfield import Entrypointfield
 from ..types.force_customer_creation import ForceCustomerCreation
+from ..types.get_method_response import GetMethodResponse
 from ..types.idempotency_key import IdempotencyKey
 from ..types.payabli_api_response_paymethod_delete import PayabliApiResponsePaymethodDelete
 from ..types.payor_data_request import PayorDataRequest
+from ..types.request_token_storage_payment_method import RequestTokenStoragePaymentMethod
 from ..types.source import Source
 from ..types.subdomain import Subdomain
+from ..types.temporary import Temporary
+from ..types.vendor_data_request import VendorDataRequest
 from .raw_client import AsyncRawTokenStorageClient, RawTokenStorageClient
-from .types.add_method_response import AddMethodResponse
-from .types.create_anonymous import CreateAnonymous
-from .types.get_method_response import GetMethodResponse
-from .types.request_token_storage_payment_method import RequestTokenStoragePaymentMethod
-from .types.temporary import Temporary
-from .types.vendor_data_request import VendorDataRequest
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -64,14 +64,19 @@ class TokenStorageClient:
         Parameters
         ----------
         ach_validation : typing.Optional[AchValidation]
+            When `true`, enables real-time validation of ACH account and routing numbers. This is an add-on feature, contact Payabli for more information.
 
         create_anonymous : typing.Optional[CreateAnonymous]
+            When `true`, creates a saved method with no associated customer information. The token will be associated with customer information the first time it's used to make a payment. Defaults to `false`.
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer. Defaults to `false`.
 
         temporary : typing.Optional[Temporary]
+            Creates a temporary, one-time-use token for the payment method that expires in 12 hours. Defaults to `false`.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         customer_data : typing.Optional[PayorDataRequest]
             Object describing the Customer/Payor owner of payment method. Required for POST requests. Which fields are required depends on the paypoint's custom identifier settings.
@@ -108,8 +113,7 @@ class TokenStorageClient:
 
         Examples
         --------
-        from payabli import PayorDataRequest, payabli
-        from payabli.token_storage import TokenizeCard
+        from payabli import PayorDataRequest, TokenizeCard, payabli
 
         client = payabli(
             api_key="YOUR_API_KEY",
@@ -118,7 +122,7 @@ class TokenStorageClient:
             customer_data=PayorDataRequest(
                 customer_id=4440,
             ),
-            entry_point="f743aed24a",
+            entry_point="8cfec329267",
             fallback_auth=True,
             fallback_auth_amount=100,
             method_description="Primary Visa card",
@@ -211,39 +215,6 @@ class TokenStorageClient:
         )
         return _response.data
 
-    def remove_method(
-        self, method_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> PayabliApiResponsePaymethodDelete:
-        """
-        Deletes a saved payment method.
-
-        Parameters
-        ----------
-        method_id : str
-            The saved payment method ID.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        PayabliApiResponsePaymethodDelete
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.token_storage.remove_method(
-            method_id="32-8877drt00045632-678",
-        )
-        """
-        _response = self._raw_client.remove_method(method_id, request_options=request_options)
-        return _response.data
-
     def update_method(
         self,
         method_id: str,
@@ -269,6 +240,7 @@ class TokenStorageClient:
             The saved payment method ID.
 
         ach_validation : typing.Optional[AchValidation]
+            When `true`, enables real-time validation of ACH account and routing numbers. This is an add-on feature, contact Payabli for more information.
 
         customer_data : typing.Optional[PayorDataRequest]
             Object describing the Customer/Payor owner of payment method. Required for POST requests. Which fields are required depends on the paypoint's custom identifier settings.
@@ -305,8 +277,7 @@ class TokenStorageClient:
 
         Examples
         --------
-        from payabli import PayorDataRequest, payabli
-        from payabli.token_storage import TokenizeCard
+        from payabli import PayorDataRequest, TokenizeCard, payabli
 
         client = payabli(
             api_key="YOUR_API_KEY",
@@ -316,7 +287,7 @@ class TokenStorageClient:
             customer_data=PayorDataRequest(
                 customer_id=4440,
             ),
-            entry_point="f743aed24a",
+            entry_point="8cfec329267",
             fallback_auth=True,
             payment_method=TokenizeCard(
                 cardcvv="123",
@@ -342,6 +313,39 @@ class TokenStorageClient:
             subdomain=subdomain,
             request_options=request_options,
         )
+        return _response.data
+
+    def remove_method(
+        self, method_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> PayabliApiResponsePaymethodDelete:
+        """
+        Deletes a saved payment method.
+
+        Parameters
+        ----------
+        method_id : str
+            The saved payment method ID.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayabliApiResponsePaymethodDelete
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.token_storage.remove_method(
+            method_id="32-8877drt00045632-678",
+        )
+        """
+        _response = self._raw_client.remove_method(method_id, request_options=request_options)
         return _response.data
 
 
@@ -385,14 +389,19 @@ class AsyncTokenStorageClient:
         Parameters
         ----------
         ach_validation : typing.Optional[AchValidation]
+            When `true`, enables real-time validation of ACH account and routing numbers. This is an add-on feature, contact Payabli for more information.
 
         create_anonymous : typing.Optional[CreateAnonymous]
+            When `true`, creates a saved method with no associated customer information. The token will be associated with customer information the first time it's used to make a payment. Defaults to `false`.
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer. Defaults to `false`.
 
         temporary : typing.Optional[Temporary]
+            Creates a temporary, one-time-use token for the payment method that expires in 12 hours. Defaults to `false`.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         customer_data : typing.Optional[PayorDataRequest]
             Object describing the Customer/Payor owner of payment method. Required for POST requests. Which fields are required depends on the paypoint's custom identifier settings.
@@ -431,8 +440,7 @@ class AsyncTokenStorageClient:
         --------
         import asyncio
 
-        from payabli import Asyncpayabli, PayorDataRequest
-        from payabli.token_storage import TokenizeCard
+        from payabli import Asyncpayabli, PayorDataRequest, TokenizeCard
 
         client = Asyncpayabli(
             api_key="YOUR_API_KEY",
@@ -444,7 +452,7 @@ class AsyncTokenStorageClient:
                 customer_data=PayorDataRequest(
                     customer_id=4440,
                 ),
-                entry_point="f743aed24a",
+                entry_point="8cfec329267",
                 fallback_auth=True,
                 fallback_auth_amount=100,
                 method_description="Primary Visa card",
@@ -548,6 +556,114 @@ class AsyncTokenStorageClient:
         )
         return _response.data
 
+    async def update_method(
+        self,
+        method_id: str,
+        *,
+        ach_validation: typing.Optional[AchValidation] = None,
+        customer_data: typing.Optional[PayorDataRequest] = OMIT,
+        entry_point: typing.Optional[Entrypointfield] = OMIT,
+        fallback_auth: typing.Optional[bool] = OMIT,
+        fallback_auth_amount: typing.Optional[int] = OMIT,
+        method_description: typing.Optional[str] = OMIT,
+        payment_method: typing.Optional[RequestTokenStoragePaymentMethod] = OMIT,
+        vendor_data: typing.Optional[VendorDataRequest] = OMIT,
+        source: typing.Optional[Source] = OMIT,
+        subdomain: typing.Optional[Subdomain] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PayabliApiResponsePaymethodDelete:
+        """
+        Updates a saved payment method.
+
+        Parameters
+        ----------
+        method_id : str
+            The saved payment method ID.
+
+        ach_validation : typing.Optional[AchValidation]
+            When `true`, enables real-time validation of ACH account and routing numbers. This is an add-on feature, contact Payabli for more information.
+
+        customer_data : typing.Optional[PayorDataRequest]
+            Object describing the Customer/Payor owner of payment method. Required for POST requests. Which fields are required depends on the paypoint's custom identifier settings.
+
+        entry_point : typing.Optional[Entrypointfield]
+            Entrypoint identifier. Required for POST requests.
+
+        fallback_auth : typing.Optional[bool]
+            When `true`, if tokenization fails, Payabli will attempt an authorization transaction to request a permanent token for the card. If the authorization is successful, the card will be tokenized and the authorization will be voided automatically.
+
+        fallback_auth_amount : typing.Optional[int]
+            The amount for the `fallbackAuth` transaction. Defaults to one dollar (`100`).
+
+        method_description : typing.Optional[str]
+            Custom description for stored payment method.
+
+        payment_method : typing.Optional[RequestTokenStoragePaymentMethod]
+            Information about the payment method for the transaction.
+
+        vendor_data : typing.Optional[VendorDataRequest]
+
+        source : typing.Optional[Source]
+            Custom identifier to indicate the source for the request
+
+        subdomain : typing.Optional[Subdomain]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayabliApiResponsePaymethodDelete
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli, PayorDataRequest, TokenizeCard
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.token_storage.update_method(
+                method_id="32-8877drt00045632-678",
+                customer_data=PayorDataRequest(
+                    customer_id=4440,
+                ),
+                entry_point="8cfec329267",
+                fallback_auth=True,
+                payment_method=TokenizeCard(
+                    cardcvv="123",
+                    cardexp="02/25",
+                    card_holder="John Doe",
+                    cardnumber="4111111111111111",
+                    cardzip="12345",
+                    method="card",
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.update_method(
+            method_id,
+            ach_validation=ach_validation,
+            customer_data=customer_data,
+            entry_point=entry_point,
+            fallback_auth=fallback_auth,
+            fallback_auth_amount=fallback_auth_amount,
+            method_description=method_description,
+            payment_method=payment_method,
+            vendor_data=vendor_data,
+            source=source,
+            subdomain=subdomain,
+            request_options=request_options,
+        )
+        return _response.data
+
     async def remove_method(
         self, method_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> PayabliApiResponsePaymethodDelete:
@@ -587,112 +703,4 @@ class AsyncTokenStorageClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.remove_method(method_id, request_options=request_options)
-        return _response.data
-
-    async def update_method(
-        self,
-        method_id: str,
-        *,
-        ach_validation: typing.Optional[AchValidation] = None,
-        customer_data: typing.Optional[PayorDataRequest] = OMIT,
-        entry_point: typing.Optional[Entrypointfield] = OMIT,
-        fallback_auth: typing.Optional[bool] = OMIT,
-        fallback_auth_amount: typing.Optional[int] = OMIT,
-        method_description: typing.Optional[str] = OMIT,
-        payment_method: typing.Optional[RequestTokenStoragePaymentMethod] = OMIT,
-        vendor_data: typing.Optional[VendorDataRequest] = OMIT,
-        source: typing.Optional[Source] = OMIT,
-        subdomain: typing.Optional[Subdomain] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> PayabliApiResponsePaymethodDelete:
-        """
-        Updates a saved payment method.
-
-        Parameters
-        ----------
-        method_id : str
-            The saved payment method ID.
-
-        ach_validation : typing.Optional[AchValidation]
-
-        customer_data : typing.Optional[PayorDataRequest]
-            Object describing the Customer/Payor owner of payment method. Required for POST requests. Which fields are required depends on the paypoint's custom identifier settings.
-
-        entry_point : typing.Optional[Entrypointfield]
-            Entrypoint identifier. Required for POST requests.
-
-        fallback_auth : typing.Optional[bool]
-            When `true`, if tokenization fails, Payabli will attempt an authorization transaction to request a permanent token for the card. If the authorization is successful, the card will be tokenized and the authorization will be voided automatically.
-
-        fallback_auth_amount : typing.Optional[int]
-            The amount for the `fallbackAuth` transaction. Defaults to one dollar (`100`).
-
-        method_description : typing.Optional[str]
-            Custom description for stored payment method.
-
-        payment_method : typing.Optional[RequestTokenStoragePaymentMethod]
-            Information about the payment method for the transaction.
-
-        vendor_data : typing.Optional[VendorDataRequest]
-
-        source : typing.Optional[Source]
-            Custom identifier to indicate the source for the request
-
-        subdomain : typing.Optional[Subdomain]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        PayabliApiResponsePaymethodDelete
-            Success
-
-        Examples
-        --------
-        import asyncio
-
-        from payabli import Asyncpayabli, PayorDataRequest
-        from payabli.token_storage import TokenizeCard
-
-        client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.token_storage.update_method(
-                method_id="32-8877drt00045632-678",
-                customer_data=PayorDataRequest(
-                    customer_id=4440,
-                ),
-                entry_point="f743aed24a",
-                fallback_auth=True,
-                payment_method=TokenizeCard(
-                    cardcvv="123",
-                    cardexp="02/25",
-                    card_holder="John Doe",
-                    cardnumber="4111111111111111",
-                    cardzip="12345",
-                    method="card",
-                ),
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.update_method(
-            method_id,
-            ach_validation=ach_validation,
-            customer_data=customer_data,
-            entry_point=entry_point,
-            fallback_auth=fallback_auth,
-            fallback_auth_amount=fallback_auth_amount,
-            method_description=method_description,
-            payment_method=payment_method,
-            vendor_data=vendor_data,
-            source=source,
-            subdomain=subdomain,
-            request_options=request_options,
-        )
         return _response.data

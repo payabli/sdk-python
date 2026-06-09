@@ -2,5 +2,6 @@
 
 SplitCount = int
 """
-Number of split funding instructions associated with the transaction. Returns `0` when the transaction has no splits.
+Number of split funding instructions associated with the transaction.
+Returns `0` when the transaction has no splits.
 """

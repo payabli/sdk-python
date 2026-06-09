@@ -22,6 +22,7 @@ from .paypoint_id import PaypointId
 from .query_payment_data import QueryPaymentData
 from .query_transaction_payor_data import QueryTransactionPayorData
 from .source import Source
+from .subscription_type import SubscriptionType
 from .vendor_response_stored_method import VendorResponseStoredMethod
 
 
@@ -137,7 +138,7 @@ class SubscriptionQueryRecords(UniversalBaseModel):
         FieldMetadata(alias="StoredMethod"),
         pydantic.Field(
             alias="StoredMethod",
-            description="The full stored payment method record linked to the subscription\nand charged on each billing cycle. Returned as `null` for legacy\nsubscriptions that don't have a linked stored method.\n\nThe shape is the same across payment vehicles (card, ACH, check).\nOnly the populated fields differ. For example, `ABA` is populated\nfor ACH, while `ExpDate` and `binData` are populated for card.",
+            description="The full stored payment method record linked to the subscription\nand charged on each billing cycle. Returned as `null` for legacy\nsubscriptions that don't have a linked stored method.\nThe shape is the same across payment vehicles (card, ACH, check).\nOnly the populated fields differ. For example, `ABA` is populated\nfor ACH, while `ExpDate` and `binData` are populated for card.",
         ),
     ] = None
     sub_events: typing_extensions.Annotated[
@@ -149,6 +150,14 @@ class SubscriptionQueryRecords(UniversalBaseModel):
         typing.Optional[int],
         FieldMetadata(alias="SubStatus"),
         pydantic.Field(alias="SubStatus", description="The subscription's status.\n- 0: Paused\n- 1: Active"),
+    ] = None
+    subscription_type: typing_extensions.Annotated[
+        typing.Optional[SubscriptionType],
+        FieldMetadata(alias="SubscriptionType"),
+        pydantic.Field(
+            alias="SubscriptionType",
+            description="Subscription type or category. Returns `null` when no type is assigned.",
+        ),
     ] = None
     total_amount: typing_extensions.Annotated[
         typing.Optional[float],

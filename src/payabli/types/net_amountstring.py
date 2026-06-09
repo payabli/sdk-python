@@ -2,5 +2,5 @@
 
 NetAmountstring = str
 """
-Net Amount owed in bill. Required when adding a bill.
+Net amount owed in bill. Required when adding a bill.
 """

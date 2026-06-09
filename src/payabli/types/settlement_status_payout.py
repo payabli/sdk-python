@@ -2,5 +2,7 @@
 
 SettlementStatusPayout = str
 """
-The settlement status of the payout transaction. See [Payout Transaction Statuses](guides/money-out-statuses#payout-transaction-statuses) for a full reference.
+The settlement status of the payout transaction. See
+[Payout Transaction Statuses](/guides/money-out-statuses#payout-transaction-statuses)
+for a full reference.
 """

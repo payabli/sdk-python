@@ -2,11 +2,5 @@
 
 Initiator = str
 """
-**Strongly recommended** The cardholder-initiated transaction (CIT) or merchant-initiated transaction (MIT) indicator for the transaction. If you don't specify a value, Payabli defaults to `merchant`.
-
-Available values: 
-  - `payor`: For cardholder-initiated transactions
-  - `merchant`: For merchant-initiated transactions
-
-  See [Understanding CIT and MIT Indicators](/guides/pay-in-transactions-cit-mit-overview) for more information.
+The transaction's initiator. Indicates who initiated the transaction.
 """

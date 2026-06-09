@@ -2,5 +2,6 @@
 
 VendorPhone = str
 """
-Vendor's phone number. Phone number can't contain non-digit characters like hyphens or parentheses.
+Vendor's phone number. Phone number can't contain non-digit characters
+like hyphens or parentheses.
 """

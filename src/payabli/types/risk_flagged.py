@@ -2,5 +2,5 @@
 
 RiskFlagged = bool
 """
-Indicates if the transaction was flagged for risk
+Indicates if the transaction was flagged for risk.
 """

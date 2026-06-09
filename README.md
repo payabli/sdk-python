@@ -80,7 +80,7 @@ client.money_in.getpaidv_2(
     customer_data=PayorDataRequest(
         customer_id=4440,
     ),
-    entry_point="f743aed24a",
+    entry_point="8cfec329267",
     ipaddress="255.255.255.255",
     payment_details=PaymentDetail(
         service_fee=0,
@@ -130,7 +130,7 @@ async def main() -> None:
         customer_data=PayorDataRequest(
             customer_id=4440,
         ),
-        entry_point="f743aed24a",
+        entry_point="8cfec329267",
         ipaddress="255.255.255.255",
         payment_details=PaymentDetail(
             service_fee=0,

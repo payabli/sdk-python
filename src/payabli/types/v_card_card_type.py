@@ -2,7 +2,8 @@
 
 VCardCardType = int
 """
-The type of virtual card: 
-  - Single-use virtual card:    0
-  - Ghost card:    2
+The type of virtual card:
+
+- Single-use virtual card: `0`
+- Ghost card: `2`
 """

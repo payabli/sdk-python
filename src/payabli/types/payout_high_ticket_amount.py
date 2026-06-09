@@ -2,5 +2,7 @@
 
 PayoutHighTicketAmount = float
 """
-The largest amount for bill you will pay through our service. For example, if your business paid for 3 bills each month for \$500, \$1000, and \$5000 respectively, then your highest ticket is \$5000.
+The largest amount for a bill you will pay through our service. For
+example, if your business paid for 3 bills each month for $500, $1000,
+and $5000 respectively, then your highest ticket is $5000.
 """

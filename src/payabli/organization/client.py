@@ -4,7 +4,10 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
+from ..types.add_organization_response import AddOrganizationResponse
 from ..types.contacts_field import ContactsField
+from ..types.delete_organization_response import DeleteOrganizationResponse
+from ..types.edit_organization_response import EditOrganizationResponse
 from ..types.file_content import FileContent
 from ..types.idempotency_key import IdempotencyKey
 from ..types.instrument import Instrument
@@ -25,9 +28,6 @@ from ..types.reply_to_email import ReplyToEmail
 from ..types.service_cost import ServiceCost
 from ..types.settings_query_record import SettingsQueryRecord
 from .raw_client import AsyncRawOrganizationClient, RawOrganizationClient
-from .types.add_organization_response import AddOrganizationResponse
-from .types.delete_organization_response import DeleteOrganizationResponse
-from .types.edit_organization_response import EditOrganizationResponse
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -85,6 +85,7 @@ class OrganizationClient:
         reply_to_email : ReplyToEmail
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         services : typing.Optional[typing.Sequence[ServiceCost]]
 
@@ -198,39 +199,6 @@ class OrganizationClient:
             org_zip=org_zip,
             request_options=request_options,
         )
-        return _response.data
-
-    def delete_organization(
-        self, org_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> DeleteOrganizationResponse:
-        """
-        Delete an organization by ID.
-
-        Parameters
-        ----------
-        org_id : int
-            The numeric identifier for organization, assigned by Payabli.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        DeleteOrganizationResponse
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.organization.delete_organization(
-            org_id=123,
-        )
-        """
-        _response = self._raw_client.delete_organization(org_id, request_options=request_options)
         return _response.data
 
     def edit_organization(
@@ -365,6 +333,39 @@ class OrganizationClient:
             reply_to_email=reply_to_email,
             request_options=request_options,
         )
+        return _response.data
+
+    def delete_organization(
+        self, org_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> DeleteOrganizationResponse:
+        """
+        Delete an organization by ID.
+
+        Parameters
+        ----------
+        org_id : int
+            The numeric identifier for organization, assigned by Payabli.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        DeleteOrganizationResponse
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.organization.delete_organization(
+            org_id=123,
+        )
+        """
+        _response = self._raw_client.delete_organization(org_id, request_options=request_options)
         return _response.data
 
     def get_basic_organization(
@@ -552,6 +553,7 @@ class AsyncOrganizationClient:
         reply_to_email : ReplyToEmail
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         services : typing.Optional[typing.Sequence[ServiceCost]]
 
@@ -673,47 +675,6 @@ class AsyncOrganizationClient:
             org_zip=org_zip,
             request_options=request_options,
         )
-        return _response.data
-
-    async def delete_organization(
-        self, org_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> DeleteOrganizationResponse:
-        """
-        Delete an organization by ID.
-
-        Parameters
-        ----------
-        org_id : int
-            The numeric identifier for organization, assigned by Payabli.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        DeleteOrganizationResponse
-            Success
-
-        Examples
-        --------
-        import asyncio
-
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.organization.delete_organization(
-                org_id=123,
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.delete_organization(org_id, request_options=request_options)
         return _response.data
 
     async def edit_organization(
@@ -856,6 +817,47 @@ class AsyncOrganizationClient:
             reply_to_email=reply_to_email,
             request_options=request_options,
         )
+        return _response.data
+
+    async def delete_organization(
+        self, org_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> DeleteOrganizationResponse:
+        """
+        Delete an organization by ID.
+
+        Parameters
+        ----------
+        org_id : int
+            The numeric identifier for organization, assigned by Payabli.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        DeleteOrganizationResponse
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.organization.delete_organization(
+                org_id=123,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.delete_organization(org_id, request_options=request_options)
         return _response.data
 
     async def get_basic_organization(

@@ -12,18 +12,6 @@ from .totalrecords import Totalrecords
 
 
 class TransferSummary(UniversalBaseModel):
-    """
-    Examples
-    --------
-    from payabli import TransferSummary
-
-    TransferSummary(
-        total_pages=1,
-        total_records=2,
-        page_size=20,
-    )
-    """
-
     total_pages: typing_extensions.Annotated[
         Totalpages, FieldMetadata(alias="totalPages"), pydantic.Field(alias="totalPages")
     ]

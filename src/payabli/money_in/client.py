@@ -6,7 +6,10 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.account_id import AccountId
 from ..types.ach_validation import AchValidation
+from ..types.auth_response import AuthResponse
 from ..types.bill_data import BillData
+from ..types.capture_payment_details import CapturePaymentDetails
+from ..types.capture_response import CaptureResponse
 from ..types.entrypointfield import Entrypointfield
 from ..types.force_customer_creation import ForceCustomerCreation
 from ..types.idempotency_key import IdempotencyKey
@@ -15,29 +18,26 @@ from ..types.order_id import OrderId
 from ..types.orderdescription import Orderdescription
 from ..types.payabli_api_response import PayabliApiResponse
 from ..types.payabli_api_response_0 import PayabliApiResponse0
+from ..types.payabli_api_response_get_paid import PayabliApiResponseGetPaid
 from ..types.payment_detail import PaymentDetail
 from ..types.payment_detail_credit import PaymentDetailCredit
 from ..types.payment_method import PaymentMethod
 from ..types.payor_data_request import PayorDataRequest
+from ..types.receipt_response import ReceiptResponse
 from ..types.refund_detail import RefundDetail
+from ..types.refund_response import RefundResponse
+from ..types.refund_with_instructions_response import RefundWithInstructionsResponse
+from ..types.request_credit_payment_method import RequestCreditPaymentMethod
+from ..types.request_payment_validate_payment_method import RequestPaymentValidatePaymentMethod
+from ..types.reverse_response import ReverseResponse
 from ..types.source import Source
 from ..types.subdomain import Subdomain
 from ..types.subscriptionid import Subscriptionid
 from ..types.transaction_query_records_customer import TransactionQueryRecordsCustomer
-from ..v_2_money_in_types.types.v_2_transaction_response_wrapper import V2TransactionResponseWrapper
+from ..types.v_2_transaction_response_wrapper import V2TransactionResponseWrapper
+from ..types.validate_response import ValidateResponse
+from ..types.void_response import VoidResponse
 from .raw_client import AsyncRawMoneyInClient, RawMoneyInClient
-from .types.auth_response import AuthResponse
-from .types.capture_payment_details import CapturePaymentDetails
-from .types.capture_response import CaptureResponse
-from .types.payabli_api_response_get_paid import PayabliApiResponseGetPaid
-from .types.receipt_response import ReceiptResponse
-from .types.refund_response import RefundResponse
-from .types.refund_with_instructions_response import RefundWithInstructionsResponse
-from .types.request_credit_payment_method import RequestCreditPaymentMethod
-from .types.request_payment_validate_payment_method import RequestPaymentValidatePaymentMethod
-from .types.reverse_response import ReverseResponse
-from .types.validate_response import ValidateResponse
-from .types.void_response import VoidResponse
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -93,8 +93,10 @@ class MoneyInClient:
             Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer. Defaults to `false`.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         account_id : typing.Optional[AccountId]
 
@@ -137,7 +139,7 @@ class MoneyInClient:
             customer_data=PayorDataRequest(
                 customer_id=4440,
             ),
-            entry_point="f743aed24a",
+            entry_point="8cfec329267",
             ipaddress="255.255.255.255",
             payment_details=PaymentDetail(
                 service_fee=0.0,
@@ -150,6 +152,7 @@ class MoneyInClient:
                 cardnumber="4111111111111111",
                 cardzip="12345",
                 initiator="payor",
+                method="card",
             ),
         )
         """
@@ -247,8 +250,7 @@ class MoneyInClient:
 
         Examples
         --------
-        from payabli import payabli
-        from payabli.money_in import CapturePaymentDetails
+        from payabli import CapturePaymentDetails, payabli
 
         client = payabli(
             api_key="YOUR_API_KEY",
@@ -298,8 +300,10 @@ class MoneyInClient:
             Object describing the ACH payment method to use for transaction.
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer. Defaults to `false`.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         account_id : typing.Optional[AccountId]
 
@@ -325,8 +329,12 @@ class MoneyInClient:
 
         Examples
         --------
-        from payabli import PaymentDetailCredit, PayorDataRequest, payabli
-        from payabli.money_in import RequestCreditPaymentMethod
+        from payabli import (
+            PaymentDetailCredit,
+            PayorDataRequest,
+            RequestCreditPaymentMethod,
+            payabli,
+        )
 
         client = payabli(
             api_key="YOUR_API_KEY",
@@ -335,9 +343,9 @@ class MoneyInClient:
             idempotency_key="6B29FC40-CA47-1067-B31D-00DD010662DA",
             customer_data=PayorDataRequest(
                 billing_address_1="5127 Linkwood ave",
-                customer_number="100",
+                customer_number="C-90010",
             ),
-            entrypoint="my-entrypoint",
+            entrypoint="8cfec329267",
             payment_details=PaymentDetailCredit(
                 service_fee=0.0,
                 total_amount=1.0,
@@ -347,6 +355,7 @@ class MoneyInClient:
                 ach_account_type="Checking",
                 ach_holder="John Smith",
                 ach_routing="021000021",
+                method="ach",
             ),
         )
         """
@@ -437,13 +446,16 @@ class MoneyInClient:
             Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.
 
         ach_validation : typing.Optional[AchValidation]
+            When `true`, enables real-time validation of ACH account and routing numbers. This is an add-on feature, contact Payabli for more information.
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer. Defaults to `false`.
 
         include_details : typing.Optional[bool]
             When `true`, transactionDetails object is returned in the response. See a full example of the `transactionDetails` object in the [Transaction integration guide](/developers/developer-guides/money-in-transaction-add#includedetailstrue-response).
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         validation_code : typing.Optional[str]
             Value obtained from user when an API generated CAPTCHA is used in payment page
@@ -489,7 +501,7 @@ class MoneyInClient:
             customer_data=PayorDataRequest(
                 customer_id=4440,
             ),
-            entry_point="f743aed24a",
+            entry_point="8cfec329267",
             ipaddress="255.255.255.255",
             payment_details=PaymentDetail(
                 service_fee=0.0,
@@ -502,6 +514,7 @@ class MoneyInClient:
                 cardnumber="4111111111111111",
                 cardzip="12345",
                 initiator="payor",
+                method="card",
             ),
         )
         """
@@ -539,7 +552,6 @@ class MoneyInClient:
             ReferenceId for the transaction (PaymentId).
 
         amount : float
-
             Amount to reverse from original transaction, minus any service fees charged on the original transaction.
 
             The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was $90 plus a $10 service fee, you can reverse up to $90.
@@ -585,7 +597,6 @@ class MoneyInClient:
             ReferenceId for the transaction (PaymentId).
 
         amount : float
-
             Amount to refund from original transaction, minus any service fees charged on the original transaction.
 
             The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was \\$90 plus a \\$10 service fee, you can refund up to \\$90.
@@ -637,9 +648,9 @@ class MoneyInClient:
             ReferenceId for the transaction (PaymentId).
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         amount : typing.Optional[float]
-
             Amount to refund from original transaction, minus any service fees charged on the original transaction.
 
             The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was $90 plus a $10 service fee, you can refund up to $90.
@@ -806,6 +817,7 @@ class MoneyInClient:
             Object describing payment method to use for transaction.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         account_id : typing.Optional[AccountId]
 
@@ -823,15 +835,14 @@ class MoneyInClient:
 
         Examples
         --------
-        from payabli import payabli
-        from payabli.money_in import RequestPaymentValidatePaymentMethod
+        from payabli import RequestPaymentValidatePaymentMethod, payabli
 
         client = payabli(
             api_key="YOUR_API_KEY",
         )
         client.money_in.validate(
             idempotency_key="6B29FC40-CA47-1067-B31D-00DD010662DA",
-            entry_point="entry132",
+            entry_point="8cfec329267",
             payment_method=RequestPaymentValidatePaymentMethod(
                 method="card",
                 cardnumber="4360000001000005",
@@ -920,10 +931,13 @@ class MoneyInClient:
             Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.
 
         ach_validation : typing.Optional[AchValidation]
+            When `true`, enables real-time validation of ACH account and routing numbers. This is an add-on feature, contact Payabli for more information.
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer. Defaults to `false`.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         validation_code : typing.Optional[str]
             Value obtained from user when an API generated CAPTCHA is used in payment page
@@ -969,7 +983,7 @@ class MoneyInClient:
             customer_data=PayorDataRequest(
                 customer_id=4440,
             ),
-            entry_point="f743aed24a",
+            entry_point="8cfec329267",
             ipaddress="255.255.255.255",
             payment_details=PaymentDetail(
                 service_fee=0.0,
@@ -982,6 +996,7 @@ class MoneyInClient:
                 cardnumber="4111111111111111",
                 cardzip="12345",
                 initiator="payor",
+                method="card",
             ),
         )
         """
@@ -1039,8 +1054,10 @@ class MoneyInClient:
             Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer. Defaults to `false`.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         account_id : typing.Optional[AccountId]
 
@@ -1083,7 +1100,7 @@ class MoneyInClient:
             customer_data=PayorDataRequest(
                 customer_id=4440,
             ),
-            entry_point="f743aed24a",
+            entry_point="8cfec329267",
             ipaddress="255.255.255.255",
             payment_details=PaymentDetail(
                 service_fee=0.0,
@@ -1096,6 +1113,7 @@ class MoneyInClient:
                 cardnumber="4111111111111111",
                 cardzip="12345",
                 initiator="payor",
+                method="card",
             ),
         )
         """
@@ -1145,8 +1163,7 @@ class MoneyInClient:
 
         Examples
         --------
-        from payabli import payabli
-        from payabli.money_in import CapturePaymentDetails
+        from payabli import CapturePaymentDetails, payabli
 
         client = payabli(
             api_key="YOUR_API_KEY",
@@ -1322,8 +1339,10 @@ class AsyncMoneyInClient:
             Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer. Defaults to `false`.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         account_id : typing.Optional[AccountId]
 
@@ -1376,7 +1395,7 @@ class AsyncMoneyInClient:
                 customer_data=PayorDataRequest(
                     customer_id=4440,
                 ),
-                entry_point="f743aed24a",
+                entry_point="8cfec329267",
                 ipaddress="255.255.255.255",
                 payment_details=PaymentDetail(
                     service_fee=0.0,
@@ -1389,6 +1408,7 @@ class AsyncMoneyInClient:
                     cardnumber="4111111111111111",
                     cardzip="12345",
                     initiator="payor",
+                    method="card",
                 ),
             )
 
@@ -1499,8 +1519,7 @@ class AsyncMoneyInClient:
         --------
         import asyncio
 
-        from payabli import Asyncpayabli
-        from payabli.money_in import CapturePaymentDetails
+        from payabli import Asyncpayabli, CapturePaymentDetails
 
         client = Asyncpayabli(
             api_key="YOUR_API_KEY",
@@ -1556,8 +1575,10 @@ class AsyncMoneyInClient:
             Object describing the ACH payment method to use for transaction.
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer. Defaults to `false`.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         account_id : typing.Optional[AccountId]
 
@@ -1585,8 +1606,12 @@ class AsyncMoneyInClient:
         --------
         import asyncio
 
-        from payabli import Asyncpayabli, PaymentDetailCredit, PayorDataRequest
-        from payabli.money_in import RequestCreditPaymentMethod
+        from payabli import (
+            Asyncpayabli,
+            PaymentDetailCredit,
+            PayorDataRequest,
+            RequestCreditPaymentMethod,
+        )
 
         client = Asyncpayabli(
             api_key="YOUR_API_KEY",
@@ -1598,9 +1623,9 @@ class AsyncMoneyInClient:
                 idempotency_key="6B29FC40-CA47-1067-B31D-00DD010662DA",
                 customer_data=PayorDataRequest(
                     billing_address_1="5127 Linkwood ave",
-                    customer_number="100",
+                    customer_number="C-90010",
                 ),
-                entrypoint="my-entrypoint",
+                entrypoint="8cfec329267",
                 payment_details=PaymentDetailCredit(
                     service_fee=0.0,
                     total_amount=1.0,
@@ -1610,6 +1635,7 @@ class AsyncMoneyInClient:
                     ach_account_type="Checking",
                     ach_holder="John Smith",
                     ach_routing="021000021",
+                    method="ach",
                 ),
             )
 
@@ -1711,13 +1737,16 @@ class AsyncMoneyInClient:
             Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.
 
         ach_validation : typing.Optional[AchValidation]
+            When `true`, enables real-time validation of ACH account and routing numbers. This is an add-on feature, contact Payabli for more information.
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer. Defaults to `false`.
 
         include_details : typing.Optional[bool]
             When `true`, transactionDetails object is returned in the response. See a full example of the `transactionDetails` object in the [Transaction integration guide](/developers/developer-guides/money-in-transaction-add#includedetailstrue-response).
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         validation_code : typing.Optional[str]
             Value obtained from user when an API generated CAPTCHA is used in payment page
@@ -1773,7 +1802,7 @@ class AsyncMoneyInClient:
                 customer_data=PayorDataRequest(
                     customer_id=4440,
                 ),
-                entry_point="f743aed24a",
+                entry_point="8cfec329267",
                 ipaddress="255.255.255.255",
                 payment_details=PaymentDetail(
                     service_fee=0.0,
@@ -1786,6 +1815,7 @@ class AsyncMoneyInClient:
                     cardnumber="4111111111111111",
                     cardzip="12345",
                     initiator="payor",
+                    method="card",
                 ),
             )
 
@@ -1826,7 +1856,6 @@ class AsyncMoneyInClient:
             ReferenceId for the transaction (PaymentId).
 
         amount : float
-
             Amount to reverse from original transaction, minus any service fees charged on the original transaction.
 
             The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was $90 plus a $10 service fee, you can reverse up to $90.
@@ -1880,7 +1909,6 @@ class AsyncMoneyInClient:
             ReferenceId for the transaction (PaymentId).
 
         amount : float
-
             Amount to refund from original transaction, minus any service fees charged on the original transaction.
 
             The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was \\$90 plus a \\$10 service fee, you can refund up to \\$90.
@@ -1940,9 +1968,9 @@ class AsyncMoneyInClient:
             ReferenceId for the transaction (PaymentId).
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         amount : typing.Optional[float]
-
             Amount to refund from original transaction, minus any service fees charged on the original transaction.
 
             The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was $90 plus a $10 service fee, you can refund up to $90.
@@ -2133,6 +2161,7 @@ class AsyncMoneyInClient:
             Object describing payment method to use for transaction.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         account_id : typing.Optional[AccountId]
 
@@ -2152,8 +2181,7 @@ class AsyncMoneyInClient:
         --------
         import asyncio
 
-        from payabli import Asyncpayabli
-        from payabli.money_in import RequestPaymentValidatePaymentMethod
+        from payabli import Asyncpayabli, RequestPaymentValidatePaymentMethod
 
         client = Asyncpayabli(
             api_key="YOUR_API_KEY",
@@ -2163,7 +2191,7 @@ class AsyncMoneyInClient:
         async def main() -> None:
             await client.money_in.validate(
                 idempotency_key="6B29FC40-CA47-1067-B31D-00DD010662DA",
-                entry_point="entry132",
+                entry_point="8cfec329267",
                 payment_method=RequestPaymentValidatePaymentMethod(
                     method="card",
                     cardnumber="4360000001000005",
@@ -2263,10 +2291,13 @@ class AsyncMoneyInClient:
             Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.
 
         ach_validation : typing.Optional[AchValidation]
+            When `true`, enables real-time validation of ACH account and routing numbers. This is an add-on feature, contact Payabli for more information.
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer. Defaults to `false`.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         validation_code : typing.Optional[str]
             Value obtained from user when an API generated CAPTCHA is used in payment page
@@ -2322,7 +2353,7 @@ class AsyncMoneyInClient:
                 customer_data=PayorDataRequest(
                     customer_id=4440,
                 ),
-                entry_point="f743aed24a",
+                entry_point="8cfec329267",
                 ipaddress="255.255.255.255",
                 payment_details=PaymentDetail(
                     service_fee=0.0,
@@ -2335,6 +2366,7 @@ class AsyncMoneyInClient:
                     cardnumber="4111111111111111",
                     cardzip="12345",
                     initiator="payor",
+                    method="card",
                 ),
             )
 
@@ -2395,8 +2427,10 @@ class AsyncMoneyInClient:
             Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer. Defaults to `false`.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         account_id : typing.Optional[AccountId]
 
@@ -2449,7 +2483,7 @@ class AsyncMoneyInClient:
                 customer_data=PayorDataRequest(
                     customer_id=4440,
                 ),
-                entry_point="f743aed24a",
+                entry_point="8cfec329267",
                 ipaddress="255.255.255.255",
                 payment_details=PaymentDetail(
                     service_fee=0.0,
@@ -2462,6 +2496,7 @@ class AsyncMoneyInClient:
                     cardnumber="4111111111111111",
                     cardzip="12345",
                     initiator="payor",
+                    method="card",
                 ),
             )
 
@@ -2516,8 +2551,7 @@ class AsyncMoneyInClient:
         --------
         import asyncio
 
-        from payabli import Asyncpayabli
-        from payabli.money_in import CapturePaymentDetails
+        from payabli import Asyncpayabli, CapturePaymentDetails
 
         client = Asyncpayabli(
             api_key="YOUR_API_KEY",

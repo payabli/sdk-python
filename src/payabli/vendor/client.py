@@ -23,6 +23,7 @@ from ..types.remitcountry import Remitcountry
 from ..types.remitstate import Remitstate
 from ..types.remitzip import Remitzip
 from ..types.vendor_ein import VendorEin
+from ..types.vendor_enrich_response import VendorEnrichResponse
 from ..types.vendor_name_1 import VendorName1
 from ..types.vendor_name_2 import VendorName2
 from ..types.vendor_number import VendorNumber
@@ -31,7 +32,6 @@ from ..types.vendor_phone import VendorPhone
 from ..types.vendor_query_record import VendorQueryRecord
 from ..types.vendorstatus import Vendorstatus
 from .raw_client import AsyncRawVendorClient, RawVendorClient
-from .types.vendor_enrich_response import VendorEnrichResponse
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -185,7 +185,6 @@ class VendorClient:
             When this feature is enabled and you include an attachment, the invoice is scanned and extracted vendor information is merged into the request.
             Fields in the request body take precedence over extracted data.
             If the scan fails, vendor creation proceeds with the original request data.
-
             See the [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview) for details.
             Contact Payabli to enable this feature.
 
@@ -206,7 +205,7 @@ class VendorClient:
         )
         client.vendor.add_vendor(
             entry="8cfec329267",
-            vendor_number="1234",
+            vendor_number="VEN-123",
             name_1="Herman's Coatings and Masonry",
             name_2="<string>",
             ein="12-3456789",
@@ -292,11 +291,11 @@ class VendorClient:
         )
         return _response.data
 
-    def delete_vendor(
+    def get_vendor(
         self, id_vendor: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> PayabliApiResponseVendors:
+    ) -> VendorQueryRecord:
         """
-        Delete a vendor.
+        Retrieves a vendor's details, including enrichment status and payment acceptance info when available.
 
         Parameters
         ----------
@@ -308,7 +307,7 @@ class VendorClient:
 
         Returns
         -------
-        PayabliApiResponseVendors
+        VendorQueryRecord
             Success
 
         Examples
@@ -318,11 +317,11 @@ class VendorClient:
         client = payabli(
             api_key="YOUR_API_KEY",
         )
-        client.vendor.delete_vendor(
+        client.vendor.get_vendor(
             id_vendor=1,
         )
         """
-        _response = self._raw_client.delete_vendor(id_vendor, request_options=request_options)
+        _response = self._raw_client.get_vendor(id_vendor, request_options=request_options)
         return _response.data
 
     def edit_vendor(
@@ -458,7 +457,6 @@ class VendorClient:
             When this feature is enabled and you include an attachment, the invoice is scanned and extracted vendor information is merged into the request.
             Fields in the request body take precedence over extracted data.
             If the scan fails, vendor creation proceeds with the original request data.
-
             See the [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview) for details.
             Contact Payabli to enable this feature.
 
@@ -522,11 +520,11 @@ class VendorClient:
         )
         return _response.data
 
-    def get_vendor(
+    def delete_vendor(
         self, id_vendor: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> VendorQueryRecord:
+    ) -> PayabliApiResponseVendors:
         """
-        Retrieves a vendor's details, including enrichment status and payment acceptance info when available.
+        Delete a vendor.
 
         Parameters
         ----------
@@ -538,7 +536,7 @@ class VendorClient:
 
         Returns
         -------
-        VendorQueryRecord
+        PayabliApiResponseVendors
             Success
 
         Examples
@@ -548,11 +546,11 @@ class VendorClient:
         client = payabli(
             api_key="YOUR_API_KEY",
         )
-        client.vendor.get_vendor(
+        client.vendor.delete_vendor(
             id_vendor=1,
         )
         """
-        _response = self._raw_client.get_vendor(id_vendor, request_options=request_options)
+        _response = self._raw_client.delete_vendor(id_vendor, request_options=request_options)
         return _response.data
 
     def enrich_vendor(
@@ -614,7 +612,7 @@ class VendorClient:
         )
         client.vendor.enrich_vendor(
             entry="8cfec329267",
-            vendor_id=3890,
+            vendor_id=456,
             scope=["invoice_scan"],
             apply_enrichment_data=False,
             fallback_method="check",
@@ -787,7 +785,6 @@ class AsyncVendorClient:
             When this feature is enabled and you include an attachment, the invoice is scanned and extracted vendor information is merged into the request.
             Fields in the request body take precedence over extracted data.
             If the scan fails, vendor creation proceeds with the original request data.
-
             See the [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview) for details.
             Contact Payabli to enable this feature.
 
@@ -813,7 +810,7 @@ class AsyncVendorClient:
         async def main() -> None:
             await client.vendor.add_vendor(
                 entry="8cfec329267",
-                vendor_number="1234",
+                vendor_number="VEN-123",
                 name_1="Herman's Coatings and Masonry",
                 name_2="<string>",
                 ein="12-3456789",
@@ -902,11 +899,11 @@ class AsyncVendorClient:
         )
         return _response.data
 
-    async def delete_vendor(
+    async def get_vendor(
         self, id_vendor: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> PayabliApiResponseVendors:
+    ) -> VendorQueryRecord:
         """
-        Delete a vendor.
+        Retrieves a vendor's details, including enrichment status and payment acceptance info when available.
 
         Parameters
         ----------
@@ -918,7 +915,7 @@ class AsyncVendorClient:
 
         Returns
         -------
-        PayabliApiResponseVendors
+        VendorQueryRecord
             Success
 
         Examples
@@ -933,14 +930,14 @@ class AsyncVendorClient:
 
 
         async def main() -> None:
-            await client.vendor.delete_vendor(
+            await client.vendor.get_vendor(
                 id_vendor=1,
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.delete_vendor(id_vendor, request_options=request_options)
+        _response = await self._raw_client.get_vendor(id_vendor, request_options=request_options)
         return _response.data
 
     async def edit_vendor(
@@ -1076,7 +1073,6 @@ class AsyncVendorClient:
             When this feature is enabled and you include an attachment, the invoice is scanned and extracted vendor information is merged into the request.
             Fields in the request body take precedence over extracted data.
             If the scan fails, vendor creation proceeds with the original request data.
-
             See the [vendor enrichment guide](/guides/pay-out-vendor-enrichment-overview) for details.
             Contact Payabli to enable this feature.
 
@@ -1148,11 +1144,11 @@ class AsyncVendorClient:
         )
         return _response.data
 
-    async def get_vendor(
+    async def delete_vendor(
         self, id_vendor: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> VendorQueryRecord:
+    ) -> PayabliApiResponseVendors:
         """
-        Retrieves a vendor's details, including enrichment status and payment acceptance info when available.
+        Delete a vendor.
 
         Parameters
         ----------
@@ -1164,7 +1160,7 @@ class AsyncVendorClient:
 
         Returns
         -------
-        VendorQueryRecord
+        PayabliApiResponseVendors
             Success
 
         Examples
@@ -1179,14 +1175,14 @@ class AsyncVendorClient:
 
 
         async def main() -> None:
-            await client.vendor.get_vendor(
+            await client.vendor.delete_vendor(
                 id_vendor=1,
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.get_vendor(id_vendor, request_options=request_options)
+        _response = await self._raw_client.delete_vendor(id_vendor, request_options=request_options)
         return _response.data
 
     async def enrich_vendor(
@@ -1253,7 +1249,7 @@ class AsyncVendorClient:
         async def main() -> None:
             await client.vendor.enrich_vendor(
                 entry="8cfec329267",
-                vendor_id=3890,
+                vendor_id=456,
                 scope=["invoice_scan"],
                 apply_enrichment_data=False,
                 fallback_method="check",

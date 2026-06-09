@@ -2,5 +2,5 @@
 
 IpAddress = str
 """
-*Recommended*. The customer's IP address. This field is used to help prevent fraudulent transactions, and Payabli strongly recommends including this data.
+The IP address associated with the transaction.
 """

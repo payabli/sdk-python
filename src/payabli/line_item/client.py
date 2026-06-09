@@ -4,6 +4,7 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
+from ..types.delete_item_response import DeleteItemResponse
 from ..types.item_commodity_code import ItemCommodityCode
 from ..types.item_description import ItemDescription
 from ..types.item_product_code import ItemProductCode
@@ -13,7 +14,6 @@ from ..types.line_item_query_record import LineItemQueryRecord
 from ..types.payabli_api_response_6 import PayabliApiResponse6
 from ..types.query_response_items import QueryResponseItems
 from .raw_client import AsyncRawLineItemClient, RawLineItemClient
-from .types.delete_item_response import DeleteItemResponse
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -41,7 +41,7 @@ class LineItemClient:
         item_cost: float,
         item_qty: int,
         idempotency_key: typing.Optional[str] = None,
-        item_categories: typing.Optional[typing.Sequence[typing.Optional[str]]] = OMIT,
+        item_categories: typing.Optional[typing.Sequence[str]] = OMIT,
         item_commodity_code: typing.Optional[ItemCommodityCode] = OMIT,
         item_description: typing.Optional[ItemDescription] = OMIT,
         item_mode: typing.Optional[int] = OMIT,
@@ -67,7 +67,7 @@ class LineItemClient:
         idempotency_key : typing.Optional[str]
             A unique ID you can include to prevent duplicating objects or transactions if a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself.
 
-        item_categories : typing.Optional[typing.Sequence[typing.Optional[str]]]
+        item_categories : typing.Optional[typing.Sequence[str]]
             Array of tags classifying item or product.
 
         item_commodity_code : typing.Optional[ItemCommodityCode]
@@ -99,7 +99,7 @@ class LineItemClient:
             api_key="YOUR_API_KEY",
         )
         client.line_item.add_item(
-            entry="47cae3d74",
+            entry="8cfec329267",
             item_product_code="M-DEPOSIT",
             item_product_name="Materials deposit",
             item_description="Deposit for materials",
@@ -115,6 +115,120 @@ class LineItemClient:
             item_cost=item_cost,
             item_qty=item_qty,
             idempotency_key=idempotency_key,
+            item_categories=item_categories,
+            item_commodity_code=item_commodity_code,
+            item_description=item_description,
+            item_mode=item_mode,
+            item_product_code=item_product_code,
+            item_product_name=item_product_name,
+            item_unit_of_measure=item_unit_of_measure,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def get_item(
+        self, line_item_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> LineItemQueryRecord:
+        """
+        Gets an item by ID.
+
+        Parameters
+        ----------
+        line_item_id : int
+            ID for the line item (also known as a product, service, or item).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        LineItemQueryRecord
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.line_item.get_item(
+            line_item_id=700,
+        )
+        """
+        _response = self._raw_client.get_item(line_item_id, request_options=request_options)
+        return _response.data
+
+    def update_item(
+        self,
+        line_item_id: int,
+        *,
+        item_cost: float,
+        item_qty: int,
+        item_categories: typing.Optional[typing.Sequence[str]] = OMIT,
+        item_commodity_code: typing.Optional[ItemCommodityCode] = OMIT,
+        item_description: typing.Optional[ItemDescription] = OMIT,
+        item_mode: typing.Optional[int] = OMIT,
+        item_product_code: typing.Optional[ItemProductCode] = OMIT,
+        item_product_name: typing.Optional[ItemProductName] = OMIT,
+        item_unit_of_measure: typing.Optional[ItemUnitofMeasure] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PayabliApiResponse6:
+        """
+        Updates an item.
+
+        Parameters
+        ----------
+        line_item_id : int
+            ID for the line item (also known as a product, service, or item).
+
+        item_cost : float
+            Item or product price per unit.
+
+        item_qty : int
+            Quantity of item or product.
+
+        item_categories : typing.Optional[typing.Sequence[str]]
+            Array of tags classifying item or product.
+
+        item_commodity_code : typing.Optional[ItemCommodityCode]
+
+        item_description : typing.Optional[ItemDescription]
+
+        item_mode : typing.Optional[int]
+            Internal class of item or product: value '0' is only for invoices, '1' for bills, and '2' is common for both.
+
+        item_product_code : typing.Optional[ItemProductCode]
+
+        item_product_name : typing.Optional[ItemProductName]
+
+        item_unit_of_measure : typing.Optional[ItemUnitofMeasure]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayabliApiResponse6
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.line_item.update_item(
+            line_item_id=700,
+            item_cost=12.45,
+            item_qty=1,
+        )
+        """
+        _response = self._raw_client.update_item(
+            line_item_id,
+            item_cost=item_cost,
+            item_qty=item_qty,
             item_categories=item_categories,
             item_commodity_code=item_commodity_code,
             item_description=item_description,
@@ -159,39 +273,6 @@ class LineItemClient:
         _response = self._raw_client.delete_item(line_item_id, request_options=request_options)
         return _response.data
 
-    def get_item(
-        self, line_item_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> LineItemQueryRecord:
-        """
-        Gets an item by ID.
-
-        Parameters
-        ----------
-        line_item_id : int
-            ID for the line item (also known as a product, service, or item).
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        LineItemQueryRecord
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.line_item.get_item(
-            line_item_id=700,
-        )
-        """
-        _response = self._raw_client.get_item(line_item_id, request_options=request_options)
-        return _response.data
-
     def list_line_items(
         self,
         entry: str,
@@ -217,7 +298,6 @@ class LineItemClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -308,87 +388,6 @@ class LineItemClient:
         )
         return _response.data
 
-    def update_item(
-        self,
-        line_item_id: int,
-        *,
-        item_cost: float,
-        item_qty: int,
-        item_categories: typing.Optional[typing.Sequence[typing.Optional[str]]] = OMIT,
-        item_commodity_code: typing.Optional[ItemCommodityCode] = OMIT,
-        item_description: typing.Optional[ItemDescription] = OMIT,
-        item_mode: typing.Optional[int] = OMIT,
-        item_product_code: typing.Optional[ItemProductCode] = OMIT,
-        item_product_name: typing.Optional[ItemProductName] = OMIT,
-        item_unit_of_measure: typing.Optional[ItemUnitofMeasure] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> PayabliApiResponse6:
-        """
-        Updates an item.
-
-        Parameters
-        ----------
-        line_item_id : int
-            ID for the line item (also known as a product, service, or item).
-
-        item_cost : float
-            Item or product price per unit.
-
-        item_qty : int
-            Quantity of item or product.
-
-        item_categories : typing.Optional[typing.Sequence[typing.Optional[str]]]
-            Array of tags classifying item or product.
-
-        item_commodity_code : typing.Optional[ItemCommodityCode]
-
-        item_description : typing.Optional[ItemDescription]
-
-        item_mode : typing.Optional[int]
-            Internal class of item or product: value '0' is only for invoices, '1' for bills, and '2' is common for both.
-
-        item_product_code : typing.Optional[ItemProductCode]
-
-        item_product_name : typing.Optional[ItemProductName]
-
-        item_unit_of_measure : typing.Optional[ItemUnitofMeasure]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        PayabliApiResponse6
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.line_item.update_item(
-            line_item_id=700,
-            item_cost=12.45,
-            item_qty=1,
-        )
-        """
-        _response = self._raw_client.update_item(
-            line_item_id,
-            item_cost=item_cost,
-            item_qty=item_qty,
-            item_categories=item_categories,
-            item_commodity_code=item_commodity_code,
-            item_description=item_description,
-            item_mode=item_mode,
-            item_product_code=item_product_code,
-            item_product_name=item_product_name,
-            item_unit_of_measure=item_unit_of_measure,
-            request_options=request_options,
-        )
-        return _response.data
-
 
 class AsyncLineItemClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -412,7 +411,7 @@ class AsyncLineItemClient:
         item_cost: float,
         item_qty: int,
         idempotency_key: typing.Optional[str] = None,
-        item_categories: typing.Optional[typing.Sequence[typing.Optional[str]]] = OMIT,
+        item_categories: typing.Optional[typing.Sequence[str]] = OMIT,
         item_commodity_code: typing.Optional[ItemCommodityCode] = OMIT,
         item_description: typing.Optional[ItemDescription] = OMIT,
         item_mode: typing.Optional[int] = OMIT,
@@ -438,7 +437,7 @@ class AsyncLineItemClient:
         idempotency_key : typing.Optional[str]
             A unique ID you can include to prevent duplicating objects or transactions if a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself.
 
-        item_categories : typing.Optional[typing.Sequence[typing.Optional[str]]]
+        item_categories : typing.Optional[typing.Sequence[str]]
             Array of tags classifying item or product.
 
         item_commodity_code : typing.Optional[ItemCommodityCode]
@@ -475,7 +474,7 @@ class AsyncLineItemClient:
 
         async def main() -> None:
             await client.line_item.add_item(
-                entry="47cae3d74",
+                entry="8cfec329267",
                 item_product_code="M-DEPOSIT",
                 item_product_name="Materials deposit",
                 item_description="Deposit for materials",
@@ -494,6 +493,136 @@ class AsyncLineItemClient:
             item_cost=item_cost,
             item_qty=item_qty,
             idempotency_key=idempotency_key,
+            item_categories=item_categories,
+            item_commodity_code=item_commodity_code,
+            item_description=item_description,
+            item_mode=item_mode,
+            item_product_code=item_product_code,
+            item_product_name=item_product_name,
+            item_unit_of_measure=item_unit_of_measure,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def get_item(
+        self, line_item_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> LineItemQueryRecord:
+        """
+        Gets an item by ID.
+
+        Parameters
+        ----------
+        line_item_id : int
+            ID for the line item (also known as a product, service, or item).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        LineItemQueryRecord
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.line_item.get_item(
+                line_item_id=700,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_item(line_item_id, request_options=request_options)
+        return _response.data
+
+    async def update_item(
+        self,
+        line_item_id: int,
+        *,
+        item_cost: float,
+        item_qty: int,
+        item_categories: typing.Optional[typing.Sequence[str]] = OMIT,
+        item_commodity_code: typing.Optional[ItemCommodityCode] = OMIT,
+        item_description: typing.Optional[ItemDescription] = OMIT,
+        item_mode: typing.Optional[int] = OMIT,
+        item_product_code: typing.Optional[ItemProductCode] = OMIT,
+        item_product_name: typing.Optional[ItemProductName] = OMIT,
+        item_unit_of_measure: typing.Optional[ItemUnitofMeasure] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PayabliApiResponse6:
+        """
+        Updates an item.
+
+        Parameters
+        ----------
+        line_item_id : int
+            ID for the line item (also known as a product, service, or item).
+
+        item_cost : float
+            Item or product price per unit.
+
+        item_qty : int
+            Quantity of item or product.
+
+        item_categories : typing.Optional[typing.Sequence[str]]
+            Array of tags classifying item or product.
+
+        item_commodity_code : typing.Optional[ItemCommodityCode]
+
+        item_description : typing.Optional[ItemDescription]
+
+        item_mode : typing.Optional[int]
+            Internal class of item or product: value '0' is only for invoices, '1' for bills, and '2' is common for both.
+
+        item_product_code : typing.Optional[ItemProductCode]
+
+        item_product_name : typing.Optional[ItemProductName]
+
+        item_unit_of_measure : typing.Optional[ItemUnitofMeasure]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayabliApiResponse6
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.line_item.update_item(
+                line_item_id=700,
+                item_cost=12.45,
+                item_qty=1,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.update_item(
+            line_item_id,
+            item_cost=item_cost,
+            item_qty=item_qty,
             item_categories=item_categories,
             item_commodity_code=item_commodity_code,
             item_description=item_description,
@@ -546,47 +675,6 @@ class AsyncLineItemClient:
         _response = await self._raw_client.delete_item(line_item_id, request_options=request_options)
         return _response.data
 
-    async def get_item(
-        self, line_item_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> LineItemQueryRecord:
-        """
-        Gets an item by ID.
-
-        Parameters
-        ----------
-        line_item_id : int
-            ID for the line item (also known as a product, service, or item).
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        LineItemQueryRecord
-            Success
-
-        Examples
-        --------
-        import asyncio
-
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.line_item.get_item(
-                line_item_id=700,
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.get_item(line_item_id, request_options=request_options)
-        return _response.data
-
     async def list_line_items(
         self,
         entry: str,
@@ -612,7 +700,6 @@ class AsyncLineItemClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -707,95 +794,6 @@ class AsyncLineItemClient:
             limit_record=limit_record,
             parameters=parameters,
             sort_by=sort_by,
-            request_options=request_options,
-        )
-        return _response.data
-
-    async def update_item(
-        self,
-        line_item_id: int,
-        *,
-        item_cost: float,
-        item_qty: int,
-        item_categories: typing.Optional[typing.Sequence[typing.Optional[str]]] = OMIT,
-        item_commodity_code: typing.Optional[ItemCommodityCode] = OMIT,
-        item_description: typing.Optional[ItemDescription] = OMIT,
-        item_mode: typing.Optional[int] = OMIT,
-        item_product_code: typing.Optional[ItemProductCode] = OMIT,
-        item_product_name: typing.Optional[ItemProductName] = OMIT,
-        item_unit_of_measure: typing.Optional[ItemUnitofMeasure] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> PayabliApiResponse6:
-        """
-        Updates an item.
-
-        Parameters
-        ----------
-        line_item_id : int
-            ID for the line item (also known as a product, service, or item).
-
-        item_cost : float
-            Item or product price per unit.
-
-        item_qty : int
-            Quantity of item or product.
-
-        item_categories : typing.Optional[typing.Sequence[typing.Optional[str]]]
-            Array of tags classifying item or product.
-
-        item_commodity_code : typing.Optional[ItemCommodityCode]
-
-        item_description : typing.Optional[ItemDescription]
-
-        item_mode : typing.Optional[int]
-            Internal class of item or product: value '0' is only for invoices, '1' for bills, and '2' is common for both.
-
-        item_product_code : typing.Optional[ItemProductCode]
-
-        item_product_name : typing.Optional[ItemProductName]
-
-        item_unit_of_measure : typing.Optional[ItemUnitofMeasure]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        PayabliApiResponse6
-            Success
-
-        Examples
-        --------
-        import asyncio
-
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.line_item.update_item(
-                line_item_id=700,
-                item_cost=12.45,
-                item_qty=1,
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.update_item(
-            line_item_id,
-            item_cost=item_cost,
-            item_qty=item_qty,
-            item_categories=item_categories,
-            item_commodity_code=item_commodity_code,
-            item_description=item_description,
-            item_mode=item_mode,
-            item_product_code=item_product_code,
-            item_product_name=item_product_name,
-            item_unit_of_measure=item_unit_of_measure,
             request_options=request_options,
         )
         return _response.data

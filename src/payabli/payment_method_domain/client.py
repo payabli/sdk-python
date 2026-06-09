@@ -5,17 +5,17 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.add_payment_method_domain_api_response import AddPaymentMethodDomainApiResponse
+from ..types.add_payment_method_domain_request_apple_pay import AddPaymentMethodDomainRequestApplePay
+from ..types.add_payment_method_domain_request_google_pay import AddPaymentMethodDomainRequestGooglePay
+from ..types.delete_payment_method_domain_response import DeletePaymentMethodDomainResponse
 from ..types.domain_name import DomainName
 from ..types.entity_id import EntityId
 from ..types.entity_type import EntityType
+from ..types.list_payment_method_domains_response import ListPaymentMethodDomainsResponse
 from ..types.payment_method_domain_api_response import PaymentMethodDomainApiResponse
 from ..types.payment_method_domain_general_response import PaymentMethodDomainGeneralResponse
+from ..types.update_payment_method_domain_request_wallet import UpdatePaymentMethodDomainRequestWallet
 from .raw_client import AsyncRawPaymentMethodDomainClient, RawPaymentMethodDomainClient
-from .types.add_payment_method_domain_request_apple_pay import AddPaymentMethodDomainRequestApplePay
-from .types.add_payment_method_domain_request_google_pay import AddPaymentMethodDomainRequestGooglePay
-from .types.delete_payment_method_domain_response import DeletePaymentMethodDomainResponse
-from .types.list_payment_method_domains_response import ListPaymentMethodDomainsResponse
-from .types.update_payment_method_domain_request_wallet import UpdatePaymentMethodDomainRequestWallet
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -73,10 +73,10 @@ class PaymentMethodDomainClient:
 
         Examples
         --------
-        from payabli import payabli
-        from payabli.payment_method_domain import (
+        from payabli import (
             AddPaymentMethodDomainRequestApplePay,
             AddPaymentMethodDomainRequestGooglePay,
+            payabli,
         )
 
         client = payabli(
@@ -137,6 +137,39 @@ class PaymentMethodDomainClient:
         _response = self._raw_client.cascade_payment_method_domain(domain_id, request_options=request_options)
         return _response.data
 
+    def get_payment_method_domain(
+        self, domain_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> PaymentMethodDomainApiResponse:
+        """
+        Get the details for a payment method domain.
+
+        Parameters
+        ----------
+        domain_id : str
+            The payment method domain's ID in Payabli.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaymentMethodDomainApiResponse
+            Success response that includes a payment method domain's details.
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.payment_method_domain.get_payment_method_domain(
+            domain_id="pmd_b8237fa45c964d8a9ef27160cd42b8c5",
+        )
+        """
+        _response = self._raw_client.get_payment_method_domain(domain_id, request_options=request_options)
+        return _response.data
+
     def delete_payment_method_domain(
         self, domain_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> DeletePaymentMethodDomainResponse:
@@ -170,37 +203,54 @@ class PaymentMethodDomainClient:
         _response = self._raw_client.delete_payment_method_domain(domain_id, request_options=request_options)
         return _response.data
 
-    def get_payment_method_domain(
-        self, domain_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> PaymentMethodDomainApiResponse:
+    def update_payment_method_domain(
+        self,
+        domain_id: str,
+        *,
+        apple_pay: typing.Optional[UpdatePaymentMethodDomainRequestWallet] = OMIT,
+        google_pay: typing.Optional[UpdatePaymentMethodDomainRequestWallet] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PaymentMethodDomainGeneralResponse:
         """
-        Get the details for a payment method domain.
+        Update a payment method domain's configuration values.
 
         Parameters
         ----------
         domain_id : str
             The payment method domain's ID in Payabli.
 
+        apple_pay : typing.Optional[UpdatePaymentMethodDomainRequestWallet]
+
+        google_pay : typing.Optional[UpdatePaymentMethodDomainRequestWallet]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        PaymentMethodDomainApiResponse
-            Success response that includes a payment method domain's details.
+        PaymentMethodDomainGeneralResponse
+            Success response for configuration update.
 
         Examples
         --------
-        from payabli import payabli
+        from payabli import UpdatePaymentMethodDomainRequestWallet, payabli
 
         client = payabli(
             api_key="YOUR_API_KEY",
         )
-        client.payment_method_domain.get_payment_method_domain(
+        client.payment_method_domain.update_payment_method_domain(
             domain_id="pmd_b8237fa45c964d8a9ef27160cd42b8c5",
+            apple_pay=UpdatePaymentMethodDomainRequestWallet(
+                is_enabled=False,
+            ),
+            google_pay=UpdatePaymentMethodDomainRequestWallet(
+                is_enabled=False,
+            ),
         )
         """
-        _response = self._raw_client.get_payment_method_domain(domain_id, request_options=request_options)
+        _response = self._raw_client.update_payment_method_domain(
+            domain_id, apple_pay=apple_pay, google_pay=google_pay, request_options=request_options
+        )
         return _response.data
 
     def list_payment_method_domains(
@@ -259,57 +309,6 @@ class PaymentMethodDomainClient:
             from_record=from_record,
             limit_record=limit_record,
             request_options=request_options,
-        )
-        return _response.data
-
-    def update_payment_method_domain(
-        self,
-        domain_id: str,
-        *,
-        apple_pay: typing.Optional[UpdatePaymentMethodDomainRequestWallet] = OMIT,
-        google_pay: typing.Optional[UpdatePaymentMethodDomainRequestWallet] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaymentMethodDomainGeneralResponse:
-        """
-        Update a payment method domain's configuration values.
-
-        Parameters
-        ----------
-        domain_id : str
-            The payment method domain's ID in Payabli.
-
-        apple_pay : typing.Optional[UpdatePaymentMethodDomainRequestWallet]
-
-        google_pay : typing.Optional[UpdatePaymentMethodDomainRequestWallet]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        PaymentMethodDomainGeneralResponse
-            Success response for configuration update.
-
-        Examples
-        --------
-        from payabli import payabli
-        from payabli.payment_method_domain import UpdatePaymentMethodDomainRequestWallet
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.payment_method_domain.update_payment_method_domain(
-            domain_id="pmd_b8237fa45c964d8a9ef27160cd42b8c5",
-            apple_pay=UpdatePaymentMethodDomainRequestWallet(
-                is_enabled=False,
-            ),
-            google_pay=UpdatePaymentMethodDomainRequestWallet(
-                is_enabled=False,
-            ),
-        )
-        """
-        _response = self._raw_client.update_payment_method_domain(
-            domain_id, apple_pay=apple_pay, google_pay=google_pay, request_options=request_options
         )
         return _response.data
 
@@ -401,10 +400,10 @@ class AsyncPaymentMethodDomainClient:
         --------
         import asyncio
 
-        from payabli import Asyncpayabli
-        from payabli.payment_method_domain import (
+        from payabli import (
             AddPaymentMethodDomainRequestApplePay,
             AddPaymentMethodDomainRequestGooglePay,
+            Asyncpayabli,
         )
 
         client = Asyncpayabli(
@@ -479,6 +478,47 @@ class AsyncPaymentMethodDomainClient:
         _response = await self._raw_client.cascade_payment_method_domain(domain_id, request_options=request_options)
         return _response.data
 
+    async def get_payment_method_domain(
+        self, domain_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> PaymentMethodDomainApiResponse:
+        """
+        Get the details for a payment method domain.
+
+        Parameters
+        ----------
+        domain_id : str
+            The payment method domain's ID in Payabli.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaymentMethodDomainApiResponse
+            Success response that includes a payment method domain's details.
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.payment_method_domain.get_payment_method_domain(
+                domain_id="pmd_b8237fa45c964d8a9ef27160cd42b8c5",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_payment_method_domain(domain_id, request_options=request_options)
+        return _response.data
+
     async def delete_payment_method_domain(
         self, domain_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> DeletePaymentMethodDomainResponse:
@@ -520,30 +560,39 @@ class AsyncPaymentMethodDomainClient:
         _response = await self._raw_client.delete_payment_method_domain(domain_id, request_options=request_options)
         return _response.data
 
-    async def get_payment_method_domain(
-        self, domain_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> PaymentMethodDomainApiResponse:
+    async def update_payment_method_domain(
+        self,
+        domain_id: str,
+        *,
+        apple_pay: typing.Optional[UpdatePaymentMethodDomainRequestWallet] = OMIT,
+        google_pay: typing.Optional[UpdatePaymentMethodDomainRequestWallet] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PaymentMethodDomainGeneralResponse:
         """
-        Get the details for a payment method domain.
+        Update a payment method domain's configuration values.
 
         Parameters
         ----------
         domain_id : str
             The payment method domain's ID in Payabli.
 
+        apple_pay : typing.Optional[UpdatePaymentMethodDomainRequestWallet]
+
+        google_pay : typing.Optional[UpdatePaymentMethodDomainRequestWallet]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        PaymentMethodDomainApiResponse
-            Success response that includes a payment method domain's details.
+        PaymentMethodDomainGeneralResponse
+            Success response for configuration update.
 
         Examples
         --------
         import asyncio
 
-        from payabli import Asyncpayabli
+        from payabli import Asyncpayabli, UpdatePaymentMethodDomainRequestWallet
 
         client = Asyncpayabli(
             api_key="YOUR_API_KEY",
@@ -551,14 +600,22 @@ class AsyncPaymentMethodDomainClient:
 
 
         async def main() -> None:
-            await client.payment_method_domain.get_payment_method_domain(
+            await client.payment_method_domain.update_payment_method_domain(
                 domain_id="pmd_b8237fa45c964d8a9ef27160cd42b8c5",
+                apple_pay=UpdatePaymentMethodDomainRequestWallet(
+                    is_enabled=False,
+                ),
+                google_pay=UpdatePaymentMethodDomainRequestWallet(
+                    is_enabled=False,
+                ),
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.get_payment_method_domain(domain_id, request_options=request_options)
+        _response = await self._raw_client.update_payment_method_domain(
+            domain_id, apple_pay=apple_pay, google_pay=google_pay, request_options=request_options
+        )
         return _response.data
 
     async def list_payment_method_domains(
@@ -625,65 +682,6 @@ class AsyncPaymentMethodDomainClient:
             from_record=from_record,
             limit_record=limit_record,
             request_options=request_options,
-        )
-        return _response.data
-
-    async def update_payment_method_domain(
-        self,
-        domain_id: str,
-        *,
-        apple_pay: typing.Optional[UpdatePaymentMethodDomainRequestWallet] = OMIT,
-        google_pay: typing.Optional[UpdatePaymentMethodDomainRequestWallet] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaymentMethodDomainGeneralResponse:
-        """
-        Update a payment method domain's configuration values.
-
-        Parameters
-        ----------
-        domain_id : str
-            The payment method domain's ID in Payabli.
-
-        apple_pay : typing.Optional[UpdatePaymentMethodDomainRequestWallet]
-
-        google_pay : typing.Optional[UpdatePaymentMethodDomainRequestWallet]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        PaymentMethodDomainGeneralResponse
-            Success response for configuration update.
-
-        Examples
-        --------
-        import asyncio
-
-        from payabli import Asyncpayabli
-        from payabli.payment_method_domain import UpdatePaymentMethodDomainRequestWallet
-
-        client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.payment_method_domain.update_payment_method_domain(
-                domain_id="pmd_b8237fa45c964d8a9ef27160cd42b8c5",
-                apple_pay=UpdatePaymentMethodDomainRequestWallet(
-                    is_enabled=False,
-                ),
-                google_pay=UpdatePaymentMethodDomainRequestWallet(
-                    is_enabled=False,
-                ),
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.update_payment_method_domain(
-            domain_id, apple_pay=apple_pay, google_pay=google_pay, request_options=request_options
         )
         return _response.data
 

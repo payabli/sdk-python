@@ -3,9 +3,9 @@
 import typing
 
 from ..core.api_error import ApiError
-from ..types.payabli_api_response import PayabliApiResponse
+from ..types.payabli_error_body import PayabliErrorBody
 
 
 class ServiceUnavailableError(ApiError):
-    def __init__(self, body: PayabliApiResponse, headers: typing.Optional[typing.Dict[str, str]] = None):
+    def __init__(self, body: PayabliErrorBody, headers: typing.Optional[typing.Dict[str, str]] = None):
         super().__init__(status_code=503, headers=headers, body=body)

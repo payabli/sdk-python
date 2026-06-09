@@ -32,64 +32,78 @@ from .zip import Zip
 
 class PaypointData(UniversalBaseModel):
     address_1: typing_extensions.Annotated[
-        typing.Optional[AddressNullable], FieldMetadata(alias="address1"), pydantic.Field(alias="address1")
+        typing.Optional[AddressNullable], FieldMetadata(alias="Address1"), pydantic.Field(alias="Address1")
     ] = None
     address_2: typing_extensions.Annotated[
-        typing.Optional[AddressAddtlNullable], FieldMetadata(alias="address2"), pydantic.Field(alias="address2")
+        typing.Optional[AddressAddtlNullable], FieldMetadata(alias="Address2"), pydantic.Field(alias="Address2")
     ] = None
     bank_data: typing_extensions.Annotated[
-        typing.Optional[BankData], FieldMetadata(alias="bankData"), pydantic.Field(alias="bankData")
+        typing.Optional[BankData], FieldMetadata(alias="BankData"), pydantic.Field(alias="BankData")
     ] = None
     boarding_id: typing_extensions.Annotated[
-        typing.Optional[BoardingId], FieldMetadata(alias="boardingId"), pydantic.Field(alias="boardingId")
+        typing.Optional[BoardingId], FieldMetadata(alias="BoardingId"), pydantic.Field(alias="BoardingId")
     ] = None
-    city: typing.Optional[CityNullable] = None
-    contacts: typing.Optional[ContactsField] = None
-    country: typing.Optional[CountryNullable] = None
-    credentials: typing.Optional[typing.List[PayabliCredentialsPascal]] = None
+    city: typing_extensions.Annotated[
+        typing.Optional[CityNullable], FieldMetadata(alias="City"), pydantic.Field(alias="City")
+    ] = None
+    contacts: typing_extensions.Annotated[
+        typing.Optional[ContactsField], FieldMetadata(alias="Contacts"), pydantic.Field(alias="Contacts")
+    ] = None
+    country: typing_extensions.Annotated[
+        typing.Optional[CountryNullable], FieldMetadata(alias="Country"), pydantic.Field(alias="Country")
+    ] = None
+    credentials: typing_extensions.Annotated[
+        typing.Optional[typing.List[PayabliCredentialsPascal]],
+        FieldMetadata(alias="Credentials"),
+        pydantic.Field(alias="Credentials"),
+    ] = None
     dba_name: typing_extensions.Annotated[
-        typing.Optional[Dbaname], FieldMetadata(alias="dbaName"), pydantic.Field(alias="dbaName")
+        typing.Optional[Dbaname], FieldMetadata(alias="DbaName"), pydantic.Field(alias="DbaName")
     ] = None
     external_paypoint_id: typing_extensions.Annotated[
         typing.Optional[ExternalPaypointId],
         FieldMetadata(alias="externalPaypointID"),
         pydantic.Field(alias="externalPaypointID"),
     ] = None
-    fax: typing.Optional[PhoneNumber] = pydantic.Field(default=None)
-    """
-    Fax number
-    """
-
+    fax: typing_extensions.Annotated[
+        typing.Optional[PhoneNumber], FieldMetadata(alias="Fax"), pydantic.Field(alias="Fax", description="Fax number")
+    ] = None
     id_paypoint: typing_extensions.Annotated[
-        typing.Optional[Idpaypoint], FieldMetadata(alias="idPaypoint"), pydantic.Field(alias="idPaypoint")
+        typing.Optional[Idpaypoint], FieldMetadata(alias="IdPaypoint"), pydantic.Field(alias="IdPaypoint")
     ] = None
     legal_name: typing_extensions.Annotated[
-        typing.Optional[Legalname], FieldMetadata(alias="legalName"), pydantic.Field(alias="legalName")
+        typing.Optional[Legalname], FieldMetadata(alias="LegalName"), pydantic.Field(alias="LegalName")
     ] = None
     parent_org: typing_extensions.Annotated[
-        typing.Optional[OrgData], FieldMetadata(alias="parentOrg"), pydantic.Field(alias="parentOrg")
+        typing.Optional[OrgData], FieldMetadata(alias="ParentOrg"), pydantic.Field(alias="ParentOrg")
     ] = None
     paypoint_status: typing_extensions.Annotated[
-        typing.Optional[Paypointstatus], FieldMetadata(alias="paypointStatus"), pydantic.Field(alias="paypointStatus")
+        typing.Optional[Paypointstatus], FieldMetadata(alias="PaypointStatus"), pydantic.Field(alias="PaypointStatus")
     ] = None
-    phone: typing.Optional[PhoneNumber] = None
+    phone: typing_extensions.Annotated[
+        typing.Optional[PhoneNumber], FieldMetadata(alias="Phone"), pydantic.Field(alias="Phone")
+    ] = None
     service_data: typing_extensions.Annotated[
-        typing.Optional[Services], FieldMetadata(alias="serviceData"), pydantic.Field(alias="serviceData")
+        typing.Optional[Services], FieldMetadata(alias="ServiceData"), pydantic.Field(alias="ServiceData")
     ] = None
-    state: typing.Optional[StateNullable] = None
+    state: typing_extensions.Annotated[
+        typing.Optional[StateNullable], FieldMetadata(alias="State"), pydantic.Field(alias="State")
+    ] = None
     summary: typing.Optional[PaypointSummary] = None
     time_zone: typing_extensions.Annotated[
-        typing.Optional[Timezone], FieldMetadata(alias="timeZone"), pydantic.Field(alias="timeZone")
+        typing.Optional[Timezone], FieldMetadata(alias="TimeZone"), pydantic.Field(alias="TimeZone")
     ] = None
     website_address: typing_extensions.Annotated[
-        typing.Optional[Website], FieldMetadata(alias="websiteAddress"), pydantic.Field(alias="websiteAddress")
+        typing.Optional[Website], FieldMetadata(alias="WebsiteAddress"), pydantic.Field(alias="WebsiteAddress")
     ] = None
-    zip: typing.Optional[Zip] = None
+    zip: typing_extensions.Annotated[typing.Optional[Zip], FieldMetadata(alias="Zip"), pydantic.Field(alias="Zip")] = (
+        None
+    )
     statement_email: typing_extensions.Annotated[
         typing.Optional[StatementEmailConfig],
-        FieldMetadata(alias="statementEmail"),
+        FieldMetadata(alias="StatementEmail"),
         pydantic.Field(
-            alias="statementEmail",
+            alias="StatementEmail",
             description="Configuration for billing statement email recipients and sender address. `null` if not configured.",
         ),
     ] = None

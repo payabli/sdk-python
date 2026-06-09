@@ -7,6 +7,7 @@ import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 from .ach_holder import AchHolder
+from .check_method import CheckMethod
 
 
 class Check(UniversalBaseModel):
@@ -15,7 +16,7 @@ class Check(UniversalBaseModel):
         FieldMetadata(alias="achHolder"),
         pydantic.Field(alias="achHolder", description="The checking accountholder's name."),
     ]
-    method: typing.Literal["check"] = pydantic.Field(default="check")
+    method: CheckMethod = pydantic.Field()
     """
     Method to use for the transaction. Use `check` for a paper check transaction. When the method is `check`, then `paymentDetails.checkNumber` is required.
     """

@@ -2,5 +2,8 @@
 
 PayoutAverageMonthlyVolume = float
 """
-The total number of bills the business pays each month. For example, if your business pays an electric bill of \$500, an internet bill of \$150, and various suppliers \$5,000 every month then your monthly bill volume would be \$5,650.
+The total number of bills the business pays each month. For example, if
+your business pays an electric bill of $500, an internet bill of $150, and
+various suppliers $5,000 every month then your monthly bill volume would
+be $5,650.
 """

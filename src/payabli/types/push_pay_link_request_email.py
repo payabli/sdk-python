@@ -14,7 +14,7 @@ class PushPayLinkRequestEmail(UniversalBaseModel):
         FieldMetadata(alias="additionalEmails"),
         pydantic.Field(
             alias="additionalEmails",
-            description="List of additional email addresses you want to send the paylink to, formatted as an array. \nPayment links and opt-in requests are sent to the customer email address on file, and additional \nrecipients can be specified here.",
+            description="List of additional email addresses you want to send the paylink to, formatted as an array.\nPayment links and opt-in requests are sent to the customer email address on file, and additional\nrecipients can be specified here.",
         ),
     ] = None
     attach_file: typing_extensions.Annotated[

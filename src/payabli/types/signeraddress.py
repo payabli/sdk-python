@@ -2,5 +2,6 @@
 
 Signeraddress = str
 """
-The signer's address. This must be the physical address of the signer, not a P.O. box.
+The signer's address. This must be the physical address of the signer,
+not a P.O. box.
 """

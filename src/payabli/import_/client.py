@@ -78,6 +78,7 @@ class ImportClient:
         Parameters
         ----------
         entry : Entrypointfield
+            The entrypoint identifier.
 
         file : core.File
             See core.File for more documentation
@@ -118,6 +119,7 @@ class ImportClient:
         Parameters
         ----------
         entry : Entrypointfield
+            The entrypoint identifier.
 
         file : core.File
             See core.File for more documentation
@@ -218,6 +220,7 @@ class AsyncImportClient:
         Parameters
         ----------
         entry : Entrypointfield
+            The entrypoint identifier.
 
         file : core.File
             See core.File for more documentation
@@ -266,6 +269,7 @@ class AsyncImportClient:
         Parameters
         ----------
         entry : Entrypointfield
+            The entrypoint identifier.
 
         file : core.File
             See core.File for more documentation

@@ -2,5 +2,6 @@
 
 MaxTicket = float
 """
-Maximum ticket amount for transactions within the paypoint. Contact Payabli support to request a change to this value.
+Maximum ticket amount for transactions within the paypoint. Contact
+Payabli support to request a change to this value.
 """

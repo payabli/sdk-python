@@ -17,61 +17,6 @@ from .transfer_message import TransferMessage
 
 
 class Transfer(UniversalBaseModel):
-    """
-    Examples
-    --------
-    import datetime
-
-    from payabli import GeneralEvents, Transfer, TransferBankAccount
-
-    Transfer(
-        transfer_id=79851,
-        paypoint_id=705,
-        batch_number="split_705_gp_11-16-2024",
-        batch_currency="USD",
-        batch_records=1,
-        transfer_identifier="bbcbfed7-e535-45fe-8d62-000000",
-        batch_id=111430,
-        paypoint_entry_name="47ae3de37",
-        paypoint_legal_name="Gruzya Outdoor Outfitters LLC",
-        paypoint_dba_name="Gruzya Outdoor Outfitters",
-        paypoint_logo="https://example.com/logo.png",
-        parent_org_name="Pilgrim Planner",
-        parent_org_id=12345,
-        parent_org_entry_name="43aebc000",
-        parent_org_logo="https://example.com/parent-logo.png",
-        external_paypoint_id="ext-12345",
-        bank_account=TransferBankAccount(
-            account_number="****1234",
-            routing_number="123456789",
-            bank_name="Riverdale Community Bank",
-        ),
-        transfer_date="2024-11-17T08:20:07.288+00:00",
-        processor="gp",
-        transfer_status=2,
-        gross_amount=1029.0,
-        charge_back_amount=25.0,
-        returned_amount=0.0,
-        hold_amount=0.0,
-        released_amount=0.0,
-        billing_fees_amount=0.0,
-        third_party_paid_amount=0.0,
-        adjustments_amount=0.0,
-        net_transfer_amount=1004.0,
-        split_amount=650.22,
-        events_data=[
-            GeneralEvents(
-                description="Transfer Created",
-                event_time=datetime.datetime.fromisoformat(
-                    "2024-11-16 08:15:33.436000+00:00",
-                ),
-                source="worker",
-            )
-        ],
-        messages=[],
-    )
-    """
-
     transfer_id: typing_extensions.Annotated[
         int, FieldMetadata(alias="transferId"), pydantic.Field(alias="transferId", description="The transfer ID.")
     ]

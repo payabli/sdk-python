@@ -2,5 +2,7 @@
 
 Resumable = bool
 """
-When `true`, the applicant can save an incomplete application and resume it later. When `false`, the applicant  won't have an option to save their progress, and must complete the application in one session.
+When `true`, the applicant can save an incomplete application and
+resume it later. When `false`, the applicant won't have an option to
+save their progress, and must complete the application in one session.
 """

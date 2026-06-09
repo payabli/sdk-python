@@ -12,6 +12,7 @@ from .cardholder import Cardholder
 from .cardnumber import Cardnumber
 from .cardzip import Cardzip
 from .initiator import Initiator
+from .pay_method_credit_method import PayMethodCreditMethod
 from .save_if_success import SaveIfSuccess
 
 
@@ -24,7 +25,7 @@ class PayMethodCredit(UniversalBaseModel):
     cardnumber: Cardnumber
     cardzip: typing.Optional[Cardzip] = None
     initiator: typing.Optional[Initiator] = None
-    method: typing.Literal["card"] = pydantic.Field(default="card")
+    method: PayMethodCreditMethod = pydantic.Field()
     """
     Method to use for the transaction. For transactions with a credit or debit card, or a tokenized card, use `card`.
     """

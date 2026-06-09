@@ -14,16 +14,16 @@ from ..errors.bad_request_error import BadRequestError
 from ..errors.internal_server_error import InternalServerError
 from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.unauthorized_error import UnauthorizedError
+from ..types.delete_item_response import DeleteItemResponse
 from ..types.item_commodity_code import ItemCommodityCode
 from ..types.item_description import ItemDescription
 from ..types.item_product_code import ItemProductCode
 from ..types.item_product_name import ItemProductName
 from ..types.item_unitof_measure import ItemUnitofMeasure
 from ..types.line_item_query_record import LineItemQueryRecord
-from ..types.payabli_api_response import PayabliApiResponse
 from ..types.payabli_api_response_6 import PayabliApiResponse6
+from ..types.payabli_error_body import PayabliErrorBody
 from ..types.query_response_items import QueryResponseItems
-from .types.delete_item_response import DeleteItemResponse
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -41,7 +41,7 @@ class RawLineItemClient:
         item_cost: float,
         item_qty: int,
         idempotency_key: typing.Optional[str] = None,
-        item_categories: typing.Optional[typing.Sequence[typing.Optional[str]]] = OMIT,
+        item_categories: typing.Optional[typing.Sequence[str]] = OMIT,
         item_commodity_code: typing.Optional[ItemCommodityCode] = OMIT,
         item_description: typing.Optional[ItemDescription] = OMIT,
         item_mode: typing.Optional[int] = OMIT,
@@ -67,7 +67,7 @@ class RawLineItemClient:
         idempotency_key : typing.Optional[str]
             A unique ID you can include to prevent duplicating objects or transactions if a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself.
 
-        item_categories : typing.Optional[typing.Sequence[typing.Optional[str]]]
+        item_categories : typing.Optional[typing.Sequence[str]]
             Array of tags classifying item or product.
 
         item_commodity_code : typing.Optional[ItemCommodityCode]
@@ -137,9 +137,9 @@ class RawLineItemClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -159,96 +159,9 @@ class RawLineItemClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def delete_item(
-        self, line_item_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[DeleteItemResponse]:
-        """
-        Deletes an item.
-
-        Parameters
-        ----------
-        line_item_id : int
-            ID for the line item (also known as a product, service, or item).
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[DeleteItemResponse]
-            Success
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"LineItem/{encode_path_param(line_item_id)}",
-            method="DELETE",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    DeleteItemResponse,
-                    parse_obj_as(
-                        type_=DeleteItemResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -311,9 +224,9 @@ class RawLineItemClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -333,9 +246,232 @@ class RawLineItemClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def update_item(
+        self,
+        line_item_id: int,
+        *,
+        item_cost: float,
+        item_qty: int,
+        item_categories: typing.Optional[typing.Sequence[str]] = OMIT,
+        item_commodity_code: typing.Optional[ItemCommodityCode] = OMIT,
+        item_description: typing.Optional[ItemDescription] = OMIT,
+        item_mode: typing.Optional[int] = OMIT,
+        item_product_code: typing.Optional[ItemProductCode] = OMIT,
+        item_product_name: typing.Optional[ItemProductName] = OMIT,
+        item_unit_of_measure: typing.Optional[ItemUnitofMeasure] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[PayabliApiResponse6]:
+        """
+        Updates an item.
+
+        Parameters
+        ----------
+        line_item_id : int
+            ID for the line item (also known as a product, service, or item).
+
+        item_cost : float
+            Item or product price per unit.
+
+        item_qty : int
+            Quantity of item or product.
+
+        item_categories : typing.Optional[typing.Sequence[str]]
+            Array of tags classifying item or product.
+
+        item_commodity_code : typing.Optional[ItemCommodityCode]
+
+        item_description : typing.Optional[ItemDescription]
+
+        item_mode : typing.Optional[int]
+            Internal class of item or product: value '0' is only for invoices, '1' for bills, and '2' is common for both.
+
+        item_product_code : typing.Optional[ItemProductCode]
+
+        item_product_name : typing.Optional[ItemProductName]
+
+        item_unit_of_measure : typing.Optional[ItemUnitofMeasure]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[PayabliApiResponse6]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"LineItem/{encode_path_param(line_item_id)}",
+            method="PUT",
+            json={
+                "itemCategories": item_categories,
+                "itemCommodityCode": item_commodity_code,
+                "itemCost": item_cost,
+                "itemDescription": item_description,
+                "itemMode": item_mode,
+                "itemProductCode": item_product_code,
+                "itemProductName": item_product_name,
+                "itemQty": item_qty,
+                "itemUnitOfMeasure": item_unit_of_measure,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PayabliApiResponse6,
+                    parse_obj_as(
+                        type_=PayabliApiResponse6,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def delete_item(
+        self, line_item_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[DeleteItemResponse]:
+        """
+        Deletes an item.
+
+        Parameters
+        ----------
+        line_item_id : int
+            ID for the line item (also known as a product, service, or item).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[DeleteItemResponse]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"LineItem/{encode_path_param(line_item_id)}",
+            method="DELETE",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    DeleteItemResponse,
+                    parse_obj_as(
+                        type_=DeleteItemResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -374,7 +510,6 @@ class RawLineItemClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -477,9 +612,9 @@ class RawLineItemClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -499,145 +634,9 @@ class RawLineItemClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def update_item(
-        self,
-        line_item_id: int,
-        *,
-        item_cost: float,
-        item_qty: int,
-        item_categories: typing.Optional[typing.Sequence[typing.Optional[str]]] = OMIT,
-        item_commodity_code: typing.Optional[ItemCommodityCode] = OMIT,
-        item_description: typing.Optional[ItemDescription] = OMIT,
-        item_mode: typing.Optional[int] = OMIT,
-        item_product_code: typing.Optional[ItemProductCode] = OMIT,
-        item_product_name: typing.Optional[ItemProductName] = OMIT,
-        item_unit_of_measure: typing.Optional[ItemUnitofMeasure] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PayabliApiResponse6]:
-        """
-        Updates an item.
-
-        Parameters
-        ----------
-        line_item_id : int
-            ID for the line item (also known as a product, service, or item).
-
-        item_cost : float
-            Item or product price per unit.
-
-        item_qty : int
-            Quantity of item or product.
-
-        item_categories : typing.Optional[typing.Sequence[typing.Optional[str]]]
-            Array of tags classifying item or product.
-
-        item_commodity_code : typing.Optional[ItemCommodityCode]
-
-        item_description : typing.Optional[ItemDescription]
-
-        item_mode : typing.Optional[int]
-            Internal class of item or product: value '0' is only for invoices, '1' for bills, and '2' is common for both.
-
-        item_product_code : typing.Optional[ItemProductCode]
-
-        item_product_name : typing.Optional[ItemProductName]
-
-        item_unit_of_measure : typing.Optional[ItemUnitofMeasure]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[PayabliApiResponse6]
-            Success
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"LineItem/{encode_path_param(line_item_id)}",
-            method="PUT",
-            json={
-                "itemCategories": item_categories,
-                "itemCommodityCode": item_commodity_code,
-                "itemCost": item_cost,
-                "itemDescription": item_description,
-                "itemMode": item_mode,
-                "itemProductCode": item_product_code,
-                "itemProductName": item_product_name,
-                "itemQty": item_qty,
-                "itemUnitOfMeasure": item_unit_of_measure,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    PayabliApiResponse6,
-                    parse_obj_as(
-                        type_=PayabliApiResponse6,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -663,7 +662,7 @@ class AsyncRawLineItemClient:
         item_cost: float,
         item_qty: int,
         idempotency_key: typing.Optional[str] = None,
-        item_categories: typing.Optional[typing.Sequence[typing.Optional[str]]] = OMIT,
+        item_categories: typing.Optional[typing.Sequence[str]] = OMIT,
         item_commodity_code: typing.Optional[ItemCommodityCode] = OMIT,
         item_description: typing.Optional[ItemDescription] = OMIT,
         item_mode: typing.Optional[int] = OMIT,
@@ -689,7 +688,7 @@ class AsyncRawLineItemClient:
         idempotency_key : typing.Optional[str]
             A unique ID you can include to prevent duplicating objects or transactions if a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself.
 
-        item_categories : typing.Optional[typing.Sequence[typing.Optional[str]]]
+        item_categories : typing.Optional[typing.Sequence[str]]
             Array of tags classifying item or product.
 
         item_commodity_code : typing.Optional[ItemCommodityCode]
@@ -759,9 +758,9 @@ class AsyncRawLineItemClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -781,96 +780,9 @@ class AsyncRawLineItemClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def delete_item(
-        self, line_item_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[DeleteItemResponse]:
-        """
-        Deletes an item.
-
-        Parameters
-        ----------
-        line_item_id : int
-            ID for the line item (also known as a product, service, or item).
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[DeleteItemResponse]
-            Success
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"LineItem/{encode_path_param(line_item_id)}",
-            method="DELETE",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    DeleteItemResponse,
-                    parse_obj_as(
-                        type_=DeleteItemResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -933,9 +845,9 @@ class AsyncRawLineItemClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -955,9 +867,232 @@ class AsyncRawLineItemClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def update_item(
+        self,
+        line_item_id: int,
+        *,
+        item_cost: float,
+        item_qty: int,
+        item_categories: typing.Optional[typing.Sequence[str]] = OMIT,
+        item_commodity_code: typing.Optional[ItemCommodityCode] = OMIT,
+        item_description: typing.Optional[ItemDescription] = OMIT,
+        item_mode: typing.Optional[int] = OMIT,
+        item_product_code: typing.Optional[ItemProductCode] = OMIT,
+        item_product_name: typing.Optional[ItemProductName] = OMIT,
+        item_unit_of_measure: typing.Optional[ItemUnitofMeasure] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[PayabliApiResponse6]:
+        """
+        Updates an item.
+
+        Parameters
+        ----------
+        line_item_id : int
+            ID for the line item (also known as a product, service, or item).
+
+        item_cost : float
+            Item or product price per unit.
+
+        item_qty : int
+            Quantity of item or product.
+
+        item_categories : typing.Optional[typing.Sequence[str]]
+            Array of tags classifying item or product.
+
+        item_commodity_code : typing.Optional[ItemCommodityCode]
+
+        item_description : typing.Optional[ItemDescription]
+
+        item_mode : typing.Optional[int]
+            Internal class of item or product: value '0' is only for invoices, '1' for bills, and '2' is common for both.
+
+        item_product_code : typing.Optional[ItemProductCode]
+
+        item_product_name : typing.Optional[ItemProductName]
+
+        item_unit_of_measure : typing.Optional[ItemUnitofMeasure]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[PayabliApiResponse6]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"LineItem/{encode_path_param(line_item_id)}",
+            method="PUT",
+            json={
+                "itemCategories": item_categories,
+                "itemCommodityCode": item_commodity_code,
+                "itemCost": item_cost,
+                "itemDescription": item_description,
+                "itemMode": item_mode,
+                "itemProductCode": item_product_code,
+                "itemProductName": item_product_name,
+                "itemQty": item_qty,
+                "itemUnitOfMeasure": item_unit_of_measure,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PayabliApiResponse6,
+                    parse_obj_as(
+                        type_=PayabliApiResponse6,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def delete_item(
+        self, line_item_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[DeleteItemResponse]:
+        """
+        Deletes an item.
+
+        Parameters
+        ----------
+        line_item_id : int
+            ID for the line item (also known as a product, service, or item).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[DeleteItemResponse]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"LineItem/{encode_path_param(line_item_id)}",
+            method="DELETE",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    DeleteItemResponse,
+                    parse_obj_as(
+                        type_=DeleteItemResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -996,7 +1131,6 @@ class AsyncRawLineItemClient:
             Max number of records to return for the query. Use `0` or negative value to return all records.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-
             Collection of field names, conditions, and values used to filter the query
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
@@ -1099,9 +1233,9 @@ class AsyncRawLineItemClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1121,145 +1255,9 @@ class AsyncRawLineItemClient:
                 raise ServiceUnavailableError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliApiResponse,
+                        PayabliErrorBody,
                         parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def update_item(
-        self,
-        line_item_id: int,
-        *,
-        item_cost: float,
-        item_qty: int,
-        item_categories: typing.Optional[typing.Sequence[typing.Optional[str]]] = OMIT,
-        item_commodity_code: typing.Optional[ItemCommodityCode] = OMIT,
-        item_description: typing.Optional[ItemDescription] = OMIT,
-        item_mode: typing.Optional[int] = OMIT,
-        item_product_code: typing.Optional[ItemProductCode] = OMIT,
-        item_product_name: typing.Optional[ItemProductName] = OMIT,
-        item_unit_of_measure: typing.Optional[ItemUnitofMeasure] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PayabliApiResponse6]:
-        """
-        Updates an item.
-
-        Parameters
-        ----------
-        line_item_id : int
-            ID for the line item (also known as a product, service, or item).
-
-        item_cost : float
-            Item or product price per unit.
-
-        item_qty : int
-            Quantity of item or product.
-
-        item_categories : typing.Optional[typing.Sequence[typing.Optional[str]]]
-            Array of tags classifying item or product.
-
-        item_commodity_code : typing.Optional[ItemCommodityCode]
-
-        item_description : typing.Optional[ItemDescription]
-
-        item_mode : typing.Optional[int]
-            Internal class of item or product: value '0' is only for invoices, '1' for bills, and '2' is common for both.
-
-        item_product_code : typing.Optional[ItemProductCode]
-
-        item_product_name : typing.Optional[ItemProductName]
-
-        item_unit_of_measure : typing.Optional[ItemUnitofMeasure]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[PayabliApiResponse6]
-            Success
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"LineItem/{encode_path_param(line_item_id)}",
-            method="PUT",
-            json={
-                "itemCategories": item_categories,
-                "itemCommodityCode": item_commodity_code,
-                "itemCost": item_cost,
-                "itemDescription": item_description,
-                "itemMode": item_mode,
-                "itemProductCode": item_product_code,
-                "itemProductName": item_product_name,
-                "itemQty": item_qty,
-                "itemUnitOfMeasure": item_unit_of_measure,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    PayabliApiResponse6,
-                    parse_obj_as(
-                        type_=PayabliApiResponse6,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliApiResponse,
-                        parse_obj_as(
-                            type_=PayabliApiResponse,  # type: ignore
+                            type_=PayabliErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

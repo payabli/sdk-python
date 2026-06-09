@@ -4,8 +4,8 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
+from ..types.verify_account_details_response import VerifyAccountDetailsResponse
 from .raw_client import AsyncRawManagementClient, RawManagementClient
-from .types.verify_account_details_response import VerifyAccountDetailsResponse
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -84,7 +84,7 @@ class ManagementClient:
             api_key="YOUR_API_KEY",
         )
         client.management.verify_account_details(
-            entry="entry752",
+            entry="8cfec329267",
             routing_number="122105278",
             account_number="0000000016",
             account_type="Checking",
@@ -184,7 +184,7 @@ class AsyncManagementClient:
 
         async def main() -> None:
             await client.management.verify_account_details(
-                entry="entry752",
+                entry="8cfec329267",
                 routing_number="122105278",
                 account_number="0000000016",
                 account_type="Checking",

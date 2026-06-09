@@ -19,7 +19,7 @@ class PayabliApiResponseNotifications(UniversalBaseModel):
         FieldMetadata(alias="isSuccess"),
         pydantic.Field(
             alias="isSuccess",
-            description="\nIf `isSuccess` = true, `responseData` contains the notification identifier.\n\nIf `isSuccess` = false, `responseData` contains the reason for the error.",
+            description="If `isSuccess` = true, `responseData` contains the notification identifier.\nIf `isSuccess` = false, `responseData` contains the reason for the error.",
         ),
     ] = None
     page_identifier: typing_extensions.Annotated[

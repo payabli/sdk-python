@@ -2,5 +2,7 @@
 
 Shippingzip = str
 """
-Shipping ZIP code. For Pay In functions, this field supports 5-digit and 9-digit ZIP codes and alphanumeric Canadian postal codes. For example: "37615-1234" or "37615".
+Shipping ZIP code. For Pay In functions, this field supports 5-digit
+and 9-digit ZIP codes and alphanumeric Canadian postal codes. For
+example: `37615-1234` or `37615`.
 """

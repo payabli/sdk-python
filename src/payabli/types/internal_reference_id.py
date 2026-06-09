@@ -2,5 +2,5 @@
 
 InternalReferenceId = int
 """
-Internal identifier for global vendor account.
+An internal reference ID.
 """

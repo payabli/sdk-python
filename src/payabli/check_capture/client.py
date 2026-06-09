@@ -4,9 +4,9 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
+from ..types.check_capture_response import CheckCaptureResponse
 from ..types.entry import Entry
 from .raw_client import AsyncRawCheckCaptureClient, RawCheckCaptureClient
-from .types.check_capture_response import CheckCaptureResponse
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -68,7 +68,7 @@ class CheckCaptureClient:
             api_key="YOUR_API_KEY",
         )
         client.check_capture.check_processing(
-            entry_point="47abcfea12",
+            entry_point="8cfec329267",
             front_image="/9j/4AAQSkZJRgABAQEASABIAAD...",
             rear_image="/9j/4AAQSkZJRgABAQEASABIAAD...",
             check_amount=12550,
@@ -145,7 +145,7 @@ class AsyncCheckCaptureClient:
 
         async def main() -> None:
             await client.check_capture.check_processing(
-                entry_point="47abcfea12",
+                entry_point="8cfec329267",
                 front_image="/9j/4AAQSkZJRgABAQEASABIAAD...",
                 rear_image="/9j/4AAQSkZJRgABAQEASABIAAD...",
                 check_amount=12550,

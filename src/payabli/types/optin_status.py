@@ -2,12 +2,9 @@
 
 OptinStatus = int
 """
-Customer's consent status. 
-Allowed status:
-  
-  - 0: Customer hasn't opted in to communications
+Customer's consent status. Allowed status:
 
-  - -1: Customer opt in pending
-  
-  - 1: Customer has opted in to communications
+- `0`: Customer hasn't opted in to communications
+- `-1`: Customer opt in pending
+- `1`: Customer has opted in to communications
 """

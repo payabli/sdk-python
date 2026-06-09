@@ -2,5 +2,5 @@
 
 InvoiceAmount = float
 """
-Invoice total amount.
+The invoice amount.
 """

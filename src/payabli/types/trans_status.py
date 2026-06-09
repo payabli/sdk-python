@@ -2,5 +2,7 @@
 
 TransStatus = int
 """
-Status of transaction. See [the docs](/developers/references/money-in-statuses#money-in-transaction-status) for a full reference.
+Status of transaction. See
+[the docs](/developers/references/money-in-statuses#money-in-transaction-status)
+for a full reference.
 """

@@ -2,5 +2,7 @@
 
 Remitstate = str
 """
-Remittance address state or province. Used for mailing paper checks. Required if any remittance address field is provided. Must be a valid US state or Canadian province abbreviation.
+Remittance address state or province. Used for mailing paper checks.
+Required if any remittance address field is provided. Must be a valid
+US state or Canadian province abbreviation.
 """

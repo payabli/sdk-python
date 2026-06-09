@@ -10,7 +10,8 @@ from ..core.serialization import FieldMetadata
 
 class ApplePayMetadata(UniversalBaseModel):
     """
-    This metadata appears only when the domain verification check fails. It gives more information about why the check failed.
+    This metadata appears only when the domain verification check fails. It
+    gives more information about why the check failed.
     """
 
     is_file_available: typing_extensions.Annotated[
@@ -18,7 +19,7 @@ class ApplePayMetadata(UniversalBaseModel):
         FieldMetadata(alias="isFileAvailable"),
         pydantic.Field(
             alias="isFileAvailable",
-            description="When `true`, indicates whether the domain verification file is available at the expected path. When `false`, Payabli was unable to find the file at the expected path. If the file is missing, make sure it's hosted at the correct path: `/.well-known/apple-developer-merchantid-domain-association`",
+            description="When `true`, indicates whether the domain verification file is\navailable at the expected path. When `false`, Payabli was unable to\nfind the file at the expected path. If the file is missing, make\nsure it's hosted at the correct path:\n`/.well-known/apple-developer-merchantid-domain-association`.",
         ),
     ] = None
     is_file_content_valid: typing_extensions.Annotated[
@@ -26,7 +27,7 @@ class ApplePayMetadata(UniversalBaseModel):
         FieldMetadata(alias="isFileContentValid"),
         pydantic.Field(
             alias="isFileContentValid",
-            description="Indicates whether the domain verification file content is valid. If the file is invalid, try downloading it and hosting it again.",
+            description="Indicates whether the domain verification file content is valid. If\nthe file is invalid, try downloading it and hosting it again.",
         ),
     ] = None
     redirect_domain_name: typing_extensions.Annotated[
@@ -41,13 +42,13 @@ class ApplePayMetadata(UniversalBaseModel):
         FieldMetadata(alias="redirectUrl"),
         pydantic.Field(
             alias="redirectUrl",
-            description="If the domain verification URL is redirected, this is the URL it's redirected to. \nFor example, www.partner.com could redirect to www.partners-new-home-page.com. In this case, you should add www.partners-new-home-page.com as a domain instead of www.partner.com.",
+            description="If the domain verification URL is redirected, this is the URL it's\nredirected to. For example, `www.partner.com` could redirect to\n`www.partners-new-home-page.com`. In this case, you should add\n`www.partners-new-home-page.com` as a domain instead of\n`www.partner.com`.",
         ),
     ] = None
     status_code: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="statusCode"),
-        pydantic.Field(alias="statusCode", description="The status code return by the domain verification URL."),
+        pydantic.Field(alias="statusCode", description="The status code returned by the domain verification URL."),
     ] = None
 
     if IS_PYDANTIC_V2:

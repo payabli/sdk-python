@@ -2,5 +2,5 @@
 
 BillingStateNullable = str
 """
-Billing state. Must be 2-letter state code for address in US.
+Billing state. Must be a 2-letter state code for addresses in the US.
 """

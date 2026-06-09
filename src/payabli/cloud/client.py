@@ -4,11 +4,11 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
+from ..types.add_device_response import AddDeviceResponse
 from ..types.cloud_query_api_response import CloudQueryApiResponse
 from ..types.idempotency_key import IdempotencyKey
+from ..types.remove_device_response import RemoveDeviceResponse
 from .raw_client import AsyncRawCloudClient, RawCloudClient
-from .types.add_device_response import AddDeviceResponse
-from .types.remove_device_response import RemoveDeviceResponse
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -47,6 +47,7 @@ class CloudClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         description : typing.Optional[str]
             Description or name for the device. This can be anything, but Payabli recommends entering the name of the paypoint, or some other easy to identify descriptor. If you have several devices for one paypoint, you can give them descriptions like "Cashier 1" and "Cashier 2", or "Front Desk" and "Back Office"
@@ -88,6 +89,43 @@ class CloudClient:
         )
         return _response.data
 
+    def remove_device(
+        self, entry: str, device_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> RemoveDeviceResponse:
+        """
+        Remove a cloud device from an entrypoint.
+
+        Parameters
+        ----------
+        entry : str
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
+
+        device_id : str
+            ID of the cloud device.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RemoveDeviceResponse
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.cloud.remove_device(
+            device_id="499585-389fj484-3jcj8hj3",
+            entry="8cfec329267",
+        )
+        """
+        _response = self._raw_client.remove_device(entry, device_id, request_options=request_options)
+        return _response.data
+
     def history_device(
         self, entry: str, device_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> CloudQueryApiResponse:
@@ -118,7 +156,7 @@ class CloudClient:
             api_key="YOUR_API_KEY",
         )
         client.cloud.history_device(
-            device_id="WXGDWB",
+            device_id="499585-389fj484-3jcj8hj3",
             entry="8cfec329267",
         )
         """
@@ -167,43 +205,6 @@ class CloudClient:
         _response = self._raw_client.list_device(entry, force_refresh=force_refresh, request_options=request_options)
         return _response.data
 
-    def remove_device(
-        self, entry: str, device_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> RemoveDeviceResponse:
-        """
-        Remove a cloud device from an entrypoint.
-
-        Parameters
-        ----------
-        entry : str
-            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
-
-        device_id : str
-            ID of the cloud device.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        RemoveDeviceResponse
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.cloud.remove_device(
-            device_id="6c361c7d-674c-44cc-b790-382b75d1xxx",
-            entry="8cfec329267",
-        )
-        """
-        _response = self._raw_client.remove_device(entry, device_id, request_options=request_options)
-        return _response.data
-
 
 class AsyncCloudClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -238,6 +239,7 @@ class AsyncCloudClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         description : typing.Optional[str]
             Description or name for the device. This can be anything, but Payabli recommends entering the name of the paypoint, or some other easy to identify descriptor. If you have several devices for one paypoint, you can give them descriptions like "Cashier 1" and "Cashier 2", or "Front Desk" and "Back Office"
@@ -287,6 +289,51 @@ class AsyncCloudClient:
         )
         return _response.data
 
+    async def remove_device(
+        self, entry: str, device_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> RemoveDeviceResponse:
+        """
+        Remove a cloud device from an entrypoint.
+
+        Parameters
+        ----------
+        entry : str
+            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
+
+        device_id : str
+            ID of the cloud device.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RemoveDeviceResponse
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.cloud.remove_device(
+                device_id="499585-389fj484-3jcj8hj3",
+                entry="8cfec329267",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.remove_device(entry, device_id, request_options=request_options)
+        return _response.data
+
     async def history_device(
         self, entry: str, device_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> CloudQueryApiResponse:
@@ -322,7 +369,7 @@ class AsyncCloudClient:
 
         async def main() -> None:
             await client.cloud.history_device(
-                device_id="WXGDWB",
+                device_id="499585-389fj484-3jcj8hj3",
                 entry="8cfec329267",
             )
 
@@ -382,49 +429,4 @@ class AsyncCloudClient:
         _response = await self._raw_client.list_device(
             entry, force_refresh=force_refresh, request_options=request_options
         )
-        return _response.data
-
-    async def remove_device(
-        self, entry: str, device_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> RemoveDeviceResponse:
-        """
-        Remove a cloud device from an entrypoint.
-
-        Parameters
-        ----------
-        entry : str
-            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
-
-        device_id : str
-            ID of the cloud device.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        RemoveDeviceResponse
-            Success
-
-        Examples
-        --------
-        import asyncio
-
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.cloud.remove_device(
-                device_id="6c361c7d-674c-44cc-b790-382b75d1xxx",
-                entry="8cfec329267",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.remove_device(entry, device_id, request_options=request_options)
         return _response.data

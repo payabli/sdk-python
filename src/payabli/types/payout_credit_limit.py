@@ -2,5 +2,7 @@
 
 PayoutCreditLimit = float
 """
-The maximum amount of credit that our lending partner has authorized to the business for on-demand payouts. It's the upper boundary on how much you can spend or owe on a credit account at any given time.
+The maximum amount of credit that our lending partner has authorized to
+the business for on-demand payouts. It's the upper boundary on how much
+you can spend or owe on a credit account at any given time.
 """

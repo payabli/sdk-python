@@ -13,6 +13,7 @@ from .achaccount import Achaccount
 from .achaccounttype import Achaccounttype
 from .achrouting import Achrouting
 from .device import Device
+from .pay_method_ach_method import PayMethodAchMethod
 
 
 class PayMethodAch(UniversalBaseModel):
@@ -48,7 +49,7 @@ class PayMethodAch(UniversalBaseModel):
         ),
     ]
     device: typing.Optional[Device] = None
-    method: typing.Literal["ach"] = "ach"
+    method: PayMethodAchMethod
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

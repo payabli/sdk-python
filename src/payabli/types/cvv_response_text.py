@@ -2,5 +2,6 @@
 
 CvvResponseText = str
 """
-Text code describing the result for CVV validation (applies only for card transactions).
+Text code describing the result for CVV validation (applies only for card
+transactions).
 """

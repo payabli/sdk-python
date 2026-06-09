@@ -2,5 +2,6 @@
 
 AttestationDate = str
 """
-Date the attestation was provided for PCI Compliance (`pciAttestation`), in MM/DD/YYYY format.
+Date the attestation was provided for PCI Compliance (`pciAttestation`),
+in MM/DD/YYYY format.
 """

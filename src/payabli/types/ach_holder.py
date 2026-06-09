@@ -2,5 +2,6 @@
 
 AchHolder = str
 """
-Bank account holder. This field is **required** when `method` is `ach` or `check`.
+Bank account holder. This field is **required** when `method` is `ach` or
+`check`.
 """

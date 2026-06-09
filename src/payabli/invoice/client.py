@@ -10,14 +10,14 @@ from ..types.export_format import ExportFormat
 from ..types.file import File
 from ..types.file_content import FileContent
 from ..types.force_customer_creation import ForceCustomerCreation
+from ..types.get_invoice_record import GetInvoiceRecord
 from ..types.idempotency_key import IdempotencyKey
+from ..types.invoice_number_response import InvoiceNumberResponse
+from ..types.invoice_response_without_data import InvoiceResponseWithoutData
 from ..types.payor_data_request import PayorDataRequest
+from ..types.query_invoice_response import QueryInvoiceResponse
+from ..types.send_invoice_response import SendInvoiceResponse
 from .raw_client import AsyncRawInvoiceClient, RawInvoiceClient
-from .types.get_invoice_record import GetInvoiceRecord
-from .types.invoice_number_response import InvoiceNumberResponse
-from .types.invoice_response_without_data import InvoiceResponseWithoutData
-from .types.query_invoice_response import QueryInvoiceResponse
-from .types.send_invoice_response import SendInvoiceResponse
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -58,8 +58,10 @@ class InvoiceClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer. Defaults to `false`.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         customer_data : typing.Optional[PayorDataRequest]
             Object describing the customer/payor. Required for POST requests. Which fields are required depends on the paypoint's custom identifier settings.
@@ -92,7 +94,7 @@ class InvoiceClient:
             customer_data=PayorDataRequest(
                 first_name="Tamara",
                 last_name="Bagratoni",
-                customer_number="3",
+                customer_number="C-90010",
             ),
             invoice_data=BillData(
                 items=[
@@ -100,16 +102,17 @@ class InvoiceClient:
                         item_product_name="Adventure Consult",
                         item_description="Consultation for Georgian tours",
                         item_cost=100.0,
-                        item_qty=1,
-                        item_mode=1,
-                        item_total_amount=1.0,
+                        item_qty=2,
+                        item_mode=2,
+                        item_total_amount=200.0,
                     ),
                     BillItem(
                         item_product_name="Deposit ",
                         item_description="Deposit for trip planning",
                         item_cost=882.37,
                         item_qty=1,
-                        item_total_amount=1.0,
+                        item_mode=2,
+                        item_total_amount=882.37,
                     ),
                 ],
                 invoice_date=datetime.date.fromisoformat(
@@ -118,9 +121,9 @@ class InvoiceClient:
                 invoice_type=0,
                 invoice_status=1,
                 frequency="onetime",
-                invoice_amount=982.37,
+                invoice_amount=1082.37,
                 discount=10.0,
-                invoice_number="INV-3",
+                invoice_number="INV-2345",
             ),
         )
         """
@@ -128,154 +131,6 @@ class InvoiceClient:
             entry,
             force_customer_creation=force_customer_creation,
             idempotency_key=idempotency_key,
-            customer_data=customer_data,
-            invoice_data=invoice_data,
-            scheduled_options=scheduled_options,
-            request_options=request_options,
-        )
-        return _response.data
-
-    def delete_attached_from_invoice(
-        self, id_invoice: int, filename: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> InvoiceResponseWithoutData:
-        """
-        Deletes a file attached to an invoice.
-
-        Parameters
-        ----------
-        id_invoice : int
-            Invoice ID
-
-        filename : str
-            The filename in Payabli. Get this from the `zipName` field
-            in the `DocumentsRef.filelist` array returned by
-            `/api/Invoice/{idInvoice}`. Example: `0_Bill.pdf`.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        InvoiceResponseWithoutData
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.invoice.delete_attached_from_invoice(
-            filename="0_Bill.pdf",
-            id_invoice=23548884,
-        )
-        """
-        _response = self._raw_client.delete_attached_from_invoice(id_invoice, filename, request_options=request_options)
-        return _response.data
-
-    def delete_invoice(
-        self, id_invoice: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> InvoiceResponseWithoutData:
-        """
-        Deletes a single invoice from an entrypoint.
-
-        Parameters
-        ----------
-        id_invoice : int
-            Invoice ID
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        InvoiceResponseWithoutData
-            Success
-
-        Examples
-        --------
-        from payabli import payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.invoice.delete_invoice(
-            id_invoice=23548884,
-        )
-        """
-        _response = self._raw_client.delete_invoice(id_invoice, request_options=request_options)
-        return _response.data
-
-    def edit_invoice(
-        self,
-        id_invoice: int,
-        *,
-        force_customer_creation: typing.Optional[bool] = None,
-        customer_data: typing.Optional[PayorDataRequest] = OMIT,
-        invoice_data: typing.Optional[BillData] = OMIT,
-        scheduled_options: typing.Optional[BillOptions] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> InvoiceResponseWithoutData:
-        """
-        Updates details for a single invoice in an entrypoint.
-
-        Parameters
-        ----------
-        id_invoice : int
-            Invoice ID
-
-        force_customer_creation : typing.Optional[bool]
-            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer.
-
-        customer_data : typing.Optional[PayorDataRequest]
-            Object describing the customer/payor. Required for POST requests. Which fields are required depends on the paypoint's custom identifier settings.
-
-        invoice_data : typing.Optional[BillData]
-            Object describing the invoice. Required for POST requests.
-
-        scheduled_options : typing.Optional[BillOptions]
-            Object with options for scheduled invoices.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        InvoiceResponseWithoutData
-            Success
-
-        Examples
-        --------
-        import datetime
-
-        from payabli import BillData, BillItem, payabli
-
-        client = payabli(
-            api_key="YOUR_API_KEY",
-        )
-        client.invoice.edit_invoice(
-            id_invoice=332,
-            invoice_data=BillData(
-                items=[
-                    BillItem(
-                        item_product_name="Deposit",
-                        item_description="Deposit for trip planning",
-                        item_cost=882.37,
-                        item_qty=1,
-                    )
-                ],
-                invoice_date=datetime.date.fromisoformat(
-                    "2025-10-19",
-                ),
-                invoice_amount=982.37,
-                invoice_number="INV-6",
-            ),
-        )
-        """
-        _response = self._raw_client.edit_invoice(
-            id_invoice,
-            force_customer_creation=force_customer_creation,
             customer_data=customer_data,
             invoice_data=invoice_data,
             scheduled_options=scheduled_options,
@@ -332,6 +187,45 @@ class InvoiceClient:
         )
         return _response.data
 
+    def delete_attached_from_invoice(
+        self, id_invoice: int, filename: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> InvoiceResponseWithoutData:
+        """
+        Deletes a file attached to an invoice.
+
+        Parameters
+        ----------
+        id_invoice : int
+            Invoice ID
+
+        filename : str
+            The filename in Payabli. Get this from the `zipName` field
+            in the `DocumentsRef.filelist` array returned by
+            `/api/Invoice/{idInvoice}`. Example: `0_Bill.pdf`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        InvoiceResponseWithoutData
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.invoice.delete_attached_from_invoice(
+            filename="0_Bill.pdf",
+            id_invoice=23548884,
+        )
+        """
+        _response = self._raw_client.delete_attached_from_invoice(id_invoice, filename, request_options=request_options)
+        return _response.data
+
     def get_invoice(
         self, id_invoice: int, *, request_options: typing.Optional[RequestOptions] = None
     ) -> GetInvoiceRecord:
@@ -363,6 +257,115 @@ class InvoiceClient:
         )
         """
         _response = self._raw_client.get_invoice(id_invoice, request_options=request_options)
+        return _response.data
+
+    def edit_invoice(
+        self,
+        id_invoice: int,
+        *,
+        force_customer_creation: typing.Optional[bool] = None,
+        customer_data: typing.Optional[PayorDataRequest] = OMIT,
+        invoice_data: typing.Optional[BillData] = OMIT,
+        scheduled_options: typing.Optional[BillOptions] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> InvoiceResponseWithoutData:
+        """
+        Updates details for a single invoice in an entrypoint.
+
+        Parameters
+        ----------
+        id_invoice : int
+            Invoice ID
+
+        force_customer_creation : typing.Optional[bool]
+            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer.
+
+        customer_data : typing.Optional[PayorDataRequest]
+            Object describing the customer/payor. Required for POST requests. Which fields are required depends on the paypoint's custom identifier settings.
+
+        invoice_data : typing.Optional[BillData]
+            Object describing the invoice. Required for POST requests.
+
+        scheduled_options : typing.Optional[BillOptions]
+            Object with options for scheduled invoices.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        InvoiceResponseWithoutData
+            Success
+
+        Examples
+        --------
+        import datetime
+
+        from payabli import BillData, BillItem, payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.invoice.edit_invoice(
+            id_invoice=23548884,
+            invoice_data=BillData(
+                items=[
+                    BillItem(
+                        item_product_name="Deposit",
+                        item_description="Deposit for trip planning",
+                        item_cost=882.37,
+                        item_qty=1,
+                    )
+                ],
+                invoice_date=datetime.date.fromisoformat(
+                    "2025-10-19",
+                ),
+                invoice_amount=982.37,
+                invoice_number="INV-2345",
+            ),
+        )
+        """
+        _response = self._raw_client.edit_invoice(
+            id_invoice,
+            force_customer_creation=force_customer_creation,
+            customer_data=customer_data,
+            invoice_data=invoice_data,
+            scheduled_options=scheduled_options,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def delete_invoice(
+        self, id_invoice: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> InvoiceResponseWithoutData:
+        """
+        Deletes a single invoice from an entrypoint.
+
+        Parameters
+        ----------
+        id_invoice : int
+            Invoice ID
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        InvoiceResponseWithoutData
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.invoice.delete_invoice(
+            id_invoice=23548884,
+        )
+        """
+        _response = self._raw_client.delete_invoice(id_invoice, request_options=request_options)
         return _response.data
 
     def get_invoice_number(
@@ -418,6 +421,7 @@ class InvoiceClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -546,6 +550,7 @@ class InvoiceClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -769,8 +774,10 @@ class AsyncInvoiceClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         force_customer_creation : typing.Optional[ForceCustomerCreation]
+            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer. Defaults to `false`.
 
         idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         customer_data : typing.Optional[PayorDataRequest]
             Object describing the customer/payor. Required for POST requests. Which fields are required depends on the paypoint's custom identifier settings.
@@ -807,7 +814,7 @@ class AsyncInvoiceClient:
                 customer_data=PayorDataRequest(
                     first_name="Tamara",
                     last_name="Bagratoni",
-                    customer_number="3",
+                    customer_number="C-90010",
                 ),
                 invoice_data=BillData(
                     items=[
@@ -815,16 +822,17 @@ class AsyncInvoiceClient:
                             item_product_name="Adventure Consult",
                             item_description="Consultation for Georgian tours",
                             item_cost=100.0,
-                            item_qty=1,
-                            item_mode=1,
-                            item_total_amount=1.0,
+                            item_qty=2,
+                            item_mode=2,
+                            item_total_amount=200.0,
                         ),
                         BillItem(
                             item_product_name="Deposit ",
                             item_description="Deposit for trip planning",
                             item_cost=882.37,
                             item_qty=1,
-                            item_total_amount=1.0,
+                            item_mode=2,
+                            item_total_amount=882.37,
                         ),
                     ],
                     invoice_date=datetime.date.fromisoformat(
@@ -833,9 +841,9 @@ class AsyncInvoiceClient:
                     invoice_type=0,
                     invoice_status=1,
                     frequency="onetime",
-                    invoice_amount=982.37,
+                    invoice_amount=1082.37,
                     discount=10.0,
-                    invoice_number="INV-3",
+                    invoice_number="INV-2345",
                 ),
             )
 
@@ -846,179 +854,6 @@ class AsyncInvoiceClient:
             entry,
             force_customer_creation=force_customer_creation,
             idempotency_key=idempotency_key,
-            customer_data=customer_data,
-            invoice_data=invoice_data,
-            scheduled_options=scheduled_options,
-            request_options=request_options,
-        )
-        return _response.data
-
-    async def delete_attached_from_invoice(
-        self, id_invoice: int, filename: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> InvoiceResponseWithoutData:
-        """
-        Deletes a file attached to an invoice.
-
-        Parameters
-        ----------
-        id_invoice : int
-            Invoice ID
-
-        filename : str
-            The filename in Payabli. Get this from the `zipName` field
-            in the `DocumentsRef.filelist` array returned by
-            `/api/Invoice/{idInvoice}`. Example: `0_Bill.pdf`.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        InvoiceResponseWithoutData
-            Success
-
-        Examples
-        --------
-        import asyncio
-
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.invoice.delete_attached_from_invoice(
-                filename="0_Bill.pdf",
-                id_invoice=23548884,
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.delete_attached_from_invoice(
-            id_invoice, filename, request_options=request_options
-        )
-        return _response.data
-
-    async def delete_invoice(
-        self, id_invoice: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> InvoiceResponseWithoutData:
-        """
-        Deletes a single invoice from an entrypoint.
-
-        Parameters
-        ----------
-        id_invoice : int
-            Invoice ID
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        InvoiceResponseWithoutData
-            Success
-
-        Examples
-        --------
-        import asyncio
-
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.invoice.delete_invoice(
-                id_invoice=23548884,
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.delete_invoice(id_invoice, request_options=request_options)
-        return _response.data
-
-    async def edit_invoice(
-        self,
-        id_invoice: int,
-        *,
-        force_customer_creation: typing.Optional[bool] = None,
-        customer_data: typing.Optional[PayorDataRequest] = OMIT,
-        invoice_data: typing.Optional[BillData] = OMIT,
-        scheduled_options: typing.Optional[BillOptions] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> InvoiceResponseWithoutData:
-        """
-        Updates details for a single invoice in an entrypoint.
-
-        Parameters
-        ----------
-        id_invoice : int
-            Invoice ID
-
-        force_customer_creation : typing.Optional[bool]
-            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer.
-
-        customer_data : typing.Optional[PayorDataRequest]
-            Object describing the customer/payor. Required for POST requests. Which fields are required depends on the paypoint's custom identifier settings.
-
-        invoice_data : typing.Optional[BillData]
-            Object describing the invoice. Required for POST requests.
-
-        scheduled_options : typing.Optional[BillOptions]
-            Object with options for scheduled invoices.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        InvoiceResponseWithoutData
-            Success
-
-        Examples
-        --------
-        import asyncio
-        import datetime
-
-        from payabli import Asyncpayabli, BillData, BillItem
-
-        client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.invoice.edit_invoice(
-                id_invoice=332,
-                invoice_data=BillData(
-                    items=[
-                        BillItem(
-                            item_product_name="Deposit",
-                            item_description="Deposit for trip planning",
-                            item_cost=882.37,
-                            item_qty=1,
-                        )
-                    ],
-                    invoice_date=datetime.date.fromisoformat(
-                        "2025-10-19",
-                    ),
-                    invoice_amount=982.37,
-                    invoice_number="INV-6",
-                ),
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.edit_invoice(
-            id_invoice,
-            force_customer_creation=force_customer_creation,
             customer_data=customer_data,
             invoice_data=invoice_data,
             scheduled_options=scheduled_options,
@@ -1083,6 +918,55 @@ class AsyncInvoiceClient:
         )
         return _response.data
 
+    async def delete_attached_from_invoice(
+        self, id_invoice: int, filename: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> InvoiceResponseWithoutData:
+        """
+        Deletes a file attached to an invoice.
+
+        Parameters
+        ----------
+        id_invoice : int
+            Invoice ID
+
+        filename : str
+            The filename in Payabli. Get this from the `zipName` field
+            in the `DocumentsRef.filelist` array returned by
+            `/api/Invoice/{idInvoice}`. Example: `0_Bill.pdf`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        InvoiceResponseWithoutData
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.invoice.delete_attached_from_invoice(
+                filename="0_Bill.pdf",
+                id_invoice=23548884,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.delete_attached_from_invoice(
+            id_invoice, filename, request_options=request_options
+        )
+        return _response.data
+
     async def get_invoice(
         self, id_invoice: int, *, request_options: typing.Optional[RequestOptions] = None
     ) -> GetInvoiceRecord:
@@ -1122,6 +1006,130 @@ class AsyncInvoiceClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.get_invoice(id_invoice, request_options=request_options)
+        return _response.data
+
+    async def edit_invoice(
+        self,
+        id_invoice: int,
+        *,
+        force_customer_creation: typing.Optional[bool] = None,
+        customer_data: typing.Optional[PayorDataRequest] = OMIT,
+        invoice_data: typing.Optional[BillData] = OMIT,
+        scheduled_options: typing.Optional[BillOptions] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> InvoiceResponseWithoutData:
+        """
+        Updates details for a single invoice in an entrypoint.
+
+        Parameters
+        ----------
+        id_invoice : int
+            Invoice ID
+
+        force_customer_creation : typing.Optional[bool]
+            When `true`, the request creates a new customer record, regardless of whether customer identifiers match an existing customer.
+
+        customer_data : typing.Optional[PayorDataRequest]
+            Object describing the customer/payor. Required for POST requests. Which fields are required depends on the paypoint's custom identifier settings.
+
+        invoice_data : typing.Optional[BillData]
+            Object describing the invoice. Required for POST requests.
+
+        scheduled_options : typing.Optional[BillOptions]
+            Object with options for scheduled invoices.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        InvoiceResponseWithoutData
+            Success
+
+        Examples
+        --------
+        import asyncio
+        import datetime
+
+        from payabli import Asyncpayabli, BillData, BillItem
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.invoice.edit_invoice(
+                id_invoice=23548884,
+                invoice_data=BillData(
+                    items=[
+                        BillItem(
+                            item_product_name="Deposit",
+                            item_description="Deposit for trip planning",
+                            item_cost=882.37,
+                            item_qty=1,
+                        )
+                    ],
+                    invoice_date=datetime.date.fromisoformat(
+                        "2025-10-19",
+                    ),
+                    invoice_amount=982.37,
+                    invoice_number="INV-2345",
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.edit_invoice(
+            id_invoice,
+            force_customer_creation=force_customer_creation,
+            customer_data=customer_data,
+            invoice_data=invoice_data,
+            scheduled_options=scheduled_options,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def delete_invoice(
+        self, id_invoice: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> InvoiceResponseWithoutData:
+        """
+        Deletes a single invoice from an entrypoint.
+
+        Parameters
+        ----------
+        id_invoice : int
+            Invoice ID
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        InvoiceResponseWithoutData
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.invoice.delete_invoice(
+                id_invoice=23548884,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.delete_invoice(id_invoice, request_options=request_options)
         return _response.data
 
     async def get_invoice_number(
@@ -1185,6 +1193,7 @@ class AsyncInvoiceClient:
             The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
@@ -1321,6 +1330,7 @@ class AsyncInvoiceClient:
             The numeric identifier for organization, assigned by Payabli.
 
         export_format : typing.Optional[ExportFormat]
+            Export format for file downloads. When specified, returns data as a file instead of JSON.
 
         from_record : typing.Optional[int]
             The number of records to skip before starting to collect the result set.
