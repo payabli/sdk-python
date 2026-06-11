@@ -277,6 +277,7 @@ if typing.TYPE_CHECKING:
     from .enabled import Enabled
     from .enrollment_status import EnrollmentStatus
     from .entity_id import EntityId
+    from .entity_id_string import EntityIdString
     from .entity_type import EntityType
     from .entry import Entry
     from .entry_attributes import EntryAttributes
@@ -689,6 +690,7 @@ if typing.TYPE_CHECKING:
     from .setting_element import SettingElement
     from .settings_query_record import SettingsQueryRecord
     from .settlement_status import SettlementStatus
+    from .settlement_status_name import SettlementStatusName
     from .settlement_status_payout import SettlementStatusPayout
     from .shipping_from_zip import ShippingFromZip
     from .shippingaddress import Shippingaddress
@@ -1143,6 +1145,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Enabled": ".enabled",
     "EnrollmentStatus": ".enrollment_status",
     "EntityId": ".entity_id",
+    "EntityIdString": ".entity_id_string",
     "EntityType": ".entity_type",
     "Entry": ".entry",
     "EntryAttributes": ".entry_attributes",
@@ -1557,6 +1560,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SettingElement": ".setting_element",
     "SettingsQueryRecord": ".settings_query_record",
     "SettlementStatus": ".settlement_status",
+    "SettlementStatusName": ".settlement_status_name",
     "SettlementStatusPayout": ".settlement_status_payout",
     "ShippingFromZip": ".shipping_from_zip",
     "Shippingaddress": ".shippingaddress",
@@ -2035,6 +2039,7 @@ __all__ = [
     "Enabled",
     "EnrollmentStatus",
     "EntityId",
+    "EntityIdString",
     "EntityType",
     "Entry",
     "EntryAttributes",
@@ -2449,6 +2454,7 @@ __all__ = [
     "SettingElement",
     "SettingsQueryRecord",
     "SettlementStatus",
+    "SettlementStatusName",
     "SettlementStatusPayout",
     "ShippingFromZip",
     "Shippingaddress",

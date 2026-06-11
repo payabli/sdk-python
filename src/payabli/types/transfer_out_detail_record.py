@@ -7,6 +7,7 @@ import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 from .billing_fee_detail import BillingFeeDetail
+from .settlement_status_name import SettlementStatusName
 from .transfer_out_detail_bill import TransferOutDetailBill
 from .transfer_out_detail_check_data import TransferOutDetailCheckData
 from .transfer_out_detail_event import TransferOutDetailEvent
@@ -285,9 +286,9 @@ class TransferOutDetailRecord(UniversalBaseModel):
         pydantic.Field(alias="SettlementStatus", description="Settlement status."),
     ] = None
     settlement_status_name: typing_extensions.Annotated[
-        typing.Optional[str],
+        typing.Optional[SettlementStatusName],
         FieldMetadata(alias="SettlementStatusName"),
-        pydantic.Field(alias="SettlementStatusName", description="Name of the settlement status."),
+        pydantic.Field(alias="SettlementStatusName"),
     ] = None
     settlement_date: typing_extensions.Annotated[
         typing.Optional[str],

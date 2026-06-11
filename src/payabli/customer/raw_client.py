@@ -115,7 +115,7 @@ class RawCustomerClient:
             Customer last name
 
         phone : typing.Optional[str]
-            Customer phone number
+            Customer phone number. Payabli normalizes this value when it's stored. For example, `(555) 555-0100` is stored as `+15555550100`.
 
         email : typing.Optional[Email]
             Customer email address.
@@ -422,7 +422,7 @@ class RawCustomerClient:
             Customer last name
 
         phone : typing.Optional[str]
-            Customer phone number
+            Customer phone number. Payabli normalizes this value when it's stored. For example, `(555) 555-0100` is stored as `+15555550100`.
 
         email : typing.Optional[Email]
             Customer email address.
@@ -919,7 +919,7 @@ class AsyncRawCustomerClient:
             Customer last name
 
         phone : typing.Optional[str]
-            Customer phone number
+            Customer phone number. Payabli normalizes this value when it's stored. For example, `(555) 555-0100` is stored as `+15555550100`.
 
         email : typing.Optional[Email]
             Customer email address.
@@ -1226,7 +1226,7 @@ class AsyncRawCustomerClient:
             Customer last name
 
         phone : typing.Optional[str]
-            Customer phone number
+            Customer phone number. Payabli normalizes this value when it's stored. For example, `(555) 555-0100` is stored as `+15555550100`.
 
         email : typing.Optional[Email]
             Customer email address.

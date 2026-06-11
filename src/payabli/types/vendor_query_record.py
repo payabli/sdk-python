@@ -61,7 +61,9 @@ class VendorQueryRecord(UniversalBaseModel):
         typing.Optional[CityNullable], FieldMetadata(alias="City"), pydantic.Field(alias="City")
     ] = None
     contacts: typing_extensions.Annotated[
-        typing.Optional[ContactsResponse], FieldMetadata(alias="Contacts"), pydantic.Field(alias="Contacts")
+        typing.Optional[typing.List[ContactsResponse]],
+        FieldMetadata(alias="Contacts"),
+        pydantic.Field(alias="Contacts", description="Array of objects describing the vendor's contacts."),
     ] = None
     country: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="Country"), pydantic.Field(alias="Country")

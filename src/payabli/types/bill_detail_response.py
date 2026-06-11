@@ -10,6 +10,7 @@ from .bill_details_response import BillDetailsResponse
 from .comments import Comments
 from .created_at import CreatedAt
 from .dbaname import Dbaname
+from .entity_id_string import EntityIdString
 from .entry import Entry
 from .external_paypoint_id import ExternalPaypointId
 from .fee_amount import FeeAmount
@@ -32,7 +33,8 @@ from .risk_flagged_on import RiskFlaggedOn
 from .risk_reason import RiskReason
 from .risk_status import RiskStatus
 from .schedule_id import ScheduleId
-from .settlement_status import SettlementStatus
+from .settlement_status_name import SettlementStatusName
+from .settlement_status_payout import SettlementStatusPayout
 from .source import Source
 from .vendor_query_record import VendorQueryRecord
 
@@ -164,7 +166,7 @@ class BillDetailResponse(UniversalBaseModel):
         typing.Optional[Entry], FieldMetadata(alias="EntryName"), pydantic.Field(alias="EntryName")
     ] = None
     batch_id: typing_extensions.Annotated[
-        typing.Optional[str],
+        typing.Optional[float],
         FieldMetadata(alias="BatchId"),
         pydantic.Field(
             alias="BatchId",
@@ -183,9 +185,14 @@ class BillDetailResponse(UniversalBaseModel):
         typing.Optional[ScheduleId], FieldMetadata(alias="ScheduleId"), pydantic.Field(alias="ScheduleId")
     ] = None
     settlement_status: typing_extensions.Annotated[
-        typing.Optional[SettlementStatus],
+        typing.Optional[SettlementStatusPayout],
         FieldMetadata(alias="SettlementStatus"),
         pydantic.Field(alias="SettlementStatus"),
+    ] = None
+    settlement_status_name: typing_extensions.Annotated[
+        typing.Optional[SettlementStatusName],
+        FieldMetadata(alias="SettlementStatusName"),
+        pydantic.Field(alias="SettlementStatusName"),
     ] = None
     risk_flagged: typing_extensions.Annotated[
         typing.Optional[RiskFlagged], FieldMetadata(alias="RiskFlagged"), pydantic.Field(alias="RiskFlagged")
@@ -204,6 +211,9 @@ class BillDetailResponse(UniversalBaseModel):
     ] = None
     risk_action_code: typing_extensions.Annotated[
         typing.Optional[RiskActionCode], FieldMetadata(alias="RiskActionCode"), pydantic.Field(alias="RiskActionCode")
+    ] = None
+    entity_id: typing_extensions.Annotated[
+        typing.Optional[EntityIdString], FieldMetadata(alias="EntityId"), pydantic.Field(alias="EntityId")
     ] = None
 
     if IS_PYDANTIC_V2:
