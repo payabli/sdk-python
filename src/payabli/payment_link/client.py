@@ -47,11 +47,11 @@ class PaymentLinkClient:
         self,
         id_invoice: int,
         *,
+        invoices: InvoiceElement,
         amount_fixed: typing.Optional[bool] = None,
         mail_2: typing.Optional[str] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         contact_us: typing.Optional[ContactElement] = OMIT,
-        invoices: typing.Optional[InvoiceElement] = OMIT,
         logo: typing.Optional[Element] = OMIT,
         message_before_paying: typing.Optional[LabelElement] = OMIT,
         notes: typing.Optional[NoteElement] = OMIT,
@@ -66,10 +66,15 @@ class PaymentLinkClient:
         """
         Generates a payment link for an invoice from the invoice ID.
 
+        The payment page configuration blocks (`logo`, `page`, `paymentMethods`, `review`, `messageBeforePaying`, `paymentButton`, `notes`, `contactUs`, and `settings`) are optional. When you omit a block, Payabli applies a default rather than hiding it. The block is enabled at a fixed display order, so the generated page stays complete and branded. To hide a section, send the block explicitly with `enabled` set to `false`. An explicit value is always honored and is never replaced by a default. For each block's default, see its description in the request body.
+
         Parameters
         ----------
         id_invoice : int
             Invoice ID
+
+        invoices : InvoiceElement
+            Invoices section of payment link page. Required. Omitting it returns a `400` error with code `7045`.
 
         amount_fixed : typing.Optional[bool]
             Indicates whether customer can modify the payment amount. A value of `true` means the amount isn't modifiable, a value `false` means the payor can modify the amount to pay.
@@ -81,37 +86,34 @@ class PaymentLinkClient:
             _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         contact_us : typing.Optional[ContactElement]
-            ContactUs section of payment link page
-
-        invoices : typing.Optional[InvoiceElement]
-            Invoices section of payment link page
+            Contact us section of payment link page. If omitted, this block is enabled at display order 11.
 
         logo : typing.Optional[Element]
-            Logo section of payment link page
+            Logo section of payment link page. If omitted, this block is enabled at display order 1, and the logo image is resolved from the paypoint's entry logo.
 
         message_before_paying : typing.Optional[LabelElement]
-            Message section of payment link page
+            Message section of payment link page. If omitted, this block is enabled at display order 5.
 
         notes : typing.Optional[NoteElement]
-            Notes section of payment link page
+            Notes section of payment link page. If omitted, this block is enabled at display order 10.
 
         page : typing.Optional[PageElement]
-            Page header section of payment link page
+            Page header section of payment link page. If omitted, this block is enabled at display order 2.
 
         payment_button : typing.Optional[LabelElement]
-            Payment button section of payment link page
+            Payment button section of payment link page. If omitted, this block is enabled at display order 6, with the label "Pay Now".
 
         payment_methods : typing.Optional[MethodElement]
-            Payment methods section of payment link page
+            Payment methods section of payment link page. If omitted, this block is enabled at display order 3, with all payment methods enabled except RDC.
 
         payor : typing.Optional[PayorElement]
             Customer/Payor section of payment link page
 
         review : typing.Optional[HeaderElement]
-            Review section of payment link page
+            Review section of payment link page. If omitted, this block is enabled at display order 4.
 
         settings : typing.Optional[PagelinkSetting]
-            Settings section of payment link page
+            Settings section of payment link page. If omitted, defaults are applied, including page color `#10a0e3` and language `en`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -259,11 +261,11 @@ class PaymentLinkClient:
         """
         _response = self._raw_client.add_pay_link_from_invoice(
             id_invoice,
+            invoices=invoices,
             amount_fixed=amount_fixed,
             mail_2=mail_2,
             idempotency_key=idempotency_key,
             contact_us=contact_us,
-            invoices=invoices,
             logo=logo,
             message_before_paying=message_before_paying,
             notes=notes,
@@ -1156,11 +1158,11 @@ class AsyncPaymentLinkClient:
         self,
         id_invoice: int,
         *,
+        invoices: InvoiceElement,
         amount_fixed: typing.Optional[bool] = None,
         mail_2: typing.Optional[str] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         contact_us: typing.Optional[ContactElement] = OMIT,
-        invoices: typing.Optional[InvoiceElement] = OMIT,
         logo: typing.Optional[Element] = OMIT,
         message_before_paying: typing.Optional[LabelElement] = OMIT,
         notes: typing.Optional[NoteElement] = OMIT,
@@ -1175,10 +1177,15 @@ class AsyncPaymentLinkClient:
         """
         Generates a payment link for an invoice from the invoice ID.
 
+        The payment page configuration blocks (`logo`, `page`, `paymentMethods`, `review`, `messageBeforePaying`, `paymentButton`, `notes`, `contactUs`, and `settings`) are optional. When you omit a block, Payabli applies a default rather than hiding it. The block is enabled at a fixed display order, so the generated page stays complete and branded. To hide a section, send the block explicitly with `enabled` set to `false`. An explicit value is always honored and is never replaced by a default. For each block's default, see its description in the request body.
+
         Parameters
         ----------
         id_invoice : int
             Invoice ID
+
+        invoices : InvoiceElement
+            Invoices section of payment link page. Required. Omitting it returns a `400` error with code `7045`.
 
         amount_fixed : typing.Optional[bool]
             Indicates whether customer can modify the payment amount. A value of `true` means the amount isn't modifiable, a value `false` means the payor can modify the amount to pay.
@@ -1190,37 +1197,34 @@ class AsyncPaymentLinkClient:
             _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
 
         contact_us : typing.Optional[ContactElement]
-            ContactUs section of payment link page
-
-        invoices : typing.Optional[InvoiceElement]
-            Invoices section of payment link page
+            Contact us section of payment link page. If omitted, this block is enabled at display order 11.
 
         logo : typing.Optional[Element]
-            Logo section of payment link page
+            Logo section of payment link page. If omitted, this block is enabled at display order 1, and the logo image is resolved from the paypoint's entry logo.
 
         message_before_paying : typing.Optional[LabelElement]
-            Message section of payment link page
+            Message section of payment link page. If omitted, this block is enabled at display order 5.
 
         notes : typing.Optional[NoteElement]
-            Notes section of payment link page
+            Notes section of payment link page. If omitted, this block is enabled at display order 10.
 
         page : typing.Optional[PageElement]
-            Page header section of payment link page
+            Page header section of payment link page. If omitted, this block is enabled at display order 2.
 
         payment_button : typing.Optional[LabelElement]
-            Payment button section of payment link page
+            Payment button section of payment link page. If omitted, this block is enabled at display order 6, with the label "Pay Now".
 
         payment_methods : typing.Optional[MethodElement]
-            Payment methods section of payment link page
+            Payment methods section of payment link page. If omitted, this block is enabled at display order 3, with all payment methods enabled except RDC.
 
         payor : typing.Optional[PayorElement]
             Customer/Payor section of payment link page
 
         review : typing.Optional[HeaderElement]
-            Review section of payment link page
+            Review section of payment link page. If omitted, this block is enabled at display order 4.
 
         settings : typing.Optional[PagelinkSetting]
-            Settings section of payment link page
+            Settings section of payment link page. If omitted, defaults are applied, including page color `#10a0e3` and language `en`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1376,11 +1380,11 @@ class AsyncPaymentLinkClient:
         """
         _response = await self._raw_client.add_pay_link_from_invoice(
             id_invoice,
+            invoices=invoices,
             amount_fixed=amount_fixed,
             mail_2=mail_2,
             idempotency_key=idempotency_key,
             contact_us=contact_us,
-            invoices=invoices,
             logo=logo,
             message_before_paying=message_before_paying,
             notes=notes,

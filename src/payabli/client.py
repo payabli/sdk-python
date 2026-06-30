@@ -17,6 +17,7 @@ if typing.TYPE_CHECKING:
     from .cloud.client import AsyncCloudClient, CloudClient
     from .customer.client import AsyncCustomerClient, CustomerClient
     from .export.client import AsyncExportClient, ExportClient
+    from .funding.client import AsyncFundingClient, FundingClient
     from .ghost_card.client import AsyncGhostCardClient, GhostCardClient
     from .hosted_payment_pages.client import AsyncHostedPaymentPagesClient, HostedPaymentPagesClient
     from .import_.client import AsyncImportClient, ImportClient
@@ -147,6 +148,7 @@ class payabli:
         self._vendor: typing.Optional[VendorClient] = None
         self._ghost_card: typing.Optional[GhostCardClient] = None
         self._money_out: typing.Optional[MoneyOutClient] = None
+        self._funding: typing.Optional[FundingClient] = None
         self._wallet: typing.Optional[WalletClient] = None
         self._payout_subscription: typing.Optional[PayoutSubscriptionClient] = None
         self._charge_backs: typing.Optional[ChargeBacksClient] = None
@@ -376,6 +378,14 @@ class payabli:
         return self._money_out
 
     @property
+    def funding(self):
+        if self._funding is None:
+            from .funding.client import FundingClient  # noqa: E402
+
+            self._funding = FundingClient(client_wrapper=self._client_wrapper)
+        return self._funding
+
+    @property
     def wallet(self):
         if self._wallet is None:
             from .wallet.client import WalletClient  # noqa: E402
@@ -520,6 +530,7 @@ class Asyncpayabli:
         self._vendor: typing.Optional[AsyncVendorClient] = None
         self._ghost_card: typing.Optional[AsyncGhostCardClient] = None
         self._money_out: typing.Optional[AsyncMoneyOutClient] = None
+        self._funding: typing.Optional[AsyncFundingClient] = None
         self._wallet: typing.Optional[AsyncWalletClient] = None
         self._payout_subscription: typing.Optional[AsyncPayoutSubscriptionClient] = None
         self._charge_backs: typing.Optional[AsyncChargeBacksClient] = None
@@ -747,6 +758,14 @@ class Asyncpayabli:
 
             self._money_out = AsyncMoneyOutClient(client_wrapper=self._client_wrapper)
         return self._money_out
+
+    @property
+    def funding(self):
+        if self._funding is None:
+            from .funding.client import AsyncFundingClient  # noqa: E402
+
+            self._funding = AsyncFundingClient(client_wrapper=self._client_wrapper)
+        return self._funding
 
     @property
     def wallet(self):

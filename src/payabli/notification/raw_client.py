@@ -55,9 +55,6 @@ class RawNotificationClient:
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=AddNotificationRequest, direction="write"
             ),
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -238,9 +235,6 @@ class RawNotificationClient:
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=UpdateNotificationRequest, direction="write"
             ),
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -466,9 +460,6 @@ class AsyncRawNotificationClient:
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=AddNotificationRequest, direction="write"
             ),
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -649,9 +640,6 @@ class AsyncRawNotificationClient:
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=UpdateNotificationRequest, direction="write"
             ),
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )

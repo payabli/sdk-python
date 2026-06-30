@@ -6,7 +6,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .additional_data import AdditionalData
+from .additional_data_map import AdditionalDataMap
 from .address_addtl_nullable import AddressAddtlNullable
 from .address_nullable import AddressNullable
 from .billing_data import BillingData
@@ -37,7 +37,9 @@ class VendorData(UniversalBaseModel):
         typing.Optional[VendorNumber], FieldMetadata(alias="vendorNumber"), pydantic.Field(alias="vendorNumber")
     ] = None
     additional_data: typing_extensions.Annotated[
-        typing.Optional[AdditionalData], FieldMetadata(alias="AdditionalData"), pydantic.Field(alias="AdditionalData")
+        typing.Optional[AdditionalDataMap],
+        FieldMetadata(alias="AdditionalData"),
+        pydantic.Field(alias="AdditionalData"),
     ] = None
     address_1: typing_extensions.Annotated[
         typing.Optional[AddressNullable],

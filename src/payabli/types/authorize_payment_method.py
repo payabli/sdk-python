@@ -20,11 +20,13 @@ class AuthorizePaymentMethod(UniversalBaseModel):
     - `{ method: "check" }` - Check payment method
     - `{ method: "ach", achHolder: "...", achRouting: "...", achAccount: "...", achAccountType: "..." }` - ACH payment method with bank details
     - `{ method: "ach", storedMethodId: "..." }` - ACH payment method using stored method ID
+    - `{ method: "wire", achHolder: "...", achRouting: "...", achAccount: "...", achAccountType: "..." }` - Wire transfer payment method (US only, irrevocable)
+    - `{ method: "rtp", achHolder: "...", achRouting: "...", achAccount: "...", achAccountType: "..." }` - Real-Time Payments method (US only, irrevocable)
     """
 
     method: str = pydantic.Field()
     """
-    Payment method type - "managed", "vcard", "check", or "ach"
+    Payment method type - "managed", "vcard", "check", "ach", "wire", or "rtp"
     """
 
     ach_holder: typing_extensions.Annotated[

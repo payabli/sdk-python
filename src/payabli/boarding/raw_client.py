@@ -116,9 +116,6 @@ class RawBoardingClient:
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=AddApplicationRequest, direction="write"
             ),
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -448,9 +445,6 @@ class RawBoardingClient:
                 "RepName": rep_name,
                 "RepOffice": rep_office,
                 "onCreate": on_create,
-            },
-            headers={
-                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
@@ -1686,9 +1680,6 @@ class AsyncRawBoardingClient:
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=AddApplicationRequest, direction="write"
             ),
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -2018,9 +2009,6 @@ class AsyncRawBoardingClient:
                 "RepName": rep_name,
                 "RepOffice": rep_office,
                 "onCreate": on_create,
-            },
-            headers={
-                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,

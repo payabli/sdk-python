@@ -508,9 +508,6 @@ class RawCustomerClient:
                 "identifierFields": identifier_fields,
                 "createdAt": created_at,
             },
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -1311,9 +1308,6 @@ class AsyncRawCustomerClient:
                 "additionalFields": additional_fields,
                 "identifierFields": identifier_fields,
                 "createdAt": created_at,
-            },
-            headers={
-                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,

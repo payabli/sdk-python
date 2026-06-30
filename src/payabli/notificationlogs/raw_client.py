@@ -369,9 +369,6 @@ class RawNotificationlogsClient:
             "v2/notificationlogs/retry",
             method="POST",
             json=request,
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -731,9 +728,6 @@ class AsyncRawNotificationlogsClient:
             "v2/notificationlogs/retry",
             method="POST",
             json=request,
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )

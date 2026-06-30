@@ -29,10 +29,26 @@ class MethodElement(UniversalBaseModel):
 
     methods: typing.Optional[MethodsList] = None
     order: typing.Optional[Order] = None
+    payment_description: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="paymentDescription"),
+        pydantic.Field(
+            alias="paymentDescription", description="Description text shown in the payment methods section."
+        ),
+    ] = None
     settings: typing.Optional[MethodElementSettings] = pydantic.Field(default=None)
     """
     Settings for wallet payment methods.
     """
+
+    show_save_method: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="showSaveMethod"),
+        pydantic.Field(
+            alias="showSaveMethod",
+            description='Controls whether the "Save payment details for future use" checkbox appears on the hosted payment page. Set to `false` to hide the checkbox. Defaults to `true`.',
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

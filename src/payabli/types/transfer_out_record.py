@@ -187,6 +187,16 @@ class TransferOutRecord(UniversalBaseModel):
     List of messages associated with the transfer.
     """
 
+    type: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The transfer type. One of `debit`, `credit`, or `billing`.
+    """
+
+    method: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The payment method for the transfer, such as `ach`, `vcard`, or `check`.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

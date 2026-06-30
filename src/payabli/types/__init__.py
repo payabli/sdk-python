@@ -178,6 +178,7 @@ if typing.TYPE_CHECKING:
     from .button_element_size import ButtonElementSize
     from .bzip import Bzip
     from .c_list import CList
+    from .cancel_payout_response_data import CancelPayoutResponseData
     from .capture_all_out_response import CaptureAllOutResponse
     from .capture_all_out_response_response_data_item import CaptureAllOutResponseResponseDataItem
     from .capture_payment_details import CapturePaymentDetails
@@ -256,6 +257,7 @@ if typing.TYPE_CHECKING:
     from .delete_payout_subscription_response import DeletePayoutSubscriptionResponse
     from .delete_user_response import DeleteUserResponse
     from .deposit_date import DepositDate
+    from .deposit_funds_response import DepositFundsResponse
     from .descriptor import Descriptor
     from .device import Device
     from .device_query_record import DeviceQueryRecord
@@ -622,6 +624,7 @@ if typing.TYPE_CHECKING:
     from .refund_detail import RefundDetail
     from .refund_id import RefundId
     from .refund_response import RefundResponse
+    from .refund_v_2_request import RefundV2Request
     from .refund_with_instructions_response import RefundWithInstructionsResponse
     from .reissue_payment_method import ReissuePaymentMethod
     from .reissue_payout_response import ReissuePayoutResponse
@@ -635,6 +638,8 @@ if typing.TYPE_CHECKING:
     from .remitzip import Remitzip
     from .remove_device_response import RemoveDeviceResponse
     from .remove_subscription_response import RemoveSubscriptionResponse
+    from .renew_v_card_response import RenewVCardResponse
+    from .renew_v_card_response_data import RenewVCardResponseData
     from .rep_code import RepCode
     from .rep_name import RepName
     from .rep_office import RepOffice
@@ -689,6 +694,7 @@ if typing.TYPE_CHECKING:
     from .set_pause import SetPause
     from .setting_element import SettingElement
     from .settings_query_record import SettingsQueryRecord
+    from .settlement_split_funding_detail import SettlementSplitFundingDetail
     from .settlement_status import SettlementStatus
     from .settlement_status_name import SettlementStatusName
     from .settlement_status_payout import SettlementStatusPayout
@@ -837,6 +843,11 @@ if typing.TYPE_CHECKING:
     from .validate_response import ValidateResponse
     from .validate_response_data import ValidateResponseData
     from .value_templates import ValueTemplates
+    from .vendor_call_status_completed import VendorCallStatusCompleted
+    from .vendor_call_status_extracted_data import VendorCallStatusExtractedData
+    from .vendor_call_status_failed import VendorCallStatusFailed
+    from .vendor_call_status_response import VendorCallStatusResponse
+    from .vendor_call_status_scheduled import VendorCallStatusScheduled
     from .vendor_check_number import VendorCheckNumber
     from .vendor_data import VendorData
     from .vendor_data_request import VendorDataRequest
@@ -859,8 +870,11 @@ if typing.TYPE_CHECKING:
     from .vendor_response_billing_data import VendorResponseBillingData
     from .vendor_response_stored_method import VendorResponseStoredMethod
     from .vendor_response_summary import VendorResponseSummary
+    from .vendor_schedule_call_response import VendorScheduleCallResponse
+    from .vendor_schedule_call_response_data import VendorScheduleCallResponseData
     from .vendor_summary import VendorSummary
     from .vendorid import Vendorid
+    from .vendoridtrans import Vendoridtrans
     from .vendorstatus import Vendorstatus
     from .verify_account_details_response import VerifyAccountDetailsResponse
     from .visible import Visible
@@ -1048,6 +1062,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ButtonElementSize": ".button_element_size",
     "Bzip": ".bzip",
     "CList": ".c_list",
+    "CancelPayoutResponseData": ".cancel_payout_response_data",
     "CaptureAllOutResponse": ".capture_all_out_response",
     "CaptureAllOutResponseResponseDataItem": ".capture_all_out_response_response_data_item",
     "CapturePaymentDetails": ".capture_payment_details",
@@ -1124,6 +1139,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DeletePayoutSubscriptionResponse": ".delete_payout_subscription_response",
     "DeleteUserResponse": ".delete_user_response",
     "DepositDate": ".deposit_date",
+    "DepositFundsResponse": ".deposit_funds_response",
     "Descriptor": ".descriptor",
     "Device": ".device",
     "DeviceQueryRecord": ".device_query_record",
@@ -1492,6 +1508,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RefundDetail": ".refund_detail",
     "RefundId": ".refund_id",
     "RefundResponse": ".refund_response",
+    "RefundV2Request": ".refund_v_2_request",
     "RefundWithInstructionsResponse": ".refund_with_instructions_response",
     "ReissuePaymentMethod": ".reissue_payment_method",
     "ReissuePayoutResponse": ".reissue_payout_response",
@@ -1505,6 +1522,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Remitzip": ".remitzip",
     "RemoveDeviceResponse": ".remove_device_response",
     "RemoveSubscriptionResponse": ".remove_subscription_response",
+    "RenewVCardResponse": ".renew_v_card_response",
+    "RenewVCardResponseData": ".renew_v_card_response_data",
     "RepCode": ".rep_code",
     "RepName": ".rep_name",
     "RepOffice": ".rep_office",
@@ -1559,6 +1578,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SetPause": ".set_pause",
     "SettingElement": ".setting_element",
     "SettingsQueryRecord": ".settings_query_record",
+    "SettlementSplitFundingDetail": ".settlement_split_funding_detail",
     "SettlementStatus": ".settlement_status",
     "SettlementStatusName": ".settlement_status_name",
     "SettlementStatusPayout": ".settlement_status_payout",
@@ -1707,6 +1727,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ValidateResponse": ".validate_response",
     "ValidateResponseData": ".validate_response_data",
     "ValueTemplates": ".value_templates",
+    "VendorCallStatusCompleted": ".vendor_call_status_completed",
+    "VendorCallStatusExtractedData": ".vendor_call_status_extracted_data",
+    "VendorCallStatusFailed": ".vendor_call_status_failed",
+    "VendorCallStatusResponse": ".vendor_call_status_response",
+    "VendorCallStatusScheduled": ".vendor_call_status_scheduled",
     "VendorCheckNumber": ".vendor_check_number",
     "VendorData": ".vendor_data",
     "VendorDataRequest": ".vendor_data_request",
@@ -1729,8 +1754,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "VendorResponseBillingData": ".vendor_response_billing_data",
     "VendorResponseStoredMethod": ".vendor_response_stored_method",
     "VendorResponseSummary": ".vendor_response_summary",
+    "VendorScheduleCallResponse": ".vendor_schedule_call_response",
+    "VendorScheduleCallResponseData": ".vendor_schedule_call_response_data",
     "VendorSummary": ".vendor_summary",
     "Vendorid": ".vendorid",
+    "Vendoridtrans": ".vendoridtrans",
     "Vendorstatus": ".vendorstatus",
     "VerifyAccountDetailsResponse": ".verify_account_details_response",
     "Visible": ".visible",
@@ -1942,6 +1970,7 @@ __all__ = [
     "ButtonElementSize",
     "Bzip",
     "CList",
+    "CancelPayoutResponseData",
     "CaptureAllOutResponse",
     "CaptureAllOutResponseResponseDataItem",
     "CapturePaymentDetails",
@@ -2018,6 +2047,7 @@ __all__ = [
     "DeletePayoutSubscriptionResponse",
     "DeleteUserResponse",
     "DepositDate",
+    "DepositFundsResponse",
     "Descriptor",
     "Device",
     "DeviceQueryRecord",
@@ -2386,6 +2416,7 @@ __all__ = [
     "RefundDetail",
     "RefundId",
     "RefundResponse",
+    "RefundV2Request",
     "RefundWithInstructionsResponse",
     "ReissuePaymentMethod",
     "ReissuePayoutResponse",
@@ -2399,6 +2430,8 @@ __all__ = [
     "Remitzip",
     "RemoveDeviceResponse",
     "RemoveSubscriptionResponse",
+    "RenewVCardResponse",
+    "RenewVCardResponseData",
     "RepCode",
     "RepName",
     "RepOffice",
@@ -2453,6 +2486,7 @@ __all__ = [
     "SetPause",
     "SettingElement",
     "SettingsQueryRecord",
+    "SettlementSplitFundingDetail",
     "SettlementStatus",
     "SettlementStatusName",
     "SettlementStatusPayout",
@@ -2601,6 +2635,11 @@ __all__ = [
     "ValidateResponse",
     "ValidateResponseData",
     "ValueTemplates",
+    "VendorCallStatusCompleted",
+    "VendorCallStatusExtractedData",
+    "VendorCallStatusFailed",
+    "VendorCallStatusResponse",
+    "VendorCallStatusScheduled",
     "VendorCheckNumber",
     "VendorData",
     "VendorDataRequest",
@@ -2623,8 +2662,11 @@ __all__ = [
     "VendorResponseBillingData",
     "VendorResponseStoredMethod",
     "VendorResponseSummary",
+    "VendorScheduleCallResponse",
+    "VendorScheduleCallResponseData",
     "VendorSummary",
     "Vendorid",
+    "Vendoridtrans",
     "Vendorstatus",
     "VerifyAccountDetailsResponse",
     "Visible",

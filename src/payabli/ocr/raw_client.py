@@ -74,9 +74,6 @@ class RawOcrClient:
                 "furl": furl,
                 "fContent": f_content,
             },
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -189,9 +186,6 @@ class RawOcrClient:
                 "furl": furl,
                 "fContent": f_content,
             },
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -264,9 +258,6 @@ class AsyncRawOcrClient:
                 "filename": filename,
                 "furl": furl,
                 "fContent": f_content,
-            },
-            headers={
-                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
@@ -379,9 +370,6 @@ class AsyncRawOcrClient:
                 "filename": filename,
                 "furl": furl,
                 "fContent": f_content,
-            },
-            headers={
-                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,

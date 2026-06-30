@@ -258,9 +258,6 @@ class RawPaypointClient:
                 "ftype": ftype,
                 "furl": furl,
             },
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -1023,9 +1020,6 @@ class AsyncRawPaypointClient:
                 "filename": filename,
                 "ftype": ftype,
                 "furl": furl,
-            },
-            headers={
-                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,

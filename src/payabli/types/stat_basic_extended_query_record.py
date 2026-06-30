@@ -63,6 +63,26 @@ class StatBasicExtendedQueryRecord(UniversalBaseModel):
             alias="outPendingMethodTransactions", description="Outbound (payout) Managed Payables transactions count."
         ),
     ]
+    out_rtp_transactions: typing_extensions.Annotated[
+        int,
+        FieldMetadata(alias="outRTPTransactions"),
+        pydantic.Field(alias="outRTPTransactions", description="Outbound (payout) RTP transactions count."),
+    ]
+    out_rtp_volume: typing_extensions.Annotated[
+        float,
+        FieldMetadata(alias="outRTPVolume"),
+        pydantic.Field(alias="outRTPVolume", description="Outbound (payout) RTP transactions volume."),
+    ]
+    out_wire_transactions: typing_extensions.Annotated[
+        int,
+        FieldMetadata(alias="outWireTransactions"),
+        pydantic.Field(alias="outWireTransactions", description="Outbound (payout) wire transactions count."),
+    ]
+    out_wire_volume: typing_extensions.Annotated[
+        float,
+        FieldMetadata(alias="outWireVolume"),
+        pydantic.Field(alias="outWireVolume", description="Outbound (payout) wire transactions volume."),
+    ]
     out_transactions_volume: typing_extensions.Annotated[
         float,
         FieldMetadata(alias="outTransactionsVolume"),

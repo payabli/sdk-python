@@ -44,6 +44,21 @@ class MethodsList(UniversalBaseModel):
     When `true`, Visa is accepted.
     """
 
+    diners: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When `true`, Diners Club is accepted.
+    """
+
+    jcb: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When `true`, JCB is accepted.
+    """
+
+    rdc: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When `true`, Remote Deposit Capture (RDC) is accepted.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

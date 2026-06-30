@@ -78,11 +78,14 @@ class MoneyInClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AuthResponse:
         """
+        <Warning>
+          This endpoint is deprecated. New integrations should use the [Authorize endpoint](/developers/api-reference/moneyinV2/authorize-a-transaction), then capture, void, or refund the resulting transaction with the corresponding endpoints. Transactions created with this legacy endpoint must be managed with the legacy lifecycle endpoints — they aren't interchangeable with the current ones.
+        </Warning>
+
+
         Authorize a card transaction. This returns an authorization code and reserves funds for the merchant. Authorized transactions aren't flagged for settlement until [captured](/developers/api-reference/moneyin/capture-an-authorized-transaction).
+
         Only card transactions can be authorized. This endpoint can't be used for ACH transactions.
-        <Tip>
-          Consider migrating to the [v2 Authorize endpoint](/developers/api-reference/moneyinV2/authorize-a-transaction) to take advantage of unified response codes and improved response consistency.
-        </Tip>
 
         Parameters
         ----------
@@ -180,7 +183,7 @@ class MoneyInClient:
     ) -> CaptureResponse:
         """
         <Warning>
-          This endpoint is deprecated and will be sunset on November 24, 2025. Migrate to [POST `/capture/{transId}`](/developers/api-reference/moneyin/capture-an-authorized-transaction)`.
+          This endpoint is deprecated. Use [POST `/capture/{transId}`](/developers/api-reference/moneyin/capture-an-authorized-transaction) instead, which supports partial captures and service fee adjustments.
         </Warning>
 
           Capture an [authorized
@@ -225,13 +228,13 @@ class MoneyInClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CaptureResponse:
         """
+        <Warning>
+          This endpoint is deprecated. Use it only to capture transactions originally authorized with the legacy [Authorize endpoint](/developers/api-reference/moneyin/authorize-a-transaction). New integrations should use the [Capture endpoint](/developers/api-reference/moneyinV2/capture-an-authorized-transaction), which only works on transactions authorized with the current [Authorize endpoint](/developers/api-reference/moneyinV2/authorize-a-transaction).
+        </Warning>
+
         Capture an [authorized transaction](/developers/api-reference/moneyin/authorize-a-transaction) to complete the transaction and move funds from the customer to merchant account.
 
         You can use this endpoint to capture both full and partial amounts of the original authorized transaction. See [Capture an authorized transaction](/developers/developer-guides/pay-in-auth-and-capture) for more information about this endpoint.
-
-        <Tip>
-        Consider migrating to the [v2 Capture endpoint](/developers/api-reference/moneyinV2/capture-an-authorized-transaction) to take advantage of unified response codes and improved response consistency.
-        </Tip>
 
         Parameters
         ----------
@@ -431,11 +434,11 @@ class MoneyInClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PayabliApiResponseGetPaid:
         """
-        Make a single transaction. This method authorizes and captures a payment in one step.
+        <Warning>
+          This endpoint is deprecated. New integrations should use the [Make a transaction endpoint](/developers/api-reference/moneyinV2/make-a-transaction) and manage the resulting transaction with the corresponding void or refund endpoints. Transactions created with this legacy endpoint must be managed with the legacy lifecycle endpoints — they aren't interchangeable with the current ones.
+        </Warning>
 
-          <Tip>
-          Consider migrating to the [v2 Make a transaction endpoint](/developers/api-reference/moneyinV2/make-a-transaction) to take advantage of unified response codes and improved response consistency.
-          </Tip>
+        Make a single transaction. This method authorizes and captures a payment in one step.
 
         Parameters
         ----------
@@ -544,7 +547,11 @@ class MoneyInClient:
         self, trans_id: str, amount: float, *, request_options: typing.Optional[RequestOptions] = None
     ) -> ReverseResponse:
         """
-        A reversal either refunds or voids a transaction independent of the transaction's settlement status. Send a reversal request for a transaction, and Payabli automatically determines whether it's a refund or void. You don't need to know whether the transaction is settled or not. This endpoint only works on transactions made with the v1 API. For v2 transactions, check the transaction's settlement status and call v2 void or v2 refund based on the result.
+        <Warning>
+          This endpoint is deprecated and only works on transactions created with the legacy endpoints. There's no equivalent in the current endpoints. For transactions created with [Make a transaction](/developers/api-reference/moneyinV2/make-a-transaction) or [Authorize](/developers/api-reference/moneyinV2/authorize-a-transaction), check the transaction's settlement status and call [Void](/developers/api-reference/moneyinV2/void-a-transaction) or [Refund](/developers/api-reference/moneyinV2/refund-a-settled-transaction) based on the result.
+        </Warning>
+
+        A reversal either refunds or voids a transaction independent of the transaction's settlement status. Send a reversal request for a transaction, and Payabli automatically determines whether it's a refund or void. You don't need to know whether the transaction is settled or not. This endpoint only works on transactions made with the legacy endpoints. For transactions made with the current endpoints, check the transaction's settlement status and call void or refund based on the result.
 
         Parameters
         ----------
@@ -585,11 +592,11 @@ class MoneyInClient:
         self, trans_id: str, amount: float, *, request_options: typing.Optional[RequestOptions] = None
     ) -> RefundResponse:
         """
-        Refund a transaction that has settled and send money back to the account holder. If a transaction hasn't been settled, void it instead.
+        <Warning>
+          This endpoint is deprecated. Use it only to refund transactions originally created with the legacy endpoints. New integrations should use the [Refund endpoint](/developers/api-reference/moneyinV2/refund-a-settled-transaction), which only works on transactions created with [Make a transaction](/developers/api-reference/moneyinV2/make-a-transaction) or [Authorize](/developers/api-reference/moneyinV2/authorize-a-transaction).
+        </Warning>
 
-          <Tip>
-          Consider migrating to the [v2 Refund endpoint](/developers/api-reference/moneyinV2/refund-a-settled-transaction) to take advantage of unified response codes and improved response consistency.
-          </Tip>
+        Refund a transaction that has settled and send money back to the account holder. If a transaction hasn't been settled, void it instead.
 
         Parameters
         ----------
@@ -640,6 +647,10 @@ class MoneyInClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RefundWithInstructionsResponse:
         """
+        <Warning>
+          This endpoint is deprecated. Use it only to refund transactions originally created with the legacy endpoints. To refund a split-funded transaction created with [Make a transaction](/developers/api-reference/moneyinV2/make-a-transaction) or [Authorize](/developers/api-reference/moneyinV2/authorize-a-transaction), use the [Refund endpoint](/developers/api-reference/moneyinV2/refund-a-settled-transaction) with split instructions in the request body.
+        </Warning>
+
         Refunds a settled transaction with split instructions.
 
         Parameters
@@ -865,11 +876,11 @@ class MoneyInClient:
 
     def void(self, trans_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> VoidResponse:
         """
-        Cancel a transaction that hasn't been settled yet. Voiding non-captured authorizations prevents future captures. If a transaction has been settled, refund it instead.
+        <Warning>
+          This endpoint is deprecated. Use it only to void transactions originally created with the legacy endpoints. New integrations should use the [Void endpoint](/developers/api-reference/moneyinV2/void-a-transaction), which only works on transactions created with [Make a transaction](/developers/api-reference/moneyinV2/make-a-transaction) or [Authorize](/developers/api-reference/moneyinV2/authorize-a-transaction).
+        </Warning>
 
-          <Tip>
-          Consider migrating to the [v2 Void endpoint](/developers/api-reference/moneyinV2/void-a-transaction) to take advantage of unified response codes and improved response consistency.
-          </Tip>
+        Cancel a transaction that hasn't been settled yet. Voiding non-captured authorizations prevents future captures. If a transaction has been settled, refund it instead.
 
         Parameters
         ----------
@@ -1182,17 +1193,47 @@ class MoneyInClient:
         return _response.data
 
     def refundv_2(
-        self, trans_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        trans_id: str,
+        *,
+        amount: typing.Optional[float] = OMIT,
+        ipaddress: typing.Optional[IpAddress] = OMIT,
+        order_description: typing.Optional[Orderdescription] = OMIT,
+        order_id: typing.Optional[OrderId] = OMIT,
+        refund_details: typing.Optional[RefundDetail] = OMIT,
+        source: typing.Optional[Source] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> V2TransactionResponseWrapper:
         """
-        Give a full refund for a transaction that has settled and send money back to the account holder. To perform a partial refund, see [Partially refund a transaction](developers/api-reference/moneyinV2/partial-refund-a-settled-transaction).
+        Give a full refund for a transaction that has settled and send money back to the account holder. To perform a partial refund, see [Partially refund a transaction](/developers/api-reference/moneyinV2/partial-refund-a-settled-transaction).
 
         This is the v2 version of the refund endpoint, and returns the unified response format. See [Pay In unified response codes reference](/guides/pay-in-unified-response-codes-reference) for more information.
+
+        <Note>
+          To refund a split-funded transaction, include split instructions in the request body. Omit the body for a standard refund.
+        </Note>
 
         Parameters
         ----------
         trans_id : str
             ReferenceId for the transaction (PaymentId).
+
+        amount : typing.Optional[float]
+            Amount to refund from original transaction, minus any service fees charged on the original transaction.
+
+            The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was $90 plus a $10 service fee, you can refund up to $90.
+
+            An amount equal to zero will refund the total amount authorized minus any service fee.
+
+        ipaddress : typing.Optional[IpAddress]
+
+        order_description : typing.Optional[Orderdescription]
+
+        order_id : typing.Optional[OrderId]
+
+        refund_details : typing.Optional[RefundDetail]
+
+        source : typing.Optional[Source]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1213,24 +1254,64 @@ class MoneyInClient:
             trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
         )
         """
-        _response = self._raw_client.refundv_2(trans_id, request_options=request_options)
+        _response = self._raw_client.refundv_2(
+            trans_id,
+            amount=amount,
+            ipaddress=ipaddress,
+            order_description=order_description,
+            order_id=order_id,
+            refund_details=refund_details,
+            source=source,
+            request_options=request_options,
+        )
         return _response.data
 
     def refundv_2_amount(
-        self, trans_id: str, amount: float, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        trans_id: str,
+        amount_: float,
+        *,
+        amount: typing.Optional[float] = OMIT,
+        ipaddress: typing.Optional[IpAddress] = OMIT,
+        order_description: typing.Optional[Orderdescription] = OMIT,
+        order_id: typing.Optional[OrderId] = OMIT,
+        refund_details: typing.Optional[RefundDetail] = OMIT,
+        source: typing.Optional[Source] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> V2TransactionResponseWrapper:
         """
-        Refund a transaction that has settled and send money back to the account holder. If `amount` is omitted or set to 0, performs a full refund. When a non-zero `amount` is provided, this endpoint performs a partial refund.
+        Refund a transaction that has settled and send money back to the account holder. If `amount` is set to 0, performs a full refund. When a non-zero `amount` is provided, this endpoint performs a partial refund.
 
         This is the v2 version of the refund endpoint, and returns the unified response format. See [Pay In unified response codes reference](/guides/pay-in-unified-response-codes-reference) for more information.
+
+        <Note>
+          To refund a split-funded transaction, include split instructions in the request body. Omit the body for a standard refund.
+        </Note>
 
         Parameters
         ----------
         trans_id : str
             ReferenceId for the transaction (PaymentId).
 
-        amount : float
-            Amount to refund from original transaction, minus any service fees charged on the original transaction. If omitted or set to 0, performs a full refund.
+        amount_ : float
+            Amount to refund from original transaction, minus any service fees charged on the original transaction. If set to 0, performs a full refund.
+
+        amount : typing.Optional[float]
+            Amount to refund from original transaction, minus any service fees charged on the original transaction.
+
+            The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was $90 plus a $10 service fee, you can refund up to $90.
+
+            An amount equal to zero will refund the total amount authorized minus any service fee.
+
+        ipaddress : typing.Optional[IpAddress]
+
+        order_description : typing.Optional[Orderdescription]
+
+        order_id : typing.Optional[OrderId]
+
+        refund_details : typing.Optional[RefundDetail]
+
+        source : typing.Optional[Source]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1249,10 +1330,20 @@ class MoneyInClient:
         )
         client.money_in.refundv_2_amount(
             trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
-            amount=0.0,
+            amount_=0.0,
         )
         """
-        _response = self._raw_client.refundv_2_amount(trans_id, amount, request_options=request_options)
+        _response = self._raw_client.refundv_2_amount(
+            trans_id,
+            amount_,
+            amount=amount,
+            ipaddress=ipaddress,
+            order_description=order_description,
+            order_id=order_id,
+            refund_details=refund_details,
+            source=source,
+            request_options=request_options,
+        )
         return _response.data
 
     def voidv_2(
@@ -1324,11 +1415,14 @@ class AsyncMoneyInClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AuthResponse:
         """
+        <Warning>
+          This endpoint is deprecated. New integrations should use the [Authorize endpoint](/developers/api-reference/moneyinV2/authorize-a-transaction), then capture, void, or refund the resulting transaction with the corresponding endpoints. Transactions created with this legacy endpoint must be managed with the legacy lifecycle endpoints — they aren't interchangeable with the current ones.
+        </Warning>
+
+
         Authorize a card transaction. This returns an authorization code and reserves funds for the merchant. Authorized transactions aren't flagged for settlement until [captured](/developers/api-reference/moneyin/capture-an-authorized-transaction).
+
         Only card transactions can be authorized. This endpoint can't be used for ACH transactions.
-        <Tip>
-          Consider migrating to the [v2 Authorize endpoint](/developers/api-reference/moneyinV2/authorize-a-transaction) to take advantage of unified response codes and improved response consistency.
-        </Tip>
 
         Parameters
         ----------
@@ -1439,7 +1533,7 @@ class AsyncMoneyInClient:
     ) -> CaptureResponse:
         """
         <Warning>
-          This endpoint is deprecated and will be sunset on November 24, 2025. Migrate to [POST `/capture/{transId}`](/developers/api-reference/moneyin/capture-an-authorized-transaction)`.
+          This endpoint is deprecated. Use [POST `/capture/{transId}`](/developers/api-reference/moneyin/capture-an-authorized-transaction) instead, which supports partial captures and service fee adjustments.
         </Warning>
 
           Capture an [authorized
@@ -1492,13 +1586,13 @@ class AsyncMoneyInClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CaptureResponse:
         """
+        <Warning>
+          This endpoint is deprecated. Use it only to capture transactions originally authorized with the legacy [Authorize endpoint](/developers/api-reference/moneyin/authorize-a-transaction). New integrations should use the [Capture endpoint](/developers/api-reference/moneyinV2/capture-an-authorized-transaction), which only works on transactions authorized with the current [Authorize endpoint](/developers/api-reference/moneyinV2/authorize-a-transaction).
+        </Warning>
+
         Capture an [authorized transaction](/developers/api-reference/moneyin/authorize-a-transaction) to complete the transaction and move funds from the customer to merchant account.
 
         You can use this endpoint to capture both full and partial amounts of the original authorized transaction. See [Capture an authorized transaction](/developers/developer-guides/pay-in-auth-and-capture) for more information about this endpoint.
-
-        <Tip>
-        Consider migrating to the [v2 Capture endpoint](/developers/api-reference/moneyinV2/capture-an-authorized-transaction) to take advantage of unified response codes and improved response consistency.
-        </Tip>
 
         Parameters
         ----------
@@ -1722,11 +1816,11 @@ class AsyncMoneyInClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PayabliApiResponseGetPaid:
         """
-        Make a single transaction. This method authorizes and captures a payment in one step.
+        <Warning>
+          This endpoint is deprecated. New integrations should use the [Make a transaction endpoint](/developers/api-reference/moneyinV2/make-a-transaction) and manage the resulting transaction with the corresponding void or refund endpoints. Transactions created with this legacy endpoint must be managed with the legacy lifecycle endpoints — they aren't interchangeable with the current ones.
+        </Warning>
 
-          <Tip>
-          Consider migrating to the [v2 Make a transaction endpoint](/developers/api-reference/moneyinV2/make-a-transaction) to take advantage of unified response codes and improved response consistency.
-          </Tip>
+        Make a single transaction. This method authorizes and captures a payment in one step.
 
         Parameters
         ----------
@@ -1848,7 +1942,11 @@ class AsyncMoneyInClient:
         self, trans_id: str, amount: float, *, request_options: typing.Optional[RequestOptions] = None
     ) -> ReverseResponse:
         """
-        A reversal either refunds or voids a transaction independent of the transaction's settlement status. Send a reversal request for a transaction, and Payabli automatically determines whether it's a refund or void. You don't need to know whether the transaction is settled or not. This endpoint only works on transactions made with the v1 API. For v2 transactions, check the transaction's settlement status and call v2 void or v2 refund based on the result.
+        <Warning>
+          This endpoint is deprecated and only works on transactions created with the legacy endpoints. There's no equivalent in the current endpoints. For transactions created with [Make a transaction](/developers/api-reference/moneyinV2/make-a-transaction) or [Authorize](/developers/api-reference/moneyinV2/authorize-a-transaction), check the transaction's settlement status and call [Void](/developers/api-reference/moneyinV2/void-a-transaction) or [Refund](/developers/api-reference/moneyinV2/refund-a-settled-transaction) based on the result.
+        </Warning>
+
+        A reversal either refunds or voids a transaction independent of the transaction's settlement status. Send a reversal request for a transaction, and Payabli automatically determines whether it's a refund or void. You don't need to know whether the transaction is settled or not. This endpoint only works on transactions made with the legacy endpoints. For transactions made with the current endpoints, check the transaction's settlement status and call void or refund based on the result.
 
         Parameters
         ----------
@@ -1897,11 +1995,11 @@ class AsyncMoneyInClient:
         self, trans_id: str, amount: float, *, request_options: typing.Optional[RequestOptions] = None
     ) -> RefundResponse:
         """
-        Refund a transaction that has settled and send money back to the account holder. If a transaction hasn't been settled, void it instead.
+        <Warning>
+          This endpoint is deprecated. Use it only to refund transactions originally created with the legacy endpoints. New integrations should use the [Refund endpoint](/developers/api-reference/moneyinV2/refund-a-settled-transaction), which only works on transactions created with [Make a transaction](/developers/api-reference/moneyinV2/make-a-transaction) or [Authorize](/developers/api-reference/moneyinV2/authorize-a-transaction).
+        </Warning>
 
-          <Tip>
-          Consider migrating to the [v2 Refund endpoint](/developers/api-reference/moneyinV2/refund-a-settled-transaction) to take advantage of unified response codes and improved response consistency.
-          </Tip>
+        Refund a transaction that has settled and send money back to the account holder. If a transaction hasn't been settled, void it instead.
 
         Parameters
         ----------
@@ -1960,6 +2058,10 @@ class AsyncMoneyInClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RefundWithInstructionsResponse:
         """
+        <Warning>
+          This endpoint is deprecated. Use it only to refund transactions originally created with the legacy endpoints. To refund a split-funded transaction created with [Make a transaction](/developers/api-reference/moneyinV2/make-a-transaction) or [Authorize](/developers/api-reference/moneyinV2/authorize-a-transaction), use the [Refund endpoint](/developers/api-reference/moneyinV2/refund-a-settled-transaction) with split instructions in the request body.
+        </Warning>
+
         Refunds a settled transaction with split instructions.
 
         Parameters
@@ -2217,11 +2319,11 @@ class AsyncMoneyInClient:
 
     async def void(self, trans_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> VoidResponse:
         """
-        Cancel a transaction that hasn't been settled yet. Voiding non-captured authorizations prevents future captures. If a transaction has been settled, refund it instead.
+        <Warning>
+          This endpoint is deprecated. Use it only to void transactions originally created with the legacy endpoints. New integrations should use the [Void endpoint](/developers/api-reference/moneyinV2/void-a-transaction), which only works on transactions created with [Make a transaction](/developers/api-reference/moneyinV2/make-a-transaction) or [Authorize](/developers/api-reference/moneyinV2/authorize-a-transaction).
+        </Warning>
 
-          <Tip>
-          Consider migrating to the [v2 Void endpoint](/developers/api-reference/moneyinV2/void-a-transaction) to take advantage of unified response codes and improved response consistency.
-          </Tip>
+        Cancel a transaction that hasn't been settled yet. Voiding non-captured authorizations prevents future captures. If a transaction has been settled, refund it instead.
 
         Parameters
         ----------
@@ -2576,17 +2678,47 @@ class AsyncMoneyInClient:
         return _response.data
 
     async def refundv_2(
-        self, trans_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        trans_id: str,
+        *,
+        amount: typing.Optional[float] = OMIT,
+        ipaddress: typing.Optional[IpAddress] = OMIT,
+        order_description: typing.Optional[Orderdescription] = OMIT,
+        order_id: typing.Optional[OrderId] = OMIT,
+        refund_details: typing.Optional[RefundDetail] = OMIT,
+        source: typing.Optional[Source] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> V2TransactionResponseWrapper:
         """
-        Give a full refund for a transaction that has settled and send money back to the account holder. To perform a partial refund, see [Partially refund a transaction](developers/api-reference/moneyinV2/partial-refund-a-settled-transaction).
+        Give a full refund for a transaction that has settled and send money back to the account holder. To perform a partial refund, see [Partially refund a transaction](/developers/api-reference/moneyinV2/partial-refund-a-settled-transaction).
 
         This is the v2 version of the refund endpoint, and returns the unified response format. See [Pay In unified response codes reference](/guides/pay-in-unified-response-codes-reference) for more information.
+
+        <Note>
+          To refund a split-funded transaction, include split instructions in the request body. Omit the body for a standard refund.
+        </Note>
 
         Parameters
         ----------
         trans_id : str
             ReferenceId for the transaction (PaymentId).
+
+        amount : typing.Optional[float]
+            Amount to refund from original transaction, minus any service fees charged on the original transaction.
+
+            The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was $90 plus a $10 service fee, you can refund up to $90.
+
+            An amount equal to zero will refund the total amount authorized minus any service fee.
+
+        ipaddress : typing.Optional[IpAddress]
+
+        order_description : typing.Optional[Orderdescription]
+
+        order_id : typing.Optional[OrderId]
+
+        refund_details : typing.Optional[RefundDetail]
+
+        source : typing.Optional[Source]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2615,24 +2747,64 @@ class AsyncMoneyInClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.refundv_2(trans_id, request_options=request_options)
+        _response = await self._raw_client.refundv_2(
+            trans_id,
+            amount=amount,
+            ipaddress=ipaddress,
+            order_description=order_description,
+            order_id=order_id,
+            refund_details=refund_details,
+            source=source,
+            request_options=request_options,
+        )
         return _response.data
 
     async def refundv_2_amount(
-        self, trans_id: str, amount: float, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        trans_id: str,
+        amount_: float,
+        *,
+        amount: typing.Optional[float] = OMIT,
+        ipaddress: typing.Optional[IpAddress] = OMIT,
+        order_description: typing.Optional[Orderdescription] = OMIT,
+        order_id: typing.Optional[OrderId] = OMIT,
+        refund_details: typing.Optional[RefundDetail] = OMIT,
+        source: typing.Optional[Source] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> V2TransactionResponseWrapper:
         """
-        Refund a transaction that has settled and send money back to the account holder. If `amount` is omitted or set to 0, performs a full refund. When a non-zero `amount` is provided, this endpoint performs a partial refund.
+        Refund a transaction that has settled and send money back to the account holder. If `amount` is set to 0, performs a full refund. When a non-zero `amount` is provided, this endpoint performs a partial refund.
 
         This is the v2 version of the refund endpoint, and returns the unified response format. See [Pay In unified response codes reference](/guides/pay-in-unified-response-codes-reference) for more information.
+
+        <Note>
+          To refund a split-funded transaction, include split instructions in the request body. Omit the body for a standard refund.
+        </Note>
 
         Parameters
         ----------
         trans_id : str
             ReferenceId for the transaction (PaymentId).
 
-        amount : float
-            Amount to refund from original transaction, minus any service fees charged on the original transaction. If omitted or set to 0, performs a full refund.
+        amount_ : float
+            Amount to refund from original transaction, minus any service fees charged on the original transaction. If set to 0, performs a full refund.
+
+        amount : typing.Optional[float]
+            Amount to refund from original transaction, minus any service fees charged on the original transaction.
+
+            The amount provided can't be greater than the original total amount of the transaction, minus service fees. For example, if a transaction was $90 plus a $10 service fee, you can refund up to $90.
+
+            An amount equal to zero will refund the total amount authorized minus any service fee.
+
+        ipaddress : typing.Optional[IpAddress]
+
+        order_description : typing.Optional[Orderdescription]
+
+        order_id : typing.Optional[OrderId]
+
+        refund_details : typing.Optional[RefundDetail]
+
+        source : typing.Optional[Source]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2656,13 +2828,23 @@ class AsyncMoneyInClient:
         async def main() -> None:
             await client.money_in.refundv_2_amount(
                 trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
-                amount=0.0,
+                amount_=0.0,
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.refundv_2_amount(trans_id, amount, request_options=request_options)
+        _response = await self._raw_client.refundv_2_amount(
+            trans_id,
+            amount_,
+            amount=amount,
+            ipaddress=ipaddress,
+            order_description=order_description,
+            order_id=order_id,
+            refund_details=refund_details,
+            source=source,
+            request_options=request_options,
+        )
         return _response.data
 
     async def voidv_2(

@@ -16,12 +16,19 @@ from .resulttext import Resulttext
 from .vendoridtrans import Vendoridtrans
 
 
-class AuthCapturePayoutResponseData(UniversalBaseModel):
+class RenewVCardResponseData(UniversalBaseModel):
     auth_code: typing_extensions.Annotated[
-        typing.Optional[Authcode], FieldMetadata(alias="authCode"), pydantic.Field(alias="authCode")
+        typing.Optional[Authcode],
+        FieldMetadata(alias="authCode"),
+        pydantic.Field(alias="authCode", description="Not used for virtual card renewal; always returns `null`."),
     ] = None
     reference_id: typing_extensions.Annotated[
-        Referenceidtrans, FieldMetadata(alias="referenceId"), pydantic.Field(alias="referenceId")
+        Referenceidtrans,
+        FieldMetadata(alias="referenceId"),
+        pydantic.Field(
+            alias="referenceId",
+            description="Reference identifier for the renewed virtual card returned by the card processor.",
+        ),
     ]
     result_code: typing_extensions.Annotated[
         ResultCode, FieldMetadata(alias="resultCode"), pydantic.Field(alias="resultCode")
@@ -32,33 +39,33 @@ class AuthCapturePayoutResponseData(UniversalBaseModel):
     avs_response_text: typing_extensions.Annotated[
         typing.Optional[AvsResponseText],
         FieldMetadata(alias="avsResponseText"),
-        pydantic.Field(alias="avsResponseText"),
+        pydantic.Field(
+            alias="avsResponseText", description="Not used for virtual card renewal; always returns `null`."
+        ),
     ] = None
     cvv_response_text: typing_extensions.Annotated[
         typing.Optional[CvvResponseText],
         FieldMetadata(alias="cvvResponseText"),
-        pydantic.Field(alias="cvvResponseText"),
+        pydantic.Field(
+            alias="cvvResponseText", description="Not used for virtual card renewal; always returns `null`."
+        ),
     ] = None
     customer_id: typing_extensions.Annotated[
-        Vendoridtrans,
+        typing.Optional[Vendoridtrans],
         FieldMetadata(alias="customerId"),
-        pydantic.Field(
-            alias="customerId",
-            description="Payabli-generated unique ID of the vendor on the payout. Returns the same value as `vendorId`, or `0` when no vendor is associated.",
-        ),
-    ]
+        pydantic.Field(alias="customerId", description="Not used for virtual card renewal; always returns `null`."),
+    ] = None
     vendor_id: typing_extensions.Annotated[
-        Vendoridtrans,
+        typing.Optional[Vendoridtrans],
         FieldMetadata(alias="vendorId"),
-        pydantic.Field(
-            alias="vendorId",
-            description="Payabli-generated unique ID of the vendor on the payout. Returns the same value as `customerId`, or `0` when no vendor is associated.",
-        ),
-    ]
+        pydantic.Field(alias="vendorId", description="Not used for virtual card renewal; always returns `null`."),
+    ] = None
     method_reference_id: typing_extensions.Annotated[
         typing.Optional[MethodReferenceId],
         FieldMetadata(alias="methodReferenceId"),
-        pydantic.Field(alias="methodReferenceId"),
+        pydantic.Field(
+            alias="methodReferenceId", description="Not used for virtual card renewal; always returns `null`."
+        ),
     ] = None
 
     if IS_PYDANTIC_V2:

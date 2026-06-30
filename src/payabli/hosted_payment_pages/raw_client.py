@@ -382,9 +382,6 @@ class RawHostedPaymentPagesClient:
                 "totalAmount": total_amount,
                 "validationCode": validation_code,
             },
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -800,9 +797,6 @@ class AsyncRawHostedPaymentPagesClient:
                 "Subdomain": subdomain,
                 "totalAmount": total_amount,
                 "validationCode": validation_code,
-            },
-            headers={
-                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,

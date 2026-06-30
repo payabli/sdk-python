@@ -123,9 +123,6 @@ class RawUserClient:
                 "timeZone": time_zone,
                 "usrStatus": usr_status,
             },
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -372,9 +369,6 @@ class RawUserClient:
                 ),
                 "timeZone": time_zone,
                 "usrStatus": usr_status,
-            },
-            headers={
-                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
@@ -1111,9 +1105,6 @@ class RawUserClient:
                 "mfa": mfa,
                 "mfaMode": mfa_mode,
             },
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -1352,9 +1343,6 @@ class AsyncRawUserClient:
                 ),
                 "timeZone": time_zone,
                 "usrStatus": usr_status,
-            },
-            headers={
-                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
@@ -1602,9 +1590,6 @@ class AsyncRawUserClient:
                 ),
                 "timeZone": time_zone,
                 "usrStatus": usr_status,
-            },
-            headers={
-                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
@@ -2340,9 +2325,6 @@ class AsyncRawUserClient:
             json={
                 "mfa": mfa,
                 "mfaMode": mfa_mode,
-            },
-            headers={
-                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,

@@ -22,6 +22,7 @@ from .query_payment_data import QueryPaymentData
 from .query_response_data import QueryResponseData
 from .query_transaction_events import QueryTransactionEvents
 from .query_transaction_payor_data import QueryTransactionPayorData
+from .settlement_split_funding_detail import SettlementSplitFundingDetail
 from .settlement_status import SettlementStatus
 from .source import Source
 from .trans_status import TransStatus
@@ -153,6 +154,14 @@ class QueryResponseSettlementsRecordsItem(UniversalBaseModel):
     ] = None
     source: typing_extensions.Annotated[
         typing.Optional[Source], FieldMetadata(alias="Source"), pydantic.Field(alias="Source")
+    ] = None
+    split_funding_instructions: typing_extensions.Annotated[
+        typing.Optional[typing.List[SettlementSplitFundingDetail]],
+        FieldMetadata(alias="splitFundingInstructions"),
+        pydantic.Field(
+            alias="splitFundingInstructions",
+            description="Split funding instructions for the settled transaction, each enriched with the batch and transfer that paid out the split. Null when the transaction has no splits.",
+        ),
     ] = None
     status: typing_extensions.Annotated[
         typing.Optional[SettlementStatus], FieldMetadata(alias="Status"), pydantic.Field(alias="Status")

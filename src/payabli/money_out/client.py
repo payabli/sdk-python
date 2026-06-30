@@ -20,6 +20,7 @@ from ..types.payabli_api_response_00_responsedatanonobject import PayabliApiResp
 from ..types.payabli_api_response_0000 import PayabliApiResponse0000
 from ..types.reissue_payment_method import ReissuePaymentMethod
 from ..types.reissue_payout_response import ReissuePayoutResponse
+from ..types.renew_v_card_response import RenewVCardResponse
 from ..types.request_out_authorize_invoice_data import RequestOutAuthorizeInvoiceData
 from ..types.request_out_authorize_payment_details import RequestOutAuthorizePaymentDetails
 from ..types.request_out_authorize_vendor_data import RequestOutAuthorizeVendorData
@@ -75,6 +76,8 @@ class MoneyOutClient:
         If you don't pass `autoCapture` with a value of `true`, authorized transactions aren't flagged for settlement until captured. Use the `referenceId` returned in the response to capture the transaction.
 
         When `autoCapture` is `true`, Payabli captures the transaction asynchronously after authorization. The response confirms only that the transaction was authorized; it doesn't confirm that capture succeeded. To confirm capture, listen for the [`payout_transaction_approvedcaptured`](/developers/webhooks/payout-transaction-approved-captured) webhook event.
+
+        If a velocity fraud alert is triggered, the endpoint returns a `202` response with `responseCode` `9051`, and the authorization is held for risk review rather than rejected. If a risk policy blocks the transaction, the endpoint returns a `422` response with `responseCode` `9005`, a terminal rejection.
 
         Parameters
         ----------
@@ -327,7 +330,9 @@ class MoneyOutClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AuthCapturePayoutResponse:
         """
-        Captures a single authorized payout transaction by ID. If the transaction was authorized with `autoCapture` set to `true`,  you don't need to call this endpoint to capture the transaction for processing.
+        Captures a single authorized payout transaction by ID. If the transaction was authorized with `autoCapture` set to `true`, you don't need to call this endpoint to capture the transaction for processing.
+
+        If a velocity fraud alert is triggered, the endpoint returns a `202` response with `responseCode` `9051`, and the capture is held for risk review rather than rejected. If a risk policy blocks the transaction, the endpoint returns a `422` response with `responseCode` `9005`, a terminal rejection.
 
         Parameters
         ----------
@@ -425,6 +430,49 @@ class MoneyOutClient:
         )
         """
         _response = self._raw_client.v_card_get(card_token, request_options=request_options)
+        return _response.data
+
+    def renew_v_card(
+        self, card_token: str, *, expiration_date: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> RenewVCardResponse:
+        """
+        Renews an expired or expiring virtual card by extending its expiration date to a future month.
+
+        The card must be a virtual card that hasn't been fully used. The new expiration date must be in `MM-YYYY` or `MM/YYYY` format and no more than 2 years and 363 days in the future. The card expires on the last day of the month you specify.
+
+        On success, `referenceId` holds the renewed card's token (the card processor may issue a new token). The response reuses the standard payout result object, so the payment-transaction fields it carries don't apply to renewal and always return `null`.
+
+        Parameters
+        ----------
+        card_token : str
+            ID for the virtual card to renew.
+
+        expiration_date : str
+            The new expiration date for the virtual card, in `MM-YYYY` or `MM/YYYY` format. The card expires on the last day of the month you specify. The date can't be more than 2 years and 363 days in the future.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RenewVCardResponse
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            api_key="YOUR_API_KEY",
+        )
+        client.money_out.renew_v_card(
+            card_token="20231206142225226104",
+            expiration_date="12-2027",
+        )
+        """
+        _response = self._raw_client.renew_v_card(
+            card_token, expiration_date=expiration_date, request_options=request_options
+        )
         return _response.data
 
     def send_v_card_link(
@@ -659,6 +707,8 @@ class AsyncMoneyOutClient:
         If you don't pass `autoCapture` with a value of `true`, authorized transactions aren't flagged for settlement until captured. Use the `referenceId` returned in the response to capture the transaction.
 
         When `autoCapture` is `true`, Payabli captures the transaction asynchronously after authorization. The response confirms only that the transaction was authorized; it doesn't confirm that capture succeeded. To confirm capture, listen for the [`payout_transaction_approvedcaptured`](/developers/webhooks/payout-transaction-approved-captured) webhook event.
+
+        If a velocity fraud alert is triggered, the endpoint returns a `202` response with `responseCode` `9051`, and the authorization is held for risk review rather than rejected. If a risk policy blocks the transaction, the endpoint returns a `422` response with `responseCode` `9005`, a terminal rejection.
 
         Parameters
         ----------
@@ -951,7 +1001,9 @@ class AsyncMoneyOutClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AuthCapturePayoutResponse:
         """
-        Captures a single authorized payout transaction by ID. If the transaction was authorized with `autoCapture` set to `true`,  you don't need to call this endpoint to capture the transaction for processing.
+        Captures a single authorized payout transaction by ID. If the transaction was authorized with `autoCapture` set to `true`, you don't need to call this endpoint to capture the transaction for processing.
+
+        If a velocity fraud alert is triggered, the endpoint returns a `202` response with `responseCode` `9051`, and the capture is held for risk review rather than rejected. If a risk policy blocks the transaction, the endpoint returns a `422` response with `responseCode` `9005`, a terminal rejection.
 
         Parameters
         ----------
@@ -1073,6 +1125,57 @@ class AsyncMoneyOutClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.v_card_get(card_token, request_options=request_options)
+        return _response.data
+
+    async def renew_v_card(
+        self, card_token: str, *, expiration_date: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> RenewVCardResponse:
+        """
+        Renews an expired or expiring virtual card by extending its expiration date to a future month.
+
+        The card must be a virtual card that hasn't been fully used. The new expiration date must be in `MM-YYYY` or `MM/YYYY` format and no more than 2 years and 363 days in the future. The card expires on the last day of the month you specify.
+
+        On success, `referenceId` holds the renewed card's token (the card processor may issue a new token). The response reuses the standard payout result object, so the payment-transaction fields it carries don't apply to renewal and always return `null`.
+
+        Parameters
+        ----------
+        card_token : str
+            ID for the virtual card to renew.
+
+        expiration_date : str
+            The new expiration date for the virtual card, in `MM-YYYY` or `MM/YYYY` format. The card expires on the last day of the month you specify. The date can't be more than 2 years and 363 days in the future.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RenewVCardResponse
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.money_out.renew_v_card(
+                card_token="20231206142225226104",
+                expiration_date="12-2027",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.renew_v_card(
+            card_token, expiration_date=expiration_date, request_options=request_options
+        )
         return _response.data
 
     async def send_v_card_link(

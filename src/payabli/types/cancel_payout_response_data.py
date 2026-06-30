@@ -6,13 +6,29 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .authcode import Authcode
+from .avs_response_text import AvsResponseText
+from .cvv_response_text import CvvResponseText
+from .method_reference_id import MethodReferenceId
 from .referenceidtrans import Referenceidtrans
 from .result_code import ResultCode
 from .resulttext import Resulttext
 from .vendoridtrans import Vendoridtrans
 
 
-class CaptureAllOutResponseResponseDataItem(UniversalBaseModel):
+class CancelPayoutResponseData(UniversalBaseModel):
+    """
+    Response data for canceling a single payout transaction. Mirrors the general response data, with `VendorId` added alongside `CustomerId`.
+    """
+
+    auth_code: typing_extensions.Annotated[
+        typing.Optional[Authcode], FieldMetadata(alias="AuthCode"), pydantic.Field(alias="AuthCode")
+    ] = None
+    avs_response_text: typing_extensions.Annotated[
+        typing.Optional[AvsResponseText],
+        FieldMetadata(alias="avsResponseText"),
+        pydantic.Field(alias="avsResponseText"),
+    ] = None
     customer_id: typing_extensions.Annotated[
         typing.Optional[Vendoridtrans],
         FieldMetadata(alias="CustomerId"),
@@ -29,6 +45,16 @@ class CaptureAllOutResponseResponseDataItem(UniversalBaseModel):
             description="Payabli-generated unique ID of the vendor on the payout. Returns the same value as `CustomerId`, or `0` when no vendor is associated.",
         ),
     ] = None
+    cvv_response_text: typing_extensions.Annotated[
+        typing.Optional[CvvResponseText],
+        FieldMetadata(alias="cvvResponseText"),
+        pydantic.Field(alias="cvvResponseText"),
+    ] = None
+    method_reference_id: typing_extensions.Annotated[
+        typing.Optional[MethodReferenceId],
+        FieldMetadata(alias="methodReferenceId"),
+        pydantic.Field(alias="methodReferenceId"),
+    ] = None
     reference_id: typing_extensions.Annotated[
         typing.Optional[Referenceidtrans], FieldMetadata(alias="ReferenceId"), pydantic.Field(alias="ReferenceId")
     ] = None
@@ -36,12 +62,7 @@ class CaptureAllOutResponseResponseDataItem(UniversalBaseModel):
         typing.Optional[ResultCode], FieldMetadata(alias="ResultCode"), pydantic.Field(alias="ResultCode")
     ] = None
     result_text: typing_extensions.Annotated[
-        typing.Optional[Resulttext],
-        FieldMetadata(alias="ResultText"),
-        pydantic.Field(
-            alias="ResultText",
-            description="Text describing the result.\nIf `ResultCode` = 1, returns 'Authorized'.\nIf `ResultCode` = 2 or 3, this contains the cause of the decline.",
-        ),
+        typing.Optional[Resulttext], FieldMetadata(alias="ResultText"), pydantic.Field(alias="ResultText")
     ] = None
 
     if IS_PYDANTIC_V2:

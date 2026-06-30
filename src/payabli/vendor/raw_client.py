@@ -14,8 +14,9 @@ from ..core.serialization import convert_and_respect_annotation_metadata
 from ..errors.bad_request_error import BadRequestError
 from ..errors.internal_server_error import InternalServerError
 from ..errors.service_unavailable_error import ServiceUnavailableError
+from ..errors.too_many_requests_error import TooManyRequestsError
 from ..errors.unauthorized_error import UnauthorizedError
-from ..types.additional_data import AdditionalData
+from ..types.additional_data_map import AdditionalDataMap
 from ..types.address_addtl_nullable import AddressAddtlNullable
 from ..types.address_nullable import AddressNullable
 from ..types.billing_data import BillingData
@@ -34,6 +35,7 @@ from ..types.remitcity import Remitcity
 from ..types.remitcountry import Remitcountry
 from ..types.remitstate import Remitstate
 from ..types.remitzip import Remitzip
+from ..types.vendor_call_status_response import VendorCallStatusResponse
 from ..types.vendor_ein import VendorEin
 from ..types.vendor_enrich_response import VendorEnrichResponse
 from ..types.vendor_name_1 import VendorName1
@@ -42,6 +44,7 @@ from ..types.vendor_number import VendorNumber
 from ..types.vendor_payment_method_string import VendorPaymentMethodString
 from ..types.vendor_phone import VendorPhone
 from ..types.vendor_query_record import VendorQueryRecord
+from ..types.vendor_schedule_call_response import VendorScheduleCallResponse
 from ..types.vendorstatus import Vendorstatus
 from pydantic import ValidationError
 
@@ -58,7 +61,7 @@ class RawVendorClient:
         entry: str,
         *,
         vendor_number: typing.Optional[VendorNumber] = OMIT,
-        additional_data: typing.Optional[AdditionalData] = OMIT,
+        additional_data: typing.Optional[AdditionalDataMap] = OMIT,
         address_1: typing.Optional[AddressNullable] = OMIT,
         address_2: typing.Optional[AddressAddtlNullable] = OMIT,
         billing_data: typing.Optional[BillingData] = OMIT,
@@ -103,7 +106,7 @@ class RawVendorClient:
 
         vendor_number : typing.Optional[VendorNumber]
 
-        additional_data : typing.Optional[AdditionalData]
+        additional_data : typing.Optional[AdditionalDataMap]
 
         address_1 : typing.Optional[AddressNullable]
             Vendor's street address. If any address field is provided, this field is required along with `city`, `state`, and `zip`. Allowed characters are letters, numbers, spaces, and `. ,
@@ -242,9 +245,6 @@ class RawVendorClient:
                     object_=attachment, annotation=FileContent, direction="write"
                 ),
             },
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -359,7 +359,7 @@ class RawVendorClient:
         id_vendor: int,
         *,
         vendor_number: typing.Optional[VendorNumber] = OMIT,
-        additional_data: typing.Optional[AdditionalData] = OMIT,
+        additional_data: typing.Optional[AdditionalDataMap] = OMIT,
         address_1: typing.Optional[AddressNullable] = OMIT,
         address_2: typing.Optional[AddressAddtlNullable] = OMIT,
         billing_data: typing.Optional[BillingData] = OMIT,
@@ -404,7 +404,7 @@ class RawVendorClient:
 
         vendor_number : typing.Optional[VendorNumber]
 
-        additional_data : typing.Optional[AdditionalData]
+        additional_data : typing.Optional[AdditionalDataMap]
 
         address_1 : typing.Optional[AddressNullable]
             Vendor's street address. If any address field is provided, this field is required along with `city`, `state`, and `zip`. Allowed characters are letters, numbers, spaces, and `. ,
@@ -542,9 +542,6 @@ class RawVendorClient:
                 "attachment": convert_and_respect_annotation_metadata(
                     object_=attachment, annotation=FileContent, direction="write"
                 ),
-            },
-            headers={
-                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
@@ -730,7 +727,7 @@ class RawVendorClient:
             When `true` (the default), extracted data is automatically written to the vendor record. Only empty fields are populated, existing values are never overwritten. When `false`, the vendor record isn't modified. In both cases, `enrichmentData` in the response contains the extracted results. Use `false` for UI flows where users review and confirm changes before applying them with the update vendor endpoint.
 
         schedule_call_if_needed : typing.Optional[bool]
-            When `true`, triggers an AI outreach call if enrichment stages return insufficient payment acceptance info. This feature is currently in development.
+            When `true`, Payabli schedules an AI outreach call to the vendor if the enrichment stages return insufficient payment acceptance info. The call collects the vendor's preferred payment method and contact email. This is the third enrichment stage and is opt-in at the org level. See the schedule outreach call endpoint for behavior and requirements.
 
         invoice_file : typing.Optional[FileContent]
             PDF invoice file, Base64-encoded. Required when `scope` includes `invoice_scan`.
@@ -832,6 +829,229 @@ class RawVendorClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def schedule_enrichment_call(
+        self,
+        entry: str,
+        *,
+        vendor_id: int,
+        phone: typing.Optional[str] = OMIT,
+        enrichment_id: typing.Optional[str] = OMIT,
+        bill_id: typing.Optional[int] = OMIT,
+        fallback_method: typing.Optional[str] = OMIT,
+        max_retries: typing.Optional[int] = OMIT,
+        timezone: typing.Optional[str] = OMIT,
+        send_now: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[VendorScheduleCallResponse]:
+        """
+        Schedules an AI outreach call to a vendor to collect their preferred payment method and contact email. This is the third enrichment stage. Calls are scheduled for the next business day at around 9 AM in the vendor's timezone, with retries on no-answer and a fallback payment method applied when retries are exhausted. This feature is opt-in at the org level. Contact your Payabli representative to enable it, provision a phone number, and discuss pricing.
+
+        Parameters
+        ----------
+        entry : str
+            Entrypoint identifier.
+
+        vendor_id : int
+            ID of the vendor to call. Must be active and belong to the entrypoint in the path.
+
+        phone : typing.Optional[str]
+            Vendor phone number to call, digits only. Optional. When omitted, Payabli uses the phone number on the vendor's record. If the vendor has no phone on record, the request returns an error.
+
+        enrichment_id : typing.Optional[str]
+            ID of the originating enrichment run to associate with this call. Optional. When omitted, Payabli generates a standalone call schedule and skips the enrichment lookup. The bill due-date check only runs when both `enrichmentId` and `billId` are supplied.
+
+        bill_id : typing.Optional[int]
+            Bill ID used for the due-date check. When the bill is due in fewer than three days, the call is skipped and the fallback method is applied. Only evaluated when `enrichmentId` is also supplied.
+
+        fallback_method : typing.Optional[str]
+            Payment method to apply to the vendor record if the call can't determine a preference or all retries are exhausted. Values are `check` (the default) or `managed`.
+
+        max_retries : typing.Optional[int]
+            Number of times to retry the call if the vendor doesn't answer. Defaults to 3. Maximum is 5. The get outreach call status response reports this value as `maxAttempts`.
+
+        timezone : typing.Optional[str]
+            IANA timezone identifier used to schedule the call in the vendor's local time. Defaults to `America/New_York`.
+
+        send_now : typing.Optional[bool]
+            When `true`, dispatches the call immediately and bypasses the business-hours window and the bill due-date check. Defaults to `false`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[VendorScheduleCallResponse]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"Vendor/enrich/schedule_call/{encode_path_param(entry)}",
+            method="POST",
+            json={
+                "vendorId": vendor_id,
+                "phone": phone,
+                "enrichmentId": enrichment_id,
+                "billId": bill_id,
+                "fallbackMethod": fallback_method,
+                "maxRetries": max_retries,
+                "timezone": timezone,
+                "sendNow": send_now,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    VendorScheduleCallResponse,
+                    parse_obj_as(
+                        type_=VendorScheduleCallResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def get_enrichment_call_status(
+        self, id_vendor: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[VendorCallStatusResponse]:
+        """
+        Returns the latest AI outreach call activity for a vendor. The response is a composite object with a `state` discriminator (`none`, `scheduled`, `successful`, or `failed`); the block that matches the current state is populated. When the vendor has no call activity, `state` is `none` and the response returns HTTP 200.
+
+        Parameters
+        ----------
+        id_vendor : int
+            ID of the vendor to read call status for.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[VendorCallStatusResponse]
+            Success
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"Vendor/{encode_path_param(id_vendor)}/enrichment/call-status",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    VendorCallStatusResponse,
+                    parse_obj_as(
+                        type_=VendorCallStatusResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
 
 class AsyncRawVendorClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -842,7 +1062,7 @@ class AsyncRawVendorClient:
         entry: str,
         *,
         vendor_number: typing.Optional[VendorNumber] = OMIT,
-        additional_data: typing.Optional[AdditionalData] = OMIT,
+        additional_data: typing.Optional[AdditionalDataMap] = OMIT,
         address_1: typing.Optional[AddressNullable] = OMIT,
         address_2: typing.Optional[AddressAddtlNullable] = OMIT,
         billing_data: typing.Optional[BillingData] = OMIT,
@@ -887,7 +1107,7 @@ class AsyncRawVendorClient:
 
         vendor_number : typing.Optional[VendorNumber]
 
-        additional_data : typing.Optional[AdditionalData]
+        additional_data : typing.Optional[AdditionalDataMap]
 
         address_1 : typing.Optional[AddressNullable]
             Vendor's street address. If any address field is provided, this field is required along with `city`, `state`, and `zip`. Allowed characters are letters, numbers, spaces, and `. ,
@@ -1026,9 +1246,6 @@ class AsyncRawVendorClient:
                     object_=attachment, annotation=FileContent, direction="write"
                 ),
             },
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -1143,7 +1360,7 @@ class AsyncRawVendorClient:
         id_vendor: int,
         *,
         vendor_number: typing.Optional[VendorNumber] = OMIT,
-        additional_data: typing.Optional[AdditionalData] = OMIT,
+        additional_data: typing.Optional[AdditionalDataMap] = OMIT,
         address_1: typing.Optional[AddressNullable] = OMIT,
         address_2: typing.Optional[AddressAddtlNullable] = OMIT,
         billing_data: typing.Optional[BillingData] = OMIT,
@@ -1188,7 +1405,7 @@ class AsyncRawVendorClient:
 
         vendor_number : typing.Optional[VendorNumber]
 
-        additional_data : typing.Optional[AdditionalData]
+        additional_data : typing.Optional[AdditionalDataMap]
 
         address_1 : typing.Optional[AddressNullable]
             Vendor's street address. If any address field is provided, this field is required along with `city`, `state`, and `zip`. Allowed characters are letters, numbers, spaces, and `. ,
@@ -1326,9 +1543,6 @@ class AsyncRawVendorClient:
                 "attachment": convert_and_respect_annotation_metadata(
                     object_=attachment, annotation=FileContent, direction="write"
                 ),
-            },
-            headers={
-                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
@@ -1514,7 +1728,7 @@ class AsyncRawVendorClient:
             When `true` (the default), extracted data is automatically written to the vendor record. Only empty fields are populated, existing values are never overwritten. When `false`, the vendor record isn't modified. In both cases, `enrichmentData` in the response contains the extracted results. Use `false` for UI flows where users review and confirm changes before applying them with the update vendor endpoint.
 
         schedule_call_if_needed : typing.Optional[bool]
-            When `true`, triggers an AI outreach call if enrichment stages return insufficient payment acceptance info. This feature is currently in development.
+            When `true`, Payabli schedules an AI outreach call to the vendor if the enrichment stages return insufficient payment acceptance info. The call collects the vendor's preferred payment method and contact email. This is the third enrichment stage and is opt-in at the org level. See the schedule outreach call endpoint for behavior and requirements.
 
         invoice_file : typing.Optional[FileContent]
             PDF invoice file, Base64-encoded. Required when `scope` includes `invoice_scan`.
@@ -1574,6 +1788,229 @@ class AsyncRawVendorClient:
                         ),
                     ),
                 )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def schedule_enrichment_call(
+        self,
+        entry: str,
+        *,
+        vendor_id: int,
+        phone: typing.Optional[str] = OMIT,
+        enrichment_id: typing.Optional[str] = OMIT,
+        bill_id: typing.Optional[int] = OMIT,
+        fallback_method: typing.Optional[str] = OMIT,
+        max_retries: typing.Optional[int] = OMIT,
+        timezone: typing.Optional[str] = OMIT,
+        send_now: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[VendorScheduleCallResponse]:
+        """
+        Schedules an AI outreach call to a vendor to collect their preferred payment method and contact email. This is the third enrichment stage. Calls are scheduled for the next business day at around 9 AM in the vendor's timezone, with retries on no-answer and a fallback payment method applied when retries are exhausted. This feature is opt-in at the org level. Contact your Payabli representative to enable it, provision a phone number, and discuss pricing.
+
+        Parameters
+        ----------
+        entry : str
+            Entrypoint identifier.
+
+        vendor_id : int
+            ID of the vendor to call. Must be active and belong to the entrypoint in the path.
+
+        phone : typing.Optional[str]
+            Vendor phone number to call, digits only. Optional. When omitted, Payabli uses the phone number on the vendor's record. If the vendor has no phone on record, the request returns an error.
+
+        enrichment_id : typing.Optional[str]
+            ID of the originating enrichment run to associate with this call. Optional. When omitted, Payabli generates a standalone call schedule and skips the enrichment lookup. The bill due-date check only runs when both `enrichmentId` and `billId` are supplied.
+
+        bill_id : typing.Optional[int]
+            Bill ID used for the due-date check. When the bill is due in fewer than three days, the call is skipped and the fallback method is applied. Only evaluated when `enrichmentId` is also supplied.
+
+        fallback_method : typing.Optional[str]
+            Payment method to apply to the vendor record if the call can't determine a preference or all retries are exhausted. Values are `check` (the default) or `managed`.
+
+        max_retries : typing.Optional[int]
+            Number of times to retry the call if the vendor doesn't answer. Defaults to 3. Maximum is 5. The get outreach call status response reports this value as `maxAttempts`.
+
+        timezone : typing.Optional[str]
+            IANA timezone identifier used to schedule the call in the vendor's local time. Defaults to `America/New_York`.
+
+        send_now : typing.Optional[bool]
+            When `true`, dispatches the call immediately and bypasses the business-hours window and the bill due-date check. Defaults to `false`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[VendorScheduleCallResponse]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"Vendor/enrich/schedule_call/{encode_path_param(entry)}",
+            method="POST",
+            json={
+                "vendorId": vendor_id,
+                "phone": phone,
+                "enrichmentId": enrichment_id,
+                "billId": bill_id,
+                "fallbackMethod": fallback_method,
+                "maxRetries": max_retries,
+                "timezone": timezone,
+                "sendNow": send_now,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    VendorScheduleCallResponse,
+                    parse_obj_as(
+                        type_=VendorScheduleCallResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 429:
+                raise TooManyRequestsError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def get_enrichment_call_status(
+        self, id_vendor: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[VendorCallStatusResponse]:
+        """
+        Returns the latest AI outreach call activity for a vendor. The response is a composite object with a `state` discriminator (`none`, `scheduled`, `successful`, or `failed`); the block that matches the current state is populated. When the vendor has no call activity, `state` is `none` and the response returns HTTP 200.
+
+        Parameters
+        ----------
+        id_vendor : int
+            ID of the vendor to read call status for.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[VendorCallStatusResponse]
+            Success
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"Vendor/{encode_path_param(id_vendor)}/enrichment/call-status",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    VendorCallStatusResponse,
+                    parse_obj_as(
+                        type_=VendorCallStatusResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),

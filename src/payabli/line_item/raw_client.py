@@ -329,9 +329,6 @@ class RawLineItemClient:
                 "itemQty": item_qty,
                 "itemUnitOfMeasure": item_unit_of_measure,
             },
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -949,9 +946,6 @@ class AsyncRawLineItemClient:
                 "itemProductName": item_product_name,
                 "itemQty": item_qty,
                 "itemUnitOfMeasure": item_unit_of_measure,
-            },
-            headers={
-                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,

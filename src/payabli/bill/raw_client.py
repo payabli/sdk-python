@@ -493,9 +493,6 @@ class RawBillClient:
                     object_=vendor, annotation=BillOutDataVendor, direction="write"
                 ),
             },
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -990,9 +987,6 @@ class RawBillClient:
             f"Bill/approval/{encode_path_param(id_bill)}",
             method="PUT",
             json=request,
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -1930,9 +1924,6 @@ class AsyncRawBillClient:
                     object_=vendor, annotation=BillOutDataVendor, direction="write"
                 ),
             },
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -2427,9 +2418,6 @@ class AsyncRawBillClient:
             f"Bill/approval/{encode_path_param(id_bill)}",
             method="PUT",
             json=request,
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )

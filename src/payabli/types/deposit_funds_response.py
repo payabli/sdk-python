@@ -6,16 +6,15 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .cancel_payout_response_data import CancelPayoutResponseData
 from .is_success import IsSuccess
 from .page_identifier import PageIdentifier
 from .response_text import ResponseText
-from .responsecode import Responsecode
+from .responsedata import Responsedata
 
 
-class PayabliApiResponse0000(UniversalBaseModel):
+class DepositFundsResponse(UniversalBaseModel):
     """
-    The response for canceling a single payout transaction.
+    Response for a deposit funds request.
     """
 
     is_success: typing_extensions.Annotated[
@@ -24,16 +23,17 @@ class PayabliApiResponse0000(UniversalBaseModel):
     response_text: typing_extensions.Annotated[
         ResponseText, FieldMetadata(alias="responseText"), pydantic.Field(alias="responseText")
     ]
-    page_identifier: typing_extensions.Annotated[
-        typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier"), pydantic.Field(alias="pageIdentifier")
-    ] = None
-    response_code: typing_extensions.Annotated[
-        typing.Optional[Responsecode], FieldMetadata(alias="responseCode"), pydantic.Field(alias="responseCode")
-    ] = None
     response_data: typing_extensions.Annotated[
-        typing.Optional[CancelPayoutResponseData],
+        typing.Optional[Responsedata],
         FieldMetadata(alias="responseData"),
-        pydantic.Field(alias="responseData"),
+        pydantic.Field(alias="responseData", description="The object containing the response data."),
+    ] = None
+    page_identifier: typing_extensions.Annotated[
+        typing.Optional[PageIdentifier],
+        FieldMetadata(alias="pageIdentifier"),
+        pydantic.Field(
+            alias="pageIdentifier", description="Auxiliary validation used internally by payment pages and components."
+        ),
     ] = None
 
     if IS_PYDANTIC_V2:
