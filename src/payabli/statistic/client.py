@@ -109,13 +109,14 @@ class StatisticClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.statistic.basic_stats(
-            entry_id=1000000,
+            mode="custom",
             freq="m",
             level=2,
-            mode="custom",
+            entry_id=1000000,
             start_date="2025-11-01",
             end_date="2025-11-30",
         )
@@ -172,7 +173,7 @@ class StatisticClient:
             For example, `w` groups the results by week.
 
         customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+            Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             List of parameters.
@@ -190,12 +191,13 @@ class StatisticClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.statistic.customer_basic_stats(
-            customer_id=4440,
-            freq="m",
             mode="ytd",
+            freq="m",
+            customer_id=4440,
         )
         """
         _response = self._raw_client.customer_basic_stats(
@@ -250,12 +252,13 @@ class StatisticClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.statistic.sub_stats(
-            entry_id=1000000,
             interval="30",
             level=2,
+            entry_id=1000000,
         )
         """
         _response = self._raw_client.sub_stats(
@@ -321,12 +324,13 @@ class StatisticClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.statistic.vendor_basic_stats(
+            mode="ytd",
             freq="m",
             id_vendor=1,
-            mode="ytd",
         )
         """
         _response = self._raw_client.vendor_basic_stats(
@@ -435,16 +439,17 @@ class AsyncStatisticClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
         async def main() -> None:
             await client.statistic.basic_stats(
-                entry_id=1000000,
+                mode="custom",
                 freq="m",
                 level=2,
-                mode="custom",
+                entry_id=1000000,
                 start_date="2025-11-01",
                 end_date="2025-11-30",
             )
@@ -504,7 +509,7 @@ class AsyncStatisticClient:
             For example, `w` groups the results by week.
 
         customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+            Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             List of parameters.
@@ -524,15 +529,16 @@ class AsyncStatisticClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
         async def main() -> None:
             await client.statistic.customer_basic_stats(
-                customer_id=4440,
-                freq="m",
                 mode="ytd",
+                freq="m",
+                customer_id=4440,
             )
 
 
@@ -592,15 +598,16 @@ class AsyncStatisticClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
         async def main() -> None:
             await client.statistic.sub_stats(
-                entry_id=1000000,
                 interval="30",
                 level=2,
+                entry_id=1000000,
             )
 
 
@@ -671,15 +678,16 @@ class AsyncStatisticClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
         async def main() -> None:
             await client.statistic.vendor_basic_stats(
+                mode="ytd",
                 freq="m",
                 id_vendor=1,
-                mode="ytd",
             )
 
 

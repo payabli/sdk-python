@@ -78,7 +78,7 @@ class RawCustomerClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PayabliApiResponseCustomerQuery]:
         """
-        Creates a customer in an entrypoint. An identifier is required to create customer records. Change your identifier settings in Settings > Custom Fields in PartnerHub.
+        Creates a customer in an entrypoint. An identifier is required to create customer records. Change your identifier settings in Settings > Custom Fields in the Payabli Portal.
         If you don't include an identifier, the record is rejected.
 
         Parameters
@@ -284,7 +284,7 @@ class RawCustomerClient:
         Parameters
         ----------
         customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+            Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -400,7 +400,7 @@ class RawCustomerClient:
         Parameters
         ----------
         customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+            Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
 
         customer_number : typing.Optional[CustomerNumberNullable]
 
@@ -583,7 +583,7 @@ class RawCustomerClient:
         Parameters
         ----------
         customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+            Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -670,7 +670,7 @@ class RawCustomerClient:
         Parameters
         ----------
         customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+            Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -757,7 +757,7 @@ class RawCustomerClient:
         Parameters
         ----------
         customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+            Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
 
         trans_id : str
             ReferenceId for the transaction (PaymentId).
@@ -879,7 +879,7 @@ class AsyncRawCustomerClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PayabliApiResponseCustomerQuery]:
         """
-        Creates a customer in an entrypoint. An identifier is required to create customer records. Change your identifier settings in Settings > Custom Fields in PartnerHub.
+        Creates a customer in an entrypoint. An identifier is required to create customer records. Change your identifier settings in Settings > Custom Fields in the Payabli Portal.
         If you don't include an identifier, the record is rejected.
 
         Parameters
@@ -1085,7 +1085,7 @@ class AsyncRawCustomerClient:
         Parameters
         ----------
         customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+            Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1201,7 +1201,7 @@ class AsyncRawCustomerClient:
         Parameters
         ----------
         customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+            Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
 
         customer_number : typing.Optional[CustomerNumberNullable]
 
@@ -1384,7 +1384,7 @@ class AsyncRawCustomerClient:
         Parameters
         ----------
         customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+            Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1471,7 +1471,7 @@ class AsyncRawCustomerClient:
         Parameters
         ----------
         customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+            Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1558,7 +1558,7 @@ class AsyncRawCustomerClient:
         Parameters
         ----------
         customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+            Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
 
         trans_id : str
             ReferenceId for the transaction (PaymentId).

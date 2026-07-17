@@ -116,7 +116,8 @@ class TokenStorageClient:
         from payabli import PayorDataRequest, TokenizeCard, payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.token_storage.add_method(
             customer_data=PayorDataRequest(
@@ -128,7 +129,7 @@ class TokenStorageClient:
             method_description="Primary Visa card",
             payment_method=TokenizeCard(
                 cardcvv="123",
-                cardexp="02/25",
+                cardexp="12/29",
                 card_holder="John Doe",
                 cardnumber="4111111111111111",
                 cardzip="12345",
@@ -199,7 +200,8 @@ class TokenStorageClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.token_storage.get_method(
             method_id="32-8877drt00045632-678",
@@ -280,7 +282,8 @@ class TokenStorageClient:
         from payabli import PayorDataRequest, TokenizeCard, payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.token_storage.update_method(
             method_id="32-8877drt00045632-678",
@@ -291,7 +294,7 @@ class TokenStorageClient:
             fallback_auth=True,
             payment_method=TokenizeCard(
                 cardcvv="123",
-                cardexp="02/25",
+                cardexp="12/29",
                 card_holder="John Doe",
                 cardnumber="4111111111111111",
                 cardzip="12345",
@@ -339,7 +342,8 @@ class TokenStorageClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.token_storage.remove_method(
             method_id="32-8877drt00045632-678",
@@ -443,7 +447,8 @@ class AsyncTokenStorageClient:
         from payabli import Asyncpayabli, PayorDataRequest, TokenizeCard
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -458,7 +463,7 @@ class AsyncTokenStorageClient:
                 method_description="Primary Visa card",
                 payment_method=TokenizeCard(
                     cardcvv="123",
-                    cardexp="02/25",
+                    cardexp="12/29",
                     card_holder="John Doe",
                     cardnumber="4111111111111111",
                     cardzip="12345",
@@ -534,7 +539,8 @@ class AsyncTokenStorageClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -623,7 +629,8 @@ class AsyncTokenStorageClient:
         from payabli import Asyncpayabli, PayorDataRequest, TokenizeCard
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -637,7 +644,7 @@ class AsyncTokenStorageClient:
                 fallback_auth=True,
                 payment_method=TokenizeCard(
                     cardcvv="123",
-                    cardexp="02/25",
+                    cardexp="12/29",
                     card_holder="John Doe",
                     cardnumber="4111111111111111",
                     cardzip="12345",
@@ -690,7 +697,8 @@ class AsyncTokenStorageClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 

@@ -78,7 +78,7 @@ class CustomerClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PayabliApiResponseCustomerQuery:
         """
-        Creates a customer in an entrypoint. An identifier is required to create customer records. Change your identifier settings in Settings > Custom Fields in PartnerHub.
+        Creates a customer in an entrypoint. An identifier is required to create customer records. Change your identifier settings in Settings > Custom Fields in the Payabli Portal.
         If you don't include an identifier, the record is rejected.
 
         Parameters
@@ -175,7 +175,8 @@ class CustomerClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.customer.add_customer(
             entry="8cfec329267",
@@ -236,7 +237,7 @@ class CustomerClient:
         Parameters
         ----------
         customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+            Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -251,7 +252,8 @@ class CustomerClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.customer.get_customer(
             customer_id=4440,
@@ -298,7 +300,7 @@ class CustomerClient:
         Parameters
         ----------
         customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+            Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
 
         customer_number : typing.Optional[CustomerNumberNullable]
 
@@ -380,7 +382,8 @@ class CustomerClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.customer.update_customer(
             customer_id=4440,
@@ -434,7 +437,7 @@ class CustomerClient:
         Parameters
         ----------
         customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+            Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -449,7 +452,8 @@ class CustomerClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.customer.delete_customer(
             customer_id=4440,
@@ -467,7 +471,7 @@ class CustomerClient:
         Parameters
         ----------
         customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+            Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -482,7 +486,8 @@ class CustomerClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.customer.request_consent(
             customer_id=4440,
@@ -500,7 +505,7 @@ class CustomerClient:
         Parameters
         ----------
         customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+            Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
 
         trans_id : str
             ReferenceId for the transaction (PaymentId).
@@ -518,7 +523,8 @@ class CustomerClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.customer.link_customer_transaction(
             customer_id=4440,
@@ -580,7 +586,7 @@ class AsyncCustomerClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PayabliApiResponseCustomerQuery:
         """
-        Creates a customer in an entrypoint. An identifier is required to create customer records. Change your identifier settings in Settings > Custom Fields in PartnerHub.
+        Creates a customer in an entrypoint. An identifier is required to create customer records. Change your identifier settings in Settings > Custom Fields in the Payabli Portal.
         If you don't include an identifier, the record is rejected.
 
         Parameters
@@ -679,7 +685,8 @@ class AsyncCustomerClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -746,7 +753,7 @@ class AsyncCustomerClient:
         Parameters
         ----------
         customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+            Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -763,7 +770,8 @@ class AsyncCustomerClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -816,7 +824,7 @@ class AsyncCustomerClient:
         Parameters
         ----------
         customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+            Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
 
         customer_number : typing.Optional[CustomerNumberNullable]
 
@@ -900,7 +908,8 @@ class AsyncCustomerClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -960,7 +969,7 @@ class AsyncCustomerClient:
         Parameters
         ----------
         customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+            Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -977,7 +986,8 @@ class AsyncCustomerClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -1001,7 +1011,7 @@ class AsyncCustomerClient:
         Parameters
         ----------
         customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+            Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1018,7 +1028,8 @@ class AsyncCustomerClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -1042,7 +1053,7 @@ class AsyncCustomerClient:
         Parameters
         ----------
         customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+            Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
 
         trans_id : str
             ReferenceId for the transaction (PaymentId).
@@ -1062,7 +1073,8 @@ class AsyncCustomerClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 

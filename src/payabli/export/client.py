@@ -125,7 +125,8 @@ class ExportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.export.export_applications(
             format="csv",
@@ -258,11 +259,12 @@ class ExportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.export.export_batch_details(
-            entry="8cfec329267",
             format="csv",
+            entry="8cfec329267",
             columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
             from_record=251,
             limit_record=1000,
@@ -391,7 +393,8 @@ class ExportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.export.export_batch_details_org(
             format="csv",
@@ -514,11 +517,12 @@ class ExportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.export.export_batches(
-            entry="8cfec329267",
             format="csv",
+            entry="8cfec329267",
             columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
             from_record=251,
             limit_record=1000,
@@ -635,7 +639,8 @@ class ExportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.export.export_batches_org(
             format="csv",
@@ -738,11 +743,12 @@ class ExportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.export.export_batches_out(
-            entry="8cfec329267",
             format="csv",
+            entry="8cfec329267",
             columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
             from_record=251,
             limit_record=1000,
@@ -841,7 +847,8 @@ class ExportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.export.export_batches_out_org(
             format="csv",
@@ -962,11 +969,12 @@ class ExportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.export.export_bills(
-            entry="8cfec329267",
             format="csv",
+            entry="8cfec329267",
             columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
             from_record=251,
             limit_record=1000,
@@ -1083,7 +1091,8 @@ class ExportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.export.export_bills_org(
             format="csv",
@@ -1225,11 +1234,12 @@ class ExportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.export.export_chargebacks(
-            entry="8cfec329267",
             format="csv",
+            entry="8cfec329267",
             columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
             from_record=251,
             limit_record=1000,
@@ -1367,7 +1377,8 @@ class ExportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.export.export_chargebacks_org(
             format="csv",
@@ -1502,11 +1513,12 @@ class ExportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.export.export_customers(
-            entry="8cfec329267",
             format="csv",
+            entry="8cfec329267",
             columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
             from_record=251,
             limit_record=1000,
@@ -1637,7 +1649,8 @@ class ExportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.export.export_customers_org(
             format="csv",
@@ -1782,11 +1795,12 @@ class ExportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.export.export_invoices(
-            entry="8cfec329267",
             format="csv",
+            entry="8cfec329267",
             columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
             from_record=251,
             limit_record=1000,
@@ -1927,7 +1941,8 @@ class ExportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.export.export_invoices_org(
             format="csv",
@@ -2047,7 +2062,8 @@ class ExportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.export.export_organizations(
             format="csv",
@@ -2166,11 +2182,12 @@ class ExportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.export.export_payout(
-            entry="8cfec329267",
             format="csv",
+            entry="8cfec329267",
             columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
             from_record=251,
             limit_record=1000,
@@ -2285,7 +2302,8 @@ class ExportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.export.export_payout_org(
             format="csv",
@@ -2406,7 +2424,8 @@ class ExportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.export.export_paypoints(
             format="csv",
@@ -2547,11 +2566,12 @@ class ExportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.export.export_settlements(
-            entry="8cfec329267",
             format="csv",
+            entry="8cfec329267",
             columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
             from_record=251,
             limit_record=1000,
@@ -2688,7 +2708,8 @@ class ExportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.export.export_settlements_org(
             format="csv",
@@ -2831,11 +2852,12 @@ class ExportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.export.export_subscriptions(
-            entry="8cfec329267",
             format="csv",
+            entry="8cfec329267",
             columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
             from_record=251,
             limit_record=1000,
@@ -2974,7 +2996,8 @@ class ExportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.export.export_subscriptions_org(
             format="csv",
@@ -3121,11 +3144,12 @@ class ExportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.export.export_transactions(
-            entry="8cfec329267",
             format="csv",
+            entry="8cfec329267",
             columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
             from_record=251,
             limit_record=1000,
@@ -3268,7 +3292,8 @@ class ExportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.export.export_transactions_org(
             format="csv",
@@ -3387,11 +3412,12 @@ class ExportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.export.export_transfer_details(
-            entry="8cfec329267",
             format="csv",
+            entry="8cfec329267",
             transfer_id=4521,
             columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
             from_record=251,
@@ -3503,7 +3529,8 @@ class ExportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.export.export_transfers(
             entry="8cfec329267",
@@ -3628,11 +3655,12 @@ class ExportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.export.export_vendors(
-            entry="8cfec329267",
             format="csv",
+            entry="8cfec329267",
             columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
             from_record=251,
             limit_record=1000,
@@ -3753,7 +3781,8 @@ class ExportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.export.export_vendors_org(
             format="csv",
@@ -3893,7 +3922,8 @@ class AsyncExportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -4034,14 +4064,15 @@ class AsyncExportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
         async def main() -> None:
             await client.export.export_batch_details(
-                entry="8cfec329267",
                 format="csv",
+                entry="8cfec329267",
                 columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
                 from_record=251,
                 limit_record=1000,
@@ -4175,7 +4206,8 @@ class AsyncExportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -4306,14 +4338,15 @@ class AsyncExportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
         async def main() -> None:
             await client.export.export_batches(
-                entry="8cfec329267",
                 format="csv",
+                entry="8cfec329267",
                 columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
                 from_record=251,
                 limit_record=1000,
@@ -4435,7 +4468,8 @@ class AsyncExportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -4546,14 +4580,15 @@ class AsyncExportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
         async def main() -> None:
             await client.export.export_batches_out(
-                entry="8cfec329267",
                 format="csv",
+                entry="8cfec329267",
                 columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
                 from_record=251,
                 limit_record=1000,
@@ -4657,7 +4692,8 @@ class AsyncExportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -4786,14 +4822,15 @@ class AsyncExportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
         async def main() -> None:
             await client.export.export_bills(
-                entry="8cfec329267",
                 format="csv",
+                entry="8cfec329267",
                 columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
                 from_record=251,
                 limit_record=1000,
@@ -4915,7 +4952,8 @@ class AsyncExportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -5065,14 +5103,15 @@ class AsyncExportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
         async def main() -> None:
             await client.export.export_chargebacks(
-                entry="8cfec329267",
                 format="csv",
+                entry="8cfec329267",
                 columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
                 from_record=251,
                 limit_record=1000,
@@ -5215,7 +5254,8 @@ class AsyncExportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -5358,14 +5398,15 @@ class AsyncExportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
         async def main() -> None:
             await client.export.export_customers(
-                entry="8cfec329267",
                 format="csv",
+                entry="8cfec329267",
                 columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
                 from_record=251,
                 limit_record=1000,
@@ -5501,7 +5542,8 @@ class AsyncExportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -5654,14 +5696,15 @@ class AsyncExportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
         async def main() -> None:
             await client.export.export_invoices(
-                entry="8cfec329267",
                 format="csv",
+                entry="8cfec329267",
                 columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
                 from_record=251,
                 limit_record=1000,
@@ -5807,7 +5850,8 @@ class AsyncExportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -5935,7 +5979,8 @@ class AsyncExportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -6062,14 +6107,15 @@ class AsyncExportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
         async def main() -> None:
             await client.export.export_payout(
-                entry="8cfec329267",
                 format="csv",
+                entry="8cfec329267",
                 columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
                 from_record=251,
                 limit_record=1000,
@@ -6189,7 +6235,8 @@ class AsyncExportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -6318,7 +6365,8 @@ class AsyncExportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -6467,14 +6515,15 @@ class AsyncExportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
         async def main() -> None:
             await client.export.export_settlements(
-                entry="8cfec329267",
                 format="csv",
+                entry="8cfec329267",
                 columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
                 from_record=251,
                 limit_record=1000,
@@ -6616,7 +6665,8 @@ class AsyncExportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -6767,14 +6817,15 @@ class AsyncExportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
         async def main() -> None:
             await client.export.export_subscriptions(
-                entry="8cfec329267",
                 format="csv",
+                entry="8cfec329267",
                 columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
                 from_record=251,
                 limit_record=1000,
@@ -6918,7 +6969,8 @@ class AsyncExportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -7073,14 +7125,15 @@ class AsyncExportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
         async def main() -> None:
             await client.export.export_transactions(
-                entry="8cfec329267",
                 format="csv",
+                entry="8cfec329267",
                 columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
                 from_record=251,
                 limit_record=1000,
@@ -7228,7 +7281,8 @@ class AsyncExportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -7355,14 +7409,15 @@ class AsyncExportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
         async def main() -> None:
             await client.export.export_transfer_details(
-                entry="8cfec329267",
                 format="csv",
+                entry="8cfec329267",
                 transfer_id=4521,
                 columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
                 from_record=251,
@@ -7479,7 +7534,8 @@ class AsyncExportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -7612,14 +7668,15 @@ class AsyncExportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
         async def main() -> None:
             await client.export.export_vendors(
-                entry="8cfec329267",
                 format="csv",
+                entry="8cfec329267",
                 columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
                 from_record=251,
                 limit_record=1000,
@@ -7745,7 +7802,8 @@ class AsyncExportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 

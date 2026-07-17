@@ -65,7 +65,8 @@ class SubscriptionClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.subscription.get_subscription(
             sub_id=231,
@@ -112,7 +113,8 @@ class SubscriptionClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.subscription.update_subscription(
             sub_id=231,
@@ -152,7 +154,8 @@ class SubscriptionClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.subscription.remove_subscription(
             sub_id=231,
@@ -234,7 +237,8 @@ class SubscriptionClient:
         )
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.subscription.new_subscription(
             customer_data=PayorDataRequest(
@@ -247,7 +251,7 @@ class SubscriptionClient:
             ),
             payment_method=PayMethodCredit(
                 cardcvv="123",
-                cardexp="02/25",
+                cardexp="12/29",
                 card_holder="John Cassian",
                 cardnumber="4111111111111111",
                 cardzip="37615",
@@ -321,7 +325,8 @@ class AsyncSubscriptionClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -376,7 +381,8 @@ class AsyncSubscriptionClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -424,7 +430,8 @@ class AsyncSubscriptionClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -514,7 +521,8 @@ class AsyncSubscriptionClient:
         )
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -530,7 +538,7 @@ class AsyncSubscriptionClient:
                 ),
                 payment_method=PayMethodCredit(
                     cardcvv="123",
-                    cardexp="02/25",
+                    cardexp="12/29",
                     card_holder="John Cassian",
                     cardnumber="4111111111111111",
                     cardzip="37615",

@@ -217,7 +217,7 @@ class RawStatisticClient:
             For example, `w` groups the results by week.
 
         customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+            Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             List of parameters.
@@ -734,7 +734,7 @@ class AsyncRawStatisticClient:
             For example, `w` groups the results by week.
 
         customer_id : int
-            Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+            Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
 
         parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             List of parameters.

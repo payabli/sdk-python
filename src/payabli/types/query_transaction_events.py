@@ -11,6 +11,14 @@ from .query_transaction_events_event_data import QueryTransactionEventsEventData
 
 
 class QueryTransactionEvents(UniversalBaseModel):
+    trans_event: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="TransEvent"),
+        pydantic.Field(
+            alias="TransEvent",
+            description="Event descriptor. See [TransEvent Reference](/guides/pay-in-transevents-reference) for more details.",
+        ),
+    ] = None
     event_data: typing_extensions.Annotated[
         typing.Optional[QueryTransactionEventsEventData],
         FieldMetadata(alias="EventData"),
@@ -23,14 +31,6 @@ class QueryTransactionEvents(UniversalBaseModel):
         typing.Optional[dt.datetime],
         FieldMetadata(alias="EventTime"),
         pydantic.Field(alias="EventTime", description="Date and time of event."),
-    ] = None
-    trans_event: typing_extensions.Annotated[
-        typing.Optional[str],
-        FieldMetadata(alias="TransEvent"),
-        pydantic.Field(
-            alias="TransEvent",
-            description="Event descriptor. See [TransEvent Reference](/guides/pay-in-transevents-reference) for more details.",
-        ),
     ] = None
 
     if IS_PYDANTIC_V2:

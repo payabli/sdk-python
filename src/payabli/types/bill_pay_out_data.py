@@ -22,21 +22,36 @@ class BillPayOutData(UniversalBaseModel):
         FieldMetadata(alias="billId"),
         pydantic.Field(alias="billId", description="Bill ID in Payabli."),
     ] = None
-    comments: typing.Optional[Comments] = pydantic.Field(default=None)
+    lot_number: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="LotNumber"),
+        pydantic.Field(alias="LotNumber", description="Lot number associated with the bill."),
+    ] = None
+    accounting_field_1: typing_extensions.Annotated[
+        typing.Optional[AccountingField],
+        FieldMetadata(alias="AccountingField1"),
+        pydantic.Field(alias="AccountingField1"),
+    ] = None
+    accounting_field_2: typing_extensions.Annotated[
+        typing.Optional[AccountingField],
+        FieldMetadata(alias="AccountingField2"),
+        pydantic.Field(alias="AccountingField2"),
+    ] = None
+    terms: typing_extensions.Annotated[
+        typing.Optional[Terms],
+        FieldMetadata(alias="Terms"),
+        pydantic.Field(alias="Terms", description="Description of payment terms."),
+    ] = None
+    additional_data: typing_extensions.Annotated[
+        typing.Optional[AdditionalDataString],
+        FieldMetadata(alias="AdditionalData"),
+        pydantic.Field(alias="AdditionalData"),
+    ] = None
+    attachments: typing.Optional[Attachments] = pydantic.Field(default=None)
     """
-    Any comments about bill. **For managed payouts, this field has a limit of 100 characters**.
+    Bill image attachment. Send the bill image as Base64-encoded string, or as a publicly accessible link. For full details on using this field with a payout authorization, see [the documentation](/developers/developer-guides/pay-out-manage-payouts).
     """
 
-    due_date: typing_extensions.Annotated[
-        typing.Optional[dt.date],
-        FieldMetadata(alias="dueDate"),
-        pydantic.Field(alias="dueDate", description="Bill due date in format YYYY-MM-DD or MM/DD/YYYY."),
-    ] = None
-    invoice_date: typing_extensions.Annotated[
-        typing.Optional[dt.date],
-        FieldMetadata(alias="invoiceDate"),
-        pydantic.Field(alias="invoiceDate", description="Bill date in format YYYY-MM-DD or MM/DD/YYYY."),
-    ] = None
     invoice_number: typing_extensions.Annotated[
         typing.Optional[InvoiceNumber],
         FieldMetadata(alias="invoiceNumber"),
@@ -50,35 +65,36 @@ class BillPayOutData(UniversalBaseModel):
         FieldMetadata(alias="netAmount"),
         pydantic.Field(alias="netAmount", description="Net Amount owed in bill. Required when adding a bill."),
     ] = None
+    invoice_date: typing_extensions.Annotated[
+        typing.Optional[dt.date],
+        FieldMetadata(alias="invoiceDate"),
+        pydantic.Field(alias="invoiceDate", description="Bill date in format YYYY-MM-DD or MM/DD/YYYY."),
+    ] = None
+    due_date: typing_extensions.Annotated[
+        typing.Optional[dt.date],
+        FieldMetadata(alias="dueDate"),
+        pydantic.Field(alias="dueDate", description="Bill due date in format YYYY-MM-DD or MM/DD/YYYY."),
+    ] = None
+    comments: typing.Optional[Comments] = pydantic.Field(default=None)
+    """
+    Any comments about bill. **For managed payouts, this field has a limit of 100 characters**.
+    """
+
+    identifier: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Custom identifier for the bill.
+    """
+
     discount: typing.Optional[str] = pydantic.Field(default=None)
     """
     Bill discount amount.
     """
 
-    terms: typing_extensions.Annotated[
-        typing.Optional[Terms],
-        FieldMetadata(alias="Terms"),
-        pydantic.Field(alias="Terms", description="Description of payment terms."),
+    total_amount: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="totalAmount"),
+        pydantic.Field(alias="totalAmount", description="Total amount of the bill."),
     ] = None
-    accounting_field_1: typing_extensions.Annotated[
-        typing.Optional[AccountingField],
-        FieldMetadata(alias="AccountingField1"),
-        pydantic.Field(alias="AccountingField1"),
-    ] = None
-    accounting_field_2: typing_extensions.Annotated[
-        typing.Optional[AccountingField],
-        FieldMetadata(alias="AccountingField2"),
-        pydantic.Field(alias="AccountingField2"),
-    ] = None
-    additional_data: typing_extensions.Annotated[
-        typing.Optional[AdditionalDataString],
-        FieldMetadata(alias="AdditionalData"),
-        pydantic.Field(alias="AdditionalData"),
-    ] = None
-    attachments: typing.Optional[Attachments] = pydantic.Field(default=None)
-    """
-    Bill image attachment. Send the bill image as Base64-encoded string, or as a publicly accessible link. For full details on using this field with a payout authorization, see [the documentation](/developers/developer-guides/pay-out-manage-payouts).
-    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

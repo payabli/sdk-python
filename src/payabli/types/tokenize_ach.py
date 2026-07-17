@@ -11,7 +11,6 @@ from .ach_sec_code import AchSecCode
 from .achaccount import Achaccount
 from .achaccounttype import Achaccounttype
 from .achrouting import Achrouting
-from .device import Device
 
 
 class TokenizeAch(UniversalBaseModel):
@@ -43,7 +42,6 @@ class TokenizeAch(UniversalBaseModel):
     ach_routing: typing_extensions.Annotated[
         Achrouting, FieldMetadata(alias="achRouting"), pydantic.Field(alias="achRouting")
     ]
-    device: typing.Optional[Device] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

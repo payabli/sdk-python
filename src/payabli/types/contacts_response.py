@@ -10,25 +10,25 @@ from .email import Email
 
 
 class ContactsResponse(UniversalBaseModel):
-    contact_email: typing_extensions.Annotated[
-        typing.Optional[Email],
-        FieldMetadata(alias="ContactEmail"),
-        pydantic.Field(alias="ContactEmail", description="Contact email address."),
-    ] = None
     contact_name: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="ContactName"),
         pydantic.Field(alias="ContactName", description="Contact name."),
     ] = None
-    contact_phone: typing_extensions.Annotated[
-        typing.Optional[str],
-        FieldMetadata(alias="ContactPhone"),
-        pydantic.Field(alias="ContactPhone", description="Contact phone number."),
+    contact_email: typing_extensions.Annotated[
+        typing.Optional[Email],
+        FieldMetadata(alias="ContactEmail"),
+        pydantic.Field(alias="ContactEmail", description="Contact email address."),
     ] = None
     contact_title: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="ContactTitle"),
         pydantic.Field(alias="ContactTitle", description="Contact title."),
+    ] = None
+    contact_phone: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="ContactPhone"),
+        pydantic.Field(alias="ContactPhone", description="Contact phone number."),
     ] = None
 
     if IS_PYDANTIC_V2:

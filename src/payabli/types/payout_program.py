@@ -2,5 +2,6 @@
 
 PayoutProgram = str
 """
-The payout program associated with the transaction: managed or on-demand.
+The payout program associated with the transaction. Values are `Managed`
+(managed payables) or `ODP` (on-demand payables).
 """

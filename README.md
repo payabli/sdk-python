@@ -17,6 +17,7 @@ The Payabli Python library provides convenient access to the Payabli APIs from P
 - [Environments](#environments)
 - [Async Client](#async-client)
 - [Exception Handling](#exception-handling)
+- [Oauth Token Override](#oauth-token-override)
 - [Advanced](#advanced)
   - [Access Raw Response Data](#access-raw-response-data)
   - [Retries](#retries)
@@ -73,7 +74,8 @@ Instantiate and use the client with the following:
 from payabli import payabli, PayorDataRequest, PaymentDetail, PayMethodCredit
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
 )
 
 client.money_in.getpaidv_2(
@@ -121,7 +123,8 @@ import asyncio
 from payabli import Asyncpayabli
 
 client = Asyncpayabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
 )
 
 
@@ -164,6 +167,27 @@ try:
 except ApiError as e:
     print(e.status_code)
     print(e.body)
+```
+
+## Oauth Token Override
+
+This SDK supports two authentication methods: OAuth client credentials flow (automatic token management) or direct bearer token authentication. You can choose between these options when initializing the client:
+
+```python
+from payabli import payabli
+
+# Option 1: Direct bearer token (bypass OAuth flow)
+client = payabli(
+    ...,
+    token="my-pre-generated-bearer-token",
+)
+
+# Option 2: OAuth client credentials flow (automatic token management)
+client = payabli(
+    ...,
+    client_id="your-client-id",
+    client_secret="your-client-secret",
+)
 ```
 
 ## Advanced

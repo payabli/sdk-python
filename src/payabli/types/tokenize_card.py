@@ -11,6 +11,7 @@ from .cardexp import Cardexp
 from .cardholder import Cardholder
 from .cardnumber import Cardnumber
 from .cardzip import Cardzip
+from .device import Device
 
 
 class TokenizeCard(UniversalBaseModel):
@@ -26,6 +27,7 @@ class TokenizeCard(UniversalBaseModel):
     ]
     cardnumber: Cardnumber
     cardzip: typing.Optional[Cardzip] = None
+    device: typing.Optional[Device] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

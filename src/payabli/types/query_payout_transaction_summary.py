@@ -11,22 +11,11 @@ from .pagesize import Pagesize
 
 
 class QueryPayoutTransactionSummary(UniversalBaseModel):
-    page_identifier: typing_extensions.Annotated[
-        typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier"), pydantic.Field(alias="pageIdentifier")
+    total_paid: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="totalPaid"), pydantic.Field(alias="totalPaid")
     ] = None
-    page_size: typing_extensions.Annotated[
-        typing.Optional[Pagesize], FieldMetadata(alias="pageSize"), pydantic.Field(alias="pageSize")
-    ] = None
-    total_amount: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="totalAmount"), pydantic.Field(alias="totalAmount")
-    ] = None
-    total_authorized: typing_extensions.Annotated[
-        typing.Optional[int], FieldMetadata(alias="totalAuthorized"), pydantic.Field(alias="totalAuthorized")
-    ] = None
-    total_authorized_amount: typing_extensions.Annotated[
-        typing.Optional[float],
-        FieldMetadata(alias="totalAuthorizedAmount"),
-        pydantic.Field(alias="totalAuthorizedAmount"),
+    total_paid_amount: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="totalPaidAmount"), pydantic.Field(alias="totalPaidAmount")
     ] = None
     total_canceled: typing_extensions.Annotated[
         typing.Optional[int], FieldMetadata(alias="totalCanceled"), pydantic.Field(alias="totalCanceled")
@@ -40,23 +29,27 @@ class QueryPayoutTransactionSummary(UniversalBaseModel):
     total_captured_amount: typing_extensions.Annotated[
         typing.Optional[float], FieldMetadata(alias="totalCapturedAmount"), pydantic.Field(alias="totalCapturedAmount")
     ] = None
-    total_net_amount: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="totalNetAmount"), pydantic.Field(alias="totalNetAmount")
+    total_authorized: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="totalAuthorized"), pydantic.Field(alias="totalAuthorized")
+    ] = None
+    total_authorized_amount: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="totalAuthorizedAmount"),
+        pydantic.Field(alias="totalAuthorizedAmount"),
+    ] = None
+    total_processing: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="totalProcessing"), pydantic.Field(alias="totalProcessing")
+    ] = None
+    total_processing_amount: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="totalProcessingAmount"),
+        pydantic.Field(alias="totalProcessingAmount"),
     ] = None
     total_open: typing_extensions.Annotated[
         typing.Optional[int], FieldMetadata(alias="totalOpen"), pydantic.Field(alias="totalOpen")
     ] = None
     total_open_amount: typing_extensions.Annotated[
         typing.Optional[float], FieldMetadata(alias="totalOpenAmount"), pydantic.Field(alias="totalOpenAmount")
-    ] = None
-    total_pages: typing_extensions.Annotated[
-        typing.Optional[int], FieldMetadata(alias="totalPages"), pydantic.Field(alias="totalPages")
-    ] = None
-    total_paid: typing_extensions.Annotated[
-        typing.Optional[int], FieldMetadata(alias="totalPaid"), pydantic.Field(alias="totalPaid")
-    ] = None
-    total_paid_amount: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="totalPaidAmount"), pydantic.Field(alias="totalPaidAmount")
     ] = None
     total_on_hold: typing_extensions.Annotated[
         typing.Optional[int],
@@ -70,17 +63,22 @@ class QueryPayoutTransactionSummary(UniversalBaseModel):
             alias="totalOnHoldAmount", description="Total amount of transactions that are currently on hold."
         ),
     ] = None
-    total_processing: typing_extensions.Annotated[
-        typing.Optional[int], FieldMetadata(alias="totalProcessing"), pydantic.Field(alias="totalProcessing")
-    ] = None
-    total_processing_amount: typing_extensions.Annotated[
-        typing.Optional[float],
-        FieldMetadata(alias="totalProcessingAmount"),
-        pydantic.Field(alias="totalProcessingAmount"),
-    ] = None
     total_records: typing_extensions.Annotated[
         typing.Optional[int], FieldMetadata(alias="totalRecords"), pydantic.Field(alias="totalRecords")
     ] = None
+    total_amount: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="totalAmount"), pydantic.Field(alias="totalAmount")
+    ] = None
+    total_net_amount: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="totalNetAmount"), pydantic.Field(alias="totalNetAmount")
+    ] = None
+    total_pages: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="totalPages"), pydantic.Field(alias="totalPages")
+    ] = None
+    page_size: typing_extensions.Annotated[
+        typing.Optional[Pagesize], FieldMetadata(alias="pageSize"), pydantic.Field(alias="pageSize")
+    ] = None
+    pageidentifier: typing.Optional[PageIdentifier] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

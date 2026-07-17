@@ -6,7 +6,7 @@ When `true`, Payabli captures the transaction asynchronously after a
 successful authorization. The authorization request returns once the
 transaction is authorized; capture happens later, and the response
 doesn't confirm capture. To confirm capture succeeded, listen for the
-[`payout_transaction_approvedcaptured`](/developers/webhooks/payout-transaction-approved-captured)
+[`payout_transaction_approvedcaptured`](/developers/api-reference/webhooks-overview/payout-transaction-approved-captured)
 webhook event.
 
 When `false`, you must manually capture the transaction after a

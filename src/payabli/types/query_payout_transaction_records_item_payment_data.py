@@ -23,23 +23,43 @@ from .storedmethodid import Storedmethodid
 
 
 class QueryPayoutTransactionRecordsItemPaymentData(UniversalBaseModel):
-    account_exp: typing_extensions.Annotated[
-        typing.Optional[Accountexp], FieldMetadata(alias="AccountExp"), pydantic.Field(alias="AccountExp")
-    ] = None
-    account_id: typing_extensions.Annotated[
-        typing.Optional[AccountId], FieldMetadata(alias="accountId"), pydantic.Field(alias="accountId")
+    masked_account: typing_extensions.Annotated[
+        typing.Optional[Maskedaccount], FieldMetadata(alias="MaskedAccount"), pydantic.Field(alias="MaskedAccount")
     ] = None
     account_type: typing_extensions.Annotated[
         typing.Optional[Accounttype], FieldMetadata(alias="AccountType"), pydantic.Field(alias="AccountType")
     ] = None
+    account_exp: typing_extensions.Annotated[
+        typing.Optional[Accountexp], FieldMetadata(alias="AccountExp"), pydantic.Field(alias="AccountExp")
+    ] = None
     account_zip: typing_extensions.Annotated[
         typing.Optional[Accountzip], FieldMetadata(alias="AccountZip"), pydantic.Field(alias="AccountZip")
     ] = None
-    bank_account: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="bankAccount"), pydantic.Field(alias="bankAccount")
+    holder_name: typing_extensions.Annotated[
+        typing.Optional[Holdername],
+        FieldMetadata(alias="HolderName"),
+        pydantic.Field(alias="HolderName", description="Card or bank account holder name."),
     ] = None
-    bin_data: typing_extensions.Annotated[
-        typing.Optional[BinData], FieldMetadata(alias="binData"), pydantic.Field(alias="binData")
+    stored_id: typing_extensions.Annotated[
+        typing.Optional[Storedmethodid],
+        FieldMetadata(alias="StoredId"),
+        pydantic.Field(alias="StoredId", description="Identifier of stored payment method used in transaction."),
+    ] = None
+    initiator: typing_extensions.Annotated[
+        typing.Optional[Initiator], FieldMetadata(alias="Initiator"), pydantic.Field(alias="Initiator")
+    ] = None
+    stored_method_usage_type: typing_extensions.Annotated[
+        typing.Optional[StoredMethodUsageType],
+        FieldMetadata(alias="StoredMethodUsageType"),
+        pydantic.Field(alias="StoredMethodUsageType"),
+    ] = None
+    sequence: typing_extensions.Annotated[
+        typing.Optional[Sequence], FieldMetadata(alias="Sequence"), pydantic.Field(alias="Sequence")
+    ] = None
+    order_description: typing_extensions.Annotated[
+        typing.Optional[Orderdescription],
+        FieldMetadata(alias="orderDescription"),
+        pydantic.Field(alias="orderDescription"),
     ] = None
     cloud_signature_data: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="cloudSignatureData"), pydantic.Field(alias="cloudSignatureData")
@@ -47,45 +67,25 @@ class QueryPayoutTransactionRecordsItemPaymentData(UniversalBaseModel):
     cloud_signature_format: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="cloudSignatureFormat"), pydantic.Field(alias="cloudSignatureFormat")
     ] = None
-    gateway_connector: typing_extensions.Annotated[
-        typing.Optional[PayoutGatewayConnector],
-        FieldMetadata(alias="gatewayConnector"),
-        pydantic.Field(alias="gatewayConnector"),
-    ] = None
-    holder_name: typing_extensions.Annotated[
-        typing.Optional[Holdername],
-        FieldMetadata(alias="HolderName"),
-        pydantic.Field(alias="HolderName", description="Card or bank account holder name."),
-    ] = None
-    initiator: typing_extensions.Annotated[
-        typing.Optional[Initiator], FieldMetadata(alias="Initiator"), pydantic.Field(alias="Initiator")
-    ] = None
-    masked_account: typing_extensions.Annotated[
-        typing.Optional[Maskedaccount], FieldMetadata(alias="MaskedAccount"), pydantic.Field(alias="MaskedAccount")
-    ] = None
-    order_description: typing_extensions.Annotated[
-        typing.Optional[Orderdescription],
-        FieldMetadata(alias="orderDescription"),
-        pydantic.Field(alias="orderDescription"),
-    ] = None
     payment_details: typing_extensions.Annotated[
         typing.Optional[PaymentDetail], FieldMetadata(alias="paymentDetails"), pydantic.Field(alias="paymentDetails")
     ] = None
     payor_data: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="payorData"), pydantic.Field(alias="payorData")
     ] = None
-    sequence: typing_extensions.Annotated[
-        typing.Optional[Sequence], FieldMetadata(alias="Sequence"), pydantic.Field(alias="Sequence")
+    account_id: typing_extensions.Annotated[
+        typing.Optional[AccountId], FieldMetadata(alias="accountId"), pydantic.Field(alias="accountId")
     ] = None
-    stored_id: typing_extensions.Annotated[
-        typing.Optional[Storedmethodid],
-        FieldMetadata(alias="StoredId"),
-        pydantic.Field(alias="StoredId", description="Identifier of stored payment method used in transaction."),
+    bank_account: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="bankAccount"), pydantic.Field(alias="bankAccount")
     ] = None
-    stored_method_usage_type: typing_extensions.Annotated[
-        typing.Optional[StoredMethodUsageType],
-        FieldMetadata(alias="StoredMethodUsageType"),
-        pydantic.Field(alias="StoredMethodUsageType"),
+    gateway_connector: typing_extensions.Annotated[
+        typing.Optional[PayoutGatewayConnector],
+        FieldMetadata(alias="gatewayConnector"),
+        pydantic.Field(alias="gatewayConnector"),
+    ] = None
+    bin_data: typing_extensions.Annotated[
+        typing.Optional[BinData], FieldMetadata(alias="binData"), pydantic.Field(alias="binData")
     ] = None
 
     if IS_PYDANTIC_V2:

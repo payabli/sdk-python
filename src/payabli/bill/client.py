@@ -166,7 +166,8 @@ class BillClient:
         from payabli import BillItem, BillOutDataVendor, FileContent, payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.bill.add_bill(
             entry="8cfec329267",
@@ -264,7 +265,8 @@ class BillClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.bill.get_bill(
             id_bill=285,
@@ -390,7 +392,8 @@ class BillClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.bill.edit_bill(
             id_bill=285,
@@ -448,7 +451,8 @@ class BillClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.bill.delete_bill(
             id_bill=285,
@@ -494,11 +498,12 @@ class BillClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.bill.get_attached_from_bill(
-            filename="0_Bill.pdf",
             id_bill=285,
+            filename="0_Bill.pdf",
             return_object=True,
         )
         """
@@ -544,11 +549,12 @@ class BillClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.bill.delete_attached_from_bill(
-            filename="0_Bill.pdf",
             id_bill=285,
+            filename="0_Bill.pdf",
         )
         """
         _response = self._raw_client.delete_attached_from_bill(
@@ -594,7 +600,8 @@ class BillClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.bill.send_to_approval_bill(
             id_bill=285,
@@ -637,7 +644,8 @@ class BillClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.bill.modify_approval_bill(
             id_bill=285,
@@ -682,11 +690,12 @@ class BillClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.bill.set_approved_bill(
-            approved="true",
             id_bill=285,
+            approved="true",
         )
         """
         _response = self._raw_client.set_approved_bill(id_bill, approved, email=email, request_options=request_options)
@@ -781,7 +790,8 @@ class BillClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.bill.list_bills(
             entry="8cfec329267",
@@ -890,7 +900,8 @@ class BillClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.bill.list_bills_org(
             org_id=123,
@@ -1048,7 +1059,8 @@ class AsyncBillClient:
         from payabli import Asyncpayabli, BillItem, BillOutDataVendor, FileContent
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -1156,7 +1168,8 @@ class AsyncBillClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -1289,7 +1302,8 @@ class AsyncBillClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -1357,7 +1371,8 @@ class AsyncBillClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -1411,14 +1426,15 @@ class AsyncBillClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
         async def main() -> None:
             await client.bill.get_attached_from_bill(
-                filename="0_Bill.pdf",
                 id_bill=285,
+                filename="0_Bill.pdf",
                 return_object=True,
             )
 
@@ -1469,14 +1485,15 @@ class AsyncBillClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
         async def main() -> None:
             await client.bill.delete_attached_from_bill(
-                filename="0_Bill.pdf",
                 id_bill=285,
+                filename="0_Bill.pdf",
             )
 
 
@@ -1527,7 +1544,8 @@ class AsyncBillClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -1578,7 +1596,8 @@ class AsyncBillClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -1633,14 +1652,15 @@ class AsyncBillClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
         async def main() -> None:
             await client.bill.set_approved_bill(
-                approved="true",
                 id_bill=285,
+                approved="true",
             )
 
 
@@ -1742,7 +1762,8 @@ class AsyncBillClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -1859,7 +1880,8 @@ class AsyncBillClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 

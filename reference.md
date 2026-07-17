@@ -32,7 +32,8 @@ from payabli.environment import payabliEnvironment
 import datetime
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -160,7 +161,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -234,7 +236,8 @@ from payabli.environment import payabliEnvironment
 import datetime
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -317,7 +320,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -390,7 +394,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -485,7 +490,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -579,7 +585,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -680,7 +687,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -765,7 +773,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -855,7 +864,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -1015,7 +1025,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -1157,7 +1168,7 @@ Example: totalAmount(gt)=20 return all records with totalAmount greater than 20.
 <dl>
 <dd>
 
-Creates a customer in an entrypoint. An identifier is required to create customer records. Change your identifier settings in Settings > Custom Fields in PartnerHub.
+Creates a customer in an entrypoint. An identifier is required to create customer records. Change your identifier settings in Settings > Custom Fields in the Payabli Portal.
 If you don't include an identifier, the record is rejected.
 </dd>
 </dl>
@@ -1177,7 +1188,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -1295,7 +1307,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -1317,7 +1330,7 @@ client.customer.get_customer(
 <dl>
 <dd>
 
-**customer_id:** `int` — Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+**customer_id:** `int` — Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
     
 </dd>
 </dl>
@@ -1368,7 +1381,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -1397,7 +1411,7 @@ client.customer.update_customer(
 <dl>
 <dd>
 
-**customer_id:** `int` — Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+**customer_id:** `int` — Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
     
 </dd>
 </dl>
@@ -1456,7 +1470,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -1478,7 +1493,7 @@ client.customer.delete_customer(
 <dl>
 <dd>
 
-**customer_id:** `int` — Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+**customer_id:** `int` — Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
     
 </dd>
 </dl>
@@ -1529,7 +1544,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -1551,7 +1567,7 @@ client.customer.request_consent(
 <dl>
 <dd>
 
-**customer_id:** `int` — Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+**customer_id:** `int` — Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
     
 </dd>
 </dl>
@@ -1602,7 +1618,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -1625,7 +1642,7 @@ client.customer.link_customer_transaction(
 <dl>
 <dd>
 
-**customer_id:** `int` — Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+**customer_id:** `int` — Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
     
 </dd>
 </dl>
@@ -1685,7 +1702,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -1793,7 +1811,8 @@ from payabli import payabli, PayorDataRequest, PaymentDetail, PayMethodCredit
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -1904,7 +1923,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -1992,7 +2012,8 @@ from payabli import payabli, CapturePaymentDetails
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -2079,7 +2100,8 @@ from payabli import payabli, PayorDataRequest, PaymentDetailCredit, RequestCredi
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -2248,7 +2270,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -2325,7 +2348,8 @@ from payabli import payabli, PayorDataRequest, PaymentDetail, PayMethodCredit
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -2459,7 +2483,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -2551,7 +2576,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -2643,7 +2669,8 @@ from payabli import payabli, RefundDetail, SplitFundingRefundContent
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -2798,7 +2825,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -2871,7 +2899,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -2957,7 +2986,8 @@ from payabli import payabli, RequestPaymentValidatePaymentMethod
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -3082,7 +3112,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -3155,7 +3186,8 @@ from payabli import payabli, PayorDataRequest, PaymentDetail, PayMethodCredit
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -3279,7 +3311,8 @@ from payabli import payabli, PayorDataRequest, PaymentDetail, PayMethodCredit
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -3385,7 +3418,8 @@ from payabli import payabli, CapturePaymentDetails
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -3476,7 +3510,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -3563,7 +3598,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -3653,7 +3689,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -3676,6 +3713,106 @@ client.money_in.voidv_2(
 <dd>
 
 **trans_id:** `str` — ReferenceId for the transaction (PaymentId).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Token
+<details><summary><code>client.token.<a href="src/payabli/token/client.py">create_server_side_token</a>(...) -> PayabliAccessTokenResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Exchanges a client ID and client secret for a short-lived Bearer access token using the OAuth2 client-credentials flow. Designed for server-to-server use: the credentials and the returned token stay on your backend. Send the returned `access_token` in the `Authorization` header as `Bearer <access_token>` on subsequent API calls. See the [OAuth authentication guide](/developers/oauth-authentication) for the full flow.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.token.create_server_side_token(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**client_id:** `str` — The client ID issued for your integration when credentials are provisioned in the Payabli Portal.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_secret:** `str` — The client secret issued alongside the client ID. Keep it on your backend and never expose it in client-side code.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**state:** `typing.Optional[str]` — An optional opaque value echoed back in the response. Use it to correlate the request with its response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**permissions:** `typing.Optional[typing.List[str]]` — An optional array of permission IDs that scopes the token to a subset of the credential's granted permissions. When omitted, the token carries all permissions granted to the credential.
     
 </dd>
 </dl>
@@ -3727,7 +3864,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -3800,7 +3938,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -3898,7 +4037,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -3971,7 +4111,8 @@ from payabli import payabli, PayorDataRequest, PaymentDetail, PayMethodCredit, S
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -3986,7 +4127,7 @@ client.subscription.new_subscription(
     ),
     payment_method=PayMethodCredit(
         cardcvv="123",
-        cardexp="02/25",
+        cardexp="12/29",
         card_holder="John Cassian",
         cardnumber="4111111111111111",
         cardzip="37615",
@@ -4156,7 +4297,8 @@ from payabli.environment import payabliEnvironment
 import datetime
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -4285,7 +4427,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -4379,7 +4522,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -4465,7 +4609,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -4539,7 +4684,8 @@ from payabli.environment import payabliEnvironment
 import datetime
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -4641,7 +4787,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -4714,7 +4861,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -4787,7 +4935,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -4967,7 +5116,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -5147,7 +5297,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -5238,7 +5389,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -5314,7 +5466,8 @@ from payabli import payabli, ContactElement, InvoiceElement, LabelElement, Eleme
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -5607,7 +5760,8 @@ from payabli import payabli, ContactElement, Element, LabelElement, NoteElement,
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -5771,7 +5925,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -5844,7 +5999,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -5917,7 +6073,8 @@ from payabli import payabli, PushPayLinkRequest_Sms
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -5999,7 +6156,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -6080,7 +6238,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -6170,7 +6329,8 @@ from payabli import payabli, NoteElement, LabelElement
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -6327,7 +6487,8 @@ from payabli import payabli, ContactElement, Element, LabelElement, NoteElement,
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -6502,7 +6663,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -6601,7 +6763,8 @@ from payabli import payabli, ContactElement, Element, LabelElement, NoteElement,
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -6741,7 +6904,8 @@ from payabli import payabli, PayorDataRequest, TokenizeCard
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -6756,7 +6920,7 @@ client.token_storage.add_method(
     payment_method=TokenizeCard(
         method="card",
         cardcvv="123",
-        cardexp="02/25",
+        cardexp="12/29",
         card_holder="John Doe",
         cardnumber="4111111111111111",
         cardzip="12345",
@@ -6869,7 +7033,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -6970,7 +7135,8 @@ from payabli import payabli, PayorDataRequest, TokenizeCard
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -6984,7 +7150,7 @@ client.token_storage.update_method(
     payment_method=TokenizeCard(
         method="card",
         cardcvv="123",
-        cardexp="02/25",
+        cardexp="12/29",
         card_holder="John Doe",
         cardnumber="4111111111111111",
         cardzip="12345",
@@ -7072,7 +7238,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -7146,7 +7313,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -7219,7 +7387,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -7292,7 +7461,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -7373,7 +7543,8 @@ from payabli import payabli, NotificationRequest, WebHeaderParameter
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -7472,7 +7643,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -7545,7 +7717,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -7626,7 +7799,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -7708,7 +7882,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -7791,7 +7966,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -7874,7 +8050,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -7964,7 +8141,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -8055,7 +8233,8 @@ from payabli import payabli, AddPaymentMethodDomainRequestApplePay, AddPaymentMe
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -8168,7 +8347,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -8241,7 +8421,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -8314,7 +8495,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -8387,7 +8569,8 @@ from payabli import payabli, UpdatePaymentMethodDomainRequestWallet
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -8482,7 +8665,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -8588,7 +8772,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -8662,7 +8847,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -8744,7 +8930,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -8834,7 +9021,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -8918,7 +9106,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -9110,7 +9299,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -9301,7 +9491,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -9472,7 +9663,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -9643,7 +9835,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -9775,7 +9968,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -9922,7 +10116,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -10110,7 +10305,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -10300,7 +10496,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -10482,7 +10679,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -10664,7 +10862,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -10873,7 +11072,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -11082,7 +11282,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -11229,7 +11430,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -11374,7 +11576,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -11523,7 +11726,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -11672,7 +11876,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -11841,7 +12046,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -12037,7 +12243,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -12232,7 +12439,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -12406,7 +12614,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -12598,7 +12807,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -12790,7 +13000,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -12984,7 +13195,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -13178,7 +13390,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -13358,7 +13571,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -13547,7 +13761,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -13655,6 +13870,7 @@ See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-repo
 - `payaccountLastfour` (nct, ct)
 - `payaccountType` (ne, eq, in, nin)
 - `payaccountCurrency` (ne, eq, in, nin)
+- `binCardType` (eq, ne, in, nin). Filters by card type for card transactions. Accepts `CREDIT`, `DEBIT`, or `PREPAID`. Case-insensitive.
 - `customerFirstname` (ct, nct, eq, ne)
 - `customerLastname` (ct, nct, eq, ne)
 - `customerName` (ct, nct)
@@ -13757,7 +13973,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -13864,6 +14081,7 @@ See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-repo
 - `payaccountLastfour` (nct, ct)
 - `payaccountType` (ne, eq, in, nin)
 - `payaccountCurrency` (ne, eq, in, nin)
+- `binCardType` (eq, ne, in, nin). Filters by card type for card transactions. Accepts `CREDIT`, `DEBIT`, or `PREPAID`. Case-insensitive.
 - `customerFirstname` (ct, nct, eq, ne)
 - `customerLastname` (ct, nct, eq, ne)
 - `customerName` (ct, nct)
@@ -13957,7 +14175,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -14117,7 +14336,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -14268,7 +14488,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -14416,7 +14637,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -14554,7 +14776,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -14692,7 +14915,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -14836,7 +15060,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -14987,7 +15212,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -15138,7 +15364,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -15310,7 +15537,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -15482,7 +15710,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -15648,7 +15877,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -15810,7 +16040,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -15972,7 +16203,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -16139,7 +16371,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -16220,7 +16453,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -16307,7 +16541,8 @@ from payabli.environment import payabliEnvironment
 import datetime
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -16442,7 +16677,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -16517,7 +16753,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -16593,7 +16830,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -16671,7 +16909,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -16776,7 +17015,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -16858,7 +17098,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -16942,7 +17183,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -17024,7 +17266,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -17121,7 +17364,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -17194,7 +17438,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -17277,7 +17522,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -17350,7 +17596,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -17514,7 +17761,8 @@ from payabli import payabli, ApplicationDataPayIn, ApplicationDataPayInServices,
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -17715,7 +17963,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -17796,7 +18045,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -17869,7 +18119,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -17942,7 +18193,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -18033,7 +18285,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -18106,7 +18359,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -18128,7 +18382,7 @@ client.boarding.get_by_template_id_link_application(
 <dl>
 <dd>
 
-**template_id:** `float` — The boarding template ID. You can find this at the end of the boarding template URL in PartnerHub. Example: `https://partner-sandbox.payabli.com/myorganization/boarding/edittemplate/80`. Here, the template ID is `80`.
+**template_id:** `float` — The boarding template ID. You can find this at the end of the boarding template URL in the Payabli Portal. Example: `https://partner-sandbox.payabli.com/myorganization/boarding/edittemplate/80`. Here, the template ID is `80`.
     
 </dd>
 </dl>
@@ -18179,7 +18433,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -18269,7 +18524,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -18342,7 +18598,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -18494,7 +18751,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -18634,7 +18892,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -18745,7 +19004,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -18819,7 +19079,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -18841,7 +19102,7 @@ client.templates.delete_template(
 <dl>
 <dd>
 
-**template_id:** `float` — The boarding template ID. You can find this at the end of the boarding template URL in PartnerHub. Example: `https://partner-sandbox.payabli.com/myorganization/boarding/edittemplate/80`. Here, the template ID is `80`.
+**template_id:** `float` — The boarding template ID. You can find this at the end of the boarding template URL in the Payabli Portal. Example: `https://partner-sandbox.payabli.com/myorganization/boarding/edittemplate/80`. Here, the template ID is `80`.
     
 </dd>
 </dl>
@@ -18892,7 +19153,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -18915,7 +19177,7 @@ client.templates.getlink_template(
 <dl>
 <dd>
 
-**template_id:** `float` — The boarding template ID. You can find this at the end of the boarding template URL in PartnerHub. Example: `https://partner-sandbox.payabli.com/myorganization/boarding/edittemplate/80`. Here, the template ID is `80`.
+**template_id:** `float` — The boarding template ID. You can find this at the end of the boarding template URL in the Payabli Portal. Example: `https://partner-sandbox.payabli.com/myorganization/boarding/edittemplate/80`. Here, the template ID is `80`.
     
 </dd>
 </dl>
@@ -18974,7 +19236,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -18996,7 +19259,7 @@ client.templates.get_template(
 <dl>
 <dd>
 
-**template_id:** `float` — The boarding template ID. You can find this at the end of the boarding template URL in PartnerHub. Example: `https://partner-sandbox.payabli.com/myorganization/boarding/edittemplate/80`. Here, the template ID is `80`.
+**template_id:** `float` — The boarding template ID. You can find this at the end of the boarding template URL in the Payabli Portal. Example: `https://partner-sandbox.payabli.com/myorganization/boarding/edittemplate/80`. Here, the template ID is `80`.
     
 </dd>
 </dl>
@@ -19047,7 +19310,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -19204,7 +19468,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -19378,7 +19643,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -19563,7 +19829,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -19748,7 +20015,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -19923,7 +20191,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -20096,7 +20365,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -20251,7 +20521,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -20406,7 +20677,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -20579,7 +20851,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -20752,7 +21025,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -20946,7 +21220,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -21140,7 +21415,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -21327,7 +21603,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -21514,7 +21791,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -21711,7 +21989,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -21908,7 +22187,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -22080,7 +22360,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -22251,7 +22532,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -22422,7 +22704,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -22595,7 +22878,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -22788,7 +23072,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -22981,7 +23266,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -23176,7 +23462,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -23371,7 +23658,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -23570,7 +23858,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -23769,7 +24058,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -23950,7 +24240,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -24114,7 +24405,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -24291,7 +24583,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -24465,7 +24758,8 @@ from payabli import payabli, Instrument, Contacts, FileContent
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -24728,7 +25022,8 @@ from payabli import payabli, Contacts
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -24972,7 +25267,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -25045,7 +25341,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -25118,7 +25415,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -25191,7 +25489,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -25264,7 +25563,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -25342,7 +25642,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -25470,7 +25771,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -25638,7 +25940,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -25701,7 +26004,7 @@ For example, `w` groups the results by week.
 <dl>
 <dd>
 
-**customer_id:** `int` — Payabli-generated customer ID. Maps to "Customer ID" column in PartnerHub.
+**customer_id:** `int` — Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
     
 </dd>
 </dl>
@@ -25760,7 +26063,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -25871,7 +26175,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -25994,7 +26299,8 @@ from payabli import payabli, NotificationStandardRequest, NotificationStandardRe
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -26077,7 +26383,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -26150,7 +26457,8 @@ from payabli import payabli, NotificationStandardRequest, NotificationStandardRe
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -26242,7 +26550,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -26315,7 +26624,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -26389,7 +26699,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -26460,7 +26771,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -26550,7 +26862,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -26631,7 +26944,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -26704,7 +27018,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -26825,7 +27140,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -26888,7 +27204,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -26975,7 +27292,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -27046,7 +27364,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -27109,7 +27428,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -27188,7 +27508,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -27269,7 +27590,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -27361,7 +27683,8 @@ from payabli import payabli, BillingData, Contacts
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -27486,7 +27809,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -27559,7 +27883,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -27641,7 +27966,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -27714,7 +28040,8 @@ from payabli import payabli, FileContent
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -27854,7 +28181,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -27998,7 +28326,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -28076,7 +28405,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -28292,7 +28622,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -28369,9 +28700,11 @@ Authorizes a transaction for payout.
 
 If you don't pass `autoCapture` with a value of `true`, authorized transactions aren't flagged for settlement until captured. Use the `referenceId` returned in the response to capture the transaction.
 
-When `autoCapture` is `true`, Payabli captures the transaction asynchronously after authorization. The response confirms only that the transaction was authorized; it doesn't confirm that capture succeeded. To confirm capture, listen for the [`payout_transaction_approvedcaptured`](/developers/webhooks/payout-transaction-approved-captured) webhook event.
+When `autoCapture` is `true`, Payabli captures the transaction asynchronously after authorization. The response confirms only that the transaction was authorized; it doesn't confirm that capture succeeded. To confirm capture, listen for the [`payout_transaction_approvedcaptured`](/developers/api-reference/webhooks-overview/payout-transaction-approved-captured) webhook event.
 
 If a velocity fraud alert is triggered, the endpoint returns a `202` response with `responseCode` `9051`, and the authorization is held for risk review rather than rejected. If a risk policy blocks the transaction, the endpoint returns a `422` response with `responseCode` `9005`, a terminal rejection.
+
+For check payouts, Payabli validates the remit (mailing) address at authorization. If the address fails deliverability validation, the endpoint returns a `422` response and doesn't charge the paypoint. Correct the address and re-authorize. Other payout rails (ACH, RTP, virtual card, wire, and managed payables) aren't affected.
 </dd>
 </dl>
 </dd>
@@ -28390,7 +28723,8 @@ from payabli import payabli, AuthorizePaymentMethod, RequestOutAuthorizePaymentD
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -28600,7 +28934,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -28677,7 +29012,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -28750,7 +29086,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -28823,7 +29160,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -28910,7 +29248,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -28991,7 +29330,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -29064,7 +29404,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -29141,7 +29482,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -29223,7 +29565,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -29298,7 +29641,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -29393,7 +29737,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -29479,7 +29824,8 @@ from payabli import payabli, ReissuePaymentMethod
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -29577,7 +29923,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -29685,7 +30032,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -29776,7 +30124,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -29858,7 +30207,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -29949,7 +30299,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -30033,7 +30384,8 @@ from payabli.environment import payabliEnvironment
 import datetime
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -30214,7 +30566,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -30287,7 +30640,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -30393,7 +30747,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -30467,7 +30822,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -30581,7 +30937,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 
@@ -30654,7 +31011,8 @@ from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
     environment=payabliEnvironment.SANDBOX,
 )
 

@@ -80,7 +80,8 @@ class PaymentMethodDomainClient:
         )
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.payment_method_domain.add_payment_method_domain(
             domain_name="checkout.example.com",
@@ -128,7 +129,8 @@ class PaymentMethodDomainClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.payment_method_domain.cascade_payment_method_domain(
             domain_id="pmd_b8237fa45c964d8a9ef27160cd42b8c5",
@@ -161,7 +163,8 @@ class PaymentMethodDomainClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.payment_method_domain.get_payment_method_domain(
             domain_id="pmd_b8237fa45c964d8a9ef27160cd42b8c5",
@@ -194,7 +197,8 @@ class PaymentMethodDomainClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.payment_method_domain.delete_payment_method_domain(
             domain_id="pmd_b8237fa45c964d8a9ef27160cd42b8c5",
@@ -236,7 +240,8 @@ class PaymentMethodDomainClient:
         from payabli import UpdatePaymentMethodDomainRequestWallet, payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.payment_method_domain.update_payment_method_domain(
             domain_id="pmd_b8237fa45c964d8a9ef27160cd42b8c5",
@@ -296,7 +301,8 @@ class PaymentMethodDomainClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.payment_method_domain.list_payment_method_domains(
             entity_id=1147,
@@ -336,7 +342,8 @@ class PaymentMethodDomainClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.payment_method_domain.verify_payment_method_domain(
             domain_id="pmd_b8237fa45c964d8a9ef27160cd42b8c5",
@@ -407,7 +414,8 @@ class AsyncPaymentMethodDomainClient:
         )
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -463,7 +471,8 @@ class AsyncPaymentMethodDomainClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -504,7 +513,8 @@ class AsyncPaymentMethodDomainClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -545,7 +555,8 @@ class AsyncPaymentMethodDomainClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -595,7 +606,8 @@ class AsyncPaymentMethodDomainClient:
         from payabli import Asyncpayabli, UpdatePaymentMethodDomainRequestWallet
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -663,7 +675,8 @@ class AsyncPaymentMethodDomainClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -711,7 +724,8 @@ class AsyncPaymentMethodDomainClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 

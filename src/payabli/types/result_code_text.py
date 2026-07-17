@@ -3,6 +3,6 @@
 ResultCodeText = str
 """
 Description of the result code. See
-[Pay In unified response codes](/developers/references/pay-in-unified-response-codes-reference)
+[Pay In unified response codes](/guides/pay-in-unified-response-codes-reference)
 for more information.
 """
