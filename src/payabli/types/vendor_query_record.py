@@ -7,7 +7,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .additional_data import AdditionalData
+from .additional_data_map import AdditionalDataMap
 from .address_addtl_nullable import AddressAddtlNullable
 from .address_nullable import AddressNullable
 from .billing_data_response import BillingDataResponse
@@ -246,7 +246,9 @@ class VendorQueryRecord(UniversalBaseModel):
         ),
     ] = None
     additional_data: typing_extensions.Annotated[
-        typing.Optional[AdditionalData], FieldMetadata(alias="additionalData"), pydantic.Field(alias="additionalData")
+        typing.Optional[AdditionalDataMap],
+        FieldMetadata(alias="additionalData"),
+        pydantic.Field(alias="additionalData"),
     ] = None
     external_paypoint_id: typing_extensions.Annotated[
         typing.Optional[ExternalPaypointId],
