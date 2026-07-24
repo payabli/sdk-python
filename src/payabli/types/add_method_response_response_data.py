@@ -21,6 +21,10 @@ class AddMethodResponseResponseData(UniversalBaseModel):
             description="Stored method identifier in Payabli platform. This ID is used to manage the stored method.",
         ),
     ] = None
+    """
+    Stored method identifier in Payabli platform. This ID is used to manage the stored method.
+    """
+
     result_code: typing_extensions.Annotated[
         typing.Optional[ResultCode], FieldMetadata(alias="resultCode"), pydantic.Field(alias="resultCode")
     ] = None
@@ -35,6 +39,12 @@ class AddMethodResponseResponseData(UniversalBaseModel):
             description="Internal unique ID of customer owner of the stored method.\n\nReturns `0` if the method wasn't assigned to an existing customer or no customer was created.",
         ),
     ] = None
+    """
+    Internal unique ID of customer owner of the stored method.
+    
+    Returns `0` if the method wasn't assigned to an existing customer or no customer was created.
+    """
+
     method_reference_id: typing_extensions.Annotated[
         typing.Optional[MethodReferenceId],
         FieldMetadata(alias="methodReferenceId"),

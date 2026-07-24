@@ -13,37 +13,68 @@ class ChargebackMessage(UniversalBaseModel):
     id: typing_extensions.Annotated[
         int, FieldMetadata(alias="Id"), pydantic.Field(alias="Id", description="Message identifier.")
     ]
+    """
+    Message identifier.
+    """
+
     room_id: typing_extensions.Annotated[
         int,
         FieldMetadata(alias="RoomId"),
         pydantic.Field(alias="RoomId", description="Room identifier for the message."),
     ]
+    """
+    Room identifier for the message.
+    """
+
     user_id: typing_extensions.Annotated[
         int,
         FieldMetadata(alias="UserId"),
         pydantic.Field(alias="UserId", description="User identifier who sent the message."),
     ]
+    """
+    User identifier who sent the message.
+    """
+
     user_name: typing_extensions.Annotated[
         str,
         FieldMetadata(alias="UserName"),
         pydantic.Field(alias="UserName", description="Name of the user who sent the message."),
     ]
+    """
+    Name of the user who sent the message.
+    """
+
     content: typing_extensions.Annotated[
         str, FieldMetadata(alias="Content"), pydantic.Field(alias="Content", description="Content of the message.")
     ]
+    """
+    Content of the message.
+    """
+
     created_at: typing_extensions.Annotated[
         dt.datetime,
         FieldMetadata(alias="CreatedAt"),
         pydantic.Field(alias="CreatedAt", description="Timestamp when the message was created."),
     ]
+    """
+    Timestamp when the message was created.
+    """
+
     message_type: typing_extensions.Annotated[
         int, FieldMetadata(alias="MessageType"), pydantic.Field(alias="MessageType", description="Type of message.")
     ]
+    """
+    Type of message.
+    """
+
     message_properties: typing_extensions.Annotated[
         typing.Optional[typing.Dict[str, str]],
         FieldMetadata(alias="MessageProperties"),
         pydantic.Field(alias="MessageProperties", description="Additional properties of the message."),
     ] = None
+    """
+    Additional properties of the message.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

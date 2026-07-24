@@ -31,6 +31,12 @@ class OrgData(UniversalBaseModel):
         FieldMetadata(alias="orgStatus"),
         pydantic.Field(alias="orgStatus", description="The paypoint's status.\nActive - `1`\nInactive - 0"),
     ] = None
+    """
+    The paypoint's status.
+    Active - `1`
+    Inactive - 0
+    """
+
     org_type: typing_extensions.Annotated[
         typing.Optional[Orgtype], FieldMetadata(alias="orgType"), pydantic.Field(alias="orgType")
     ] = None

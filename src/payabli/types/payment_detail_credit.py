@@ -26,6 +26,10 @@ class PaymentDetailCredit(UniversalBaseModel):
             description="Service fee to be deducted from the total amount. This amount must be a number, percentages aren't accepted. If you are using a percentage-based fee schedule, you must calculate the value manually.",
         ),
     ] = None
+    """
+    Service fee to be deducted from the total amount. This amount must be a number, percentages aren't accepted. If you are using a percentage-based fee schedule, you must calculate the value manually.
+    """
+
     total_amount: typing_extensions.Annotated[
         float,
         FieldMetadata(alias="totalAmount"),
@@ -34,6 +38,9 @@ class PaymentDetailCredit(UniversalBaseModel):
             description="Total amount to be charged. If a service fee is provided, then this amount should include the service fee.",
         ),
     ]
+    """
+    Total amount to be charged. If a service fee is provided, then this amount should include the service fee.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -35,17 +35,29 @@ class UserQueryRecord(UniversalBaseModel):
         FieldMetadata(alias="createdAt"),
         pydantic.Field(alias="createdAt", description="The timestamp for the user's creation, in UTC."),
     ] = None
+    """
+    The timestamp for the user's creation, in UTC.
+    """
+
     email: typing_extensions.Annotated[
         typing.Optional[Email],
         FieldMetadata(alias="Email"),
         pydantic.Field(alias="Email", description="The user's email address."),
     ] = None
+    """
+    The user's email address.
+    """
+
     language: typing.Optional[Language] = None
     last_access: typing_extensions.Annotated[
         typing.Optional[dt.datetime],
         FieldMetadata(alias="lastAccess"),
         pydantic.Field(alias="lastAccess", description="The timestamp for the user's last activity, in UTC."),
     ] = None
+    """
+    The timestamp for the user's last activity, in UTC.
+    """
+
     name: typing_extensions.Annotated[
         typing.Optional[NameUser], FieldMetadata(alias="Name"), pydantic.Field(alias="Name")
     ] = None
@@ -54,6 +66,10 @@ class UserQueryRecord(UniversalBaseModel):
         FieldMetadata(alias="Phone"),
         pydantic.Field(alias="Phone", description="The user's phone number."),
     ] = None
+    """
+    The user's phone number.
+    """
+
     scope: typing_extensions.Annotated[
         typing.Optional[typing.List[OrgXScope]], FieldMetadata(alias="Scope"), pydantic.Field(alias="Scope")
     ] = None
@@ -64,11 +80,19 @@ class UserQueryRecord(UniversalBaseModel):
             alias="snData", description="Additional data provided by the social network related to the customer."
         ),
     ] = None
+    """
+    Additional data provided by the social network related to the customer.
+    """
+
     sn_identifier: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="snIdentifier"),
         pydantic.Field(alias="snIdentifier", description="Identifier or token for customer in linked social network."),
     ] = None
+    """
+    Identifier or token for customer in linked social network.
+    """
+
     sn_provider: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="snProvider"),
@@ -77,6 +101,10 @@ class UserQueryRecord(UniversalBaseModel):
             description="Social network linked to customer. Possible values: facebook, google, twitter, microsoft.",
         ),
     ] = None
+    """
+    Social network linked to customer. Possible values: facebook, google, twitter, microsoft.
+    """
+
     time_zone: typing_extensions.Annotated[
         typing.Optional[Timezone], FieldMetadata(alias="timeZone"), pydantic.Field(alias="timeZone")
     ] = None
@@ -85,6 +113,10 @@ class UserQueryRecord(UniversalBaseModel):
         FieldMetadata(alias="userId"),
         pydantic.Field(alias="userId", description="The user's ID in Payabli."),
     ] = None
+    """
+    The user's ID in Payabli.
+    """
+
     usr_mfa: typing_extensions.Annotated[
         typing.Optional[Mfa], FieldMetadata(alias="UsrMFA"), pydantic.Field(alias="UsrMFA")
     ] = None

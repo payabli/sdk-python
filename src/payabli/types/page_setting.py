@@ -23,6 +23,10 @@ class PageSetting(UniversalBaseModel):
             alias="customCssUrl", description="Complete URL to a custom CSS file to be loaded with the page"
         ),
     ] = None
+    """
+    Complete URL to a custom CSS file to be loaded with the page
+    """
+
     language: typing.Optional[str] = pydantic.Field(default=None)
     """
     Two-letter code following ISO 639-1
@@ -33,6 +37,10 @@ class PageSetting(UniversalBaseModel):
         FieldMetadata(alias="pageLogo"),
         pydantic.Field(alias="pageLogo", description="Object containing logo file to upload/ use in page"),
     ] = None
+    """
+    Object containing logo file to upload/ use in page
+    """
+
     payment_button: typing_extensions.Annotated[
         typing.Optional[ButtonElement], FieldMetadata(alias="paymentButton"), pydantic.Field(alias="paymentButton")
     ] = None
@@ -44,6 +52,10 @@ class PageSetting(UniversalBaseModel):
             description="Flag indicating if the capability for redirection in the page will be activated",
         ),
     ] = None
+    """
+    Flag indicating if the capability for redirection in the page will be activated
+    """
+
     redirect_after_approve_url: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="redirectAfterApproveUrl"),
@@ -52,6 +64,9 @@ class PageSetting(UniversalBaseModel):
             description="Complete URL where the page will be redirected after completion",
         ),
     ] = None
+    """
+    Complete URL where the page will be redirected after completion
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

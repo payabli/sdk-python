@@ -19,6 +19,10 @@ class CreateGhostCardResponseData(UniversalBaseModel):
             description="Card token for the ghost card. Use this value to reference the card in subsequent operations (update, cancel, etc.).",
         ),
     ] = None
+    """
+    Card token for the ghost card. Use this value to reference the card in subsequent operations (update, cancel, etc.).
+    """
+
     result_code: typing_extensions.Annotated[
         typing.Optional[ResultCode], FieldMetadata(alias="ResultCode"), pydantic.Field(alias="ResultCode")
     ] = None

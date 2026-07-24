@@ -16,6 +16,10 @@ class NotificationStandardRequestContent(UniversalBaseModel):
         FieldMetadata(alias="eventType"),
         pydantic.Field(alias="eventType", description="The notification's event name."),
     ] = None
+    """
+    The notification's event name.
+    """
+
     internal_data: typing_extensions.Annotated[
         typing.Optional[typing.List[KeyValueDuo]],
         FieldMetadata(alias="internalData"),
@@ -24,6 +28,10 @@ class NotificationStandardRequestContent(UniversalBaseModel):
             description="Array of pairs key:value to insert in request body to target in **method** = *web*.",
         ),
     ] = None
+    """
+    Array of pairs key:value to insert in request body to target in **method** = *web*.
+    """
+
     transaction_id: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="transactionId"),
@@ -31,6 +39,10 @@ class NotificationStandardRequestContent(UniversalBaseModel):
             alias="transactionId", description="Used internally to reference the entity or object generating the event."
         ),
     ] = None
+    """
+    Used internally to reference the entity or object generating the event.
+    """
+
     web_header_parameters: typing_extensions.Annotated[
         typing.Optional[typing.List[KeyValueDuo]],
         FieldMetadata(alias="webHeaderParameters"),
@@ -39,6 +51,9 @@ class NotificationStandardRequestContent(UniversalBaseModel):
             description="Array of pairs key:value to insert in header of request to target in **method** = *web*.",
         ),
     ] = None
+    """
+    Array of pairs key:value to insert in header of request to target in **method** = *web*.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

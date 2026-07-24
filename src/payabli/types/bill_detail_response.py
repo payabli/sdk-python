@@ -45,26 +45,46 @@ class BillDetailResponse(UniversalBaseModel):
         FieldMetadata(alias="Bills"),
         pydantic.Field(alias="Bills", description="Bills associated with this transaction."),
     ] = None
+    """
+    Bills associated with this transaction.
+    """
+
     check_data: typing_extensions.Annotated[
         typing.Optional[FileContent],
         FieldMetadata(alias="CheckData"),
         pydantic.Field(alias="CheckData", description="Object referencing to paper check image."),
     ] = None
+    """
+    Object referencing to paper check image.
+    """
+
     check_number: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="CheckNumber"),
         pydantic.Field(alias="CheckNumber", description="Paper check number related to payout transaction."),
     ] = None
+    """
+    Paper check number related to payout transaction.
+    """
+
     comments: typing_extensions.Annotated[
         typing.Optional[Comments],
         FieldMetadata(alias="Comments"),
         pydantic.Field(alias="Comments", description="Any comment or description for payout transaction."),
     ] = None
+    """
+    Any comment or description for payout transaction.
+    """
+
     created_date: typing_extensions.Annotated[
         typing.Optional[CreatedAt],
         FieldMetadata(alias="CreatedDate"),
         pydantic.Field(alias="CreatedDate", description="Timestamp when the payment was created, in UTC."),
     ] = None
+    """
+    Timestamp when the payment was created, in UTC.
+    """
+
     created_at: typing_extensions.Annotated[
         typing.Optional[CreatedAt], FieldMetadata(alias="CreatedAt"), pydantic.Field(alias="CreatedAt")
     ] = None
@@ -73,6 +93,10 @@ class BillDetailResponse(UniversalBaseModel):
         FieldMetadata(alias="Events"),
         pydantic.Field(alias="Events", description="Events associated to this transaction."),
     ] = None
+    """
+    Events associated to this transaction.
+    """
+
     fee_amount: typing_extensions.Annotated[
         typing.Optional[FeeAmount], FieldMetadata(alias="FeeAmount"), pydantic.Field(alias="FeeAmount")
     ] = None
@@ -84,11 +108,19 @@ class BillDetailResponse(UniversalBaseModel):
         FieldMetadata(alias="IdOut"),
         pydantic.Field(alias="IdOut", description="Identifier of payout transaction."),
     ] = None
+    """
+    Identifier of payout transaction.
+    """
+
     last_updated: typing_extensions.Annotated[
         typing.Optional[LastModified],
         FieldMetadata(alias="LastUpdated"),
         pydantic.Field(alias="LastUpdated", description="Timestamp when payment record was updated, in UTC."),
     ] = None
+    """
+    Timestamp when payment record was updated, in UTC.
+    """
+
     net_amount: typing_extensions.Annotated[
         typing.Optional[Netamountnullable], FieldMetadata(alias="NetAmount"), pydantic.Field(alias="NetAmount")
     ] = None
@@ -108,6 +140,10 @@ class BillDetailResponse(UniversalBaseModel):
             alias="PaymentGroup", description="Unique identifier for group or batch containing the transaction."
         ),
     ] = None
+    """
+    Unique identifier for group or batch containing the transaction.
+    """
+
     payment_id: typing_extensions.Annotated[
         typing.Optional[PaymentIdString], FieldMetadata(alias="PaymentId"), pydantic.Field(alias="PaymentId")
     ] = None
@@ -116,11 +152,19 @@ class BillDetailResponse(UniversalBaseModel):
         FieldMetadata(alias="PaymentMethod"),
         pydantic.Field(alias="PaymentMethod", description="Method of payment applied to the transaction."),
     ] = None
+    """
+    Method of payment applied to the transaction.
+    """
+
     payment_status: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="PaymentStatus"),
         pydantic.Field(alias="PaymentStatus", description="Status of payout transaction."),
     ] = None
+    """
+    Status of payout transaction.
+    """
+
     paypoint_dbaname: typing_extensions.Annotated[
         typing.Optional[Dbaname], FieldMetadata(alias="PaypointDbaname"), pydantic.Field(alias="PaypointDbaname")
     ] = None
@@ -129,6 +173,10 @@ class BillDetailResponse(UniversalBaseModel):
         FieldMetadata(alias="PaypointLegalname"),
         pydantic.Field(alias="PaypointLegalname", description="Paypoint legal name."),
     ] = None
+    """
+    Paypoint legal name.
+    """
+
     source: typing_extensions.Annotated[
         typing.Optional[Source], FieldMetadata(alias="Source"), pydantic.Field(alias="Source")
     ] = None
@@ -140,11 +188,29 @@ class BillDetailResponse(UniversalBaseModel):
             description="Internal status of transaction.\nPayout statuses, also known as money out transaction statuses, appear in the Payabli Portal and the API and describe where a payout transaction is in its lifecycle.\n| Status | Key | Description | Events |\n|--------|-----|-------------|---------|\n| **Authorized** | 11 | A payout is authorized. These are queued payouts, and nothing happens with them until they're captured. | Authorized |\n| **Captured** | 1 | A payout is captured and is now part of the batch for payout. | Captured |\n| **Canceled** | 0 | An authorized payout has been canceled. A captured payout can be canceled before batch close at 5 PM ET. | Cancelled |\n| **Processing** | 2 | A payout is being processed. | Waiting funds, Funded, Pending (payment type is pending), Generating check |\n| **Processed** | 3 | A payment method is defined for the vendor, and the payout has been sent to the recipient. | Open (vCard issued, ACH sent, check generated but not yet cashed), Processed (Payment Type is no longer pending), Reissued, Returned, Errored |\n| **OnHold** | 4 | A payout has been placed on hold and requires review before proceeding. | OnHold |\n| **Paid** | 5 | A payout has been paid and the recipient has redeemed the funds. | Paid (check cleared, vCard used, ACH settled) |",
         ),
     ] = None
+    """
+    Internal status of transaction.
+    Payout statuses, also known as money out transaction statuses, appear in the Payabli Portal and the API and describe where a payout transaction is in its lifecycle.
+    | Status | Key | Description | Events |
+    |--------|-----|-------------|---------|
+    | **Authorized** | 11 | A payout is authorized. These are queued payouts, and nothing happens with them until they're captured. | Authorized |
+    | **Captured** | 1 | A payout is captured and is now part of the batch for payout. | Captured |
+    | **Canceled** | 0 | An authorized payout has been canceled. A captured payout can be canceled before batch close at 5 PM ET. | Cancelled |
+    | **Processing** | 2 | A payout is being processed. | Waiting funds, Funded, Pending (payment type is pending), Generating check |
+    | **Processed** | 3 | A payment method is defined for the vendor, and the payout has been sent to the recipient. | Open (vCard issued, ACH sent, check generated but not yet cashed), Processed (Payment Type is no longer pending), Reissued, Returned, Errored |
+    | **OnHold** | 4 | A payout has been placed on hold and requires review before proceeding. | OnHold |
+    | **Paid** | 5 | A payout has been paid and the recipient has redeemed the funds. | Paid (check cleared, vCard used, ACH settled) |
+    """
+
     status_text: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="StatusText"),
         pydantic.Field(alias="StatusText", description="Text description of the payout transaction status."),
     ] = None
+    """
+    Text description of the payout transaction status.
+    """
+
     total_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="TotalAmount"),
@@ -152,11 +218,19 @@ class BillDetailResponse(UniversalBaseModel):
             alias="TotalAmount", description="Transaction total amount (including service fee or sub-charge)."
         ),
     ] = None
+    """
+    Transaction total amount (including service fee or sub-charge).
+    """
+
     vendor: typing_extensions.Annotated[
         typing.Optional[VendorQueryRecord],
         FieldMetadata(alias="Vendor"),
         pydantic.Field(alias="Vendor", description="Vendor related to the payout transaction."),
     ] = None
+    """
+    Vendor related to the payout transaction.
+    """
+
     external_paypoint_id: typing_extensions.Annotated[
         typing.Optional[ExternalPaypointId],
         FieldMetadata(alias="externalPaypointID"),
@@ -173,6 +247,10 @@ class BillDetailResponse(UniversalBaseModel):
             description="Identifier for the batch in which this transaction was processed. Used to track and reconcile batch-level operations.",
         ),
     ] = None
+    """
+    Identifier for the batch in which this transaction was processed. Used to track and reconcile batch-level operations.
+    """
+
     has_vcard_transactions: typing_extensions.Annotated[
         typing.Optional[HasVcardTransactions],
         FieldMetadata(alias="HasVcardTransactions"),

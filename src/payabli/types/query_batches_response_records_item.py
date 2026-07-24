@@ -27,6 +27,10 @@ class QueryBatchesResponseRecordsItem(UniversalBaseModel):
         FieldMetadata(alias="IdBatch"),
         pydantic.Field(alias="IdBatch", description="The batch ID."),
     ] = None
+    """
+    The batch ID.
+    """
+
     batch_number: typing_extensions.Annotated[
         typing.Optional[BatchNumber], FieldMetadata(alias="BatchNumber"), pydantic.Field(alias="BatchNumber")
     ] = None
@@ -40,31 +44,55 @@ class QueryBatchesResponseRecordsItem(UniversalBaseModel):
         FieldMetadata(alias="EventsData"),
         pydantic.Field(alias="EventsData", description="Events associated with the batch."),
     ] = None
+    """
+    Events associated with the batch.
+    """
+
     connector_name: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="ConnectorName"),
         pydantic.Field(alias="ConnectorName", description=""),
     ] = None
+    """
+    
+    """
+
     batch_date: typing_extensions.Annotated[
         typing.Optional[dt.datetime],
         FieldMetadata(alias="BatchDate"),
         pydantic.Field(alias="BatchDate", description="The batch date."),
     ] = None
+    """
+    The batch date.
+    """
+
     batch_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="BatchAmount"),
         pydantic.Field(alias="BatchAmount", description="The amount of the batch."),
     ] = None
+    """
+    The amount of the batch.
+    """
+
     batch_fees_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="BatchFeesAmount"),
         pydantic.Field(alias="BatchFeesAmount", description="The total of fees in the batch."),
     ] = None
+    """
+    The total of fees in the batch.
+    """
+
     batch_auth_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="BatchAuthAmount"),
         pydantic.Field(alias="BatchAuthAmount", description=""),
     ] = None
+    """
+    
+    """
+
     batch_released_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="BatchReleasedAmount"),
@@ -73,6 +101,10 @@ class QueryBatchesResponseRecordsItem(UniversalBaseModel):
             description="Previously held funds that have been released after a risk review.",
         ),
     ] = None
+    """
+    Previously held funds that have been released after a risk review.
+    """
+
     batch_hold_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="BatchHoldAmount"),
@@ -81,16 +113,28 @@ class QueryBatchesResponseRecordsItem(UniversalBaseModel):
             description="The total amount of the batch that's being held for fraud or risk concerns.",
         ),
     ] = None
+    """
+    The total amount of the batch that's being held for fraud or risk concerns.
+    """
+
     batch_returned_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="BatchReturnedAmount"),
         pydantic.Field(alias="BatchReturnedAmount", description="Total amount of ACH returns deducted from batch."),
     ] = None
+    """
+    Total amount of ACH returns deducted from batch.
+    """
+
     batch_refund_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="BatchRefundAmount"),
         pydantic.Field(alias="BatchRefundAmount", description="The total amount of refunds deducted from batch."),
     ] = None
+    """
+    The total amount of refunds deducted from batch.
+    """
+
     batch_split_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="BatchSplitAmount"),
@@ -99,6 +143,10 @@ class QueryBatchesResponseRecordsItem(UniversalBaseModel):
             description="Total of split transactions that included split funding instructions at the time of authorization.",
         ),
     ] = None
+    """
+    Total of split transactions that included split funding instructions at the time of authorization.
+    """
+
     batch_status: typing_extensions.Annotated[
         int,
         FieldMetadata(alias="BatchStatus"),
@@ -107,11 +155,19 @@ class QueryBatchesResponseRecordsItem(UniversalBaseModel):
             description="The batch status. See [Batch Status](/developers/references/money-in-statuses#batch-status) for more.",
         ),
     ]
+    """
+    The batch status. See [Batch Status](/developers/references/money-in-statuses#batch-status) for more.
+    """
+
     batch_records: typing_extensions.Annotated[
         int,
         FieldMetadata(alias="BatchRecords"),
         pydantic.Field(alias="BatchRecords", description="The number of records in the batch."),
     ]
+    """
+    The number of records in the batch.
+    """
+
     paypoint_id: typing_extensions.Annotated[
         typing.Optional[PaypointId], FieldMetadata(alias="PaypointId"), pydantic.Field(alias="PaypointId")
     ] = None
@@ -126,11 +182,19 @@ class QueryBatchesResponseRecordsItem(UniversalBaseModel):
         FieldMetadata(alias="ParentOrgName"),
         pydantic.Field(alias="ParentOrgName", description="The entrypoint's parent org."),
     ]
+    """
+    The entrypoint's parent org.
+    """
+
     parent_org_id: typing_extensions.Annotated[
         int,
         FieldMetadata(alias="ParentOrgId"),
         pydantic.Field(alias="ParentOrgId", description="The parent organization ID."),
     ]
+    """
+    The parent organization ID.
+    """
+
     external_paypoint_id: typing_extensions.Annotated[
         typing.Optional[ExternalPaypointId],
         FieldMetadata(alias="externalPaypointID"),
@@ -144,16 +208,28 @@ class QueryBatchesResponseRecordsItem(UniversalBaseModel):
         FieldMetadata(alias="BankName"),
         pydantic.Field(alias="BankName", description="The bank name."),
     ] = None
+    """
+    The bank name.
+    """
+
     batch_type: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="BatchType"),
         pydantic.Field(alias="BatchType", description="The batch type."),
     ] = None
+    """
+    The batch type.
+    """
+
     method: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="Method"),
         pydantic.Field(alias="Method", description="The payment method used."),
     ] = None
+    """
+    The payment method used.
+    """
+
     expected_deposit_date: typing_extensions.Annotated[
         typing.Optional[ExpectedDepositDate],
         FieldMetadata(alias="ExpectedDepositDate"),
@@ -167,11 +243,18 @@ class QueryBatchesResponseRecordsItem(UniversalBaseModel):
         FieldMetadata(alias="TransferDate"),
         pydantic.Field(alias="TransferDate", description="The batch transfer date."),
     ] = None
+    """
+    The batch transfer date.
+    """
+
     transfer: typing_extensions.Annotated[
         typing.Optional[QueryBatchesTransfer],
         FieldMetadata(alias="Transfer"),
         pydantic.Field(alias="Transfer", description="Transfer details for the batch."),
     ] = None
+    """
+    Transfer details for the batch.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

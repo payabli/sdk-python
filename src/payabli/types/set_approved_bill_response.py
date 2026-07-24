@@ -22,6 +22,10 @@ class SetApprovedBillResponse(PayabliApiResponseGeneric2Part):
             description="If `isSuccess` = true, this contains the bill identifier. If\n`isSuccess` = false, this contains the reason for the error.",
         ),
     ] = None
+    """
+    If `isSuccess` = true, this contains the bill identifier. If
+    `isSuccess` = false, this contains the reason for the error.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

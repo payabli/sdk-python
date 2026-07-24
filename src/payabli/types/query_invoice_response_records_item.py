@@ -67,6 +67,10 @@ class QueryInvoiceResponseRecordsItem(UniversalBaseModel):
             alias="invoiceDate", description="Invoice date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY."
         ),
     ] = None
+    """
+    Invoice date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+    """
+
     invoice_due_date: typing_extensions.Annotated[
         typing.Optional[dt.date],
         FieldMetadata(alias="invoiceDueDate"),
@@ -75,6 +79,10 @@ class QueryInvoiceResponseRecordsItem(UniversalBaseModel):
             description="Invoice due date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY.",
         ),
     ] = None
+    """
+    Invoice due date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+    """
+
     invoice_sent_date: typing_extensions.Annotated[
         typing.Optional[dt.date],
         FieldMetadata(alias="invoiceSentDate"),
@@ -83,6 +91,10 @@ class QueryInvoiceResponseRecordsItem(UniversalBaseModel):
             description="Invoice sent date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY.",
         ),
     ] = None
+    """
+    Invoice sent date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+    """
+
     invoice_end_date: typing_extensions.Annotated[
         typing.Optional[dt.date],
         FieldMetadata(alias="invoiceEndDate"),
@@ -90,11 +102,19 @@ class QueryInvoiceResponseRecordsItem(UniversalBaseModel):
             alias="invoiceEndDate", description="The end date for a scheduled invoice cycle (`invoiceType` = 1)."
         ),
     ] = None
+    """
+    The end date for a scheduled invoice cycle (`invoiceType` = 1).
+    """
+
     last_payment_date: typing_extensions.Annotated[
         typing.Optional[dt.datetime],
         FieldMetadata(alias="lastPaymentDate"),
         pydantic.Field(alias="lastPaymentDate", description="Timestamp of last payment."),
     ] = None
+    """
+    Timestamp of last payment.
+    """
+
     created_at: typing_extensions.Annotated[
         CreatedAt, FieldMetadata(alias="createdAt"), pydantic.Field(alias="createdAt")
     ]
@@ -144,11 +164,19 @@ class QueryInvoiceResponseRecordsItem(UniversalBaseModel):
         FieldMetadata(alias="firstName"),
         pydantic.Field(alias="firstName", description="First name of the recipient of the invoice."),
     ]
+    """
+    First name of the recipient of the invoice.
+    """
+
     last_name: typing_extensions.Annotated[
         str,
         FieldMetadata(alias="lastName"),
         pydantic.Field(alias="lastName", description="Last name of the recipient of the invoice."),
     ]
+    """
+    Last name of the recipient of the invoice.
+    """
+
     company: typing.Optional[str] = pydantic.Field(default=None)
     """
     Company name of the recipient of the invoice.
@@ -180,11 +208,19 @@ class QueryInvoiceResponseRecordsItem(UniversalBaseModel):
         FieldMetadata(alias="shippingEmail"),
         pydantic.Field(alias="shippingEmail", description="Shipping recipient's contact email address."),
     ]
+    """
+    Shipping recipient's contact email address.
+    """
+
     shipping_phone: typing_extensions.Annotated[
         str,
         FieldMetadata(alias="shippingPhone"),
         pydantic.Field(alias="shippingPhone", description="Recipient phone number."),
     ]
+    """
+    Recipient phone number.
+    """
+
     summary_commodity_code: typing_extensions.Annotated[
         typing.Optional[SummaryCommodityCode],
         FieldMetadata(alias="summaryCommodityCode"),
@@ -207,21 +243,37 @@ class QueryInvoiceResponseRecordsItem(UniversalBaseModel):
         FieldMetadata(alias="scheduledOptions"),
         pydantic.Field(alias="scheduledOptions", description="Object with options for scheduled invoices."),
     ] = None
+    """
+    Object with options for scheduled invoices.
+    """
+
     paypoint_legalname: typing_extensions.Annotated[
         Legalname,
         FieldMetadata(alias="PaypointLegalname"),
         pydantic.Field(alias="PaypointLegalname", description="Paypoint's legal name."),
     ]
+    """
+    Paypoint's legal name.
+    """
+
     paypoint_dbaname: typing_extensions.Annotated[
         Dbaname,
         FieldMetadata(alias="PaypointDbaname"),
         pydantic.Field(alias="PaypointDbaname", description="Paypoint's DBA name."),
     ]
+    """
+    Paypoint's DBA name.
+    """
+
     paypoint_entryname: typing_extensions.Annotated[
         Entrypointfield,
         FieldMetadata(alias="PaypointEntryname"),
         pydantic.Field(alias="PaypointEntryname", description="Paypoint's entryname."),
     ]
+    """
+    Paypoint's entryname.
+    """
+
     parent_org_id: typing_extensions.Annotated[
         Orgid, FieldMetadata(alias="ParentOrgId"), pydantic.Field(alias="ParentOrgId")
     ]
@@ -236,11 +288,19 @@ class QueryInvoiceResponseRecordsItem(UniversalBaseModel):
             description="Custom list of key:value pairs. This field is used to store any data related to the invoice or for your system.",
         ),
     ] = None
+    """
+    Custom list of key:value pairs. This field is used to store any data related to the invoice or for your system.
+    """
+
     documents_ref: typing_extensions.Annotated[
         typing.Optional[DocumentsRef],
         FieldMetadata(alias="DocumentsRef"),
         pydantic.Field(alias="DocumentsRef", description="Object containing attachments associated to the invoice."),
     ] = None
+    """
+    Object containing attachments associated to the invoice.
+    """
+
     external_paypoint_id: typing_extensions.Annotated[
         ExternalPaypointId, FieldMetadata(alias="externalPaypointID"), pydantic.Field(alias="externalPaypointID")
     ]

@@ -27,6 +27,9 @@ class RefundDetail(UniversalBaseModel):
             alias="splitRefunding", description="Array of objects containing split instructions for the refund."
         ),
     ] = None
+    """
+    Array of objects containing split instructions for the refund.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

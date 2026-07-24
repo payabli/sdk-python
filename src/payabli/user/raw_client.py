@@ -101,6 +101,9 @@ class RawUserClient:
         HttpResponse[AddUserResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "User",
             method="POST",
@@ -122,6 +125,9 @@ class RawUserClient:
                 ),
                 "timeZone": time_zone,
                 "usrStatus": usr_status,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -219,12 +225,18 @@ class RawUserClient:
         HttpResponse[UserQueryRecord]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"User/{encode_path_param(user_id)}",
             method="GET",
             params={
                 "entry": entry,
                 "level": level,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -348,6 +360,9 @@ class RawUserClient:
         HttpResponse[PayabliApiResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"User/{encode_path_param(user_id)}",
             method="PUT",
@@ -369,6 +384,9 @@ class RawUserClient:
                 ),
                 "timeZone": time_zone,
                 "usrStatus": usr_status,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -455,9 +473,15 @@ class RawUserClient:
         HttpResponse[DeleteUserResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"User/{encode_path_param(user_id)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -565,6 +589,9 @@ class RawUserClient:
         HttpResponse[PayabliApiResponseMfaBasic]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"User/auth/{encode_path_param(provider)}",
             method="POST",
@@ -577,6 +604,7 @@ class RawUserClient:
                 "userTokenId": user_token_id,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -661,9 +689,15 @@ class RawUserClient:
         HttpResponse[PayabliApiResponseUserMfa]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "User/authrefresh",
             method="POST",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -759,6 +793,9 @@ class RawUserClient:
         HttpResponse[AuthResetUserResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "User/authreset",
             method="POST",
@@ -768,6 +805,7 @@ class RawUserClient:
                 "entryType": entry_type,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -855,6 +893,9 @@ class RawUserClient:
         HttpResponse[ChangePswUserResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "User/authpsw",
             method="PUT",
@@ -862,6 +903,7 @@ class RawUserClient:
                 "psw": psw,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -946,9 +988,15 @@ class RawUserClient:
         HttpResponse[LogoutUserResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "User/authlogout",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -1038,6 +1086,9 @@ class RawUserClient:
         HttpResponse[PayabliApiResponseUserMfa]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "User/mfa",
             method="POST",
@@ -1046,6 +1097,7 @@ class RawUserClient:
                 "mfaValidationCode": mfa_validation_code,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -1098,12 +1150,18 @@ class RawUserClient:
         HttpResponse[EditMfaUserResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"User/mfa/{encode_path_param(user_id)}",
             method="PUT",
             json={
                 "mfa": mfa,
                 "mfaMode": mfa_mode,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -1196,9 +1254,15 @@ class RawUserClient:
         HttpResponse[PayabliApiResponseMfaBasic]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"User/resendmfa/{encode_path_param(usrname)}/{encode_path_param(entry)}/{encode_path_param(entry_type)}",
             method="POST",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -1322,6 +1386,9 @@ class AsyncRawUserClient:
         AsyncHttpResponse[AddUserResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "User",
             method="POST",
@@ -1343,6 +1410,9 @@ class AsyncRawUserClient:
                 ),
                 "timeZone": time_zone,
                 "usrStatus": usr_status,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -1440,12 +1510,18 @@ class AsyncRawUserClient:
         AsyncHttpResponse[UserQueryRecord]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"User/{encode_path_param(user_id)}",
             method="GET",
             params={
                 "entry": entry,
                 "level": level,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -1569,6 +1645,9 @@ class AsyncRawUserClient:
         AsyncHttpResponse[PayabliApiResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"User/{encode_path_param(user_id)}",
             method="PUT",
@@ -1590,6 +1669,9 @@ class AsyncRawUserClient:
                 ),
                 "timeZone": time_zone,
                 "usrStatus": usr_status,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -1676,9 +1758,15 @@ class AsyncRawUserClient:
         AsyncHttpResponse[DeleteUserResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"User/{encode_path_param(user_id)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -1786,6 +1874,9 @@ class AsyncRawUserClient:
         AsyncHttpResponse[PayabliApiResponseMfaBasic]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"User/auth/{encode_path_param(provider)}",
             method="POST",
@@ -1798,6 +1889,7 @@ class AsyncRawUserClient:
                 "userTokenId": user_token_id,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -1882,9 +1974,15 @@ class AsyncRawUserClient:
         AsyncHttpResponse[PayabliApiResponseUserMfa]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "User/authrefresh",
             method="POST",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -1980,6 +2078,9 @@ class AsyncRawUserClient:
         AsyncHttpResponse[AuthResetUserResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "User/authreset",
             method="POST",
@@ -1989,6 +2090,7 @@ class AsyncRawUserClient:
                 "entryType": entry_type,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -2076,6 +2178,9 @@ class AsyncRawUserClient:
         AsyncHttpResponse[ChangePswUserResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "User/authpsw",
             method="PUT",
@@ -2083,6 +2188,7 @@ class AsyncRawUserClient:
                 "psw": psw,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -2167,9 +2273,15 @@ class AsyncRawUserClient:
         AsyncHttpResponse[LogoutUserResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "User/authlogout",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -2259,6 +2371,9 @@ class AsyncRawUserClient:
         AsyncHttpResponse[PayabliApiResponseUserMfa]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "User/mfa",
             method="POST",
@@ -2267,6 +2382,7 @@ class AsyncRawUserClient:
                 "mfaValidationCode": mfa_validation_code,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -2319,12 +2435,18 @@ class AsyncRawUserClient:
         AsyncHttpResponse[EditMfaUserResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"User/mfa/{encode_path_param(user_id)}",
             method="PUT",
             json={
                 "mfa": mfa,
                 "mfaMode": mfa_mode,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -2417,9 +2539,15 @@ class AsyncRawUserClient:
         AsyncHttpResponse[PayabliApiResponseMfaBasic]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"User/resendmfa/{encode_path_param(usrname)}/{encode_path_param(entry)}/{encode_path_param(entry_type)}",
             method="POST",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:

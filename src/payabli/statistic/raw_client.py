@@ -104,6 +104,9 @@ class RawStatisticClient:
         HttpResponse[typing.List[StatBasicExtendedQueryRecord]]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Statistic/basic/{encode_path_param(mode)}/{encode_path_param(freq)}/{encode_path_param(level)}/{encode_path_param(entry_id)}",
             method="GET",
@@ -111,6 +114,9 @@ class RawStatisticClient:
                 "endDate": end_date,
                 "parameters": parameters,
                 "startDate": start_date,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -230,11 +236,17 @@ class RawStatisticClient:
         HttpResponse[typing.List[SubscriptionStatsQueryRecord]]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Statistic/customerbasic/{encode_path_param(mode)}/{encode_path_param(freq)}/{encode_path_param(customer_id)}",
             method="GET",
             params={
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -343,11 +355,17 @@ class RawStatisticClient:
         HttpResponse[typing.List[StatBasicQueryRecord]]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Statistic/subscriptions/{encode_path_param(interval)}/{encode_path_param(level)}/{encode_path_param(entry_id)}",
             method="GET",
             params={
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -467,11 +485,17 @@ class RawStatisticClient:
         HttpResponse[typing.List[StatisticsVendorQueryRecord]]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Statistic/vendorbasic/{encode_path_param(mode)}/{encode_path_param(freq)}/{encode_path_param(id_vendor)}",
             method="GET",
             params={
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -621,6 +645,9 @@ class AsyncRawStatisticClient:
         AsyncHttpResponse[typing.List[StatBasicExtendedQueryRecord]]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Statistic/basic/{encode_path_param(mode)}/{encode_path_param(freq)}/{encode_path_param(level)}/{encode_path_param(entry_id)}",
             method="GET",
@@ -628,6 +655,9 @@ class AsyncRawStatisticClient:
                 "endDate": end_date,
                 "parameters": parameters,
                 "startDate": start_date,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -747,11 +777,17 @@ class AsyncRawStatisticClient:
         AsyncHttpResponse[typing.List[SubscriptionStatsQueryRecord]]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Statistic/customerbasic/{encode_path_param(mode)}/{encode_path_param(freq)}/{encode_path_param(customer_id)}",
             method="GET",
             params={
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -860,11 +896,17 @@ class AsyncRawStatisticClient:
         AsyncHttpResponse[typing.List[StatBasicQueryRecord]]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Statistic/subscriptions/{encode_path_param(interval)}/{encode_path_param(level)}/{encode_path_param(entry_id)}",
             method="GET",
             params={
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -984,11 +1026,17 @@ class AsyncRawStatisticClient:
         AsyncHttpResponse[typing.List[StatisticsVendorQueryRecord]]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Statistic/vendorbasic/{encode_path_param(mode)}/{encode_path_param(freq)}/{encode_path_param(id_vendor)}",
             method="GET",
             params={
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )

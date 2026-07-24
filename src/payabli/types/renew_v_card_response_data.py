@@ -22,6 +22,10 @@ class RenewVCardResponseData(UniversalBaseModel):
         FieldMetadata(alias="authCode"),
         pydantic.Field(alias="authCode", description="Not used for virtual card renewal; always returns `null`."),
     ] = None
+    """
+    Not used for virtual card renewal; always returns `null`.
+    """
+
     reference_id: typing_extensions.Annotated[
         Referenceidtrans,
         FieldMetadata(alias="referenceId"),
@@ -30,6 +34,10 @@ class RenewVCardResponseData(UniversalBaseModel):
             description="Reference identifier for the renewed virtual card returned by the card processor.",
         ),
     ]
+    """
+    Reference identifier for the renewed virtual card returned by the card processor.
+    """
+
     result_code: typing_extensions.Annotated[
         ResultCode, FieldMetadata(alias="resultCode"), pydantic.Field(alias="resultCode")
     ]
@@ -43,6 +51,10 @@ class RenewVCardResponseData(UniversalBaseModel):
             alias="avsResponseText", description="Not used for virtual card renewal; always returns `null`."
         ),
     ] = None
+    """
+    Not used for virtual card renewal; always returns `null`.
+    """
+
     cvv_response_text: typing_extensions.Annotated[
         typing.Optional[CvvResponseText],
         FieldMetadata(alias="cvvResponseText"),
@@ -50,16 +62,28 @@ class RenewVCardResponseData(UniversalBaseModel):
             alias="cvvResponseText", description="Not used for virtual card renewal; always returns `null`."
         ),
     ] = None
+    """
+    Not used for virtual card renewal; always returns `null`.
+    """
+
     customer_id: typing_extensions.Annotated[
         typing.Optional[Vendoridtrans],
         FieldMetadata(alias="customerId"),
         pydantic.Field(alias="customerId", description="Not used for virtual card renewal; always returns `null`."),
     ] = None
+    """
+    Not used for virtual card renewal; always returns `null`.
+    """
+
     vendor_id: typing_extensions.Annotated[
         typing.Optional[Vendoridtrans],
         FieldMetadata(alias="vendorId"),
         pydantic.Field(alias="vendorId", description="Not used for virtual card renewal; always returns `null`."),
     ] = None
+    """
+    Not used for virtual card renewal; always returns `null`.
+    """
+
     method_reference_id: typing_extensions.Annotated[
         typing.Optional[MethodReferenceId],
         FieldMetadata(alias="methodReferenceId"),
@@ -67,6 +91,9 @@ class RenewVCardResponseData(UniversalBaseModel):
             alias="methodReferenceId", description="Not used for virtual card renewal; always returns `null`."
         ),
     ] = None
+    """
+    Not used for virtual card renewal; always returns `null`.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

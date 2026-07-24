@@ -26,6 +26,10 @@ class LineItemQueryRecord(UniversalBaseModel):
         FieldMetadata(alias="createdAt"),
         pydantic.Field(alias="createdAt", description="Timestamp of when line item was created, in UTC."),
     ] = None
+    """
+    Timestamp of when line item was created, in UTC.
+    """
+
     id: typing.Optional[int] = pydantic.Field(default=None)
     """
     Identifier of line item.
@@ -36,6 +40,10 @@ class LineItemQueryRecord(UniversalBaseModel):
         FieldMetadata(alias="itemCategories"),
         pydantic.Field(alias="itemCategories", description="Array of tags classifying item or product."),
     ] = None
+    """
+    Array of tags classifying item or product.
+    """
+
     item_commodity_code: typing_extensions.Annotated[
         typing.Optional[ItemCommodityCode],
         FieldMetadata(alias="itemCommodityCode"),
@@ -46,6 +54,10 @@ class LineItemQueryRecord(UniversalBaseModel):
         FieldMetadata(alias="itemCost"),
         pydantic.Field(alias="itemCost", description="Item or product price per unit."),
     ]
+    """
+    Item or product price per unit.
+    """
+
     item_description: typing_extensions.Annotated[
         typing.Optional[ItemDescription],
         FieldMetadata(alias="itemDescription"),
@@ -59,6 +71,10 @@ class LineItemQueryRecord(UniversalBaseModel):
             description="Internal class of item or product: value '0' is only for invoices , '1' for bills, and '2' common for both.",
         ),
     ] = None
+    """
+    Internal class of item or product: value '0' is only for invoices , '1' for bills, and '2' common for both.
+    """
+
     item_product_code: typing_extensions.Annotated[
         typing.Optional[ItemProductCode],
         FieldMetadata(alias="itemProductCode"),
@@ -72,6 +88,10 @@ class LineItemQueryRecord(UniversalBaseModel):
     item_qty: typing_extensions.Annotated[
         int, FieldMetadata(alias="itemQty"), pydantic.Field(alias="itemQty", description="Quantity of item or product.")
     ]
+    """
+    Quantity of item or product.
+    """
+
     item_unit_of_measure: typing_extensions.Annotated[
         typing.Optional[ItemUnitofMeasure],
         FieldMetadata(alias="itemUnitOfMeasure"),
@@ -82,27 +102,46 @@ class LineItemQueryRecord(UniversalBaseModel):
         FieldMetadata(alias="lastUpdated"),
         pydantic.Field(alias="lastUpdated", description="Timestamp of when the line item was updated, in UTC."),
     ] = None
+    """
+    Timestamp of when the line item was updated, in UTC.
+    """
+
     pageidentifier: typing.Optional[PageIdentifier] = None
     parent_org_name: typing_extensions.Annotated[
         typing.Optional[OrgParentName],
         FieldMetadata(alias="ParentOrgName"),
         pydantic.Field(alias="ParentOrgName", description="The name of the paypoint's parent organization."),
     ] = None
+    """
+    The name of the paypoint's parent organization.
+    """
+
     paypoint_dbaname: typing_extensions.Annotated[
         typing.Optional[Dbaname],
         FieldMetadata(alias="PaypointDbaname"),
         pydantic.Field(alias="PaypointDbaname", description="The paypoint's DBA name."),
     ] = None
+    """
+    The paypoint's DBA name.
+    """
+
     paypoint_entryname: typing_extensions.Annotated[
         typing.Optional[Entrypointfield],
         FieldMetadata(alias="PaypointEntryname"),
         pydantic.Field(alias="PaypointEntryname", description="The paypoint's entryname (entrypoint) value."),
     ] = None
+    """
+    The paypoint's entryname (entrypoint) value.
+    """
+
     paypoint_legalname: typing_extensions.Annotated[
         typing.Optional[Legalname],
         FieldMetadata(alias="PaypointLegalname"),
         pydantic.Field(alias="PaypointLegalname", description="The paypoint's legal name."),
     ] = None
+    """
+    The paypoint's legal name.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

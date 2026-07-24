@@ -23,11 +23,19 @@ class TransferOutEventData(UniversalBaseModel):
         FieldMetadata(alias="eventTime"),
         pydantic.Field(alias="eventTime", description="The time the event occurred."),
     ] = None
+    """
+    The time the event occurred.
+    """
+
     ref_data: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="refData"),
         pydantic.Field(alias="refData", description="Reference data for the event."),
     ] = None
+    """
+    Reference data for the event.
+    """
+
     extra_data: typing_extensions.Annotated[
         typing.Optional[typing.Any],
         FieldMetadata(alias="extraData"),
@@ -35,6 +43,10 @@ class TransferOutEventData(UniversalBaseModel):
             alias="extraData", description="Additional event data, which may contain detailed transaction information."
         ),
     ] = None
+    """
+    Additional event data, which may contain detailed transaction information.
+    """
+
     source: typing.Optional[str] = pydantic.Field(default=None)
     """
     The source of the event.

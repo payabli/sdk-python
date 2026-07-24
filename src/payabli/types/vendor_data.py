@@ -49,6 +49,10 @@ class VendorData(UniversalBaseModel):
             description="Vendor's street address. If any address field is provided, this field is required along with `city`, `state`, and `zip`. Allowed characters are letters, numbers, spaces, and `. ,",
         ),
     ] = None
+    """
+    Vendor's street address. If any address field is provided, this field is required along with `city`, `state`, and `zip`. Allowed characters are letters, numbers, spaces, and `. ,
+    """
+
     address_2: typing_extensions.Annotated[
         typing.Optional[AddressAddtlNullable],
         FieldMetadata(alias="address2"),
@@ -57,11 +61,19 @@ class VendorData(UniversalBaseModel):
             description="Additional line for vendor's address, such as a suite or unit number. Always optional.",
         ),
     ] = None
+    """
+    Additional line for vendor's address, such as a suite or unit number. Always optional.
+    """
+
     billing_data: typing_extensions.Annotated[
         typing.Optional[BillingData],
         FieldMetadata(alias="billingData"),
         pydantic.Field(alias="billingData", description="Object containing vendor's bank information."),
     ] = None
+    """
+    Object containing vendor's bank information.
+    """
+
     city: typing.Optional[str] = pydantic.Field(default=None)
     """
     Vendor's city. Required if any address field is provided.
@@ -82,16 +94,28 @@ class VendorData(UniversalBaseModel):
         FieldMetadata(alias="customField1"),
         pydantic.Field(alias="customField1", description="Custom field 1 for vendor"),
     ] = None
+    """
+    Custom field 1 for vendor
+    """
+
     custom_field_2: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="customField2"),
         pydantic.Field(alias="customField2", description="Custom field 2 for vendor"),
     ] = None
+    """
+    Custom field 2 for vendor
+    """
+
     customer_vendor_account: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="customerVendorAccount"),
         pydantic.Field(alias="customerVendorAccount", description="Account number of paypoint in the vendor side."),
     ] = None
+    """
+    Account number of paypoint in the vendor side.
+    """
+
     ein: typing.Optional[VendorEin] = None
     email: typing.Optional[Email] = pydantic.Field(default=None)
     """
@@ -103,6 +127,10 @@ class VendorData(UniversalBaseModel):
         FieldMetadata(alias="internalReferenceId"),
         pydantic.Field(alias="internalReferenceId", description="Internal identifier for global vendor account."),
     ] = None
+    """
+    Internal identifier for global vendor account.
+    """
+
     location_code: typing_extensions.Annotated[
         typing.Optional[LocationCode], FieldMetadata(alias="locationCode"), pydantic.Field(alias="locationCode")
     ] = None
@@ -166,6 +194,10 @@ class VendorData(UniversalBaseModel):
             alias="defaultMethodId", description="Identifier for the vendor's default stored payment method."
         ),
     ] = None
+    """
+    Identifier for the vendor's default stored payment method.
+    """
+
     attachment: typing.Optional[FileContent] = pydantic.Field(default=None)
     """
     PDF invoice attachment for AI-powered vendor enrichment.

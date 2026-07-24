@@ -81,6 +81,9 @@ class RawInvoiceClient:
         HttpResponse[InvoiceResponseWithoutData]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Invoice/{encode_path_param(entry)}",
             method="POST",
@@ -99,6 +102,7 @@ class RawInvoiceClient:
                 ),
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -200,11 +204,17 @@ class RawInvoiceClient:
         HttpResponse[FileContent]
             A successful response returns a binary file when `returnObject` is `false`. When `returnObject` is `true`, the response contains the file content as a Base64-encoded string in an object. Due to technical limitations, only the object response is documented here.
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Invoice/attachedFileFromInvoice/{encode_path_param(id_invoice)}/{encode_path_param(filename)}",
             method="GET",
             params={
                 "returnObject": return_object,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -295,9 +305,15 @@ class RawInvoiceClient:
         HttpResponse[InvoiceResponseWithoutData]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Invoice/attachedFileFromInvoice/{encode_path_param(id_invoice)}/{encode_path_param(filename)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -382,9 +398,15 @@ class RawInvoiceClient:
         HttpResponse[GetInvoiceRecord]
             Success. Fields marked optional may return `null` if not set.
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Invoice/{encode_path_param(id_invoice)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -488,6 +510,9 @@ class RawInvoiceClient:
         HttpResponse[InvoiceResponseWithoutData]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Invoice/{encode_path_param(id_invoice)}",
             method="PUT",
@@ -506,6 +531,7 @@ class RawInvoiceClient:
                 ),
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -593,9 +619,15 @@ class RawInvoiceClient:
         HttpResponse[InvoiceResponseWithoutData]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Invoice/{encode_path_param(id_invoice)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -680,9 +712,15 @@ class RawInvoiceClient:
         HttpResponse[InvoiceNumberResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Invoice/getNumber/{encode_path_param(entry)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -852,6 +890,9 @@ class RawInvoiceClient:
         HttpResponse[QueryInvoiceResponse]
             Success. Fields marked optional may return `null` if not set.
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/invoices/{encode_path_param(entry)}",
             method="GET",
@@ -861,6 +902,9 @@ class RawInvoiceClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -1031,6 +1075,9 @@ class RawInvoiceClient:
         HttpResponse[QueryInvoiceResponse]
             Success. Fields marked optional may return `null` if not set.
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/invoices/org/{encode_path_param(org_id)}",
             method="GET",
@@ -1040,6 +1087,9 @@ class RawInvoiceClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -1136,12 +1186,18 @@ class RawInvoiceClient:
         HttpResponse[SendInvoiceResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Invoice/send/{encode_path_param(id_invoice)}",
             method="GET",
             params={
                 "attachfile": attachfile,
                 "mail2": mail_2,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -1227,9 +1283,15 @@ class RawInvoiceClient:
         HttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Export/invoicePdf/{encode_path_param(id_invoice)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -1342,6 +1404,9 @@ class AsyncRawInvoiceClient:
         AsyncHttpResponse[InvoiceResponseWithoutData]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Invoice/{encode_path_param(entry)}",
             method="POST",
@@ -1360,6 +1425,7 @@ class AsyncRawInvoiceClient:
                 ),
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -1461,11 +1527,17 @@ class AsyncRawInvoiceClient:
         AsyncHttpResponse[FileContent]
             A successful response returns a binary file when `returnObject` is `false`. When `returnObject` is `true`, the response contains the file content as a Base64-encoded string in an object. Due to technical limitations, only the object response is documented here.
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Invoice/attachedFileFromInvoice/{encode_path_param(id_invoice)}/{encode_path_param(filename)}",
             method="GET",
             params={
                 "returnObject": return_object,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -1556,9 +1628,15 @@ class AsyncRawInvoiceClient:
         AsyncHttpResponse[InvoiceResponseWithoutData]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Invoice/attachedFileFromInvoice/{encode_path_param(id_invoice)}/{encode_path_param(filename)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -1643,9 +1721,15 @@ class AsyncRawInvoiceClient:
         AsyncHttpResponse[GetInvoiceRecord]
             Success. Fields marked optional may return `null` if not set.
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Invoice/{encode_path_param(id_invoice)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -1749,6 +1833,9 @@ class AsyncRawInvoiceClient:
         AsyncHttpResponse[InvoiceResponseWithoutData]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Invoice/{encode_path_param(id_invoice)}",
             method="PUT",
@@ -1767,6 +1854,7 @@ class AsyncRawInvoiceClient:
                 ),
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -1854,9 +1942,15 @@ class AsyncRawInvoiceClient:
         AsyncHttpResponse[InvoiceResponseWithoutData]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Invoice/{encode_path_param(id_invoice)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -1941,9 +2035,15 @@ class AsyncRawInvoiceClient:
         AsyncHttpResponse[InvoiceNumberResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Invoice/getNumber/{encode_path_param(entry)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -2113,6 +2213,9 @@ class AsyncRawInvoiceClient:
         AsyncHttpResponse[QueryInvoiceResponse]
             Success. Fields marked optional may return `null` if not set.
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/invoices/{encode_path_param(entry)}",
             method="GET",
@@ -2122,6 +2225,9 @@ class AsyncRawInvoiceClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -2292,6 +2398,9 @@ class AsyncRawInvoiceClient:
         AsyncHttpResponse[QueryInvoiceResponse]
             Success. Fields marked optional may return `null` if not set.
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/invoices/org/{encode_path_param(org_id)}",
             method="GET",
@@ -2301,6 +2410,9 @@ class AsyncRawInvoiceClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -2397,12 +2509,18 @@ class AsyncRawInvoiceClient:
         AsyncHttpResponse[SendInvoiceResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Invoice/send/{encode_path_param(id_invoice)}",
             method="GET",
             params={
                 "attachfile": attachfile,
                 "mail2": mail_2,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -2488,9 +2606,15 @@ class AsyncRawInvoiceClient:
         AsyncHttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Export/invoicePdf/{encode_path_param(id_invoice)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:

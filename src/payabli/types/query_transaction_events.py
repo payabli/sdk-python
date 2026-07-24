@@ -19,6 +19,10 @@ class QueryTransactionEvents(UniversalBaseModel):
             description="Event descriptor. See [TransEvent Reference](/guides/pay-in-transevents-reference) for more details.",
         ),
     ] = None
+    """
+    Event descriptor. See [TransEvent Reference](/guides/pay-in-transevents-reference) for more details.
+    """
+
     event_data: typing_extensions.Annotated[
         typing.Optional[QueryTransactionEventsEventData],
         FieldMetadata(alias="EventData"),
@@ -27,11 +31,18 @@ class QueryTransactionEvents(UniversalBaseModel):
             description="Any data associated to the event received from processor. Contents vary by event type.",
         ),
     ] = None
+    """
+    Any data associated to the event received from processor. Contents vary by event type.
+    """
+
     event_time: typing_extensions.Annotated[
         typing.Optional[dt.datetime],
         FieldMetadata(alias="EventTime"),
         pydantic.Field(alias="EventTime", description="Date and time of event."),
     ] = None
+    """
+    Date and time of event.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

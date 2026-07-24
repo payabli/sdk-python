@@ -36,6 +36,10 @@ class PayMethodBodyAllFields(UniversalBaseModel):
             alias="achAccount", description="Bank account number. This field is **required** when method = 'ach'."
         ),
     ]
+    """
+    Bank account number. This field is **required** when method = 'ach'.
+    """
+
     ach_account_type: typing_extensions.Annotated[
         typing.Optional[Achaccounttype], FieldMetadata(alias="achAccountType"), pydantic.Field(alias="achAccountType")
     ] = None
@@ -53,6 +57,10 @@ class PayMethodBodyAllFields(UniversalBaseModel):
             description="ABA/routing number of Bank account. This field is **required** when method = 'ach'.",
         ),
     ]
+    """
+    ABA/routing number of Bank account. This field is **required** when method = 'ach'.
+    """
+
     cardcvv: typing.Optional[Cardcvv] = None
     cardexp: typing.Optional[Cardexp] = None
     card_holder: typing_extensions.Annotated[

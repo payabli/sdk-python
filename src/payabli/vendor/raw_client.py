@@ -200,6 +200,9 @@ class RawVendorClient:
         HttpResponse[PayabliApiResponseVendors]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Vendor/single/{encode_path_param(entry)}",
             method="POST",
@@ -244,6 +247,9 @@ class RawVendorClient:
                 "attachment": convert_and_respect_annotation_metadata(
                     object_=attachment, annotation=FileContent, direction="write"
                 ),
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -330,9 +336,15 @@ class RawVendorClient:
         HttpResponse[VendorQueryRecord]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Vendor/{encode_path_param(id_vendor)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -498,6 +510,9 @@ class RawVendorClient:
         HttpResponse[PayabliApiResponseVendors]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Vendor/{encode_path_param(id_vendor)}",
             method="PUT",
@@ -542,6 +557,9 @@ class RawVendorClient:
                 "attachment": convert_and_respect_annotation_metadata(
                     object_=attachment, annotation=FileContent, direction="write"
                 ),
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -628,9 +646,15 @@ class RawVendorClient:
         HttpResponse[PayabliApiResponseVendors]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Vendor/{encode_path_param(id_vendor)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -746,6 +770,9 @@ class RawVendorClient:
         HttpResponse[VendorEnrichResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Vendor/enrich/{encode_path_param(entry)}",
             method="POST",
@@ -761,6 +788,7 @@ class RawVendorClient:
                 "fallbackMethod": fallback_method,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -883,6 +911,9 @@ class RawVendorClient:
         HttpResponse[VendorScheduleCallResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Vendor/enrich/schedule_call/{encode_path_param(entry)}",
             method="POST",
@@ -897,6 +928,7 @@ class RawVendorClient:
                 "sendNow": send_now,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -995,9 +1027,15 @@ class RawVendorClient:
         HttpResponse[VendorCallStatusResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Vendor/{encode_path_param(id_vendor)}/enrichment/call-status",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -1201,6 +1239,9 @@ class AsyncRawVendorClient:
         AsyncHttpResponse[PayabliApiResponseVendors]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Vendor/single/{encode_path_param(entry)}",
             method="POST",
@@ -1245,6 +1286,9 @@ class AsyncRawVendorClient:
                 "attachment": convert_and_respect_annotation_metadata(
                     object_=attachment, annotation=FileContent, direction="write"
                 ),
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -1331,9 +1375,15 @@ class AsyncRawVendorClient:
         AsyncHttpResponse[VendorQueryRecord]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Vendor/{encode_path_param(id_vendor)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -1499,6 +1549,9 @@ class AsyncRawVendorClient:
         AsyncHttpResponse[PayabliApiResponseVendors]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Vendor/{encode_path_param(id_vendor)}",
             method="PUT",
@@ -1543,6 +1596,9 @@ class AsyncRawVendorClient:
                 "attachment": convert_and_respect_annotation_metadata(
                     object_=attachment, annotation=FileContent, direction="write"
                 ),
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -1629,9 +1685,15 @@ class AsyncRawVendorClient:
         AsyncHttpResponse[PayabliApiResponseVendors]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Vendor/{encode_path_param(id_vendor)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -1747,6 +1809,9 @@ class AsyncRawVendorClient:
         AsyncHttpResponse[VendorEnrichResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Vendor/enrich/{encode_path_param(entry)}",
             method="POST",
@@ -1762,6 +1827,7 @@ class AsyncRawVendorClient:
                 "fallbackMethod": fallback_method,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -1884,6 +1950,9 @@ class AsyncRawVendorClient:
         AsyncHttpResponse[VendorScheduleCallResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Vendor/enrich/schedule_call/{encode_path_param(entry)}",
             method="POST",
@@ -1898,6 +1967,7 @@ class AsyncRawVendorClient:
                 "sendNow": send_now,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -1996,9 +2066,15 @@ class AsyncRawVendorClient:
         AsyncHttpResponse[VendorCallStatusResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Vendor/{encode_path_param(id_vendor)}/enrichment/call-status",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:

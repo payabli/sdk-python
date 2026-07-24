@@ -68,6 +68,10 @@ class PaypointData(UniversalBaseModel):
     fax: typing_extensions.Annotated[
         typing.Optional[PhoneNumber], FieldMetadata(alias="Fax"), pydantic.Field(alias="Fax", description="Fax number")
     ] = None
+    """
+    Fax number
+    """
+
     id_paypoint: typing_extensions.Annotated[
         typing.Optional[Idpaypoint], FieldMetadata(alias="IdPaypoint"), pydantic.Field(alias="IdPaypoint")
     ] = None
@@ -107,6 +111,9 @@ class PaypointData(UniversalBaseModel):
             description="Configuration for billing statement email recipients and sender address. `null` if not configured.",
         ),
     ] = None
+    """
+    Configuration for billing statement email recipients and sender address. `null` if not configured.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

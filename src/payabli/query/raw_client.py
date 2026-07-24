@@ -166,6 +166,9 @@ class RawQueryClient:
         HttpResponse[QueryBatchesDetailResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/batchDetails/{encode_path_param(entry)}",
             method="GET",
@@ -175,6 +178,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -356,6 +362,9 @@ class RawQueryClient:
         HttpResponse[QueryBatchesDetailResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/batchDetails/org/{encode_path_param(org_id)}",
             method="GET",
@@ -365,6 +374,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -526,6 +538,9 @@ class RawQueryClient:
         HttpResponse[QueryBatchesResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/batches/{encode_path_param(entry)}",
             method="GET",
@@ -535,6 +550,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -696,6 +714,9 @@ class RawQueryClient:
         HttpResponse[QueryBatchesResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/batches/org/{encode_path_param(org_id)}",
             method="GET",
@@ -705,6 +726,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -827,6 +851,9 @@ class RawQueryClient:
         HttpResponse[QueryBatchesOutResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/batchesOut/{encode_path_param(entry)}",
             method="GET",
@@ -836,6 +863,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -973,6 +1003,9 @@ class RawQueryClient:
         HttpResponse[QueryBatchesOutResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/batchesOut/org/{encode_path_param(org_id)}",
             method="GET",
@@ -982,6 +1015,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -1160,6 +1196,9 @@ class RawQueryClient:
         HttpResponse[QueryChargebacksResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/chargebacks/{encode_path_param(entry)}",
             method="GET",
@@ -1169,6 +1208,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -1349,6 +1391,9 @@ class RawQueryClient:
         HttpResponse[QueryChargebacksResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/chargebacks/org/{encode_path_param(org_id)}",
             method="GET",
@@ -1358,6 +1403,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -1530,6 +1578,9 @@ class RawQueryClient:
         HttpResponse[QueryCustomerResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/customers/{encode_path_param(entry)}",
             method="GET",
@@ -1539,6 +1590,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -1711,6 +1765,9 @@ class RawQueryClient:
         HttpResponse[QueryCustomerResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/customers/org/{encode_path_param(org_id)}",
             method="GET",
@@ -1720,6 +1777,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -1919,6 +1979,9 @@ class RawQueryClient:
         HttpResponse[QueryDeviceResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/devices/{encode_path_param(entry)}",
             method="GET",
@@ -1928,6 +1991,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -2127,6 +2193,9 @@ class RawQueryClient:
         HttpResponse[QueryDeviceResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/devices/org/{encode_path_param(org_id)}",
             method="GET",
@@ -2136,6 +2205,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -2277,6 +2349,9 @@ class RawQueryClient:
         HttpResponse[QueryResponseNotificationReports]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/notificationReports/{encode_path_param(entry)}",
             method="GET",
@@ -2285,6 +2360,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -2424,6 +2502,9 @@ class RawQueryClient:
         HttpResponse[QueryResponseNotificationReports]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/notificationReports/org/{encode_path_param(org_id)}",
             method="GET",
@@ -2432,6 +2513,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -2575,6 +2659,9 @@ class RawQueryClient:
         HttpResponse[QueryResponseNotifications]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/notifications/{encode_path_param(entry)}",
             method="GET",
@@ -2583,6 +2670,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -2726,6 +2816,9 @@ class RawQueryClient:
         HttpResponse[QueryResponseNotifications]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/notifications/org/{encode_path_param(org_id)}",
             method="GET",
@@ -2734,6 +2827,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -2893,6 +2989,9 @@ class RawQueryClient:
         HttpResponse[ListOrganizationsResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/organizations/{encode_path_param(org_id)}",
             method="GET",
@@ -2902,6 +3001,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -3088,6 +3190,9 @@ class RawQueryClient:
         HttpResponse[QueryPayoutTransaction]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/payouts/{encode_path_param(entry)}",
             method="GET",
@@ -3097,6 +3202,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -3282,6 +3390,9 @@ class RawQueryClient:
         HttpResponse[QueryPayoutTransaction]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/payouts/org/{encode_path_param(org_id)}",
             method="GET",
@@ -3291,6 +3402,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -3455,6 +3569,9 @@ class RawQueryClient:
         HttpResponse[QueryEntrypointResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/paypoints/{encode_path_param(org_id)}",
             method="GET",
@@ -3464,6 +3581,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -3646,6 +3766,9 @@ class RawQueryClient:
         HttpResponse[QueryResponseSettlements]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/settlements/{encode_path_param(entry)}",
             method="GET",
@@ -3655,6 +3778,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -3837,6 +3963,9 @@ class RawQueryClient:
         HttpResponse[QueryResponseSettlements]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/settlements/org/{encode_path_param(org_id)}",
             method="GET",
@@ -3846,6 +3975,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -4030,6 +4162,9 @@ class RawQueryClient:
         HttpResponse[QuerySubscriptionResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/subscriptions/{encode_path_param(entry)}",
             method="GET",
@@ -4039,6 +4174,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -4223,6 +4361,9 @@ class RawQueryClient:
         HttpResponse[QuerySubscriptionResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/subscriptions/org/{encode_path_param(org_id)}",
             method="GET",
@@ -4232,6 +4373,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -4402,6 +4546,9 @@ class RawQueryClient:
         HttpResponse[QueryPayoutSubscriptionResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/payoutsubscriptions/{encode_path_param(entry)}",
             method="GET",
@@ -4411,6 +4558,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -4581,6 +4731,9 @@ class RawQueryClient:
         HttpResponse[QueryPayoutSubscriptionResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/payoutsubscriptions/org/{encode_path_param(org_id)}",
             method="GET",
@@ -4590,6 +4743,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -4791,6 +4947,9 @@ class RawQueryClient:
         HttpResponse[QueryResponseTransactions]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/transactions/{encode_path_param(entry)}",
             method="GET",
@@ -4800,6 +4959,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -5000,6 +5162,9 @@ class RawQueryClient:
         HttpResponse[QueryResponseTransactions]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/transactions/org/{encode_path_param(org_id)}",
             method="GET",
@@ -5009,6 +5174,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -5157,6 +5325,9 @@ class RawQueryClient:
         HttpResponse[QueryTransferDetailResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/transferDetails/{encode_path_param(entry)}/{encode_path_param(transfer_id)}",
             method="GET",
@@ -5166,6 +5337,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -5308,6 +5482,9 @@ class RawQueryClient:
         HttpResponse[TransferQueryResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/transfers/{encode_path_param(entry)}",
             method="GET",
@@ -5317,6 +5494,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -5456,6 +5636,9 @@ class RawQueryClient:
         HttpResponse[TransferQueryResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/transfers/org/{encode_path_param(org_id)}",
             method="GET",
@@ -5465,6 +5648,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -5598,6 +5784,9 @@ class RawQueryClient:
         HttpResponse[TransferOutQueryResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/transfersOut/org/{encode_path_param(org_id)}",
             method="GET",
@@ -5606,6 +5795,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -5739,6 +5931,9 @@ class RawQueryClient:
         HttpResponse[TransferOutQueryResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/transfersOut/{encode_path_param(entry)}",
             method="GET",
@@ -5747,6 +5942,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -5881,6 +6079,9 @@ class RawQueryClient:
         HttpResponse[TransferOutDetailQueryResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/transferDetailsOut/{encode_path_param(entry)}/{encode_path_param(transfer_id)}",
             method="GET",
@@ -5889,6 +6090,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -6034,6 +6238,9 @@ class RawQueryClient:
         HttpResponse[QueryUserResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/users/org/{encode_path_param(org_id)}",
             method="GET",
@@ -6042,6 +6249,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -6187,6 +6397,9 @@ class RawQueryClient:
         HttpResponse[QueryUserResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/users/point/{encode_path_param(entry)}",
             method="GET",
@@ -6195,6 +6408,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -6357,6 +6573,9 @@ class RawQueryClient:
         HttpResponse[QueryResponseVendors]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/vendors/{encode_path_param(entry)}",
             method="GET",
@@ -6366,6 +6585,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -6528,6 +6750,9 @@ class RawQueryClient:
         HttpResponse[QueryResponseVendors]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/vendors/org/{encode_path_param(org_id)}",
             method="GET",
@@ -6537,6 +6762,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -6693,6 +6921,9 @@ class RawQueryClient:
         HttpResponse[VCardQueryResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/vcards/{encode_path_param(entry)}",
             method="GET",
@@ -6702,6 +6933,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -6858,6 +7092,9 @@ class RawQueryClient:
         HttpResponse[VCardTransactionQueryResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/vcardsTransactions/{encode_path_param(entry)}",
             method="GET",
@@ -6866,6 +7103,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -7022,6 +7262,9 @@ class RawQueryClient:
         HttpResponse[VCardTransactionQueryResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/vcardsTransactions/org/{encode_path_param(org_id)}",
             method="GET",
@@ -7030,6 +7273,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -7186,6 +7432,9 @@ class RawQueryClient:
         HttpResponse[VCardQueryResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/vcards/org/{encode_path_param(org_id)}",
             method="GET",
@@ -7195,6 +7444,9 @@ class RawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -7339,6 +7591,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QueryBatchesDetailResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/batchDetails/{encode_path_param(entry)}",
             method="GET",
@@ -7348,6 +7603,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -7529,6 +7787,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QueryBatchesDetailResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/batchDetails/org/{encode_path_param(org_id)}",
             method="GET",
@@ -7538,6 +7799,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -7699,6 +7963,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QueryBatchesResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/batches/{encode_path_param(entry)}",
             method="GET",
@@ -7708,6 +7975,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -7869,6 +8139,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QueryBatchesResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/batches/org/{encode_path_param(org_id)}",
             method="GET",
@@ -7878,6 +8151,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -8000,6 +8276,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QueryBatchesOutResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/batchesOut/{encode_path_param(entry)}",
             method="GET",
@@ -8009,6 +8288,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -8146,6 +8428,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QueryBatchesOutResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/batchesOut/org/{encode_path_param(org_id)}",
             method="GET",
@@ -8155,6 +8440,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -8333,6 +8621,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QueryChargebacksResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/chargebacks/{encode_path_param(entry)}",
             method="GET",
@@ -8342,6 +8633,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -8522,6 +8816,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QueryChargebacksResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/chargebacks/org/{encode_path_param(org_id)}",
             method="GET",
@@ -8531,6 +8828,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -8703,6 +9003,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QueryCustomerResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/customers/{encode_path_param(entry)}",
             method="GET",
@@ -8712,6 +9015,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -8884,6 +9190,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QueryCustomerResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/customers/org/{encode_path_param(org_id)}",
             method="GET",
@@ -8893,6 +9202,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -9092,6 +9404,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QueryDeviceResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/devices/{encode_path_param(entry)}",
             method="GET",
@@ -9101,6 +9416,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -9300,6 +9618,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QueryDeviceResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/devices/org/{encode_path_param(org_id)}",
             method="GET",
@@ -9309,6 +9630,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -9450,6 +9774,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QueryResponseNotificationReports]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/notificationReports/{encode_path_param(entry)}",
             method="GET",
@@ -9458,6 +9785,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -9597,6 +9927,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QueryResponseNotificationReports]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/notificationReports/org/{encode_path_param(org_id)}",
             method="GET",
@@ -9605,6 +9938,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -9748,6 +10084,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QueryResponseNotifications]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/notifications/{encode_path_param(entry)}",
             method="GET",
@@ -9756,6 +10095,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -9899,6 +10241,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QueryResponseNotifications]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/notifications/org/{encode_path_param(org_id)}",
             method="GET",
@@ -9907,6 +10252,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -10066,6 +10414,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[ListOrganizationsResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/organizations/{encode_path_param(org_id)}",
             method="GET",
@@ -10075,6 +10426,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -10261,6 +10615,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QueryPayoutTransaction]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/payouts/{encode_path_param(entry)}",
             method="GET",
@@ -10270,6 +10627,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -10455,6 +10815,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QueryPayoutTransaction]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/payouts/org/{encode_path_param(org_id)}",
             method="GET",
@@ -10464,6 +10827,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -10628,6 +10994,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QueryEntrypointResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/paypoints/{encode_path_param(org_id)}",
             method="GET",
@@ -10637,6 +11006,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -10819,6 +11191,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QueryResponseSettlements]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/settlements/{encode_path_param(entry)}",
             method="GET",
@@ -10828,6 +11203,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -11010,6 +11388,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QueryResponseSettlements]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/settlements/org/{encode_path_param(org_id)}",
             method="GET",
@@ -11019,6 +11400,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -11203,6 +11587,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QuerySubscriptionResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/subscriptions/{encode_path_param(entry)}",
             method="GET",
@@ -11212,6 +11599,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -11396,6 +11786,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QuerySubscriptionResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/subscriptions/org/{encode_path_param(org_id)}",
             method="GET",
@@ -11405,6 +11798,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -11575,6 +11971,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QueryPayoutSubscriptionResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/payoutsubscriptions/{encode_path_param(entry)}",
             method="GET",
@@ -11584,6 +11983,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -11754,6 +12156,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QueryPayoutSubscriptionResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/payoutsubscriptions/org/{encode_path_param(org_id)}",
             method="GET",
@@ -11763,6 +12168,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -11964,6 +12372,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QueryResponseTransactions]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/transactions/{encode_path_param(entry)}",
             method="GET",
@@ -11973,6 +12384,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -12173,6 +12587,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QueryResponseTransactions]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/transactions/org/{encode_path_param(org_id)}",
             method="GET",
@@ -12182,6 +12599,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -12330,6 +12750,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QueryTransferDetailResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/transferDetails/{encode_path_param(entry)}/{encode_path_param(transfer_id)}",
             method="GET",
@@ -12339,6 +12762,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -12481,6 +12907,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[TransferQueryResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/transfers/{encode_path_param(entry)}",
             method="GET",
@@ -12490,6 +12919,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -12629,6 +13061,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[TransferQueryResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/transfers/org/{encode_path_param(org_id)}",
             method="GET",
@@ -12638,6 +13073,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -12771,6 +13209,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[TransferOutQueryResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/transfersOut/org/{encode_path_param(org_id)}",
             method="GET",
@@ -12779,6 +13220,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -12912,6 +13356,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[TransferOutQueryResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/transfersOut/{encode_path_param(entry)}",
             method="GET",
@@ -12920,6 +13367,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -13054,6 +13504,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[TransferOutDetailQueryResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/transferDetailsOut/{encode_path_param(entry)}/{encode_path_param(transfer_id)}",
             method="GET",
@@ -13062,6 +13515,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -13207,6 +13663,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QueryUserResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/users/org/{encode_path_param(org_id)}",
             method="GET",
@@ -13215,6 +13674,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -13360,6 +13822,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QueryUserResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/users/point/{encode_path_param(entry)}",
             method="GET",
@@ -13368,6 +13833,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -13530,6 +13998,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QueryResponseVendors]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/vendors/{encode_path_param(entry)}",
             method="GET",
@@ -13539,6 +14010,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -13701,6 +14175,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[QueryResponseVendors]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/vendors/org/{encode_path_param(org_id)}",
             method="GET",
@@ -13710,6 +14187,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -13866,6 +14346,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[VCardQueryResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/vcards/{encode_path_param(entry)}",
             method="GET",
@@ -13875,6 +14358,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -14031,6 +14517,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[VCardTransactionQueryResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/vcardsTransactions/{encode_path_param(entry)}",
             method="GET",
@@ -14039,6 +14528,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -14195,6 +14687,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[VCardTransactionQueryResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/vcardsTransactions/org/{encode_path_param(org_id)}",
             method="GET",
@@ -14203,6 +14698,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -14359,6 +14857,9 @@ class AsyncRawQueryClient:
         AsyncHttpResponse[VCardQueryResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/vcards/org/{encode_path_param(org_id)}",
             method="GET",
@@ -14368,6 +14869,9 @@ class AsyncRawQueryClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )

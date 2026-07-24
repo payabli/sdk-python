@@ -59,6 +59,9 @@ class RawCheckCaptureClient:
         HttpResponse[CheckCaptureResponse]
             Success response with check processing results.
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "CheckCapture/CheckProcessing",
             method="POST",
@@ -69,6 +72,7 @@ class RawCheckCaptureClient:
                 "checkAmount": check_amount,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -175,6 +179,9 @@ class AsyncRawCheckCaptureClient:
         AsyncHttpResponse[CheckCaptureResponse]
             Success response with check processing results.
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "CheckCapture/CheckProcessing",
             method="POST",
@@ -185,6 +192,7 @@ class AsyncRawCheckCaptureClient:
                 "checkAmount": check_amount,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,

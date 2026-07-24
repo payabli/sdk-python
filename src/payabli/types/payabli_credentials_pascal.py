@@ -23,6 +23,10 @@ class PayabliCredentialsPascal(UniversalBaseModel):
             description="The payment service that this credential applies to. A paypoint can support multiple services, each represented by its own credential object in the array. Possible values are `card` (credit/debit card), `ach` (ACH bank transfer), `check` (paper check), `vcard` (virtual card), `cloud` (card-present), `cash`, `managed` (managed payment service), and `wallet`.",
         ),
     ] = None
+    """
+    The payment service that this credential applies to. A paypoint can support multiple services, each represented by its own credential object in the array. Possible values are `card` (credit/debit card), `ach` (ACH bank transfer), `check` (paper check), `vcard` (virtual card), `cloud` (card-present), `cash`, `managed` (managed payment service), and `wallet`.
+    """
+
     mode: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="Mode"),
@@ -31,6 +35,10 @@ class PayabliCredentialsPascal(UniversalBaseModel):
             description="The payment mode supported by this service. `0` for one-time payments, `1` for recurring payments, `2` for both.",
         ),
     ] = None
+    """
+    The payment mode supported by this service. `0` for one-time payments, `1` for recurring payments, `2` for both.
+    """
+
     min_ticket: typing_extensions.Annotated[
         typing.Optional[MinTicket], FieldMetadata(alias="MinTicket"), pydantic.Field(alias="MinTicket")
     ] = None
@@ -57,6 +65,10 @@ class PayabliCredentialsPascal(UniversalBaseModel):
             description="The identifier for the payment connector, matching the `accountId` of the linked bank account.",
         ),
     ] = None
+    """
+    The identifier for the payment connector, matching the `accountId` of the linked bank account.
+    """
+
     reference_id: typing_extensions.Annotated[
         typing.Optional[int], FieldMetadata(alias="ReferenceId"), pydantic.Field(alias="ReferenceId")
     ] = None
@@ -68,6 +80,10 @@ class PayabliCredentialsPascal(UniversalBaseModel):
         FieldMetadata(alias="Currency"),
         pydantic.Field(alias="Currency", description="The default currency for the paypoint, either `USD` or `CAD`."),
     ] = None
+    """
+    The default currency for the paypoint, either `USD` or `CAD`.
+    """
+
     greater_value_allowed: typing_extensions.Annotated[
         typing.Optional[GreaterValueAllowed],
         FieldMetadata(alias="GreaterValueAllowed"),

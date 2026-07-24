@@ -34,11 +34,19 @@ class GetMethodResponseResponseDataCustomersItem(PayorDataRequest):
         FieldMetadata(alias="customerConsent"),
         pydantic.Field(alias="customerConsent", description="Customer consent information"),
     ] = None
+    """
+    Customer consent information
+    """
+
     customer_status: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="customerStatus"),
         pydantic.Field(alias="customerStatus", description="Status code for the customer"),
     ] = None
+    """
+    Status code for the customer
+    """
+
     customer_summary: typing_extensions.Annotated[
         typing.Optional[CustomerSummaryRecord],
         FieldMetadata(alias="customerSummary"),
@@ -49,6 +57,10 @@ class GetMethodResponseResponseDataCustomersItem(PayorDataRequest):
         FieldMetadata(alias="customerUsername"),
         pydantic.Field(alias="customerUsername", description="Username of the customer"),
     ] = None
+    """
+    Username of the customer
+    """
+
     external_paypoint_id: typing_extensions.Annotated[
         typing.Optional[ExternalPaypointId],
         FieldMetadata(alias="externalPaypointID"),
@@ -59,6 +71,10 @@ class GetMethodResponseResponseDataCustomersItem(PayorDataRequest):
         FieldMetadata(alias="lastUpdated"),
         pydantic.Field(alias="lastUpdated", description="Last update timestamp"),
     ] = None
+    """
+    Last update timestamp
+    """
+
     mfa: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Multi-factor authentication status
@@ -69,12 +85,20 @@ class GetMethodResponseResponseDataCustomersItem(PayorDataRequest):
         FieldMetadata(alias="mfaMode"),
         pydantic.Field(alias="mfaMode", description="MFA mode setting"),
     ] = None
+    """
+    MFA mode setting
+    """
+
     pageindentifier: typing.Optional[PageIdentifier] = None
     parent_org_id: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="parentOrgId"),
         pydantic.Field(alias="parentOrgId", description="Parent organization ID"),
     ] = None
+    """
+    Parent organization ID
+    """
+
     parent_org_name: typing_extensions.Annotated[
         typing.Optional[OrgParentName], FieldMetadata(alias="parentOrgName"), pydantic.Field(alias="parentOrgName")
     ] = None
@@ -86,6 +110,10 @@ class GetMethodResponseResponseDataCustomersItem(PayorDataRequest):
         FieldMetadata(alias="paypointEntryname"),
         pydantic.Field(alias="paypointEntryname", description="The paypoint entryname the customer is associated with"),
     ] = None
+    """
+    The paypoint entryname the customer is associated with
+    """
+
     paypoint_legalname: typing_extensions.Annotated[
         typing.Optional[Legalname], FieldMetadata(alias="paypointLegalname"), pydantic.Field(alias="paypointLegalname")
     ] = None
@@ -94,21 +122,37 @@ class GetMethodResponseResponseDataCustomersItem(PayorDataRequest):
         FieldMetadata(alias="snData"),
         pydantic.Field(alias="snData", description="Social network data"),
     ] = None
+    """
+    Social network data
+    """
+
     sn_identifier: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="snIdentifier"),
         pydantic.Field(alias="snIdentifier", description="Social network identifier"),
     ] = None
+    """
+    Social network identifier
+    """
+
     sn_provider: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="snProvider"),
         pydantic.Field(alias="snProvider", description="Social network provider"),
     ] = None
+    """
+    Social network provider
+    """
+
     stored_methods: typing_extensions.Annotated[
         typing.Optional[typing.List[MethodQueryRecords]],
         FieldMetadata(alias="storedMethods"),
         pydantic.Field(alias="storedMethods", description="List of payment methods associated to the customer"),
     ] = None
+    """
+    List of payment methods associated to the customer
+    """
+
     subscriptions: typing.Optional[typing.List[SubscriptionQueryRecords]] = pydantic.Field(default=None)
     """
     List of subscriptions associated to the customer
@@ -119,6 +163,9 @@ class GetMethodResponseResponseDataCustomersItem(PayorDataRequest):
         FieldMetadata(alias="timeZone"),
         pydantic.Field(alias="timeZone", description="Customer's timezone"),
     ] = None
+    """
+    Customer's timezone
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

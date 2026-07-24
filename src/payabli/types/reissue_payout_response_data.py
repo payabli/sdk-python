@@ -14,6 +14,10 @@ class ReissuePayoutResponseData(UniversalBaseModel):
         FieldMetadata(alias="transactionId"),
         pydantic.Field(alias="transactionId", description="The transaction ID of the newly created payout."),
     ]
+    """
+    The transaction ID of the newly created payout.
+    """
+
     status: str = pydantic.Field()
     """
     The status of the new transaction.
@@ -26,6 +30,9 @@ class ReissuePayoutResponseData(UniversalBaseModel):
             alias="originalTransactionId", description="The transaction ID of the original payout that was reissued."
         ),
     ] = None
+    """
+    The transaction ID of the original payout that was reissued.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

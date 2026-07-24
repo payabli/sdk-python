@@ -31,6 +31,10 @@ class PayoutSubscriptionQueryRecord(UniversalBaseModel):
         FieldMetadata(alias="idOutSubscription"),
         pydantic.Field(alias="idOutSubscription", description="The payout subscription's ID."),
     ] = None
+    """
+    The payout subscription's ID.
+    """
+
     status: typing.Optional[int] = pydantic.Field(default=None)
     """
     The payout subscription's status.
@@ -49,6 +53,10 @@ class PayoutSubscriptionQueryRecord(UniversalBaseModel):
         FieldMetadata(alias="billData"),
         pydantic.Field(alias="billData", description="Bills associated with the payout subscription."),
     ] = None
+    """
+    Bills associated with the payout subscription.
+    """
+
     external_paypoint_id: typing_extensions.Annotated[
         typing.Optional[ExternalPaypointId],
         FieldMetadata(alias="externalPaypointID"),
@@ -67,16 +75,28 @@ class PayoutSubscriptionQueryRecord(UniversalBaseModel):
         FieldMetadata(alias="totalAmount"),
         pydantic.Field(alias="totalAmount", description="The payout subscription amount, including any fees."),
     ] = None
+    """
+    The payout subscription amount, including any fees.
+    """
+
     net_amount: typing_extensions.Annotated[
         typing.Optional[Netamountnullable],
         FieldMetadata(alias="netAmount"),
         pydantic.Field(alias="netAmount", description="The payout subscription amount, minus any fees."),
     ] = None
+    """
+    The payout subscription amount, minus any fees.
+    """
+
     fee_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="feeAmount"),
         pydantic.Field(alias="feeAmount", description="Fee applied to the payout subscription."),
     ] = None
+    """
+    Fee applied to the payout subscription.
+    """
+
     payment_data: typing_extensions.Annotated[
         typing.Optional[QueryPaymentData], FieldMetadata(alias="paymentData"), pydantic.Field(alias="paymentData")
     ] = None
@@ -85,16 +105,28 @@ class PayoutSubscriptionQueryRecord(UniversalBaseModel):
         FieldMetadata(alias="startDate"),
         pydantic.Field(alias="startDate", description="The payout subscription start date."),
     ] = None
+    """
+    The payout subscription start date.
+    """
+
     end_date: typing_extensions.Annotated[
         typing.Optional[dt.datetime],
         FieldMetadata(alias="endDate"),
         pydantic.Field(alias="endDate", description="The payout subscription's end date."),
     ] = None
+    """
+    The payout subscription's end date.
+    """
+
     next_date: typing_extensions.Annotated[
         typing.Optional[dt.datetime],
         FieldMetadata(alias="nextDate"),
         pydantic.Field(alias="nextDate", description="The next date the payout subscription will be processed."),
     ] = None
+    """
+    The next date the payout subscription will be processed.
+    """
+
     frequency: typing.Optional[str] = pydantic.Field(default=None)
     """
     The payout subscription's frequency.
@@ -107,16 +139,28 @@ class PayoutSubscriptionQueryRecord(UniversalBaseModel):
             alias="totalCycles", description="The total number of cycles the payout subscription is set to run."
         ),
     ] = None
+    """
+    The total number of cycles the payout subscription is set to run.
+    """
+
     left_cycles: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="leftCycles"),
         pydantic.Field(alias="leftCycles", description="The number of cycles the payout subscription has left."),
     ] = None
+    """
+    The number of cycles the payout subscription has left.
+    """
+
     last_run: typing_extensions.Annotated[
         typing.Optional[dt.datetime],
         FieldMetadata(alias="lastRun"),
         pydantic.Field(alias="lastRun", description="The last time the payout subscription was processed."),
     ] = None
+    """
+    The last time the payout subscription was processed.
+    """
+
     entrypage_id: typing_extensions.Annotated[
         typing.Optional[EntrypageId], FieldMetadata(alias="entrypageId"), pydantic.Field(alias="entrypageId")
     ] = None
@@ -128,31 +172,55 @@ class PayoutSubscriptionQueryRecord(UniversalBaseModel):
             description="When `true`, the payout subscription has no explicit end date and runs until canceled.",
         ),
     ] = None
+    """
+    When `true`, the payout subscription has no explicit end date and runs until canceled.
+    """
+
     last_updated: typing_extensions.Annotated[
         typing.Optional[LastModified],
         FieldMetadata(alias="lastUpdated"),
         pydantic.Field(alias="lastUpdated", description="The last date and time the payout subscription was updated."),
     ] = None
+    """
+    The last date and time the payout subscription was updated.
+    """
+
     created_at: typing_extensions.Annotated[
         typing.Optional[CreatedAt],
         FieldMetadata(alias="createdAt"),
         pydantic.Field(alias="createdAt", description="Timestamp of when the payout subscription was created, in UTC."),
     ] = None
+    """
+    Timestamp of when the payout subscription was created, in UTC.
+    """
+
     paypoint_legalname: typing_extensions.Annotated[
         typing.Optional[Legalname],
         FieldMetadata(alias="paypointLegalname"),
         pydantic.Field(alias="paypointLegalname", description="The paypoint's legal name."),
     ] = None
+    """
+    The paypoint's legal name.
+    """
+
     paypoint_dbaname: typing_extensions.Annotated[
         typing.Optional[Dbaname],
         FieldMetadata(alias="paypointDbaname"),
         pydantic.Field(alias="paypointDbaname", description="The paypoint's DBA name."),
     ] = None
+    """
+    The paypoint's DBA name.
+    """
+
     paypoint_entryname: typing_extensions.Annotated[
         typing.Optional[Entrypointfield],
         FieldMetadata(alias="paypointEntryname"),
         pydantic.Field(alias="paypointEntryname", description="The paypoint's entryname."),
     ] = None
+    """
+    The paypoint's entryname.
+    """
+
     parent_org_name: typing_extensions.Annotated[
         typing.Optional[OrgParentName], FieldMetadata(alias="parentOrgName"), pydantic.Field(alias="parentOrgName")
     ] = None

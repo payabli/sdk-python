@@ -70,7 +70,8 @@ class OcrClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.ocr.ocr_document_form(
             type_result="typeResult",
@@ -123,7 +124,8 @@ class OcrClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.ocr.ocr_document_json(
             type_result="typeResult",
@@ -194,7 +196,8 @@ class AsyncOcrClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -255,7 +258,8 @@ class AsyncOcrClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 

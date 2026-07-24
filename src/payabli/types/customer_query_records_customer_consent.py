@@ -18,6 +18,10 @@ class CustomerQueryRecordsCustomerConsent(UniversalBaseModel):
             alias="eCommunication", description="Describes the customer's email communications consent status."
         ),
     ] = None
+    """
+    Describes the customer's email communications consent status.
+    """
+
     sms: typing.Optional[CustomerQueryRecordsCustomerConsentSms] = pydantic.Field(default=None)
     """
     Describes the customer's SMS communications consent status.

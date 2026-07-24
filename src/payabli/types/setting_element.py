@@ -27,6 +27,10 @@ class SettingElement(UniversalBaseModel):
             description="When `true`, Payabli automatically sends the receipt to the payor email address.",
         ),
     ] = None
+    """
+    When `true`, Payabli automatically sends the receipt to the payor email address.
+    """
+
     send_manual: typing_extensions.Annotated[
         typing.Optional[bool],
         FieldMetadata(alias="sendManual"),
@@ -35,6 +39,9 @@ class SettingElement(UniversalBaseModel):
             description="When `true`, you must send the reciept to the payor manually using the [/MoneyIn/sendreceipt/\\{transId\\}](/developers/api-reference/moneyin/send-receipt-for-transaction) endpoint.",
         ),
     ] = None
+    """
+    When `true`, you must send the reciept to the payor manually using the [/MoneyIn/sendreceipt/\\{transId\\}](/developers/api-reference/moneyin/send-receipt-for-transaction) endpoint.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

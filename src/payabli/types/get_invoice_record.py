@@ -115,11 +115,19 @@ class GetInvoiceRecord(UniversalBaseModel):
         FieldMetadata(alias="firstName"),
         pydantic.Field(alias="firstName", description="First name of the recipient of the invoice."),
     ] = None
+    """
+    First name of the recipient of the invoice.
+    """
+
     last_name: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="lastName"),
         pydantic.Field(alias="lastName", description="Last name of the recipient of the invoice."),
     ] = None
+    """
+    Last name of the recipient of the invoice.
+    """
+
     company: typing.Optional[str] = pydantic.Field(default=None)
     """
     Company name of the recipient of the invoice.

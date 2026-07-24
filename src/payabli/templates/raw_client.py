@@ -45,9 +45,15 @@ class RawTemplatesClient:
         HttpResponse[PayabliApiResponseTemplateId]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Templates/{encode_path_param(template_id)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -135,9 +141,15 @@ class RawTemplatesClient:
         HttpResponse[BoardingLinkApiResponse]
             Success.
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Templates/getlink/{encode_path_param(template_id)}/{encode_path_param(ignore_empty)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -222,9 +234,15 @@ class RawTemplatesClient:
         HttpResponse[TemplateQueryRecord]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Templates/get/{encode_path_param(template_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -370,6 +388,9 @@ class RawTemplatesClient:
         HttpResponse[TemplateQueryResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/templates/{encode_path_param(org_id)}",
             method="GET",
@@ -378,6 +399,9 @@ class RawTemplatesClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -468,9 +492,15 @@ class AsyncRawTemplatesClient:
         AsyncHttpResponse[PayabliApiResponseTemplateId]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Templates/{encode_path_param(template_id)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -558,9 +588,15 @@ class AsyncRawTemplatesClient:
         AsyncHttpResponse[BoardingLinkApiResponse]
             Success.
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Templates/getlink/{encode_path_param(template_id)}/{encode_path_param(ignore_empty)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -645,9 +681,15 @@ class AsyncRawTemplatesClient:
         AsyncHttpResponse[TemplateQueryRecord]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Templates/get/{encode_path_param(template_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -793,6 +835,9 @@ class AsyncRawTemplatesClient:
         AsyncHttpResponse[TemplateQueryResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/templates/{encode_path_param(org_id)}",
             method="GET",
@@ -801,6 +846,9 @@ class AsyncRawTemplatesClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )

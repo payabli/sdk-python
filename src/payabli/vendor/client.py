@@ -203,7 +203,8 @@ class VendorClient:
         from payabli import BillingData, Contacts, payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.vendor.add_vendor(
             entry="8cfec329267",
@@ -317,7 +318,8 @@ class VendorClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.vendor.get_vendor(
             id_vendor=1,
@@ -475,7 +477,8 @@ class VendorClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.vendor.edit_vendor(
             id_vendor=1,
@@ -546,7 +549,8 @@ class VendorClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.vendor.delete_vendor(
             id_vendor=1,
@@ -610,7 +614,8 @@ class VendorClient:
         from payabli import FileContent, payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.vendor.enrich_vendor(
             entry="8cfec329267",
@@ -697,7 +702,8 @@ class VendorClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.vendor.schedule_enrichment_call(
             entry="8cfec329267",
@@ -748,7 +754,8 @@ class VendorClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.vendor.get_enrichment_call_status(
             id_vendor=456,
@@ -924,7 +931,8 @@ class AsyncVendorClient:
         from payabli import Asyncpayabli, BillingData, Contacts
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -1046,7 +1054,8 @@ class AsyncVendorClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -1212,7 +1221,8 @@ class AsyncVendorClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -1291,7 +1301,8 @@ class AsyncVendorClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -1363,7 +1374,8 @@ class AsyncVendorClient:
         from payabli import Asyncpayabli, FileContent
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -1458,7 +1470,8 @@ class AsyncVendorClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -1517,7 +1530,8 @@ class AsyncVendorClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 

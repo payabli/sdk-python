@@ -31,6 +31,10 @@ class PayabliApiResponse6(UniversalBaseModel):
             description="If `isSuccess` = true, this contains the line item identifier. If `isSuccess` = false, this contains the reason for the error.",
         ),
     ] = None
+    """
+    If `isSuccess` = true, this contains the line item identifier. If `isSuccess` = false, this contains the reason for the error.
+    """
+
     response_text: typing_extensions.Annotated[
         ResponseText, FieldMetadata(alias="responseText"), pydantic.Field(alias="responseText")
     ]

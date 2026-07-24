@@ -29,6 +29,10 @@ class AutoElement(UniversalBaseModel):
         FieldMetadata(alias="frequencySelected"),
         pydantic.Field(alias="frequencySelected", description="Value of pre-selected frequency"),
     ] = None
+    """
+    Value of pre-selected frequency
+    """
+
     header: typing.Optional[str] = pydantic.Field(default=None)
     """
     Header text for section
@@ -42,6 +46,9 @@ class AutoElement(UniversalBaseModel):
             alias="startDate", description="Range of days enabled in calendar. Leave empty to enable all days."
         ),
     ] = None
+    """
+    Range of days enabled in calendar. Leave empty to enable all days.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -41,11 +41,19 @@ class BillQueryRecord2(UniversalBaseModel):
         FieldMetadata(alias="AdditionalData"),
         pydantic.Field(alias="AdditionalData", description="Additional data associated with the bill."),
     ] = None
+    """
+    Additional data associated with the bill.
+    """
+
     batch_number: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="BatchNumber"),
         pydantic.Field(alias="BatchNumber", description="Batch number associated with the bill."),
     ] = None
+    """
+    Batch number associated with the bill.
+    """
+
     bill_approvals: typing_extensions.Annotated[
         typing.Optional[typing.List[BillQueryRecord2BillApprovalsItem]],
         FieldMetadata(alias="billApprovals"),
@@ -58,41 +66,73 @@ class BillQueryRecord2(UniversalBaseModel):
             alias="BillDate", description="Bill creation date in one of the accepted formats: YYYY-MM-DD, MM/DD/YYYY."
         ),
     ] = None
+    """
+    Bill creation date in one of the accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+    """
+
     bill_events: typing_extensions.Annotated[
         typing.Optional[typing.List[GeneralEvents]],
         FieldMetadata(alias="billEvents"),
         pydantic.Field(alias="billEvents", description="Events associated with the bill."),
     ] = None
+    """
+    Events associated with the bill.
+    """
+
     bill_items: typing_extensions.Annotated[
         typing.Optional[typing.List[BillItem]],
         FieldMetadata(alias="BillItems"),
         pydantic.Field(alias="BillItems", description="Array of items included in the bill."),
     ] = None
+    """
+    Array of items included in the bill.
+    """
+
     bill_number: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="BillNumber"),
         pydantic.Field(alias="BillNumber", description="Bill number."),
     ] = None
+    """
+    Bill number.
+    """
+
     comments: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="Comments"),
         pydantic.Field(alias="Comments", description="Additional comments on the bill."),
     ] = None
+    """
+    Additional comments on the bill.
+    """
+
     created_at: typing_extensions.Annotated[
         typing.Optional[CreatedAt],
         FieldMetadata(alias="CreatedAt"),
         pydantic.Field(alias="CreatedAt", description="Timestamp of when bill was created, in UTC."),
     ] = None
+    """
+    Timestamp of when bill was created, in UTC.
+    """
+
     discount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="Discount"),
         pydantic.Field(alias="Discount", description="Discount amount applied to the bill."),
     ] = None
+    """
+    Discount amount applied to the bill.
+    """
+
     documents_ref: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="DocumentsRef"),
         pydantic.Field(alias="DocumentsRef", description="Reference to documents associated with the bill."),
     ] = None
+    """
+    Reference to documents associated with the bill.
+    """
+
     due_date: typing_extensions.Annotated[
         typing.Optional[dt.date],
         FieldMetadata(alias="DueDate"),
@@ -100,16 +140,28 @@ class BillQueryRecord2(UniversalBaseModel):
             alias="DueDate", description="Bill due date in one of the accepted formats: YYYY-MM-DD, MM/DD/YYYY."
         ),
     ] = None
+    """
+    Bill due date in one of the accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+    """
+
     end_date: typing_extensions.Annotated[
         typing.Optional[dt.date],
         FieldMetadata(alias="EndDate"),
         pydantic.Field(alias="EndDate", description="End date for the bill."),
     ] = None
+    """
+    End date for the bill.
+    """
+
     entity_id: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="EntityID"),
         pydantic.Field(alias="EntityID", description="Entity identifier associated with the bill."),
     ] = None
+    """
+    Entity identifier associated with the bill.
+    """
+
     external_paypoint_id: typing_extensions.Annotated[
         typing.Optional[ExternalPaypointId],
         FieldMetadata(alias="externalPaypointID"),
@@ -120,21 +172,37 @@ class BillQueryRecord2(UniversalBaseModel):
         FieldMetadata(alias="Frequency"),
         pydantic.Field(alias="Frequency", description="Frequency for scheduled bills. Applied only in `Mode` = 1."),
     ] = None
+    """
+    Frequency for scheduled bills. Applied only in `Mode` = 1.
+    """
+
     id_bill: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="IdBill"),
         pydantic.Field(alias="IdBill", description="Identifier of the bill."),
     ] = None
+    """
+    Identifier of the bill.
+    """
+
     last_updated: typing_extensions.Annotated[
         typing.Optional[dt.datetime],
         FieldMetadata(alias="LastUpdated"),
         pydantic.Field(alias="LastUpdated", description="Timestamp of when bill was last updated, in UTC."),
     ] = None
+    """
+    Timestamp of when bill was last updated, in UTC.
+    """
+
     lot_number: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="LotNumber"),
         pydantic.Field(alias="LotNumber", description="Lot number associated with the bill."),
     ] = None
+    """
+    Lot number associated with the bill.
+    """
+
     mode: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="Mode"),
@@ -142,16 +210,28 @@ class BillQueryRecord2(UniversalBaseModel):
             alias="Mode", description="Bill mode: value `0` for single/one-time bills, `1` for scheduled bills."
         ),
     ] = None
+    """
+    Bill mode: value `0` for single/one-time bills, `1` for scheduled bills.
+    """
+
     net_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="NetAmount"),
         pydantic.Field(alias="NetAmount", description="Net amount of the bill."),
     ] = None
+    """
+    Net amount of the bill.
+    """
+
     parent_org_id: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="ParentOrgId"),
         pydantic.Field(alias="ParentOrgId", description="Parent organization identifier."),
     ] = None
+    """
+    Parent organization identifier.
+    """
+
     parent_org_name: typing_extensions.Annotated[
         typing.Optional[OrgParentName], FieldMetadata(alias="ParentOrgName"), pydantic.Field(alias="ParentOrgName")
     ] = None
@@ -163,31 +243,55 @@ class BillQueryRecord2(UniversalBaseModel):
         FieldMetadata(alias="PaymentMethod"),
         pydantic.Field(alias="PaymentMethod", description="Preferred payment method used."),
     ] = None
+    """
+    Preferred payment method used.
+    """
+
     paylink_id: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="paylinkId"),
         pydantic.Field(alias="paylinkId", description="Paylink identifier associated with the bill."),
     ] = None
+    """
+    Paylink identifier associated with the bill.
+    """
+
     paypoint_dbaname: typing_extensions.Annotated[
         typing.Optional[Dbaname],
         FieldMetadata(alias="PaypointDbaname"),
         pydantic.Field(alias="PaypointDbaname", description="The paypoint's DBA name."),
     ] = None
+    """
+    The paypoint's DBA name.
+    """
+
     paypoint_entryname: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="PaypointEntryname"),
         pydantic.Field(alias="PaypointEntryname", description="Entry name of the paypoint."),
     ] = None
+    """
+    Entry name of the paypoint.
+    """
+
     paypoint_legalname: typing_extensions.Annotated[
         typing.Optional[Legalname],
         FieldMetadata(alias="PaypointLegalname"),
         pydantic.Field(alias="PaypointLegalname", description="The paypoint's legal name."),
     ] = None
+    """
+    The paypoint's legal name.
+    """
+
     source: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="Source"),
         pydantic.Field(alias="Source", description="Source of the bill."),
     ] = None
+    """
+    Source of the bill.
+    """
+
     status: typing_extensions.Annotated[
         typing.Optional[Billstatus], FieldMetadata(alias="Status"), pydantic.Field(alias="Status")
     ] = None
@@ -199,16 +303,28 @@ class BillQueryRecord2(UniversalBaseModel):
             description="The payment terms for invoice. If no terms were defined initially, then response data for this field will default to `N30`.",
         ),
     ] = None
+    """
+    The payment terms for invoice. If no terms were defined initially, then response data for this field will default to `N30`.
+    """
+
     total_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="TotalAmount"),
         pydantic.Field(alias="TotalAmount", description="Total amount of the bill including taxes and fees."),
     ] = None
+    """
+    Total amount of the bill including taxes and fees.
+    """
+
     transaction: typing_extensions.Annotated[
         typing.Optional[TransactionOutQueryRecord],
         FieldMetadata(alias="Transaction"),
         pydantic.Field(alias="Transaction", description="MoneyOut transaction associated to the bill."),
     ] = None
+    """
+    MoneyOut transaction associated to the bill.
+    """
+
     vendor: typing_extensions.Annotated[
         typing.Optional[VendorOutData], FieldMetadata(alias="Vendor"), pydantic.Field(alias="Vendor")
     ] = None

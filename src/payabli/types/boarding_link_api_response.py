@@ -20,6 +20,11 @@ class BoardingLinkApiResponse(UniversalBaseModel):
             description="Reference name for boarding link (if responseText = Success) or\nList of empty fields separated by comma (if responseText = Fail)",
         ),
     ] = None
+    """
+    Reference name for boarding link (if responseText = Success) or
+    List of empty fields separated by comma (if responseText = Fail)
+    """
+
     response_text: typing_extensions.Annotated[
         ResponseText, FieldMetadata(alias="responseText"), pydantic.Field(alias="responseText")
     ]

@@ -18,11 +18,18 @@ class GoogleWalletData(UniversalBaseModel):
         FieldMetadata(alias="gatewayMerchantId"),
         pydantic.Field(alias="gatewayMerchantId", description="The Google Pay merchant identifier."),
     ] = None
+    """
+    The Google Pay merchant identifier.
+    """
+
     gateway_id: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="gatewayId"),
         pydantic.Field(alias="gatewayId", description="The Google Pay gateway identifier."),
     ] = None
+    """
+    The Google Pay gateway identifier.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

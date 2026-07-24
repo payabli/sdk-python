@@ -62,6 +62,10 @@ class BillOutData(UniversalBaseModel):
         FieldMetadata(alias="billDate"),
         pydantic.Field(alias="billDate", description="Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY."),
     ] = None
+    """
+    Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+    """
+
     bill_items: typing_extensions.Annotated[
         typing.Optional[Billitems], FieldMetadata(alias="billItems"), pydantic.Field(alias="billItems")
     ] = None
@@ -70,6 +74,10 @@ class BillOutData(UniversalBaseModel):
         FieldMetadata(alias="billNumber"),
         pydantic.Field(alias="billNumber", description="Unique identifier for the bill. Required when adding a bill."),
     ] = None
+    """
+    Unique identifier for the bill. Required when adding a bill.
+    """
+
     comments: typing.Optional[Comments] = None
     discount: typing.Optional[float] = pydantic.Field(default=None)
     """
@@ -81,6 +89,10 @@ class BillOutData(UniversalBaseModel):
         FieldMetadata(alias="dueDate"),
         pydantic.Field(alias="dueDate", description="Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY."),
     ] = None
+    """
+    Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+    """
+
     end_date: typing_extensions.Annotated[
         typing.Optional[dt.date],
         FieldMetadata(alias="endDate"),
@@ -89,12 +101,21 @@ class BillOutData(UniversalBaseModel):
             description="End date for scheduled bills. Applied only in `Mode` = 1. Accepted\nformats: YYYY-MM-DD, MM/DD/YYYY.",
         ),
     ] = None
+    """
+    End date for scheduled bills. Applied only in `Mode` = 1. Accepted
+    formats: YYYY-MM-DD, MM/DD/YYYY.
+    """
+
     frequency: typing.Optional[Frequency] = None
     lot_number: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="lotNumber"),
         pydantic.Field(alias="lotNumber", description="Lot number associated with the bill."),
     ] = None
+    """
+    Lot number associated with the bill.
+    """
+
     mode: typing.Optional[int] = pydantic.Field(default=None)
     """
     Bill mode: value `0` for one-time bills, `1` for scheduled bills.
@@ -105,6 +126,10 @@ class BillOutData(UniversalBaseModel):
         FieldMetadata(alias="netAmount"),
         pydantic.Field(alias="netAmount", description="Net amount owed in bill. Required when adding a bill."),
     ] = None
+    """
+    Net amount owed in bill. Required when adding a bill.
+    """
+
     scheduled_options: typing_extensions.Annotated[
         typing.Optional[BillOutDataScheduledOptions],
         FieldMetadata(alias="scheduledOptions"),
@@ -117,6 +142,10 @@ class BillOutData(UniversalBaseModel):
         FieldMetadata(alias="totalAmount"),
         pydantic.Field(alias="totalAmount", description="Total amount of the bill."),
     ] = None
+    """
+    Total amount of the bill.
+    """
+
     vendor: typing.Optional[BillOutDataVendor] = pydantic.Field(default=None)
     """
     The vendor associated with the bill. Although you can create a vendor

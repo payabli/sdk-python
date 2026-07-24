@@ -30,16 +30,28 @@ class ChargebackQueryRecords(UniversalBaseModel):
     id: typing_extensions.Annotated[
         int, FieldMetadata(alias="Id"), pydantic.Field(alias="Id", description="Identifier of chargeback or return.")
     ]
+    """
+    Identifier of chargeback or return.
+    """
+
     chargeback_date: typing_extensions.Annotated[
         dt.datetime,
         FieldMetadata(alias="ChargebackDate"),
         pydantic.Field(alias="ChargebackDate", description="Date of chargeback in format YYYY-MM-DD or MM/DD/YYYY."),
     ]
+    """
+    Date of chargeback in format YYYY-MM-DD or MM/DD/YYYY.
+    """
+
     case_number: typing_extensions.Annotated[
         str,
         FieldMetadata(alias="CaseNumber"),
         pydantic.Field(alias="CaseNumber", description="Number of case assigned to the chargeback."),
     ]
+    """
+    Number of case assigned to the chargeback.
+    """
+
     reason_code: typing_extensions.Annotated[
         str,
         FieldMetadata(alias="ReasonCode"),
@@ -47,16 +59,28 @@ class ChargebackQueryRecords(UniversalBaseModel):
             alias="ReasonCode", description="R code for returned ACH or custom code identifying the reason."
         ),
     ]
+    """
+    R code for returned ACH or custom code identifying the reason.
+    """
+
     reason: typing_extensions.Annotated[
         str,
         FieldMetadata(alias="Reason"),
         pydantic.Field(alias="Reason", description="Text describing the chargeback or ACH return reason."),
     ]
+    """
+    Text describing the chargeback or ACH return reason.
+    """
+
     reference_number: typing_extensions.Annotated[
         str,
         FieldMetadata(alias="ReferenceNumber"),
         pydantic.Field(alias="ReferenceNumber", description="Processor reference number to the chargeback."),
     ]
+    """
+    Processor reference number to the chargeback.
+    """
+
     last_four: typing_extensions.Annotated[
         str,
         FieldMetadata(alias="LastFour"),
@@ -64,6 +88,10 @@ class ChargebackQueryRecords(UniversalBaseModel):
             alias="LastFour", description="Last 4 digits of card or bank account involved in chargeback or return."
         ),
     ]
+    """
+    Last 4 digits of card or bank account involved in chargeback or return.
+    """
+
     account_type: typing_extensions.Annotated[
         Accounttype, FieldMetadata(alias="AccountType"), pydantic.Field(alias="AccountType")
     ]
@@ -75,22 +103,45 @@ class ChargebackQueryRecords(UniversalBaseModel):
             description="Status for chargeback or ACH return\n\n- 0: Open (chargebacks only)\n- 1: Pending (chargebacks only)\n- 2: Closed-Won (chargebacks only)\n- 3: Closed-Lost (chargebacks only)\n- 4: ACH Return (ACH only)\n- 5: ACH Dispute, Not Authorized (ACH only)",
         ),
     ]
+    """
+    Status for chargeback or ACH return
+    
+    - 0: Open (chargebacks only)
+    - 1: Pending (chargebacks only)
+    - 2: Closed-Won (chargebacks only)
+    - 3: Closed-Lost (chargebacks only)
+    - 4: ACH Return (ACH only)
+    - 5: ACH Dispute, Not Authorized (ACH only)
+    """
+
     method: typing_extensions.Annotated[
         str,
         FieldMetadata(alias="Method"),
         pydantic.Field(alias="Method", description="Type of payment vehicle: **ach** or **card**."),
     ]
+    """
+    Type of payment vehicle: **ach** or **card**.
+    """
+
     created_at: typing_extensions.Annotated[
         CreatedAt,
         FieldMetadata(alias="CreatedAt"),
         pydantic.Field(alias="CreatedAt", description="Timestamp when the register was created, in UTC."),
     ]
+    """
+    Timestamp when the register was created, in UTC.
+    """
+
     reply_by: typing_extensions.Annotated[Replyby, FieldMetadata(alias="ReplyBy"), pydantic.Field(alias="ReplyBy")]
     payment_trans_id: typing_extensions.Annotated[
         str,
         FieldMetadata(alias="PaymentTransId"),
         pydantic.Field(alias="PaymentTransId", description="ReferenceId of the transaction in Payabli."),
     ]
+    """
+    ReferenceId of the transaction in Payabli.
+    """
+
     schedule_reference: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="ScheduleReference"),
@@ -98,12 +149,20 @@ class ChargebackQueryRecords(UniversalBaseModel):
             alias="ScheduleReference", description="Reference to the subscription originating the transaction."
         ),
     ] = None
+    """
+    Reference to the subscription originating the transaction.
+    """
+
     order_id: typing_extensions.Annotated[OrderId, FieldMetadata(alias="OrderId"), pydantic.Field(alias="OrderId")]
     net_amount: typing_extensions.Annotated[
         typing.Optional[Netamountnullable],
         FieldMetadata(alias="NetAmount"),
         pydantic.Field(alias="NetAmount", description="Net amount in chargeback or ACH return."),
     ] = None
+    """
+    Net amount in chargeback or ACH return.
+    """
+
     transaction_time: typing_extensions.Annotated[
         TransactionTime, FieldMetadata(alias="TransactionTime"), pydantic.Field(alias="TransactionTime")
     ]
@@ -118,11 +177,19 @@ class ChargebackQueryRecords(UniversalBaseModel):
         FieldMetadata(alias="PaypointLegalname"),
         pydantic.Field(alias="PaypointLegalname", description="The paypoint's legal name."),
     ]
+    """
+    The paypoint's legal name.
+    """
+
     paypoint_dbaname: typing_extensions.Annotated[
         Dbaname,
         FieldMetadata(alias="PaypointDbaname"),
         pydantic.Field(alias="PaypointDbaname", description="The paypoint's DBA name."),
     ]
+    """
+    The paypoint's DBA name.
+    """
+
     parent_org_name: typing_extensions.Annotated[
         OrgParentName, FieldMetadata(alias="ParentOrgName"), pydantic.Field(alias="ParentOrgName")
     ]
@@ -131,16 +198,28 @@ class ChargebackQueryRecords(UniversalBaseModel):
         FieldMetadata(alias="ParentOrgId"),
         pydantic.Field(alias="ParentOrgId", description="The ID of the parent organization."),
     ]
+    """
+    The ID of the parent organization.
+    """
+
     paypoint_entryname: typing_extensions.Annotated[
         Entrypointfield,
         FieldMetadata(alias="PaypointEntryname"),
         pydantic.Field(alias="PaypointEntryname", description="The paypoint's entryname."),
     ]
+    """
+    The paypoint's entryname.
+    """
+
     responses: typing_extensions.Annotated[
         typing.List[ChargeBackResponse],
         FieldMetadata(alias="Responses"),
         pydantic.Field(alias="Responses", description="Chargeback response records."),
     ]
+    """
+    Chargeback response records.
+    """
+
     transaction: typing_extensions.Annotated[
         TransactionQueryRecords, FieldMetadata(alias="Transaction"), pydantic.Field(alias="Transaction")
     ]
@@ -160,16 +239,27 @@ class ChargebackQueryRecords(UniversalBaseModel):
         FieldMetadata(alias="ServiceGroup"),
         pydantic.Field(alias="ServiceGroup", description="Service group classification."),
     ]
+    """
+    Service group classification.
+    """
+
     dispute_type: typing_extensions.Annotated[
         str,
         FieldMetadata(alias="DisputeType"),
         pydantic.Field(alias="DisputeType", description="Type of dispute classification."),
     ]
+    """
+    Type of dispute classification.
+    """
+
     processor_name: typing_extensions.Annotated[
         str,
         FieldMetadata(alias="ProcessorName"),
         pydantic.Field(alias="ProcessorName", description="Name of the payment processor."),
     ]
+    """
+    Name of the payment processor.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

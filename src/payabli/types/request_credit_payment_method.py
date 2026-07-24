@@ -33,6 +33,10 @@ class RequestCreditPaymentMethod(UniversalBaseModel):
         FieldMetadata(alias="achHolder"),
         pydantic.Field(alias="achHolder", description="Bank account holder."),
     ] = None
+    """
+    Bank account holder.
+    """
+
     ach_routing: typing_extensions.Annotated[
         typing.Optional[Achrouting], FieldMetadata(alias="achRouting"), pydantic.Field(alias="achRouting")
     ] = None

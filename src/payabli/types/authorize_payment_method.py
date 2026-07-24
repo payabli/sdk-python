@@ -37,6 +37,10 @@ class AuthorizePaymentMethod(UniversalBaseModel):
             description='Account holder name for ACH payments. Required when method is "ach" and not using `storedMethodId`.',
         ),
     ] = None
+    """
+    Account holder name for ACH payments. Required when method is "ach" and not using `storedMethodId`.
+    """
+
     ach_routing: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="achRouting"),
@@ -45,6 +49,10 @@ class AuthorizePaymentMethod(UniversalBaseModel):
             description='Bank routing number for ACH payments. Required when method is "ach" and not using `storedMethodId`.',
         ),
     ] = None
+    """
+    Bank routing number for ACH payments. Required when method is "ach" and not using `storedMethodId`.
+    """
+
     ach_account: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="achAccount"),
@@ -53,6 +61,10 @@ class AuthorizePaymentMethod(UniversalBaseModel):
             description='Bank account number for ACH payments. Required when method is "ach" and not using `storedMethodId`.',
         ),
     ] = None
+    """
+    Bank account number for ACH payments. Required when method is "ach" and not using `storedMethodId`.
+    """
+
     ach_account_type: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="achAccountType"),
@@ -61,6 +73,10 @@ class AuthorizePaymentMethod(UniversalBaseModel):
             description='Account type for ACH payments ("checking" or "savings"). Required when method is "ach" and not using `storedMethodId`.',
         ),
     ] = None
+    """
+    Account type for ACH payments ("checking" or "savings"). Required when method is "ach" and not using `storedMethodId`.
+    """
+
     ach_code: typing_extensions.Annotated[
         typing.Optional[AchSecCode], FieldMetadata(alias="achCode"), pydantic.Field(alias="achCode")
     ] = None
@@ -75,6 +91,10 @@ class AuthorizePaymentMethod(UniversalBaseModel):
             description="ID of the stored ACH payment method. Only applicable when method is `ach`. Use this to reference a previously saved ACH method instead of providing bank details directly.",
         ),
     ] = None
+    """
+    ID of the stored ACH payment method. Only applicable when method is `ach`. Use this to reference a previously saved ACH method instead of providing bank details directly.
+    """
+
     initiator: typing.Optional[Initiator] = None
     stored_method_usage_type: typing_extensions.Annotated[
         typing.Optional[StoredMethodUsageType],

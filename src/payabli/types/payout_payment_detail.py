@@ -21,6 +21,10 @@ class PayoutPaymentDetail(UniversalBaseModel):
             description="Total payout amount. If a service fee is included, this amount should include the service fee.",
         ),
     ]
+    """
+    Total payout amount. If a service fee is included, this amount should include the service fee.
+    """
+
     service_fee: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="serviceFee"),
@@ -29,6 +33,10 @@ class PayoutPaymentDetail(UniversalBaseModel):
             description="Service fee to be deducted from the total amount. This amount must be a number, percentages aren't accepted.",
         ),
     ] = None
+    """
+    Service fee to be deducted from the total amount. This amount must be a number, percentages aren't accepted.
+    """
+
     currency: typing.Optional[str] = pydantic.Field(default=None)
     """
     Currency code ISO-4217. If no code is provided, the currency in the paypoint setting is used. Default is `USD`.
@@ -42,36 +50,64 @@ class PayoutPaymentDetail(UniversalBaseModel):
             description="A check number for the payout. Required when the payment method is `check`.",
         ),
     ] = None
+    """
+    A check number for the payout. Required when the payment method is `check`.
+    """
+
     order_description: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="orderDescription"),
         pydantic.Field(alias="orderDescription", description="Description of the payout order."),
     ] = None
+    """
+    Description of the payout order.
+    """
+
     order_id: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="orderId"),
         pydantic.Field(alias="orderId", description="Order identifier associated with the payout."),
     ] = None
+    """
+    Order identifier associated with the payout.
+    """
+
     order_id_alternative: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="orderIdAlternative"),
         pydantic.Field(alias="orderIdAlternative", description="Alternative order identifier."),
     ] = None
+    """
+    Alternative order identifier.
+    """
+
     payment_description: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="paymentDescription"),
         pydantic.Field(alias="paymentDescription", description="Description of the payment."),
     ] = None
+    """
+    Description of the payment.
+    """
+
     settlement_descriptor: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="settlementDescriptor"),
         pydantic.Field(alias="settlementDescriptor", description="Settlement descriptor for the payout."),
     ] = None
+    """
+    Settlement descriptor for the payout.
+    """
+
     group_number: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="groupNumber"),
         pydantic.Field(alias="groupNumber", description="Group number for the payout."),
     ] = None
+    """
+    Group number for the payout.
+    """
+
     source: typing.Optional[str] = pydantic.Field(default=None)
     """
     Source identifier for the payout.
@@ -82,6 +118,10 @@ class PayoutPaymentDetail(UniversalBaseModel):
         FieldMetadata(alias="payabliTransId"),
         pydantic.Field(alias="payabliTransId", description="Payabli transaction identifier."),
     ] = None
+    """
+    Payabli transaction identifier.
+    """
+
     unbundled: typing.Optional[bool] = pydantic.Field(default=None)
     """
     When `true`, each bill is processed as a separate payout. When `false` or not provided, multiple bills are paid with a single payout.

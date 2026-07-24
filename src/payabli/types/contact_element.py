@@ -16,6 +16,10 @@ class ContactElement(UniversalBaseModel):
         FieldMetadata(alias="emailLabel"),
         pydantic.Field(alias="emailLabel", description="Custom content for email"),
     ] = None
+    """
+    Custom content for email
+    """
+
     enabled: typing.Optional[Enabled] = None
     header: typing.Optional[str] = pydantic.Field(default=None)
     """
@@ -30,11 +34,18 @@ class ContactElement(UniversalBaseModel):
             alias="paymentIcons", description="Flag indicating if icons for accepted card brands will be shown"
         ),
     ] = None
+    """
+    Flag indicating if icons for accepted card brands will be shown
+    """
+
     phone_label: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="phoneLabel"),
         pydantic.Field(alias="phoneLabel", description="Custom content for phone number"),
     ] = None
+    """
+    Custom content for phone number
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

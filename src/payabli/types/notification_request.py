@@ -15,6 +15,10 @@ class NotificationRequest(UniversalBaseModel):
         FieldMetadata(alias="notificationUrl"),
         pydantic.Field(alias="notificationUrl", description="Complete HTTP URL receiving the notification"),
     ]
+    """
+    Complete HTTP URL receiving the notification
+    """
+
     web_header_parameters: typing_extensions.Annotated[
         typing.Optional[typing.List[WebHeaderParameter]],
         FieldMetadata(alias="webHeaderParameters"),
@@ -23,6 +27,9 @@ class NotificationRequest(UniversalBaseModel):
             description="List of key-value header parameters to include in the notification request",
         ),
     ] = None
+    """
+    List of key-value header parameters to include in the notification request
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -18,6 +18,10 @@ class VendorCallStatusScheduled(UniversalBaseModel):
         FieldMetadata(alias="scheduledFor"),
         pydantic.Field(alias="scheduledFor", description="ISO-8601 timestamp of the next scheduled call attempt."),
     ] = None
+    """
+    ISO-8601 timestamp of the next scheduled call attempt.
+    """
+
     attempts_remaining: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="attemptsRemaining"),
@@ -25,6 +29,10 @@ class VendorCallStatusScheduled(UniversalBaseModel):
             alias="attemptsRemaining", description="Number of call attempts left before retries are exhausted."
         ),
     ] = None
+    """
+    Number of call attempts left before retries are exhausted.
+    """
+
     max_attempts: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="maxAttempts"),
@@ -32,6 +40,9 @@ class VendorCallStatusScheduled(UniversalBaseModel):
             alias="maxAttempts", description="Maximum number of call attempts configured for this schedule."
         ),
     ] = None
+    """
+    Maximum number of call attempts configured for this schedule.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

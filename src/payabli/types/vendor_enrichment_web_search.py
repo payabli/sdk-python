@@ -25,6 +25,10 @@ class VendorEnrichmentWebSearch(UniversalBaseModel):
             alias="phoneType", description="Phone classification. Values are `main`, `billing`, or `customer_service`."
         ),
     ] = None
+    """
+    Phone classification. Values are `main`, `billing`, or `customer_service`.
+    """
+
     email: typing.Optional[str] = pydantic.Field(default=None)
     """
     Email address.
@@ -38,6 +42,10 @@ class VendorEnrichmentWebSearch(UniversalBaseModel):
             description="Email classification. Values are `billing`, `general`, or `customer_service`.",
         ),
     ] = None
+    """
+    Email classification. Values are `billing`, `general`, or `customer_service`.
+    """
+
     street: typing.Optional[str] = pydantic.Field(default=None)
     """
     Street address.
@@ -56,6 +64,10 @@ class VendorEnrichmentWebSearch(UniversalBaseModel):
     zip_code: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="zipCode"), pydantic.Field(alias="zipCode", description="ZIP code.")
     ] = None
+    """
+    ZIP code.
+    """
+
     country: typing.Optional[str] = pydantic.Field(default=None)
     """
     Country code.
@@ -69,11 +81,19 @@ class VendorEnrichmentWebSearch(UniversalBaseModel):
             description="Address classification. Values are `business`, `headquarters`, or `mailing`.",
         ),
     ] = None
+    """
+    Address classification. Values are `business`, `headquarters`, or `mailing`.
+    """
+
     payment_link: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="paymentLink"),
         pydantic.Field(alias="paymentLink", description="Payment portal URL."),
     ] = None
+    """
+    Payment portal URL.
+    """
+
     payment_link_type: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="paymentLinkType"),
@@ -82,6 +102,10 @@ class VendorEnrichmentWebSearch(UniversalBaseModel):
             description="Link classification. Values are `payment_portal`, `billing_page`, or `general_website`.",
         ),
     ] = None
+    """
+    Link classification. Values are `payment_portal`, `billing_page`, or `general_website`.
+    """
+
     card_accepted: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="cardAccepted"),
@@ -90,6 +114,10 @@ class VendorEnrichmentWebSearch(UniversalBaseModel):
             description="Whether the vendor accepts card payments. Values are `yes`, `no`, or `unable to determine`.",
         ),
     ] = None
+    """
+    Whether the vendor accepts card payments. Values are `yes`, `no`, or `unable to determine`.
+    """
+
     ach_accepted: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="achAccepted"),
@@ -98,6 +126,10 @@ class VendorEnrichmentWebSearch(UniversalBaseModel):
             description="Whether the vendor accepts ACH payments. Values are `yes`, `no`, or `unable to determine`.",
         ),
     ] = None
+    """
+    Whether the vendor accepts ACH payments. Values are `yes`, `no`, or `unable to determine`.
+    """
+
     check_accepted: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="checkAccepted"),
@@ -106,6 +138,9 @@ class VendorEnrichmentWebSearch(UniversalBaseModel):
             description="Whether the vendor accepts check payments. Values are `yes`, `no`, or `unable to determine`.",
         ),
     ] = None
+    """
+    Whether the vendor accepts check payments. Values are `yes`, `no`, or `unable to determine`.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

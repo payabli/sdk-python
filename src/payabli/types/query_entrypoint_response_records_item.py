@@ -90,6 +90,10 @@ class QueryEntrypointResponseRecordsItem(UniversalBaseModel):
         FieldMetadata(alias="BFax"),
         pydantic.Field(alias="BFax", description="The business's fax number."),
     ] = None
+    """
+    The business's fax number.
+    """
+
     bin_person: typing_extensions.Annotated[
         typing.Optional[Binperson], FieldMetadata(alias="BinPerson"), pydantic.Field(alias="BinPerson")
     ] = None
@@ -224,6 +228,10 @@ class QueryEntrypointResponseRecordsItem(UniversalBaseModel):
         FieldMetadata(alias="WebsiteAddress"),
         pydantic.Field(alias="WebsiteAddress", description="Business website."),
     ] = None
+    """
+    Business website.
+    """
+
     whencharged: typing_extensions.Annotated[
         typing.Optional[Whencharged], FieldMetadata(alias="Whencharged"), pydantic.Field(alias="Whencharged")
     ] = None

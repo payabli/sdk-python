@@ -30,6 +30,10 @@ class RequestOutAuthorizePaymentDetails(UniversalBaseModel):
             description="Service fee to be deducted from the total amount. This amount must be a number, percentages aren't accepted. If you are using a percentage-based fee schedule, you must calculate the value manually.",
         ),
     ] = None
+    """
+    Service fee to be deducted from the total amount. This amount must be a number, percentages aren't accepted. If you are using a percentage-based fee schedule, you must calculate the value manually.
+    """
+
     total_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="totalAmount"),
@@ -38,6 +42,10 @@ class RequestOutAuthorizePaymentDetails(UniversalBaseModel):
             description="Total amount to be charged. If a service fee is included, then this amount should include the service fee.",
         ),
     ] = None
+    """
+    Total amount to be charged. If a service fee is included, then this amount should include the service fee.
+    """
+
     unbundled: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether the payout should be bundled into a single transaction or processed separately. If set to `true`, each bill will be processed as a separate payout. If `false` or not provided, then multiple bills will be paid with a single payout.

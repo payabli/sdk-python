@@ -24,6 +24,12 @@ class BinData(UniversalBaseModel):
             description="The number of characters from the beginning of the card number that\nwere matched against a Bank Identification Number (BIN) or the Card\nRange table.",
         ),
     ] = None
+    """
+    The number of characters from the beginning of the card number that
+    were matched against a Bank Identification Number (BIN) or the Card
+    Range table.
+    """
+
     bin_card_brand: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="binCardBrand"),
@@ -32,6 +38,11 @@ class BinData(UniversalBaseModel):
             description="The card brand. For example, Visa, Mastercard, American Express,\nDiscover.",
         ),
     ] = None
+    """
+    The card brand. For example, Visa, Mastercard, American Express,
+    Discover.
+    """
+
     bin_card_type: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="binCardType"),
@@ -40,6 +51,11 @@ class BinData(UniversalBaseModel):
             description="The type of card: `Credit` or `Debit`. Case can vary between\nprocessors, so compare this value case-insensitively.",
         ),
     ] = None
+    """
+    The type of card: `Credit` or `Debit`. Case can vary between
+    processors, so compare this value case-insensitively.
+    """
+
     bin_card_category: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="binCardCategory"),
@@ -48,6 +64,10 @@ class BinData(UniversalBaseModel):
             description="The category of the card, which indicates the card product. For example: Standard, Gold, Platinum, etc. The binCardCategory for prepaid cards is marked `PREPAID`.",
         ),
     ] = None
+    """
+    The category of the card, which indicates the card product. For example: Standard, Gold, Platinum, etc. The binCardCategory for prepaid cards is marked `PREPAID`.
+    """
+
     bin_card_issuer: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="binCardIssuer"),
@@ -55,11 +75,19 @@ class BinData(UniversalBaseModel):
             alias="binCardIssuer", description="The name of the financial institution that issued the card."
         ),
     ] = None
+    """
+    The name of the financial institution that issued the card.
+    """
+
     bin_card_issuer_country: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="binCardIssuerCountry"),
         pydantic.Field(alias="binCardIssuerCountry", description="The issuing financial institution's country name."),
     ] = None
+    """
+    The issuing financial institution's country name.
+    """
+
     bin_card_issuer_country_code_a_2: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="binCardIssuerCountryCodeA2"),
@@ -68,6 +96,10 @@ class BinData(UniversalBaseModel):
             description="The issuing financial institution's two-character ISO country code. See [this resource](https://www.iso.org/obp/ui/#search) for a list of codes.",
         ),
     ] = None
+    """
+    The issuing financial institution's two-character ISO country code. See [this resource](https://www.iso.org/obp/ui/#search) for a list of codes.
+    """
+
     bin_card_issuer_country_number: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="binCardIssuerCountryNumber"),
@@ -76,16 +108,28 @@ class BinData(UniversalBaseModel):
             description="The issuing financial institution's ISO standard numeric country code. See [this resource](https://www.iso.org/obp/ui/#search) for a list of codes.",
         ),
     ] = None
+    """
+    The issuing financial institution's ISO standard numeric country code. See [this resource](https://www.iso.org/obp/ui/#search) for a list of codes.
+    """
+
     bin_card_is_regulated: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="binCardIsRegulated"),
         pydantic.Field(alias="binCardIsRegulated", description="Indicates whether the card is regulated."),
     ] = None
+    """
+    Indicates whether the card is regulated.
+    """
+
     bin_card_use_category: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="binCardUseCategory"),
         pydantic.Field(alias="binCardUseCategory", description="The use category classification for the card."),
     ] = None
+    """
+    The use category classification for the card.
+    """
+
     bin_card_issuer_country_code_a_3: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="binCardIssuerCountryCodeA3"),
@@ -94,6 +138,11 @@ class BinData(UniversalBaseModel):
             description="The issuing financial institution's three-character ISO country code.\nSee [this resource](https://www.iso.org/obp/ui/#search) for a list of\ncodes.",
         ),
     ] = None
+    """
+    The issuing financial institution's three-character ISO country code.
+    See [this resource](https://www.iso.org/obp/ui/#search) for a list of
+    codes.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

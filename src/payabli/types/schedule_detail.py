@@ -18,6 +18,12 @@ class ScheduleDetail(UniversalBaseModel):
             description="Subscription end date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY or the value `untilcancelled` to indicate a scheduled payment with infinite cycle.\n\nNot applicable for `BalanceDriven` subscriptions, which run until cancelled.",
         ),
     ] = None
+    """
+    Subscription end date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY or the value `untilcancelled` to indicate a scheduled payment with infinite cycle.
+    
+    Not applicable for `BalanceDriven` subscriptions, which run until cancelled.
+    """
+
     frequency: typing.Optional[Frequency] = pydantic.Field(default=None)
     """
     Frequency of the subscription.
@@ -33,6 +39,10 @@ class ScheduleDetail(UniversalBaseModel):
             description="This field is for future development, leave null. Identifier of subscription plan applied in the scheduled payment/subscription.",
         ),
     ] = None
+    """
+    This field is for future development, leave null. Identifier of subscription plan applied in the scheduled payment/subscription.
+    """
+
     start_date: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="startDate"),
@@ -41,6 +51,11 @@ class ScheduleDetail(UniversalBaseModel):
             description="Subscription start date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY. This must be a future date.\n\nNot applicable for `BalanceDriven` subscriptions, where the start date is calculated automatically from `frequency`.",
         ),
     ] = None
+    """
+    Subscription start date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY. This must be a future date.
+    
+    Not applicable for `BalanceDriven` subscriptions, where the start date is calculated automatically from `frequency`.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -30,6 +30,12 @@ class UpdatePayoutSubscriptionResponse(UniversalBaseModel):
             description='If `isSuccess` = true, this contains the payout subscription ID. When the subscription is paused, it also includes a description (for example, "42 paused").\n\nIf `isSuccess` = false, this contains the reason for the failure.',
         ),
     ] = None
+    """
+    If `isSuccess` = true, this contains the payout subscription ID. When the subscription is paused, it also includes a description (for example, "42 paused").
+    
+    If `isSuccess` = false, this contains the reason for the failure.
+    """
+
     customer_id: typing_extensions.Annotated[
         typing.Optional[CustomerId], FieldMetadata(alias="customerId"), pydantic.Field(alias="customerId")
     ] = None

@@ -55,7 +55,8 @@ class ImportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.import_.import_bills(
             entry="8cfec329267",
@@ -99,7 +100,8 @@ class ImportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.import_.import_customer(
             entry="8cfec329267",
@@ -137,7 +139,8 @@ class ImportClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.import_.import_vendor(
             entry="8cfec329267",
@@ -191,7 +194,8 @@ class AsyncImportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -243,7 +247,8 @@ class AsyncImportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -289,7 +294,8 @@ class AsyncImportClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 

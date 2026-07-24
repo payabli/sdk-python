@@ -18,6 +18,10 @@ class QueryTransferSummary(UniversalBaseModel):
         FieldMetadata(alias="achReturns"),
         pydantic.Field(alias="achReturns", description="ACH returns deducted from the batch."),
     ] = None
+    """
+    ACH returns deducted from the batch.
+    """
+
     adjustments: typing.Optional[float] = pydantic.Field(default=None)
     """
     Corrections applied to Billing & Fees charges.
@@ -28,6 +32,10 @@ class QueryTransferSummary(UniversalBaseModel):
         FieldMetadata(alias="billingFees"),
         pydantic.Field(alias="billingFees", description="Charges applied for transactions and services."),
     ] = None
+    """
+    Charges applied for transactions and services.
+    """
+
     chargebacks: typing.Optional[float] = pydantic.Field(default=None)
     """
     Chargebacks deducted from batch.
@@ -38,6 +46,10 @@ class QueryTransferSummary(UniversalBaseModel):
         FieldMetadata(alias="grossTransferAmount"),
         pydantic.Field(alias="grossTransferAmount", description="The gross batch amount before deductions."),
     ] = None
+    """
+    The gross batch amount before deductions.
+    """
+
     release_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="releaseAmount"),
@@ -45,6 +57,10 @@ class QueryTransferSummary(UniversalBaseModel):
             alias="releaseAmount", description="Previously held funds that have been released after a risk review."
         ),
     ] = None
+    """
+    Previously held funds that have been released after a risk review.
+    """
+
     third_party_paid: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="thirdPartyPaid"),
@@ -53,11 +69,19 @@ class QueryTransferSummary(UniversalBaseModel):
             description="Payments captured in the batch cycle that are deposited separately. For example,  checks or cash payments recorded in the batch but not deposited via Payabli,  or card brands making a direct transfer in certain situations.",
         ),
     ] = None
+    """
+    Payments captured in the batch cycle that are deposited separately. For example,  checks or cash payments recorded in the batch but not deposited via Payabli,  or card brands making a direct transfer in certain situations.
+    """
+
     total_net_amount_transfer: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="totalNetAmountTransfer"),
         pydantic.Field(alias="totalNetAmountTransfer", description="The gross batch amount minus service fees."),
     ] = None
+    """
+    The gross batch amount minus service fees.
+    """
+
     split_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="splitAmount"),
@@ -65,6 +89,10 @@ class QueryTransferSummary(UniversalBaseModel):
             alias="splitAmount", description="The sum of each splitFundingAmount of each record in the transfer."
         ),
     ] = None
+    """
+    The sum of each splitFundingAmount of each record in the transfer.
+    """
+
     service_fees: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="serviceFees"),
@@ -73,6 +101,10 @@ class QueryTransferSummary(UniversalBaseModel):
             description="Service fees are any pass-through fees charged to the customer at the time of payment.  These aren't transferred to the merchant when the batch is transferred and funded.",
         ),
     ] = None
+    """
+    Service fees are any pass-through fees charged to the customer at the time of payment.  These aren't transferred to the merchant when the batch is transferred and funded.
+    """
+
     net_batch_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="netBatchAmount"),
@@ -81,6 +113,11 @@ class QueryTransferSummary(UniversalBaseModel):
             description="The net batch amount is the gross batch amount minus any returns, refunds,\nbilling and fees items, chargebacks, adjustments, and third party payments.",
         ),
     ] = None
+    """
+    The net batch amount is the gross batch amount minus any returns, refunds,
+    billing and fees items, chargebacks, adjustments, and third party payments.
+    """
+
     transfer_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="transferAmount"),
@@ -89,6 +126,10 @@ class QueryTransferSummary(UniversalBaseModel):
             description="The transfer amount is the net batch amount plus or minus any returns, refunds,  billing and fees items, chargebacks, adjustments, and third party payments.  This is the amount from the batch that is transferred to the merchant bank account.",
         ),
     ] = None
+    """
+    The transfer amount is the net batch amount plus or minus any returns, refunds,  billing and fees items, chargebacks, adjustments, and third party payments.  This is the amount from the batch that is transferred to the merchant bank account.
+    """
+
     refunds: typing.Optional[float] = pydantic.Field(default=None)
     """
     Refunds deducted from batch.
@@ -99,6 +140,10 @@ class QueryTransferSummary(UniversalBaseModel):
         FieldMetadata(alias="heldAmount"),
         pydantic.Field(alias="heldAmount", description="Funds being held for fraud or risk concerns."),
     ] = None
+    """
+    Funds being held for fraud or risk concerns.
+    """
+
     card_rejected_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="cardRejectedAmount"),
@@ -107,31 +152,55 @@ class QueryTransferSummary(UniversalBaseModel):
             description="Total amount rejected by card networks or issuing banks after authorization or settling. This value is the sum of all rejected amounts for transactions in the transfer.",
         ),
     ] = None
+    """
+    Total amount rejected by card networks or issuing banks after authorization or settling. This value is the sum of all rejected amounts for transactions in the transfer.
+    """
+
     total_records: typing_extensions.Annotated[
         typing.Optional[Totalrecords],
         FieldMetadata(alias="totalRecords"),
         pydantic.Field(alias="totalRecords", description="Number of records in the response."),
     ] = None
+    """
+    Number of records in the response.
+    """
+
     total_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="totalAmount"),
         pydantic.Field(alias="totalAmount", description="The total sum of the transfers in the response."),
     ] = None
+    """
+    The total sum of the transfers in the response.
+    """
+
     total_net_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="totalNetAmount"),
         pydantic.Field(alias="totalNetAmount", description="The total sum of the transfers in the response."),
     ] = None
+    """
+    The total sum of the transfers in the response.
+    """
+
     total_pages: typing_extensions.Annotated[
         typing.Optional[Totalpages],
         FieldMetadata(alias="totalPages"),
         pydantic.Field(alias="totalPages", description="Number of pages in the response."),
     ] = None
+    """
+    Number of pages in the response.
+    """
+
     page_size: typing_extensions.Annotated[
         typing.Optional[Pagesize],
         FieldMetadata(alias="pageSize"),
         pydantic.Field(alias="pageSize", description="Number of records per page."),
     ] = None
+    """
+    Number of records per page.
+    """
+
     pageidentifier: typing.Optional[PageIdentifier] = pydantic.Field(default=None)
     """
     Auxiliary validation used internally by payment pages and components.

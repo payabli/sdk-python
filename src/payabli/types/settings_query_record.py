@@ -15,6 +15,10 @@ class SettingsQueryRecord(UniversalBaseModel):
         FieldMetadata(alias="customFields"),
         pydantic.Field(alias="customFields", description="Any custom fields defined for the org."),
     ] = None
+    """
+    Any custom fields defined for the org.
+    """
+
     for_invoices: typing_extensions.Annotated[
         typing.Optional[typing.List[KeyValue]], FieldMetadata(alias="forInvoices"), pydantic.Field(alias="forInvoices")
     ] = None
@@ -29,6 +33,10 @@ class SettingsQueryRecord(UniversalBaseModel):
             description="Information about digital wallet settings for the entity. Available values are `isApplePayEnabled` and `isGooglePayEnabled`.",
         ),
     ] = None
+    """
+    Information about digital wallet settings for the entity. Available values are `isApplePayEnabled` and `isGooglePayEnabled`.
+    """
+
     general: typing.Optional[typing.List[KeyValue]] = pydantic.Field(default=None)
     """
     

@@ -14,6 +14,10 @@ class SplitFundingContent(UniversalBaseModel):
         FieldMetadata(alias="accountId"),
         pydantic.Field(alias="accountId", description="The accountId for the account the split should be sent to."),
     ] = None
+    """
+    The accountId for the account the split should be sent to.
+    """
+
     amount: typing.Optional[float] = pydantic.Field(default=None)
     """
     Amount from the transaction to send to this recipient.
@@ -29,6 +33,9 @@ class SplitFundingContent(UniversalBaseModel):
         FieldMetadata(alias="recipientEntryPoint"),
         pydantic.Field(alias="recipientEntryPoint", description="The entrypoint the split should be sent to."),
     ] = None
+    """
+    The entrypoint the split should be sent to.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

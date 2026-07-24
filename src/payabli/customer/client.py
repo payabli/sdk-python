@@ -175,7 +175,8 @@ class CustomerClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.customer.add_customer(
             entry="8cfec329267",
@@ -251,7 +252,8 @@ class CustomerClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.customer.get_customer(
             customer_id=4440,
@@ -380,7 +382,8 @@ class CustomerClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.customer.update_customer(
             customer_id=4440,
@@ -449,7 +452,8 @@ class CustomerClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.customer.delete_customer(
             customer_id=4440,
@@ -482,7 +486,8 @@ class CustomerClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.customer.request_consent(
             customer_id=4440,
@@ -518,7 +523,8 @@ class CustomerClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.customer.link_customer_transaction(
             customer_id=4440,
@@ -679,7 +685,8 @@ class AsyncCustomerClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -763,7 +770,8 @@ class AsyncCustomerClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -900,7 +908,8 @@ class AsyncCustomerClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -977,7 +986,8 @@ class AsyncCustomerClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -1018,7 +1028,8 @@ class AsyncCustomerClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -1062,7 +1073,8 @@ class AsyncCustomerClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 

@@ -14,6 +14,10 @@ class SplitFundingRefundContent(UniversalBaseModel):
         FieldMetadata(alias="accountId"),
         pydantic.Field(alias="accountId", description="The accountId for the account the transaction was routed to."),
     ] = None
+    """
+    The accountId for the account the transaction was routed to.
+    """
+
     amount: typing.Optional[float] = pydantic.Field(default=None)
     """
     The amount to refund to this account.
@@ -29,6 +33,9 @@ class SplitFundingRefundContent(UniversalBaseModel):
         FieldMetadata(alias="originationEntryPoint"),
         pydantic.Field(alias="originationEntryPoint", description="The entrypoint the transaction belongs to."),
     ] = None
+    """
+    The entrypoint the transaction belongs to.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

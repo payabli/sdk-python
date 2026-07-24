@@ -23,11 +23,19 @@ class QuerySummary(UniversalBaseModel):
         FieldMetadata(alias="totalAmount"),
         pydantic.Field(alias="totalAmount", description="Total amount for the records."),
     ] = None
+    """
+    Total amount for the records.
+    """
+
     total_net_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="totalNetAmount"),
         pydantic.Field(alias="totalNetAmount", description="Total net amount for the records."),
     ] = None
+    """
+    Total net amount for the records.
+    """
+
     total_pages: typing_extensions.Annotated[
         typing.Optional[Totalrecords], FieldMetadata(alias="totalPages"), pydantic.Field(alias="totalPages")
     ] = None

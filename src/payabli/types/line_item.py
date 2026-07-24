@@ -19,6 +19,10 @@ class LineItem(UniversalBaseModel):
         FieldMetadata(alias="itemCategories"),
         pydantic.Field(alias="itemCategories", description="Array of tags classifying item or product."),
     ] = None
+    """
+    Array of tags classifying item or product.
+    """
+
     item_commodity_code: typing_extensions.Annotated[
         typing.Optional[ItemCommodityCode],
         FieldMetadata(alias="itemCommodityCode"),
@@ -29,6 +33,10 @@ class LineItem(UniversalBaseModel):
         FieldMetadata(alias="itemCost"),
         pydantic.Field(alias="itemCost", description="Item or product price per unit."),
     ]
+    """
+    Item or product price per unit.
+    """
+
     item_description: typing_extensions.Annotated[
         typing.Optional[ItemDescription],
         FieldMetadata(alias="itemDescription"),
@@ -42,6 +50,10 @@ class LineItem(UniversalBaseModel):
             description="Internal class of item or product: value '0' is only for invoices, '1' for bills, and '2' is common for both.",
         ),
     ] = None
+    """
+    Internal class of item or product: value '0' is only for invoices, '1' for bills, and '2' is common for both.
+    """
+
     item_product_code: typing_extensions.Annotated[
         typing.Optional[ItemProductCode],
         FieldMetadata(alias="itemProductCode"),
@@ -55,6 +67,10 @@ class LineItem(UniversalBaseModel):
     item_qty: typing_extensions.Annotated[
         int, FieldMetadata(alias="itemQty"), pydantic.Field(alias="itemQty", description="Quantity of item or product.")
     ]
+    """
+    Quantity of item or product.
+    """
+
     item_unit_of_measure: typing_extensions.Annotated[
         typing.Optional[ItemUnitofMeasure],
         FieldMetadata(alias="itemUnitOfMeasure"),

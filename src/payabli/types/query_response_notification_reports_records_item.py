@@ -23,11 +23,18 @@ class QueryResponseNotificationReportsRecordsItem(UniversalBaseModel):
         FieldMetadata(alias="isDownloadable"),
         pydantic.Field(alias="isDownloadable", description="Indicator of whether the report can be downloaded."),
     ] = None
+    """
+    Indicator of whether the report can be downloaded.
+    """
+
     report_name: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="reportName"),
         pydantic.Field(alias="reportName", description="Name of the report."),
     ] = None
+    """
+    Name of the report.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

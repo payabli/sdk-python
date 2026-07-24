@@ -11,7 +11,8 @@ class BaseClientWrapper:
     def __init__(
         self,
         *,
-        api_key: str,
+        api_key: typing.Optional[str] = None,
+        token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         headers: typing.Optional[typing.Dict[str, str]] = None,
         base_url: str,
         timeout: typing.Optional[float] = None,
@@ -21,6 +22,7 @@ class BaseClientWrapper:
         logging: typing.Optional[typing.Union[LogConfig, Logger]] = None,
     ):
         self.api_key = api_key
+        self._token = token
         self._headers = headers
         self._base_url = base_url
         self._timeout = timeout
@@ -33,16 +35,47 @@ class BaseClientWrapper:
         import platform
 
         headers: typing.Dict[str, str] = {
-            "User-Agent": "payabli/1.0.5",
+            "User-Agent": "payabli/1.0.6",
             "X-Fern-Language": "Python",
             "X-Fern-Runtime": f"python/{platform.python_version()}",
             "X-Fern-Platform": f"{platform.system().lower()}/{platform.release()}",
             "X-Fern-SDK-Name": "payabli",
-            "X-Fern-SDK-Version": "1.0.5",
+            "X-Fern-SDK-Version": "1.0.6",
             **(self.get_custom_headers() or {}),
         }
-        headers["requestToken"] = self.api_key
         return headers
+
+    def get_auth_headers_for_endpoint(
+        self, *, security: typing.Optional[typing.List[typing.Dict[str, typing.List[str]]]] = None
+    ) -> typing.Dict[str, str]:
+        if not security:
+            return {}
+        available_auth_headers: typing.Dict[str, typing.Dict[str, str]] = {}
+        _token = self._get_token()
+        if _token is not None:
+            available_auth_headers["BearerAuth"] = {"Authorization": f"Bearer {_token}"}
+        if self.api_key is not None:
+            available_auth_headers["APIKeyAuth"] = {"requestToken": self.api_key}
+        for requirement in security:
+            if all(scheme_key in available_auth_headers for scheme_key in requirement):
+                combined_headers: typing.Dict[str, str] = {}
+                for scheme_key in requirement:
+                    combined_headers.update(available_auth_headers[scheme_key])
+                return combined_headers
+        _missing_hints = " OR ".join(
+            " AND ".join(scheme_key for scheme_key in requirement if scheme_key not in available_auth_headers)
+            for requirement in security
+        )
+        raise ValueError(
+            "No authentication credentials provided that satisfy the endpoint's security requirements. "
+            "Please provide credentials for: " + _missing_hints
+        )
+
+    def _get_token(self) -> typing.Optional[str]:
+        if isinstance(self._token, str) or self._token is None:
+            return self._token
+        else:
+            return self._token()
 
     def get_custom_headers(self) -> typing.Optional[typing.Dict[str, str]]:
         return self._headers
@@ -67,7 +100,8 @@ class SyncClientWrapper(BaseClientWrapper):
     def __init__(
         self,
         *,
-        api_key: str,
+        api_key: typing.Optional[str] = None,
+        token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         headers: typing.Optional[typing.Dict[str, str]] = None,
         base_url: str,
         timeout: typing.Optional[float] = None,
@@ -79,6 +113,7 @@ class SyncClientWrapper(BaseClientWrapper):
     ):
         super().__init__(
             api_key=api_key,
+            token=token,
             headers=headers,
             base_url=base_url,
             timeout=timeout,
@@ -101,7 +136,8 @@ class AsyncClientWrapper(BaseClientWrapper):
     def __init__(
         self,
         *,
-        api_key: str,
+        api_key: typing.Optional[str] = None,
+        token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         headers: typing.Optional[typing.Dict[str, str]] = None,
         base_url: str,
         timeout: typing.Optional[float] = None,
@@ -114,6 +150,7 @@ class AsyncClientWrapper(BaseClientWrapper):
     ):
         super().__init__(
             api_key=api_key,
+            token=token,
             headers=headers,
             base_url=base_url,
             timeout=timeout,
@@ -135,7 +172,34 @@ class AsyncClientWrapper(BaseClientWrapper):
 
     async def async_get_headers(self) -> typing.Dict[str, str]:
         headers = self.get_headers()
-        if self._async_token is not None:
-            token = await self._async_token()
-            headers["Authorization"] = f"Bearer {token}"
         return headers
+
+    async def async_get_auth_headers_for_endpoint(
+        self, *, security: typing.Optional[typing.List[typing.Dict[str, typing.List[str]]]] = None
+    ) -> typing.Dict[str, str]:
+        if not security:
+            return {}
+        available_auth_headers: typing.Dict[str, typing.Dict[str, str]] = {}
+        _token: typing.Optional[str]
+        if self._async_token is not None:
+            _token = await self._async_token()
+        else:
+            _token = self._get_token()
+        if _token is not None:
+            available_auth_headers["BearerAuth"] = {"Authorization": f"Bearer {_token}"}
+        if self.api_key is not None:
+            available_auth_headers["APIKeyAuth"] = {"requestToken": self.api_key}
+        for requirement in security:
+            if all(scheme_key in available_auth_headers for scheme_key in requirement):
+                combined_headers: typing.Dict[str, str] = {}
+                for scheme_key in requirement:
+                    combined_headers.update(available_auth_headers[scheme_key])
+                return combined_headers
+        _missing_hints = " OR ".join(
+            " AND ".join(scheme_key for scheme_key in requirement if scheme_key not in available_auth_headers)
+            for requirement in security
+        )
+        raise ValueError(
+            "No authentication credentials provided that satisfy the endpoint's security requirements. "
+            "Please provide credentials for: " + _missing_hints
+        )

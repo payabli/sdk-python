@@ -57,7 +57,8 @@ class NotificationClient:
         )
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.notification.add_notification(
             request=NotificationStandardRequest(
@@ -100,7 +101,8 @@ class NotificationClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.notification.get_notification(
             n_id="1717",
@@ -139,7 +141,8 @@ class NotificationClient:
         )
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.notification.update_notification(
             n_id="1717",
@@ -183,7 +186,8 @@ class NotificationClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.notification.delete_notification(
             n_id="1717",
@@ -214,7 +218,8 @@ class NotificationClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.notification.get_report_file(
             id=1000000,
@@ -268,7 +273,8 @@ class AsyncNotificationClient:
         )
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -319,7 +325,8 @@ class AsyncNotificationClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -366,7 +373,8 @@ class AsyncNotificationClient:
         )
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -418,7 +426,8 @@ class AsyncNotificationClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -457,7 +466,8 @@ class AsyncNotificationClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 

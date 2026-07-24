@@ -18,16 +18,27 @@ class TransferOutDetailEvent(UniversalBaseModel):
         FieldMetadata(alias="TransEvent"),
         pydantic.Field(alias="TransEvent", description="Description of the transaction event."),
     ] = None
+    """
+    Description of the transaction event.
+    """
+
     event_data: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="EventData"),
         pydantic.Field(alias="EventData", description="Additional event data."),
     ] = None
+    """
+    Additional event data.
+    """
+
     event_time: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="EventTime"),
         pydantic.Field(alias="EventTime", description="Time the event occurred."),
     ] = None
+    """
+    Time the event occurred.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

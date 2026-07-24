@@ -120,6 +120,9 @@ class RawExportClient:
         HttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Export/boarding/{encode_path_param(format)}/{encode_path_param(org_id)}",
             method="GET",
@@ -128,6 +131,9 @@ class RawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -301,6 +307,9 @@ class RawExportClient:
         HttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Export/batchDetails/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
@@ -309,6 +318,9 @@ class RawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -482,6 +494,9 @@ class RawExportClient:
         HttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Export/batchDetails/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
@@ -490,6 +505,9 @@ class RawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -653,6 +671,9 @@ class RawExportClient:
         HttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Export/batches/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
@@ -661,6 +682,9 @@ class RawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -822,6 +846,9 @@ class RawExportClient:
         HttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Export/batches/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
@@ -830,6 +857,9 @@ class RawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -973,6 +1003,9 @@ class RawExportClient:
         HttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Export/batchesOut/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
@@ -981,6 +1014,9 @@ class RawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -1124,6 +1160,9 @@ class RawExportClient:
         HttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Export/batchesOut/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
@@ -1132,6 +1171,9 @@ class RawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -1293,6 +1335,9 @@ class RawExportClient:
         HttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Export/bills/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
@@ -1301,6 +1346,9 @@ class RawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -1462,6 +1510,9 @@ class RawExportClient:
         HttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Export/bills/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
@@ -1470,6 +1521,9 @@ class RawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -1652,6 +1706,9 @@ class RawExportClient:
         HttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Export/chargebacks/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
@@ -1660,6 +1717,9 @@ class RawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -1842,6 +1902,9 @@ class RawExportClient:
         HttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Export/chargebacks/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
@@ -1850,6 +1913,9 @@ class RawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -2025,6 +2091,9 @@ class RawExportClient:
         HttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Export/customers/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
@@ -2033,6 +2102,9 @@ class RawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -2208,6 +2280,9 @@ class RawExportClient:
         HttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Export/customers/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
@@ -2216,6 +2291,9 @@ class RawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -2401,6 +2479,9 @@ class RawExportClient:
         HttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Export/invoices/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
@@ -2409,6 +2490,9 @@ class RawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -2594,6 +2678,9 @@ class RawExportClient:
         HttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Export/invoices/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
@@ -2602,6 +2689,9 @@ class RawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -2762,6 +2852,9 @@ class RawExportClient:
         HttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Export/organizations/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
@@ -2770,6 +2863,9 @@ class RawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -2929,6 +3025,9 @@ class RawExportClient:
         HttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Export/payouts/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
@@ -2937,6 +3036,9 @@ class RawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -3096,6 +3198,9 @@ class RawExportClient:
         HttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Export/payouts/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
@@ -3104,6 +3209,9 @@ class RawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -3265,6 +3373,9 @@ class RawExportClient:
         HttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Export/paypoints/{encode_path_param(format)}/{encode_path_param(org_id)}",
             method="GET",
@@ -3273,6 +3384,9 @@ class RawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -3454,6 +3568,9 @@ class RawExportClient:
         HttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Export/settlements/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
@@ -3462,6 +3579,9 @@ class RawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -3643,6 +3763,9 @@ class RawExportClient:
         HttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Export/settlements/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
@@ -3651,6 +3774,9 @@ class RawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -3834,6 +3960,9 @@ class RawExportClient:
         HttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Export/subscriptions/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
@@ -3842,6 +3971,9 @@ class RawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -4025,6 +4157,9 @@ class RawExportClient:
         HttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Export/subscriptions/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
@@ -4033,6 +4168,9 @@ class RawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -4220,6 +4358,9 @@ class RawExportClient:
         HttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Export/transactions/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
@@ -4228,6 +4369,9 @@ class RawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -4415,6 +4559,9 @@ class RawExportClient:
         HttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Export/transactions/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
@@ -4423,6 +4570,9 @@ class RawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -4582,6 +4732,9 @@ class RawExportClient:
         HttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Export/transferDetails/{encode_path_param(format)}/{encode_path_param(entry)}/{encode_path_param(transfer_id)}",
             method="GET",
@@ -4591,6 +4744,9 @@ class RawExportClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -4743,6 +4899,9 @@ class RawExportClient:
         HttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Export/transfers/{encode_path_param(entry)}",
             method="GET",
@@ -4752,6 +4911,9 @@ class RawExportClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -4917,6 +5079,9 @@ class RawExportClient:
         HttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Export/vendors/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
@@ -4925,6 +5090,9 @@ class RawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -5090,6 +5258,9 @@ class RawExportClient:
         HttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Export/vendors/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
@@ -5098,6 +5269,9 @@ class RawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -5221,6 +5395,9 @@ class AsyncRawExportClient:
         AsyncHttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Export/boarding/{encode_path_param(format)}/{encode_path_param(org_id)}",
             method="GET",
@@ -5229,6 +5406,9 @@ class AsyncRawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -5402,6 +5582,9 @@ class AsyncRawExportClient:
         AsyncHttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Export/batchDetails/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
@@ -5410,6 +5593,9 @@ class AsyncRawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -5583,6 +5769,9 @@ class AsyncRawExportClient:
         AsyncHttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Export/batchDetails/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
@@ -5591,6 +5780,9 @@ class AsyncRawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -5754,6 +5946,9 @@ class AsyncRawExportClient:
         AsyncHttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Export/batches/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
@@ -5762,6 +5957,9 @@ class AsyncRawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -5923,6 +6121,9 @@ class AsyncRawExportClient:
         AsyncHttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Export/batches/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
@@ -5931,6 +6132,9 @@ class AsyncRawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -6074,6 +6278,9 @@ class AsyncRawExportClient:
         AsyncHttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Export/batchesOut/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
@@ -6082,6 +6289,9 @@ class AsyncRawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -6225,6 +6435,9 @@ class AsyncRawExportClient:
         AsyncHttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Export/batchesOut/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
@@ -6233,6 +6446,9 @@ class AsyncRawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -6394,6 +6610,9 @@ class AsyncRawExportClient:
         AsyncHttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Export/bills/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
@@ -6402,6 +6621,9 @@ class AsyncRawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -6563,6 +6785,9 @@ class AsyncRawExportClient:
         AsyncHttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Export/bills/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
@@ -6571,6 +6796,9 @@ class AsyncRawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -6753,6 +6981,9 @@ class AsyncRawExportClient:
         AsyncHttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Export/chargebacks/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
@@ -6761,6 +6992,9 @@ class AsyncRawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -6943,6 +7177,9 @@ class AsyncRawExportClient:
         AsyncHttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Export/chargebacks/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
@@ -6951,6 +7188,9 @@ class AsyncRawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -7126,6 +7366,9 @@ class AsyncRawExportClient:
         AsyncHttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Export/customers/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
@@ -7134,6 +7377,9 @@ class AsyncRawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -7309,6 +7555,9 @@ class AsyncRawExportClient:
         AsyncHttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Export/customers/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
@@ -7317,6 +7566,9 @@ class AsyncRawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -7502,6 +7754,9 @@ class AsyncRawExportClient:
         AsyncHttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Export/invoices/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
@@ -7510,6 +7765,9 @@ class AsyncRawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -7695,6 +7953,9 @@ class AsyncRawExportClient:
         AsyncHttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Export/invoices/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
@@ -7703,6 +7964,9 @@ class AsyncRawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -7863,6 +8127,9 @@ class AsyncRawExportClient:
         AsyncHttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Export/organizations/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
@@ -7871,6 +8138,9 @@ class AsyncRawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -8030,6 +8300,9 @@ class AsyncRawExportClient:
         AsyncHttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Export/payouts/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
@@ -8038,6 +8311,9 @@ class AsyncRawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -8197,6 +8473,9 @@ class AsyncRawExportClient:
         AsyncHttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Export/payouts/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
@@ -8205,6 +8484,9 @@ class AsyncRawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -8366,6 +8648,9 @@ class AsyncRawExportClient:
         AsyncHttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Export/paypoints/{encode_path_param(format)}/{encode_path_param(org_id)}",
             method="GET",
@@ -8374,6 +8659,9 @@ class AsyncRawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -8555,6 +8843,9 @@ class AsyncRawExportClient:
         AsyncHttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Export/settlements/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
@@ -8563,6 +8854,9 @@ class AsyncRawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -8744,6 +9038,9 @@ class AsyncRawExportClient:
         AsyncHttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Export/settlements/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
@@ -8752,6 +9049,9 @@ class AsyncRawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -8935,6 +9235,9 @@ class AsyncRawExportClient:
         AsyncHttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Export/subscriptions/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
@@ -8943,6 +9246,9 @@ class AsyncRawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -9126,6 +9432,9 @@ class AsyncRawExportClient:
         AsyncHttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Export/subscriptions/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
@@ -9134,6 +9443,9 @@ class AsyncRawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -9321,6 +9633,9 @@ class AsyncRawExportClient:
         AsyncHttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Export/transactions/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
@@ -9329,6 +9644,9 @@ class AsyncRawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -9516,6 +9834,9 @@ class AsyncRawExportClient:
         AsyncHttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Export/transactions/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
@@ -9524,6 +9845,9 @@ class AsyncRawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -9683,6 +10007,9 @@ class AsyncRawExportClient:
         AsyncHttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Export/transferDetails/{encode_path_param(format)}/{encode_path_param(entry)}/{encode_path_param(transfer_id)}",
             method="GET",
@@ -9692,6 +10019,9 @@ class AsyncRawExportClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -9844,6 +10174,9 @@ class AsyncRawExportClient:
         AsyncHttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Export/transfers/{encode_path_param(entry)}",
             method="GET",
@@ -9853,6 +10186,9 @@ class AsyncRawExportClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -10018,6 +10354,9 @@ class AsyncRawExportClient:
         AsyncHttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Export/vendors/{encode_path_param(format)}/{encode_path_param(entry)}",
             method="GET",
@@ -10026,6 +10365,9 @@ class AsyncRawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -10191,6 +10533,9 @@ class AsyncRawExportClient:
         AsyncHttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Export/vendors/{encode_path_param(format)}/org/{encode_path_param(org_id)}",
             method="GET",
@@ -10199,6 +10544,9 @@ class AsyncRawExportClient:
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
                 "parameters": parameters,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )

@@ -15,16 +15,28 @@ class OdpSetup(UniversalBaseModel):
         FieldMetadata(alias="allowAch"),
         pydantic.Field(alias="allowAch", description="Enables or disables ACH payout functionality"),
     ] = None
+    """
+    Enables or disables ACH payout functionality
+    """
+
     allow_checks: typing_extensions.Annotated[
         typing.Optional[bool],
         FieldMetadata(alias="allowChecks"),
         pydantic.Field(alias="allowChecks", description="Enables or disables check printing payout functionality"),
     ] = None
+    """
+    Enables or disables check printing payout functionality
+    """
+
     allow_v_card: typing_extensions.Annotated[
         typing.Optional[bool],
         FieldMetadata(alias="allowVCard"),
         pydantic.Field(alias="allowVCard", description="Enables or disables vCard payout functionality"),
     ] = None
+    """
+    Enables or disables vCard payout functionality
+    """
+
     processing_region: typing.Optional[OdpSetupProcessingRegion] = pydantic.Field(default=None)
     """
     Region where payment processing occurs
@@ -42,6 +54,9 @@ class OdpSetup(UniversalBaseModel):
             alias="issuerNetworkSettingsId", description="Reference ID for the program enabled for ODP issuance"
         ),
     ] = None
+    """
+    Reference ID for the program enabled for ODP issuance
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

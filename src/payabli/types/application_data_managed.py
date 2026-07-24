@@ -54,6 +54,10 @@ class ApplicationDataManaged(UniversalBaseModel):
         FieldMetadata(alias="annualRevenue"),
         pydantic.Field(alias="annualRevenue", description="Annual revenue amount. We recommend including this value."),
     ] = None
+    """
+    Annual revenue amount. We recommend including this value.
+    """
+
     attachments: typing.Optional[Attachments] = None
     baddress: typing.Optional[Baddress1] = None
     baddress_1: typing_extensions.Annotated[
@@ -72,6 +76,10 @@ class ApplicationDataManaged(UniversalBaseModel):
             description="Boarding link ID for the application. Either `templateId` or `boardingLinkId` are required.",
         ),
     ] = None
+    """
+    Boarding link ID for the application. Either `templateId` or `boardingLinkId` are required.
+    """
+
     bstate: typing.Optional[Bstate] = None
     bsummary: typing.Optional[Bsummary] = None
     btype: typing.Optional[OwnType] = None
@@ -113,6 +121,10 @@ class ApplicationDataManaged(UniversalBaseModel):
             description="Email address for the applicant. This is used to send the applicant a boarding link.",
         ),
     ] = None
+    """
+    Email address for the applicant. This is used to send the applicant a boarding link.
+    """
+
     recipient_email_notification: typing_extensions.Annotated[
         typing.Optional[RecipientEmailNotification],
         FieldMetadata(alias="recipientEmailNotification"),
@@ -130,6 +142,10 @@ class ApplicationDataManaged(UniversalBaseModel):
             description="The associated boarding template's ID in Payabli. Either `templateId` or `boardingLinkId` are required.",
         ),
     ] = None
+    """
+    The associated boarding template's ID in Payabli. Either `templateId` or `boardingLinkId` are required.
+    """
+
     website: typing.Optional[Website] = None
     rep_code: typing_extensions.Annotated[
         typing.Optional[RepCode], FieldMetadata(alias="RepCode"), pydantic.Field(alias="RepCode")

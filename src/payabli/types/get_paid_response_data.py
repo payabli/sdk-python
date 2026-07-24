@@ -33,6 +33,10 @@ class GetPaidResponseData(UniversalBaseModel):
             description="Details of the transaction. Present only if `includeDetails` query parameter is set to `true` in the request.",
         ),
     ] = None
+    """
+    Details of the transaction. Present only if `includeDetails` query parameter is set to `true` in the request.
+    """
+
     reference_id: typing_extensions.Annotated[
         Referenceidtrans, FieldMetadata(alias="referenceId"), pydantic.Field(alias="referenceId")
     ]

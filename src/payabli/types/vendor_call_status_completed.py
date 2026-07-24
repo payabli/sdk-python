@@ -19,11 +19,19 @@ class VendorCallStatusCompleted(UniversalBaseModel):
         FieldMetadata(alias="completedAt"),
         pydantic.Field(alias="completedAt", description="ISO-8601 timestamp when the call ended."),
     ] = None
+    """
+    ISO-8601 timestamp when the call ended.
+    """
+
     duration_seconds: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="durationSeconds"),
         pydantic.Field(alias="durationSeconds", description="Call duration in seconds."),
     ] = None
+    """
+    Call duration in seconds.
+    """
+
     summary: typing.Optional[str] = pydantic.Field(default=None)
     """
     Short summary of the call.
@@ -34,6 +42,10 @@ class VendorCallStatusCompleted(UniversalBaseModel):
         FieldMetadata(alias="callId"),
         pydantic.Field(alias="callId", description="Reference identifier for the call."),
     ] = None
+    """
+    Reference identifier for the call.
+    """
+
     transcript: typing.Optional[str] = pydantic.Field(default=None)
     """
     Full call transcript. `null` when no transcript is available.
@@ -44,6 +56,9 @@ class VendorCallStatusCompleted(UniversalBaseModel):
         FieldMetadata(alias="extractedData"),
         pydantic.Field(alias="extractedData", description="Payment and contact details collected during the call."),
     ] = None
+    """
+    Payment and contact details collected during the call.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

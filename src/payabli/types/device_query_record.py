@@ -14,11 +14,19 @@ class DeviceQueryRecord(UniversalBaseModel):
         FieldMetadata(alias="deviceId"),
         pydantic.Field(alias="deviceId", description="Unique identifier for the cloud device."),
     ] = None
+    """
+    Unique identifier for the cloud device.
+    """
+
     id_cloud: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="idCloud"),
         pydantic.Field(alias="idCloud", description="Internal cloud device record ID."),
     ] = None
+    """
+    Internal cloud device record ID.
+    """
+
     description: typing.Optional[str] = pydantic.Field(default=None)
     """
     Description of the device.
@@ -29,11 +37,19 @@ class DeviceQueryRecord(UniversalBaseModel):
         FieldMetadata(alias="serialNumber"),
         pydantic.Field(alias="serialNumber", description="Serial number of the device."),
     ] = None
+    """
+    Serial number of the device.
+    """
+
     friendly_name: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="friendlyName"),
         pydantic.Field(alias="friendlyName", description="Human-readable name for the device."),
     ] = None
+    """
+    Human-readable name for the device.
+    """
+
     make: typing.Optional[str] = pydantic.Field(default=None)
     """
     Manufacturer of the device.
@@ -49,36 +65,64 @@ class DeviceQueryRecord(UniversalBaseModel):
         FieldMetadata(alias="deviceType"),
         pydantic.Field(alias="deviceType", description="Type of device."),
     ] = None
+    """
+    Type of device.
+    """
+
     device_status: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="deviceStatus"),
         pydantic.Field(alias="deviceStatus", description="Current status of the device."),
     ] = None
+    """
+    Current status of the device.
+    """
+
     device_os: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="deviceOs"),
         pydantic.Field(alias="deviceOs", description="Operating system of the device."),
     ] = None
+    """
+    Operating system of the device.
+    """
+
     mac_address: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="macAddress"),
         pydantic.Field(alias="macAddress", description="MAC address of the device."),
     ] = None
+    """
+    MAC address of the device.
+    """
+
     last_health_check: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="lastHealthCheck"),
         pydantic.Field(alias="lastHealthCheck", description="Timestamp of the last health check from the device."),
     ] = None
+    """
+    Timestamp of the last health check from the device.
+    """
+
     registration_code: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="registrationCode"),
         pydantic.Field(alias="registrationCode", description="Registration code used to activate the device."),
     ] = None
+    """
+    Registration code used to activate the device.
+    """
+
     activation_attempts: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="activationAttempts"),
         pydantic.Field(alias="activationAttempts", description="Number of activation attempts for the device."),
     ] = None
+    """
+    Number of activation attempts for the device.
+    """
+
     activation_code_expiry: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="activationCodeExpiry"),
@@ -86,51 +130,90 @@ class DeviceQueryRecord(UniversalBaseModel):
             alias="activationCodeExpiry", description="Expiration timestamp for the device activation code."
         ),
     ] = None
+    """
+    Expiration timestamp for the device activation code.
+    """
+
     created_at: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="createdAt"),
         pydantic.Field(alias="createdAt", description="Timestamp when the device record was created."),
     ] = None
+    """
+    Timestamp when the device record was created.
+    """
+
     updated_at: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="updatedAt"),
         pydantic.Field(alias="updatedAt", description="Timestamp when the device record was last updated."),
     ] = None
+    """
+    Timestamp when the device record was last updated.
+    """
+
     paypoint_id: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="paypointId"),
         pydantic.Field(alias="paypointId", description="Numeric identifier for the paypoint."),
     ] = None
+    """
+    Numeric identifier for the paypoint.
+    """
+
     paypoint_dba: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="paypointDba"),
         pydantic.Field(alias="paypointDba", description="DBA name for the paypoint."),
     ] = None
+    """
+    DBA name for the paypoint.
+    """
+
     paypoint_legal: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="paypointLegal"),
         pydantic.Field(alias="paypointLegal", description="Legal name for the paypoint."),
     ] = None
+    """
+    Legal name for the paypoint.
+    """
+
     paypoint_entry: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="paypointEntry"),
         pydantic.Field(alias="paypointEntry", description="Entry identifier for the paypoint."),
     ] = None
+    """
+    Entry identifier for the paypoint.
+    """
+
     external_paypoint_id: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="externalPaypointId"),
         pydantic.Field(alias="externalPaypointId", description="External identifier for the paypoint."),
     ] = None
+    """
+    External identifier for the paypoint.
+    """
+
     parent_org_id: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="parentOrgId"),
         pydantic.Field(alias="parentOrgId", description="Numeric identifier for the parent organization."),
     ] = None
+    """
+    Numeric identifier for the parent organization.
+    """
+
     parent_org_name: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="parentOrgName"),
         pydantic.Field(alias="parentOrgName", description="Name of the parent organization."),
     ] = None
+    """
+    Name of the parent organization.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

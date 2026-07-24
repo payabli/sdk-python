@@ -21,6 +21,10 @@ class CaptureAllOutResponseResponseDataItem(UniversalBaseModel):
             description="Payabli-generated unique ID of the vendor on the payout. Returns the same value as `VendorId`, or `0` when no vendor is associated.",
         ),
     ] = None
+    """
+    Payabli-generated unique ID of the vendor on the payout. Returns the same value as `VendorId`, or `0` when no vendor is associated.
+    """
+
     vendor_id: typing_extensions.Annotated[
         typing.Optional[Vendoridtrans],
         FieldMetadata(alias="VendorId"),
@@ -29,6 +33,10 @@ class CaptureAllOutResponseResponseDataItem(UniversalBaseModel):
             description="Payabli-generated unique ID of the vendor on the payout. Returns the same value as `CustomerId`, or `0` when no vendor is associated.",
         ),
     ] = None
+    """
+    Payabli-generated unique ID of the vendor on the payout. Returns the same value as `CustomerId`, or `0` when no vendor is associated.
+    """
+
     reference_id: typing_extensions.Annotated[
         typing.Optional[Referenceidtrans], FieldMetadata(alias="ReferenceId"), pydantic.Field(alias="ReferenceId")
     ] = None
@@ -43,6 +51,11 @@ class CaptureAllOutResponseResponseDataItem(UniversalBaseModel):
             description="Text describing the result.\nIf `ResultCode` = 1, returns 'Authorized'.\nIf `ResultCode` = 2 or 3, this contains the cause of the decline.",
         ),
     ] = None
+    """
+    Text describing the result.
+    If `ResultCode` = 1, returns 'Authorized'.
+    If `ResultCode` = 2 or 3, this contains the cause of the decline.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -47,6 +47,10 @@ class AuthCapturePayoutResponseData(UniversalBaseModel):
             description="Payabli-generated unique ID of the vendor on the payout. Returns the same value as `vendorId`, or `0` when no vendor is associated.",
         ),
     ]
+    """
+    Payabli-generated unique ID of the vendor on the payout. Returns the same value as `vendorId`, or `0` when no vendor is associated.
+    """
+
     vendor_id: typing_extensions.Annotated[
         Vendoridtrans,
         FieldMetadata(alias="vendorId"),
@@ -55,6 +59,10 @@ class AuthCapturePayoutResponseData(UniversalBaseModel):
             description="Payabli-generated unique ID of the vendor on the payout. Returns the same value as `customerId`, or `0` when no vendor is associated.",
         ),
     ]
+    """
+    Payabli-generated unique ID of the vendor on the payout. Returns the same value as `customerId`, or `0` when no vendor is associated.
+    """
+
     method_reference_id: typing_extensions.Annotated[
         typing.Optional[MethodReferenceId],
         FieldMetadata(alias="methodReferenceId"),

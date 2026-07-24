@@ -55,6 +55,7 @@ class RawTokenClient:
         HttpResponse[PayabliAccessTokenResponse]
             Access token issued.
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(security=None)
         _response = self._client_wrapper.httpx_client.request(
             "v2/Token/serverside",
             method="POST",
@@ -65,6 +66,7 @@ class RawTokenClient:
                 "permissions": permissions,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -139,6 +141,7 @@ class AsyncRawTokenClient:
         AsyncHttpResponse[PayabliAccessTokenResponse]
             Access token issued.
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(security=None)
         _response = await self._client_wrapper.httpx_client.request(
             "v2/Token/serverside",
             method="POST",
@@ -149,6 +152,7 @@ class AsyncRawTokenClient:
                 "permissions": permissions,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,

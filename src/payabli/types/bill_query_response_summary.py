@@ -26,6 +26,10 @@ class BillQueryResponseSummary(UniversalBaseModel):
         FieldMetadata(alias="totalAmount"),
         pydantic.Field(alias="totalAmount", description="Total amount of bills in response."),
     ] = None
+    """
+    Total amount of bills in response.
+    """
+
     totalamount_2_approval: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="totalamount2approval"),

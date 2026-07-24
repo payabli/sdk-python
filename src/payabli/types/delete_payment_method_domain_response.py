@@ -24,6 +24,10 @@ class DeletePaymentMethodDomainResponse(UniversalBaseModel):
         FieldMetadata(alias="responseData"),
         pydantic.Field(alias="responseData", description="The deleted domain's domain ID."),
     ]
+    """
+    The deleted domain's domain ID.
+    """
+
     response_text: typing_extensions.Annotated[
         ResponseText, FieldMetadata(alias="responseText"), pydantic.Field(alias="responseText")
     ]

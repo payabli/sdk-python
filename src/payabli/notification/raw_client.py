@@ -49,12 +49,18 @@ class RawNotificationClient:
         HttpResponse[PayabliApiResponseNotifications]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "Notification",
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=AddNotificationRequest, direction="write"
             ),
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -140,9 +146,15 @@ class RawNotificationClient:
         HttpResponse[NotificationQueryRecord]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Notification/{encode_path_param(n_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -229,12 +241,18 @@ class RawNotificationClient:
         HttpResponse[PayabliApiResponseNotifications]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Notification/{encode_path_param(n_id)}",
             method="PUT",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=UpdateNotificationRequest, direction="write"
             ),
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -320,9 +338,15 @@ class RawNotificationClient:
         HttpResponse[PayabliApiResponseNotifications]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Notification/{encode_path_param(n_id)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -407,9 +431,15 @@ class RawNotificationClient:
         HttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Export/notificationReport/{encode_path_param(id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -454,12 +484,18 @@ class AsyncRawNotificationClient:
         AsyncHttpResponse[PayabliApiResponseNotifications]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "Notification",
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=AddNotificationRequest, direction="write"
             ),
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -545,9 +581,15 @@ class AsyncRawNotificationClient:
         AsyncHttpResponse[NotificationQueryRecord]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Notification/{encode_path_param(n_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -634,12 +676,18 @@ class AsyncRawNotificationClient:
         AsyncHttpResponse[PayabliApiResponseNotifications]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Notification/{encode_path_param(n_id)}",
             method="PUT",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=UpdateNotificationRequest, direction="write"
             ),
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -725,9 +773,15 @@ class AsyncRawNotificationClient:
         AsyncHttpResponse[PayabliApiResponseNotifications]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Notification/{encode_path_param(n_id)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -812,9 +866,15 @@ class AsyncRawNotificationClient:
         AsyncHttpResponse[File]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Export/notificationReport/{encode_path_param(id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:

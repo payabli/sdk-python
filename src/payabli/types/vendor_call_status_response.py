@@ -21,6 +21,10 @@ class VendorCallStatusResponse(UniversalBaseModel):
         FieldMetadata(alias="vendorId"),
         pydantic.Field(alias="vendorId", description="ID of the vendor this status applies to."),
     ] = None
+    """
+    ID of the vendor this status applies to.
+    """
+
     state: typing.Optional[str] = pydantic.Field(default=None)
     """
     Current call state. Values are: `none` (no call activity for the vendor), `scheduled` (a call is queued or being retried), `successful` (a call completed and returned data), or `failed` (the call didn't complete successfully).

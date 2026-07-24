@@ -31,6 +31,10 @@ class CheckCaptureResponse(UniversalBaseModel):
             alias="processDate", description="The date and time when the check was processed (ISO 8601 format)."
         ),
     ]
+    """
+    The date and time when the check was processed (ISO 8601 format).
+    """
+
     ocr_micr: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="ocrMicr"),
@@ -39,46 +43,82 @@ class CheckCaptureResponse(UniversalBaseModel):
             description="The OCR-extracted MICR (Magnetic Ink Character Recognition) line from the check.",
         ),
     ] = None
+    """
+    The OCR-extracted MICR (Magnetic Ink Character Recognition) line from the check.
+    """
+
     ocr_micr_status: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="ocrMicrStatus"),
         pydantic.Field(alias="ocrMicrStatus", description="Status of the MICR extraction process."),
     ] = None
+    """
+    Status of the MICR extraction process.
+    """
+
     ocr_micr_confidence: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="ocrMicrConfidence"),
         pydantic.Field(alias="ocrMicrConfidence", description="Confidence score for the MICR extraction (0 to 100)."),
     ] = None
+    """
+    Confidence score for the MICR extraction (0 to 100).
+    """
+
     ocr_account_number: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="ocrAccountNumber"),
         pydantic.Field(alias="ocrAccountNumber", description="The bank account number extracted from the check."),
     ] = None
+    """
+    The bank account number extracted from the check.
+    """
+
     ocr_routing_number: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="ocrRoutingNumber"),
         pydantic.Field(alias="ocrRoutingNumber", description="The bank routing number extracted from the check."),
     ] = None
+    """
+    The bank routing number extracted from the check.
+    """
+
     ocr_check_number: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="ocrCheckNumber"),
         pydantic.Field(alias="ocrCheckNumber", description="The check number extracted from the check."),
     ] = None
+    """
+    The check number extracted from the check.
+    """
+
     ocr_check_tran_code: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="ocrCheckTranCode"),
         pydantic.Field(alias="ocrCheckTranCode", description="The transaction code extracted from the check."),
     ] = None
+    """
+    The transaction code extracted from the check.
+    """
+
     ocr_amount: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="ocrAmount"),
         pydantic.Field(alias="ocrAmount", description="The amount extracted via OCR from the check."),
     ] = None
+    """
+    The amount extracted via OCR from the check.
+    """
+
     ocr_amount_status: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="ocrAmountStatus"),
         pydantic.Field(alias="ocrAmountStatus", description="Status of the amount extraction process."),
     ] = None
+    """
+    Status of the amount extraction process.
+    """
+
     ocr_amount_confidence: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="ocrAmountConfidence"),
@@ -86,6 +126,10 @@ class CheckCaptureResponse(UniversalBaseModel):
             alias="ocrAmountConfidence", description="Confidence score for the amount extraction (0 to 100)."
         ),
     ] = None
+    """
+    Confidence score for the amount extraction (0 to 100).
+    """
+
     amount_discrepancy_detected: typing_extensions.Annotated[
         bool,
         FieldMetadata(alias="amountDiscrepancyDetected"),
@@ -94,6 +138,10 @@ class CheckCaptureResponse(UniversalBaseModel):
             description="Flag indicating whether there's a discrepancy between the provided amount and the OCR-detected amount.",
         ),
     ]
+    """
+    Flag indicating whether there's a discrepancy between the provided amount and the OCR-detected amount.
+    """
+
     endorsement_detected: typing_extensions.Annotated[
         bool,
         FieldMetadata(alias="endorsementDetected"),
@@ -101,6 +149,10 @@ class CheckCaptureResponse(UniversalBaseModel):
             alias="endorsementDetected", description="Flag indicating whether an endorsement was detected on the check."
         ),
     ]
+    """
+    Flag indicating whether an endorsement was detected on the check.
+    """
+
     errors: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
     List of error messages that occurred during processing.
@@ -119,21 +171,37 @@ class CheckCaptureResponse(UniversalBaseModel):
             description="Confidence score for the match between Courtesy Amount Recognition (CAR) and Legal Amount Recognition (LAR).",
         ),
     ] = None
+    """
+    Confidence score for the match between Courtesy Amount Recognition (CAR) and Legal Amount Recognition (LAR).
+    """
+
     car_lar_match_status: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="carLarMatchStatus"),
         pydantic.Field(alias="carLarMatchStatus", description="Status of the CAR/LAR match."),
     ] = None
+    """
+    Status of the CAR/LAR match.
+    """
+
     front_image: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="frontImage"),
         pydantic.Field(alias="frontImage", description="Processed front image of the check (Base64-encoded)."),
     ] = None
+    """
+    Processed front image of the check (Base64-encoded).
+    """
+
     rear_image: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="rearImage"),
         pydantic.Field(alias="rearImage", description="Processed rear image of the check (Base64-encoded)."),
     ] = None
+    """
+    Processed rear image of the check (Base64-encoded).
+    """
+
     check_type: typing_extensions.Annotated[
         float,
         FieldMetadata(alias="checkType"),
@@ -142,11 +210,22 @@ class CheckCaptureResponse(UniversalBaseModel):
             description="Identifier for the type of check.\nPersonal = 1\nBusiness = 2\nOnly personal checks are supported for check capture.",
         ),
     ]
+    """
+    Identifier for the type of check.
+    Personal = 1
+    Business = 2
+    Only personal checks are supported for check capture.
+    """
+
     reference_number: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="referenceNumber"),
         pydantic.Field(alias="referenceNumber", description="Reference number for the transaction."),
     ] = None
+    """
+    Reference number for the transaction.
+    """
+
     page_identifier: typing_extensions.Annotated[
         typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier"), pydantic.Field(alias="pageIdentifier")
     ] = None

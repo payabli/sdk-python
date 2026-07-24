@@ -25,6 +25,10 @@ class CascadeJobDetails(UniversalBaseModel):
         FieldMetadata(alias="jobErrorMessage"),
         pydantic.Field(alias="jobErrorMessage", description="Error message for a failed cascade process."),
     ] = None
+    """
+    Error message for a failed cascade process.
+    """
+
     job_id: typing_extensions.Annotated[
         typing.Optional[JobId], FieldMetadata(alias="jobId"), pydantic.Field(alias="jobId")
     ] = None

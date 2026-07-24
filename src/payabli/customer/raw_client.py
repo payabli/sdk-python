@@ -170,6 +170,9 @@ class RawCustomerClient:
         HttpResponse[PayabliApiResponseCustomerQuery]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Customer/single/{encode_path_param(entry)}",
             method="POST",
@@ -206,6 +209,7 @@ class RawCustomerClient:
                 "createdAt": created_at,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -294,9 +298,15 @@ class RawCustomerClient:
         HttpResponse[CustomerQueryRecords]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Customer/{encode_path_param(customer_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -477,6 +487,9 @@ class RawCustomerClient:
         HttpResponse[PayabliApiResponse00Responsedatanonobject]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Customer/{encode_path_param(customer_id)}",
             method="PUT",
@@ -507,6 +520,9 @@ class RawCustomerClient:
                 "additionalFields": additional_fields,
                 "identifierFields": identifier_fields,
                 "createdAt": created_at,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -593,9 +609,15 @@ class RawCustomerClient:
         HttpResponse[PayabliApiResponse00Responsedatanonobject]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Customer/{encode_path_param(customer_id)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -680,9 +702,15 @@ class RawCustomerClient:
         HttpResponse[PayabliApiResponse00Responsedatanonobject]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Customer/{encode_path_param(customer_id)}/consent",
             method="POST",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -770,9 +798,15 @@ class RawCustomerClient:
         HttpResponse[PayabliApiResponse00Responsedatanonobject]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Customer/link/{encode_path_param(customer_id)}/{encode_path_param(trans_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -971,6 +1005,9 @@ class AsyncRawCustomerClient:
         AsyncHttpResponse[PayabliApiResponseCustomerQuery]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Customer/single/{encode_path_param(entry)}",
             method="POST",
@@ -1007,6 +1044,7 @@ class AsyncRawCustomerClient:
                 "createdAt": created_at,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -1095,9 +1133,15 @@ class AsyncRawCustomerClient:
         AsyncHttpResponse[CustomerQueryRecords]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Customer/{encode_path_param(customer_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -1278,6 +1322,9 @@ class AsyncRawCustomerClient:
         AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Customer/{encode_path_param(customer_id)}",
             method="PUT",
@@ -1308,6 +1355,9 @@ class AsyncRawCustomerClient:
                 "additionalFields": additional_fields,
                 "identifierFields": identifier_fields,
                 "createdAt": created_at,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -1394,9 +1444,15 @@ class AsyncRawCustomerClient:
         AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Customer/{encode_path_param(customer_id)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -1481,9 +1537,15 @@ class AsyncRawCustomerClient:
         AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Customer/{encode_path_param(customer_id)}/consent",
             method="POST",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -1571,9 +1633,15 @@ class AsyncRawCustomerClient:
         AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Customer/link/{encode_path_param(customer_id)}/{encode_path_param(trans_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:

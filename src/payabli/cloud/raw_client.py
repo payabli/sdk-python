@@ -67,6 +67,9 @@ class RawCloudClient:
         HttpResponse[AddDeviceResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Cloud/register/{encode_path_param(entry)}",
             method="POST",
@@ -75,6 +78,7 @@ class RawCloudClient:
                 "registrationCode": registration_code,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -166,9 +170,15 @@ class RawCloudClient:
         HttpResponse[RemoveDeviceResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Cloud/register/{encode_path_param(entry)}/{encode_path_param(device_id)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -256,9 +266,15 @@ class RawCloudClient:
         HttpResponse[CloudQueryApiResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Cloud/history/{encode_path_param(entry)}/{encode_path_param(device_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -352,11 +368,17 @@ class RawCloudClient:
         HttpResponse[CloudQueryApiResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Cloud/list/{encode_path_param(entry)}",
             method="GET",
             params={
                 "forceRefresh": force_refresh,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -466,6 +488,9 @@ class AsyncRawCloudClient:
         AsyncHttpResponse[AddDeviceResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Cloud/register/{encode_path_param(entry)}",
             method="POST",
@@ -474,6 +499,7 @@ class AsyncRawCloudClient:
                 "registrationCode": registration_code,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -565,9 +591,15 @@ class AsyncRawCloudClient:
         AsyncHttpResponse[RemoveDeviceResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Cloud/register/{encode_path_param(entry)}/{encode_path_param(device_id)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -655,9 +687,15 @@ class AsyncRawCloudClient:
         AsyncHttpResponse[CloudQueryApiResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Cloud/history/{encode_path_param(entry)}/{encode_path_param(device_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -751,11 +789,17 @@ class AsyncRawCloudClient:
         AsyncHttpResponse[CloudQueryApiResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Cloud/list/{encode_path_param(entry)}",
             method="GET",
             params={
                 "forceRefresh": force_refresh,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )

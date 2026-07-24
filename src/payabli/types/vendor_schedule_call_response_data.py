@@ -18,6 +18,10 @@ class VendorScheduleCallResponseData(UniversalBaseModel):
         FieldMetadata(alias="callScheduleId"),
         pydantic.Field(alias="callScheduleId", description="Identifier for the scheduled call."),
     ] = None
+    """
+    Identifier for the scheduled call.
+    """
+
     enrichment_id: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="enrichmentId"),
@@ -26,11 +30,19 @@ class VendorScheduleCallResponseData(UniversalBaseModel):
             description="ID of the enrichment run associated with this call. When the request omits `enrichmentId`, Payabli generates one and returns it here.",
         ),
     ] = None
+    """
+    ID of the enrichment run associated with this call. When the request omits `enrichmentId`, Payabli generates one and returns it here.
+    """
+
     scheduled_call_date: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="scheduledCallDate"),
         pydantic.Field(alias="scheduledCallDate", description="ISO-8601 timestamp of the next scheduled call attempt."),
     ] = None
+    """
+    ISO-8601 timestamp of the next scheduled call attempt.
+    """
+
     status: typing.Optional[str] = pydantic.Field(default=None)
     """
     Status of the call schedule. Values are `pending`, `dispatched`, `retry_scheduled`, `completed`, and `fallback_applied`.

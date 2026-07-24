@@ -22,16 +22,28 @@ class ChargeBackResponse(UniversalBaseModel):
         FieldMetadata(alias="contactEmail"),
         pydantic.Field(alias="contactEmail", description="Email of response submitter."),
     ] = None
+    """
+    Email of response submitter.
+    """
+
     contact_name: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="contactName"),
         pydantic.Field(alias="contactName", description="Name of response submitter"),
     ] = None
+    """
+    Name of response submitter
+    """
+
     created_at: typing_extensions.Annotated[
         typing.Optional[CreatedAt],
         FieldMetadata(alias="createdAt"),
         pydantic.Field(alias="createdAt", description="Timestamp when response was submitted, in UTC."),
     ] = None
+    """
+    Timestamp when response was submitted, in UTC.
+    """
+
     id: typing.Optional[int] = pydantic.Field(default=None)
     """
     Chargeback response identifier

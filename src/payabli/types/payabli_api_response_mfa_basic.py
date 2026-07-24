@@ -22,6 +22,10 @@ class PayabliApiResponseMfaBasic(UniversalBaseModel):
         FieldMetadata(alias="mfaMode"),
         pydantic.Field(alias="mfaMode", description="The mode of multi-factor authentication used."),
     ] = None
+    """
+    The mode of multi-factor authentication used.
+    """
+
     mfa_validation_code: typing_extensions.Annotated[
         typing.Optional[MfaValidationCode],
         FieldMetadata(alias="mfaValidationCode"),
@@ -32,6 +36,10 @@ class PayabliApiResponseMfaBasic(UniversalBaseModel):
         FieldMetadata(alias="responseData"),
         pydantic.Field(alias="responseData", description="Data returned by the response, masked for security."),
     ] = None
+    """
+    Data returned by the response, masked for security.
+    """
+
     response_text: typing_extensions.Annotated[
         ResponseText, FieldMetadata(alias="responseText"), pydantic.Field(alias="responseText")
     ]

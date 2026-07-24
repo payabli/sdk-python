@@ -36,6 +36,9 @@ class ConfigureApplePaypointApiResponse(UniversalBaseModel):
         FieldMetadata(alias="roomId"),
         pydantic.Field(alias="roomId", description="Field not in use on this endpoint"),
     ] = None
+    """
+    Field not in use on this endpoint
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -16,16 +16,28 @@ class VCardGetResponse(UniversalBaseModel):
         FieldMetadata(alias="vcardSent"),
         pydantic.Field(alias="vcardSent", description="Indicates if the virtual card was sent."),
     ] = None
+    """
+    Indicates if the virtual card was sent.
+    """
+
     card_token: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="cardToken"),
         pydantic.Field(alias="cardToken", description="A unique token identifier for the card."),
     ] = None
+    """
+    A unique token identifier for the card.
+    """
+
     card_number: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="cardNumber"),
         pydantic.Field(alias="cardNumber", description="The masked number of the card."),
     ] = None
+    """
+    The masked number of the card.
+    """
+
     cvc: typing.Optional[str] = pydantic.Field(default=None)
     """
     Masked Card Verification Code.
@@ -36,6 +48,10 @@ class VCardGetResponse(UniversalBaseModel):
         FieldMetadata(alias="expirationDate"),
         pydantic.Field(alias="expirationDate", description="The expiration date of the card."),
     ] = None
+    """
+    The expiration date of the card.
+    """
+
     status: typing.Optional[str] = pydantic.Field(default=None)
     """
     The current status of the card.
@@ -51,26 +67,46 @@ class VCardGetResponse(UniversalBaseModel):
         FieldMetadata(alias="currentBalance"),
         pydantic.Field(alias="currentBalance", description="The current balance available on the card."),
     ] = None
+    """
+    The current balance available on the card.
+    """
+
     expense_limit: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="expenseLimit"),
         pydantic.Field(alias="expenseLimit", description="The set limit for expenses."),
     ] = None
+    """
+    The set limit for expenses.
+    """
+
     expense_limit_period: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="expenseLimitPeriod"),
         pydantic.Field(alias="expenseLimitPeriod", description="The period for the expense limit."),
     ] = None
+    """
+    The period for the expense limit.
+    """
+
     max_number_of_uses: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="maxNumberOfUses"),
         pydantic.Field(alias="maxNumberOfUses", description="Maximum number of uses allowed for the card."),
     ] = None
+    """
+    Maximum number of uses allowed for the card.
+    """
+
     current_number_of_uses: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="currentNumberOfUses"),
         pydantic.Field(alias="currentNumberOfUses", description="The current number of times the card has been used."),
     ] = None
+    """
+    The current number of times the card has been used.
+    """
+
     exact_amount: typing_extensions.Annotated[
         typing.Optional[bool],
         FieldMetadata(alias="exactAmount"),
@@ -78,6 +114,10 @@ class VCardGetResponse(UniversalBaseModel):
             alias="exactAmount", description="Indicates if only the exact amount is allowed for transactions."
         ),
     ] = None
+    """
+    Indicates if only the exact amount is allowed for transactions.
+    """
+
     mcc: typing.Optional[str] = pydantic.Field(default=None)
     """
     Merchant Category Code, if applicable.
@@ -93,26 +133,46 @@ class VCardGetResponse(UniversalBaseModel):
         FieldMetadata(alias="misc1"),
         pydantic.Field(alias="misc1", description="A miscellaneous field for additional information."),
     ] = None
+    """
+    A miscellaneous field for additional information.
+    """
+
     misc_2: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="misc2"),
         pydantic.Field(alias="misc2", description="Another miscellaneous field for extra information."),
     ] = None
+    """
+    Another miscellaneous field for extra information.
+    """
+
     date_created: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="dateCreated"),
         pydantic.Field(alias="dateCreated", description="The creation date of the record."),
     ] = None
+    """
+    The creation date of the record.
+    """
+
     date_modified: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="dateModified"),
         pydantic.Field(alias="dateModified", description="The last modified date of the record."),
     ] = None
+    """
+    The last modified date of the record.
+    """
+
     associated_vendor: typing_extensions.Annotated[
         typing.Optional[VCardGetResponseAssociatedVendor],
         FieldMetadata(alias="associatedVendor"),
         pydantic.Field(alias="associatedVendor", description="Information about the associated vendor."),
     ] = None
+    """
+    Information about the associated vendor.
+    """
+
     associated_customer: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="associatedCustomer"),
@@ -120,26 +180,46 @@ class VCardGetResponse(UniversalBaseModel):
             alias="associatedCustomer", description="Information about the associated customer, if applicable."
         ),
     ] = None
+    """
+    Information about the associated customer, if applicable.
+    """
+
     parent_org_name: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="ParentOrgName"),
         pydantic.Field(alias="ParentOrgName", description="Name of the parent organization."),
     ] = None
+    """
+    Name of the parent organization.
+    """
+
     paypoint_dbaname: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="PaypointDbaname"),
         pydantic.Field(alias="PaypointDbaname", description="The 'Doing Business As' name of the Paypoint."),
     ] = None
+    """
+    The 'Doing Business As' name of the Paypoint.
+    """
+
     paypoint_legalname: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="PaypointLegalname"),
         pydantic.Field(alias="PaypointLegalname", description="The legal name of the Paypoint."),
     ] = None
+    """
+    The legal name of the Paypoint.
+    """
+
     paypoint_entryname: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="PaypointEntryname"),
         pydantic.Field(alias="PaypointEntryname", description="Entry name for the Paypoint, if applicable."),
     ] = None
+    """
+    Entry name for the Paypoint, if applicable.
+    """
+
     external_paypoint_id: typing_extensions.Annotated[
         typing.Optional[ExternalPaypointId],
         FieldMetadata(alias="externalPaypointID"),
@@ -150,6 +230,9 @@ class VCardGetResponse(UniversalBaseModel):
         FieldMetadata(alias="paypointId"),
         pydantic.Field(alias="paypointId", description="The unique identifier for the paypoint."),
     ] = None
+    """
+    The unique identifier for the paypoint.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

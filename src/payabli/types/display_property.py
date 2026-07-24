@@ -19,6 +19,10 @@ class DisplayProperty(UniversalBaseModel):
         FieldMetadata(alias="Fixed"),
         pydantic.Field(alias="Fixed", description="This field is unused."),
     ] = None
+    """
+    This field is unused.
+    """
+
     name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The field's name.

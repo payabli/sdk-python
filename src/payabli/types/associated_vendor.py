@@ -42,11 +42,19 @@ class AssociatedVendor(UniversalBaseModel):
         FieldMetadata(alias="Name1"),
         pydantic.Field(alias="Name1", description="Primary name for vendor."),
     ] = None
+    """
+    Primary name for vendor.
+    """
+
     name_2: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="Name2"),
         pydantic.Field(alias="Name2", description="Secondary name for vendor."),
     ] = None
+    """
+    Secondary name for vendor.
+    """
+
     ein: typing_extensions.Annotated[typing.Optional[Ein], FieldMetadata(alias="EIN"), pydantic.Field(alias="EIN")] = (
         None
     )
@@ -55,37 +63,69 @@ class AssociatedVendor(UniversalBaseModel):
         FieldMetadata(alias="Phone"),
         pydantic.Field(alias="Phone", description="Vendor's phone number."),
     ] = None
+    """
+    Vendor's phone number.
+    """
+
     email: typing_extensions.Annotated[
         typing.Optional[Email],
         FieldMetadata(alias="Email"),
         pydantic.Field(alias="Email", description="Vendor's email address."),
     ] = None
+    """
+    Vendor's email address.
+    """
+
     address_1: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="Address1"),
         pydantic.Field(alias="Address1", description="Vendor's address."),
     ] = None
+    """
+    Vendor's address.
+    """
+
     address_2: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="Address2"),
         pydantic.Field(alias="Address2", description="Additional line for vendor's address."),
     ] = None
+    """
+    Additional line for vendor's address.
+    """
+
     city: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="City"), pydantic.Field(alias="City", description="Vendor's city.")
     ] = None
+    """
+    Vendor's city.
+    """
+
     state: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="State"), pydantic.Field(alias="State", description="Vendor's state.")
     ] = None
+    """
+    Vendor's state.
+    """
+
     zip: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="Zip"),
         pydantic.Field(alias="Zip", description="Vendor's postal code."),
     ] = None
+    """
+    Vendor's postal code.
+    """
+
     country: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="Country"),
         pydantic.Field(alias="Country", description="Vendor's country."),
     ] = None
+    """
+    Vendor's country.
+    """
+
     mcc: typing_extensions.Annotated[typing.Optional[Mcc], FieldMetadata(alias="Mcc"), pydantic.Field(alias="Mcc")] = (
         None
     )
@@ -97,6 +137,10 @@ class AssociatedVendor(UniversalBaseModel):
         FieldMetadata(alias="Contacts"),
         pydantic.Field(alias="Contacts", description="Array of objects describing the vendor's contacts."),
     ] = None
+    """
+    Array of objects describing the vendor's contacts.
+    """
+
     billing_data: typing_extensions.Annotated[
         typing.Optional[BillingDataResponse], FieldMetadata(alias="BillingData"), pydantic.Field(alias="BillingData")
     ] = None
@@ -122,16 +166,28 @@ class AssociatedVendor(UniversalBaseModel):
         FieldMetadata(alias="PaypointLegalname"),
         pydantic.Field(alias="PaypointLegalname", description="The paypoint's legal name."),
     ] = None
+    """
+    The paypoint's legal name.
+    """
+
     paypoint_dbaname: typing_extensions.Annotated[
         typing.Optional[Dbaname],
         FieldMetadata(alias="PaypointDbaname"),
         pydantic.Field(alias="PaypointDbaname", description="The paypoint's DBA name."),
     ] = None
+    """
+    The paypoint's DBA name.
+    """
+
     paypoint_entryname: typing_extensions.Annotated[
         typing.Optional[Entrypointfield],
         FieldMetadata(alias="PaypointEntryname"),
         pydantic.Field(alias="PaypointEntryname", description="Paypoint's entryname."),
     ] = None
+    """
+    Paypoint's entryname.
+    """
+
     parent_org_name: typing_extensions.Annotated[
         typing.Optional[OrgParentName], FieldMetadata(alias="ParentOrgName"), pydantic.Field(alias="ParentOrgName")
     ] = None

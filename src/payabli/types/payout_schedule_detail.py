@@ -18,6 +18,10 @@ class PayoutScheduleDetail(UniversalBaseModel):
             description="Subscription start date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY. This must be a future date.",
         ),
     ] = None
+    """
+    Subscription start date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY. This must be a future date.
+    """
+
     end_date: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="endDate"),
@@ -26,6 +30,10 @@ class PayoutScheduleDetail(UniversalBaseModel):
             description="Subscription end date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY or the value `untilcancelled` to indicate a scheduled payout with infinite cycle.",
         ),
     ] = None
+    """
+    Subscription end date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY or the value `untilcancelled` to indicate a scheduled payout with infinite cycle.
+    """
+
     frequency: typing.Optional[Frequency] = pydantic.Field(default=None)
     """
     Frequency of the payout subscription.

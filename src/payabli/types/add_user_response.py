@@ -19,6 +19,10 @@ class AddUserResponse(UniversalBaseModel):
         FieldMetadata(alias="responseData"),
         pydantic.Field(alias="responseData", description="The response data."),
     ] = None
+    """
+    The response data.
+    """
+
     response_text: typing_extensions.Annotated[
         ResponseText, FieldMetadata(alias="responseText"), pydantic.Field(alias="responseText")
     ]

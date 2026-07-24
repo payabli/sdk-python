@@ -19,6 +19,10 @@ class BillItem(UniversalBaseModel):
         FieldMetadata(alias="itemCategories"),
         pydantic.Field(alias="itemCategories", description="Array of tags classifying item or product."),
     ] = None
+    """
+    Array of tags classifying item or product.
+    """
+
     item_commodity_code: typing_extensions.Annotated[
         typing.Optional[ItemCommodityCode],
         FieldMetadata(alias="itemCommodityCode"),
@@ -29,6 +33,10 @@ class BillItem(UniversalBaseModel):
         FieldMetadata(alias="itemCost"),
         pydantic.Field(alias="itemCost", description="Item or product price per unit."),
     ] = None
+    """
+    Item or product price per unit.
+    """
+
     item_description: typing_extensions.Annotated[
         typing.Optional[ItemDescription],
         FieldMetadata(alias="itemDescription"),
@@ -42,6 +50,12 @@ class BillItem(UniversalBaseModel):
             description="Internal class of item or product: value `0` is only for invoices,\n`1` for bills, and `2` is common for both. Required on invoice line\nitems — invoice creation fails with `Invalid item data` if it's omitted.",
         ),
     ] = None
+    """
+    Internal class of item or product: value `0` is only for invoices,
+    `1` for bills, and `2` is common for both. Required on invoice line
+    items — invoice creation fails with `Invalid item data` if it's omitted.
+    """
+
     item_product_code: typing_extensions.Annotated[
         typing.Optional[ItemProductCode],
         FieldMetadata(alias="itemProductCode"),
@@ -57,16 +71,28 @@ class BillItem(UniversalBaseModel):
         FieldMetadata(alias="itemQty"),
         pydantic.Field(alias="itemQty", description="Quantity of item or product."),
     ] = None
+    """
+    Quantity of item or product.
+    """
+
     item_tax_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="itemTaxAmount"),
         pydantic.Field(alias="itemTaxAmount", description="Tax amount applied to item or product."),
     ] = None
+    """
+    Tax amount applied to item or product.
+    """
+
     item_tax_rate: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="itemTaxRate"),
         pydantic.Field(alias="itemTaxRate", description="Tax rate applied to item or product."),
     ] = None
+    """
+    Tax rate applied to item or product.
+    """
+
     item_total_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="itemTotalAmount"),
@@ -75,6 +101,11 @@ class BillItem(UniversalBaseModel):
             description="Per-line total for this item (unit cost times quantity). Distinct from\nthe invoice's overall total, `invoiceAmount`. Required on invoice line items.",
         ),
     ] = None
+    """
+    Per-line total for this item (unit cost times quantity). Distinct from
+    the invoice's overall total, `invoiceAmount`. Required on invoice line items.
+    """
+
     item_unit_of_measure: typing_extensions.Annotated[
         typing.Optional[ItemUnitofMeasure],
         FieldMetadata(alias="itemUnitOfMeasure"),

@@ -23,6 +23,10 @@ class ApplePayPaypointRegistrationData(UniversalBaseModel):
             alias="walletType", description="The wallet type. In this context it will always be `applepay`."
         ),
     ] = None
+    """
+    The wallet type. In this context it will always be `applepay`.
+    """
+
     wallet_data: typing_extensions.Annotated[
         typing.Optional[AppleWalletData], FieldMetadata(alias="walletData"), pydantic.Field(alias="walletData")
     ] = None

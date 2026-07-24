@@ -65,6 +65,9 @@ class RawOcrClient:
         HttpResponse[PayabliApiResponseOcr]
             OCR document processing result
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Import/ocrDocumentForm/{encode_path_param(type_result)}",
             method="POST",
@@ -73,6 +76,9 @@ class RawOcrClient:
                 "filename": filename,
                 "furl": furl,
                 "fContent": f_content,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -177,6 +183,9 @@ class RawOcrClient:
         HttpResponse[PayabliApiResponseOcr]
             OCR document processing result
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Import/ocrDocumentJson/{encode_path_param(type_result)}",
             method="POST",
@@ -185,6 +194,9 @@ class RawOcrClient:
                 "filename": filename,
                 "furl": furl,
                 "fContent": f_content,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -250,6 +262,9 @@ class AsyncRawOcrClient:
         AsyncHttpResponse[PayabliApiResponseOcr]
             OCR document processing result
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Import/ocrDocumentForm/{encode_path_param(type_result)}",
             method="POST",
@@ -258,6 +273,9 @@ class AsyncRawOcrClient:
                 "filename": filename,
                 "furl": furl,
                 "fContent": f_content,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -362,6 +380,9 @@ class AsyncRawOcrClient:
         AsyncHttpResponse[PayabliApiResponseOcr]
             OCR document processing result
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Import/ocrDocumentJson/{encode_path_param(type_result)}",
             method="POST",
@@ -370,6 +391,9 @@ class AsyncRawOcrClient:
                 "filename": filename,
                 "furl": furl,
                 "fContent": f_content,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,

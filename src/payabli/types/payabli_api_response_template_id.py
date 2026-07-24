@@ -30,6 +30,10 @@ class PayabliApiResponseTemplateId(UniversalBaseModel):
             alias="responseData", description="When the operation is successful, contains the template's ID."
         ),
     ] = None
+    """
+    When the operation is successful, contains the template's ID.
+    """
+
     response_text: typing_extensions.Annotated[
         ResponseText, FieldMetadata(alias="responseText"), pydantic.Field(alias="responseText")
     ]

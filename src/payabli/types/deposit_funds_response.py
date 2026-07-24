@@ -28,6 +28,10 @@ class DepositFundsResponse(UniversalBaseModel):
         FieldMetadata(alias="responseData"),
         pydantic.Field(alias="responseData", description="The object containing the response data."),
     ] = None
+    """
+    The object containing the response data.
+    """
+
     page_identifier: typing_extensions.Annotated[
         typing.Optional[PageIdentifier],
         FieldMetadata(alias="pageIdentifier"),
@@ -35,6 +39,9 @@ class DepositFundsResponse(UniversalBaseModel):
             alias="pageIdentifier", description="Auxiliary validation used internally by payment pages and components."
         ),
     ] = None
+    """
+    Auxiliary validation used internally by payment pages and components.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

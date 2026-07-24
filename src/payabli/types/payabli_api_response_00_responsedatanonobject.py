@@ -28,6 +28,10 @@ class PayabliApiResponse00Responsedatanonobject(UniversalBaseModel):
             description="Describes the room ID. Only in use on Boarding endpoints, returns `0` when not applicable.",
         ),
     ] = None
+    """
+    Describes the room ID. Only in use on Boarding endpoints, returns `0` when not applicable.
+    """
+
     is_success: typing_extensions.Annotated[
         typing.Optional[IsSuccess], FieldMetadata(alias="isSuccess"), pydantic.Field(alias="isSuccess")
     ] = None

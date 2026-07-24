@@ -28,6 +28,10 @@ class EditOrganizationResponse(UniversalBaseModel):
         FieldMetadata(alias="responseData"),
         pydantic.Field(alias="responseData", description="Returns the organization ID."),
     ] = None
+    """
+    Returns the organization ID.
+    """
+
     response_text: typing_extensions.Annotated[
         ResponseText, FieldMetadata(alias="responseText"), pydantic.Field(alias="responseText")
     ]

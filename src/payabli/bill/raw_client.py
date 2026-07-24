@@ -160,6 +160,9 @@ class RawBillClient:
         HttpResponse[BillResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Bill/single/{encode_path_param(entry)}",
             method="POST",
@@ -194,6 +197,7 @@ class RawBillClient:
                 ),
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -282,9 +286,15 @@ class RawBillClient:
         HttpResponse[GetBillResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Bill/{encode_path_param(id_bill)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -460,6 +470,9 @@ class RawBillClient:
         HttpResponse[EditBillResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Bill/{encode_path_param(id_bill)}",
             method="PUT",
@@ -492,6 +505,9 @@ class RawBillClient:
                 "vendor": convert_and_respect_annotation_metadata(
                     object_=vendor, annotation=BillOutDataVendor, direction="write"
                 ),
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -578,9 +594,15 @@ class RawBillClient:
         HttpResponse[BillResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Bill/{encode_path_param(id_bill)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -678,11 +700,17 @@ class RawBillClient:
         HttpResponse[FileContent]
             A successful response returns a binary file when `returnObject` is `false`. When `returnObject` is `true`, the response contains the file content as a Base64-encoded string in an object. Due to technical limitations, only the object response is documented here.
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Bill/attachedFileFromBill/{encode_path_param(id_bill)}/{encode_path_param(filename)}",
             method="GET",
             params={
                 "returnObject": return_object,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -781,11 +809,17 @@ class RawBillClient:
         HttpResponse[BillResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Bill/attachedFileFromBill/{encode_path_param(id_bill)}/{encode_path_param(filename)}",
             method="DELETE",
             params={
                 "returnObject": return_object,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -885,6 +919,9 @@ class RawBillClient:
         HttpResponse[BillResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Bill/approval/{encode_path_param(id_bill)}",
             method="POST",
@@ -893,6 +930,7 @@ class RawBillClient:
             },
             json=request,
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -983,10 +1021,16 @@ class RawBillClient:
         HttpResponse[ModifyApprovalBillResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Bill/approval/{encode_path_param(id_bill)}",
             method="PUT",
             json=request,
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -1083,11 +1127,17 @@ class RawBillClient:
         HttpResponse[SetApprovedBillResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Bill/approval/{encode_path_param(id_bill)}/{encode_path_param(approved)}",
             method="GET",
             params={
                 "email": email,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -1238,6 +1288,9 @@ class RawBillClient:
         HttpResponse[BillQueryResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/bills/{encode_path_param(entry)}",
             method="GET",
@@ -1247,6 +1300,9 @@ class RawBillClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -1397,6 +1453,9 @@ class RawBillClient:
         HttpResponse[BillQueryResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/bills/org/{encode_path_param(org_id)}",
             method="GET",
@@ -1406,6 +1465,9 @@ class RawBillClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -1591,6 +1653,9 @@ class AsyncRawBillClient:
         AsyncHttpResponse[BillResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Bill/single/{encode_path_param(entry)}",
             method="POST",
@@ -1625,6 +1690,7 @@ class AsyncRawBillClient:
                 ),
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -1713,9 +1779,15 @@ class AsyncRawBillClient:
         AsyncHttpResponse[GetBillResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Bill/{encode_path_param(id_bill)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -1891,6 +1963,9 @@ class AsyncRawBillClient:
         AsyncHttpResponse[EditBillResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Bill/{encode_path_param(id_bill)}",
             method="PUT",
@@ -1923,6 +1998,9 @@ class AsyncRawBillClient:
                 "vendor": convert_and_respect_annotation_metadata(
                     object_=vendor, annotation=BillOutDataVendor, direction="write"
                 ),
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -2009,9 +2087,15 @@ class AsyncRawBillClient:
         AsyncHttpResponse[BillResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Bill/{encode_path_param(id_bill)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -2109,11 +2193,17 @@ class AsyncRawBillClient:
         AsyncHttpResponse[FileContent]
             A successful response returns a binary file when `returnObject` is `false`. When `returnObject` is `true`, the response contains the file content as a Base64-encoded string in an object. Due to technical limitations, only the object response is documented here.
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Bill/attachedFileFromBill/{encode_path_param(id_bill)}/{encode_path_param(filename)}",
             method="GET",
             params={
                 "returnObject": return_object,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -2212,11 +2302,17 @@ class AsyncRawBillClient:
         AsyncHttpResponse[BillResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Bill/attachedFileFromBill/{encode_path_param(id_bill)}/{encode_path_param(filename)}",
             method="DELETE",
             params={
                 "returnObject": return_object,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -2316,6 +2412,9 @@ class AsyncRawBillClient:
         AsyncHttpResponse[BillResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Bill/approval/{encode_path_param(id_bill)}",
             method="POST",
@@ -2324,6 +2423,7 @@ class AsyncRawBillClient:
             },
             json=request,
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -2414,10 +2514,16 @@ class AsyncRawBillClient:
         AsyncHttpResponse[ModifyApprovalBillResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Bill/approval/{encode_path_param(id_bill)}",
             method="PUT",
             json=request,
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -2514,11 +2620,17 @@ class AsyncRawBillClient:
         AsyncHttpResponse[SetApprovedBillResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Bill/approval/{encode_path_param(id_bill)}/{encode_path_param(approved)}",
             method="GET",
             params={
                 "email": email,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -2669,6 +2781,9 @@ class AsyncRawBillClient:
         AsyncHttpResponse[BillQueryResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/bills/{encode_path_param(entry)}",
             method="GET",
@@ -2678,6 +2793,9 @@ class AsyncRawBillClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -2828,6 +2946,9 @@ class AsyncRawBillClient:
         AsyncHttpResponse[BillQueryResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/bills/org/{encode_path_param(org_id)}",
             method="GET",
@@ -2837,6 +2958,9 @@ class AsyncRawBillClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )

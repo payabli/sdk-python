@@ -18,6 +18,10 @@ class VendorEnrichmentInvoiceScan(UniversalBaseModel):
         FieldMetadata(alias="vendorName"),
         pydantic.Field(alias="vendorName", description="Vendor name extracted from the invoice."),
     ] = None
+    """
+    Vendor name extracted from the invoice.
+    """
+
     street: typing.Optional[str] = pydantic.Field(default=None)
     """
     Street address.
@@ -36,6 +40,10 @@ class VendorEnrichmentInvoiceScan(UniversalBaseModel):
     zip_code: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="zipCode"), pydantic.Field(alias="zipCode", description="ZIP code.")
     ] = None
+    """
+    ZIP code.
+    """
+
     country: typing.Optional[str] = pydantic.Field(default=None)
     """
     Country code.
@@ -56,6 +64,10 @@ class VendorEnrichmentInvoiceScan(UniversalBaseModel):
         FieldMetadata(alias="paymentLink"),
         pydantic.Field(alias="paymentLink", description="Payment portal URL, if found on the invoice."),
     ] = None
+    """
+    Payment portal URL, if found on the invoice.
+    """
+
     card_accepted: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="cardAccepted"),
@@ -64,6 +76,10 @@ class VendorEnrichmentInvoiceScan(UniversalBaseModel):
             description="Whether the vendor accepts card payments. Values are `yes`, `no`, or `unable to determine`.",
         ),
     ] = None
+    """
+    Whether the vendor accepts card payments. Values are `yes`, `no`, or `unable to determine`.
+    """
+
     ach_accepted: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="achAccepted"),
@@ -72,6 +88,10 @@ class VendorEnrichmentInvoiceScan(UniversalBaseModel):
             description="Whether the vendor accepts ACH payments. Values are `yes`, `no`, or `unable to determine`.",
         ),
     ] = None
+    """
+    Whether the vendor accepts ACH payments. Values are `yes`, `no`, or `unable to determine`.
+    """
+
     check_accepted: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="checkAccepted"),
@@ -80,21 +100,36 @@ class VendorEnrichmentInvoiceScan(UniversalBaseModel):
             description="Whether the vendor accepts check payments. Values are `yes`, `no`, or `unable to determine`.",
         ),
     ] = None
+    """
+    Whether the vendor accepts check payments. Values are `yes`, `no`, or `unable to determine`.
+    """
+
     invoice_number: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="invoiceNumber"),
         pydantic.Field(alias="invoiceNumber", description="Invoice number extracted from the document."),
     ] = None
+    """
+    Invoice number extracted from the document.
+    """
+
     amount_due: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="amountDue"),
         pydantic.Field(alias="amountDue", description="Invoice amount due in USD."),
     ] = None
+    """
+    Invoice amount due in USD.
+    """
+
     due_date: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="dueDate"),
         pydantic.Field(alias="dueDate", description="Payment due date. Format is `YYYY-MM-DD`."),
     ] = None
+    """
+    Payment due date. Format is `YYYY-MM-DD`.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

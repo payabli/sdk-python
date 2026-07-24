@@ -72,11 +72,19 @@ class PayorDataResponse(UniversalBaseModel):
             description='Customer\'s billing ZIP code. For Pay In functions, this field supports 5-digit and 9-digit ZIP codes and alphanumeric Canadian postal codes. For example: "37615-1234" or "37615".',
         ),
     ] = None
+    """
+    Customer's billing ZIP code. For Pay In functions, this field supports 5-digit and 9-digit ZIP codes and alphanumeric Canadian postal codes. For example: "37615-1234" or "37615".
+    """
+
     company_name: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="CompanyName"),
         pydantic.Field(alias="CompanyName", description="Customer's company name."),
     ] = None
+    """
+    Customer's company name.
+    """
+
     customer_id: typing_extensions.Annotated[
         typing.Optional[CustomerId], FieldMetadata(alias="customerId"), pydantic.Field(alias="customerId")
     ] = None
@@ -93,11 +101,19 @@ class PayorDataResponse(UniversalBaseModel):
             description="Customer status. This is used to determine if the customer is active or inactive.",
         ),
     ] = None
+    """
+    Customer status. This is used to determine if the customer is active or inactive.
+    """
+
     first_name: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="FirstName"),
         pydantic.Field(alias="FirstName", description="Customer/Payor first name."),
     ] = None
+    """
+    Customer/Payor first name.
+    """
+
     identifiers: typing_extensions.Annotated[
         typing.Optional[Identifierfields], FieldMetadata(alias="Identifiers"), pydantic.Field(alias="Identifiers")
     ] = None
@@ -106,6 +122,10 @@ class PayorDataResponse(UniversalBaseModel):
         FieldMetadata(alias="LastName"),
         pydantic.Field(alias="LastName", description="Customer/Payor last name."),
     ] = None
+    """
+    Customer/Payor last name.
+    """
+
     shipping_address_1: typing_extensions.Annotated[
         typing.Optional[Shippingaddress],
         FieldMetadata(alias="ShippingAddress1"),

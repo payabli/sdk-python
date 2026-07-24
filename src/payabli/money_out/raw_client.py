@@ -133,6 +133,9 @@ class RawMoneyOutClient:
         HttpResponse[AuthCapturePayoutResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "MoneyOut/authorize",
             method="POST",
@@ -164,6 +167,7 @@ class RawMoneyOutClient:
                 "autoCapture": auto_capture,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -262,10 +266,16 @@ class RawMoneyOutClient:
         HttpResponse[CaptureAllOutResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "MoneyOut/cancelAll",
             method="POST",
             json=request,
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -351,9 +361,15 @@ class RawMoneyOutClient:
         HttpResponse[PayabliApiResponse0000]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"MoneyOut/cancel/{encode_path_param(reference_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -438,9 +454,15 @@ class RawMoneyOutClient:
         HttpResponse[PayabliApiResponse0000]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"MoneyOut/cancel/{encode_path_param(reference_id)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -531,11 +553,15 @@ class RawMoneyOutClient:
         HttpResponse[CaptureAllOutResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "MoneyOut/captureAll",
             method="POST",
             json=request,
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -633,10 +659,14 @@ class RawMoneyOutClient:
         HttpResponse[AuthCapturePayoutResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"MoneyOut/capture/{encode_path_param(reference_id)}",
             method="GET",
             headers={
+                **_endpoint_auth_headers,
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
             request_options=request_options,
@@ -734,9 +764,15 @@ class RawMoneyOutClient:
         HttpResponse[BillDetailResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"MoneyOut/details/{encode_path_param(trans_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -821,9 +857,15 @@ class RawMoneyOutClient:
         HttpResponse[VCardGetResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"MoneyOut/vcard/{encode_path_param(card_token)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -915,6 +957,9 @@ class RawMoneyOutClient:
         HttpResponse[RenewVCardResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"MoneyOutCard/vcard/{encode_path_param(card_token)}/renew",
             method="PUT",
@@ -922,6 +967,7 @@ class RawMoneyOutClient:
                 "expirationDate": expiration_date,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -1009,6 +1055,9 @@ class RawMoneyOutClient:
         HttpResponse[OperationResult]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "vcard/send-card-link",
             method="POST",
@@ -1016,6 +1065,7 @@ class RawMoneyOutClient:
                 "transId": trans_id,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -1114,9 +1164,15 @@ class RawMoneyOutClient:
         HttpResponse[str]
             A base64-encoded string of the check image.
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"MoneyOut/checkimage/{encode_path_param(asset_name)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -1219,9 +1275,15 @@ class RawMoneyOutClient:
         HttpResponse[PayabliApiResponse00Responsedatanonobject]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"MoneyOut/status/{encode_path_param(trans_id)}/{encode_path_param(check_payment_status)}",
             method="PATCH",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -1320,6 +1382,9 @@ class RawMoneyOutClient:
         HttpResponse[ReissuePayoutResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "MoneyOut/reissue",
             method="POST",
@@ -1332,6 +1397,7 @@ class RawMoneyOutClient:
                 ),
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -1498,6 +1564,9 @@ class AsyncRawMoneyOutClient:
         AsyncHttpResponse[AuthCapturePayoutResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "MoneyOut/authorize",
             method="POST",
@@ -1529,6 +1598,7 @@ class AsyncRawMoneyOutClient:
                 "autoCapture": auto_capture,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -1627,10 +1697,16 @@ class AsyncRawMoneyOutClient:
         AsyncHttpResponse[CaptureAllOutResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "MoneyOut/cancelAll",
             method="POST",
             json=request,
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -1716,9 +1792,15 @@ class AsyncRawMoneyOutClient:
         AsyncHttpResponse[PayabliApiResponse0000]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"MoneyOut/cancel/{encode_path_param(reference_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -1803,9 +1885,15 @@ class AsyncRawMoneyOutClient:
         AsyncHttpResponse[PayabliApiResponse0000]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"MoneyOut/cancel/{encode_path_param(reference_id)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -1896,11 +1984,15 @@ class AsyncRawMoneyOutClient:
         AsyncHttpResponse[CaptureAllOutResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "MoneyOut/captureAll",
             method="POST",
             json=request,
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -1998,10 +2090,14 @@ class AsyncRawMoneyOutClient:
         AsyncHttpResponse[AuthCapturePayoutResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"MoneyOut/capture/{encode_path_param(reference_id)}",
             method="GET",
             headers={
+                **_endpoint_auth_headers,
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
             request_options=request_options,
@@ -2099,9 +2195,15 @@ class AsyncRawMoneyOutClient:
         AsyncHttpResponse[BillDetailResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"MoneyOut/details/{encode_path_param(trans_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -2186,9 +2288,15 @@ class AsyncRawMoneyOutClient:
         AsyncHttpResponse[VCardGetResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"MoneyOut/vcard/{encode_path_param(card_token)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -2280,6 +2388,9 @@ class AsyncRawMoneyOutClient:
         AsyncHttpResponse[RenewVCardResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"MoneyOutCard/vcard/{encode_path_param(card_token)}/renew",
             method="PUT",
@@ -2287,6 +2398,7 @@ class AsyncRawMoneyOutClient:
                 "expirationDate": expiration_date,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -2374,6 +2486,9 @@ class AsyncRawMoneyOutClient:
         AsyncHttpResponse[OperationResult]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "vcard/send-card-link",
             method="POST",
@@ -2381,6 +2496,7 @@ class AsyncRawMoneyOutClient:
                 "transId": trans_id,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -2479,9 +2595,15 @@ class AsyncRawMoneyOutClient:
         AsyncHttpResponse[str]
             A base64-encoded string of the check image.
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"MoneyOut/checkimage/{encode_path_param(asset_name)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -2584,9 +2706,15 @@ class AsyncRawMoneyOutClient:
         AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"MoneyOut/status/{encode_path_param(trans_id)}/{encode_path_param(check_payment_status)}",
             method="PATCH",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -2685,6 +2813,9 @@ class AsyncRawMoneyOutClient:
         AsyncHttpResponse[ReissuePayoutResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "MoneyOut/reissue",
             method="POST",
@@ -2697,6 +2828,7 @@ class AsyncRawMoneyOutClient:
                 ),
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },

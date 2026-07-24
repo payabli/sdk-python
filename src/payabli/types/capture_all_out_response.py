@@ -28,6 +28,10 @@ class CaptureAllOutResponse(UniversalBaseModel):
         FieldMetadata(alias="responseData"),
         pydantic.Field(alias="responseData", description="Array of objects describing the transactions."),
     ] = None
+    """
+    Array of objects describing the transactions.
+    """
+
     response_text: typing_extensions.Annotated[
         ResponseText, FieldMetadata(alias="responseText"), pydantic.Field(alias="responseText")
     ]

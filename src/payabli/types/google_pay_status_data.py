@@ -21,6 +21,10 @@ class GooglePayStatusData(UniversalBaseModel):
             alias="errorMessage", description="Any error message related to Google Pay's activation status."
         ),
     ] = None
+    """
+    Any error message related to Google Pay's activation status.
+    """
+
     metadata: typing.Optional[GooglePayMetadata] = None
 
     if IS_PYDANTIC_V2:

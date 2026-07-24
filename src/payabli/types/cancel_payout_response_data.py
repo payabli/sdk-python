@@ -37,6 +37,10 @@ class CancelPayoutResponseData(UniversalBaseModel):
             description="Payabli-generated unique ID of the vendor on the payout. Returns the same value as `VendorId`, or `0` when no vendor is associated.",
         ),
     ] = None
+    """
+    Payabli-generated unique ID of the vendor on the payout. Returns the same value as `VendorId`, or `0` when no vendor is associated.
+    """
+
     vendor_id: typing_extensions.Annotated[
         typing.Optional[Vendoridtrans],
         FieldMetadata(alias="VendorId"),
@@ -45,6 +49,10 @@ class CancelPayoutResponseData(UniversalBaseModel):
             description="Payabli-generated unique ID of the vendor on the payout. Returns the same value as `CustomerId`, or `0` when no vendor is associated.",
         ),
     ] = None
+    """
+    Payabli-generated unique ID of the vendor on the payout. Returns the same value as `CustomerId`, or `0` when no vendor is associated.
+    """
+
     cvv_response_text: typing_extensions.Annotated[
         typing.Optional[CvvResponseText],
         FieldMetadata(alias="cvvResponseText"),

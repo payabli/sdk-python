@@ -59,6 +59,11 @@ class AchService(UniversalBaseModel):
             description="Controls how to present the `batchCutoffTime` field on the application.\nIf this field isn't sent, batch cutoff time defaults to 5 ET.",
         ),
     ] = None
+    """
+    Controls how to present the `batchCutoffTime` field on the application.
+    If this field isn't sent, batch cutoff time defaults to 5 ET.
+    """
+
     discount_frequency: typing_extensions.Annotated[
         typing.Optional[TemplateElement],
         FieldMetadata(alias="discountFrequency"),

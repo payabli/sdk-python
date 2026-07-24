@@ -30,6 +30,9 @@ class AddSubscriptionResponse(UniversalBaseModel):
         FieldMetadata(alias="responseData"),
         pydantic.Field(alias="responseData", description="The identifier of the newly created subscription."),
     ]
+    """
+    The identifier of the newly created subscription.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

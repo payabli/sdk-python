@@ -27,6 +27,12 @@ class UpdateSubscriptionResponse(UniversalBaseModel):
             description="If `isSuccess` = true, this contains the identifier of the subscription, and sometimes extra information, depending on what was updated.\n\nIf `isSuccess` = false, this contains the reason for the failure.",
         ),
     ] = None
+    """
+    If `isSuccess` = true, this contains the identifier of the subscription, and sometimes extra information, depending on what was updated.
+    
+    If `isSuccess` = false, this contains the reason for the failure.
+    """
+
     response_text: typing_extensions.Annotated[
         ResponseText, FieldMetadata(alias="responseText"), pydantic.Field(alias="responseText")
     ]

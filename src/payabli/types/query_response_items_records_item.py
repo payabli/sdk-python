@@ -25,16 +25,27 @@ class QueryResponseItemsRecordsItem(UniversalBaseModel):
         FieldMetadata(alias="PaypointDbaname"),
         pydantic.Field(alias="PaypointDbaname", description="The paypoint's DBA name."),
     ] = None
+    """
+    The paypoint's DBA name.
+    """
+
     paypoint_entryname: typing_extensions.Annotated[
         typing.Optional[Entrypointfield],
         FieldMetadata(alias="PaypointEntryname"),
         pydantic.Field(alias="PaypointEntryname", description="The paypoint's entry name (entrypoint)."),
     ] = None
+    """
+    The paypoint's entry name (entrypoint).
+    """
+
     paypoint_legalname: typing_extensions.Annotated[
         typing.Optional[Legalname],
         FieldMetadata(alias="PaypointLegalname"),
         pydantic.Field(alias="PaypointLegalname", description="The paypoint's legal name."),
     ] = None
+    """
+    The paypoint's legal name.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

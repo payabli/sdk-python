@@ -25,21 +25,37 @@ class TransferOutDetailRecord(UniversalBaseModel):
         FieldMetadata(alias="transferDetailId"),
         pydantic.Field(alias="transferDetailId", description="Unique identifier for the transfer detail."),
     ] = None
+    """
+    Unique identifier for the transfer detail.
+    """
+
     transfer_id: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="transferId"),
         pydantic.Field(alias="transferId", description="The ID of the transfer this detail belongs to."),
     ] = None
+    """
+    The ID of the transfer this detail belongs to.
+    """
+
     transaction_id: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="transactionId"),
         pydantic.Field(alias="transactionId", description="The transaction ID in Payabli's system."),
     ] = None
+    """
+    The transaction ID in Payabli's system.
+    """
+
     id_out: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="IdOut"),
         pydantic.Field(alias="IdOut", description="The outbound transaction ID."),
     ] = None
+    """
+    The outbound transaction ID.
+    """
+
     method: typing.Optional[str] = pydantic.Field(default=None)
     """
     Payment method used.
@@ -60,231 +76,415 @@ class TransferOutDetailRecord(UniversalBaseModel):
         FieldMetadata(alias="grossAmount"),
         pydantic.Field(alias="grossAmount", description="The gross amount of the transaction."),
     ] = None
+    """
+    The gross amount of the transaction.
+    """
+
     returned_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="returnedAmount"),
         pydantic.Field(alias="returnedAmount", description="Amount returned."),
     ] = None
+    """
+    Amount returned.
+    """
+
     refund_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="refundAmount"),
         pydantic.Field(alias="refundAmount", description="Amount refunded."),
     ] = None
+    """
+    Amount refunded.
+    """
+
     hold_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="holdAmount"),
         pydantic.Field(alias="holdAmount", description="Amount being held."),
     ] = None
+    """
+    Amount being held.
+    """
+
     released_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="releasedAmount"),
         pydantic.Field(alias="releasedAmount", description="Amount released."),
     ] = None
+    """
+    Amount released.
+    """
+
     billing_fees_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="billingFeesAmount"),
         pydantic.Field(alias="billingFeesAmount", description="Billing fees amount."),
     ] = None
+    """
+    Billing fees amount.
+    """
+
     adjustments_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="adjustmentsAmount"),
         pydantic.Field(alias="adjustmentsAmount", description="Adjustments amount."),
     ] = None
+    """
+    Adjustments amount.
+    """
+
     net_transfer_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="netTransferAmount"),
         pydantic.Field(alias="netTransferAmount", description="Net transfer amount after deductions."),
     ] = None
+    """
+    Net transfer amount after deductions.
+    """
+
     billing_fees_details: typing_extensions.Annotated[
         typing.Optional[typing.List[BillingFeeDetail]],
         FieldMetadata(alias="billingFeesDetails"),
         pydantic.Field(alias="billingFeesDetails", description="Detailed breakdown of billing fees."),
     ] = None
+    """
+    Detailed breakdown of billing fees.
+    """
+
     created_at: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="CreatedAt"),
         pydantic.Field(alias="CreatedAt", description="Date and time the record was created."),
     ] = None
+    """
+    Date and time the record was created.
+    """
+
     comments: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="Comments"),
         pydantic.Field(alias="Comments", description="Comments on the transfer detail."),
     ] = None
+    """
+    Comments on the transfer detail.
+    """
+
     vendor: typing_extensions.Annotated[
         typing.Optional[TransferOutDetailVendor],
         FieldMetadata(alias="Vendor"),
         pydantic.Field(alias="Vendor", description="Vendor information."),
     ] = None
+    """
+    Vendor information.
+    """
+
     paypoint_dbaname: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="PaypointDbaname"),
         pydantic.Field(alias="PaypointDbaname", description="DBA name of the paypoint."),
     ] = None
+    """
+    DBA name of the paypoint.
+    """
+
     paypoint_legalname: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="PaypointLegalname"),
         pydantic.Field(alias="PaypointLegalname", description="Legal name of the paypoint."),
     ] = None
+    """
+    Legal name of the paypoint.
+    """
+
     paypoint_id: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="PaypointId"),
         pydantic.Field(alias="PaypointId", description="ID of the paypoint."),
     ] = None
+    """
+    ID of the paypoint.
+    """
+
     status: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="Status"),
         pydantic.Field(alias="Status", description="Status of the transfer detail."),
     ] = None
+    """
+    Status of the transfer detail.
+    """
+
     payment_id: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="PaymentId"),
         pydantic.Field(alias="PaymentId", description="Payment ID."),
     ] = None
+    """
+    Payment ID.
+    """
+
     trans_id: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="TransId"),
         pydantic.Field(alias="TransId", description="Transaction ID."),
     ] = None
+    """
+    Transaction ID.
+    """
+
     trans_status: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="TransStatus"),
         pydantic.Field(alias="TransStatus", description="Transaction status."),
     ] = None
+    """
+    Transaction status.
+    """
+
     trans_status_detail: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="TransStatusDetail"),
         pydantic.Field(alias="TransStatusDetail", description="Detailed transaction status."),
     ] = None
+    """
+    Detailed transaction status.
+    """
+
     trans_status_name: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="TransStatusName"),
         pydantic.Field(alias="TransStatusName", description="Name of the transaction status."),
     ] = None
+    """
+    Name of the transaction status.
+    """
+
     trans_status_category: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="TransStatusCategory"),
         pydantic.Field(alias="TransStatusCategory", description="Category of the transaction status."),
     ] = None
+    """
+    Category of the transaction status.
+    """
+
     last_updated: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="LastUpdated"),
         pydantic.Field(alias="LastUpdated", description="Date and time the record was last updated."),
     ] = None
+    """
+    Date and time the record was last updated.
+    """
+
     total_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="TotalAmount"),
         pydantic.Field(alias="TotalAmount", description="Total amount of the transaction."),
     ] = None
+    """
+    Total amount of the transaction.
+    """
+
     net_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="NetAmount"),
         pydantic.Field(alias="NetAmount", description="Net amount of the transaction."),
     ] = None
+    """
+    Net amount of the transaction.
+    """
+
     fee_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="FeeAmount"),
         pydantic.Field(alias="FeeAmount", description="Fee amount for the transaction."),
     ] = None
+    """
+    Fee amount for the transaction.
+    """
+
     source: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="Source"),
         pydantic.Field(alias="Source", description="Source of the transaction."),
     ] = None
+    """
+    Source of the transaction.
+    """
+
     parent_org_name: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="ParentOrgName"),
         pydantic.Field(alias="ParentOrgName", description="Name of the parent organization."),
     ] = None
+    """
+    Name of the parent organization.
+    """
+
     parent_org_id: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="ParentOrgId"),
         pydantic.Field(alias="ParentOrgId", description="ID of the parent organization."),
     ] = None
+    """
+    ID of the parent organization.
+    """
+
     batch_number: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="BatchNumber"),
         pydantic.Field(alias="BatchNumber", description="Batch number for the transfer."),
     ] = None
+    """
+    Batch number for the transfer.
+    """
+
     payment_status: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="PaymentStatus"),
         pydantic.Field(alias="PaymentStatus", description="Status of the payment."),
     ] = None
+    """
+    Status of the payment.
+    """
+
     payment_method: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="PaymentMethod"),
         pydantic.Field(alias="PaymentMethod", description="Payment method used."),
     ] = None
+    """
+    Payment method used.
+    """
+
     card_token: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="CardToken"),
         pydantic.Field(alias="CardToken", description="Token for the card used."),
     ] = None
+    """
+    Token for the card used.
+    """
+
     check_number: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="CheckNumber"),
         pydantic.Field(alias="CheckNumber", description="Check number if paid by check."),
     ] = None
+    """
+    Check number if paid by check.
+    """
+
     check_data: typing_extensions.Annotated[
         typing.Optional[TransferOutDetailCheckData],
         FieldMetadata(alias="CheckData"),
         pydantic.Field(alias="CheckData", description="Check data if paid by check."),
     ] = None
+    """
+    Check data if paid by check.
+    """
+
     payment_data: typing_extensions.Annotated[
         typing.Optional[TransferOutDetailPaymentData],
         FieldMetadata(alias="PaymentData"),
         pydantic.Field(alias="PaymentData", description="Payment data for the transaction."),
     ] = None
+    """
+    Payment data for the transaction.
+    """
+
     bills: typing_extensions.Annotated[
         typing.Optional[typing.List[TransferOutDetailBill]],
         FieldMetadata(alias="Bills"),
         pydantic.Field(alias="Bills", description="Bills associated with the transfer."),
     ] = None
+    """
+    Bills associated with the transfer.
+    """
+
     events: typing_extensions.Annotated[
         typing.Optional[typing.List[TransferOutDetailEvent]],
         FieldMetadata(alias="Events"),
         pydantic.Field(alias="Events", description="Events associated with the transfer."),
     ] = None
+    """
+    Events associated with the transfer.
+    """
+
     external_paypoint_id: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="externalPaypointID"),
         pydantic.Field(alias="externalPaypointID", description="External paypoint ID."),
     ] = None
+    """
+    External paypoint ID.
+    """
+
     entry_name: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="EntryName"),
         pydantic.Field(alias="EntryName", description="Entry name for the paypoint."),
     ] = None
+    """
+    Entry name for the paypoint.
+    """
+
     gateway: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="Gateway"),
         pydantic.Field(alias="Gateway", description="Gateway used for the transaction."),
     ] = None
+    """
+    Gateway used for the transaction.
+    """
+
     batch_id: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="BatchId"),
         pydantic.Field(alias="BatchId", description="ID of the batch."),
     ] = None
+    """
+    ID of the batch.
+    """
+
     has_vcard_transactions: typing_extensions.Annotated[
         typing.Optional[bool],
         FieldMetadata(alias="HasVcardTransactions"),
         pydantic.Field(alias="HasVcardTransactions", description="Whether the transfer has virtual card transactions."),
     ] = None
+    """
+    Whether the transfer has virtual card transactions.
+    """
+
     is_same_day_ach: typing_extensions.Annotated[
         typing.Optional[bool],
         FieldMetadata(alias="IsSameDayACH"),
         pydantic.Field(alias="IsSameDayACH", description="Whether this is a same-day ACH transaction."),
     ] = None
+    """
+    Whether this is a same-day ACH transaction.
+    """
+
     schedule_id: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="ScheduleId"),
         pydantic.Field(alias="ScheduleId", description="ID of the schedule if applicable."),
     ] = None
+    """
+    ID of the schedule if applicable.
+    """
+
     settlement_status: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="SettlementStatus"),
         pydantic.Field(alias="SettlementStatus", description="Settlement status."),
     ] = None
+    """
+    Settlement status.
+    """
+
     settlement_status_name: typing_extensions.Annotated[
         typing.Optional[SettlementStatusName],
         FieldMetadata(alias="SettlementStatusName"),
@@ -295,46 +495,81 @@ class TransferOutDetailRecord(UniversalBaseModel):
         FieldMetadata(alias="SettlementDate"),
         pydantic.Field(alias="SettlementDate", description="Date of settlement."),
     ] = None
+    """
+    Date of settlement.
+    """
+
     risk_flagged: typing_extensions.Annotated[
         typing.Optional[bool],
         FieldMetadata(alias="RiskFlagged"),
         pydantic.Field(alias="RiskFlagged", description="Whether the transaction was flagged for risk."),
     ] = None
+    """
+    Whether the transaction was flagged for risk.
+    """
+
     risk_flagged_on: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="RiskFlaggedOn"),
         pydantic.Field(alias="RiskFlaggedOn", description="Date and time the transaction was flagged."),
     ] = None
+    """
+    Date and time the transaction was flagged.
+    """
+
     risk_status: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="RiskStatus"),
         pydantic.Field(alias="RiskStatus", description="Risk status of the transaction."),
     ] = None
+    """
+    Risk status of the transaction.
+    """
+
     risk_reason: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="RiskReason"),
         pydantic.Field(alias="RiskReason", description="Reason for the risk flag."),
     ] = None
+    """
+    Reason for the risk flag.
+    """
+
     risk_action: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="RiskAction"),
         pydantic.Field(alias="RiskAction", description="Action taken for risk."),
     ] = None
+    """
+    Action taken for risk.
+    """
+
     risk_action_code: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="RiskActionCode"),
         pydantic.Field(alias="RiskActionCode", description="Code for the risk action."),
     ] = None
+    """
+    Code for the risk action.
+    """
+
     payout_program: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="PayoutProgram"),
         pydantic.Field(alias="PayoutProgram", description="Payout program used."),
     ] = None
+    """
+    Payout program used.
+    """
+
     ach_trace_number: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="AchTraceNumber"),
         pydantic.Field(alias="AchTraceNumber", description="ACH trace number."),
     ] = None
+    """
+    ACH trace number.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

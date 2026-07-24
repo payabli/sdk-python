@@ -98,6 +98,9 @@ class RawPayoutSubscriptionClient:
         HttpResponse[AddPayoutSubscriptionResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "PayoutSubscription",
             method="POST",
@@ -124,6 +127,7 @@ class RawPayoutSubscriptionClient:
                 ),
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -212,9 +216,15 @@ class RawPayoutSubscriptionClient:
         HttpResponse[GetPayoutSubscriptionResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"PayoutSubscription/{encode_path_param(id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -316,6 +326,9 @@ class RawPayoutSubscriptionClient:
         HttpResponse[UpdatePayoutSubscriptionResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"PayoutSubscription/{encode_path_param(id)}",
             method="PUT",
@@ -332,6 +345,7 @@ class RawPayoutSubscriptionClient:
                 ),
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -419,9 +433,15 @@ class RawPayoutSubscriptionClient:
         HttpResponse[DeletePayoutSubscriptionResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"PayoutSubscription/{encode_path_param(id)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -549,6 +569,9 @@ class AsyncRawPayoutSubscriptionClient:
         AsyncHttpResponse[AddPayoutSubscriptionResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "PayoutSubscription",
             method="POST",
@@ -575,6 +598,7 @@ class AsyncRawPayoutSubscriptionClient:
                 ),
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -663,9 +687,15 @@ class AsyncRawPayoutSubscriptionClient:
         AsyncHttpResponse[GetPayoutSubscriptionResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"PayoutSubscription/{encode_path_param(id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -767,6 +797,9 @@ class AsyncRawPayoutSubscriptionClient:
         AsyncHttpResponse[UpdatePayoutSubscriptionResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"PayoutSubscription/{encode_path_param(id)}",
             method="PUT",
@@ -783,6 +816,7 @@ class AsyncRawPayoutSubscriptionClient:
                 ),
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -870,9 +904,15 @@ class AsyncRawPayoutSubscriptionClient:
         AsyncHttpResponse[DeletePayoutSubscriptionResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"PayoutSubscription/{encode_path_param(id)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:

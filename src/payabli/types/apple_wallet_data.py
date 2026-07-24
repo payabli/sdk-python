@@ -27,11 +27,19 @@ class AppleWalletData(UniversalBaseModel):
         FieldMetadata(alias="applePayMerchantId"),
         pydantic.Field(alias="applePayMerchantId", description="The Apple Pay merchant identifier."),
     ] = None
+    """
+    The Apple Pay merchant identifier.
+    """
+
     domain_names: typing_extensions.Annotated[
         typing.Optional[typing.List[DomainName]],
         FieldMetadata(alias="domainNames"),
         pydantic.Field(alias="domainNames", description="A list of domain names that are enabled for this paypoint."),
     ] = None
+    """
+    A list of domain names that are enabled for this paypoint.
+    """
+
     paypoint_name: typing_extensions.Annotated[
         typing.Optional[PaypointName], FieldMetadata(alias="paypointName"), pydantic.Field(alias="paypointName")
     ] = None
@@ -40,6 +48,10 @@ class AppleWalletData(UniversalBaseModel):
         FieldMetadata(alias="paypointUrl"),
         pydantic.Field(alias="paypointUrl", description="The paypoint URL."),
     ] = None
+    """
+    The paypoint URL.
+    """
+
     marked_for_deletion_at: typing_extensions.Annotated[
         typing.Optional[dt.datetime],
         FieldMetadata(alias="markedForDeletionAt"),
@@ -48,6 +60,10 @@ class AppleWalletData(UniversalBaseModel):
             description="The date and time a paypoint's Apple Pay registration was scheduled for deletion. The paypoint will be unregistered from Apple Pay permanently 30 days from this value.",
         ),
     ] = None
+    """
+    The date and time a paypoint's Apple Pay registration was scheduled for deletion. The paypoint will be unregistered from Apple Pay permanently 30 days from this value.
+    """
+
     created_at: typing_extensions.Annotated[
         typing.Optional[CreatedAt], FieldMetadata(alias="createdAt"), pydantic.Field(alias="createdAt")
     ] = None

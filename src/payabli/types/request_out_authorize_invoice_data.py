@@ -33,6 +33,10 @@ class RequestOutAuthorizeInvoiceData(UniversalBaseModel):
             alias="invoiceDate", description="Invoice date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY."
         ),
     ] = None
+    """
+    Invoice date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+    """
+
     due_date: typing_extensions.Annotated[
         typing.Optional[dt.date],
         FieldMetadata(alias="dueDate"),
@@ -40,6 +44,10 @@ class RequestOutAuthorizeInvoiceData(UniversalBaseModel):
             alias="dueDate", description="Invoice due date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY."
         ),
     ] = None
+    """
+    Invoice due date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+    """
+
     comments: typing.Optional[Comments] = None
     lot_number: typing_extensions.Annotated[
         typing.Optional[LotNumber], FieldMetadata(alias="lotNumber"), pydantic.Field(alias="lotNumber")

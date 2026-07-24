@@ -20,6 +20,10 @@ class PayabliErrorBody(UniversalBaseModel):
         FieldMetadata(alias="isSuccess"),
         pydantic.Field(alias="isSuccess", description="Always `false` for error responses."),
     ]
+    """
+    Always `false` for error responses.
+    """
+
     response_code: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="responseCode"),
@@ -28,16 +32,28 @@ class PayabliErrorBody(UniversalBaseModel):
             description="Code for the response. Learn more in\n[API Response Codes](/developers/api-reference/api-responses).",
         ),
     ] = None
+    """
+    Code for the response. Learn more in
+    [API Response Codes](/developers/api-reference/api-responses).
+    """
+
     response_text: typing_extensions.Annotated[
         str,
         FieldMetadata(alias="responseText"),
         pydantic.Field(alias="responseText", description="Error text describing what went wrong."),
     ]
+    """
+    Error text describing what went wrong.
+    """
+
     response_data: typing_extensions.Annotated[
         typing.Optional[PayabliErrorBodyResponseData],
         FieldMetadata(alias="responseData"),
         pydantic.Field(alias="responseData", description="Object with detailed error context."),
     ] = None
+    """
+    Object with detailed error context.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

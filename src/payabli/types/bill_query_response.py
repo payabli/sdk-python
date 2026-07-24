@@ -16,11 +16,18 @@ class BillQueryResponse(UniversalBaseModel):
         FieldMetadata(alias="Summary"),
         pydantic.Field(alias="Summary", description="Summary statistics for the bill query response."),
     ] = None
+    """
+    Summary statistics for the bill query response.
+    """
+
     records: typing_extensions.Annotated[
         typing.Optional[typing.List[BillQueryRecord2]],
         FieldMetadata(alias="Records"),
         pydantic.Field(alias="Records", description="Array of bill records returned by the query."),
     ] = None
+    """
+    Array of bill records returned by the query.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

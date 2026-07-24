@@ -24,6 +24,10 @@ class CloudQueryApiResponse(UniversalBaseModel):
         FieldMetadata(alias="responseList"),
         pydantic.Field(alias="responseList", description="List of devices and history of registration."),
     ] = None
+    """
+    List of devices and history of registration.
+    """
+
     response_text: typing_extensions.Annotated[
         ResponseText, FieldMetadata(alias="responseText"), pydantic.Field(alias="responseText")
     ]

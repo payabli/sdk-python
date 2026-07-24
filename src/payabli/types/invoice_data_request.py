@@ -20,16 +20,27 @@ class InvoiceDataRequest(UniversalBaseModel):
             description="Object describing the customer/payor. Required for POST requests. Which fields are required depends on the paypoint's custom identifier settings.",
         ),
     ] = None
+    """
+    Object describing the customer/payor. Required for POST requests. Which fields are required depends on the paypoint's custom identifier settings.
+    """
+
     invoice_data: typing_extensions.Annotated[
         typing.Optional[BillData],
         FieldMetadata(alias="invoiceData"),
         pydantic.Field(alias="invoiceData", description="Object describing the invoice. Required for POST requests."),
     ] = None
+    """
+    Object describing the invoice. Required for POST requests.
+    """
+
     scheduled_options: typing_extensions.Annotated[
         typing.Optional[BillOptions],
         FieldMetadata(alias="scheduledOptions"),
         pydantic.Field(alias="scheduledOptions", description="Object with options for scheduled invoices."),
     ] = None
+    """
+    Object with options for scheduled invoices.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

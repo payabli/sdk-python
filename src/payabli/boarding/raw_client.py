@@ -110,12 +110,18 @@ class RawBoardingClient:
         HttpResponse[PayabliApiResponse00Responsedatanonobject]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "Boarding/app",
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=AddApplicationRequest, direction="write"
             ),
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -373,6 +379,9 @@ class RawBoardingClient:
         HttpResponse[PayabliApiResponse00Responsedatanonobject]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Boarding/app/{encode_path_param(app_id)}",
             method="PUT",
@@ -445,6 +454,9 @@ class RawBoardingClient:
                 "RepName": rep_name,
                 "RepOffice": rep_office,
                 "onCreate": on_create,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -531,9 +543,15 @@ class RawBoardingClient:
         HttpResponse[PayabliApiResponse00Responsedatanonobject]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Boarding/app/{encode_path_param(app_id)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -618,9 +636,15 @@ class RawBoardingClient:
         HttpResponse[ApplicationDetailsRecord]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Boarding/read/{encode_path_param(app_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -716,6 +740,9 @@ class RawBoardingClient:
         HttpResponse[ApplicationQueryRecord]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Boarding/read/{encode_path_param(x_id)}",
             method="POST",
@@ -724,6 +751,7 @@ class RawBoardingClient:
                 "referenceId": reference_id,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -811,9 +839,15 @@ class RawBoardingClient:
         HttpResponse[BoardingLinkQueryRecord]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Boarding/linkbyId/{encode_path_param(boarding_link_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -898,9 +932,15 @@ class RawBoardingClient:
         HttpResponse[BoardingLinkQueryRecord]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Boarding/linkbyTemplate/{encode_path_param(template_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -996,11 +1036,17 @@ class RawBoardingClient:
         HttpResponse[PayabliApiResponse00]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Boarding/applink/{encode_path_param(app_id)}/{encode_path_param(mail_2)}",
             method="PUT",
             params={
                 "sendEmail": send_email,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -1086,9 +1132,15 @@ class RawBoardingClient:
         HttpResponse[BoardingLinkQueryRecord]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Boarding/link/{encode_path_param(boarding_link_reference)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -1230,6 +1282,9 @@ class RawBoardingClient:
         HttpResponse[QueryBoardingAppsListResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/boarding/{encode_path_param(org_id)}",
             method="GET",
@@ -1239,6 +1294,9 @@ class RawBoardingClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -1373,6 +1431,9 @@ class RawBoardingClient:
         HttpResponse[QueryBoardingLinksResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/boardinglinks/{encode_path_param(org_id)}",
             method="GET",
@@ -1381,6 +1442,9 @@ class RawBoardingClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -1485,6 +1549,9 @@ class RawBoardingClient:
         HttpResponse[CreateApplicationFromPaypointResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "Boarding/applications",
             method="POST",
@@ -1496,6 +1563,7 @@ class RawBoardingClient:
                 "onCreate": on_create,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -1583,9 +1651,15 @@ class RawBoardingClient:
         HttpResponse[QueryBoardingAppsListResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Boarding/applications/{encode_path_param(paypoint_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -1674,12 +1748,18 @@ class AsyncRawBoardingClient:
         AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "Boarding/app",
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=AddApplicationRequest, direction="write"
             ),
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -1937,6 +2017,9 @@ class AsyncRawBoardingClient:
         AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Boarding/app/{encode_path_param(app_id)}",
             method="PUT",
@@ -2009,6 +2092,9 @@ class AsyncRawBoardingClient:
                 "RepName": rep_name,
                 "RepOffice": rep_office,
                 "onCreate": on_create,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -2095,9 +2181,15 @@ class AsyncRawBoardingClient:
         AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Boarding/app/{encode_path_param(app_id)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -2182,9 +2274,15 @@ class AsyncRawBoardingClient:
         AsyncHttpResponse[ApplicationDetailsRecord]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Boarding/read/{encode_path_param(app_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -2280,6 +2378,9 @@ class AsyncRawBoardingClient:
         AsyncHttpResponse[ApplicationQueryRecord]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Boarding/read/{encode_path_param(x_id)}",
             method="POST",
@@ -2288,6 +2389,7 @@ class AsyncRawBoardingClient:
                 "referenceId": reference_id,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -2375,9 +2477,15 @@ class AsyncRawBoardingClient:
         AsyncHttpResponse[BoardingLinkQueryRecord]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Boarding/linkbyId/{encode_path_param(boarding_link_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -2462,9 +2570,15 @@ class AsyncRawBoardingClient:
         AsyncHttpResponse[BoardingLinkQueryRecord]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Boarding/linkbyTemplate/{encode_path_param(template_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -2560,11 +2674,17 @@ class AsyncRawBoardingClient:
         AsyncHttpResponse[PayabliApiResponse00]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Boarding/applink/{encode_path_param(app_id)}/{encode_path_param(mail_2)}",
             method="PUT",
             params={
                 "sendEmail": send_email,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -2650,9 +2770,15 @@ class AsyncRawBoardingClient:
         AsyncHttpResponse[BoardingLinkQueryRecord]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Boarding/link/{encode_path_param(boarding_link_reference)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -2794,6 +2920,9 @@ class AsyncRawBoardingClient:
         AsyncHttpResponse[QueryBoardingAppsListResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/boarding/{encode_path_param(org_id)}",
             method="GET",
@@ -2803,6 +2932,9 @@ class AsyncRawBoardingClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -2937,6 +3069,9 @@ class AsyncRawBoardingClient:
         AsyncHttpResponse[QueryBoardingLinksResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/boardinglinks/{encode_path_param(org_id)}",
             method="GET",
@@ -2945,6 +3080,9 @@ class AsyncRawBoardingClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -3049,6 +3187,9 @@ class AsyncRawBoardingClient:
         AsyncHttpResponse[CreateApplicationFromPaypointResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "Boarding/applications",
             method="POST",
@@ -3060,6 +3201,7 @@ class AsyncRawBoardingClient:
                 "onCreate": on_create,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -3147,9 +3289,15 @@ class AsyncRawBoardingClient:
         AsyncHttpResponse[QueryBoardingAppsListResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Boarding/applications/{encode_path_param(paypoint_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:

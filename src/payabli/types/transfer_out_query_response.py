@@ -20,11 +20,18 @@ class TransferOutQueryResponse(UniversalBaseModel):
         FieldMetadata(alias="Summary"),
         pydantic.Field(alias="Summary", description="Summary information about the transfers."),
     ]
+    """
+    Summary information about the transfers.
+    """
+
     records: typing_extensions.Annotated[
         typing.List[TransferOutRecord],
         FieldMetadata(alias="Records"),
         pydantic.Field(alias="Records", description="List of outbound transfer records."),
     ]
+    """
+    List of outbound transfer records.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

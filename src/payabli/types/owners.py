@@ -41,11 +41,19 @@ class Owners(UniversalBaseModel):
         FieldMetadata(alias="ownerphone1"),
         pydantic.Field(alias="ownerphone1", description="Owner phone 1."),
     ] = None
+    """
+    Owner phone 1.
+    """
+
     ownerphone_2: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="ownerphone2"),
         pydantic.Field(alias="ownerphone2", description="Owner phone 2."),
     ] = None
+    """
+    Owner phone 2.
+    """
+
     owneremail: typing.Optional[Email] = pydantic.Field(default=None)
     """
     Owner email.

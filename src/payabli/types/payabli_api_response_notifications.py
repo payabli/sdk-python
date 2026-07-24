@@ -22,6 +22,11 @@ class PayabliApiResponseNotifications(UniversalBaseModel):
             description="If `isSuccess` = true, `responseData` contains the notification identifier.\nIf `isSuccess` = false, `responseData` contains the reason for the error.",
         ),
     ] = None
+    """
+    If `isSuccess` = true, `responseData` contains the notification identifier.
+    If `isSuccess` = false, `responseData` contains the reason for the error.
+    """
+
     page_identifier: typing_extensions.Annotated[
         typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier"), pydantic.Field(alias="pageIdentifier")
     ] = None
@@ -36,6 +41,10 @@ class PayabliApiResponseNotifications(UniversalBaseModel):
             description="When the request was successful, this contains the notification ID, or `nID` used to manage the notification.",
         ),
     ] = None
+    """
+    When the request was successful, this contains the notification ID, or `nID` used to manage the notification.
+    """
+
     response_text: typing_extensions.Annotated[
         ResponseText, FieldMetadata(alias="responseText"), pydantic.Field(alias="responseText")
     ]

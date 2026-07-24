@@ -19,11 +19,19 @@ class MethodsList(UniversalBaseModel):
         FieldMetadata(alias="applePay"),
         pydantic.Field(alias="applePay", description="When `true`, Apple Pay is accepted."),
     ] = None
+    """
+    When `true`, Apple Pay is accepted.
+    """
+
     google_pay: typing_extensions.Annotated[
         typing.Optional[bool],
         FieldMetadata(alias="googlePay"),
         pydantic.Field(alias="googlePay", description="When `true`, Google Pay is accepted."),
     ] = None
+    """
+    When `true`, Google Pay is accepted.
+    """
+
     discover: typing.Optional[bool] = pydantic.Field(default=None)
     """
     When `true`, Discover is accepted.
@@ -34,6 +42,10 @@ class MethodsList(UniversalBaseModel):
         FieldMetadata(alias="eCheck"),
         pydantic.Field(alias="eCheck", description="When `true`, ACH is accepted."),
     ] = None
+    """
+    When `true`, ACH is accepted.
+    """
+
     mastercard: typing.Optional[bool] = pydantic.Field(default=None)
     """
     When `true`, Mastercard is accepted.

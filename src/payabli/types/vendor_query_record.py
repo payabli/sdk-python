@@ -95,6 +95,10 @@ class VendorQueryRecord(UniversalBaseModel):
         FieldMetadata(alias="Contacts"),
         pydantic.Field(alias="Contacts", description="Array of objects describing the vendor's contacts."),
     ] = None
+    """
+    Array of objects describing the vendor's contacts.
+    """
+
     billing_data: typing_extensions.Annotated[
         typing.Optional[BillingDataResponse], FieldMetadata(alias="BillingData"), pydantic.Field(alias="BillingData")
     ] = None
@@ -125,6 +129,10 @@ class VendorQueryRecord(UniversalBaseModel):
         FieldMetadata(alias="PaypointId"),
         pydantic.Field(alias="PaypointId", description="The paypoint's ID. This is different from the entryname."),
     ] = None
+    """
+    The paypoint's ID. This is different from the entryname.
+    """
+
     paypoint_dbaname: typing_extensions.Annotated[
         typing.Optional[Dbaname], FieldMetadata(alias="PaypointDbaname"), pydantic.Field(alias="PaypointDbaname")
     ] = None
@@ -193,6 +201,10 @@ class VendorQueryRecord(UniversalBaseModel):
             description="URL for the vendor's online payment portal, if known. Populated by the vendor enrichment pipeline.",
         ),
     ] = None
+    """
+    URL for the vendor's online payment portal, if known. Populated by the vendor enrichment pipeline.
+    """
+
     card_accepted: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="CardAccepted"),
@@ -201,6 +213,10 @@ class VendorQueryRecord(UniversalBaseModel):
             description="Whether the vendor accepts card payments. Values are `yes`, `no`, or `unable to determine`. Populated by the vendor enrichment pipeline.",
         ),
     ] = None
+    """
+    Whether the vendor accepts card payments. Values are `yes`, `no`, or `unable to determine`. Populated by the vendor enrichment pipeline.
+    """
+
     ach_accepted: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="AchAccepted"),
@@ -209,6 +225,10 @@ class VendorQueryRecord(UniversalBaseModel):
             description="Whether the vendor accepts ACH payments. Values are `yes`, `no`, or `unable to determine`. Populated by the vendor enrichment pipeline.",
         ),
     ] = None
+    """
+    Whether the vendor accepts ACH payments. Values are `yes`, `no`, or `unable to determine`. Populated by the vendor enrichment pipeline.
+    """
+
     check_accepted: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="CheckAccepted"),
@@ -217,6 +237,10 @@ class VendorQueryRecord(UniversalBaseModel):
             description="Whether the vendor accepts check payments. Values are `yes`, `no`, or `unable to determine`. Populated by the vendor enrichment pipeline.",
         ),
     ] = None
+    """
+    Whether the vendor accepts check payments. Values are `yes`, `no`, or `unable to determine`. Populated by the vendor enrichment pipeline.
+    """
+
     enrichment_status: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="EnrichmentStatus"),
@@ -225,6 +249,10 @@ class VendorQueryRecord(UniversalBaseModel):
             description="Current enrichment state of the vendor. Values are `not_enriched`, `partially_enriched`, `fully_enriched`, or `fallback_applied`.",
         ),
     ] = None
+    """
+    Current enrichment state of the vendor. Values are `not_enriched`, `partially_enriched`, `fully_enriched`, or `fallback_applied`.
+    """
+
     enriched_by: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="EnrichedBy"),
@@ -233,11 +261,19 @@ class VendorQueryRecord(UniversalBaseModel):
             description="Which enrichment method resolved the vendor's payment acceptance info. Values are `invoice_scan`, `web_search`, `vendor_network`, or `manual`.",
         ),
     ] = None
+    """
+    Which enrichment method resolved the vendor's payment acceptance info. Values are `invoice_scan`, `web_search`, `vendor_network`, or `manual`.
+    """
+
     enriched_at: typing_extensions.Annotated[
         typing.Optional[dt.datetime],
         FieldMetadata(alias="EnrichedAt"),
         pydantic.Field(alias="EnrichedAt", description="When the vendor was last enriched (UTC)."),
     ] = None
+    """
+    When the vendor was last enriched (UTC).
+    """
+
     enrichment_id: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="EnrichmentId"),
@@ -245,6 +281,10 @@ class VendorQueryRecord(UniversalBaseModel):
             alias="EnrichmentId", description="Identifier for the enrichment request that last updated this vendor."
         ),
     ] = None
+    """
+    Identifier for the enrichment request that last updated this vendor.
+    """
+
     additional_data: typing_extensions.Annotated[
         typing.Optional[AdditionalDataMap],
         FieldMetadata(alias="additionalData"),

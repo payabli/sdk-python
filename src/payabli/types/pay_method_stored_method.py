@@ -28,6 +28,10 @@ class PayMethodStoredMethod(UniversalBaseModel):
         FieldMetadata(alias="storedMethodId"),
         pydantic.Field(alias="storedMethodId", description="Payabli identifier of a tokenized payment method."),
     ] = None
+    """
+    Payabli identifier of a tokenized payment method.
+    """
+
     stored_method_usage_type: typing_extensions.Annotated[
         typing.Optional[StoredMethodUsageType],
         FieldMetadata(alias="storedMethodUsageType"),

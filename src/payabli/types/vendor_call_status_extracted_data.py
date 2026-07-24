@@ -21,11 +21,18 @@ class VendorCallStatusExtractedData(UniversalBaseModel):
             description="Payment method the vendor said they accept. Values are `card`, `ach`, or `check`.",
         ),
     ] = None
+    """
+    Payment method the vendor said they accept. Values are `card`, `ach`, or `check`.
+    """
+
     contact_email: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="contactEmail"),
         pydantic.Field(alias="contactEmail", description="Contact email collected during the call."),
     ] = None
+    """
+    Contact email collected during the call.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

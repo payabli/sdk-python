@@ -53,21 +53,37 @@ class TransferDetailRecord(UniversalBaseModel):
         FieldMetadata(alias="transferDetailId"),
         pydantic.Field(alias="transferDetailId", description="Unique identifier for the transfer detail record"),
     ] = None
+    """
+    Unique identifier for the transfer detail record
+    """
+
     transfer_id: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="transferId"),
         pydantic.Field(alias="transferId", description="The ID of the transfer this detail belongs to"),
     ] = None
+    """
+    The ID of the transfer this detail belongs to
+    """
+
     transaction_id: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="transactionId"),
         pydantic.Field(alias="transactionId", description="The transaction ID in Payabli's system"),
     ] = None
+    """
+    The transaction ID in Payabli's system
+    """
+
     transaction_number: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="transactionNumber"),
         pydantic.Field(alias="transactionNumber", description="External transaction reference number"),
     ] = None
+    """
+    External transaction reference number
+    """
+
     type: typing.Optional[str] = pydantic.Field(default=None)
     """
     The transaction type (credit or debit)
@@ -83,26 +99,46 @@ class TransferDetailRecord(UniversalBaseModel):
         FieldMetadata(alias="grossAmount"),
         pydantic.Field(alias="grossAmount", description="The gross amount of the transaction"),
     ] = None
+    """
+    The gross amount of the transaction
+    """
+
     charge_back_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="chargeBackAmount"),
         pydantic.Field(alias="chargeBackAmount", description="Chargeback amount deducted from transaction"),
     ] = None
+    """
+    Chargeback amount deducted from transaction
+    """
+
     returned_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="returnedAmount"),
         pydantic.Field(alias="returnedAmount", description="ACH return amount deducted from transaction"),
     ] = None
+    """
+    ACH return amount deducted from transaction
+    """
+
     refund_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="refundAmount"),
         pydantic.Field(alias="refundAmount", description="Refund amount deducted from transaction"),
     ] = None
+    """
+    Refund amount deducted from transaction
+    """
+
     hold_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="holdAmount"),
         pydantic.Field(alias="holdAmount", description="Amount being held for fraud or risk concerns"),
     ] = None
+    """
+    Amount being held for fraud or risk concerns
+    """
+
     released_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="releasedAmount"),
@@ -110,11 +146,19 @@ class TransferDetailRecord(UniversalBaseModel):
             alias="releasedAmount", description="Previously held funds that have been released after a risk review"
         ),
     ] = None
+    """
+    Previously held funds that have been released after a risk review
+    """
+
     billing_fees_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="billingFeesAmount"),
         pydantic.Field(alias="billingFeesAmount", description="Charges applied for transactions and services"),
     ] = None
+    """
+    Charges applied for transactions and services
+    """
+
     third_party_paid_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="thirdPartyPaidAmount"),
@@ -123,21 +167,37 @@ class TransferDetailRecord(UniversalBaseModel):
             description="Payments captured in the batch cycle that are deposited separately. For example,  checks or cash payments recorded in the batch but not deposited via Payabli,  or card brands making a direct transfer in certain situations.",
         ),
     ] = None
+    """
+    Payments captured in the batch cycle that are deposited separately. For example,  checks or cash payments recorded in the batch but not deposited via Payabli,  or card brands making a direct transfer in certain situations.
+    """
+
     adjustments_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="adjustmentsAmount"),
         pydantic.Field(alias="adjustmentsAmount", description="Corrections applied to Billing & Fees charges"),
     ] = None
+    """
+    Corrections applied to Billing & Fees charges
+    """
+
     net_transfer_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="netTransferAmount"),
         pydantic.Field(alias="netTransferAmount", description="The net amount after all deductions"),
     ] = None
+    """
+    The net amount after all deductions
+    """
+
     split_funding_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="splitFundingAmount"),
         pydantic.Field(alias="splitFundingAmount", description="Total amount directed to split funding destinations"),
     ] = None
+    """
+    Total amount directed to split funding destinations
+    """
+
     card_rejected_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="cardRejectedAmount"),
@@ -146,6 +206,10 @@ class TransferDetailRecord(UniversalBaseModel):
             description="Total amount rejected by card networks or issuing banks after authorization or settling in this transaction",
         ),
     ] = None
+    """
+    Total amount rejected by card networks or issuing banks after authorization or settling in this transaction
+    """
+
     billing_fees_details: typing_extensions.Annotated[
         typing.Optional[typing.List[BillingFeeDetail]],
         FieldMetadata(alias="billingFeesDetails"),
@@ -165,16 +229,28 @@ class TransferDetailRecord(UniversalBaseModel):
         FieldMetadata(alias="PaypointEntryname"),
         pydantic.Field(alias="PaypointEntryname", description="The paypoint's entryname"),
     ] = None
+    """
+    The paypoint's entryname
+    """
+
     payment_trans_id: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="PaymentTransId"),
         pydantic.Field(alias="PaymentTransId", description="The transaction ID for the payment"),
     ] = None
+    """
+    The transaction ID for the payment
+    """
+
     connector_name: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="ConnectorName"),
         pydantic.Field(alias="ConnectorName", description="The payment connector used to process the transaction"),
     ] = None
+    """
+    The payment connector used to process the transaction
+    """
+
     external_processor_information: typing_extensions.Annotated[
         typing.Optional[ExternalProcessorInformation],
         FieldMetadata(alias="ExternalProcessorInformation"),
@@ -185,6 +261,10 @@ class TransferDetailRecord(UniversalBaseModel):
         FieldMetadata(alias="GatewayTransId"),
         pydantic.Field(alias="GatewayTransId", description="Internal identifier used for processing"),
     ] = None
+    """
+    Internal identifier used for processing
+    """
+
     order_id: typing_extensions.Annotated[
         typing.Optional[OrderId], FieldMetadata(alias="OrderId"), pydantic.Field(alias="OrderId")
     ] = None
@@ -193,6 +273,10 @@ class TransferDetailRecord(UniversalBaseModel):
         FieldMetadata(alias="Method"),
         pydantic.Field(alias="Method", description="Payment method used: card, ach, or wallet"),
     ] = None
+    """
+    Payment method used: card, ach, or wallet
+    """
+
     batch_number: typing_extensions.Annotated[
         typing.Optional[BatchNumber], FieldMetadata(alias="BatchNumber"), pydantic.Field(alias="BatchNumber")
     ] = None
@@ -201,11 +285,19 @@ class TransferDetailRecord(UniversalBaseModel):
         FieldMetadata(alias="BatchAmount"),
         pydantic.Field(alias="BatchAmount", description="The amount of the batch"),
     ] = None
+    """
+    The amount of the batch
+    """
+
     payor_id: typing_extensions.Annotated[
         typing.Optional[PayorId],
         FieldMetadata(alias="PayorId"),
         pydantic.Field(alias="PayorId", description="Unique ID for customer linked to the transaction"),
     ] = None
+    """
+    Unique ID for customer linked to the transaction
+    """
+
     payment_data: typing_extensions.Annotated[
         typing.Optional[QueryPaymentData], FieldMetadata(alias="PaymentData"), pydantic.Field(alias="PaymentData")
     ] = None
@@ -217,6 +309,12 @@ class TransferDetailRecord(UniversalBaseModel):
             description="Status of transaction. See [the\ndocs](/developers/references/money-in-statuses#money-in-transaction-status) for a\nfull reference.",
         ),
     ] = None
+    """
+    Status of transaction. See [the
+    docs](/developers/references/money-in-statuses#money-in-transaction-status) for a
+    full reference.
+    """
+
     paypoint_id: typing_extensions.Annotated[
         typing.Optional[PaypointId], FieldMetadata(alias="PaypointId"), pydantic.Field(alias="PaypointId")
     ] = None
@@ -227,11 +325,19 @@ class TransferDetailRecord(UniversalBaseModel):
             alias="TotalAmount", description="Transaction total amount (including service fee or sub-charge)"
         ),
     ] = None
+    """
+    Transaction total amount (including service fee or sub-charge)
+    """
+
     net_amount: typing_extensions.Annotated[
         typing.Optional[Netamountnullable],
         FieldMetadata(alias="NetAmount"),
         pydantic.Field(alias="NetAmount", description="Net amount paid"),
     ] = None
+    """
+    Net amount paid
+    """
+
     fee_amount: typing_extensions.Annotated[
         typing.Optional[FeeAmount], FieldMetadata(alias="FeeAmount"), pydantic.Field(alias="FeeAmount")
     ] = None
@@ -243,6 +349,10 @@ class TransferDetailRecord(UniversalBaseModel):
             description="Settlement status for transaction. See [the docs](/developers/references/money-in-statuses#payment-funding-status) for a full reference.",
         ),
     ] = None
+    """
+    Settlement status for transaction. See [the docs](/developers/references/money-in-statuses#payment-funding-status) for a full reference.
+    """
+
     operation: typing_extensions.Annotated[
         typing.Optional[Operation], FieldMetadata(alias="Operation"), pydantic.Field(alias="Operation")
     ] = None
@@ -260,6 +370,10 @@ class TransferDetailRecord(UniversalBaseModel):
             description="Reference to the subscription or schedule that originated the transaction",
         ),
     ] = None
+    """
+    Reference to the subscription or schedule that originated the transaction
+    """
+
     org_id: typing_extensions.Annotated[
         typing.Optional[Orgid], FieldMetadata(alias="OrgId"), pydantic.Field(alias="OrgId")
     ] = None
@@ -280,11 +394,19 @@ class TransferDetailRecord(UniversalBaseModel):
         FieldMetadata(alias="TransAdditionalData"),
         pydantic.Field(alias="TransAdditionalData", description="Additional transaction data"),
     ] = None
+    """
+    Additional transaction data
+    """
+
     invoice_data: typing_extensions.Annotated[
         typing.Optional[BillData],
         FieldMetadata(alias="invoiceData"),
         pydantic.Field(alias="invoiceData", description="Associated invoice data"),
     ] = None
+    """
+    Associated invoice data
+    """
+
     entrypage_id: typing_extensions.Annotated[
         typing.Optional[EntrypageId], FieldMetadata(alias="EntrypageId"), pydantic.Field(alias="EntrypageId")
     ] = None
@@ -298,11 +420,19 @@ class TransferDetailRecord(UniversalBaseModel):
         FieldMetadata(alias="IsValidatedACH"),
         pydantic.Field(alias="IsValidatedACH", description="Indicates whether the ACH account has been validated"),
     ] = None
+    """
+    Indicates whether the ACH account has been validated
+    """
+
     transaction_time: typing_extensions.Annotated[
         typing.Optional[dt.datetime],
         FieldMetadata(alias="TransactionTime"),
         pydantic.Field(alias="TransactionTime", description="Transaction date and time, in UTC"),
     ] = None
+    """
+    Transaction date and time, in UTC
+    """
+
     customer: typing_extensions.Annotated[
         typing.Optional[QueryTransactionPayorData], FieldMetadata(alias="Customer"), pydantic.Field(alias="Customer")
     ] = None
@@ -361,11 +491,18 @@ class TransferDetailRecord(UniversalBaseModel):
         FieldMetadata(alias="IsSameDayACH"),
         pydantic.Field(alias="IsSameDayACH", description="Indicates if this was a same-day ACH transaction."),
     ] = None
+    """
+    Indicates if this was a same-day ACH transaction.
+    """
+
     wallet_type: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="WalletType"),
         pydantic.Field(alias="WalletType", description="Type of wallet used for the transaction (if applicable)"),
     ] = None
+    """
+    Type of wallet used for the transaction (if applicable)
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

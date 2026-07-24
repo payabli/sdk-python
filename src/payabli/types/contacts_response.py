@@ -15,21 +15,36 @@ class ContactsResponse(UniversalBaseModel):
         FieldMetadata(alias="ContactName"),
         pydantic.Field(alias="ContactName", description="Contact name."),
     ] = None
+    """
+    Contact name.
+    """
+
     contact_email: typing_extensions.Annotated[
         typing.Optional[Email],
         FieldMetadata(alias="ContactEmail"),
         pydantic.Field(alias="ContactEmail", description="Contact email address."),
     ] = None
+    """
+    Contact email address.
+    """
+
     contact_title: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="ContactTitle"),
         pydantic.Field(alias="ContactTitle", description="Contact title."),
     ] = None
+    """
+    Contact title.
+    """
+
     contact_phone: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="ContactPhone"),
         pydantic.Field(alias="ContactPhone", description="Contact phone number."),
     ] = None
+    """
+    Contact phone number.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

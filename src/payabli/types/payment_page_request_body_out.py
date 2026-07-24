@@ -26,6 +26,10 @@ class PaymentPageRequestBodyOut(UniversalBaseModel):
         FieldMetadata(alias="contactUs"),
         pydantic.Field(alias="contactUs", description="ContactUs section of payment link page."),
     ] = None
+    """
+    ContactUs section of payment link page.
+    """
+
     logo: typing.Optional[Element] = pydantic.Field(default=None)
     """
     Logo section of payment link page.
@@ -36,6 +40,10 @@ class PaymentPageRequestBodyOut(UniversalBaseModel):
         FieldMetadata(alias="messageBeforePaying"),
         pydantic.Field(alias="messageBeforePaying", description="Message section of payment link page."),
     ] = None
+    """
+    Message section of payment link page.
+    """
+
     notes: typing.Optional[NoteElement] = pydantic.Field(default=None)
     """
     Notes section of payment link page.
@@ -51,6 +59,10 @@ class PaymentPageRequestBodyOut(UniversalBaseModel):
         FieldMetadata(alias="paymentButton"),
         pydantic.Field(alias="paymentButton", description="Payment button section of payment link page."),
     ] = None
+    """
+    Payment button section of payment link page.
+    """
+
     payment_methods: typing_extensions.Annotated[
         typing.Optional[MethodElementOut],
         FieldMetadata(alias="paymentMethods"),
@@ -59,6 +71,10 @@ class PaymentPageRequestBodyOut(UniversalBaseModel):
             description="Payment methods section of payment link page. Use this to configure which payout methods (ACH, vCard, check) are offered to the vendor.",
         ),
     ] = None
+    """
+    Payment methods section of payment link page. Use this to configure which payout methods (ACH, vCard, check) are offered to the vendor.
+    """
+
     review: typing.Optional[HeaderElement] = pydantic.Field(default=None)
     """
     Review section of payment link page.

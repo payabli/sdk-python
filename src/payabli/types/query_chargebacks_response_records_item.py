@@ -28,16 +28,28 @@ class QueryChargebacksResponseRecordsItem(UniversalBaseModel):
         FieldMetadata(alias="AccountType"),
         pydantic.Field(alias="AccountType", description="Type of account."),
     ] = None
+    """
+    Type of account.
+    """
+
     case_number: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="CaseNumber"),
         pydantic.Field(alias="CaseNumber", description="Case number of the chargeback."),
     ] = None
+    """
+    Case number of the chargeback.
+    """
+
     chargeback_date: typing_extensions.Annotated[
         typing.Optional[dt.datetime],
         FieldMetadata(alias="ChargebackDate"),
         pydantic.Field(alias="ChargebackDate", description="Date of the chargeback."),
     ] = None
+    """
+    Date of the chargeback.
+    """
+
     created_at: typing_extensions.Annotated[
         typing.Optional[CreatedAt], FieldMetadata(alias="CreatedAt"), pydantic.Field(alias="CreatedAt")
     ] = None
@@ -54,21 +66,37 @@ class QueryChargebacksResponseRecordsItem(UniversalBaseModel):
         FieldMetadata(alias="Id"),
         pydantic.Field(alias="Id", description="Unique identifier of the record."),
     ] = None
+    """
+    Unique identifier of the record.
+    """
+
     last_four: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="LastFour"),
         pydantic.Field(alias="LastFour", description="Last four digits of the account number."),
     ] = None
+    """
+    Last four digits of the account number.
+    """
+
     method: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="Method"),
         pydantic.Field(alias="Method", description="Method of payment."),
     ] = None
+    """
+    Method of payment.
+    """
+
     net_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="NetAmount"),
         pydantic.Field(alias="NetAmount", description="Net amount after deductions."),
     ] = None
+    """
+    Net amount after deductions.
+    """
+
     order_id: typing_extensions.Annotated[
         typing.Optional[OrderId], FieldMetadata(alias="OrderId"), pydantic.Field(alias="OrderId")
     ] = None
@@ -81,41 +109,73 @@ class QueryChargebacksResponseRecordsItem(UniversalBaseModel):
         FieldMetadata(alias="PaymentData"),
         pydantic.Field(alias="PaymentData", description="Payment data associated with the transaction."),
     ] = None
+    """
+    Payment data associated with the transaction.
+    """
+
     payment_trans_id: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="PaymentTransId"),
         pydantic.Field(alias="PaymentTransId", description="Transaction ID for the payment."),
     ] = None
+    """
+    Transaction ID for the payment.
+    """
+
     paypoint_dbaname: typing_extensions.Annotated[
         typing.Optional[Dbaname],
         FieldMetadata(alias="PaypointDbaname"),
         pydantic.Field(alias="PaypointDbaname", description="The 'Doing Business As' (DBA) name of the paypoint."),
     ] = None
+    """
+    The 'Doing Business As' (DBA) name of the paypoint.
+    """
+
     paypoint_entryname: typing_extensions.Annotated[
         typing.Optional[Entrypointfield],
         FieldMetadata(alias="PaypointEntryname"),
         pydantic.Field(alias="PaypointEntryname", description="Entryname for the paypoint."),
     ] = None
+    """
+    Entryname for the paypoint.
+    """
+
     paypoint_legalname: typing_extensions.Annotated[
         typing.Optional[Legalname],
         FieldMetadata(alias="PaypointLegalname"),
         pydantic.Field(alias="PaypointLegalname", description="Legal name of the paypoint."),
     ] = None
+    """
+    Legal name of the paypoint.
+    """
+
     reason: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="Reason"),
         pydantic.Field(alias="Reason", description="Description of the reason for chargeback."),
     ] = None
+    """
+    Description of the reason for chargeback.
+    """
+
     reason_code: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="ReasonCode"),
         pydantic.Field(alias="ReasonCode", description="Code representing the reason for chargeback."),
     ] = None
+    """
+    Code representing the reason for chargeback.
+    """
+
     reference_number: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="ReferenceNumber"),
         pydantic.Field(alias="ReferenceNumber", description="Reference number for the transaction."),
     ] = None
+    """
+    Reference number for the transaction.
+    """
+
     reply_by: typing_extensions.Annotated[
         typing.Optional[Replyby], FieldMetadata(alias="ReplyBy"), pydantic.Field(alias="ReplyBy")
     ] = None
@@ -124,11 +184,19 @@ class QueryChargebacksResponseRecordsItem(UniversalBaseModel):
         FieldMetadata(alias="Responses"),
         pydantic.Field(alias="Responses", description="Responses related to the transaction."),
     ] = None
+    """
+    Responses related to the transaction.
+    """
+
     schedule_reference: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="ScheduleReference"),
         pydantic.Field(alias="ScheduleReference", description="Reference for any scheduled transactions."),
     ] = None
+    """
+    Reference for any scheduled transactions.
+    """
+
     status: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="Status"),
@@ -137,6 +205,17 @@ class QueryChargebacksResponseRecordsItem(UniversalBaseModel):
             description="Status of the chargeback or ACH return.\n\n- 0: Open (chargebacks only)\n- 1: Pending (chargebacks only)\n- 2: ClosedWon (chargebacks only)\n- 3: ClosedLost (chargebacks only)\n- 4: ACH return (any Nacha return code except R29)\n- 5: AchDispute (R29 only — debit block)",
         ),
     ] = None
+    """
+    Status of the chargeback or ACH return.
+    
+    - 0: Open (chargebacks only)
+    - 1: Pending (chargebacks only)
+    - 2: ClosedWon (chargebacks only)
+    - 3: ClosedLost (chargebacks only)
+    - 4: ACH return (any Nacha return code except R29)
+    - 5: AchDispute (R29 only — debit block)
+    """
+
     transaction: typing_extensions.Annotated[
         typing.Optional[TransactionQueryRecords],
         FieldMetadata(alias="Transaction"),

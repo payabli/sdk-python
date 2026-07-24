@@ -16,11 +16,18 @@ class QueryTransferDetailResponse(UniversalBaseModel):
         FieldMetadata(alias="Records"),
         pydantic.Field(alias="Records", description="List of transfer detail records"),
     ]
+    """
+    List of transfer detail records
+    """
+
     summary: typing_extensions.Annotated[
         QueryTransferSummary,
         FieldMetadata(alias="Summary"),
         pydantic.Field(alias="Summary", description="Summary of the transfer details query"),
     ]
+    """
+    Summary of the transfer details query
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -21,6 +21,10 @@ class BillQueryRecord2BillApprovalsItem(UniversalBaseModel):
         FieldMetadata(alias="approvedTime"),
         pydantic.Field(alias="approvedTime", description="Timestamp of when the approval was made, in UTC."),
     ] = None
+    """
+    Timestamp of when the approval was made, in UTC.
+    """
+
     comments: typing.Optional[str] = pydantic.Field(default=None)
     """
     Additional comments on the approval.
@@ -36,6 +40,9 @@ class BillQueryRecord2BillApprovalsItem(UniversalBaseModel):
         FieldMetadata(alias="Id"),
         pydantic.Field(alias="Id", description="The approving user's ID."),
     ] = None
+    """
+    The approving user's ID.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

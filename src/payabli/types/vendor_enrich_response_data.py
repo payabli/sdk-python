@@ -22,6 +22,10 @@ class VendorEnrichResponseData(UniversalBaseModel):
             description="Unique identifier for this enrichment run. Format: `enrich-{vendorId}-{8-char hex}`.",
         ),
     ] = None
+    """
+    Unique identifier for this enrichment run. Format: `enrich-{vendorId}-{8-char hex}`.
+    """
+
     status: typing.Optional[str] = pydantic.Field(default=None)
     """
     Final enrichment status. Values are `completed` (vendor is payout-ready), `completed_from_network` (vendor was already enriched in the Payabli vendor network, no AI processing needed), or `insufficient` (all stages ran but the vendor still lacks sufficient payment data).
@@ -35,6 +39,10 @@ class VendorEnrichResponseData(UniversalBaseModel):
             description="Stages that ran successfully. A stage is only listed here if it returned a successful response. Failed stages are excluded.",
         ),
     ] = None
+    """
+    Stages that ran successfully. A stage is only listed here if it returned a successful response. Failed stages are excluded.
+    """
+
     vendor_payout_ready: typing_extensions.Annotated[
         typing.Optional[bool],
         FieldMetadata(alias="vendorPayoutReady"),
@@ -43,6 +51,10 @@ class VendorEnrichResponseData(UniversalBaseModel):
             description="`true` if the vendor now has sufficient payment data to process a payout (ACH, card email, or check remit address).",
         ),
     ] = None
+    """
+    `true` if the vendor now has sufficient payment data to process a payout (ACH, card email, or check remit address).
+    """
+
     enrichment_data: typing_extensions.Annotated[
         typing.Optional[VendorEnrichmentData],
         FieldMetadata(alias="enrichmentData"),
@@ -50,6 +62,9 @@ class VendorEnrichResponseData(UniversalBaseModel):
             alias="enrichmentData", description="Raw extraction results from the enrichment stages that ran."
         ),
     ] = None
+    """
+    Raw extraction results from the enrichment stages that ran.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

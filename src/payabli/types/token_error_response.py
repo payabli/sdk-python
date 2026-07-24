@@ -18,11 +18,18 @@ class TokenErrorResponse(UniversalBaseModel):
         FieldMetadata(alias="errorType"),
         pydantic.Field(alias="errorType", description="The error category, for example `InvalidCredentials`."),
     ]
+    """
+    The error category, for example `InvalidCredentials`.
+    """
+
     error_message: typing_extensions.Annotated[
         str,
         FieldMetadata(alias="errorMessage"),
         pydantic.Field(alias="errorMessage", description="A human-readable error description."),
     ]
+    """
+    A human-readable error description.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

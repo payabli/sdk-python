@@ -66,6 +66,10 @@ class QueryPaymentData(UniversalBaseModel):
         FieldMetadata(alias="StoredId"),
         pydantic.Field(alias="StoredId", description="Identifier of stored payment method used in transaction."),
     ] = None
+    """
+    Identifier of stored payment method used in transaction.
+    """
+
     stored_method_usage_type: typing_extensions.Annotated[
         typing.Optional[StoredMethodUsageType],
         FieldMetadata(alias="StoredMethodUsageType"),

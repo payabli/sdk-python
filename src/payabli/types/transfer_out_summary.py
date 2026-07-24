@@ -18,16 +18,27 @@ class TransferOutSummary(UniversalBaseModel):
         FieldMetadata(alias="totalPages"),
         pydantic.Field(alias="totalPages", description="Number of pages in the response."),
     ] = None
+    """
+    Number of pages in the response.
+    """
+
     total_records: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="totalRecords"),
         pydantic.Field(alias="totalRecords", description="Number of records in the response."),
     ] = None
+    """
+    Number of records in the response.
+    """
+
     page_size: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="pageSize"),
         pydantic.Field(alias="pageSize", description="Number of records per page."),
     ] = None
+    """
+    Number of records per page.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

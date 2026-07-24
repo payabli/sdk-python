@@ -73,6 +73,9 @@ class RawChargeBacksClient:
         HttpResponse[AddResponseResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"ChargeBacks/response/{encode_path_param(id)}",
             method="POST",
@@ -85,6 +88,7 @@ class RawChargeBacksClient:
                 "notes": notes,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -173,9 +177,15 @@ class RawChargeBacksClient:
         HttpResponse[ChargebackQueryRecords]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"ChargeBacks/read/{encode_path_param(id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -263,9 +273,15 @@ class RawChargeBacksClient:
         HttpResponse[str]
             OK
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"ChargeBacks/getChargebackAttachments/{encode_path_param(id)}/{encode_path_param(file_name)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -378,6 +394,9 @@ class AsyncRawChargeBacksClient:
         AsyncHttpResponse[AddResponseResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"ChargeBacks/response/{encode_path_param(id)}",
             method="POST",
@@ -390,6 +409,7 @@ class AsyncRawChargeBacksClient:
                 "notes": notes,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -478,9 +498,15 @@ class AsyncRawChargeBacksClient:
         AsyncHttpResponse[ChargebackQueryRecords]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"ChargeBacks/read/{encode_path_param(id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -568,9 +594,15 @@ class AsyncRawChargeBacksClient:
         AsyncHttpResponse[str]
             OK
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"ChargeBacks/getChargebackAttachments/{encode_path_param(id)}/{encode_path_param(file_name)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:

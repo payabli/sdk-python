@@ -35,11 +35,19 @@ class CustomerData(UniversalBaseModel):
         FieldMetadata(alias="customerUsername"),
         pydantic.Field(alias="customerUsername", description="Customer username for customer portal"),
     ] = None
+    """
+    Customer username for customer portal
+    """
+
     customer_psw: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="customerPsw"),
         pydantic.Field(alias="customerPsw", description="Customer password for customer portal"),
     ] = None
+    """
+    Customer password for customer portal
+    """
+
     customer_status: typing_extensions.Annotated[
         typing.Optional[CustomerStatus], FieldMetadata(alias="customerStatus"), pydantic.Field(alias="customerStatus")
     ] = None
@@ -78,6 +86,10 @@ class CustomerData(UniversalBaseModel):
         FieldMetadata(alias="address1"),
         pydantic.Field(alias="address1", description="Additional customer address"),
     ] = None
+    """
+    Additional customer address
+    """
+
     city: typing.Optional[str] = pydantic.Field(default=None)
     """
     Customer city
@@ -135,6 +147,10 @@ class CustomerData(UniversalBaseModel):
         FieldMetadata(alias="additionalFields"),
         pydantic.Field(alias="additionalFields", description='Additional Custom fields in format "key":"value".'),
     ] = None
+    """
+    Additional Custom fields in format "key":"value".
+    """
+
     identifier_fields: typing_extensions.Annotated[
         typing.Optional[Identifierfields],
         FieldMetadata(alias="identifierFields"),

@@ -74,7 +74,8 @@ Instantiate and use the client with the following:
 from payabli import payabli, PayorDataRequest, PaymentDetail, PayMethodCredit
 
 client = payabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
 )
 
 client.money_in.getpaidv_2(
@@ -122,7 +123,8 @@ import asyncio
 from payabli import Asyncpayabli
 
 client = Asyncpayabli(
-    api_key="<value>",
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
 )
 
 
@@ -246,7 +248,7 @@ client = payabli(..., timeout=20.0)
 
 # Override timeout for a specific method
 client.money_in.getpaidv_2(..., request_options={
-    "timeout_in_seconds": 1
+    "timeout": 1
 })
 ```
 

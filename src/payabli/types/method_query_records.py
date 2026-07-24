@@ -20,11 +20,19 @@ class MethodQueryRecords(UniversalBaseModel):
         FieldMetadata(alias="IdPmethod"),
         pydantic.Field(alias="IdPmethod", description="Method internal ID"),
     ] = None
+    """
+    Method internal ID
+    """
+
     method: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="Method"),
         pydantic.Field(alias="Method", description="Type of payment vehicle: **ach** or **card**"),
     ] = None
+    """
+    Type of payment vehicle: **ach** or **card**
+    """
+
     descriptor: typing_extensions.Annotated[
         typing.Optional[Descriptor], FieldMetadata(alias="Descriptor"), pydantic.Field(alias="Descriptor")
     ] = None
@@ -38,6 +46,10 @@ class MethodQueryRecords(UniversalBaseModel):
             alias="ExpDate", description="Expiration date associated to the method (only for card) in format MMYY."
         ),
     ] = None
+    """
+    Expiration date associated to the method (only for card) in format MMYY.
+    """
+
     holder_name: typing_extensions.Annotated[
         typing.Optional[Holdername], FieldMetadata(alias="HolderName"), pydantic.Field(alias="HolderName")
     ] = None
@@ -46,21 +58,37 @@ class MethodQueryRecords(UniversalBaseModel):
         FieldMetadata(alias="AchSecCode"),
         pydantic.Field(alias="AchSecCode", description="Standard Entry Class (SEC) code for the ACH transaction."),
     ] = None
+    """
+    Standard Entry Class (SEC) code for the ACH transaction.
+    """
+
     ach_holder_type: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="AchHolderType"),
         pydantic.Field(alias="AchHolderType", description="Bank accountholder type: `personal` or `business`."),
     ] = None
+    """
+    Bank accountholder type: `personal` or `business`.
+    """
+
     is_validated_ach: typing_extensions.Annotated[
         typing.Optional[bool],
         FieldMetadata(alias="IsValidatedACH"),
         pydantic.Field(alias="IsValidatedACH", description="Whether the ACH account has been validated."),
     ] = None
+    """
+    Whether the ACH account has been validated.
+    """
+
     bin: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="BIN"),
         pydantic.Field(alias="BIN", description="The bank identification number (BIN). Null when method is ACH."),
     ] = None
+    """
+    The bank identification number (BIN). Null when method is ACH.
+    """
+
     bin_data: typing_extensions.Annotated[
         typing.Optional[BinData], FieldMetadata(alias="binData"), pydantic.Field(alias="binData")
     ] = None
@@ -69,31 +97,54 @@ class MethodQueryRecords(UniversalBaseModel):
         FieldMetadata(alias="ABA"),
         pydantic.Field(alias="ABA", description="Bank routing number."),
     ] = None
+    """
+    Bank routing number.
+    """
+
     postal_code: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="PostalCode"),
         pydantic.Field(alias="PostalCode", description="The payment method postal code."),
     ] = None
+    """
+    The payment method postal code.
+    """
+
     method_type: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="MethodType"),
         pydantic.Field(alias="MethodType", description="The payment method's token type."),
     ] = None
+    """
+    The payment method's token type.
+    """
+
     wallet_type: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="WalletType"),
         pydantic.Field(alias="WalletType", description="Digital wallet type if applicable."),
     ] = None
+    """
+    Digital wallet type if applicable.
+    """
+
     last_updated: typing_extensions.Annotated[
         typing.Optional[LastModified],
         FieldMetadata(alias="LastUpdated"),
         pydantic.Field(alias="LastUpdated", description="Date of last update"),
     ] = None
+    """
+    Date of last update
+    """
+
     card_updated_on: typing_extensions.Annotated[
         typing.Optional[dt.datetime],
         FieldMetadata(alias="CardUpdatedOn"),
         pydantic.Field(alias="CardUpdatedOn", description="Date and time the card was last updated."),
     ] = None
+    """
+    Date and time the card was last updated.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

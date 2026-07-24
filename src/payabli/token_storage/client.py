@@ -116,7 +116,8 @@ class TokenStorageClient:
         from payabli import PayorDataRequest, TokenizeCard, payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.token_storage.add_method(
             customer_data=PayorDataRequest(
@@ -199,7 +200,8 @@ class TokenStorageClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.token_storage.get_method(
             method_id="32-8877drt00045632-678",
@@ -280,7 +282,8 @@ class TokenStorageClient:
         from payabli import PayorDataRequest, TokenizeCard, payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.token_storage.update_method(
             method_id="32-8877drt00045632-678",
@@ -339,7 +342,8 @@ class TokenStorageClient:
         from payabli import payabli
 
         client = payabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
         client.token_storage.remove_method(
             method_id="32-8877drt00045632-678",
@@ -443,7 +447,8 @@ class AsyncTokenStorageClient:
         from payabli import Asyncpayabli, PayorDataRequest, TokenizeCard
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -534,7 +539,8 @@ class AsyncTokenStorageClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -623,7 +629,8 @@ class AsyncTokenStorageClient:
         from payabli import Asyncpayabli, PayorDataRequest, TokenizeCard
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 
@@ -690,7 +697,8 @@ class AsyncTokenStorageClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            api_key="YOUR_API_KEY",
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
         )
 
 

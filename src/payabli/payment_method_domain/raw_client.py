@@ -72,6 +72,9 @@ class RawPaymentMethodDomainClient:
         HttpResponse[AddPaymentMethodDomainApiResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "PaymentMethodDomain",
             method="POST",
@@ -87,6 +90,7 @@ class RawPaymentMethodDomainClient:
                 "entityType": entity_type,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -174,9 +178,15 @@ class RawPaymentMethodDomainClient:
         HttpResponse[PaymentMethodDomainGeneralResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"PaymentMethodDomain/{encode_path_param(domain_id)}/cascade",
             method="POST",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -261,9 +271,15 @@ class RawPaymentMethodDomainClient:
         HttpResponse[PaymentMethodDomainApiResponse]
             Success response that includes a payment method domain's details.
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"PaymentMethodDomain/{encode_path_param(domain_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -348,9 +364,15 @@ class RawPaymentMethodDomainClient:
         HttpResponse[DeletePaymentMethodDomainResponse]
             Success response for a deleted payment method domain.
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"PaymentMethodDomain/{encode_path_param(domain_id)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -444,6 +466,9 @@ class RawPaymentMethodDomainClient:
         HttpResponse[PaymentMethodDomainGeneralResponse]
             Success response for configuration update.
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"PaymentMethodDomain/{encode_path_param(domain_id)}",
             method="PATCH",
@@ -456,6 +481,7 @@ class RawPaymentMethodDomainClient:
                 ),
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -562,6 +588,9 @@ class RawPaymentMethodDomainClient:
         HttpResponse[ListPaymentMethodDomainsResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "PaymentMethodDomain/list",
             method="GET",
@@ -570,6 +599,9 @@ class RawPaymentMethodDomainClient:
                 "entityType": entity_type,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -655,9 +687,15 @@ class RawPaymentMethodDomainClient:
         HttpResponse[PaymentMethodDomainGeneralResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"PaymentMethodDomain/{encode_path_param(domain_id)}/verify",
             method="POST",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -719,6 +757,9 @@ class AsyncRawPaymentMethodDomainClient:
         AsyncHttpResponse[AddPaymentMethodDomainApiResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "PaymentMethodDomain",
             method="POST",
@@ -734,6 +775,7 @@ class AsyncRawPaymentMethodDomainClient:
                 "entityType": entity_type,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -821,9 +863,15 @@ class AsyncRawPaymentMethodDomainClient:
         AsyncHttpResponse[PaymentMethodDomainGeneralResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"PaymentMethodDomain/{encode_path_param(domain_id)}/cascade",
             method="POST",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -908,9 +956,15 @@ class AsyncRawPaymentMethodDomainClient:
         AsyncHttpResponse[PaymentMethodDomainApiResponse]
             Success response that includes a payment method domain's details.
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"PaymentMethodDomain/{encode_path_param(domain_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -995,9 +1049,15 @@ class AsyncRawPaymentMethodDomainClient:
         AsyncHttpResponse[DeletePaymentMethodDomainResponse]
             Success response for a deleted payment method domain.
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"PaymentMethodDomain/{encode_path_param(domain_id)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -1091,6 +1151,9 @@ class AsyncRawPaymentMethodDomainClient:
         AsyncHttpResponse[PaymentMethodDomainGeneralResponse]
             Success response for configuration update.
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"PaymentMethodDomain/{encode_path_param(domain_id)}",
             method="PATCH",
@@ -1103,6 +1166,7 @@ class AsyncRawPaymentMethodDomainClient:
                 ),
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -1209,6 +1273,9 @@ class AsyncRawPaymentMethodDomainClient:
         AsyncHttpResponse[ListPaymentMethodDomainsResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "PaymentMethodDomain/list",
             method="GET",
@@ -1217,6 +1284,9 @@ class AsyncRawPaymentMethodDomainClient:
                 "entityType": entity_type,
                 "fromRecord": from_record,
                 "limitRecord": limit_record,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -1302,9 +1372,15 @@ class AsyncRawPaymentMethodDomainClient:
         AsyncHttpResponse[PaymentMethodDomainGeneralResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"PaymentMethodDomain/{encode_path_param(domain_id)}/verify",
             method="POST",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:

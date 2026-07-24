@@ -29,6 +29,10 @@ class BillingDataResponse(UniversalBaseModel):
             description="An identifier for the bank account. If not provided during creation or update, the system generates one in the format `acct-{first_digit}xxxxx{last_4_digits}` based on the account number. If a duplicate exists within the same service at the paypoint, a numeric suffix is appended, such as `-2`. This value is also used as the identifier for the bank account's associated payment connector.",
         ),
     ] = None
+    """
+    An identifier for the bank account. If not provided during creation or update, the system generates one in the format `acct-{first_digit}xxxxx{last_4_digits}` based on the account number. If a duplicate exists within the same service at the paypoint, a numeric suffix is appended, such as `-2`. This value is also used as the identifier for the bank account's associated payment connector.
+    """
+
     nickname: str
     bank_name: typing_extensions.Annotated[BankName, FieldMetadata(alias="bankName"), pydantic.Field(alias="bankName")]
     routing_account: typing_extensions.Annotated[
@@ -58,6 +62,13 @@ class BillingDataResponse(UniversalBaseModel):
             description="Describes whether the bank account is used for deposits or withdrawals in Payabli:\n  - `0`: Deposit\n  - `1`: Withdrawal\n  - `2`: Deposit and withdrawal",
         ),
     ]
+    """
+    Describes whether the bank account is used for deposits or withdrawals in Payabli:
+      - `0`: Deposit
+      - `1`: Withdrawal
+      - `2`: Deposit and withdrawal
+    """
+
     verified: bool
     status: int
     services: typing.List[typing.Any]

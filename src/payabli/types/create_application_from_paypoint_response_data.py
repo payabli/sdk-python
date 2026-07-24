@@ -14,11 +14,18 @@ class CreateApplicationFromPaypointResponseData(UniversalBaseModel):
         FieldMetadata(alias="appId"),
         pydantic.Field(alias="appId", description="Unique identifier for the created application."),
     ] = None
+    """
+    Unique identifier for the created application.
+    """
+
     boarding_link: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="boardingLink"),
         pydantic.Field(alias="boardingLink", description="URL where the merchant can complete the boarding process."),
     ] = None
+    """
+    URL where the merchant can complete the boarding process.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

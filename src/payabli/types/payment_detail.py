@@ -26,6 +26,10 @@ class PaymentDetail(UniversalBaseModel):
         FieldMetadata(alias="checkImage"),
         pydantic.Field(alias="checkImage", description="Object containing image of paper check."),
     ] = None
+    """
+    Object containing image of paper check.
+    """
+
     check_number: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="checkNumber"),
@@ -34,6 +38,10 @@ class PaymentDetail(UniversalBaseModel):
             description="A check number to be used in the ach transaction. **Required** for payment method = 'check'.",
         ),
     ] = None
+    """
+    A check number to be used in the ach transaction. **Required** for payment method = 'check'.
+    """
+
     currency: typing.Optional[str] = pydantic.Field(default=None)
     """
     The currency for the transaction, `USD` or `CAD`. If your paypoint is configured for CAD, you must send the `CAD` value in this field, otherwise it defaults to USD, which will cause the transaction to fail.
@@ -47,6 +55,10 @@ class PaymentDetail(UniversalBaseModel):
             description="Service fee to be deducted from the total amount. This amount must be a number, percentages aren't accepted. If you are using a percentage-based fee schedule, you must calculate the value manually.",
         ),
     ] = None
+    """
+    Service fee to be deducted from the total amount. This amount must be a number, percentages aren't accepted. If you are using a percentage-based fee schedule, you must calculate the value manually.
+    """
+
     split_funding: typing_extensions.Annotated[
         typing.Optional[SplitFunding],
         FieldMetadata(alias="splitFunding"),
@@ -55,6 +67,10 @@ class PaymentDetail(UniversalBaseModel):
             description="Split funding instructions for the transaction. See [Split a Transaction](/developers/developer-guides/money-in-split-funding) for more.",
         ),
     ] = None
+    """
+    Split funding instructions for the transaction. See [Split a Transaction](/developers/developer-guides/money-in-split-funding) for more.
+    """
+
     check_unique_id: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="checkUniqueId"),
@@ -63,6 +79,10 @@ class PaymentDetail(UniversalBaseModel):
             description="Unique identifier for a processed check image. Required for RDC (Remote Deposit Capture) transactions where `achCode` is `BOC`. Use the `id` value from the [check processing](/developers/api-reference/moneyin/check-capture) response.",
         ),
     ] = None
+    """
+    Unique identifier for a processed check image. Required for RDC (Remote Deposit Capture) transactions where `achCode` is `BOC`. Use the `id` value from the [check processing](/developers/api-reference/moneyin/check-capture) response.
+    """
+
     total_amount: typing_extensions.Annotated[
         float,
         FieldMetadata(alias="totalAmount"),
@@ -71,6 +91,9 @@ class PaymentDetail(UniversalBaseModel):
             description='Total amount to be charged. If a service fee is sent, then this amount should include the service fee."',
         ),
     ]
+    """
+    Total amount to be charged. If a service fee is sent, then this amount should include the service fee."
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

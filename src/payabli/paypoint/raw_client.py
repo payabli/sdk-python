@@ -56,9 +56,15 @@ class RawPaypointClient:
         HttpResponse[GetBasicEntryResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Paypoint/basic/{encode_path_param(entry)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -143,9 +149,15 @@ class RawPaypointClient:
         HttpResponse[GetBasicEntryByIdResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Paypoint/basicById/{encode_path_param(id_paypoint)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -249,6 +261,9 @@ class RawPaypointClient:
         HttpResponse[PayabliApiResponse00Responsedatanonobject]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Paypoint/logo/{encode_path_param(entry)}",
             method="PUT",
@@ -257,6 +272,9 @@ class RawPaypointClient:
                 "filename": filename,
                 "ftype": ftype,
                 "furl": furl,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -353,6 +371,9 @@ class RawPaypointClient:
         HttpResponse[MigratePaypointResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "Paypoint/migrate",
             method="POST",
@@ -364,6 +385,7 @@ class RawPaypointClient:
                 ),
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -451,9 +473,15 @@ class RawPaypointClient:
         HttpResponse[SettingsQueryRecord]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Paypoint/settings/{encode_path_param(entry)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -544,11 +572,17 @@ class RawPaypointClient:
         HttpResponse[GetEntryConfigResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Paypoint/{encode_path_param(entry)}",
             method="GET",
             params={
                 "entrypages": entrypages,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -637,9 +671,15 @@ class RawPaypointClient:
         HttpResponse[PayabliPages]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Paypoint/{encode_path_param(entry)}/{encode_path_param(subdomain)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -727,9 +767,15 @@ class RawPaypointClient:
         HttpResponse[PayabliApiResponseGeneric2Part]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Paypoint/{encode_path_param(entry)}/{encode_path_param(subdomain)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -819,9 +865,15 @@ class AsyncRawPaypointClient:
         AsyncHttpResponse[GetBasicEntryResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Paypoint/basic/{encode_path_param(entry)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -906,9 +958,15 @@ class AsyncRawPaypointClient:
         AsyncHttpResponse[GetBasicEntryByIdResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Paypoint/basicById/{encode_path_param(id_paypoint)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -1012,6 +1070,9 @@ class AsyncRawPaypointClient:
         AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Paypoint/logo/{encode_path_param(entry)}",
             method="PUT",
@@ -1020,6 +1081,9 @@ class AsyncRawPaypointClient:
                 "filename": filename,
                 "ftype": ftype,
                 "furl": furl,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -1116,6 +1180,9 @@ class AsyncRawPaypointClient:
         AsyncHttpResponse[MigratePaypointResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "Paypoint/migrate",
             method="POST",
@@ -1127,6 +1194,7 @@ class AsyncRawPaypointClient:
                 ),
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -1214,9 +1282,15 @@ class AsyncRawPaypointClient:
         AsyncHttpResponse[SettingsQueryRecord]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Paypoint/settings/{encode_path_param(entry)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -1307,11 +1381,17 @@ class AsyncRawPaypointClient:
         AsyncHttpResponse[GetEntryConfigResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Paypoint/{encode_path_param(entry)}",
             method="GET",
             params={
                 "entrypages": entrypages,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -1400,9 +1480,15 @@ class AsyncRawPaypointClient:
         AsyncHttpResponse[PayabliPages]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Paypoint/{encode_path_param(entry)}/{encode_path_param(subdomain)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -1490,9 +1576,15 @@ class AsyncRawPaypointClient:
         AsyncHttpResponse[PayabliApiResponseGeneric2Part]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Paypoint/{encode_path_param(entry)}/{encode_path_param(subdomain)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:

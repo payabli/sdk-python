@@ -28,6 +28,10 @@ class ResponseDataRefunds(UniversalBaseModel):
         FieldMetadata(alias="avsResponseText"),
         pydantic.Field(alias="avsResponseText", description="This field isn't applicable to refund operations."),
     ] = None
+    """
+    This field isn't applicable to refund operations.
+    """
+
     customer_id: typing_extensions.Annotated[
         typing.Optional[CustomerId], FieldMetadata(alias="customerId"), pydantic.Field(alias="customerId")
     ] = None
@@ -36,11 +40,19 @@ class ResponseDataRefunds(UniversalBaseModel):
         FieldMetadata(alias="cvvResponseText"),
         pydantic.Field(alias="cvvResponseText", description="This field isn't applicable to refund operations."),
     ] = None
+    """
+    This field isn't applicable to refund operations.
+    """
+
     method_reference_id: typing_extensions.Annotated[
         typing.Optional[MethodReferenceId],
         FieldMetadata(alias="methodReferenceId"),
         pydantic.Field(alias="methodReferenceId", description="This field isn't applicable to refund operations."),
     ] = None
+    """
+    This field isn't applicable to refund operations.
+    """
+
     reference_id: typing_extensions.Annotated[
         Referenceidtrans, FieldMetadata(alias="referenceId"), pydantic.Field(alias="referenceId")
     ]
@@ -52,6 +64,9 @@ class ResponseDataRefunds(UniversalBaseModel):
         FieldMetadata(alias="resultText"),
         pydantic.Field(alias="resultText", description="Text description of the transaction result"),
     ]
+    """
+    Text description of the transaction result
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

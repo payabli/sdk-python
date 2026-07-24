@@ -36,6 +36,10 @@ class PageContent(UniversalBaseModel):
         FieldMetadata(alias="contactUs"),
         pydantic.Field(alias="contactUs", description="ContactUs section of payment page"),
     ] = None
+    """
+    ContactUs section of payment page
+    """
+
     entry: typing.Optional[str] = pydantic.Field(default=None)
     """
     Identifier of entry point owner of page
@@ -56,6 +60,10 @@ class PageContent(UniversalBaseModel):
         FieldMetadata(alias="messageBeforePaying"),
         pydantic.Field(alias="messageBeforePaying", description="Message section of payment page"),
     ] = None
+    """
+    Message section of payment page
+    """
+
     name: typing.Optional[str] = pydantic.Field(default=None)
     """
     Descriptor of page
@@ -76,11 +84,19 @@ class PageContent(UniversalBaseModel):
         FieldMetadata(alias="paymentButton"),
         pydantic.Field(alias="paymentButton", description="Payment button section of payment page"),
     ] = None
+    """
+    Payment button section of payment page
+    """
+
     payment_methods: typing_extensions.Annotated[
         typing.Optional[MethodElement],
         FieldMetadata(alias="paymentMethods"),
         pydantic.Field(alias="paymentMethods", description="Payment methods section of payment page"),
     ] = None
+    """
+    Payment methods section of payment page
+    """
+
     payor: typing.Optional[PayorElement] = pydantic.Field(default=None)
     """
     Customer/Payor section of payment page

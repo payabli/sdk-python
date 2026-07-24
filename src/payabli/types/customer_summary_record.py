@@ -15,6 +15,10 @@ class CustomerSummaryRecord(UniversalBaseModel):
         FieldMetadata(alias="NumberofTransactions"),
         pydantic.Field(alias="NumberofTransactions", description="Number total of transactions or payments"),
     ] = None
+    """
+    Number total of transactions or payments
+    """
+
     recent_transactions: typing_extensions.Annotated[
         typing.Optional[typing.List[TransactionQueryRecords]],
         FieldMetadata(alias="RecentTransactions"),
@@ -22,16 +26,27 @@ class CustomerSummaryRecord(UniversalBaseModel):
             alias="RecentTransactions", description="List of more recent 5 transactions belonging to the customer"
         ),
     ] = None
+    """
+    List of more recent 5 transactions belonging to the customer
+    """
+
     total_amount_transactions: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="TotalAmountTransactions"),
         pydantic.Field(alias="TotalAmountTransactions", description="Total amount in transactions"),
     ] = None
+    """
+    Total amount in transactions
+    """
+
     total_net_amount_transactions: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="TotalNetAmountTransactions"),
         pydantic.Field(alias="TotalNetAmountTransactions", description="Total net amount in transactions"),
     ] = None
+    """
+    Total net amount in transactions
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

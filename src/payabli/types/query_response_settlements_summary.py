@@ -15,12 +15,20 @@ class QueryResponseSettlementsSummary(UniversalBaseModel):
         FieldMetadata(alias="heldAmount"),
         pydantic.Field(alias="heldAmount", description="Funds being held for fraud or risk concerns."),
     ] = None
+    """
+    Funds being held for fraud or risk concerns.
+    """
+
     pageidentifier: typing.Optional[PageIdentifier] = None
     page_size: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="pageSize"),
         pydantic.Field(alias="pageSize", description="Number of records per page."),
     ] = None
+    """
+    Number of records per page.
+    """
+
     refunds: typing.Optional[float] = pydantic.Field(default=None)
     """
     Total refunds deducted from the transfer.
@@ -34,26 +42,46 @@ class QueryResponseSettlementsSummary(UniversalBaseModel):
             description="Service fees are any pass-through fees charged to the customer at the time of payment. These aren't transferred to the merchant when the batch is transferred and funded.",
         ),
     ] = None
+    """
+    Service fees are any pass-through fees charged to the customer at the time of payment. These aren't transferred to the merchant when the batch is transferred and funded.
+    """
+
     total_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="totalAmount"),
         pydantic.Field(alias="totalAmount", description="The total sum of the settlements in the response."),
     ] = None
+    """
+    The total sum of the settlements in the response.
+    """
+
     total_net_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="totalNetAmount"),
         pydantic.Field(alias="totalNetAmount", description="The total sum of the settlements in the response."),
     ] = None
+    """
+    The total sum of the settlements in the response.
+    """
+
     total_pages: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="totalPages"),
         pydantic.Field(alias="totalPages", description="Number of pages in the response."),
     ] = None
+    """
+    Number of pages in the response.
+    """
+
     total_records: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="totalRecords"),
         pydantic.Field(alias="totalRecords", description="Number of records in the response."),
     ] = None
+    """
+    Number of records in the response.
+    """
+
     transfer_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="transferAmount"),
@@ -62,6 +90,9 @@ class QueryResponseSettlementsSummary(UniversalBaseModel):
             description="The transfer amount is the net batch amount plus or minus any returns, refunds, billing and fees items, chargebacks, adjustments, and third party payments. This is the amount from the batch that's transferred to the merchant bank account.",
         ),
     ] = None
+    """
+    The transfer amount is the net batch amount plus or minus any returns, refunds, billing and fees items, chargebacks, adjustments, and third party payments. This is the amount from the batch that's transferred to the merchant bank account.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

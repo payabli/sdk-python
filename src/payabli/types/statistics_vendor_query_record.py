@@ -12,6 +12,10 @@ class StatisticsVendorQueryRecord(UniversalBaseModel):
     stat_x: typing_extensions.Annotated[
         str, FieldMetadata(alias="statX"), pydantic.Field(alias="statX", description="Statistical grouping identifier")
     ]
+    """
+    Statistical grouping identifier
+    """
+
     active: int = pydantic.Field()
     """
     Number of active transactions
@@ -22,26 +26,46 @@ class StatisticsVendorQueryRecord(UniversalBaseModel):
         FieldMetadata(alias="activeVolume"),
         pydantic.Field(alias="activeVolume", description="Volume of active transactions"),
     ]
+    """
+    Volume of active transactions
+    """
+
     sent_to_approval: typing_extensions.Annotated[
         int,
         FieldMetadata(alias="sentToApproval"),
         pydantic.Field(alias="sentToApproval", description="Number of transactions sent to approval"),
     ]
+    """
+    Number of transactions sent to approval
+    """
+
     sent_to_approval_volume: typing_extensions.Annotated[
         float,
         FieldMetadata(alias="sentToApprovalVolume"),
         pydantic.Field(alias="sentToApprovalVolume", description="Volume of transactions sent to approval"),
     ]
+    """
+    Volume of transactions sent to approval
+    """
+
     to_approval: typing_extensions.Annotated[
         int,
         FieldMetadata(alias="toApproval"),
         pydantic.Field(alias="toApproval", description="Number of transactions to approval"),
     ]
+    """
+    Number of transactions to approval
+    """
+
     to_approval_volume: typing_extensions.Annotated[
         float,
         FieldMetadata(alias="toApprovalVolume"),
         pydantic.Field(alias="toApprovalVolume", description="Volume of transactions to approval"),
     ]
+    """
+    Volume of transactions to approval
+    """
+
     approved: int = pydantic.Field()
     """
     Number of approved transactions
@@ -52,6 +76,10 @@ class StatisticsVendorQueryRecord(UniversalBaseModel):
         FieldMetadata(alias="approvedVolume"),
         pydantic.Field(alias="approvedVolume", description="Volume of approved transactions"),
     ]
+    """
+    Volume of approved transactions
+    """
+
     disapproved: int = pydantic.Field()
     """
     Number of disapproved transactions
@@ -62,6 +90,10 @@ class StatisticsVendorQueryRecord(UniversalBaseModel):
         FieldMetadata(alias="disapprovedVolume"),
         pydantic.Field(alias="disapprovedVolume", description="Volume of disapproved transactions"),
     ]
+    """
+    Volume of disapproved transactions
+    """
+
     cancelled: int = pydantic.Field()
     """
     Number of cancelled transactions
@@ -72,16 +104,28 @@ class StatisticsVendorQueryRecord(UniversalBaseModel):
         FieldMetadata(alias="cancelledVolume"),
         pydantic.Field(alias="cancelledVolume", description="Volume of cancelled transactions"),
     ]
+    """
+    Volume of cancelled transactions
+    """
+
     in_transit: typing_extensions.Annotated[
         int,
         FieldMetadata(alias="inTransit"),
         pydantic.Field(alias="inTransit", description="Number of transactions in transit"),
     ]
+    """
+    Number of transactions in transit
+    """
+
     in_transit_volume: typing_extensions.Annotated[
         float,
         FieldMetadata(alias="inTransitVolume"),
         pydantic.Field(alias="inTransitVolume", description="Volume of transactions in transit"),
     ]
+    """
+    Volume of transactions in transit
+    """
+
     paid: int = pydantic.Field()
     """
     Number of paid transactions
@@ -92,6 +136,9 @@ class StatisticsVendorQueryRecord(UniversalBaseModel):
         FieldMetadata(alias="paidVolume"),
         pydantic.Field(alias="paidVolume", description="Volume of paid transactions"),
     ]
+    """
+    Volume of paid transactions
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

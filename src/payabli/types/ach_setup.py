@@ -21,6 +21,12 @@ class AchSetup(UniversalBaseModel):
             description="CCD is an ACH SEC Code that can be used in ACH transactions by the\nuser that indicates the transaction is a Corporate Credit or Debit\nEntry.",
         ),
     ] = None
+    """
+    CCD is an ACH SEC Code that can be used in ACH transactions by the
+    user that indicates the transaction is a Corporate Credit or Debit
+    Entry.
+    """
+
     accept_ppd: typing_extensions.Annotated[
         typing.Optional[bool],
         FieldMetadata(alias="acceptPPD"),
@@ -29,6 +35,12 @@ class AchSetup(UniversalBaseModel):
             description="PPD is an ACH SEC Code that can be used in ACH transactions by the\nuser that indicates the transaction is a Prearranged Payment and\nDeposit.",
         ),
     ] = None
+    """
+    PPD is an ACH SEC Code that can be used in ACH transactions by the
+    user that indicates the transaction is a Prearranged Payment and
+    Deposit.
+    """
+
     accept_web: typing_extensions.Annotated[
         typing.Optional[bool],
         FieldMetadata(alias="acceptWeb"),
@@ -37,6 +49,11 @@ class AchSetup(UniversalBaseModel):
             description="Web is an ACH SEC Code that can be used in ACH transactions by the\nuser that indicates the transaction is an Internet-Initiated/Mobile\nEntry.",
         ),
     ] = None
+    """
+    Web is an ACH SEC Code that can be used in ACH transactions by the
+    user that indicates the transaction is an Internet-Initiated/Mobile
+    Entry.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

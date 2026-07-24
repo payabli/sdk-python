@@ -32,6 +32,10 @@ class QueryBoardingLinksResponseRecordsItem(UniversalBaseModel):
     id: typing_extensions.Annotated[
         typing.Optional[int], FieldMetadata(alias="Id"), pydantic.Field(alias="Id", description="The record ID.")
     ] = None
+    """
+    The record ID.
+    """
+
     last_updated: typing_extensions.Annotated[
         typing.Optional[LastModified], FieldMetadata(alias="LastUpdated"), pydantic.Field(alias="LastUpdated")
     ] = None

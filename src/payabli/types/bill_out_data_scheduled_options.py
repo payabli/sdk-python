@@ -18,6 +18,9 @@ class BillOutDataScheduledOptions(UniversalBaseModel):
         FieldMetadata(alias="storedMethodId"),
         pydantic.Field(alias="storedMethodId", description="The ID of the stored payment method to use for the bill."),
     ] = None
+    """
+    The ID of the stored payment method to use for the bill.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

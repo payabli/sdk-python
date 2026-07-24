@@ -23,11 +23,19 @@ class RequestTokenStorage(UniversalBaseModel):
             description="Object describing the Customer/Payor owner of payment method. Required for POST requests. Which fields are required depends on the paypoint's custom identifier settings.",
         ),
     ] = None
+    """
+    Object describing the Customer/Payor owner of payment method. Required for POST requests. Which fields are required depends on the paypoint's custom identifier settings.
+    """
+
     entry_point: typing_extensions.Annotated[
         typing.Optional[Entrypointfield],
         FieldMetadata(alias="entryPoint"),
         pydantic.Field(alias="entryPoint", description="Entrypoint identifier. Required for POST requests."),
     ] = None
+    """
+    Entrypoint identifier. Required for POST requests.
+    """
+
     fallback_auth: typing_extensions.Annotated[
         typing.Optional[bool],
         FieldMetadata(alias="fallbackAuth"),
@@ -36,6 +44,10 @@ class RequestTokenStorage(UniversalBaseModel):
             description="When `true`, if tokenization fails, Payabli will attempt an authorization transaction to request a permanent token for the card. If the authorization is successful, the card will be tokenized and the authorization will be voided automatically.",
         ),
     ] = None
+    """
+    When `true`, if tokenization fails, Payabli will attempt an authorization transaction to request a permanent token for the card. If the authorization is successful, the card will be tokenized and the authorization will be voided automatically.
+    """
+
     fallback_auth_amount: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="fallbackAuthAmount"),
@@ -44,16 +56,28 @@ class RequestTokenStorage(UniversalBaseModel):
             description="The amount for the `fallbackAuth` transaction. Defaults to one dollar (`100`).",
         ),
     ] = None
+    """
+    The amount for the `fallbackAuth` transaction. Defaults to one dollar (`100`).
+    """
+
     method_description: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="methodDescription"),
         pydantic.Field(alias="methodDescription", description="Custom description for stored payment method."),
     ] = None
+    """
+    Custom description for stored payment method.
+    """
+
     payment_method: typing_extensions.Annotated[
         typing.Optional[RequestTokenStoragePaymentMethod],
         FieldMetadata(alias="paymentMethod"),
         pydantic.Field(alias="paymentMethod", description="Information about the payment method for the transaction."),
     ] = None
+    """
+    Information about the payment method for the transaction.
+    """
+
     vendor_data: typing_extensions.Annotated[
         typing.Optional[VendorDataRequest], FieldMetadata(alias="vendorData"), pydantic.Field(alias="vendorData")
     ] = None

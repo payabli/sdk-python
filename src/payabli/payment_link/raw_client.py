@@ -124,6 +124,9 @@ class RawPaymentLinkClient:
         HttpResponse[PayabliApiResponsePaymentLinks]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"PaymentLink/{encode_path_param(id_invoice)}",
             method="POST",
@@ -165,6 +168,7 @@ class RawPaymentLinkClient:
                 ),
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -308,6 +312,9 @@ class RawPaymentLinkClient:
         HttpResponse[PayabliApiResponsePaymentLinks]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"PaymentLink/bill/{encode_path_param(bill_id)}",
             method="POST",
@@ -344,6 +351,7 @@ class RawPaymentLinkClient:
                 ),
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -432,9 +440,15 @@ class RawPaymentLinkClient:
         HttpResponse[PayabliApiResponsePaymentLinks]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"PaymentLink/{encode_path_param(pay_link_id)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -519,9 +533,15 @@ class RawPaymentLinkClient:
         HttpResponse[GetPayLinkFromIdResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"PaymentLink/load/{encode_path_param(paylink_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -608,12 +628,18 @@ class RawPaymentLinkClient:
         HttpResponse[PayabliApiResponsePaymentLinks]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"PaymentLink/push/{encode_path_param(pay_link_id)}",
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=PushPayLinkRequest, direction="write"
             ),
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -706,11 +732,17 @@ class RawPaymentLinkClient:
         HttpResponse[PayabliApiResponsePaymentLinks]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"PaymentLink/refresh/{encode_path_param(pay_link_id)}",
             method="GET",
             params={
                 "amountFixed": amount_fixed,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -807,12 +839,18 @@ class RawPaymentLinkClient:
         HttpResponse[PayabliApiResponsePaymentLinks]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"PaymentLink/send/{encode_path_param(pay_link_id)}",
             method="GET",
             params={
                 "attachfile": attachfile,
                 "mail2": mail_2,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -937,6 +975,9 @@ class RawPaymentLinkClient:
         HttpResponse[PayabliApiResponsePaymentLinks]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"PaymentLink/update/{encode_path_param(pay_link_id)}",
             method="PUT",
@@ -968,6 +1009,7 @@ class RawPaymentLinkClient:
                 ),
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -1114,6 +1156,9 @@ class RawPaymentLinkClient:
         HttpResponse[PayabliApiResponsePaymentLinks]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"PaymentLink/bill/lotNumber/{encode_path_param(lot_number)}",
             method="POST",
@@ -1152,6 +1197,7 @@ class RawPaymentLinkClient:
                 ),
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -1210,6 +1256,9 @@ class RawPaymentLinkClient:
         HttpResponse[PayabliApiResponsePaymentLinks]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"PaymentLink/out/{encode_path_param(paylink_id)}",
             method="PATCH",
@@ -1221,6 +1270,7 @@ class RawPaymentLinkClient:
                 "status": status,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -1351,6 +1401,9 @@ class RawPaymentLinkClient:
         HttpResponse[PayabliApiResponsePaymentLinks]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"PaymentLink/updateOut/{encode_path_param(paylink_id)}",
             method="PATCH",
@@ -1381,6 +1434,9 @@ class RawPaymentLinkClient:
                 "settings": convert_and_respect_annotation_metadata(
                     object_=settings, annotation=PagelinkSetting, direction="write"
                 ),
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -1533,6 +1589,9 @@ class AsyncRawPaymentLinkClient:
         AsyncHttpResponse[PayabliApiResponsePaymentLinks]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"PaymentLink/{encode_path_param(id_invoice)}",
             method="POST",
@@ -1574,6 +1633,7 @@ class AsyncRawPaymentLinkClient:
                 ),
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -1717,6 +1777,9 @@ class AsyncRawPaymentLinkClient:
         AsyncHttpResponse[PayabliApiResponsePaymentLinks]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"PaymentLink/bill/{encode_path_param(bill_id)}",
             method="POST",
@@ -1753,6 +1816,7 @@ class AsyncRawPaymentLinkClient:
                 ),
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -1841,9 +1905,15 @@ class AsyncRawPaymentLinkClient:
         AsyncHttpResponse[PayabliApiResponsePaymentLinks]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"PaymentLink/{encode_path_param(pay_link_id)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -1928,9 +1998,15 @@ class AsyncRawPaymentLinkClient:
         AsyncHttpResponse[GetPayLinkFromIdResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"PaymentLink/load/{encode_path_param(paylink_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -2017,12 +2093,18 @@ class AsyncRawPaymentLinkClient:
         AsyncHttpResponse[PayabliApiResponsePaymentLinks]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"PaymentLink/push/{encode_path_param(pay_link_id)}",
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=PushPayLinkRequest, direction="write"
             ),
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -2115,11 +2197,17 @@ class AsyncRawPaymentLinkClient:
         AsyncHttpResponse[PayabliApiResponsePaymentLinks]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"PaymentLink/refresh/{encode_path_param(pay_link_id)}",
             method="GET",
             params={
                 "amountFixed": amount_fixed,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -2216,12 +2304,18 @@ class AsyncRawPaymentLinkClient:
         AsyncHttpResponse[PayabliApiResponsePaymentLinks]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"PaymentLink/send/{encode_path_param(pay_link_id)}",
             method="GET",
             params={
                 "attachfile": attachfile,
                 "mail2": mail_2,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -2346,6 +2440,9 @@ class AsyncRawPaymentLinkClient:
         AsyncHttpResponse[PayabliApiResponsePaymentLinks]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"PaymentLink/update/{encode_path_param(pay_link_id)}",
             method="PUT",
@@ -2377,6 +2474,7 @@ class AsyncRawPaymentLinkClient:
                 ),
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -2523,6 +2621,9 @@ class AsyncRawPaymentLinkClient:
         AsyncHttpResponse[PayabliApiResponsePaymentLinks]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"PaymentLink/bill/lotNumber/{encode_path_param(lot_number)}",
             method="POST",
@@ -2561,6 +2662,7 @@ class AsyncRawPaymentLinkClient:
                 ),
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -2619,6 +2721,9 @@ class AsyncRawPaymentLinkClient:
         AsyncHttpResponse[PayabliApiResponsePaymentLinks]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"PaymentLink/out/{encode_path_param(paylink_id)}",
             method="PATCH",
@@ -2630,6 +2735,7 @@ class AsyncRawPaymentLinkClient:
                 "status": status,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -2760,6 +2866,9 @@ class AsyncRawPaymentLinkClient:
         AsyncHttpResponse[PayabliApiResponsePaymentLinks]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"PaymentLink/updateOut/{encode_path_param(paylink_id)}",
             method="PATCH",
@@ -2790,6 +2899,9 @@ class AsyncRawPaymentLinkClient:
                 "settings": convert_and_respect_annotation_metadata(
                     object_=settings, annotation=PagelinkSetting, direction="write"
                 ),
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,

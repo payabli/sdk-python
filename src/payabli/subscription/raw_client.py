@@ -61,9 +61,15 @@ class RawSubscriptionClient:
         HttpResponse[SubscriptionQueryRecords]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Subscription/{encode_path_param(sub_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -162,6 +168,9 @@ class RawSubscriptionClient:
         HttpResponse[UpdateSubscriptionResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Subscription/{encode_path_param(sub_id)}",
             method="PUT",
@@ -175,6 +184,7 @@ class RawSubscriptionClient:
                 "setPause": set_pause,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -218,9 +228,15 @@ class RawSubscriptionClient:
         HttpResponse[RemoveSubscriptionResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Subscription/{encode_path_param(sub_id)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -348,6 +364,9 @@ class RawSubscriptionClient:
         HttpResponse[AddSubscriptionResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "Subscription/add",
             method="POST",
@@ -377,6 +396,7 @@ class RawSubscriptionClient:
                 "subscriptionType": subscription_type,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -470,9 +490,15 @@ class AsyncRawSubscriptionClient:
         AsyncHttpResponse[SubscriptionQueryRecords]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Subscription/{encode_path_param(sub_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -571,6 +597,9 @@ class AsyncRawSubscriptionClient:
         AsyncHttpResponse[UpdateSubscriptionResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Subscription/{encode_path_param(sub_id)}",
             method="PUT",
@@ -584,6 +613,7 @@ class AsyncRawSubscriptionClient:
                 "setPause": set_pause,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -627,9 +657,15 @@ class AsyncRawSubscriptionClient:
         AsyncHttpResponse[RemoveSubscriptionResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Subscription/{encode_path_param(sub_id)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -757,6 +793,9 @@ class AsyncRawSubscriptionClient:
         AsyncHttpResponse[AddSubscriptionResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "Subscription/add",
             method="POST",
@@ -786,6 +825,7 @@ class AsyncRawSubscriptionClient:
                 "subscriptionType": subscription_type,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },

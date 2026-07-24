@@ -18,12 +18,19 @@ class InvoiceElement(UniversalBaseModel):
         FieldMetadata(alias="invoiceLink"),
         pydantic.Field(alias="invoiceLink", description="Link to invoice"),
     ] = None
+    """
+    Link to invoice
+    """
+
     order: typing.Optional[Order] = None
     view_invoice_details: typing_extensions.Annotated[
         typing.Optional[LabelElement],
         FieldMetadata(alias="viewInvoiceDetails"),
         pydantic.Field(alias="viewInvoiceDetails", description="Link to view invoice details"),
     ] = None
+    """
+    Link to view invoice details
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

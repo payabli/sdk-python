@@ -39,6 +39,10 @@ class VendorOutData(UniversalBaseModel):
             description="Vendor's street address. Allowed characters are letters, numbers, spaces, and `. ,",
         ),
     ] = None
+    """
+    Vendor's street address. Allowed characters are letters, numbers, spaces, and `. ,
+    """
+
     address_2: typing_extensions.Annotated[
         typing.Optional[AddressAddtlNullable],
         FieldMetadata(alias="Address2"),
@@ -46,29 +50,53 @@ class VendorOutData(UniversalBaseModel):
             alias="Address2", description="Additional line for vendor's address, such as a suite or unit number."
         ),
     ] = None
+    """
+    Additional line for vendor's address, such as a suite or unit number.
+    """
+
     billing_data: typing_extensions.Annotated[
         typing.Optional[BillingData],
         FieldMetadata(alias="BillingData"),
         pydantic.Field(alias="BillingData", description="Object containing vendor's bank information."),
     ] = None
+    """
+    Object containing vendor's bank information.
+    """
+
     city: typing_extensions.Annotated[
         str, FieldMetadata(alias="City"), pydantic.Field(alias="City", description="Vendor's city.")
     ]
+    """
+    Vendor's city.
+    """
+
     contacts: typing_extensions.Annotated[
         typing.Optional[ContactsField],
         FieldMetadata(alias="Contacts"),
         pydantic.Field(alias="Contacts", description="Array of objects describing the vendor's contacts."),
     ] = None
+    """
+    Array of objects describing the vendor's contacts.
+    """
+
     country: typing_extensions.Annotated[
         str,
         FieldMetadata(alias="Country"),
         pydantic.Field(alias="Country", description="Vendor's country. `US` or `CA`."),
     ]
+    """
+    Vendor's country. `US` or `CA`.
+    """
+
     customer_vendor_account: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="customerVendorAccount"),
         pydantic.Field(alias="customerVendorAccount", description="Account number of paypoint in the vendor side."),
     ] = None
+    """
+    Account number of paypoint in the vendor side.
+    """
+
     ein: typing_extensions.Annotated[
         str,
         FieldMetadata(alias="EIN"),
@@ -77,16 +105,28 @@ class VendorOutData(UniversalBaseModel):
             description="EIN/Tax ID for vendor. Must be nine digits formatted as `XX-XXXXXXX`. In responses, this field is masked and looks like: `XXXXX6789`.",
         ),
     ]
+    """
+    EIN/Tax ID for vendor. Must be nine digits formatted as `XX-XXXXXXX`. In responses, this field is masked and looks like: `XXXXX6789`.
+    """
+
     email: typing_extensions.Annotated[
         typing.Optional[Email],
         FieldMetadata(alias="Email"),
         pydantic.Field(alias="Email", description="Vendor's email address. Required for vCard."),
     ] = None
+    """
+    Vendor's email address. Required for vCard.
+    """
+
     internal_reference_id: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="InternalReferenceId"),
         pydantic.Field(alias="InternalReferenceId", description="Internal identifier for global vendor account."),
     ] = None
+    """
+    Internal identifier for global vendor account.
+    """
+
     location_code: typing_extensions.Annotated[
         typing.Optional[LocationCode], FieldMetadata(alias="LocationCode"), pydantic.Field(alias="LocationCode")
     ] = None
@@ -101,6 +141,10 @@ class VendorOutData(UniversalBaseModel):
             description="Primary name for vendor. Required for new vendor. Allowed characters are letters, numbers, spaces, and `. , ' & ( )",
         ),
     ]
+    """
+    Primary name for vendor. Required for new vendor. Allowed characters are letters, numbers, spaces, and `. , ' & ( )
+    """
+
     name_2: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="Name2"),
@@ -109,6 +153,10 @@ class VendorOutData(UniversalBaseModel):
             description="Secondary name for vendor. If provided, allowed characters are the same as `Name1`.",
         ),
     ] = None
+    """
+    Secondary name for vendor. If provided, allowed characters are the same as `Name1`.
+    """
+
     payee_name_1: typing_extensions.Annotated[
         typing.Optional[PayeeName], FieldMetadata(alias="payeeName1"), pydantic.Field(alias="payeeName1")
     ] = None
@@ -127,6 +175,10 @@ class VendorOutData(UniversalBaseModel):
             alias="Phone", description="Vendor's phone number. Digits only when creating or updating a vendor."
         ),
     ]
+    """
+    Vendor's phone number. Digits only when creating or updating a vendor.
+    """
+
     remit_address_1: typing_extensions.Annotated[
         typing.Optional[Remitaddress1], FieldMetadata(alias="remitAddress1"), pydantic.Field(alias="remitAddress1")
     ] = None
@@ -153,6 +205,10 @@ class VendorOutData(UniversalBaseModel):
             description="Vendor's state or province. Must be a valid US state or Canadian province abbreviation, depending on the `Country` value.",
         ),
     ]
+    """
+    Vendor's state or province. Must be a valid US state or Canadian province abbreviation, depending on the `Country` value.
+    """
+
     vendor_id: typing_extensions.Annotated[
         typing.Optional[Vendorid],
         FieldMetadata(alias="VendorId"),
@@ -161,6 +217,10 @@ class VendorOutData(UniversalBaseModel):
             description="Payabli identifier for vendor record. Required when `VendorNumber` isn't included.",
         ),
     ] = None
+    """
+    Payabli identifier for vendor record. Required when `VendorNumber` isn't included.
+    """
+
     vendor_number: typing_extensions.Annotated[
         typing.Optional[VendorNumber], FieldMetadata(alias="VendorNumber"), pydantic.Field(alias="VendorNumber")
     ] = None
@@ -175,6 +235,9 @@ class VendorOutData(UniversalBaseModel):
             description="Vendor's ZIP or postal code. For US addresses, five digits (`12345`) or ZIP+4 format (`12345-6789`).",
         ),
     ]
+    """
+    Vendor's ZIP or postal code. For US addresses, five digits (`12345`) or ZIP+4 format (`12345-6789`).
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

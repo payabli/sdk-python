@@ -21,6 +21,10 @@ class VendorDataRequest(UniversalBaseModel):
             description="The unique numeric ID assigned to the vendor in Payabli. Either `vendorId` or `vendorNumber` is required.",
         ),
     ] = None
+    """
+    The unique numeric ID assigned to the vendor in Payabli. Either `vendorId` or `vendorNumber` is required.
+    """
+
     vendor_number: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="vendorNumber"),
@@ -29,6 +33,9 @@ class VendorDataRequest(UniversalBaseModel):
             description="Custom vendor number assigned by the business. Either `vendorId` or `vendorNumber` is required.",
         ),
     ] = None
+    """
+    Custom vendor number assigned by the business. Either `vendorId` or `vendorNumber` is required.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

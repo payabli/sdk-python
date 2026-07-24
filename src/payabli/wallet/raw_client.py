@@ -58,6 +58,9 @@ class RawWalletClient:
         HttpResponse[ConfigureApplePayOrganizationApiResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "Wallet/applepay/configure-organization",
             method="POST",
@@ -67,6 +70,7 @@ class RawWalletClient:
                 "orgId": org_id,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -160,6 +164,9 @@ class RawWalletClient:
         HttpResponse[ConfigureApplePaypointApiResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "Wallet/applepay/configure-paypoint",
             method="POST",
@@ -168,6 +175,7 @@ class RawWalletClient:
                 "isEnabled": is_enabled,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -263,6 +271,9 @@ class RawWalletClient:
         HttpResponse[ConfigureApplePayOrganizationApiResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "Wallet/googlepay/configure-organization",
             method="POST",
@@ -272,6 +283,7 @@ class RawWalletClient:
                 "orgId": org_id,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -365,6 +377,9 @@ class RawWalletClient:
         HttpResponse[ConfigureGooglePaypointApiResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "Wallet/googlepay/configure-paypoint",
             method="POST",
@@ -373,6 +388,7 @@ class RawWalletClient:
                 "isEnabled": is_enabled,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -473,6 +489,9 @@ class AsyncRawWalletClient:
         AsyncHttpResponse[ConfigureApplePayOrganizationApiResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "Wallet/applepay/configure-organization",
             method="POST",
@@ -482,6 +501,7 @@ class AsyncRawWalletClient:
                 "orgId": org_id,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -575,6 +595,9 @@ class AsyncRawWalletClient:
         AsyncHttpResponse[ConfigureApplePaypointApiResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "Wallet/applepay/configure-paypoint",
             method="POST",
@@ -583,6 +606,7 @@ class AsyncRawWalletClient:
                 "isEnabled": is_enabled,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -678,6 +702,9 @@ class AsyncRawWalletClient:
         AsyncHttpResponse[ConfigureApplePayOrganizationApiResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "Wallet/googlepay/configure-organization",
             method="POST",
@@ -687,6 +714,7 @@ class AsyncRawWalletClient:
                 "orgId": org_id,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -780,6 +808,9 @@ class AsyncRawWalletClient:
         AsyncHttpResponse[ConfigureGooglePaypointApiResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "Wallet/googlepay/configure-paypoint",
             method="POST",
@@ -788,6 +819,7 @@ class AsyncRawWalletClient:
                 "isEnabled": is_enabled,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,

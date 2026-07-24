@@ -24,41 +24,73 @@ class PoiDevice(UniversalBaseModel):
         FieldMetadata(alias="dateDeRegistered"),
         pydantic.Field(alias="dateDeRegistered", description="The date the device was unregistered."),
     ] = None
+    """
+    The date the device was unregistered.
+    """
+
     date_registered: typing_extensions.Annotated[
         typing.Optional[dt.datetime],
         FieldMetadata(alias="dateRegistered"),
         pydantic.Field(alias="dateRegistered", description="The date the device was registered."),
     ] = None
+    """
+    The date the device was registered.
+    """
+
     device_id: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="deviceId"),
         pydantic.Field(alias="deviceId", description="The device identifier."),
     ] = None
+    """
+    The device identifier.
+    """
+
     device_license: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="deviceLicense"),
         pydantic.Field(alias="deviceLicense", description="Device license. This is typically the same as `deviceId`."),
     ] = None
+    """
+    Device license. This is typically the same as `deviceId`.
+    """
+
     device_nick_name: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="deviceNickName"),
         pydantic.Field(alias="deviceNickName", description="Device description provided during registration."),
     ] = None
+    """
+    Device description provided during registration.
+    """
+
     last_connected_date: typing_extensions.Annotated[
         typing.Optional[dt.datetime],
         FieldMetadata(alias="lastConnectedDate"),
         pydantic.Field(alias="lastConnectedDate", description="Last connected date."),
     ] = None
+    """
+    Last connected date.
+    """
+
     last_disconnected_date: typing_extensions.Annotated[
         typing.Optional[dt.datetime],
         FieldMetadata(alias="lastDisconnectedDate"),
         pydantic.Field(alias="lastDisconnectedDate", description="Last disconnected date."),
     ] = None
+    """
+    Last disconnected date.
+    """
+
     last_transaction_date: typing_extensions.Annotated[
         typing.Optional[dt.datetime],
         FieldMetadata(alias="lastTransactionDate"),
         pydantic.Field(alias="lastTransactionDate", description="Last transaction date."),
     ] = None
+    """
+    Last transaction date.
+    """
+
     make: typing.Optional[str] = pydantic.Field(default=None)
     """
     The device manufacturer.
@@ -79,6 +111,9 @@ class PoiDevice(UniversalBaseModel):
         FieldMetadata(alias="serialNumber"),
         pydantic.Field(alias="serialNumber", description="The device serial number."),
     ] = None
+    """
+    The device serial number.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

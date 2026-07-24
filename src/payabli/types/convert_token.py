@@ -23,6 +23,9 @@ class ConvertToken(UniversalBaseModel):
         FieldMetadata(alias="tokenId"),
         pydantic.Field(alias="tokenId", description="A temporary stored token ID to be converted to permanent."),
     ]
+    """
+    A temporary stored token ID to be converted to permanent.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

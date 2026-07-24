@@ -27,6 +27,10 @@ class TransactionDetailResponseData(UniversalBaseModel):
             description="Unified result code for the transaction. See [Pay In unified response codes](/guides/pay-in-unified-response-codes-reference) for more information.",
         ),
     ] = None
+    """
+    Unified result code for the transaction. See [Pay In unified response codes](/guides/pay-in-unified-response-codes-reference) for more information.
+    """
+
     result_code_text: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="resultCodeText"),
@@ -35,6 +39,10 @@ class TransactionDetailResponseData(UniversalBaseModel):
             description="Description of the result code. See [Pay In unified response codes](/guides/pay-in-unified-response-codes-reference) for more information.",
         ),
     ] = None
+    """
+    Description of the result code. See [Pay In unified response codes](/guides/pay-in-unified-response-codes-reference) for more information.
+    """
+
     response: typing.Optional[str] = None
     responsetext: Resulttext
     authcode: typing.Optional[Authcode] = None

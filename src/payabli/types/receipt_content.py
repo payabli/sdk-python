@@ -27,6 +27,10 @@ class ReceiptContent(UniversalBaseModel):
         FieldMetadata(alias="contactUs"),
         pydantic.Field(alias="contactUs", description="Section contactUs of payment receipt"),
     ] = None
+    """
+    Section contactUs of payment receipt
+    """
+
     details: typing.Optional[Element] = pydantic.Field(default=None)
     """
     Section payment details of payment receipt
@@ -42,6 +46,10 @@ class ReceiptContent(UniversalBaseModel):
         FieldMetadata(alias="messageBeforeButton"),
         pydantic.Field(alias="messageBeforeButton", description="Section message of payment receipt"),
     ] = None
+    """
+    Section message of payment receipt
+    """
+
     page: typing.Optional[PageElement] = pydantic.Field(default=None)
     """
     Section page of payment receipt
@@ -52,11 +60,19 @@ class ReceiptContent(UniversalBaseModel):
         FieldMetadata(alias="paymentButton"),
         pydantic.Field(alias="paymentButton", description="Section payment button of payment receipt"),
     ] = None
+    """
+    Section payment button of payment receipt
+    """
+
     payment_information: typing_extensions.Annotated[
         typing.Optional[Element],
         FieldMetadata(alias="paymentInformation"),
         pydantic.Field(alias="paymentInformation", description="Section payment information of payment receipt"),
     ] = None
+    """
+    Section payment information of payment receipt
+    """
+
     settings: typing.Optional[SettingElement] = pydantic.Field(default=None)
     """
     The receipt's settings.

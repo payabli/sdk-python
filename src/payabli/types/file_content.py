@@ -22,6 +22,11 @@ class FileContent(UniversalBaseModel):
             description="Content of file, Base64-encoded. Ignored if `furl` is specified. Max\nupload size is 30 MB.",
         ),
     ] = None
+    """
+    Content of file, Base64-encoded. Ignored if `furl` is specified. Max
+    upload size is 30 MB.
+    """
+
     filename: typing.Optional[str] = pydantic.Field(default=None)
     """
     The name of the attached file.

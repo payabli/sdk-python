@@ -18,21 +18,37 @@ class SettlementSplitFundingDetail(UniversalBaseModel):
         FieldMetadata(alias="recipientEntryPoint"),
         pydantic.Field(alias="recipientEntryPoint", description="The entrypoint the split was sent to."),
     ] = None
+    """
+    The entrypoint the split was sent to.
+    """
+
     account_id: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="AccountId"),
         pydantic.Field(alias="AccountId", description="The account the split was sent to."),
     ] = None
+    """
+    The account the split was sent to.
+    """
+
     description: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="Description"),
         pydantic.Field(alias="Description", description="A description for the split."),
     ] = None
+    """
+    A description for the split.
+    """
+
     amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="Amount"),
         pydantic.Field(alias="Amount", description="The amount of the transaction sent to this recipient as a split."),
     ] = None
+    """
+    The amount of the transaction sent to this recipient as a split.
+    """
+
     batch_number: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="batchNumber"),
@@ -41,6 +57,10 @@ class SettlementSplitFundingDetail(UniversalBaseModel):
             description="The batch number the split was paid out in. Null when the batch isn't available.",
         ),
     ] = None
+    """
+    The batch number the split was paid out in. Null when the batch isn't available.
+    """
+
     transfer_id: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="transferId"),
@@ -49,11 +69,18 @@ class SettlementSplitFundingDetail(UniversalBaseModel):
             description="Identifier of the transfer that carried the split. Null when the transfer isn't available.",
         ),
     ] = None
+    """
+    Identifier of the transfer that carried the split. Null when the transfer isn't available.
+    """
+
     transfer_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="transferAmount"),
         pydantic.Field(alias="transferAmount", description="The total amount of the transfer that carried this split."),
     ] = None
+    """
+    The total amount of the transfer that carried this split.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -49,6 +49,10 @@ class TransactionQueryRecords(UniversalBaseModel):
         FieldMetadata(alias="BatchAmount"),
         pydantic.Field(alias="BatchAmount", description="Batch amount."),
     ] = None
+    """
+    Batch amount.
+    """
+
     batch_number: typing_extensions.Annotated[
         typing.Optional[BatchNumber], FieldMetadata(alias="BatchNumber"), pydantic.Field(alias="BatchNumber")
     ] = None
@@ -60,11 +64,19 @@ class TransactionQueryRecords(UniversalBaseModel):
             description="Service Fee or sub-charge transaction associated to the main transaction.",
         ),
     ] = None
+    """
+    Service Fee or sub-charge transaction associated to the main transaction.
+    """
+
     connector_name: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="ConnectorName"),
         pydantic.Field(alias="ConnectorName", description="Connector used for transaction."),
     ] = None
+    """
+    Connector used for transaction.
+    """
+
     customer: typing_extensions.Annotated[
         typing.Optional[QueryTransactionPayorData], FieldMetadata(alias="Customer"), pydantic.Field(alias="Customer")
     ] = None
@@ -87,6 +99,10 @@ class TransactionQueryRecords(UniversalBaseModel):
         FieldMetadata(alias="GatewayTransId"),
         pydantic.Field(alias="GatewayTransId", description="Internal identifier used for processing."),
     ] = None
+    """
+    Internal identifier used for processing.
+    """
+
     invoice_data: typing_extensions.Annotated[
         typing.Optional[BillData], FieldMetadata(alias="invoiceData"), pydantic.Field(alias="invoiceData")
     ] = None
@@ -95,11 +111,19 @@ class TransactionQueryRecords(UniversalBaseModel):
         FieldMetadata(alias="Method"),
         pydantic.Field(alias="Method", description="Payment method used: card, ach, or wallet."),
     ] = None
+    """
+    Payment method used: card, ach, or wallet.
+    """
+
     net_amount: typing_extensions.Annotated[
         typing.Optional[Netamountnullable],
         FieldMetadata(alias="NetAmount"),
         pydantic.Field(alias="NetAmount", description="Net amount paid."),
     ] = None
+    """
+    Net amount paid.
+    """
+
     operation: typing_extensions.Annotated[
         typing.Optional[Operation], FieldMetadata(alias="Operation"), pydantic.Field(alias="Operation")
     ] = None
@@ -111,6 +135,10 @@ class TransactionQueryRecords(UniversalBaseModel):
         FieldMetadata(alias="OrgId"),
         pydantic.Field(alias="OrgId", description="ID of immediate parent organization."),
     ] = None
+    """
+    ID of immediate parent organization.
+    """
+
     parent_org_name: typing_extensions.Annotated[
         typing.Optional[OrgParentName], FieldMetadata(alias="ParentOrgName"), pydantic.Field(alias="ParentOrgName")
     ] = None
@@ -122,6 +150,10 @@ class TransactionQueryRecords(UniversalBaseModel):
         FieldMetadata(alias="PaymentTransId"),
         pydantic.Field(alias="PaymentTransId", description="Unique Transaction ID."),
     ] = None
+    """
+    Unique Transaction ID.
+    """
+
     payor_id: typing_extensions.Annotated[
         typing.Optional[PayorId], FieldMetadata(alias="PayorId"), pydantic.Field(alias="PayorId")
     ] = None
@@ -130,21 +162,37 @@ class TransactionQueryRecords(UniversalBaseModel):
         FieldMetadata(alias="PaypointDbaname"),
         pydantic.Field(alias="PaypointDbaname", description="Paypoint's DBA name."),
     ] = None
+    """
+    Paypoint's DBA name.
+    """
+
     paypoint_entryname: typing_extensions.Annotated[
         typing.Optional[Entrypointfield],
         FieldMetadata(alias="PaypointEntryname"),
         pydantic.Field(alias="PaypointEntryname", description="Paypoint's entryname."),
     ] = None
+    """
+    Paypoint's entryname.
+    """
+
     paypoint_id: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="PaypointId"),
         pydantic.Field(alias="PaypointId", description="InternalId for paypoint."),
     ] = None
+    """
+    InternalId for paypoint.
+    """
+
     paypoint_legalname: typing_extensions.Annotated[
         typing.Optional[Legalname],
         FieldMetadata(alias="PaypointLegalname"),
         pydantic.Field(alias="PaypointLegalname", description="Paypoint's legal name."),
     ] = None
+    """
+    Paypoint's legal name.
+    """
+
     pending_fee_amount: typing_extensions.Annotated[
         typing.Optional[PendingFeeAmount],
         FieldMetadata(alias="PendingFeeAmount"),
@@ -166,6 +214,10 @@ class TransactionQueryRecords(UniversalBaseModel):
             alias="ScheduleReference", description="Reference to the subscription that originated the transaction."
         ),
     ] = None
+    """
+    Reference to the subscription that originated the transaction.
+    """
+
     settlement_status: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="SettlementStatus"),
@@ -174,6 +226,10 @@ class TransactionQueryRecords(UniversalBaseModel):
             description="Settlement status for transaction. See [the docs](/developers/references/money-in-statuses#payment-funding-status) for a full reference.",
         ),
     ] = None
+    """
+    Settlement status for transaction. See [the docs](/developers/references/money-in-statuses#payment-funding-status) for a full reference.
+    """
+
     source: typing_extensions.Annotated[
         typing.Optional[Source], FieldMetadata(alias="Source"), pydantic.Field(alias="Source")
     ] = None
@@ -192,16 +248,28 @@ class TransactionQueryRecords(UniversalBaseModel):
             alias="TotalAmount", description="Transaction total amount (including service fee or sub-charge)"
         ),
     ] = None
+    """
+    Transaction total amount (including service fee or sub-charge)
+    """
+
     transaction_events: typing_extensions.Annotated[
         typing.Optional[typing.List[QueryTransactionEvents]],
         FieldMetadata(alias="TransactionEvents"),
         pydantic.Field(alias="TransactionEvents", description="Events associated with this transaction."),
     ] = None
+    """
+    Events associated with this transaction.
+    """
+
     transaction_time: typing_extensions.Annotated[
         typing.Optional[dt.datetime],
         FieldMetadata(alias="TransactionTime"),
         pydantic.Field(alias="TransactionTime", description="Transaction date and time, in UTC."),
     ] = None
+    """
+    Transaction date and time, in UTC.
+    """
+
     trans_additional_data: typing_extensions.Annotated[
         typing.Optional[typing.Any],
         FieldMetadata(alias="TransAdditionalData"),
@@ -215,6 +283,9 @@ class TransactionQueryRecords(UniversalBaseModel):
             description="Status of transaction. See [the docs](/developers/references/money-in-statuses#money-in-transaction-status) for a full reference.",
         ),
     ] = None
+    """
+    Status of transaction. See [the docs](/developers/references/money-in-statuses#money-in-transaction-status) for a full reference.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

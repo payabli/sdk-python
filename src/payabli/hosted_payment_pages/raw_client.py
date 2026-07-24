@@ -59,9 +59,15 @@ class RawHostedPaymentPagesClient:
         HttpResponse[PayabliPages]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Paypoint/load/{encode_path_param(entry)}/{encode_path_param(subdomain)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -196,6 +202,9 @@ class RawHostedPaymentPagesClient:
         HttpResponse[PayabliApiResponse00Responsedatanonobject]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Paypoint/{encode_path_param(entry)}",
             method="POST",
@@ -221,6 +230,7 @@ class RawHostedPaymentPagesClient:
                 "validationCode": validation_code,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -358,6 +368,9 @@ class RawHostedPaymentPagesClient:
         HttpResponse[PayabliApiResponse00Responsedatanonobject]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Paypoint/{encode_path_param(entry)}/{encode_path_param(subdomain_)}",
             method="PUT",
@@ -381,6 +394,9 @@ class RawHostedPaymentPagesClient:
                 "Subdomain": subdomain,
                 "totalAmount": total_amount,
                 "validationCode": validation_code,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -475,9 +491,15 @@ class AsyncRawHostedPaymentPagesClient:
         AsyncHttpResponse[PayabliPages]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Paypoint/load/{encode_path_param(entry)}/{encode_path_param(subdomain)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -612,6 +634,9 @@ class AsyncRawHostedPaymentPagesClient:
         AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Paypoint/{encode_path_param(entry)}",
             method="POST",
@@ -637,6 +662,7 @@ class AsyncRawHostedPaymentPagesClient:
                 "validationCode": validation_code,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -774,6 +800,9 @@ class AsyncRawHostedPaymentPagesClient:
         AsyncHttpResponse[PayabliApiResponse00Responsedatanonobject]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Paypoint/{encode_path_param(entry)}/{encode_path_param(subdomain_)}",
             method="PUT",
@@ -797,6 +826,9 @@ class AsyncRawHostedPaymentPagesClient:
                 "Subdomain": subdomain,
                 "totalAmount": total_amount,
                 "validationCode": validation_code,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,

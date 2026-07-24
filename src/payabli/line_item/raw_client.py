@@ -91,6 +91,9 @@ class RawLineItemClient:
         HttpResponse[PayabliApiResponse6]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"LineItem/{encode_path_param(entry)}",
             method="POST",
@@ -106,6 +109,7 @@ class RawLineItemClient:
                 "itemUnitOfMeasure": item_unit_of_measure,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -194,9 +198,15 @@ class RawLineItemClient:
         HttpResponse[LineItemQueryRecord]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"LineItem/{encode_path_param(line_item_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -315,6 +325,9 @@ class RawLineItemClient:
         HttpResponse[PayabliApiResponse6]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"LineItem/{encode_path_param(line_item_id)}",
             method="PUT",
@@ -328,6 +341,9 @@ class RawLineItemClient:
                 "itemProductName": item_product_name,
                 "itemQty": item_qty,
                 "itemUnitOfMeasure": item_unit_of_measure,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -414,9 +430,15 @@ class RawLineItemClient:
         HttpResponse[DeleteItemResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"LineItem/{encode_path_param(line_item_id)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -573,6 +595,9 @@ class RawLineItemClient:
         HttpResponse[QueryResponseItems]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Query/lineitems/{encode_path_param(entry)}",
             method="GET",
@@ -581,6 +606,9 @@ class RawLineItemClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -709,6 +737,9 @@ class AsyncRawLineItemClient:
         AsyncHttpResponse[PayabliApiResponse6]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"LineItem/{encode_path_param(entry)}",
             method="POST",
@@ -724,6 +755,7 @@ class AsyncRawLineItemClient:
                 "itemUnitOfMeasure": item_unit_of_measure,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -812,9 +844,15 @@ class AsyncRawLineItemClient:
         AsyncHttpResponse[LineItemQueryRecord]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"LineItem/{encode_path_param(line_item_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -933,6 +971,9 @@ class AsyncRawLineItemClient:
         AsyncHttpResponse[PayabliApiResponse6]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"LineItem/{encode_path_param(line_item_id)}",
             method="PUT",
@@ -946,6 +987,9 @@ class AsyncRawLineItemClient:
                 "itemProductName": item_product_name,
                 "itemQty": item_qty,
                 "itemUnitOfMeasure": item_unit_of_measure,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -1032,9 +1076,15 @@ class AsyncRawLineItemClient:
         AsyncHttpResponse[DeleteItemResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"LineItem/{encode_path_param(line_item_id)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -1191,6 +1241,9 @@ class AsyncRawLineItemClient:
         AsyncHttpResponse[QueryResponseItems]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Query/lineitems/{encode_path_param(entry)}",
             method="GET",
@@ -1199,6 +1252,9 @@ class AsyncRawLineItemClient:
                 "limitRecord": limit_record,
                 "parameters": parameters,
                 "sortBy": sort_by,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )

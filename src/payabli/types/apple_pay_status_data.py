@@ -19,6 +19,10 @@ class ApplePayStatusData(UniversalBaseModel):
         FieldMetadata(alias="errorMessage"),
         pydantic.Field(alias="errorMessage", description="Any error message related to Apple Pay's activation status."),
     ] = None
+    """
+    Any error message related to Apple Pay's activation status.
+    """
+
     metadata: typing.Optional[ApplePayMetadata] = None
 
     if IS_PYDANTIC_V2:

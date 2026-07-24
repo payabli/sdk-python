@@ -32,6 +32,10 @@ class TransRequestBody(UniversalBaseModel):
             description="Object describing the Customer/Payor. Which fields are required depends on the paypoint's custom identifier settings.",
         ),
     ] = None
+    """
+    Object describing the Customer/Payor. Which fields are required depends on the paypoint's custom identifier settings.
+    """
+
     entry_point: typing_extensions.Annotated[
         typing.Optional[Entrypointfield], FieldMetadata(alias="entryPoint"), pydantic.Field(alias="entryPoint")
     ] = None
@@ -40,6 +44,10 @@ class TransRequestBody(UniversalBaseModel):
         FieldMetadata(alias="invoiceData"),
         pydantic.Field(alias="invoiceData", description="Object describing an Invoice linked to the transaction."),
     ] = None
+    """
+    Object describing an Invoice linked to the transaction.
+    """
+
     ipaddress: typing.Optional[IpAddress] = None
     order_description: typing_extensions.Annotated[
         typing.Optional[Orderdescription],
@@ -54,6 +62,10 @@ class TransRequestBody(UniversalBaseModel):
         FieldMetadata(alias="paymentDetails"),
         pydantic.Field(alias="paymentDetails", description="Object describing details of the payment. Required."),
     ]
+    """
+    Object describing details of the payment. Required.
+    """
+
     payment_method: typing_extensions.Annotated[
         PaymentMethod,
         FieldMetadata(alias="paymentMethod"),
@@ -62,6 +74,10 @@ class TransRequestBody(UniversalBaseModel):
             description="Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.",
         ),
     ]
+    """
+    Information about the payment method for the transaction. Required and recommended fields for each payment method type are described in each schema below.
+    """
+
     source: typing.Optional[Source] = None
     subdomain: typing.Optional[Subdomain] = None
     subscription_id: typing_extensions.Annotated[

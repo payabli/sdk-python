@@ -19,29 +19,53 @@ class TransferOutDetailBill(UniversalBaseModel):
         FieldMetadata(alias="billId"),
         pydantic.Field(alias="billId", description="Unique identifier for the bill."),
     ] = None
+    """
+    Unique identifier for the bill.
+    """
+
     lot_number: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="LotNumber"),
         pydantic.Field(alias="LotNumber", description="Lot number."),
     ] = None
+    """
+    Lot number.
+    """
+
     accounting_field_1: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="AccountingField1"),
         pydantic.Field(alias="AccountingField1", description="Accounting field 1."),
     ] = None
+    """
+    Accounting field 1.
+    """
+
     accounting_field_2: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="AccountingField2"),
         pydantic.Field(alias="AccountingField2", description="Accounting field 2."),
     ] = None
+    """
+    Accounting field 2.
+    """
+
     terms: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="Terms"), pydantic.Field(alias="Terms", description="Payment terms.")
     ] = None
+    """
+    Payment terms.
+    """
+
     additional_data: typing_extensions.Annotated[
         typing.Optional[typing.Dict[str, typing.Any]],
         FieldMetadata(alias="AdditionalData"),
         pydantic.Field(alias="AdditionalData", description="Additional data for the bill."),
     ] = None
+    """
+    Additional data for the bill.
+    """
+
     attachments: typing.Optional[typing.List[TransferOutDetailBillAttachment]] = pydantic.Field(default=None)
     """
     Attachments for the bill.
@@ -52,21 +76,37 @@ class TransferOutDetailBill(UniversalBaseModel):
         FieldMetadata(alias="invoiceNumber"),
         pydantic.Field(alias="invoiceNumber", description="Invoice number."),
     ] = None
+    """
+    Invoice number.
+    """
+
     net_amount: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="netAmount"),
         pydantic.Field(alias="netAmount", description="Net amount of the bill."),
     ] = None
+    """
+    Net amount of the bill.
+    """
+
     invoice_date: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="invoiceDate"),
         pydantic.Field(alias="invoiceDate", description="Date of the invoice."),
     ] = None
+    """
+    Date of the invoice.
+    """
+
     due_date: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="dueDate"),
         pydantic.Field(alias="dueDate", description="Due date for the bill."),
     ] = None
+    """
+    Due date for the bill.
+    """
+
     comments: typing.Optional[str] = pydantic.Field(default=None)
     """
     Comments on the bill.
@@ -87,6 +127,9 @@ class TransferOutDetailBill(UniversalBaseModel):
         FieldMetadata(alias="totalAmount"),
         pydantic.Field(alias="totalAmount", description="Total amount of the bill."),
     ] = None
+    """
+    Total amount of the bill.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -16,26 +16,45 @@ class BatchSummary(UniversalBaseModel):
         FieldMetadata(alias="pageSize"),
         pydantic.Field(alias="pageSize", description="Number of records on each response page."),
     ] = None
+    """
+    Number of records on each response page.
+    """
+
     total_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="totalAmount"),
         pydantic.Field(alias="totalAmount", description="Total amount for the records."),
     ] = None
+    """
+    Total amount for the records.
+    """
+
     total_net_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="totalNetAmount"),
         pydantic.Field(alias="totalNetAmount", description="Total net amount for the records."),
     ] = None
+    """
+    Total net amount for the records.
+    """
+
     total_pages: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="totalPages"),
         pydantic.Field(alias="totalPages", description="Total number of pages in response."),
     ] = None
+    """
+    Total number of pages in response.
+    """
+
     total_records: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="totalRecords"),
         pydantic.Field(alias="totalRecords", description="Total number of records in response."),
     ] = None
+    """
+    Total number of records in response.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

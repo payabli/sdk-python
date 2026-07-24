@@ -54,6 +54,10 @@ class BillData(UniversalBaseModel):
         FieldMetadata(alias="firstName"),
         pydantic.Field(alias="firstName", description="First name of the recipient of the invoice."),
     ] = None
+    """
+    First name of the recipient of the invoice.
+    """
+
     freight_amount: typing_extensions.Annotated[
         typing.Optional[FreightAmount], FieldMetadata(alias="freightAmount"), pydantic.Field(alias="freightAmount")
     ] = None
@@ -72,6 +76,10 @@ class BillData(UniversalBaseModel):
             alias="invoiceDate", description="Invoice date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY."
         ),
     ] = None
+    """
+    Invoice date in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+    """
+
     invoice_due_date: typing_extensions.Annotated[
         typing.Optional[dt.date],
         FieldMetadata(alias="invoiceDueDate"),
@@ -80,6 +88,10 @@ class BillData(UniversalBaseModel):
             description="Invoice due date in one of the accepted formats: YYYY-MM-DD, MM/DD/YYYY.",
         ),
     ] = None
+    """
+    Invoice due date in one of the accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+    """
+
     invoice_end_date: typing_extensions.Annotated[
         typing.Optional[dt.date],
         FieldMetadata(alias="invoiceEndDate"),
@@ -88,11 +100,19 @@ class BillData(UniversalBaseModel):
             description="Indicate the date to finish a scheduled invoice cycle (`invoiceType`` = 1) in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY.",
         ),
     ] = None
+    """
+    Indicate the date to finish a scheduled invoice cycle (`invoiceType`` = 1) in any of the accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+    """
+
     invoice_number: typing_extensions.Annotated[
         typing.Optional[InvoiceNumber],
         FieldMetadata(alias="invoiceNumber"),
         pydantic.Field(alias="invoiceNumber", description="Invoice number. Identifies the invoice under a paypoint."),
     ] = None
+    """
+    Invoice number. Identifies the invoice under a paypoint.
+    """
+
     invoice_status: typing_extensions.Annotated[
         typing.Optional[Invoicestatus], FieldMetadata(alias="invoiceStatus"), pydantic.Field(alias="invoiceStatus")
     ] = None
@@ -109,6 +129,10 @@ class BillData(UniversalBaseModel):
         FieldMetadata(alias="lastName"),
         pydantic.Field(alias="lastName", description="Last name of the recipient of the invoice."),
     ] = None
+    """
+    Last name of the recipient of the invoice.
+    """
+
     notes: typing.Optional[str] = pydantic.Field(default=None)
     """
     Notes included in the invoice.
@@ -143,6 +167,10 @@ class BillData(UniversalBaseModel):
         FieldMetadata(alias="shippingEmail"),
         pydantic.Field(alias="shippingEmail", description="Shipping recipient's contact email address."),
     ] = None
+    """
+    Shipping recipient's contact email address.
+    """
+
     shipping_from_zip: typing_extensions.Annotated[
         typing.Optional[ShippingFromZip],
         FieldMetadata(alias="shippingFromZip"),
@@ -153,6 +181,10 @@ class BillData(UniversalBaseModel):
         FieldMetadata(alias="shippingPhone"),
         pydantic.Field(alias="shippingPhone", description="Recipient phone number."),
     ] = None
+    """
+    Recipient phone number.
+    """
+
     shipping_state: typing_extensions.Annotated[
         typing.Optional[Shippingstate], FieldMetadata(alias="shippingState"), pydantic.Field(alias="shippingState")
     ] = None

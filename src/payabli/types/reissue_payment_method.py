@@ -27,6 +27,10 @@ class ReissuePaymentMethod(UniversalBaseModel):
         FieldMetadata(alias="achHolder"),
         pydantic.Field(alias="achHolder", description='Account holder name. Required when `method` is `"ach"`.'),
     ] = None
+    """
+    Account holder name. Required when `method` is `"ach"`.
+    """
+
     ach_routing: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="achRouting"),
@@ -34,6 +38,10 @@ class ReissuePaymentMethod(UniversalBaseModel):
             alias="achRouting", description='Bank routing number (9 digits). Required when `method` is `"ach"`.'
         ),
     ] = None
+    """
+    Bank routing number (9 digits). Required when `method` is `"ach"`.
+    """
+
     ach_account: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="achAccount"),
@@ -41,6 +49,10 @@ class ReissuePaymentMethod(UniversalBaseModel):
             alias="achAccount", description='Bank account number (8-17 digits). Required when `method` is `"ach"`.'
         ),
     ] = None
+    """
+    Bank account number (8-17 digits). Required when `method` is `"ach"`.
+    """
+
     ach_account_type: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="achAccountType"),
@@ -49,6 +61,10 @@ class ReissuePaymentMethod(UniversalBaseModel):
             description='Bank account type (`"checking"` or `"savings"`). Required when `method` is `"ach"`.',
         ),
     ] = None
+    """
+    Bank account type (`"checking"` or `"savings"`). Required when `method` is `"ach"`.
+    """
+
     ach_holder_type: typing_extensions.Annotated[
         typing.Optional[AchHolderType], FieldMetadata(alias="achHolderType"), pydantic.Field(alias="achHolderType")
     ] = None

@@ -50,12 +50,18 @@ class RawImportClient:
         HttpResponse[PayabliApiResponseImport]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Import/billsForm/{encode_path_param(entry)}",
             method="POST",
             data={},
             files={
                 "file": file,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -154,6 +160,9 @@ class RawImportClient:
         HttpResponse[PayabliApiResponseImport]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Import/customersForm/{encode_path_param(entry)}",
             method="POST",
@@ -163,6 +172,9 @@ class RawImportClient:
             data={},
             files={
                 "file": file,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -253,12 +265,18 @@ class RawImportClient:
         HttpResponse[PayabliApiResponseImport]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"Import/vendorsForm/{encode_path_param(entry)}",
             method="POST",
             data={},
             files={
                 "file": file,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -354,12 +372,18 @@ class AsyncRawImportClient:
         AsyncHttpResponse[PayabliApiResponseImport]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Import/billsForm/{encode_path_param(entry)}",
             method="POST",
             data={},
             files={
                 "file": file,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -458,6 +482,9 @@ class AsyncRawImportClient:
         AsyncHttpResponse[PayabliApiResponseImport]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Import/customersForm/{encode_path_param(entry)}",
             method="POST",
@@ -467,6 +494,9 @@ class AsyncRawImportClient:
             data={},
             files={
                 "file": file,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -557,12 +587,18 @@ class AsyncRawImportClient:
         AsyncHttpResponse[PayabliApiResponseImport]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"Import/vendorsForm/{encode_path_param(entry)}",
             method="POST",
             data={},
             files={
                 "file": file,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,

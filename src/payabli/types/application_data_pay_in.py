@@ -100,6 +100,10 @@ class ApplicationDataPayIn(UniversalBaseModel):
             description="Boarding link ID for the application. Either `templateId` or `boardingLinkId` are required.",
         ),
     ] = None
+    """
+    Boarding link ID for the application. Either `templateId` or `boardingLinkId` are required.
+    """
+
     bstate: typing.Optional[Bstate] = None
     bsummary: typing.Optional[Bsummary] = None
     btype: typing.Optional[OwnType] = None
@@ -117,6 +121,10 @@ class ApplicationDataPayIn(UniversalBaseModel):
             description="The maximum amount of credit that our lending partner has authorized to your business for Pay In processing. It's the upper boundary on how much you can spend or owe on a credit account at any given time. For on-demand payout (Pay Out) credit limits, see `payoutCreditLimit`.",
         ),
     ] = None
+    """
+    The maximum amount of credit that our lending partner has authorized to your business for Pay In processing. It's the upper boundary on how much you can spend or owe on a credit account at any given time. For on-demand payout (Pay Out) credit limits, see `payoutCreditLimit`.
+    """
+
     dba_name: typing_extensions.Annotated[
         typing.Optional[Dbaname],
         FieldMetadata(alias="dbaName"),
@@ -125,6 +133,10 @@ class ApplicationDataPayIn(UniversalBaseModel):
             description="The alternate or common name that this business is doing business under usually referred to as a DBA name. Payabli strongly recommends including this information.",
         ),
     ] = None
+    """
+    The alternate or common name that this business is doing business under usually referred to as a DBA name. Payabli strongly recommends including this information.
+    """
+
     ein: typing.Optional[Ein] = None
     externalpaypoint_id: typing_extensions.Annotated[
         typing.Optional[ExternalPaypointId],
@@ -169,6 +181,10 @@ class ApplicationDataPayIn(UniversalBaseModel):
         FieldMetadata(alias="processingRegion"),
         pydantic.Field(alias="processingRegion", description="The business's processing region, either `US` or `CA`."),
     ]
+    """
+    The business's processing region, either `US` or `CA`.
+    """
+
     recipient_email: typing_extensions.Annotated[
         typing.Optional[Email],
         FieldMetadata(alias="recipientEmail"),
@@ -177,6 +193,10 @@ class ApplicationDataPayIn(UniversalBaseModel):
             description="Email address for the applicant. This is used to send the applicant a boarding link.",
         ),
     ] = None
+    """
+    Email address for the applicant. This is used to send the applicant a boarding link.
+    """
+
     recipient_email_notification: typing_extensions.Annotated[
         typing.Optional[RecipientEmailNotification],
         FieldMetadata(alias="recipientEmailNotification"),
@@ -196,6 +216,10 @@ class ApplicationDataPayIn(UniversalBaseModel):
             description="The associated boarding template's ID in Payabli. Either `templateId` or `boardingLinkId` are required.",
         ),
     ] = None
+    """
+    The associated boarding template's ID in Payabli. Either `templateId` or `boardingLinkId` are required.
+    """
+
     ticketamt: typing.Optional[Ticketamt] = None
     website: typing.Optional[Website] = None
     when_charged: typing_extensions.Annotated[

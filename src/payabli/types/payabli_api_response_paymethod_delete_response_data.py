@@ -17,6 +17,10 @@ class PayabliApiResponsePaymethodDeleteResponseData(UniversalBaseModel):
         FieldMetadata(alias="referenceId"),
         pydantic.Field(alias="referenceId", description="The method's reference ID."),
     ] = None
+    """
+    The method's reference ID.
+    """
+
     result_code: typing_extensions.Annotated[
         typing.Optional[ResultCode], FieldMetadata(alias="resultCode"), pydantic.Field(alias="resultCode")
     ] = None

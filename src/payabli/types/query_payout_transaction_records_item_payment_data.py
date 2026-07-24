@@ -40,11 +40,19 @@ class QueryPayoutTransactionRecordsItemPaymentData(UniversalBaseModel):
         FieldMetadata(alias="HolderName"),
         pydantic.Field(alias="HolderName", description="Card or bank account holder name."),
     ] = None
+    """
+    Card or bank account holder name.
+    """
+
     stored_id: typing_extensions.Annotated[
         typing.Optional[Storedmethodid],
         FieldMetadata(alias="StoredId"),
         pydantic.Field(alias="StoredId", description="Identifier of stored payment method used in transaction."),
     ] = None
+    """
+    Identifier of stored payment method used in transaction.
+    """
+
     initiator: typing_extensions.Annotated[
         typing.Optional[Initiator], FieldMetadata(alias="Initiator"), pydantic.Field(alias="Initiator")
     ] = None

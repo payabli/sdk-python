@@ -23,6 +23,10 @@ class VCardGetResponseAssociatedVendorBillingData(UniversalBaseModel):
         FieldMetadata(alias="accountId"),
         pydantic.Field(alias="accountId", description="Account identifier."),
     ] = None
+    """
+    Account identifier.
+    """
+
     nickname: typing.Optional[str] = pydantic.Field(default=None)
     """
     Nickname for the account.
@@ -33,36 +37,64 @@ class VCardGetResponseAssociatedVendorBillingData(UniversalBaseModel):
         FieldMetadata(alias="bankName"),
         pydantic.Field(alias="bankName", description="Name of the bank used for transactions."),
     ] = None
+    """
+    Name of the bank used for transactions.
+    """
+
     routing_account: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="routingAccount"),
         pydantic.Field(alias="routingAccount", description="Routing number for the bank account."),
     ] = None
+    """
+    Routing number for the bank account.
+    """
+
     account_number: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="accountNumber"),
         pydantic.Field(alias="accountNumber", description="Masked account number for transactions."),
     ] = None
+    """
+    Masked account number for transactions.
+    """
+
     type_account: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="typeAccount"),
         pydantic.Field(alias="typeAccount", description="Type of the bank account."),
     ] = None
+    """
+    Type of the bank account.
+    """
+
     bank_account_holder_name: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="bankAccountHolderName"),
         pydantic.Field(alias="bankAccountHolderName", description="Name of the bank account holder."),
     ] = None
+    """
+    Name of the bank account holder.
+    """
+
     bank_account_holder_type: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="bankAccountHolderType"),
         pydantic.Field(alias="bankAccountHolderType", description="Type of bank account holder."),
     ] = None
+    """
+    Type of bank account holder.
+    """
+
     bank_account_function: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="bankAccountFunction"),
         pydantic.Field(alias="bankAccountFunction", description="Function of the bank account."),
     ] = None
+    """
+    Function of the bank account.
+    """
+
     verified: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates if the account is verified.

@@ -27,6 +27,10 @@ class AddPayoutSubscriptionResponse(UniversalBaseModel):
         FieldMetadata(alias="responseData"),
         pydantic.Field(alias="responseData", description="The identifier of the newly created payout subscription."),
     ]
+    """
+    The identifier of the newly created payout subscription.
+    """
+
     customer_id: typing_extensions.Annotated[
         typing.Optional[CustomerId],
         FieldMetadata(alias="customerId"),
@@ -34,6 +38,9 @@ class AddPayoutSubscriptionResponse(UniversalBaseModel):
             alias="customerId", description="The identifier of the vendor associated with the payout subscription."
         ),
     ] = None
+    """
+    The identifier of the vendor associated with the payout subscription.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

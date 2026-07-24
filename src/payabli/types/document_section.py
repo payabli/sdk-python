@@ -33,6 +33,10 @@ class DocumentSection(UniversalBaseModel):
             description="The minimum number of documents the applicant must upload with the application.",
         ),
     ] = None
+    """
+    The minimum number of documents the applicant must upload with the application.
+    """
+
     upload_documents: typing_extensions.Annotated[
         typing.Optional[bool],
         FieldMetadata(alias="uploadDocuments"),
@@ -41,6 +45,10 @@ class DocumentSection(UniversalBaseModel):
             description="When `true`, allows the applicant to upload documents to the application.",
         ),
     ] = None
+    """
+    When `true`, allows the applicant to upload documents to the application.
+    """
+
     bank_data: typing_extensions.Annotated[
         typing.Optional[BankSection], FieldMetadata(alias="bankData"), pydantic.Field(alias="bankData")
     ] = None

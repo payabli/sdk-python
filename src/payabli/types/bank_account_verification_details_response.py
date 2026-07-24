@@ -23,16 +23,28 @@ class BankAccountVerificationDetailsResponse(UniversalBaseModel):
         FieldMetadata(alias="accountNumber"),
         pydantic.Field(alias="accountNumber", description="The account number that was verified."),
     ] = None
+    """
+    The account number that was verified.
+    """
+
     is_valid: typing_extensions.Annotated[
         bool,
         FieldMetadata(alias="isValid"),
         pydantic.Field(alias="isValid", description="Whether the bank account passed verification."),
     ]
+    """
+    Whether the bank account passed verification.
+    """
+
     error_message: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="errorMessage"),
         pydantic.Field(alias="errorMessage", description="Error message if the verification request failed."),
     ] = None
+    """
+    Error message if the verification request failed.
+    """
+
     verification_response: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="verificationResponse"),
@@ -41,16 +53,28 @@ class BankAccountVerificationDetailsResponse(UniversalBaseModel):
             description="Overall verification outcome. Possible values include `Pass`, `Verified`, `Declined`, `NoData`, `Bypassed`, and `Error`.",
         ),
     ] = None
+    """
+    Overall verification outcome. Possible values include `Pass`, `Verified`, `Declined`, `NoData`, `Bypassed`, and `Error`.
+    """
+
     response_code: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="responseCode"),
         pydantic.Field(alias="responseCode", description="Response code returned by the verification network."),
     ] = None
+    """
+    Response code returned by the verification network.
+    """
+
     response_value: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="responseValue"),
         pydantic.Field(alias="responseValue", description="Response value associated with the verification outcome."),
     ] = None
+    """
+    Response value associated with the verification outcome.
+    """
+
     response_description: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="responseDescription"),
@@ -58,11 +82,19 @@ class BankAccountVerificationDetailsResponse(UniversalBaseModel):
             alias="responseDescription", description="Human-readable description of the verification outcome."
         ),
     ] = None
+    """
+    Human-readable description of the verification outcome.
+    """
+
     bank_name: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="bankName"),
         pydantic.Field(alias="bankName", description="Name of the bank associated with the routing number."),
     ] = None
+    """
+    Name of the bank associated with the routing number.
+    """
+
     reported_account_type: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="reportedAccountType"),
@@ -71,6 +103,10 @@ class BankAccountVerificationDetailsResponse(UniversalBaseModel):
             description="Account type as reported by the verification network, such as `Checking` or `Savings`.",
         ),
     ] = None
+    """
+    Account type as reported by the verification network, such as `Checking` or `Savings`.
+    """
+
     account_added_date: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="accountAddedDate"),
@@ -79,6 +115,10 @@ class BankAccountVerificationDetailsResponse(UniversalBaseModel):
             description="Date the account was first seen by the verification network (ISO 8601 format).",
         ),
     ] = None
+    """
+    Date the account was first seen by the verification network (ISO 8601 format).
+    """
+
     account_last_updated_date: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="accountLastUpdatedDate"),
@@ -87,6 +127,10 @@ class BankAccountVerificationDetailsResponse(UniversalBaseModel):
             description="Date the account record was last updated in the verification network (ISO 8601 format).",
         ),
     ] = None
+    """
+    Date the account record was last updated in the verification network (ISO 8601 format).
+    """
+
     account_closed_date: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="accountClosedDate"),
@@ -94,6 +138,9 @@ class BankAccountVerificationDetailsResponse(UniversalBaseModel):
             alias="accountClosedDate", description="Date the account was closed, if applicable (ISO 8601 format)."
         ),
     ] = None
+    """
+    Date the account was closed, if applicable (ISO 8601 format).
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

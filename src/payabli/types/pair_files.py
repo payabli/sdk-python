@@ -14,6 +14,10 @@ class PairFiles(UniversalBaseModel):
         FieldMetadata(alias="originalName"),
         pydantic.Field(alias="originalName", description="Original filename"),
     ] = None
+    """
+    Original filename
+    """
+
     zip_name: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="zipName"),
@@ -22,6 +26,10 @@ class PairFiles(UniversalBaseModel):
             description="Filename assigned to zipped file. This is the name to use for reference in the API functions to get files in attachments.",
         ),
     ] = None
+    """
+    Filename assigned to zipped file. This is the name to use for reference in the API functions to get files in attachments.
+    """
+
     descriptor: typing.Optional[str] = pydantic.Field(default=None)
     """
     Descriptor of the file.

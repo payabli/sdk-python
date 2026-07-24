@@ -19,6 +19,10 @@ class GooglePayMetadata(UniversalBaseModel):
         FieldMetadata(alias="statusCode"),
         pydantic.Field(alias="statusCode", description="The status code returned by the domain verification URL."),
     ] = None
+    """
+    The status code returned by the domain verification URL.
+    """
+
     redirect_url: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="redirectUrl"),
@@ -27,6 +31,14 @@ class GooglePayMetadata(UniversalBaseModel):
             description="If the domain verification URL is redirected, this is the URL it's\nredirected to. For example, `www.partner.com` could redirect to\n`www.partners-new-home-page.com`. In this case, you should add\n`www.partners-new-home-page.com` as a domain instead of\n`www.partner.com`.",
         ),
     ] = None
+    """
+    If the domain verification URL is redirected, this is the URL it's
+    redirected to. For example, `www.partner.com` could redirect to
+    `www.partners-new-home-page.com`. In this case, you should add
+    `www.partners-new-home-page.com` as a domain instead of
+    `www.partner.com`.
+    """
+
     redirect_domain_name: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="redirectDomainName"),
@@ -34,6 +46,9 @@ class GooglePayMetadata(UniversalBaseModel):
             alias="redirectDomainName", description="The domain name if the domain verification URL returns a redirect."
         ),
     ] = None
+    """
+    The domain name if the domain verification URL returns a redirect.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

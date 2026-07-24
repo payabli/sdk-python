@@ -22,6 +22,14 @@ class ApplePayMetadata(UniversalBaseModel):
             description="When `true`, indicates whether the domain verification file is\navailable at the expected path. When `false`, Payabli was unable to\nfind the file at the expected path. If the file is missing, make\nsure it's hosted at the correct path:\n`/.well-known/apple-developer-merchantid-domain-association`.",
         ),
     ] = None
+    """
+    When `true`, indicates whether the domain verification file is
+    available at the expected path. When `false`, Payabli was unable to
+    find the file at the expected path. If the file is missing, make
+    sure it's hosted at the correct path:
+    `/.well-known/apple-developer-merchantid-domain-association`.
+    """
+
     is_file_content_valid: typing_extensions.Annotated[
         typing.Optional[bool],
         FieldMetadata(alias="isFileContentValid"),
@@ -30,6 +38,11 @@ class ApplePayMetadata(UniversalBaseModel):
             description="Indicates whether the domain verification file content is valid. If\nthe file is invalid, try downloading it and hosting it again.",
         ),
     ] = None
+    """
+    Indicates whether the domain verification file content is valid. If
+    the file is invalid, try downloading it and hosting it again.
+    """
+
     redirect_domain_name: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="redirectDomainName"),
@@ -37,6 +50,10 @@ class ApplePayMetadata(UniversalBaseModel):
             alias="redirectDomainName", description="The domain name if the domain verification URL returns a redirect."
         ),
     ] = None
+    """
+    The domain name if the domain verification URL returns a redirect.
+    """
+
     redirect_url: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="redirectUrl"),
@@ -45,11 +62,22 @@ class ApplePayMetadata(UniversalBaseModel):
             description="If the domain verification URL is redirected, this is the URL it's\nredirected to. For example, `www.partner.com` could redirect to\n`www.partners-new-home-page.com`. In this case, you should add\n`www.partners-new-home-page.com` as a domain instead of\n`www.partner.com`.",
         ),
     ] = None
+    """
+    If the domain verification URL is redirected, this is the URL it's
+    redirected to. For example, `www.partner.com` could redirect to
+    `www.partners-new-home-page.com`. In this case, you should add
+    `www.partners-new-home-page.com` as a domain instead of
+    `www.partner.com`.
+    """
+
     status_code: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="statusCode"),
         pydantic.Field(alias="statusCode", description="The status code returned by the domain verification URL."),
     ] = None
+    """
+    The status code returned by the domain verification URL.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

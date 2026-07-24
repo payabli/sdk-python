@@ -20,6 +20,10 @@ class TransferOutMessageProperties(UniversalBaseModel):
             alias="originalTransferStatus", description="The original status of the transfer before the message."
         ),
     ] = None
+    """
+    The original status of the transfer before the message.
+    """
+
     current_transfer_status: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="currentTransferStatus"),
@@ -27,6 +31,9 @@ class TransferOutMessageProperties(UniversalBaseModel):
             alias="currentTransferStatus", description="The current status of the transfer after the message."
         ),
     ] = None
+    """
+    The current status of the transfer after the message.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -18,16 +18,27 @@ class TransferOutBankAccount(UniversalBaseModel):
         FieldMetadata(alias="accountNumber"),
         pydantic.Field(alias="accountNumber", description="The masked bank account number."),
     ] = None
+    """
+    The masked bank account number.
+    """
+
     routing_number: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="routingNumber"),
         pydantic.Field(alias="routingNumber", description="The bank routing number."),
     ] = None
+    """
+    The bank routing number.
+    """
+
     bank_name: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="bankName"),
         pydantic.Field(alias="bankName", description="The bank name."),
     ] = None
+    """
+    The bank name.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

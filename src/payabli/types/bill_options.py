@@ -16,6 +16,10 @@ class BillOptions(UniversalBaseModel):
             alias="includePaylink", description="Flag to indicate if the scheduled invoice includes a payment link."
         ),
     ] = None
+    """
+    Flag to indicate if the scheduled invoice includes a payment link.
+    """
+
     include_pdf: typing_extensions.Annotated[
         typing.Optional[bool],
         FieldMetadata(alias="includePdf"),
@@ -24,6 +28,9 @@ class BillOptions(UniversalBaseModel):
             description="Flag to indicate if the scheduled invoice includes a PDF version of invoice",
         ),
     ] = None
+    """
+    Flag to indicate if the scheduled invoice includes a PDF version of invoice
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

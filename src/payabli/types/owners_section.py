@@ -35,11 +35,19 @@ class OwnersSection(UniversalBaseModel):
         FieldMetadata(alias="multipleContacts"),
         pydantic.Field(alias="multipleContacts", description="Offer add more contacts"),
     ] = None
+    """
+    Offer add more contacts
+    """
+
     multiple_owners: typing_extensions.Annotated[
         typing.Optional[bool],
         FieldMetadata(alias="multipleOwners"),
         pydantic.Field(alias="multipleOwners", description="offer add more owners"),
     ] = None
+    """
+    offer add more owners
+    """
+
     oaddress: typing.Optional[TemplateElement] = None
     ocity: typing.Optional[TemplateElement] = None
     ocountry: typing.Optional[TemplateElement] = None

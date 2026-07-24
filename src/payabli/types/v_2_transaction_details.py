@@ -69,11 +69,19 @@ class V2TransactionDetails(UniversalBaseModel):
         FieldMetadata(alias="paymentTransId"),
         pydantic.Field(alias="paymentTransId", description="Unique transaction identifier."),
     ]
+    """
+    Unique transaction identifier.
+    """
+
     connector_name: typing_extensions.Annotated[
         str,
         FieldMetadata(alias="connectorName"),
         pydantic.Field(alias="connectorName", description="Name of the payment connector used."),
     ]
+    """
+    Name of the payment connector used.
+    """
+
     external_processor_information: typing_extensions.Annotated[
         ExternalProcessorInformation,
         FieldMetadata(alias="externalProcessorInformation"),
@@ -84,6 +92,10 @@ class V2TransactionDetails(UniversalBaseModel):
         FieldMetadata(alias="gatewayTransId"),
         pydantic.Field(alias="gatewayTransId", description="Gateway transaction identifier."),
     ]
+    """
+    Gateway transaction identifier.
+    """
+
     order_id: typing_extensions.Annotated[
         typing.Optional[OrderId], FieldMetadata(alias="orderId"), pydantic.Field(alias="orderId")
     ] = None
@@ -100,6 +112,10 @@ class V2TransactionDetails(UniversalBaseModel):
         FieldMetadata(alias="batchAmount"),
         pydantic.Field(alias="batchAmount", description="Total amount in the batch."),
     ]
+    """
+    Total amount in the batch.
+    """
+
     payor_id: typing_extensions.Annotated[PayorId, FieldMetadata(alias="payorId"), pydantic.Field(alias="payorId")]
     payment_data: typing_extensions.Annotated[
         TransactionDetailPaymentData, FieldMetadata(alias="paymentData"), pydantic.Field(alias="paymentData")
@@ -115,11 +131,19 @@ class V2TransactionDetails(UniversalBaseModel):
         FieldMetadata(alias="totalAmount"),
         pydantic.Field(alias="totalAmount", description="Total transaction amount including fees."),
     ]
+    """
+    Total transaction amount including fees.
+    """
+
     net_amount: typing_extensions.Annotated[
         float,
         FieldMetadata(alias="netAmount"),
         pydantic.Field(alias="netAmount", description="Net transaction amount excluding fees."),
     ]
+    """
+    Net transaction amount excluding fees.
+    """
+
     fee_amount: typing_extensions.Annotated[
         FeeAmount, FieldMetadata(alias="feeAmount"), pydantic.Field(alias="feeAmount")
     ]
@@ -138,6 +162,10 @@ class V2TransactionDetails(UniversalBaseModel):
             alias="scheduleReference", description="Reference to associated payment schedule if applicable."
         ),
     ]
+    """
+    Reference to associated payment schedule if applicable.
+    """
+
     org_id: typing_extensions.Annotated[Orgid, FieldMetadata(alias="orgId"), pydantic.Field(alias="orgId")]
     refund_id: typing_extensions.Annotated[RefundId, FieldMetadata(alias="refundId"), pydantic.Field(alias="refundId")]
     returned_id: typing_extensions.Annotated[
@@ -170,11 +198,19 @@ class V2TransactionDetails(UniversalBaseModel):
         FieldMetadata(alias="isValidatedACH"),
         pydantic.Field(alias="isValidatedACH", description="Indicates if ACH account was validated in real-time."),
     ]
+    """
+    Indicates if ACH account was validated in real-time.
+    """
+
     transaction_time: typing_extensions.Annotated[
         str,
         FieldMetadata(alias="transactionTime"),
         pydantic.Field(alias="transactionTime", description="Timestamp when transaction was created."),
     ]
+    """
+    Timestamp when transaction was created.
+    """
+
     customer: TransactionDetailCustomer
     split_funding_instructions: typing_extensions.Annotated[
         typing.Optional[SplitFunding],
@@ -229,11 +265,18 @@ class V2TransactionDetails(UniversalBaseModel):
         FieldMetadata(alias="isSameDayACH"),
         pydantic.Field(alias="isSameDayACH", description="Indicates if ACH transaction uses same-day processing."),
     ]
+    """
+    Indicates if ACH transaction uses same-day processing.
+    """
+
     wallet_type: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="walletType"),
         pydantic.Field(alias="walletType", description="Digital wallet type if applicable."),
     ] = None
+    """
+    Digital wallet type if applicable.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

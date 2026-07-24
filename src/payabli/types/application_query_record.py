@@ -101,6 +101,10 @@ class ApplicationQueryRecord(UniversalBaseModel):
         FieldMetadata(alias="bFax"),
         pydantic.Field(alias="bFax", description="The business's fax number."),
     ] = None
+    """
+    The business's fax number.
+    """
+
     bin_person: typing_extensions.Annotated[
         typing.Optional[Binperson], FieldMetadata(alias="binPerson"), pydantic.Field(alias="binPerson")
     ] = None
@@ -164,6 +168,10 @@ class ApplicationQueryRecord(UniversalBaseModel):
         FieldMetadata(alias="generalEvents"),
         pydantic.Field(alias="generalEvents", description="Events associated with the application."),
     ] = None
+    """
+    Events associated with the application.
+    """
+
     high_ticket_amount: typing_extensions.Annotated[
         typing.Optional[Highticketamt],
         FieldMetadata(alias="highTicketAmount"),

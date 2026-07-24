@@ -30,6 +30,10 @@ class PayabliApiResponseVendors(UniversalBaseModel):
             description="If the request was successful, this field contains the identifier for the vendor.",
         ),
     ] = None
+    """
+    If the request was successful, this field contains the identifier for the vendor.
+    """
+
     response_text: typing_extensions.Annotated[
         ResponseText, FieldMetadata(alias="responseText"), pydantic.Field(alias="responseText")
     ]

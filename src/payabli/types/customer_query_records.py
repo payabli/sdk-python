@@ -48,6 +48,10 @@ class CustomerQueryRecords(UniversalBaseModel):
         FieldMetadata(alias="customerUsername"),
         pydantic.Field(alias="customerUsername", description="Username for customer."),
     ] = None
+    """
+    Username for customer.
+    """
+
     customer_status: typing_extensions.Annotated[
         typing.Optional[CustomerStatus], FieldMetadata(alias="customerStatus"), pydantic.Field(alias="customerStatus")
     ] = None
@@ -56,52 +60,96 @@ class CustomerQueryRecords(UniversalBaseModel):
         FieldMetadata(alias="Company"),
         pydantic.Field(alias="Company", description="Company name."),
     ] = None
+    """
+    Company name.
+    """
+
     firstname: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="Firstname"),
         pydantic.Field(alias="Firstname", description="Customer first name."),
     ] = None
+    """
+    Customer first name.
+    """
+
     lastname: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="Lastname"),
         pydantic.Field(alias="Lastname", description="Customer last name."),
     ] = None
+    """
+    Customer last name.
+    """
+
     phone: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="Phone"),
         pydantic.Field(alias="Phone", description="Customer phone number."),
     ] = None
+    """
+    Customer phone number.
+    """
+
     email: typing_extensions.Annotated[
         typing.Optional[Email],
         FieldMetadata(alias="Email"),
         pydantic.Field(alias="Email", description="Customer email address."),
     ] = None
+    """
+    Customer email address.
+    """
+
     address: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="Address"),
         pydantic.Field(alias="Address", description="Customer address."),
     ] = None
+    """
+    Customer address.
+    """
+
     address_1: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="Address1"),
         pydantic.Field(alias="Address1", description="Additional line for customer address."),
     ] = None
+    """
+    Additional line for customer address.
+    """
+
     city: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="City"), pydantic.Field(alias="City", description="Customer city.")
     ] = None
+    """
+    Customer city.
+    """
+
     state: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="State"), pydantic.Field(alias="State", description="Customer state.")
     ] = None
+    """
+    Customer state.
+    """
+
     zip: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="Zip"),
         pydantic.Field(alias="Zip", description="Customer postal code."),
     ] = None
+    """
+    Customer postal code.
+    """
+
     country: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="Country"),
         pydantic.Field(alias="Country", description="Customer country."),
     ] = None
+    """
+    Customer country.
+    """
+
     shipping_address: typing_extensions.Annotated[
         typing.Optional[Shippingaddress],
         FieldMetadata(alias="ShippingAddress"),
@@ -131,6 +179,10 @@ class CustomerQueryRecords(UniversalBaseModel):
         FieldMetadata(alias="Balance"),
         pydantic.Field(alias="Balance", description="Customer balance."),
     ] = None
+    """
+    Customer balance.
+    """
+
     time_zone: typing_extensions.Annotated[
         typing.Optional[Timezone], FieldMetadata(alias="TimeZone"), pydantic.Field(alias="TimeZone")
     ] = None
@@ -148,11 +200,23 @@ class CustomerQueryRecords(UniversalBaseModel):
             description="Social network linked to customer. Possible values:\n- `facebook`\n- `google`\n- `twitter`\n- `microsoft`",
         ),
     ] = None
+    """
+    Social network linked to customer. Possible values:
+    - `facebook`
+    - `google`
+    - `twitter`
+    - `microsoft`
+    """
+
     sn_identifier: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="snIdentifier"),
         pydantic.Field(alias="snIdentifier", description="Identifier or token for customer in linked social network."),
     ] = None
+    """
+    Identifier or token for customer in linked social network.
+    """
+
     sn_data: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="snData"),
@@ -160,21 +224,37 @@ class CustomerQueryRecords(UniversalBaseModel):
             alias="snData", description="Additional data provided by the social network related to the customer."
         ),
     ] = None
+    """
+    Additional data provided by the social network related to the customer.
+    """
+
     last_updated: typing_extensions.Annotated[
         typing.Optional[dt.datetime],
         FieldMetadata(alias="LastUpdated"),
         pydantic.Field(alias="LastUpdated", description="Date and time of last update."),
     ] = None
+    """
+    Date and time of last update.
+    """
+
     created: typing_extensions.Annotated[
         typing.Optional[dt.datetime],
         FieldMetadata(alias="Created"),
         pydantic.Field(alias="Created", description="Date and time created."),
     ] = None
+    """
+    Date and time created.
+    """
+
     additional_fields: typing_extensions.Annotated[
         typing.Optional[typing.Dict[str, str]],
         FieldMetadata(alias="AdditionalFields"),
         pydantic.Field(alias="AdditionalFields", description="List of additional custom fields in format key:value."),
     ] = None
+    """
+    List of additional custom fields in format key:value.
+    """
+
     identifier_fields: typing_extensions.Annotated[
         typing.Optional[Identifierfields],
         FieldMetadata(alias="IdentifierFields"),
@@ -185,11 +265,19 @@ class CustomerQueryRecords(UniversalBaseModel):
         FieldMetadata(alias="Subscriptions"),
         pydantic.Field(alias="Subscriptions", description="List of subscriptions associated to the customer."),
     ] = None
+    """
+    List of subscriptions associated to the customer.
+    """
+
     stored_methods: typing_extensions.Annotated[
         typing.Optional[typing.List[MethodQueryRecords]],
         FieldMetadata(alias="StoredMethods"),
         pydantic.Field(alias="StoredMethods", description="List of payment methods associated to the customer."),
     ] = None
+    """
+    List of payment methods associated to the customer.
+    """
+
     customer_summary: typing_extensions.Annotated[
         typing.Optional[CustomerSummaryRecord],
         FieldMetadata(alias="customerSummary"),
@@ -200,11 +288,19 @@ class CustomerQueryRecords(UniversalBaseModel):
         FieldMetadata(alias="PaypointLegalname"),
         pydantic.Field(alias="PaypointLegalname", description="Paypoint legal name."),
     ] = None
+    """
+    Paypoint legal name.
+    """
+
     paypoint_dbaname: typing_extensions.Annotated[
         typing.Optional[Dbaname],
         FieldMetadata(alias="PaypointDbaname"),
         pydantic.Field(alias="PaypointDbaname", description="Paypoint DBA name."),
     ] = None
+    """
+    Paypoint DBA name.
+    """
+
     parent_org_name: typing_extensions.Annotated[
         typing.Optional[OrgParentName], FieldMetadata(alias="ParentOrgName"), pydantic.Field(alias="ParentOrgName")
     ] = None

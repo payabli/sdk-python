@@ -30,12 +30,20 @@ class NotificationQueryRecord(UniversalBaseModel):
         FieldMetadata(alias="createdAt"),
         pydantic.Field(alias="createdAt", description="Timestamp of when notification was created."),
     ] = None
+    """
+    Timestamp of when notification was created.
+    """
+
     frequency: typing.Optional[Frequencynotification] = None
     last_updated: typing_extensions.Annotated[
         typing.Optional[LastModified],
         FieldMetadata(alias="lastUpdated"),
         pydantic.Field(alias="lastUpdated", description="Timestamp of when notification was last updated."),
     ] = None
+    """
+    Timestamp of when notification was last updated.
+    """
+
     method: typing.Optional[Methodnotification] = None
     notification_id: typing_extensions.Annotated[
         typing.Optional[NotificationId], FieldMetadata(alias="notificationId"), pydantic.Field(alias="notificationId")
@@ -48,6 +56,10 @@ class NotificationQueryRecord(UniversalBaseModel):
         FieldMetadata(alias="ownerName"),
         pydantic.Field(alias="ownerName", description="Name of entity owner of notification."),
     ] = None
+    """
+    Name of entity owner of notification.
+    """
+
     owner_type: typing_extensions.Annotated[
         typing.Optional[Ownertype], FieldMetadata(alias="ownerType"), pydantic.Field(alias="ownerType")
     ] = None

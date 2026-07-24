@@ -31,21 +31,37 @@ class BillingFeeDetail(UniversalBaseModel):
         FieldMetadata(alias="fixPrice"),
         pydantic.Field(alias="fixPrice", description="Fixed price component of the fee"),
     ] = None
+    """
+    Fixed price component of the fee
+    """
+
     float_price: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="floatPrice"),
         pydantic.Field(alias="floatPrice", description="Percentage component of the fee"),
     ] = None
+    """
+    Percentage component of the fee
+    """
+
     billable_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="billableAmount"),
         pydantic.Field(alias="billableAmount", description="Amount eligible for the fee"),
     ] = None
+    """
+    Amount eligible for the fee
+    """
+
     bill_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="billAmount"),
         pydantic.Field(alias="billAmount", description="Total fee amount charged"),
     ] = None
+    """
+    Total fee amount charged
+    """
+
     frequency: typing.Optional[str] = None
     service_group: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="serviceGroup"), pydantic.Field(alias="serviceGroup")

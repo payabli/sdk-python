@@ -142,6 +142,10 @@ class ApplicationData(UniversalBaseModel):
             description="Email address for the applicant. This is used to send the applicant a boarding link.",
         ),
     ] = None
+    """
+    Email address for the applicant. This is used to send the applicant a boarding link.
+    """
+
     recipient_email_notification: typing_extensions.Annotated[
         typing.Optional[RecipientEmailNotification],
         FieldMetadata(alias="recipientEmailNotification"),

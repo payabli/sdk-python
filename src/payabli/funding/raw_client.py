@@ -65,6 +65,9 @@ class RawFundingClient:
         HttpResponse[DepositFundsResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "Funding/depositFunds",
             method="POST",
@@ -76,6 +79,7 @@ class RawFundingClient:
                 "sameDayAch": same_day_ach,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -187,6 +191,9 @@ class AsyncRawFundingClient:
         AsyncHttpResponse[DepositFundsResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "Funding/depositFunds",
             method="POST",
@@ -198,6 +205,7 @@ class AsyncRawFundingClient:
                 "sameDayAch": same_day_ach,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,

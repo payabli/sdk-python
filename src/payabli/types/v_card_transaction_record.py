@@ -23,16 +23,28 @@ class VCardTransactionRecord(UniversalBaseModel):
         FieldMetadata(alias="Identifier"),
         pydantic.Field(alias="Identifier", description="Unique identifier for the transaction."),
     ] = None
+    """
+    Unique identifier for the transaction.
+    """
+
     card_token: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="CardToken"),
         pydantic.Field(alias="CardToken", description="Token of the virtual card associated with the transaction."),
     ] = None
+    """
+    Token of the virtual card associated with the transaction.
+    """
+
     last_four: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="LastFour"),
         pydantic.Field(alias="LastFour", description="Last four digits of the masked virtual card number."),
     ] = None
+    """
+    Last four digits of the masked virtual card number.
+    """
+
     expiration_date: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="ExpirationDate"),
@@ -40,6 +52,10 @@ class VCardTransactionRecord(UniversalBaseModel):
             alias="ExpirationDate", description="Expiration date of the virtual card used for the transaction."
         ),
     ] = None
+    """
+    Expiration date of the virtual card used for the transaction.
+    """
+
     mcc: typing_extensions.Annotated[typing.Optional[Mcc], FieldMetadata(alias="Mcc"), pydantic.Field(alias="Mcc")] = (
         None
     )
@@ -48,41 +64,73 @@ class VCardTransactionRecord(UniversalBaseModel):
         FieldMetadata(alias="PayoutId"),
         pydantic.Field(alias="PayoutId", description="Identifier of the payout linked to this transaction."),
     ] = None
+    """
+    Identifier of the payout linked to this transaction.
+    """
+
     customer_id: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="CustomerId"),
         pydantic.Field(alias="CustomerId", description="Identifier of the customer linked to this transaction."),
     ] = None
+    """
+    Identifier of the customer linked to this transaction.
+    """
+
     vendor_id: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="VendorId"),
         pydantic.Field(alias="VendorId", description="Identifier of the vendor linked to this transaction."),
     ] = None
+    """
+    Identifier of the vendor linked to this transaction.
+    """
+
     misc_data_1: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="MiscData1"),
         pydantic.Field(alias="MiscData1", description="Custom field 1 from the virtual card."),
     ] = None
+    """
+    Custom field 1 from the virtual card.
+    """
+
     misc_data_2: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="MiscData2"),
         pydantic.Field(alias="MiscData2", description="Custom field 2 from the virtual card."),
     ] = None
+    """
+    Custom field 2 from the virtual card.
+    """
+
     current_uses: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="CurrentUses"),
         pydantic.Field(alias="CurrentUses", description="Number of times the virtual card has been used."),
     ] = None
+    """
+    Number of times the virtual card has been used.
+    """
+
     amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="Amount"),
         pydantic.Field(alias="Amount", description="Authorized amount on the virtual card."),
     ] = None
+    """
+    Authorized amount on the virtual card.
+    """
+
     balance: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="Balance"),
         pydantic.Field(alias="Balance", description="Current balance remaining on the virtual card."),
     ] = None
+    """
+    Current balance remaining on the virtual card.
+    """
+
     paypoint_id: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="PaypointId"),
@@ -90,6 +138,10 @@ class VCardTransactionRecord(UniversalBaseModel):
             alias="PaypointId", description="Numeric identifier of the paypoint that issued the virtual card."
         ),
     ] = None
+    """
+    Numeric identifier of the paypoint that issued the virtual card.
+    """
+
     paypoint_legal: typing_extensions.Annotated[
         typing.Optional[Legalname], FieldMetadata(alias="PaypointLegal"), pydantic.Field(alias="PaypointLegal")
     ] = None
@@ -109,11 +161,19 @@ class VCardTransactionRecord(UniversalBaseModel):
         FieldMetadata(alias="Type"),
         pydantic.Field(alias="Type", description="Transaction type, such as `AUTHORIZATION`."),
     ] = None
+    """
+    Transaction type, such as `AUTHORIZATION`.
+    """
+
     status: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="Status"),
         pydantic.Field(alias="Status", description="Transaction status, such as `AUTHORIZATION`."),
     ] = None
+    """
+    Transaction status, such as `AUTHORIZATION`.
+    """
+
     created_on: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="CreatedOn"),
@@ -122,16 +182,28 @@ class VCardTransactionRecord(UniversalBaseModel):
             description="Date and time the transaction was created. Format: `YYYY-MM-DD HH:MM:SS.ffffff`.",
         ),
     ] = None
+    """
+    Date and time the transaction was created. Format: `YYYY-MM-DD HH:MM:SS.ffffff`.
+    """
+
     transaction_amount: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="TransactionAmount"),
         pydantic.Field(alias="TransactionAmount", description="Amount of the transaction, as a string value."),
     ] = None
+    """
+    Amount of the transaction, as a string value.
+    """
+
     posted_amount: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="PostedAmount"),
         pydantic.Field(alias="PostedAmount", description="Posted amount of the transaction, as a string value."),
     ] = None
+    """
+    Posted amount of the transaction, as a string value.
+    """
+
     posted_on: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="PostedOn"),
@@ -140,21 +212,36 @@ class VCardTransactionRecord(UniversalBaseModel):
             description="Date and time the transaction was posted, in format `YYYY-MM-DD HH:MM:SS.ffffff`. Null when the transaction hasn't posted yet.",
         ),
     ] = None
+    """
+    Date and time the transaction was posted, in format `YYYY-MM-DD HH:MM:SS.ffffff`. Null when the transaction hasn't posted yet.
+    """
+
     merchant_name: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="MerchantName"),
         pydantic.Field(alias="MerchantName", description="Name of the merchant where the virtual card was used."),
     ] = None
+    """
+    Name of the merchant where the virtual card was used.
+    """
+
     authorization_status: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="AuthorizationStatus"),
         pydantic.Field(alias="AuthorizationStatus", description="Authorization status of the transaction."),
     ] = None
+    """
+    Authorization status of the transaction.
+    """
+
     reason_to_decline: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="ReasonToDecline"),
         pydantic.Field(alias="ReasonToDecline", description="Reason the transaction was declined, when applicable."),
     ] = None
+    """
+    Reason the transaction was declined, when applicable.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

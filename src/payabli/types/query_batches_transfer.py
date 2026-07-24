@@ -19,71 +19,126 @@ class QueryBatchesTransfer(UniversalBaseModel):
         FieldMetadata(alias="TransferId"),
         pydantic.Field(alias="TransferId", description="The transfer ID."),
     ] = None
+    """
+    The transfer ID.
+    """
+
     transfer_date: typing_extensions.Annotated[
         typing.Optional[dt.datetime],
         FieldMetadata(alias="TransferDate"),
         pydantic.Field(alias="TransferDate", description="The transfer date."),
     ] = None
+    """
+    The transfer date.
+    """
+
     processor: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="Processor"),
         pydantic.Field(alias="Processor", description="The processor used for the transfer."),
     ] = None
+    """
+    The processor used for the transfer.
+    """
+
     transfer_status: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="TransferStatus"),
         pydantic.Field(alias="TransferStatus", description="The transfer status."),
     ] = None
+    """
+    The transfer status.
+    """
+
     gross_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="GrossAmount"),
         pydantic.Field(alias="GrossAmount", description="The gross amount of the transfer."),
     ] = None
+    """
+    The gross amount of the transfer.
+    """
+
     charge_back_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="ChargeBackAmount"),
         pydantic.Field(alias="ChargeBackAmount", description="The chargeback amount."),
     ] = None
+    """
+    The chargeback amount.
+    """
+
     returned_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="ReturnedAmount"),
         pydantic.Field(alias="ReturnedAmount", description="The returned amount."),
     ] = None
+    """
+    The returned amount.
+    """
+
     refund_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="RefundAmount"),
         pydantic.Field(alias="RefundAmount", description="The refund amount."),
     ] = None
+    """
+    The refund amount.
+    """
+
     hold_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="HoldAmount"),
         pydantic.Field(alias="HoldAmount", description="The amount being held."),
     ] = None
+    """
+    The amount being held.
+    """
+
     released_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="ReleasedAmount"),
         pydantic.Field(alias="ReleasedAmount", description="The amount that has been released."),
     ] = None
+    """
+    The amount that has been released.
+    """
+
     billing_fees_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="BillingFeesAmount"),
         pydantic.Field(alias="BillingFeesAmount", description="The billing fees amount."),
     ] = None
+    """
+    The billing fees amount.
+    """
+
     third_party_paid_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="ThirdPartyPaidAmount"),
         pydantic.Field(alias="ThirdPartyPaidAmount", description="The third party paid amount."),
     ] = None
+    """
+    The third party paid amount.
+    """
+
     adjustments_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="AdjustmentsAmount"),
         pydantic.Field(alias="AdjustmentsAmount", description="The adjustments amount."),
     ] = None
+    """
+    The adjustments amount.
+    """
+
     net_funded_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="NetFundedAmount"),
         pydantic.Field(alias="NetFundedAmount", description="The net funded amount."),
     ] = None
+    """
+    The net funded amount.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

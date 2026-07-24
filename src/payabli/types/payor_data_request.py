@@ -69,6 +69,10 @@ class PayorDataRequest(UniversalBaseModel):
             description='Customer\'s billing ZIP code. For Pay In functions, this field supports 5-digit and 9-digit ZIP codes and alphanumeric Canadian postal codes. For example: "37615-1234" or "37615".',
         ),
     ] = None
+    """
+    Customer's billing ZIP code. For Pay In functions, this field supports 5-digit and 9-digit ZIP codes and alphanumeric Canadian postal codes. For example: "37615-1234" or "37615".
+    """
+
     company: typing.Optional[str] = pydantic.Field(default=None)
     """
     Customer's company name.
@@ -87,6 +91,10 @@ class PayorDataRequest(UniversalBaseModel):
         FieldMetadata(alias="firstName"),
         pydantic.Field(alias="firstName", description="Customer/Payor first name."),
     ] = None
+    """
+    Customer/Payor first name.
+    """
+
     identifier_fields: typing_extensions.Annotated[
         typing.Optional[Identifierfields],
         FieldMetadata(alias="identifierFields"),
@@ -97,6 +105,10 @@ class PayorDataRequest(UniversalBaseModel):
         FieldMetadata(alias="lastName"),
         pydantic.Field(alias="lastName", description="Customer/Payor last name."),
     ] = None
+    """
+    Customer/Payor last name.
+    """
+
     shipping_address_1: typing_extensions.Annotated[
         typing.Optional[Shippingaddress],
         FieldMetadata(alias="shippingAddress1"),

@@ -42,6 +42,10 @@ class GetMethodResponseResponseData(UniversalBaseModel):
         FieldMetadata(alias="cardUpdatedOn"),
         pydantic.Field(alias="cardUpdatedOn", description="Timestamp for when card was last updated"),
     ] = None
+    """
+    Timestamp for when card was last updated
+    """
+
     customers: typing.Optional[typing.List[GetMethodResponseResponseDataCustomersItem]] = None
     descriptor: typing.Optional[Descriptor] = None
     exp_date: typing_extensions.Annotated[
@@ -49,26 +53,46 @@ class GetMethodResponseResponseData(UniversalBaseModel):
         FieldMetadata(alias="expDate"),
         pydantic.Field(alias="expDate", description="Expiration date for card in stored method in format MM/YY"),
     ] = None
+    """
+    Expiration date for card in stored method in format MM/YY
+    """
+
     holder_name: typing_extensions.Annotated[
         typing.Optional[Holdername],
         FieldMetadata(alias="holderName"),
         pydantic.Field(alias="holderName", description="Account holder name in stored method"),
     ] = None
+    """
+    Account holder name in stored method
+    """
+
     id_pmethod: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="idPmethod"),
         pydantic.Field(alias="idPmethod", description="The stored payment method's identifier in Payabli"),
     ] = None
+    """
+    The stored payment method's identifier in Payabli
+    """
+
     is_validated_ach: typing_extensions.Annotated[
         typing.Optional[bool],
         FieldMetadata(alias="isValidatedACH"),
         pydantic.Field(alias="isValidatedACH", description="Whether the ACH account has been validated"),
     ] = None
+    """
+    Whether the ACH account has been validated
+    """
+
     last_updated: typing_extensions.Annotated[
         typing.Optional[dt.datetime],
         FieldMetadata(alias="lastUpdated"),
         pydantic.Field(alias="lastUpdated", description="Timestamp for last update of stored method, in UTC"),
     ] = None
+    """
+    Timestamp for last update of stored method, in UTC
+    """
+
     masked_account: typing_extensions.Annotated[
         typing.Optional[Maskedaccount], FieldMetadata(alias="maskedAccount"), pydantic.Field(alias="maskedAccount")
     ] = None
@@ -82,11 +106,19 @@ class GetMethodResponseResponseData(UniversalBaseModel):
         FieldMetadata(alias="methodType"),
         pydantic.Field(alias="methodType", description="The payment method's token type"),
     ] = None
+    """
+    The payment method's token type
+    """
+
     postal_code: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="postalCode"),
         pydantic.Field(alias="postalCode", description="The payment method postal code"),
     ] = None
+    """
+    The payment method postal code
+    """
+
     vendors: typing.Optional[typing.List[GetMethodResponseResponseDataVendorsItem]] = None
 
     if IS_PYDANTIC_V2:

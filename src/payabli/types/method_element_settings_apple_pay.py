@@ -20,6 +20,10 @@ class MethodElementSettingsApplePay(UniversalBaseModel):
             description="The Apple Pay button style. See [Apple Pay Button Style](/developers/developer-guides/hosted-payment-page-apple-pay#param-applepay-button-style) for more information.",
         ),
     ] = None
+    """
+    The Apple Pay button style. See [Apple Pay Button Style](/developers/developer-guides/hosted-payment-page-apple-pay#param-applepay-button-style) for more information.
+    """
+
     button_type: typing_extensions.Annotated[
         typing.Optional[MethodElementSettingsApplePayButtonType],
         FieldMetadata(alias="buttonType"),
@@ -28,6 +32,10 @@ class MethodElementSettingsApplePay(UniversalBaseModel):
             description="The text on Apple Pay button. See [Apple Pay Button Type](/developers/developer-guides/hosted-payment-page-apple-pay#param-applepay-button-type) for more information.",
         ),
     ] = None
+    """
+    The text on Apple Pay button. See [Apple Pay Button Type](/developers/developer-guides/hosted-payment-page-apple-pay#param-applepay-button-type) for more information.
+    """
+
     language: typing.Optional[MethodElementSettingsApplePayLanguage] = pydantic.Field(default=None)
     """
     The Apple Pay button locale. See [Apple Pay Button Language](/developers/developer-guides/hosted-payment-page-apple-pay#param-applepay-language) for more information.

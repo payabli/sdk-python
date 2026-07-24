@@ -20,6 +20,10 @@ class Transfer(UniversalBaseModel):
     transfer_id: typing_extensions.Annotated[
         int, FieldMetadata(alias="transferId"), pydantic.Field(alias="transferId", description="The transfer ID.")
     ]
+    """
+    The transfer ID.
+    """
+
     paypoint_id: typing_extensions.Annotated[
         PaypointId, FieldMetadata(alias="paypointId"), pydantic.Field(alias="paypointId")
     ]
@@ -31,11 +35,19 @@ class Transfer(UniversalBaseModel):
         FieldMetadata(alias="batchCurrency"),
         pydantic.Field(alias="batchCurrency", description="The currency of the batch, either USD or CAD."),
     ] = None
+    """
+    The currency of the batch, either USD or CAD.
+    """
+
     batch_records: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="batchRecords"),
         pydantic.Field(alias="batchRecords", description="Number of records in the batch."),
     ] = None
+    """
+    Number of records in the batch.
+    """
+
     transfer_identifier: typing_extensions.Annotated[
         TransferIdentifier, FieldMetadata(alias="transferIdentifier"), pydantic.Field(alias="transferIdentifier")
     ]
@@ -44,61 +56,109 @@ class Transfer(UniversalBaseModel):
         FieldMetadata(alias="batchId"),
         pydantic.Field(alias="batchId", description="The ID of the batch the transfer belongs to."),
     ]
+    """
+    The ID of the batch the transfer belongs to.
+    """
+
     paypoint_entry_name: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="paypointEntryName"),
         pydantic.Field(alias="paypointEntryName", description="The paypoint entryname."),
     ] = None
+    """
+    The paypoint entryname.
+    """
+
     paypoint_legal_name: typing_extensions.Annotated[
         typing.Optional[Legalname],
         FieldMetadata(alias="paypointLegalName"),
         pydantic.Field(alias="paypointLegalName", description="The paypoint legal name."),
     ] = None
+    """
+    The paypoint legal name.
+    """
+
     paypoint_dba_name: typing_extensions.Annotated[
         typing.Optional[Dbaname],
         FieldMetadata(alias="paypointDbaName"),
         pydantic.Field(alias="paypointDbaName", description="The paypoint DBA name."),
     ] = None
+    """
+    The paypoint DBA name.
+    """
+
     paypoint_logo: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="paypointLogo"),
         pydantic.Field(alias="paypointLogo", description="The paypoint logo URL."),
     ] = None
+    """
+    The paypoint logo URL.
+    """
+
     parent_org_name: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="parentOrgName"),
         pydantic.Field(alias="parentOrgName", description="The parent organization name."),
     ] = None
+    """
+    The parent organization name.
+    """
+
     parent_org_id: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="parentOrgId"),
         pydantic.Field(alias="parentOrgId", description="The parent organization ID."),
     ] = None
+    """
+    The parent organization ID.
+    """
+
     parent_org_entry_name: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="parentOrgEntryName"),
         pydantic.Field(alias="parentOrgEntryName", description="The parent organization entryname."),
     ] = None
+    """
+    The parent organization entryname.
+    """
+
     parent_org_logo: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="parentOrgLogo"),
         pydantic.Field(alias="parentOrgLogo", description="The parent organization logo URL."),
     ] = None
+    """
+    The parent organization logo URL.
+    """
+
     external_paypoint_id: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="externalPaypointID"),
         pydantic.Field(alias="externalPaypointID", description="The external paypoint ID."),
     ] = None
+    """
+    The external paypoint ID.
+    """
+
     bank_account: typing_extensions.Annotated[
         typing.Optional[TransferBankAccount],
         FieldMetadata(alias="bankAccount"),
         pydantic.Field(alias="bankAccount", description="Bank account information for the transfer."),
     ] = None
+    """
+    Bank account information for the transfer.
+    """
+
     transfer_date: typing_extensions.Annotated[
         str,
         FieldMetadata(alias="transferDate"),
         pydantic.Field(alias="transferDate", description="Date when the transfer occurred."),
     ]
+    """
+    Date when the transfer occurred.
+    """
+
     processor: str = pydantic.Field()
     """
     The payment processor used for the transfer.
@@ -109,6 +169,10 @@ class Transfer(UniversalBaseModel):
         FieldMetadata(alias="transferStatus"),
         pydantic.Field(alias="transferStatus", description="The current status of the transfer."),
     ]
+    """
+    The current status of the transfer.
+    """
+
     gross_amount: typing_extensions.Annotated[
         float,
         FieldMetadata(alias="grossAmount"),
@@ -117,21 +181,37 @@ class Transfer(UniversalBaseModel):
             description="Gross batch is the total amount of the payments grouped in the batch. This amount includes service fees.",
         ),
     ]
+    """
+    Gross batch is the total amount of the payments grouped in the batch. This amount includes service fees.
+    """
+
     charge_back_amount: typing_extensions.Annotated[
         float,
         FieldMetadata(alias="chargeBackAmount"),
         pydantic.Field(alias="chargeBackAmount", description="Amount of chargebacks to be deducted from batch."),
     ]
+    """
+    Amount of chargebacks to be deducted from batch.
+    """
+
     returned_amount: typing_extensions.Annotated[
         float,
         FieldMetadata(alias="returnedAmount"),
         pydantic.Field(alias="returnedAmount", description="Amount of ACH returns to be deducted from batch."),
     ]
+    """
+    Amount of ACH returns to be deducted from batch.
+    """
+
     hold_amount: typing_extensions.Annotated[
         float,
         FieldMetadata(alias="holdAmount"),
         pydantic.Field(alias="holdAmount", description="Amount being held for fraud or risk concerns."),
     ]
+    """
+    Amount being held for fraud or risk concerns.
+    """
+
     released_amount: typing_extensions.Annotated[
         float,
         FieldMetadata(alias="releasedAmount"),
@@ -140,6 +220,10 @@ class Transfer(UniversalBaseModel):
             description="Amount of previously held funds that have been released after a risk review.",
         ),
     ]
+    """
+    Amount of previously held funds that have been released after a risk review.
+    """
+
     billing_fees_amount: typing_extensions.Annotated[
         float,
         FieldMetadata(alias="billingFeesAmount"),
@@ -147,6 +231,10 @@ class Transfer(UniversalBaseModel):
             alias="billingFeesAmount", description="Amount of charges and fees applied for services and transactions."
         ),
     ]
+    """
+    Amount of charges and fees applied for services and transactions.
+    """
+
     third_party_paid_amount: typing_extensions.Annotated[
         float,
         FieldMetadata(alias="thirdPartyPaidAmount"),
@@ -155,6 +243,10 @@ class Transfer(UniversalBaseModel):
             description="Amount of payments captured in the batch cycle that are deposited separately. For example, checks or cash payments recorded in the batch but not deposited via Payabli, or card brands making a direct transfer in certain situations.",
         ),
     ]
+    """
+    Amount of payments captured in the batch cycle that are deposited separately. For example, checks or cash payments recorded in the batch but not deposited via Payabli, or card brands making a direct transfer in certain situations.
+    """
+
     adjustments_amount: typing_extensions.Annotated[
         float,
         FieldMetadata(alias="adjustmentsAmount"),
@@ -162,6 +254,10 @@ class Transfer(UniversalBaseModel):
             alias="adjustmentsAmount", description="Amount of corrections applied to Billing & Fees charges."
         ),
     ]
+    """
+    Amount of corrections applied to Billing & Fees charges.
+    """
+
     net_transfer_amount: typing_extensions.Annotated[
         float,
         FieldMetadata(alias="netTransferAmount"),
@@ -169,6 +265,10 @@ class Transfer(UniversalBaseModel):
             alias="netTransferAmount", description="The net transfer amount after all deductions and additions."
         ),
     ]
+    """
+    The net transfer amount after all deductions and additions.
+    """
+
     split_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="splitAmount"),
@@ -176,11 +276,19 @@ class Transfer(UniversalBaseModel):
             alias="splitAmount", description="The sum of each splitFundingAmount of each record in the transfer."
         ),
     ] = None
+    """
+    The sum of each splitFundingAmount of each record in the transfer.
+    """
+
     events_data: typing_extensions.Annotated[
         typing.Optional[typing.List[GeneralEvents]],
         FieldMetadata(alias="eventsData"),
         pydantic.Field(alias="eventsData", description="List of events associated with the transfer."),
     ] = None
+    """
+    List of events associated with the transfer.
+    """
+
     messages: typing.Optional[typing.List[TransferMessage]] = pydantic.Field(default=None)
     """
     List of messages related to the transfer.

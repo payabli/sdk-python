@@ -36,6 +36,10 @@ class TokenizeAch(UniversalBaseModel):
             description="Bank account holder. This field is **required** when `method` is `ach`. Only letters, numbers, spaces, hyphens, apostrophes, and periods are allowed.",
         ),
     ]
+    """
+    Bank account holder. This field is **required** when `method` is `ach`. Only letters, numbers, spaces, hyphens, apostrophes, and periods are allowed.
+    """
+
     ach_holder_type: typing_extensions.Annotated[
         typing.Optional[AchHolderType], FieldMetadata(alias="achHolderType"), pydantic.Field(alias="achHolderType")
     ] = None

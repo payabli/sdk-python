@@ -24,11 +24,19 @@ class VCardSummary(UniversalBaseModel):
         FieldMetadata(alias="totalAmount"),
         pydantic.Field(alias="totalAmount", description="Total amount for the records."),
     ]
+    """
+    Total amount for the records.
+    """
+
     total_net_amount: typing_extensions.Annotated[
         typing.Optional[float],
         FieldMetadata(alias="totalNetAmount"),
         pydantic.Field(alias="totalNetAmount", description="Total net amount for the records."),
     ] = None
+    """
+    Total net amount for the records.
+    """
+
     totalactive: int = pydantic.Field()
     """
     Total number of active vCards.

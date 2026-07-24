@@ -119,6 +119,9 @@ class RawGhostCardClient:
         HttpResponse[CreateGhostCardResponse]
             Success response with ghost card details.
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"MoneyOutCard/GhostCard/{encode_path_param(entry)}",
             method="POST",
@@ -141,6 +144,7 @@ class RawGhostCardClient:
                 "misc2": misc_2,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -239,6 +243,9 @@ class RawGhostCardClient:
         HttpResponse[PayabliApiResponse]
             Success response.
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"MoneyOutCard/card/{encode_path_param(entry)}",
             method="PATCH",
@@ -247,6 +254,7 @@ class RawGhostCardClient:
                 "status": status,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -410,6 +418,9 @@ class AsyncRawGhostCardClient:
         AsyncHttpResponse[CreateGhostCardResponse]
             Success response with ghost card details.
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"MoneyOutCard/GhostCard/{encode_path_param(entry)}",
             method="POST",
@@ -432,6 +443,7 @@ class AsyncRawGhostCardClient:
                 "misc2": misc_2,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -530,6 +542,9 @@ class AsyncRawGhostCardClient:
         AsyncHttpResponse[PayabliApiResponse]
             Success response.
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"MoneyOutCard/card/{encode_path_param(entry)}",
             method="PATCH",
@@ -538,6 +553,7 @@ class AsyncRawGhostCardClient:
                 "status": status,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,

@@ -27,6 +27,9 @@ class PayabliApiResponseOcr(UniversalBaseModel):
         FieldMetadata(alias="responseData"),
         pydantic.Field(alias="responseData", description="Details of the OCR processing result"),
     ] = None
+    """
+    Details of the OCR processing result
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

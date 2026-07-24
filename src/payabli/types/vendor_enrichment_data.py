@@ -20,11 +20,18 @@ class VendorEnrichmentData(UniversalBaseModel):
         FieldMetadata(alias="invoiceScan"),
         pydantic.Field(alias="invoiceScan", description="Results from the invoice scan stage, if it ran."),
     ] = None
+    """
+    Results from the invoice scan stage, if it ran.
+    """
+
     web_search: typing_extensions.Annotated[
         typing.Optional[VendorEnrichmentWebSearch],
         FieldMetadata(alias="webSearch"),
         pydantic.Field(alias="webSearch", description="Results from the web search stage, if it ran."),
     ] = None
+    """
+    Results from the web search stage, if it ran.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

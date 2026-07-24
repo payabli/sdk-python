@@ -134,6 +134,9 @@ class RawMoneyInClient:
         HttpResponse[AuthResponse]
             Ok
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "MoneyIn/authorize",
             method="POST",
@@ -163,6 +166,7 @@ class RawMoneyInClient:
                 "subscriptionId": subscription_id,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -259,9 +263,15 @@ class RawMoneyInClient:
         HttpResponse[CaptureResponse]
             Ok
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"MoneyIn/capture/{encode_path_param(trans_id)}/{encode_path_param(amount)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -358,6 +368,9 @@ class RawMoneyInClient:
         HttpResponse[CaptureResponse]
             Ok
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"MoneyIn/capture/{encode_path_param(trans_id)}",
             method="POST",
@@ -365,6 +378,9 @@ class RawMoneyInClient:
                 "paymentDetails": convert_and_respect_annotation_metadata(
                     object_=payment_details, annotation=CapturePaymentDetails, direction="write"
                 ),
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -491,6 +507,9 @@ class RawMoneyInClient:
 
             A "Missing Gateway Data" message can indicate that the entrypoint targeted in the request isn't set up for ACH payments.
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "MoneyIn/makecredit",
             method="POST",
@@ -515,6 +534,7 @@ class RawMoneyInClient:
                 "subdomain": subdomain,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -603,9 +623,15 @@ class RawMoneyInClient:
         HttpResponse[TransactionQueryRecordsCustomer]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"MoneyIn/details/{encode_path_param(trans_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -753,6 +779,9 @@ class RawMoneyInClient:
         HttpResponse[PayabliApiResponseGetPaid]
             Ok
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "MoneyIn/getpaid",
             method="POST",
@@ -784,6 +813,7 @@ class RawMoneyInClient:
                 "subscriptionId": subscription_id,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
                 "validationCode": str(validation_code) if validation_code is not None else None,
@@ -884,9 +914,15 @@ class RawMoneyInClient:
         HttpResponse[ReverseResponse]
             Ok
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"MoneyIn/reverse/{encode_path_param(trans_id)}/{encode_path_param(amount)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -982,9 +1018,15 @@ class RawMoneyInClient:
         HttpResponse[RefundResponse]
             Ok
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"MoneyIn/refund/{encode_path_param(trans_id)}/{encode_path_param(amount)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -1103,6 +1145,9 @@ class RawMoneyInClient:
         HttpResponse[RefundWithInstructionsResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"MoneyIn/refund/{encode_path_param(trans_id)}",
             method="POST",
@@ -1117,6 +1162,7 @@ class RawMoneyInClient:
                 "source": source,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -1205,9 +1251,15 @@ class RawMoneyInClient:
         HttpResponse[PayabliApiResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"MoneyIn/reverseCredit/{encode_path_param(trans_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -1301,11 +1353,17 @@ class RawMoneyInClient:
         HttpResponse[ReceiptResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"MoneyIn/sendreceipt/{encode_path_param(trans_id)}",
             method="GET",
             params={
                 "email": email,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -1410,6 +1468,9 @@ class RawMoneyInClient:
         HttpResponse[ValidateResponse]
             Ok
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "MoneyIn/validate",
             method="POST",
@@ -1423,6 +1484,7 @@ class RawMoneyInClient:
                 ),
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -1515,9 +1577,15 @@ class RawMoneyInClient:
         HttpResponse[VoidResponse]
             Ok
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"MoneyIn/void/{encode_path_param(trans_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -1657,6 +1725,9 @@ class RawMoneyInClient:
         HttpResponse[V2TransactionResponseWrapper]
             Ok
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "v2/MoneyIn/getpaid",
             method="POST",
@@ -1687,6 +1758,7 @@ class RawMoneyInClient:
                 "subscriptionId": subscription_id,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
                 "validationCode": str(validation_code) if validation_code is not None else None,
@@ -1825,6 +1897,9 @@ class RawMoneyInClient:
         HttpResponse[V2TransactionResponseWrapper]
             Ok
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "v2/MoneyIn/authorize",
             method="POST",
@@ -1854,6 +1929,7 @@ class RawMoneyInClient:
                 "subscriptionId": subscription_id,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -1948,6 +2024,9 @@ class RawMoneyInClient:
         HttpResponse[V2TransactionResponseWrapper]
             Ok
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"v2/MoneyIn/capture/{encode_path_param(trans_id)}",
             method="POST",
@@ -1955,6 +2034,9 @@ class RawMoneyInClient:
                 "paymentDetails": convert_and_respect_annotation_metadata(
                     object_=payment_details, annotation=CapturePaymentDetails, direction="write"
                 ),
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -2073,6 +2155,9 @@ class RawMoneyInClient:
         HttpResponse[V2TransactionResponseWrapper]
             Ok
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"v2/MoneyIn/refund/{encode_path_param(trans_id)}",
             method="POST",
@@ -2085,6 +2170,9 @@ class RawMoneyInClient:
                     object_=refund_details, annotation=RefundDetail, direction="write"
                 ),
                 "source": source,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -2207,6 +2295,9 @@ class RawMoneyInClient:
         HttpResponse[V2TransactionResponseWrapper]
             Ok
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"v2/MoneyIn/refund/{encode_path_param(trans_id)}/{encode_path_param(amount_)}",
             method="POST",
@@ -2219,6 +2310,9 @@ class RawMoneyInClient:
                     object_=refund_details, annotation=RefundDetail, direction="write"
                 ),
                 "source": source,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -2305,9 +2399,15 @@ class RawMoneyInClient:
         HttpResponse[V2TransactionResponseWrapper]
             Ok
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"v2/MoneyIn/void/{encode_path_param(trans_id)}",
             method="POST",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -2451,6 +2551,9 @@ class AsyncRawMoneyInClient:
         AsyncHttpResponse[AuthResponse]
             Ok
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "MoneyIn/authorize",
             method="POST",
@@ -2480,6 +2583,7 @@ class AsyncRawMoneyInClient:
                 "subscriptionId": subscription_id,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -2576,9 +2680,15 @@ class AsyncRawMoneyInClient:
         AsyncHttpResponse[CaptureResponse]
             Ok
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"MoneyIn/capture/{encode_path_param(trans_id)}/{encode_path_param(amount)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -2675,6 +2785,9 @@ class AsyncRawMoneyInClient:
         AsyncHttpResponse[CaptureResponse]
             Ok
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"MoneyIn/capture/{encode_path_param(trans_id)}",
             method="POST",
@@ -2682,6 +2795,9 @@ class AsyncRawMoneyInClient:
                 "paymentDetails": convert_and_respect_annotation_metadata(
                     object_=payment_details, annotation=CapturePaymentDetails, direction="write"
                 ),
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -2808,6 +2924,9 @@ class AsyncRawMoneyInClient:
 
             A "Missing Gateway Data" message can indicate that the entrypoint targeted in the request isn't set up for ACH payments.
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "MoneyIn/makecredit",
             method="POST",
@@ -2832,6 +2951,7 @@ class AsyncRawMoneyInClient:
                 "subdomain": subdomain,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -2920,9 +3040,15 @@ class AsyncRawMoneyInClient:
         AsyncHttpResponse[TransactionQueryRecordsCustomer]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"MoneyIn/details/{encode_path_param(trans_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -3070,6 +3196,9 @@ class AsyncRawMoneyInClient:
         AsyncHttpResponse[PayabliApiResponseGetPaid]
             Ok
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "MoneyIn/getpaid",
             method="POST",
@@ -3101,6 +3230,7 @@ class AsyncRawMoneyInClient:
                 "subscriptionId": subscription_id,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
                 "validationCode": str(validation_code) if validation_code is not None else None,
@@ -3201,9 +3331,15 @@ class AsyncRawMoneyInClient:
         AsyncHttpResponse[ReverseResponse]
             Ok
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"MoneyIn/reverse/{encode_path_param(trans_id)}/{encode_path_param(amount)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -3299,9 +3435,15 @@ class AsyncRawMoneyInClient:
         AsyncHttpResponse[RefundResponse]
             Ok
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"MoneyIn/refund/{encode_path_param(trans_id)}/{encode_path_param(amount)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -3420,6 +3562,9 @@ class AsyncRawMoneyInClient:
         AsyncHttpResponse[RefundWithInstructionsResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"MoneyIn/refund/{encode_path_param(trans_id)}",
             method="POST",
@@ -3434,6 +3579,7 @@ class AsyncRawMoneyInClient:
                 "source": source,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -3522,9 +3668,15 @@ class AsyncRawMoneyInClient:
         AsyncHttpResponse[PayabliApiResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"MoneyIn/reverseCredit/{encode_path_param(trans_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -3618,11 +3770,17 @@ class AsyncRawMoneyInClient:
         AsyncHttpResponse[ReceiptResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"MoneyIn/sendreceipt/{encode_path_param(trans_id)}",
             method="GET",
             params={
                 "email": email,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -3727,6 +3885,9 @@ class AsyncRawMoneyInClient:
         AsyncHttpResponse[ValidateResponse]
             Ok
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "MoneyIn/validate",
             method="POST",
@@ -3740,6 +3901,7 @@ class AsyncRawMoneyInClient:
                 ),
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -3832,9 +3994,15 @@ class AsyncRawMoneyInClient:
         AsyncHttpResponse[VoidResponse]
             Ok
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"MoneyIn/void/{encode_path_param(trans_id)}",
             method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -3974,6 +4142,9 @@ class AsyncRawMoneyInClient:
         AsyncHttpResponse[V2TransactionResponseWrapper]
             Ok
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "v2/MoneyIn/getpaid",
             method="POST",
@@ -4004,6 +4175,7 @@ class AsyncRawMoneyInClient:
                 "subscriptionId": subscription_id,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
                 "validationCode": str(validation_code) if validation_code is not None else None,
@@ -4142,6 +4314,9 @@ class AsyncRawMoneyInClient:
         AsyncHttpResponse[V2TransactionResponseWrapper]
             Ok
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "v2/MoneyIn/authorize",
             method="POST",
@@ -4171,6 +4346,7 @@ class AsyncRawMoneyInClient:
                 "subscriptionId": subscription_id,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -4265,6 +4441,9 @@ class AsyncRawMoneyInClient:
         AsyncHttpResponse[V2TransactionResponseWrapper]
             Ok
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"v2/MoneyIn/capture/{encode_path_param(trans_id)}",
             method="POST",
@@ -4272,6 +4451,9 @@ class AsyncRawMoneyInClient:
                 "paymentDetails": convert_and_respect_annotation_metadata(
                     object_=payment_details, annotation=CapturePaymentDetails, direction="write"
                 ),
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -4390,6 +4572,9 @@ class AsyncRawMoneyInClient:
         AsyncHttpResponse[V2TransactionResponseWrapper]
             Ok
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"v2/MoneyIn/refund/{encode_path_param(trans_id)}",
             method="POST",
@@ -4402,6 +4587,9 @@ class AsyncRawMoneyInClient:
                     object_=refund_details, annotation=RefundDetail, direction="write"
                 ),
                 "source": source,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -4524,6 +4712,9 @@ class AsyncRawMoneyInClient:
         AsyncHttpResponse[V2TransactionResponseWrapper]
             Ok
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"v2/MoneyIn/refund/{encode_path_param(trans_id)}/{encode_path_param(amount_)}",
             method="POST",
@@ -4536,6 +4727,9 @@ class AsyncRawMoneyInClient:
                     object_=refund_details, annotation=RefundDetail, direction="write"
                 ),
                 "source": source,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
@@ -4622,9 +4816,15 @@ class AsyncRawMoneyInClient:
         AsyncHttpResponse[V2TransactionResponseWrapper]
             Ok
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"v2/MoneyIn/void/{encode_path_param(trans_id)}",
             method="POST",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:

@@ -21,6 +21,10 @@ class PayabliCredentials(UniversalBaseModel):
             description="The identifier for the payment connector, matching the `accountId` of the linked bank account.",
         ),
     ] = None
+    """
+    The identifier for the payment connector, matching the `accountId` of the linked bank account.
+    """
+
     cfee_fix: typing_extensions.Annotated[
         typing.Optional[float], FieldMetadata(alias="cfeeFix"), pydantic.Field(alias="cfeeFix")
     ] = None

@@ -22,6 +22,10 @@ class MethodElementOut(UniversalBaseModel):
             description="Flag indicating if all allowed payment methods will be pre-selected.",
         ),
     ] = None
+    """
+    Flag indicating if all allowed payment methods will be pre-selected.
+    """
+
     allow_multiple_methods: typing_extensions.Annotated[
         typing.Optional[bool],
         FieldMetadata(alias="allowMultipleMethods"),
@@ -30,6 +34,10 @@ class MethodElementOut(UniversalBaseModel):
             description="When `true`, the vendor can select from multiple payment methods. When `false`, only the default method is shown.",
         ),
     ] = None
+    """
+    When `true`, the vendor can select from multiple payment methods. When `false`, only the default method is shown.
+    """
+
     default_method: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="defaultMethod"),
@@ -38,6 +46,10 @@ class MethodElementOut(UniversalBaseModel):
             description='The default payment method to highlight on the payment link page. For example, `"vcard"`, `"ach"`, or `"check"`.',
         ),
     ] = None
+    """
+    The default payment method to highlight on the payment link page. For example, `"vcard"`, `"ach"`, or `"check"`.
+    """
+
     enabled: typing.Optional[bool] = pydantic.Field(default=None)
     """
     When `true`, the payment methods section is displayed on the payment link page.
@@ -62,6 +74,9 @@ class MethodElementOut(UniversalBaseModel):
             description="When `true`, a preview of the virtual card is shown on the payment link page.",
         ),
     ] = None
+    """
+    When `true`, a preview of the virtual card is shown on the payment link page.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

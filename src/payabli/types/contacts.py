@@ -16,21 +16,37 @@ class Contacts(UniversalBaseModel):
         FieldMetadata(alias="contactEmail"),
         pydantic.Field(alias="contactEmail", description="Contact email address."),
     ] = None
+    """
+    Contact email address.
+    """
+
     contact_name: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="contactName"),
         pydantic.Field(alias="contactName", description="Contact name."),
     ] = None
+    """
+    Contact name.
+    """
+
     contact_phone: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="contactPhone"),
         pydantic.Field(alias="contactPhone", description="Contact phone number."),
     ] = None
+    """
+    Contact phone number.
+    """
+
     contact_title: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="contactTitle"),
         pydantic.Field(alias="contactTitle", description="Contact title."),
     ] = None
+    """
+    Contact title.
+    """
+
     additional_data: typing_extensions.Annotated[
         typing.Optional[AdditionalDataString],
         FieldMetadata(alias="additionalData"),

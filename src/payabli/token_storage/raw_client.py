@@ -112,6 +112,9 @@ class RawTokenStorageClient:
         HttpResponse[AddMethodResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             "TokenStorage/add",
             method="POST",
@@ -139,6 +142,7 @@ class RawTokenStorageClient:
                 "subdomain": subdomain,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -246,12 +250,18 @@ class RawTokenStorageClient:
         HttpResponse[GetMethodResponse]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"TokenStorage/{encode_path_param(method_id)}",
             method="GET",
             params={
                 "cardExpirationFormat": card_expiration_format,
                 "includeTemporary": include_temporary,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -378,6 +388,9 @@ class RawTokenStorageClient:
         HttpResponse[PayabliApiResponsePaymethodDelete]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"TokenStorage/{encode_path_param(method_id)}",
             method="PUT",
@@ -402,6 +415,7 @@ class RawTokenStorageClient:
                 "subdomain": subdomain,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -445,9 +459,15 @@ class RawTokenStorageClient:
         HttpResponse[PayabliApiResponsePaymethodDelete]
             Success
         """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = self._client_wrapper.httpx_client.request(
             f"TokenStorage/{encode_path_param(method_id)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
@@ -590,6 +610,9 @@ class AsyncRawTokenStorageClient:
         AsyncHttpResponse[AddMethodResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             "TokenStorage/add",
             method="POST",
@@ -617,6 +640,7 @@ class AsyncRawTokenStorageClient:
                 "subdomain": subdomain,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
                 "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
             },
@@ -724,12 +748,18 @@ class AsyncRawTokenStorageClient:
         AsyncHttpResponse[GetMethodResponse]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"TokenStorage/{encode_path_param(method_id)}",
             method="GET",
             params={
                 "cardExpirationFormat": card_expiration_format,
                 "includeTemporary": include_temporary,
+            },
+            headers={
+                **_endpoint_auth_headers,
             },
             request_options=request_options,
         )
@@ -856,6 +886,9 @@ class AsyncRawTokenStorageClient:
         AsyncHttpResponse[PayabliApiResponsePaymethodDelete]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"TokenStorage/{encode_path_param(method_id)}",
             method="PUT",
@@ -880,6 +913,7 @@ class AsyncRawTokenStorageClient:
                 "subdomain": subdomain,
             },
             headers={
+                **_endpoint_auth_headers,
                 "content-type": "application/json",
             },
             request_options=request_options,
@@ -923,9 +957,15 @@ class AsyncRawTokenStorageClient:
         AsyncHttpResponse[PayabliApiResponsePaymethodDelete]
             Success
         """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
         _response = await self._client_wrapper.httpx_client.request(
             f"TokenStorage/{encode_path_param(method_id)}",
             method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
             request_options=request_options,
         )
         try:
