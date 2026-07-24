@@ -124,8 +124,7 @@ class GhostCardClient:
         from payabli import payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.ghost_card.create_ghost_card(
             entry="8cfec329267",
@@ -203,8 +202,7 @@ class GhostCardClient:
         from payabli import payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.ghost_card.update_card(
             entry="8cfec329267",
@@ -330,8 +328,7 @@ class AsyncGhostCardClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -417,8 +414,7 @@ class AsyncGhostCardClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 

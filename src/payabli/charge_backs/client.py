@@ -77,8 +77,7 @@ class ChargeBacksClient:
         from payabli import payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.charge_backs.add_response(
             id=1000000,
@@ -120,8 +119,7 @@ class ChargeBacksClient:
         from payabli import payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.charge_backs.get_chargeback(
             id=1000000,
@@ -157,8 +155,7 @@ class ChargeBacksClient:
         from payabli import payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.charge_backs.get_chargeback_attachment(
             id=1000000,
@@ -233,8 +230,7 @@ class AsyncChargeBacksClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -284,8 +280,7 @@ class AsyncChargeBacksClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -329,8 +324,7 @@ class AsyncChargeBacksClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 

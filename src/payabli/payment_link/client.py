@@ -145,8 +145,7 @@ class PaymentLinkClient:
         )
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.payment_link.add_pay_link_from_invoice(
             id_invoice=23548884,
@@ -370,8 +369,7 @@ class PaymentLinkClient:
         )
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.payment_link.add_pay_link_from_bill(
             bill_id=54323,
@@ -479,8 +477,7 @@ class PaymentLinkClient:
         from payabli import payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.payment_link.delete_pay_link_from_id(
             pay_link_id="2325-XXXXXXX-90b1-4598-b6c7-44cdcbf495d7-1234",
@@ -513,8 +510,7 @@ class PaymentLinkClient:
         from payabli import payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.payment_link.get_pay_link_from_id(
             paylink_id="2325-XXXXXXX-90b1-4598-b6c7-44cdcbf495d7-1234",
@@ -549,8 +545,7 @@ class PaymentLinkClient:
         from payabli import PushPayLinkRequest_Sms, payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.payment_link.push_pay_link_from_id(
             pay_link_id="2325-XXXXXXX-90b1-4598-b6c7-44cdcbf495d7-1234",
@@ -593,8 +588,7 @@ class PaymentLinkClient:
         from payabli import payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.payment_link.refresh_pay_link_from_id(
             pay_link_id="2325-XXXXXXX-90b1-4598-b6c7-44cdcbf495d7-1234",
@@ -640,8 +634,7 @@ class PaymentLinkClient:
         from payabli import payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.payment_link.send_pay_link_from_id(
             pay_link_id="2325-XXXXXXX-90b1-4598-b6c7-44cdcbf495d7-1234",
@@ -716,8 +709,7 @@ class PaymentLinkClient:
         from payabli import LabelElement, NoteElement, payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.payment_link.update_pay_link_from_id(
             pay_link_id="2325-XXXXXXX-90b1-4598-b6c7-44cdcbf495d7-1234",
@@ -844,8 +836,7 @@ class PaymentLinkClient:
         )
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.payment_link.add_pay_link_from_bill_lot_number(
             lot_number="LOT-2024-001",
@@ -972,8 +963,7 @@ class PaymentLinkClient:
         from payabli import payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.payment_link.patch_out_payment_link(
             paylink_id="2325-XXXXXXX-90b1-4598-b6c7-44cdcbf495d7-1234",
@@ -1068,8 +1058,7 @@ class PaymentLinkClient:
         )
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.payment_link.update_pay_link_out_from_id(
             paylink_id="2325-XXXXXXX-90b1-4598-b6c7-44cdcbf495d7-1234",
@@ -1269,8 +1258,7 @@ class AsyncPaymentLinkClient:
         )
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -1502,8 +1490,7 @@ class AsyncPaymentLinkClient:
         )
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -1619,8 +1606,7 @@ class AsyncPaymentLinkClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -1661,8 +1647,7 @@ class AsyncPaymentLinkClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -1705,8 +1690,7 @@ class AsyncPaymentLinkClient:
         from payabli import Asyncpayabli, PushPayLinkRequest_Sms
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -1757,8 +1741,7 @@ class AsyncPaymentLinkClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -1812,8 +1795,7 @@ class AsyncPaymentLinkClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -1896,8 +1878,7 @@ class AsyncPaymentLinkClient:
         from payabli import Asyncpayabli, LabelElement, NoteElement
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -2032,8 +2013,7 @@ class AsyncPaymentLinkClient:
         )
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -2168,8 +2148,7 @@ class AsyncPaymentLinkClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -2272,8 +2251,7 @@ class AsyncPaymentLinkClient:
         )
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 

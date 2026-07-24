@@ -111,8 +111,7 @@ class PayoutSubscriptionClient:
         )
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.payout_subscription.create_payout_subscription(
             entry_point="8cfec329267",
@@ -190,8 +189,7 @@ class PayoutSubscriptionClient:
         from payabli import payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.payout_subscription.get_payout_subscription(
             id=42,
@@ -241,8 +239,7 @@ class PayoutSubscriptionClient:
         from payabli import payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.payout_subscription.update_payout_subscription(
             id=42,
@@ -283,8 +280,7 @@ class PayoutSubscriptionClient:
         from payabli import payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.payout_subscription.delete_payout_subscription(
             id=42,
@@ -381,8 +377,7 @@ class AsyncPayoutSubscriptionClient:
         )
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -468,8 +463,7 @@ class AsyncPayoutSubscriptionClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -527,8 +521,7 @@ class AsyncPayoutSubscriptionClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -577,8 +570,7 @@ class AsyncPayoutSubscriptionClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 

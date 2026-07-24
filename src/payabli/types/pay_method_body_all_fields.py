@@ -61,7 +61,7 @@ class PayMethodBodyAllFields(UniversalBaseModel):
     cardnumber: typing.Optional[Cardnumber] = None
     cardzip: typing.Optional[Cardzip] = None
     device: typing.Optional[Device] = None
-    initator: typing.Optional[Initiator] = None
+    initiator: typing.Optional[Initiator] = None
     method: typing.Optional[Methodall] = None
     save_if_success: typing_extensions.Annotated[
         typing.Optional[SaveIfSuccess], FieldMetadata(alias="saveIfSuccess"), pydantic.Field(alias="saveIfSuccess")

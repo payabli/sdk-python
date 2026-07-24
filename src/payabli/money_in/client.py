@@ -136,8 +136,7 @@ class MoneyInClient:
         from payabli import PaymentDetail, PayMethodCredit, PayorDataRequest, payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.money_in.authorize(
             customer_data=PayorDataRequest(
@@ -211,8 +210,7 @@ class MoneyInClient:
         from payabli import payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.money_in.capture(
             trans_id="10-7d9cd67d-2d5d-4cd7-a1b7-72b8b201ec13",
@@ -258,8 +256,7 @@ class MoneyInClient:
         from payabli import CapturePaymentDetails, payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.money_in.capture_auth(
             trans_id="10-7d9cd67d-2d5d-4cd7-a1b7-72b8b201ec13",
@@ -343,8 +340,7 @@ class MoneyInClient:
         )
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.money_in.credit(
             idempotency_key="6B29FC40-CA47-1067-B31D-00DD010662DA",
@@ -406,8 +402,7 @@ class MoneyInClient:
         from payabli import payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.money_in.details(
             trans_id="45-as456777hhhhhhhhhh77777777-324",
@@ -503,8 +498,7 @@ class MoneyInClient:
         from payabli import PaymentDetail, PayMethodCredit, PayorDataRequest, payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.money_in.getpaid(
             customer_data=PayorDataRequest(
@@ -584,8 +578,7 @@ class MoneyInClient:
         from payabli import payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.money_in.reverse(
             trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
@@ -630,8 +623,7 @@ class MoneyInClient:
         from payabli import payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.money_in.refund(
             trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
@@ -699,8 +691,7 @@ class MoneyInClient:
         from payabli import RefundDetail, SplitFundingRefundContent, payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.money_in.refund_with_instructions(
             trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
@@ -763,8 +754,7 @@ class MoneyInClient:
         from payabli import payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.money_in.reverse_credit(
             trans_id="45-as456777hhhhhhhhhh77777777-324",
@@ -806,8 +796,7 @@ class MoneyInClient:
         from payabli import payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.money_in.send_receipt_2_trans(
             trans_id="45-as456777hhhhhhhhhh77777777-324",
@@ -860,8 +849,7 @@ class MoneyInClient:
         from payabli import RequestPaymentValidatePaymentMethod, payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.money_in.validate(
             idempotency_key="6B29FC40-CA47-1067-B31D-00DD010662DA",
@@ -912,8 +900,7 @@ class MoneyInClient:
         from payabli import payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.money_in.void(
             trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
@@ -1001,8 +988,7 @@ class MoneyInClient:
         from payabli import PaymentDetail, PayMethodCredit, PayorDataRequest, payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.money_in.getpaidv_2(
             customer_data=PayorDataRequest(
@@ -1119,8 +1105,7 @@ class MoneyInClient:
         from payabli import PaymentDetail, PayMethodCredit, PayorDataRequest, payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.money_in.authorizev_2(
             customer_data=PayorDataRequest(
@@ -1192,8 +1177,7 @@ class MoneyInClient:
         from payabli import CapturePaymentDetails, payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.money_in.capturev_2(
             trans_id="10-7d9cd67d-2d5d-4cd7-a1b7-72b8b201ec13",
@@ -1264,8 +1248,7 @@ class MoneyInClient:
         from payabli import payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.money_in.refundv_2(
             trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
@@ -1343,8 +1326,7 @@ class MoneyInClient:
         from payabli import payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.money_in.refundv_2_amount(
             trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
@@ -1388,8 +1370,7 @@ class MoneyInClient:
         from payabli import payabli
 
         client = payabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
         client.money_in.voidv_2(
             trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
@@ -1499,8 +1480,7 @@ class AsyncMoneyInClient:
         )
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -1582,8 +1562,7 @@ class AsyncMoneyInClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -1637,8 +1616,7 @@ class AsyncMoneyInClient:
         from payabli import Asyncpayabli, CapturePaymentDetails
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -1730,8 +1708,7 @@ class AsyncMoneyInClient:
         )
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -1801,8 +1778,7 @@ class AsyncMoneyInClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -1911,8 +1887,7 @@ class AsyncMoneyInClient:
         )
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -2000,8 +1975,7 @@ class AsyncMoneyInClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -2054,8 +2028,7 @@ class AsyncMoneyInClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -2131,8 +2104,7 @@ class AsyncMoneyInClient:
         from payabli import Asyncpayabli, RefundDetail, SplitFundingRefundContent
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -2203,8 +2175,7 @@ class AsyncMoneyInClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -2254,8 +2225,7 @@ class AsyncMoneyInClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -2316,8 +2286,7 @@ class AsyncMoneyInClient:
         from payabli import Asyncpayabli, RequestPaymentValidatePaymentMethod
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -2376,8 +2345,7 @@ class AsyncMoneyInClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -2478,8 +2446,7 @@ class AsyncMoneyInClient:
         )
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -2609,8 +2576,7 @@ class AsyncMoneyInClient:
         )
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -2690,8 +2656,7 @@ class AsyncMoneyInClient:
         from payabli import Asyncpayabli, CapturePaymentDetails
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -2770,8 +2735,7 @@ class AsyncMoneyInClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -2857,8 +2821,7 @@ class AsyncMoneyInClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -2910,8 +2873,7 @@ class AsyncMoneyInClient:
         from payabli import Asyncpayabli
 
         client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
+            api_key="YOUR_API_KEY",
         )
 
 

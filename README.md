@@ -74,8 +74,7 @@ Instantiate and use the client with the following:
 from payabli import payabli, PayorDataRequest, PaymentDetail, PayMethodCredit
 
 client = payabli(
-    client_id="<clientId>",
-    client_secret="<clientSecret>",
+    api_key="<value>",
 )
 
 client.money_in.getpaidv_2(
@@ -123,8 +122,7 @@ import asyncio
 from payabli import Asyncpayabli
 
 client = Asyncpayabli(
-    client_id="<clientId>",
-    client_secret="<clientSecret>",
+    api_key="<value>",
 )
 
 

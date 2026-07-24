@@ -11,8 +11,7 @@ class BaseClientWrapper:
     def __init__(
         self,
         *,
-        api_key: typing.Optional[str] = None,
-        token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
+        api_key: str,
         headers: typing.Optional[typing.Dict[str, str]] = None,
         base_url: str,
         timeout: typing.Optional[float] = None,
@@ -22,7 +21,6 @@ class BaseClientWrapper:
         logging: typing.Optional[typing.Union[LogConfig, Logger]] = None,
     ):
         self.api_key = api_key
-        self._token = token
         self._headers = headers
         self._base_url = base_url
         self._timeout = timeout
@@ -35,26 +33,16 @@ class BaseClientWrapper:
         import platform
 
         headers: typing.Dict[str, str] = {
-            "User-Agent": "payabli/1.0.4",
+            "User-Agent": "payabli/1.0.5",
             "X-Fern-Language": "Python",
             "X-Fern-Runtime": f"python/{platform.python_version()}",
             "X-Fern-Platform": f"{platform.system().lower()}/{platform.release()}",
             "X-Fern-SDK-Name": "payabli",
-            "X-Fern-SDK-Version": "1.0.4",
+            "X-Fern-SDK-Version": "1.0.5",
             **(self.get_custom_headers() or {}),
         }
-        if self.api_key is not None:
-            headers["requestToken"] = self.api_key
-        token = self._get_token()
-        if token is not None:
-            headers["Authorization"] = f"Bearer {token}"
+        headers["requestToken"] = self.api_key
         return headers
-
-    def _get_token(self) -> typing.Optional[str]:
-        if isinstance(self._token, str) or self._token is None:
-            return self._token
-        else:
-            return self._token()
 
     def get_custom_headers(self) -> typing.Optional[typing.Dict[str, str]]:
         return self._headers
@@ -79,8 +67,7 @@ class SyncClientWrapper(BaseClientWrapper):
     def __init__(
         self,
         *,
-        api_key: typing.Optional[str] = None,
-        token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
+        api_key: str,
         headers: typing.Optional[typing.Dict[str, str]] = None,
         base_url: str,
         timeout: typing.Optional[float] = None,
@@ -92,7 +79,6 @@ class SyncClientWrapper(BaseClientWrapper):
     ):
         super().__init__(
             api_key=api_key,
-            token=token,
             headers=headers,
             base_url=base_url,
             timeout=timeout,
@@ -115,8 +101,7 @@ class AsyncClientWrapper(BaseClientWrapper):
     def __init__(
         self,
         *,
-        api_key: typing.Optional[str] = None,
-        token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
+        api_key: str,
         headers: typing.Optional[typing.Dict[str, str]] = None,
         base_url: str,
         timeout: typing.Optional[float] = None,
@@ -129,7 +114,6 @@ class AsyncClientWrapper(BaseClientWrapper):
     ):
         super().__init__(
             api_key=api_key,
-            token=token,
             headers=headers,
             base_url=base_url,
             timeout=timeout,
