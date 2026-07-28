@@ -82,6 +82,7 @@ if typing.TYPE_CHECKING:
     from .application_details_record_messages_item import ApplicationDetailsRecordMessagesItem
     from .application_query_record import ApplicationQueryRecord
     from .associated_vendor import AssociatedVendor
+    from .attachment_response import AttachmentResponse
     from .attachments import Attachments
     from .attestation_date import AttestationDate
     from .auth_capture_payout_response import AuthCapturePayoutResponse
@@ -93,6 +94,7 @@ if typing.TYPE_CHECKING:
     from .authorize_payment_method import AuthorizePaymentMethod
     from .auto_capture import AutoCapture
     from .auto_element import AutoElement
+    from .available_transitions_response import AvailableTransitionsResponse
     from .avgmonthly import Avgmonthly
     from .avgticketamt import Avgticketamt
     from .avs_response import AvsResponse
@@ -103,14 +105,19 @@ if typing.TYPE_CHECKING:
     from .baddress_1 import Baddress1
     from .baddress_2 import Baddress2
     from .bank import Bank
+    from .bank_account_change_parameters import BankAccountChangeParameters
+    from .bank_account_change_parameters_type import BankAccountChangeParametersType
     from .bank_account_function import BankAccountFunction
     from .bank_account_holder_name import BankAccountHolderName
     from .bank_account_holder_type import BankAccountHolderType
+    from .bank_account_services import BankAccountServices
     from .bank_account_verification_details_response import BankAccountVerificationDetailsResponse
     from .bank_data import BankData
     from .bank_name import BankName
     from .bank_nickname import BankNickname
+    from .bank_review_decision_reason import BankReviewDecisionReason
     from .bank_section import BankSection
+    from .bank_verification_metadata import BankVerificationMetadata
     from .basic_table import BasicTable
     from .basic_template_element import BasicTemplateElement
     from .batch_detail_response_record import BatchDetailResponseRecord
@@ -205,6 +212,14 @@ if typing.TYPE_CHECKING:
     from .cardzip import Cardzip
     from .cascade import Cascade
     from .cascade_job_details import CascadeJobDetails
+    from .case_list_response import CaseListResponse
+    from .case_list_summary import CaseListSummary
+    from .case_management_bank_account_function import CaseManagementBankAccountFunction
+    from .case_metadata import CaseMetadata
+    from .case_response import CaseResponse
+    from .case_state import CaseState
+    from .case_trigger import CaseTrigger
+    from .case_type import CaseType
     from .cash import Cash
     from .cash_method import CashMethod
     from .category import Category
@@ -382,6 +397,7 @@ if typing.TYPE_CHECKING:
     from .mcc import Mcc
     from .mcity import Mcity
     from .mcountry import Mcountry
+    from .message_page import MessagePage
     from .method_element import MethodElement
     from .method_element_out import MethodElementOut
     from .method_element_settings import MethodElementSettings
@@ -402,6 +418,8 @@ if typing.TYPE_CHECKING:
     from .migrate_paypoint_response import MigratePaypointResponse
     from .min_ticket import MinTicket
     from .modify_approval_bill_response import ModifyApprovalBillResponse
+    from .money_in_service import MoneyInService
+    from .money_out_service import MoneyOutService
     from .mstate import Mstate
     from .mzip import Mzip
     from .name_user import NameUser
@@ -451,6 +469,7 @@ if typing.TYPE_CHECKING:
     from .org_data import OrgData
     from .org_parent_id import OrgParentId
     from .org_parent_name import OrgParentName
+    from .org_ref import OrgRef
     from .org_scope import OrgScope
     from .org_x_scope import OrgXScope
     from .orgaddress import Orgaddress
@@ -555,6 +574,7 @@ if typing.TYPE_CHECKING:
     from .paypoint_entry_config import PaypointEntryConfig
     from .paypoint_id import PaypointId
     from .paypoint_name import PaypointName
+    from .paypoint_ref import PaypointRef
     from .paypoint_summary import PaypointSummary
     from .paypointstatus import Paypointstatus
     from .pci_attestation import PciAttestation
@@ -564,6 +584,8 @@ if typing.TYPE_CHECKING:
     from .policy_id import PolicyId
     from .pos_col import PosCol
     from .pos_row import PosRow
+    from .posted_message import PostedMessage
+    from .pre_creation_validation_result import PreCreationValidationResult
     from .processing_section import ProcessingSection
     from .purchase_order import PurchaseOrder
     from .push_pay_link_request import PushPayLinkRequest, PushPayLinkRequest_Email, PushPayLinkRequest_Sms
@@ -672,6 +694,7 @@ if typing.TYPE_CHECKING:
     from .retrieval_id import RetrievalId
     from .returned_id import ReturnedId
     from .reverse_response import ReverseResponse
+    from .review_decision_metadata import ReviewDecisionMetadata
     from .risk_action import RiskAction
     from .risk_action_code import RiskActionCode
     from .risk_flagged import RiskFlagged
@@ -679,6 +702,7 @@ if typing.TYPE_CHECKING:
     from .risk_reason import RiskReason
     from .risk_status import RiskStatus
     from .room_id_not_in_use import RoomIdNotInUse
+    from .room_message_view import RoomMessageView
     from .routing_account import RoutingAccount
     from .s_section import SSection
     from .sales_code import SalesCode
@@ -731,6 +755,7 @@ if typing.TYPE_CHECKING:
     from .stat_basic_extended_query_record import StatBasicExtendedQueryRecord
     from .stat_basic_query_record import StatBasicQueryRecord
     from .state_nullable import StateNullable
+    from .state_transition_response import StateTransitionResponse
     from .statement_email_config import StatementEmailConfig
     from .statistics_vendor_query_record import StatisticsVendorQueryRecord
     from .statusnotification import Statusnotification
@@ -818,6 +843,7 @@ if typing.TYPE_CHECKING:
     from .update_subscription_response import UpdateSubscriptionResponse
     from .user_data import UserData
     from .user_query_record import UserQueryRecord
+    from .user_ref import UserRef
     from .usr_access import UsrAccess
     from .usr_status import UsrStatus
     from .v_2_bad_request_error import V2BadRequestError
@@ -878,6 +904,7 @@ if typing.TYPE_CHECKING:
     from .vendorid import Vendorid
     from .vendoridtrans import Vendoridtrans
     from .vendorstatus import Vendorstatus
+    from .verification_code import VerificationCode
     from .verify_account_details_response import VerifyAccountDetailsResponse
     from .visible import Visible
     from .void_response import VoidResponse
@@ -968,6 +995,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ApplicationDetailsRecordMessagesItem": ".application_details_record_messages_item",
     "ApplicationQueryRecord": ".application_query_record",
     "AssociatedVendor": ".associated_vendor",
+    "AttachmentResponse": ".attachment_response",
     "Attachments": ".attachments",
     "AttestationDate": ".attestation_date",
     "AuthCapturePayoutResponse": ".auth_capture_payout_response",
@@ -979,6 +1007,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AuthorizePaymentMethod": ".authorize_payment_method",
     "AutoCapture": ".auto_capture",
     "AutoElement": ".auto_element",
+    "AvailableTransitionsResponse": ".available_transitions_response",
     "Avgmonthly": ".avgmonthly",
     "Avgticketamt": ".avgticketamt",
     "AvsResponse": ".avs_response",
@@ -989,14 +1018,19 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Baddress1": ".baddress_1",
     "Baddress2": ".baddress_2",
     "Bank": ".bank",
+    "BankAccountChangeParameters": ".bank_account_change_parameters",
+    "BankAccountChangeParametersType": ".bank_account_change_parameters_type",
     "BankAccountFunction": ".bank_account_function",
     "BankAccountHolderName": ".bank_account_holder_name",
     "BankAccountHolderType": ".bank_account_holder_type",
+    "BankAccountServices": ".bank_account_services",
     "BankAccountVerificationDetailsResponse": ".bank_account_verification_details_response",
     "BankData": ".bank_data",
     "BankName": ".bank_name",
     "BankNickname": ".bank_nickname",
+    "BankReviewDecisionReason": ".bank_review_decision_reason",
     "BankSection": ".bank_section",
+    "BankVerificationMetadata": ".bank_verification_metadata",
     "BasicTable": ".basic_table",
     "BasicTemplateElement": ".basic_template_element",
     "BatchDetailResponseRecord": ".batch_detail_response_record",
@@ -1091,6 +1125,14 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Cardzip": ".cardzip",
     "Cascade": ".cascade",
     "CascadeJobDetails": ".cascade_job_details",
+    "CaseListResponse": ".case_list_response",
+    "CaseListSummary": ".case_list_summary",
+    "CaseManagementBankAccountFunction": ".case_management_bank_account_function",
+    "CaseMetadata": ".case_metadata",
+    "CaseResponse": ".case_response",
+    "CaseState": ".case_state",
+    "CaseTrigger": ".case_trigger",
+    "CaseType": ".case_type",
     "Cash": ".cash",
     "CashMethod": ".cash_method",
     "Category": ".category",
@@ -1266,6 +1308,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Mcc": ".mcc",
     "Mcity": ".mcity",
     "Mcountry": ".mcountry",
+    "MessagePage": ".message_page",
     "MethodElement": ".method_element",
     "MethodElementOut": ".method_element_out",
     "MethodElementSettings": ".method_element_settings",
@@ -1286,6 +1329,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "MigratePaypointResponse": ".migrate_paypoint_response",
     "MinTicket": ".min_ticket",
     "ModifyApprovalBillResponse": ".modify_approval_bill_response",
+    "MoneyInService": ".money_in_service",
+    "MoneyOutService": ".money_out_service",
     "Mstate": ".mstate",
     "Mzip": ".mzip",
     "NameUser": ".name_user",
@@ -1335,6 +1380,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "OrgData": ".org_data",
     "OrgParentId": ".org_parent_id",
     "OrgParentName": ".org_parent_name",
+    "OrgRef": ".org_ref",
     "OrgScope": ".org_scope",
     "OrgXScope": ".org_x_scope",
     "Orgaddress": ".orgaddress",
@@ -1439,6 +1485,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaypointEntryConfig": ".paypoint_entry_config",
     "PaypointId": ".paypoint_id",
     "PaypointName": ".paypoint_name",
+    "PaypointRef": ".paypoint_ref",
     "PaypointSummary": ".paypoint_summary",
     "Paypointstatus": ".paypointstatus",
     "PciAttestation": ".pci_attestation",
@@ -1448,6 +1495,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PolicyId": ".policy_id",
     "PosCol": ".pos_col",
     "PosRow": ".pos_row",
+    "PostedMessage": ".posted_message",
+    "PreCreationValidationResult": ".pre_creation_validation_result",
     "ProcessingSection": ".processing_section",
     "PurchaseOrder": ".purchase_order",
     "PushPayLinkRequest": ".push_pay_link_request",
@@ -1558,6 +1607,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrievalId": ".retrieval_id",
     "ReturnedId": ".returned_id",
     "ReverseResponse": ".reverse_response",
+    "ReviewDecisionMetadata": ".review_decision_metadata",
     "RiskAction": ".risk_action",
     "RiskActionCode": ".risk_action_code",
     "RiskFlagged": ".risk_flagged",
@@ -1565,6 +1615,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RiskReason": ".risk_reason",
     "RiskStatus": ".risk_status",
     "RoomIdNotInUse": ".room_id_not_in_use",
+    "RoomMessageView": ".room_message_view",
     "RoutingAccount": ".routing_account",
     "SSection": ".s_section",
     "SalesCode": ".sales_code",
@@ -1617,6 +1668,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "StatBasicExtendedQueryRecord": ".stat_basic_extended_query_record",
     "StatBasicQueryRecord": ".stat_basic_query_record",
     "StateNullable": ".state_nullable",
+    "StateTransitionResponse": ".state_transition_response",
     "StatementEmailConfig": ".statement_email_config",
     "StatisticsVendorQueryRecord": ".statistics_vendor_query_record",
     "Statusnotification": ".statusnotification",
@@ -1704,6 +1756,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateSubscriptionResponse": ".update_subscription_response",
     "UserData": ".user_data",
     "UserQueryRecord": ".user_query_record",
+    "UserRef": ".user_ref",
     "UsrAccess": ".usr_access",
     "UsrStatus": ".usr_status",
     "V2BadRequestError": ".v_2_bad_request_error",
@@ -1764,6 +1817,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Vendorid": ".vendorid",
     "Vendoridtrans": ".vendoridtrans",
     "Vendorstatus": ".vendorstatus",
+    "VerificationCode": ".verification_code",
     "VerifyAccountDetailsResponse": ".verify_account_details_response",
     "Visible": ".visible",
     "VoidResponse": ".void_response",
@@ -1878,6 +1932,7 @@ __all__ = [
     "ApplicationDetailsRecordMessagesItem",
     "ApplicationQueryRecord",
     "AssociatedVendor",
+    "AttachmentResponse",
     "Attachments",
     "AttestationDate",
     "AuthCapturePayoutResponse",
@@ -1889,6 +1944,7 @@ __all__ = [
     "AuthorizePaymentMethod",
     "AutoCapture",
     "AutoElement",
+    "AvailableTransitionsResponse",
     "Avgmonthly",
     "Avgticketamt",
     "AvsResponse",
@@ -1899,14 +1955,19 @@ __all__ = [
     "Baddress1",
     "Baddress2",
     "Bank",
+    "BankAccountChangeParameters",
+    "BankAccountChangeParametersType",
     "BankAccountFunction",
     "BankAccountHolderName",
     "BankAccountHolderType",
+    "BankAccountServices",
     "BankAccountVerificationDetailsResponse",
     "BankData",
     "BankName",
     "BankNickname",
+    "BankReviewDecisionReason",
     "BankSection",
+    "BankVerificationMetadata",
     "BasicTable",
     "BasicTemplateElement",
     "BatchDetailResponseRecord",
@@ -2001,6 +2062,14 @@ __all__ = [
     "Cardzip",
     "Cascade",
     "CascadeJobDetails",
+    "CaseListResponse",
+    "CaseListSummary",
+    "CaseManagementBankAccountFunction",
+    "CaseMetadata",
+    "CaseResponse",
+    "CaseState",
+    "CaseTrigger",
+    "CaseType",
     "Cash",
     "CashMethod",
     "Category",
@@ -2176,6 +2245,7 @@ __all__ = [
     "Mcc",
     "Mcity",
     "Mcountry",
+    "MessagePage",
     "MethodElement",
     "MethodElementOut",
     "MethodElementSettings",
@@ -2196,6 +2266,8 @@ __all__ = [
     "MigratePaypointResponse",
     "MinTicket",
     "ModifyApprovalBillResponse",
+    "MoneyInService",
+    "MoneyOutService",
     "Mstate",
     "Mzip",
     "NameUser",
@@ -2245,6 +2317,7 @@ __all__ = [
     "OrgData",
     "OrgParentId",
     "OrgParentName",
+    "OrgRef",
     "OrgScope",
     "OrgXScope",
     "Orgaddress",
@@ -2349,6 +2422,7 @@ __all__ = [
     "PaypointEntryConfig",
     "PaypointId",
     "PaypointName",
+    "PaypointRef",
     "PaypointSummary",
     "Paypointstatus",
     "PciAttestation",
@@ -2358,6 +2432,8 @@ __all__ = [
     "PolicyId",
     "PosCol",
     "PosRow",
+    "PostedMessage",
+    "PreCreationValidationResult",
     "ProcessingSection",
     "PurchaseOrder",
     "PushPayLinkRequest",
@@ -2468,6 +2544,7 @@ __all__ = [
     "RetrievalId",
     "ReturnedId",
     "ReverseResponse",
+    "ReviewDecisionMetadata",
     "RiskAction",
     "RiskActionCode",
     "RiskFlagged",
@@ -2475,6 +2552,7 @@ __all__ = [
     "RiskReason",
     "RiskStatus",
     "RoomIdNotInUse",
+    "RoomMessageView",
     "RoutingAccount",
     "SSection",
     "SalesCode",
@@ -2527,6 +2605,7 @@ __all__ = [
     "StatBasicExtendedQueryRecord",
     "StatBasicQueryRecord",
     "StateNullable",
+    "StateTransitionResponse",
     "StatementEmailConfig",
     "StatisticsVendorQueryRecord",
     "Statusnotification",
@@ -2614,6 +2693,7 @@ __all__ = [
     "UpdateSubscriptionResponse",
     "UserData",
     "UserQueryRecord",
+    "UserRef",
     "UsrAccess",
     "UsrStatus",
     "V2BadRequestError",
@@ -2674,6 +2754,7 @@ __all__ = [
     "Vendorid",
     "Vendoridtrans",
     "Vendorstatus",
+    "VerificationCode",
     "VerifyAccountDetailsResponse",
     "Visible",
     "VoidResponse",

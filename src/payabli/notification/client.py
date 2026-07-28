@@ -63,7 +63,7 @@ class NotificationClient:
         client.notification.add_notification(
             request=NotificationStandardRequest(
                 content=NotificationStandardRequestContent(
-                    event_type="CreatedApplication",
+                    event_type="createdapplication",
                 ),
                 frequency="untilcancelled",
                 method="web",
@@ -148,7 +148,7 @@ class NotificationClient:
             n_id="1717",
             request=NotificationStandardRequest(
                 content=NotificationStandardRequestContent(
-                    event_type="ApprovedPayment",
+                    event_type="approvedpayment",
                 ),
                 frequency="untilcancelled",
                 method="email",
@@ -282,7 +282,7 @@ class AsyncNotificationClient:
             await client.notification.add_notification(
                 request=NotificationStandardRequest(
                     content=NotificationStandardRequestContent(
-                        event_type="CreatedApplication",
+                        event_type="createdapplication",
                     ),
                     frequency="untilcancelled",
                     method="web",
@@ -383,7 +383,7 @@ class AsyncNotificationClient:
                 n_id="1717",
                 request=NotificationStandardRequest(
                     content=NotificationStandardRequestContent(
-                        event_type="ApprovedPayment",
+                        event_type="approvedpayment",
                     ),
                     frequency="untilcancelled",
                     method="email",

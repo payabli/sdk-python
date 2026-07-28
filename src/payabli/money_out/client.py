@@ -60,6 +60,7 @@ class MoneyOutClient:
         allow_duplicated_bills: typing.Optional[bool] = None,
         do_not_create_bills: typing.Optional[bool] = None,
         force_vendor_creation: typing.Optional[bool] = None,
+        same_day_ach: typing.Optional[bool] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         source: typing.Optional[Source] = OMIT,
         order_id: typing.Optional[OrderId] = OMIT,
@@ -75,7 +76,7 @@ class MoneyOutClient:
 
         If you don't pass `autoCapture` with a value of `true`, authorized transactions aren't flagged for settlement until captured. Use the `referenceId` returned in the response to capture the transaction.
 
-        When `autoCapture` is `true`, Payabli captures the transaction asynchronously after authorization. The response confirms only that the transaction was authorized; it doesn't confirm that capture succeeded. To confirm capture, listen for the [`payout_transaction_approvedcaptured`](/developers/api-reference/webhooks-overview/payout-transaction-approved-captured) webhook event.
+        When `autoCapture` is `true`, Payabli captures the transaction asynchronously after authorization. The response confirms only that the transaction was authorized; it doesn't confirm that capture succeeded. To confirm capture, listen for the [`payout_transaction_approvedcaptured`](/developers/webhooks/payout-transaction-approved-captured) webhook event.
 
         If a velocity fraud alert is triggered, the endpoint returns a `202` response with `responseCode` `9051`, and the authorization is held for risk review rather than rejected. If a risk policy blocks the transaction, the endpoint returns a `422` response with `responseCode` `9005`, a terminal rejection.
 
@@ -104,6 +105,11 @@ class MoneyOutClient:
 
         force_vendor_creation : typing.Optional[bool]
             When `true`, the request creates a new vendor record, regardless of whether the vendor already exists.
+
+        same_day_ach : typing.Optional[bool]
+            When `true`, Payabli authorizes the payout for same-day ACH processing instead of standard ACH. Same-day ACH must be enabled for the paypoint, otherwise the authorization fails with a `400` response and `responseCode` `3492`. Only ACH payouts honor this flag. Wire and RTP payouts ignore it.
+
+            Same-day ACH has a daily cutoff. Capture the transaction before the cutoff, or pass `autoConvertSameDayAch` with a value of `true` when you capture it.
 
         idempotency_key : typing.Optional[IdempotencyKey]
             _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
@@ -174,6 +180,7 @@ class MoneyOutClient:
             allow_duplicated_bills=allow_duplicated_bills,
             do_not_create_bills=do_not_create_bills,
             force_vendor_creation=force_vendor_creation,
+            same_day_ach=same_day_ach,
             idempotency_key=idempotency_key,
             source=source,
             order_id=order_id,
@@ -291,6 +298,7 @@ class MoneyOutClient:
         self,
         *,
         request: typing.Sequence[str],
+        auto_convert_same_day_ach: typing.Optional[bool] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CaptureAllOutResponse:
@@ -300,6 +308,11 @@ class MoneyOutClient:
         Parameters
         ----------
         request : typing.Sequence[str]
+
+        auto_convert_same_day_ach : typing.Optional[bool]
+            Controls what happens to a payout authorized with `sameDayACH` set to `true` when you capture it after the same-day ACH cutoff. When `true`, Payabli converts the payout to a standard ACH payment and captures it. When `false`, the capture is declined.
+
+            This parameter has no effect on payouts that weren't authorized for same-day ACH.
 
         idempotency_key : typing.Optional[IdempotencyKey]
             _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
@@ -325,7 +338,10 @@ class MoneyOutClient:
         )
         """
         _response = self._raw_client.capture_all_out(
-            request=request, idempotency_key=idempotency_key, request_options=request_options
+            request=request,
+            auto_convert_same_day_ach=auto_convert_same_day_ach,
+            idempotency_key=idempotency_key,
+            request_options=request_options,
         )
         return _response.data
 
@@ -333,6 +349,7 @@ class MoneyOutClient:
         self,
         reference_id: str,
         *,
+        auto_convert_same_day_ach: typing.Optional[bool] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AuthCapturePayoutResponse:
@@ -345,6 +362,11 @@ class MoneyOutClient:
         ----------
         reference_id : str
             The ID for the payout transaction.
+
+        auto_convert_same_day_ach : typing.Optional[bool]
+            Controls what happens to a payout authorized with `sameDayACH` set to `true` when you capture it after the same-day ACH cutoff. When `true`, Payabli converts the payout to a standard ACH payment and captures it. When `false`, the capture is declined.
+
+            This parameter has no effect on payouts that weren't authorized for same-day ACH.
 
         idempotency_key : typing.Optional[IdempotencyKey]
             _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
@@ -370,7 +392,10 @@ class MoneyOutClient:
         )
         """
         _response = self._raw_client.capture_out(
-            reference_id, idempotency_key=idempotency_key, request_options=request_options
+            reference_id,
+            auto_convert_same_day_ach=auto_convert_same_day_ach,
+            idempotency_key=idempotency_key,
+            request_options=request_options,
         )
         return _response.data
 
@@ -706,6 +731,7 @@ class AsyncMoneyOutClient:
         allow_duplicated_bills: typing.Optional[bool] = None,
         do_not_create_bills: typing.Optional[bool] = None,
         force_vendor_creation: typing.Optional[bool] = None,
+        same_day_ach: typing.Optional[bool] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         source: typing.Optional[Source] = OMIT,
         order_id: typing.Optional[OrderId] = OMIT,
@@ -721,7 +747,7 @@ class AsyncMoneyOutClient:
 
         If you don't pass `autoCapture` with a value of `true`, authorized transactions aren't flagged for settlement until captured. Use the `referenceId` returned in the response to capture the transaction.
 
-        When `autoCapture` is `true`, Payabli captures the transaction asynchronously after authorization. The response confirms only that the transaction was authorized; it doesn't confirm that capture succeeded. To confirm capture, listen for the [`payout_transaction_approvedcaptured`](/developers/api-reference/webhooks-overview/payout-transaction-approved-captured) webhook event.
+        When `autoCapture` is `true`, Payabli captures the transaction asynchronously after authorization. The response confirms only that the transaction was authorized; it doesn't confirm that capture succeeded. To confirm capture, listen for the [`payout_transaction_approvedcaptured`](/developers/webhooks/payout-transaction-approved-captured) webhook event.
 
         If a velocity fraud alert is triggered, the endpoint returns a `202` response with `responseCode` `9051`, and the authorization is held for risk review rather than rejected. If a risk policy blocks the transaction, the endpoint returns a `422` response with `responseCode` `9005`, a terminal rejection.
 
@@ -750,6 +776,11 @@ class AsyncMoneyOutClient:
 
         force_vendor_creation : typing.Optional[bool]
             When `true`, the request creates a new vendor record, regardless of whether the vendor already exists.
+
+        same_day_ach : typing.Optional[bool]
+            When `true`, Payabli authorizes the payout for same-day ACH processing instead of standard ACH. Same-day ACH must be enabled for the paypoint, otherwise the authorization fails with a `400` response and `responseCode` `3492`. Only ACH payouts honor this flag. Wire and RTP payouts ignore it.
+
+            Same-day ACH has a daily cutoff. Capture the transaction before the cutoff, or pass `autoConvertSameDayAch` with a value of `true` when you capture it.
 
         idempotency_key : typing.Optional[IdempotencyKey]
             _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
@@ -828,6 +859,7 @@ class AsyncMoneyOutClient:
             allow_duplicated_bills=allow_duplicated_bills,
             do_not_create_bills=do_not_create_bills,
             force_vendor_creation=force_vendor_creation,
+            same_day_ach=same_day_ach,
             idempotency_key=idempotency_key,
             source=source,
             order_id=order_id,
@@ -969,6 +1001,7 @@ class AsyncMoneyOutClient:
         self,
         *,
         request: typing.Sequence[str],
+        auto_convert_same_day_ach: typing.Optional[bool] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CaptureAllOutResponse:
@@ -978,6 +1011,11 @@ class AsyncMoneyOutClient:
         Parameters
         ----------
         request : typing.Sequence[str]
+
+        auto_convert_same_day_ach : typing.Optional[bool]
+            Controls what happens to a payout authorized with `sameDayACH` set to `true` when you capture it after the same-day ACH cutoff. When `true`, Payabli converts the payout to a standard ACH payment and captures it. When `false`, the capture is declined.
+
+            This parameter has no effect on payouts that weren't authorized for same-day ACH.
 
         idempotency_key : typing.Optional[IdempotencyKey]
             _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
@@ -1011,7 +1049,10 @@ class AsyncMoneyOutClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.capture_all_out(
-            request=request, idempotency_key=idempotency_key, request_options=request_options
+            request=request,
+            auto_convert_same_day_ach=auto_convert_same_day_ach,
+            idempotency_key=idempotency_key,
+            request_options=request_options,
         )
         return _response.data
 
@@ -1019,6 +1060,7 @@ class AsyncMoneyOutClient:
         self,
         reference_id: str,
         *,
+        auto_convert_same_day_ach: typing.Optional[bool] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AuthCapturePayoutResponse:
@@ -1031,6 +1073,11 @@ class AsyncMoneyOutClient:
         ----------
         reference_id : str
             The ID for the payout transaction.
+
+        auto_convert_same_day_ach : typing.Optional[bool]
+            Controls what happens to a payout authorized with `sameDayACH` set to `true` when you capture it after the same-day ACH cutoff. When `true`, Payabli converts the payout to a standard ACH payment and captures it. When `false`, the capture is declined.
+
+            This parameter has no effect on payouts that weren't authorized for same-day ACH.
 
         idempotency_key : typing.Optional[IdempotencyKey]
             _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
@@ -1064,7 +1111,10 @@ class AsyncMoneyOutClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.capture_out(
-            reference_id, idempotency_key=idempotency_key, request_options=request_options
+            reference_id,
+            auto_convert_same_day_ach=auto_convert_same_day_ach,
+            idempotency_key=idempotency_key,
+            request_options=request_options,
         )
         return _response.data
 

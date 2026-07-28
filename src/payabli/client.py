@@ -14,6 +14,7 @@ from .environment import payabliEnvironment
 if typing.TYPE_CHECKING:
     from .bill.client import AsyncBillClient, BillClient
     from .boarding.client import AsyncBoardingClient, BoardingClient
+    from .case_management.client import AsyncCaseManagementClient, CaseManagementClient
     from .charge_backs.client import AsyncChargeBacksClient, ChargeBacksClient
     from .check_capture.client import AsyncCheckCaptureClient, CheckCaptureClient
     from .cloud.client import AsyncCloudClient, CloudClient
@@ -272,6 +273,7 @@ class payabli:
         self._wallet: typing.Optional[WalletClient] = None
         self._payout_subscription: typing.Optional[PayoutSubscriptionClient] = None
         self._charge_backs: typing.Optional[ChargeBacksClient] = None
+        self._case_management: typing.Optional[CaseManagementClient] = None
 
     @property
     def bill(self):
@@ -537,6 +539,14 @@ class payabli:
             self._charge_backs = ChargeBacksClient(client_wrapper=self._client_wrapper)
         return self._charge_backs
 
+    @property
+    def case_management(self):
+        if self._case_management is None:
+            from .case_management.client import CaseManagementClient  # noqa: E402
+
+            self._case_management = CaseManagementClient(client_wrapper=self._client_wrapper)
+        return self._case_management
+
 
 def _make_default_async_client(
     timeout: typing.Optional[float],
@@ -776,6 +786,7 @@ class Asyncpayabli:
         self._wallet: typing.Optional[AsyncWalletClient] = None
         self._payout_subscription: typing.Optional[AsyncPayoutSubscriptionClient] = None
         self._charge_backs: typing.Optional[AsyncChargeBacksClient] = None
+        self._case_management: typing.Optional[AsyncCaseManagementClient] = None
 
     @property
     def bill(self):
@@ -1040,6 +1051,14 @@ class Asyncpayabli:
 
             self._charge_backs = AsyncChargeBacksClient(client_wrapper=self._client_wrapper)
         return self._charge_backs
+
+    @property
+    def case_management(self):
+        if self._case_management is None:
+            from .case_management.client import AsyncCaseManagementClient  # noqa: E402
+
+            self._case_management = AsyncCaseManagementClient(client_wrapper=self._client_wrapper)
+        return self._case_management
 
 
 def _get_base_url(*, base_url: typing.Optional[str] = None, environment: payabliEnvironment) -> str:

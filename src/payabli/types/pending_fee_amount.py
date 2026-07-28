@@ -10,6 +10,6 @@ merchant.
 When a paypoint is set up to absorb fees, and the pass-through fee sent
 with the request is less than the configured amount, the difference must
 be covered by the merchant. See
-[Fee Configuration](/guides/pay-in-fees-passthrough-overview#fee-configuration)
+[Fee Configuration](/guides/pay-in-payor-fees-overview#fee-configuration)
 to learn more about pass-through fee settings.
 """

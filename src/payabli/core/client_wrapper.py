@@ -35,12 +35,12 @@ class BaseClientWrapper:
         import platform
 
         headers: typing.Dict[str, str] = {
-            "User-Agent": "payabli/1.0.6",
+            "User-Agent": "payabli/1.0.7",
             "X-Fern-Language": "Python",
             "X-Fern-Runtime": f"python/{platform.python_version()}",
             "X-Fern-Platform": f"{platform.system().lower()}/{platform.release()}",
             "X-Fern-SDK-Name": "payabli",
-            "X-Fern-SDK-Version": "1.0.6",
+            "X-Fern-SDK-Version": "1.0.7",
             **(self.get_custom_headers() or {}),
         }
         return headers
