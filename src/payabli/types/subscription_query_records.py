@@ -30,10 +30,10 @@ class SubscriptionQueryRecords(UniversalBaseModel):
     created_at: typing_extensions.Annotated[
         typing.Optional[CreatedAt],
         FieldMetadata(alias="CreatedAt"),
-        pydantic.Field(alias="CreatedAt", description="Timestamp of when the subscription ws created, in UTC."),
+        pydantic.Field(alias="CreatedAt", description="Timestamp of when the subscription was created, in UTC."),
     ] = None
     """
-    Timestamp of when the subscription ws created, in UTC.
+    Timestamp of when the subscription was created, in UTC.
     """
 
     customer: typing_extensions.Annotated[

@@ -49,8 +49,19 @@ class RequestOutAuthorizeVendorData(UniversalBaseModel):
     phone: typing.Optional[VendorPhone] = None
     email: typing.Optional[Email] = None
     address_1: typing_extensions.Annotated[
-        typing.Optional[AddressNullable], FieldMetadata(alias="address1"), pydantic.Field(alias="address1")
+        typing.Optional[AddressNullable],
+        FieldMetadata(alias="address1"),
+        pydantic.Field(
+            alias="address1",
+            description="Vendor's address\n\nFor a PO Box address, include only the PO Box in this field, for example `PO Box 29652`. Put the rest of the address, such as a department number, in `address2`.",
+        ),
     ] = None
+    """
+    Vendor's address
+    
+    For a PO Box address, include only the PO Box in this field, for example `PO Box 29652`. Put the rest of the address, such as a department number, in `address2`.
+    """
+
     city: typing.Optional[str] = None
     state: typing.Optional[str] = None
     zip: typing.Optional[str] = None
@@ -98,8 +109,19 @@ class RequestOutAuthorizeVendorData(UniversalBaseModel):
         typing.Optional[AdditionalData], FieldMetadata(alias="additionalData"), pydantic.Field(alias="additionalData")
     ] = None
     address_2: typing_extensions.Annotated[
-        typing.Optional[AddressAddtlNullable], FieldMetadata(alias="address2"), pydantic.Field(alias="address2")
+        typing.Optional[AddressAddtlNullable],
+        FieldMetadata(alias="address2"),
+        pydantic.Field(
+            alias="address2",
+            description="Additional line for vendor's address.\n\nFor a PO Box address, this field holds the part of the address that follows the PO Box, for example `Dept# 880662`.",
+        ),
     ] = None
+    """
+    Additional line for vendor's address.
+    
+    For a PO Box address, this field holds the part of the address that follows the PO Box, for example `Dept# 880662`.
+    """
+
     internal_reference_id: typing_extensions.Annotated[
         typing.Optional[int], FieldMetadata(alias="internalReferenceId"), pydantic.Field(alias="internalReferenceId")
     ] = None

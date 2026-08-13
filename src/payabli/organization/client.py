@@ -204,7 +204,7 @@ class OrganizationClient:
 
     def edit_organization(
         self,
-        org_id: int,
+        org_id_path_param: int,
         *,
         services: typing.Optional[typing.Sequence[ServiceCost]] = OMIT,
         billing_info: typing.Optional[Instrument] = OMIT,
@@ -215,7 +215,7 @@ class OrganizationClient:
         org_city: typing.Optional[Orgcity] = OMIT,
         org_country: typing.Optional[Orgcountry] = OMIT,
         org_entry_name: typing.Optional[Orgentryname] = OMIT,
-        organization_data_org_id: typing.Optional[Orgidstring] = OMIT,
+        org_id: typing.Optional[Orgidstring] = OMIT,
         org_logo: typing.Optional[FileContent] = OMIT,
         org_name: typing.Optional[Orgname] = OMIT,
         org_parent_id: typing.Optional[OrgParentId] = OMIT,
@@ -232,7 +232,7 @@ class OrganizationClient:
 
         Parameters
         ----------
-        org_id : int
+        org_id_path_param : int
             The numeric identifier for organization, assigned by Payabli.
 
         services : typing.Optional[typing.Sequence[ServiceCost]]
@@ -253,7 +253,7 @@ class OrganizationClient:
 
         org_entry_name : typing.Optional[Orgentryname]
 
-        organization_data_org_id : typing.Optional[Orgidstring]
+        org_id : typing.Optional[Orgidstring]
 
         org_logo : typing.Optional[FileContent]
 
@@ -290,7 +290,7 @@ class OrganizationClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.organization.edit_organization(
-            org_id=123,
+            org_id_path_param=123,
             contacts=[
                 Contacts(
                     contact_email="herman@hermanscoatings.com",
@@ -303,7 +303,7 @@ class OrganizationClient:
             org_city="Johnson City",
             org_country="US",
             org_entry_name="pilgrim-planner",
-            organization_data_org_id="123",
+            org_id="123",
             org_name="Pilgrim Planner",
             org_state="TN",
             org_timezone=-5,
@@ -313,7 +313,7 @@ class OrganizationClient:
         )
         """
         _response = self._raw_client.edit_organization(
-            org_id,
+            org_id_path_param,
             services=services,
             billing_info=billing_info,
             contacts=contacts,
@@ -323,7 +323,7 @@ class OrganizationClient:
             org_city=org_city,
             org_country=org_country,
             org_entry_name=org_entry_name,
-            organization_data_org_id=organization_data_org_id,
+            org_id=org_id,
             org_logo=org_logo,
             org_name=org_name,
             org_parent_id=org_parent_id,
@@ -687,7 +687,7 @@ class AsyncOrganizationClient:
 
     async def edit_organization(
         self,
-        org_id: int,
+        org_id_path_param: int,
         *,
         services: typing.Optional[typing.Sequence[ServiceCost]] = OMIT,
         billing_info: typing.Optional[Instrument] = OMIT,
@@ -698,7 +698,7 @@ class AsyncOrganizationClient:
         org_city: typing.Optional[Orgcity] = OMIT,
         org_country: typing.Optional[Orgcountry] = OMIT,
         org_entry_name: typing.Optional[Orgentryname] = OMIT,
-        organization_data_org_id: typing.Optional[Orgidstring] = OMIT,
+        org_id: typing.Optional[Orgidstring] = OMIT,
         org_logo: typing.Optional[FileContent] = OMIT,
         org_name: typing.Optional[Orgname] = OMIT,
         org_parent_id: typing.Optional[OrgParentId] = OMIT,
@@ -715,7 +715,7 @@ class AsyncOrganizationClient:
 
         Parameters
         ----------
-        org_id : int
+        org_id_path_param : int
             The numeric identifier for organization, assigned by Payabli.
 
         services : typing.Optional[typing.Sequence[ServiceCost]]
@@ -736,7 +736,7 @@ class AsyncOrganizationClient:
 
         org_entry_name : typing.Optional[Orgentryname]
 
-        organization_data_org_id : typing.Optional[Orgidstring]
+        org_id : typing.Optional[Orgidstring]
 
         org_logo : typing.Optional[FileContent]
 
@@ -778,7 +778,7 @@ class AsyncOrganizationClient:
 
         async def main() -> None:
             await client.organization.edit_organization(
-                org_id=123,
+                org_id_path_param=123,
                 contacts=[
                     Contacts(
                         contact_email="herman@hermanscoatings.com",
@@ -791,7 +791,7 @@ class AsyncOrganizationClient:
                 org_city="Johnson City",
                 org_country="US",
                 org_entry_name="pilgrim-planner",
-                organization_data_org_id="123",
+                org_id="123",
                 org_name="Pilgrim Planner",
                 org_state="TN",
                 org_timezone=-5,
@@ -804,7 +804,7 @@ class AsyncOrganizationClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.edit_organization(
-            org_id,
+            org_id_path_param,
             services=services,
             billing_info=billing_info,
             contacts=contacts,
@@ -814,7 +814,7 @@ class AsyncOrganizationClient:
             org_city=org_city,
             org_country=org_country,
             org_entry_name=org_entry_name,
-            organization_data_org_id=organization_data_org_id,
+            org_id=org_id,
             org_logo=org_logo,
             org_name=org_name,
             org_parent_id=org_parent_id,

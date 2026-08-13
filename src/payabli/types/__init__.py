@@ -147,13 +147,20 @@ if typing.TYPE_CHECKING:
     from .bill_query_response_summary import BillQueryResponseSummary
     from .bill_response import BillResponse
     from .bill_response_data import BillResponseData
+    from .billable_event import BillableEvent
     from .billing_address_addtl_nullable import BillingAddressAddtlNullable
     from .billing_address_nullable import BillingAddressNullable
     from .billing_city_nullable import BillingCityNullable
     from .billing_country_nullable import BillingCountryNullable
     from .billing_data import BillingData
     from .billing_data_response import BillingDataResponse
+    from .billing_entity import BillingEntity
+    from .billing_entity_named import BillingEntityNamed
     from .billing_fee_detail import BillingFeeDetail
+    from .billing_profile_query_response import BillingProfileQueryResponse
+    from .billing_profile_record import BillingProfileRecord
+    from .billing_profile_response import BillingProfileResponse
+    from .billing_profile_summary import BillingProfileSummary
     from .billing_state_nullable import BillingStateNullable
     from .billing_zip import BillingZip
     from .billitems import Billitems
@@ -233,6 +240,7 @@ if typing.TYPE_CHECKING:
     from .check_method import CheckMethod
     from .city_nullable import CityNullable
     from .cloud_query_api_response import CloudQueryApiResponse
+    from .collection_schedule_value import CollectionScheduleValue
     from .comments import Comments
     from .configure_apple_pay_organization_api_response import ConfigureApplePayOrganizationApiResponse
     from .configure_apple_paypoint_api_response import ConfigureApplePaypointApiResponse
@@ -293,13 +301,19 @@ if typing.TYPE_CHECKING:
     from .emv_auth_response_data import EmvAuthResponseData
     from .enabled import Enabled
     from .enrollment_status import EnrollmentStatus
+    from .entities_assigned import EntitiesAssigned
     from .entity_id import EntityId
     from .entity_id_string import EntityIdString
     from .entity_type import EntityType
+    from .entity_type_name import EntityTypeName
+    from .entity_type_value import EntityTypeValue
     from .entry import Entry
     from .entry_attributes import EntryAttributes
     from .entrypage_id import EntrypageId
     from .entrypointfield import Entrypointfield
+    from .event_group_value import EventGroupValue
+    from .event_source_value import EventSourceValue
+    from .event_type_value import EventTypeValue
     from .expected_deposit_date import ExpectedDepositDate
     from .expected_processing_date_time import ExpectedProcessingDateTime
     from .export_format import ExportFormat
@@ -308,6 +322,9 @@ if typing.TYPE_CHECKING:
     from .external_processor_information import ExternalProcessorInformation
     from .fax_number import FaxNumber
     from .fee_amount import FeeAmount
+    from .fee_schedule import FeeSchedule
+    from .fee_type_name import FeeTypeName
+    from .fee_type_value import FeeTypeValue
     from .file import File
     from .file_content import FileContent
     from .file_content_ftype import FileContentFtype
@@ -504,6 +521,7 @@ if typing.TYPE_CHECKING:
     from .pagelink_setting import PagelinkSetting
     from .pagesize import Pagesize
     from .pair_files import PairFiles
+    from .passthrough_value import PassthroughValue
     from .pay_category import PayCategory
     from .pay_method_ach import PayMethodAch
     from .pay_method_ach_method import PayMethodAchMethod
@@ -613,6 +631,9 @@ if typing.TYPE_CHECKING:
     from .query_payout_subscription_response import QueryPayoutSubscriptionResponse
     from .query_payout_transaction import QueryPayoutTransaction
     from .query_payout_transaction_records_item import QueryPayoutTransactionRecordsItem
+    from .query_payout_transaction_records_item_allowed_actions_item import (
+        QueryPayoutTransactionRecordsItemAllowedActionsItem,
+    )
     from .query_payout_transaction_records_item_payment_data import QueryPayoutTransactionRecordsItemPaymentData
     from .query_payout_transaction_summary import QueryPayoutTransactionSummary
     from .query_response_data import QueryResponseData
@@ -649,6 +670,7 @@ if typing.TYPE_CHECKING:
     from .refund_response import RefundResponse
     from .refund_v_2_request import RefundV2Request
     from .refund_with_instructions_response import RefundWithInstructionsResponse
+    from .region_type_value import RegionTypeValue
     from .reissue_payment_method import ReissuePaymentMethod
     from .reissue_payout_response import ReissuePayoutResponse
     from .reissue_payout_response_data import ReissuePayoutResponseData
@@ -713,6 +735,10 @@ if typing.TYPE_CHECKING:
     from .send_invoice_response import SendInvoiceResponse
     from .sequence import Sequence
     from .service_cost import ServiceCost
+    from .service_group_value import ServiceGroupValue
+    from .service_type_value import ServiceTypeValue
+    from .service_value import ServiceValue
+    from .service_vertical_name import ServiceVerticalName
     from .services import Services
     from .services_section import ServicesSection
     from .set_approved_bill_response import SetApprovedBillResponse
@@ -1060,13 +1086,20 @@ _dynamic_imports: typing.Dict[str, str] = {
     "BillQueryResponseSummary": ".bill_query_response_summary",
     "BillResponse": ".bill_response",
     "BillResponseData": ".bill_response_data",
+    "BillableEvent": ".billable_event",
     "BillingAddressAddtlNullable": ".billing_address_addtl_nullable",
     "BillingAddressNullable": ".billing_address_nullable",
     "BillingCityNullable": ".billing_city_nullable",
     "BillingCountryNullable": ".billing_country_nullable",
     "BillingData": ".billing_data",
     "BillingDataResponse": ".billing_data_response",
+    "BillingEntity": ".billing_entity",
+    "BillingEntityNamed": ".billing_entity_named",
     "BillingFeeDetail": ".billing_fee_detail",
+    "BillingProfileQueryResponse": ".billing_profile_query_response",
+    "BillingProfileRecord": ".billing_profile_record",
+    "BillingProfileResponse": ".billing_profile_response",
+    "BillingProfileSummary": ".billing_profile_summary",
     "BillingStateNullable": ".billing_state_nullable",
     "BillingZip": ".billing_zip",
     "Billitems": ".billitems",
@@ -1146,6 +1179,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CheckMethod": ".check_method",
     "CityNullable": ".city_nullable",
     "CloudQueryApiResponse": ".cloud_query_api_response",
+    "CollectionScheduleValue": ".collection_schedule_value",
     "Comments": ".comments",
     "ConfigureApplePayOrganizationApiResponse": ".configure_apple_pay_organization_api_response",
     "ConfigureApplePaypointApiResponse": ".configure_apple_paypoint_api_response",
@@ -1204,13 +1238,19 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EmvAuthResponseData": ".emv_auth_response_data",
     "Enabled": ".enabled",
     "EnrollmentStatus": ".enrollment_status",
+    "EntitiesAssigned": ".entities_assigned",
     "EntityId": ".entity_id",
     "EntityIdString": ".entity_id_string",
     "EntityType": ".entity_type",
+    "EntityTypeName": ".entity_type_name",
+    "EntityTypeValue": ".entity_type_value",
     "Entry": ".entry",
     "EntryAttributes": ".entry_attributes",
     "EntrypageId": ".entrypage_id",
     "Entrypointfield": ".entrypointfield",
+    "EventGroupValue": ".event_group_value",
+    "EventSourceValue": ".event_source_value",
+    "EventTypeValue": ".event_type_value",
     "ExpectedDepositDate": ".expected_deposit_date",
     "ExpectedProcessingDateTime": ".expected_processing_date_time",
     "ExportFormat": ".export_format",
@@ -1219,6 +1259,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ExternalProcessorInformation": ".external_processor_information",
     "FaxNumber": ".fax_number",
     "FeeAmount": ".fee_amount",
+    "FeeSchedule": ".fee_schedule",
+    "FeeTypeName": ".fee_type_name",
+    "FeeTypeValue": ".fee_type_value",
     "File": ".file",
     "FileContent": ".file_content",
     "FileContentFtype": ".file_content_ftype",
@@ -1415,6 +1458,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PagelinkSetting": ".pagelink_setting",
     "Pagesize": ".pagesize",
     "PairFiles": ".pair_files",
+    "PassthroughValue": ".passthrough_value",
     "PayCategory": ".pay_category",
     "PayMethodAch": ".pay_method_ach",
     "PayMethodAchMethod": ".pay_method_ach_method",
@@ -1526,6 +1570,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "QueryPayoutSubscriptionResponse": ".query_payout_subscription_response",
     "QueryPayoutTransaction": ".query_payout_transaction",
     "QueryPayoutTransactionRecordsItem": ".query_payout_transaction_records_item",
+    "QueryPayoutTransactionRecordsItemAllowedActionsItem": ".query_payout_transaction_records_item_allowed_actions_item",
     "QueryPayoutTransactionRecordsItemPaymentData": ".query_payout_transaction_records_item_payment_data",
     "QueryPayoutTransactionSummary": ".query_payout_transaction_summary",
     "QueryResponseData": ".query_response_data",
@@ -1562,6 +1607,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RefundResponse": ".refund_response",
     "RefundV2Request": ".refund_v_2_request",
     "RefundWithInstructionsResponse": ".refund_with_instructions_response",
+    "RegionTypeValue": ".region_type_value",
     "ReissuePaymentMethod": ".reissue_payment_method",
     "ReissuePayoutResponse": ".reissue_payout_response",
     "ReissuePayoutResponseData": ".reissue_payout_response_data",
@@ -1626,6 +1672,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SendInvoiceResponse": ".send_invoice_response",
     "Sequence": ".sequence",
     "ServiceCost": ".service_cost",
+    "ServiceGroupValue": ".service_group_value",
+    "ServiceTypeValue": ".service_type_value",
+    "ServiceValue": ".service_value",
+    "ServiceVerticalName": ".service_vertical_name",
     "Services": ".services",
     "ServicesSection": ".services_section",
     "SetApprovedBillResponse": ".set_approved_bill_response",
@@ -1997,13 +2047,20 @@ __all__ = [
     "BillQueryResponseSummary",
     "BillResponse",
     "BillResponseData",
+    "BillableEvent",
     "BillingAddressAddtlNullable",
     "BillingAddressNullable",
     "BillingCityNullable",
     "BillingCountryNullable",
     "BillingData",
     "BillingDataResponse",
+    "BillingEntity",
+    "BillingEntityNamed",
     "BillingFeeDetail",
+    "BillingProfileQueryResponse",
+    "BillingProfileRecord",
+    "BillingProfileResponse",
+    "BillingProfileSummary",
     "BillingStateNullable",
     "BillingZip",
     "Billitems",
@@ -2083,6 +2140,7 @@ __all__ = [
     "CheckMethod",
     "CityNullable",
     "CloudQueryApiResponse",
+    "CollectionScheduleValue",
     "Comments",
     "ConfigureApplePayOrganizationApiResponse",
     "ConfigureApplePaypointApiResponse",
@@ -2141,13 +2199,19 @@ __all__ = [
     "EmvAuthResponseData",
     "Enabled",
     "EnrollmentStatus",
+    "EntitiesAssigned",
     "EntityId",
     "EntityIdString",
     "EntityType",
+    "EntityTypeName",
+    "EntityTypeValue",
     "Entry",
     "EntryAttributes",
     "EntrypageId",
     "Entrypointfield",
+    "EventGroupValue",
+    "EventSourceValue",
+    "EventTypeValue",
     "ExpectedDepositDate",
     "ExpectedProcessingDateTime",
     "ExportFormat",
@@ -2156,6 +2220,9 @@ __all__ = [
     "ExternalProcessorInformation",
     "FaxNumber",
     "FeeAmount",
+    "FeeSchedule",
+    "FeeTypeName",
+    "FeeTypeValue",
     "File",
     "FileContent",
     "FileContentFtype",
@@ -2352,6 +2419,7 @@ __all__ = [
     "PagelinkSetting",
     "Pagesize",
     "PairFiles",
+    "PassthroughValue",
     "PayCategory",
     "PayMethodAch",
     "PayMethodAchMethod",
@@ -2463,6 +2531,7 @@ __all__ = [
     "QueryPayoutSubscriptionResponse",
     "QueryPayoutTransaction",
     "QueryPayoutTransactionRecordsItem",
+    "QueryPayoutTransactionRecordsItemAllowedActionsItem",
     "QueryPayoutTransactionRecordsItemPaymentData",
     "QueryPayoutTransactionSummary",
     "QueryResponseData",
@@ -2499,6 +2568,7 @@ __all__ = [
     "RefundResponse",
     "RefundV2Request",
     "RefundWithInstructionsResponse",
+    "RegionTypeValue",
     "ReissuePaymentMethod",
     "ReissuePayoutResponse",
     "ReissuePayoutResponseData",
@@ -2563,6 +2633,10 @@ __all__ = [
     "SendInvoiceResponse",
     "Sequence",
     "ServiceCost",
+    "ServiceGroupValue",
+    "ServiceTypeValue",
+    "ServiceValue",
+    "ServiceVerticalName",
     "Services",
     "ServicesSection",
     "SetApprovedBillResponse",

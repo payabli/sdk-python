@@ -236,7 +236,7 @@ class RawOrganizationClient:
 
     def edit_organization(
         self,
-        org_id: int,
+        org_id_path_param: int,
         *,
         services: typing.Optional[typing.Sequence[ServiceCost]] = OMIT,
         billing_info: typing.Optional[Instrument] = OMIT,
@@ -247,7 +247,7 @@ class RawOrganizationClient:
         org_city: typing.Optional[Orgcity] = OMIT,
         org_country: typing.Optional[Orgcountry] = OMIT,
         org_entry_name: typing.Optional[Orgentryname] = OMIT,
-        organization_data_org_id: typing.Optional[Orgidstring] = OMIT,
+        org_id: typing.Optional[Orgidstring] = OMIT,
         org_logo: typing.Optional[FileContent] = OMIT,
         org_name: typing.Optional[Orgname] = OMIT,
         org_parent_id: typing.Optional[OrgParentId] = OMIT,
@@ -264,7 +264,7 @@ class RawOrganizationClient:
 
         Parameters
         ----------
-        org_id : int
+        org_id_path_param : int
             The numeric identifier for organization, assigned by Payabli.
 
         services : typing.Optional[typing.Sequence[ServiceCost]]
@@ -285,7 +285,7 @@ class RawOrganizationClient:
 
         org_entry_name : typing.Optional[Orgentryname]
 
-        organization_data_org_id : typing.Optional[Orgidstring]
+        org_id : typing.Optional[Orgidstring]
 
         org_logo : typing.Optional[FileContent]
 
@@ -317,7 +317,7 @@ class RawOrganizationClient:
             security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
         )
         _response = self._client_wrapper.httpx_client.request(
-            f"Organization/{encode_path_param(org_id)}",
+            f"Organization/{encode_path_param(org_id_path_param)}",
             method="PUT",
             json={
                 "services": convert_and_respect_annotation_metadata(
@@ -335,7 +335,7 @@ class RawOrganizationClient:
                 "orgCity": org_city,
                 "orgCountry": org_country,
                 "orgEntryName": org_entry_name,
-                "orgId": organization_data_org_id,
+                "orgId": org_id,
                 "orgLogo": convert_and_respect_annotation_metadata(
                     object_=org_logo, annotation=FileContent, direction="write"
                 ),
@@ -1075,7 +1075,7 @@ class AsyncRawOrganizationClient:
 
     async def edit_organization(
         self,
-        org_id: int,
+        org_id_path_param: int,
         *,
         services: typing.Optional[typing.Sequence[ServiceCost]] = OMIT,
         billing_info: typing.Optional[Instrument] = OMIT,
@@ -1086,7 +1086,7 @@ class AsyncRawOrganizationClient:
         org_city: typing.Optional[Orgcity] = OMIT,
         org_country: typing.Optional[Orgcountry] = OMIT,
         org_entry_name: typing.Optional[Orgentryname] = OMIT,
-        organization_data_org_id: typing.Optional[Orgidstring] = OMIT,
+        org_id: typing.Optional[Orgidstring] = OMIT,
         org_logo: typing.Optional[FileContent] = OMIT,
         org_name: typing.Optional[Orgname] = OMIT,
         org_parent_id: typing.Optional[OrgParentId] = OMIT,
@@ -1103,7 +1103,7 @@ class AsyncRawOrganizationClient:
 
         Parameters
         ----------
-        org_id : int
+        org_id_path_param : int
             The numeric identifier for organization, assigned by Payabli.
 
         services : typing.Optional[typing.Sequence[ServiceCost]]
@@ -1124,7 +1124,7 @@ class AsyncRawOrganizationClient:
 
         org_entry_name : typing.Optional[Orgentryname]
 
-        organization_data_org_id : typing.Optional[Orgidstring]
+        org_id : typing.Optional[Orgidstring]
 
         org_logo : typing.Optional[FileContent]
 
@@ -1156,7 +1156,7 @@ class AsyncRawOrganizationClient:
             security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
         )
         _response = await self._client_wrapper.httpx_client.request(
-            f"Organization/{encode_path_param(org_id)}",
+            f"Organization/{encode_path_param(org_id_path_param)}",
             method="PUT",
             json={
                 "services": convert_and_respect_annotation_metadata(
@@ -1174,7 +1174,7 @@ class AsyncRawOrganizationClient:
                 "orgCity": org_city,
                 "orgCountry": org_country,
                 "orgEntryName": org_entry_name,
-                "orgId": organization_data_org_id,
+                "orgId": org_id,
                 "orgLogo": convert_and_respect_annotation_metadata(
                     object_=org_logo, annotation=FileContent, direction="write"
                 ),

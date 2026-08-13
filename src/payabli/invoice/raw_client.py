@@ -819,7 +819,7 @@ class RawInvoiceClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            Accepted field names:
 
             - `invoiceDate` (gt, ge, lt, le, eq, ne)
             - `dueDate` (gt, ge, lt, le, eq, ne)
@@ -860,7 +860,7 @@ class RawInvoiceClient:
             - `orgName` (ne, eq, ct, nct)
             - `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
 
             - eq or empty => equal
             - gt => greater than
@@ -873,7 +873,7 @@ class RawInvoiceClient:
             - in => inside array
             - nin => not inside array
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord : max number of records for query (default="20", "0" or negative value for all)
             - fromRecord : initial record in query
 
@@ -1004,7 +1004,7 @@ class RawInvoiceClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            Accepted field names:
 
             - `invoiceDate` (gt, ge, lt, le, eq, ne)
             - `dueDate` (gt, ge, lt, le, eq, ne)
@@ -1045,7 +1045,7 @@ class RawInvoiceClient:
             - `orgName` (ne, eq, ct, nct)
             - `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
 
             - eq or empty => equal
             - gt => greater than
@@ -1058,7 +1058,7 @@ class RawInvoiceClient:
             - in => inside array
             - nin => not inside array
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord : max number of records for query (default="20", "0" or negative value for all)
             - fromRecord : initial record in query
 
@@ -2142,7 +2142,7 @@ class AsyncRawInvoiceClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            Accepted field names:
 
             - `invoiceDate` (gt, ge, lt, le, eq, ne)
             - `dueDate` (gt, ge, lt, le, eq, ne)
@@ -2183,7 +2183,7 @@ class AsyncRawInvoiceClient:
             - `orgName` (ne, eq, ct, nct)
             - `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
 
             - eq or empty => equal
             - gt => greater than
@@ -2196,7 +2196,7 @@ class AsyncRawInvoiceClient:
             - in => inside array
             - nin => not inside array
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord : max number of records for query (default="20", "0" or negative value for all)
             - fromRecord : initial record in query
 
@@ -2327,7 +2327,7 @@ class AsyncRawInvoiceClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            Accepted field names:
 
             - `invoiceDate` (gt, ge, lt, le, eq, ne)
             - `dueDate` (gt, ge, lt, le, eq, ne)
@@ -2368,7 +2368,7 @@ class AsyncRawInvoiceClient:
             - `orgName` (ne, eq, ct, nct)
             - `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
 
             - eq or empty => equal
             - gt => greater than
@@ -2381,7 +2381,7 @@ class AsyncRawInvoiceClient:
             - in => inside array
             - nin => not inside array
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord : max number of records for query (default="20", "0" or negative value for all)
             - fromRecord : initial record in query
 

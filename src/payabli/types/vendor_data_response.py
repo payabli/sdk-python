@@ -109,10 +109,10 @@ class VendorDataResponse(UniversalBaseModel):
     """
 
     zip: typing_extensions.Annotated[
-        str, FieldMetadata(alias="Zip"), pydantic.Field(alias="Zip", description="Vendor's zip code.")
+        str, FieldMetadata(alias="Zip"), pydantic.Field(alias="Zip", description="Vendor's ZIP code.")
     ]
     """
-    Vendor's zip code.
+    Vendor's ZIP code.
     """
 
     country: typing_extensions.Annotated[

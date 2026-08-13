@@ -188,6 +188,15 @@ class DeviceQueryRecord(UniversalBaseModel):
     Entry identifier for the paypoint.
     """
 
+    paypoint_logo: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="paypointLogo"),
+        pydantic.Field(alias="paypointLogo", description="URL of the paypoint's logo, when available."),
+    ] = None
+    """
+    URL of the paypoint's logo, when available.
+    """
+
     external_paypoint_id: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="externalPaypointId"),
@@ -213,6 +222,36 @@ class DeviceQueryRecord(UniversalBaseModel):
     ] = None
     """
     Name of the parent organization.
+    """
+
+    parent_org_logo: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="parentOrgLogo"),
+        pydantic.Field(alias="parentOrgLogo", description="URL of the parent organization's logo, when available."),
+    ] = None
+    """
+    URL of the parent organization's logo, when available.
+    """
+
+    transaction_count: typing_extensions.Annotated[
+        int,
+        FieldMetadata(alias="transactionCount"),
+        pydantic.Field(alias="transactionCount", description="Total number of transactions processed by this device."),
+    ]
+    """
+    Total number of transactions processed by this device.
+    """
+
+    volume_processed: typing_extensions.Annotated[
+        float,
+        FieldMetadata(alias="volumeProcessed"),
+        pydantic.Field(
+            alias="volumeProcessed",
+            description="Total volume processed by this device, as the sum of net transaction amounts.",
+        ),
+    ]
+    """
+    Total volume processed by this device, as the sum of net transaction amounts.
     """
 
     if IS_PYDANTIC_V2:

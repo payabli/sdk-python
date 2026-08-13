@@ -27,6 +27,9 @@ from .org_parent_name import OrgParentName
 from .payment_id_string import PaymentIdString
 from .payout_program import PayoutProgram
 from .paypoint_id import PaypointId
+from .query_payout_transaction_records_item_allowed_actions_item import (
+    QueryPayoutTransactionRecordsItemAllowedActionsItem,
+)
 from .query_payout_transaction_records_item_payment_data import QueryPayoutTransactionRecordsItemPaymentData
 from .query_transaction_events import QueryTransactionEvents
 from .risk_action import RiskAction
@@ -349,6 +352,18 @@ class QueryPayoutTransactionRecordsItem(UniversalBaseModel):
     ] = None
     """
     Unique identifier (ULID) of the payout transaction.
+    """
+
+    allowed_actions: typing_extensions.Annotated[
+        typing.List[QueryPayoutTransactionRecordsItemAllowedActionsItem],
+        FieldMetadata(alias="allowedActions"),
+        pydantic.Field(
+            alias="allowedActions",
+            description="Operations currently permitted for this payout, derived from its status. Always present; empty for terminal statuses such as paid or canceled. Read this array directly rather than inferring available actions from `PaymentStatus`.",
+        ),
+    ]
+    """
+    Operations currently permitted for this payout, derived from its status. Always present; empty for terminal statuses such as paid or canceled. Read this array directly rather than inferring available actions from `PaymentStatus`.
     """
 
     if IS_PYDANTIC_V2:

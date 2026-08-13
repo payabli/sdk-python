@@ -4,4 +4,8 @@ Remitaddress1 = str
 """
 Remittance street address. Used for mailing paper checks. Required if any
 remittance address field is provided.
+
+For a PO Box address, include only the PO Box in this field, for example
+`PO Box 29652`. Put the rest of the address, such as a department number,
+in `remitAddress2`.
 """

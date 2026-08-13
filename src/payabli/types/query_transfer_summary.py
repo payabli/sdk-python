@@ -98,11 +98,11 @@ class QueryTransferSummary(UniversalBaseModel):
         FieldMetadata(alias="serviceFees"),
         pydantic.Field(
             alias="serviceFees",
-            description="Service fees are any pass-through fees charged to the customer at the time of payment.  These aren't transferred to the merchant when the batch is transferred and funded.",
+            description="Service fees are any pass-through fees charged to the customer at the time of payment. These aren't transferred to the merchant when the batch is transferred and funded.",
         ),
     ] = None
     """
-    Service fees are any pass-through fees charged to the customer at the time of payment.  These aren't transferred to the merchant when the batch is transferred and funded.
+    Service fees are any pass-through fees charged to the customer at the time of payment. These aren't transferred to the merchant when the batch is transferred and funded.
     """
 
     net_batch_amount: typing_extensions.Annotated[
@@ -123,11 +123,11 @@ class QueryTransferSummary(UniversalBaseModel):
         FieldMetadata(alias="transferAmount"),
         pydantic.Field(
             alias="transferAmount",
-            description="The transfer amount is the net batch amount plus or minus any returns, refunds,  billing and fees items, chargebacks, adjustments, and third party payments.  This is the amount from the batch that is transferred to the merchant bank account.",
+            description="The transfer amount is the net batch amount plus or minus any returns, refunds, billing and fees items, chargebacks, adjustments, and third party payments. This is the amount from the batch that is transferred to the merchant bank account.",
         ),
     ] = None
     """
-    The transfer amount is the net batch amount plus or minus any returns, refunds,  billing and fees items, chargebacks, adjustments, and third party payments.  This is the amount from the batch that is transferred to the merchant bank account.
+    The transfer amount is the net batch amount plus or minus any returns, refunds, billing and fees items, chargebacks, adjustments, and third party payments. This is the amount from the batch that is transferred to the merchant bank account.
     """
 
     refunds: typing.Optional[float] = pydantic.Field(default=None)

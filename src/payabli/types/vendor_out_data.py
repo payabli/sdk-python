@@ -36,22 +36,27 @@ class VendorOutData(UniversalBaseModel):
         FieldMetadata(alias="Address1"),
         pydantic.Field(
             alias="Address1",
-            description="Vendor's street address. Allowed characters are letters, numbers, spaces, and `. ,",
+            description="Vendor's street address. Allowed characters are letters, numbers, spaces, and `. ,\n\nFor a PO Box address, this field holds only the PO Box, for example `PO Box 29652`, and the rest of the address, such as a department number, is in `Address2`.",
         ),
     ] = None
     """
     Vendor's street address. Allowed characters are letters, numbers, spaces, and `. ,
+    
+    For a PO Box address, this field holds only the PO Box, for example `PO Box 29652`, and the rest of the address, such as a department number, is in `Address2`.
     """
 
     address_2: typing_extensions.Annotated[
         typing.Optional[AddressAddtlNullable],
         FieldMetadata(alias="Address2"),
         pydantic.Field(
-            alias="Address2", description="Additional line for vendor's address, such as a suite or unit number."
+            alias="Address2",
+            description="Additional line for vendor's address, such as a suite or unit number.\n\nFor a PO Box address, this field holds the part of the address that follows the PO Box, for example `Dept# 880662`.",
         ),
     ] = None
     """
     Additional line for vendor's address, such as a suite or unit number.
+    
+    For a PO Box address, this field holds the part of the address that follows the PO Box, for example `Dept# 880662`.
     """
 
     billing_data: typing_extensions.Annotated[

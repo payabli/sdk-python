@@ -44,7 +44,7 @@ class V2BadRequestError(UniversalBaseModel):
 
     errors: typing.Dict[str, typing.List[V2BadRequestErrorDetail]] = pydantic.Field()
     """
-    Dictionary of field-specific validation errors. Keys are field paths (e.g., "paymentMethod.cardnumber") and values are arrays of error details.
+    Dictionary of field-specific validation errors. Keys are field paths (for example, "paymentMethod.cardnumber") and values are arrays of error details.
     """
 
     token: typing.Optional[str] = pydantic.Field(default=None)

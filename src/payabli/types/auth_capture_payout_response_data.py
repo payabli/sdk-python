@@ -21,8 +21,17 @@ class AuthCapturePayoutResponseData(UniversalBaseModel):
         typing.Optional[Authcode], FieldMetadata(alias="authCode"), pydantic.Field(alias="authCode")
     ] = None
     reference_id: typing_extensions.Annotated[
-        Referenceidtrans, FieldMetadata(alias="referenceId"), pydantic.Field(alias="referenceId")
-    ]
+        typing.Optional[Referenceidtrans],
+        FieldMetadata(alias="referenceId"),
+        pydantic.Field(
+            alias="referenceId",
+            description="The transaction reference ID, used to capture the transaction. Returns `null` when no transaction is created, such as a declined authorization.",
+        ),
+    ] = None
+    """
+    The transaction reference ID, used to capture the transaction. Returns `null` when no transaction is created, such as a declined authorization.
+    """
+
     result_code: typing_extensions.Annotated[
         ResultCode, FieldMetadata(alias="resultCode"), pydantic.Field(alias="resultCode")
     ]

@@ -13,6 +13,7 @@ from .environment import payabliEnvironment
 
 if typing.TYPE_CHECKING:
     from .bill.client import AsyncBillClient, BillClient
+    from .billing.client import AsyncBillingClient, BillingClient
     from .boarding.client import AsyncBoardingClient, BoardingClient
     from .case_management.client import AsyncCaseManagementClient, CaseManagementClient
     from .charge_backs.client import AsyncChargeBacksClient, ChargeBacksClient
@@ -81,8 +82,8 @@ class payabli:
     base_url : typing.Optional[str]
         The base url to use for requests from the client.
 
-    token : typing.Callable[[], str]
-        Authenticate by providing a callable that returns a pre-generated bearer token. In this mode, OAuth client credentials are not required.
+    token : typing.Union[str, typing.Callable[[], str]]
+        Authenticate by providing a pre-generated bearer token, or a callable that returns one. In this mode, OAuth client credentials are not required.
 
     timeout : typing.Optional[float]
         The timeout to be used, in seconds, for requests. By default the timeout is 60 seconds, unless a custom httpx client is used, in which case this default is not enforced.
@@ -148,7 +149,7 @@ class payabli:
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.Client] = None,
         logging: typing.Optional[typing.Union[LogConfig, Logger]] = None,
-        token: typing.Callable[[], str],
+        token: typing.Union[str, typing.Callable[[], str]],
     ): ...
     def __init__(
         self,
@@ -159,7 +160,7 @@ class payabli:
         headers: typing.Optional[typing.Dict[str, str]] = None,
         client_id: typing.Optional[str] = os.getenv("OAUTH_CLIENT_ID"),
         client_secret: typing.Optional[str] = os.getenv("OAUTH_CLIENT_SECRET"),
-        token: typing.Optional[typing.Callable[[], str]] = None,
+        token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         _token_getter_override: typing.Optional[typing.Callable[[], str]] = None,
         timeout: typing.Optional[float] = None,
         max_retries: typing.Optional[int] = None,
@@ -274,6 +275,7 @@ class payabli:
         self._payout_subscription: typing.Optional[PayoutSubscriptionClient] = None
         self._charge_backs: typing.Optional[ChargeBacksClient] = None
         self._case_management: typing.Optional[CaseManagementClient] = None
+        self._billing: typing.Optional[BillingClient] = None
 
     @property
     def bill(self):
@@ -547,6 +549,14 @@ class payabli:
             self._case_management = CaseManagementClient(client_wrapper=self._client_wrapper)
         return self._case_management
 
+    @property
+    def billing(self):
+        if self._billing is None:
+            from .billing.client import BillingClient  # noqa: E402
+
+            self._billing = BillingClient(client_wrapper=self._client_wrapper)
+        return self._billing
+
 
 def _make_default_async_client(
     timeout: typing.Optional[float],
@@ -599,8 +609,8 @@ class Asyncpayabli:
     base_url : typing.Optional[str]
         The base url to use for requests from the client.
 
-    token : typing.Callable[[], str]
-        Authenticate by providing a callable that returns a pre-generated bearer token. In this mode, OAuth client credentials are not required.
+    token : typing.Union[str, typing.Callable[[], str]]
+        Authenticate by providing a pre-generated bearer token, or a callable that returns one. In this mode, OAuth client credentials are not required.
 
     timeout : typing.Optional[float]
         The timeout to be used, in seconds, for requests. By default the timeout is 60 seconds, unless a custom httpx client is used, in which case this default is not enforced.
@@ -666,7 +676,7 @@ class Asyncpayabli:
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.AsyncClient] = None,
         logging: typing.Optional[typing.Union[LogConfig, Logger]] = None,
-        token: typing.Callable[[], str],
+        token: typing.Union[str, typing.Callable[[], str]],
     ): ...
     def __init__(
         self,
@@ -677,7 +687,7 @@ class Asyncpayabli:
         headers: typing.Optional[typing.Dict[str, str]] = None,
         client_id: typing.Optional[str] = os.getenv("OAUTH_CLIENT_ID"),
         client_secret: typing.Optional[str] = os.getenv("OAUTH_CLIENT_SECRET"),
-        token: typing.Optional[typing.Callable[[], str]] = None,
+        token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         _token_getter_override: typing.Optional[typing.Callable[[], str]] = None,
         timeout: typing.Optional[float] = None,
         max_retries: typing.Optional[int] = None,
@@ -787,6 +797,7 @@ class Asyncpayabli:
         self._payout_subscription: typing.Optional[AsyncPayoutSubscriptionClient] = None
         self._charge_backs: typing.Optional[AsyncChargeBacksClient] = None
         self._case_management: typing.Optional[AsyncCaseManagementClient] = None
+        self._billing: typing.Optional[AsyncBillingClient] = None
 
     @property
     def bill(self):
@@ -1059,6 +1070,14 @@ class Asyncpayabli:
 
             self._case_management = AsyncCaseManagementClient(client_wrapper=self._client_wrapper)
         return self._case_management
+
+    @property
+    def billing(self):
+        if self._billing is None:
+            from .billing.client import AsyncBillingClient  # noqa: E402
+
+            self._billing = AsyncBillingClient(client_wrapper=self._client_wrapper)
+        return self._billing
 
 
 def _get_base_url(*, base_url: typing.Optional[str] = None, environment: payabliEnvironment) -> str:

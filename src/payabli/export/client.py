@@ -64,9 +64,7 @@ class ExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -77,7 +75,7 @@ class ExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `createdAt` (gt, ge, lt, le, eq, ne)
             - `startDate` (gt, ge, lt, le, eq, ne)
             - `dbaname`  (ct, nct)
@@ -94,7 +92,7 @@ class ExportClient:
             - `status`  (eq, ne)
             - `orgParentname`  (ct, nct)
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -106,7 +104,7 @@ class ExportClient:
             - in => inside array
             - nin => not inside array
 
-            List of parameters accepted:
+            Accepted parameters:
             - `limitRecord` : max number of records for query (default="20", "0" or negative value for all)
             - `fromRecord` : initial record in query
 
@@ -187,9 +185,7 @@ class ExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -200,7 +196,7 @@ class ExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            **List of field names accepted:**
+            **Accepted field names:**
 
               - `settlementDate` (gt, ge, lt, le, eq, ne)
               - `depositDate` (gt, ge, lt, le, eq, ne)
@@ -240,7 +236,7 @@ class ExportClient:
               - `batchId` (ct, nct, eq, neq)
               - `additional-xxx`  (ne, eq, ct, nct) where xxx is the additional field name
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord: max number of records for query (default="20", "0" or negative value for all)
             - fromRecord: initial record in query
 
@@ -321,9 +317,7 @@ class ExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -334,7 +328,7 @@ class ExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            **List of field names accepted:**
+            **Accepted field names:**
 
               - `settlementDate` (gt, ge, lt, le, eq, ne)
               - `depositDate` (gt, ge, lt, le, eq, ne)
@@ -374,7 +368,7 @@ class ExportClient:
               - `batchId` (ct, nct, eq, neq)
               - `additional-xxx`  (ne, eq, ct, nct) where xxx is the additional field name
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord: max number of records for query (default="20", "0" or negative value for all)
             - fromRecord: initial record in query
 
@@ -455,9 +449,7 @@ class ExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -468,7 +460,7 @@ class ExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `batchDate` (gt, ge, lt, le, eq, ne)
             - `batchNumber` (ne, eq)
             - `connectorName` (ne, eq, ct, nct)
@@ -498,7 +490,7 @@ class ExportClient:
             - `processor` (ne, eq, ct, nct)
             - `transferStatus` (ne, eq, in, nin)
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord: max number of records for query (default="20", "0" or negative value for all)
             - fromRecord: initial record in query
 
@@ -579,9 +571,7 @@ class ExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -591,7 +581,7 @@ class ExportClient:
             </Info>
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `batchDate` (gt, ge, lt, le, eq, ne)
             - `batchNumber` (ne, eq)
             - `connectorName` (ne, eq, ct, nct)
@@ -621,7 +611,7 @@ class ExportClient:
             - `processor` (ne, eq, ct, nct)
             - `transferStatus` (ne, eq, in, nin)
 
-            List of parameters accepted:
+            Accepted parameters:
             - `limitRecord`: max number of records for query (default="20", "0" or negative value for all)
             - `fromRecord`: initial record in query
             Example: `batchAmount(gt)=20` returns all records with a `batchAmount` greater than 20.00
@@ -701,9 +691,7 @@ class ExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -714,7 +702,7 @@ class ExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
               - `batchDate` (gt, ge, lt, le, eq, ne)
               - `batchNumber` (ne, eq)
               - `batchAmount` (gt, ge, lt, le, eq, ne)
@@ -724,7 +712,7 @@ class ExportClient:
               - `orgName` (ne, eq, ct, nct, nin, in)
               - `paypointId` (ne, eq)
               - `externalPaypointID` (ct, nct, eq, ne)
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord: max number of records for query (default="20", "0" or negative value for all)
             - fromRecord: initial record in query
 
@@ -805,9 +793,7 @@ class ExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -818,7 +804,7 @@ class ExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
               - `batchDate` (gt, ge, lt, le, eq, ne)
               - `batchNumber` (ne, eq)
               - `batchAmount` (gt, ge, lt, le, eq, ne)
@@ -828,7 +814,7 @@ class ExportClient:
               - `orgName` (ne, eq, ct, nct, nin, in)
               - `paypointId` (ne, eq)
               - `externalPaypointID` (ct, nct, eq, ne)
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord: max number of records for query (default="20", "0" or negative value for all)
             - fromRecord: initial record in query
 
@@ -909,9 +895,7 @@ class ExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -922,7 +906,7 @@ class ExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `status` (in, nin, eq, ne)
             - `billNumber` (ct, nct, eq, ne)
             - `billDate` (gt, ge, lt, le, eq, ne)
@@ -938,7 +922,7 @@ class ExportClient:
             - `paypointDba` (ne, eq, ct, nct)
             - `orgName` (ne, eq, ct, nct)
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -950,7 +934,7 @@ class ExportClient:
             - in => inside array separated by "|"
             - nin => not inside array separated by "|"
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord : max number of records for query (default="20", "0" or negative value for all)
             - fromRecord : initial record in query
 
@@ -1031,9 +1015,7 @@ class ExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -1044,7 +1026,7 @@ class ExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `status` (in, nin, eq, ne)
             - `billNumber` (ct, nct, eq, ne)
             - `billDate` (gt, ge, lt, le, eq, ne)
@@ -1060,7 +1042,7 @@ class ExportClient:
             - `paypointDba` (ne, eq, ct, nct)
             - `orgName` (ne, eq, ct, nct)
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -1072,7 +1054,7 @@ class ExportClient:
             - in => inside array separated by "|"
             - nin => not inside array separated by "|"
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord : max number of records for query (default="20", "0" or negative value for all)
             - fromRecord : initial record in query
 
@@ -1153,9 +1135,7 @@ class ExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -1166,7 +1146,7 @@ class ExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `chargebackDate` (gt, ge, lt, le, eq, ne)
             - `transId` (ne, eq, ct, nct)
             - `method` (in, nin, eq, ne)
@@ -1203,7 +1183,7 @@ class ExportClient:
             - `orgName` (ne, eq, ct, nct)
             - `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -1215,7 +1195,7 @@ class ExportClient:
             - in => inside array separated by "|"
             - nin => not inside array separated by "|"
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord : max number of records for query (default="20", "0" or negative value for all)
             - fromRecord : initial record in query
 
@@ -1296,9 +1276,7 @@ class ExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -1309,7 +1287,7 @@ class ExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `chargebackDate` (gt, ge, lt, le, eq, ne)
             - `transId` (ne, eq, ct, nct)
             - `method` (in, nin, eq, ne)
@@ -1346,7 +1324,7 @@ class ExportClient:
             - `orgName` (ne, eq, ct, nct)
             - `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -1358,7 +1336,7 @@ class ExportClient:
             - in => inside array separated by "|"
             - nin => not inside array separated by "|"
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord : max number of records for query (default="20", "0" or negative value for all)
             - fromRecord : initial record in query
 
@@ -1439,9 +1417,7 @@ class ExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -1452,7 +1428,7 @@ class ExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            **List of field names accepted:**
+            **Accepted field names:**
             - `createdDate` (gt, ge, lt, le, eq, ne)
             - `customernumber` (ne, eq, ct, nct)
             - `firstname` (ne, eq, ct, nct)
@@ -1481,7 +1457,7 @@ class ExportClient:
             - `paypointDba` (ne, eq, ct, nct)
             - `orgName` (ne, eq, ct, nct)
 
-            **List of comparison accepted - enclosed between parentheses:**
+            **Accepted comparison operators - enclosed between parentheses:**
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -1493,7 +1469,7 @@ class ExportClient:
             - in => inside array separated by "|"
             - nin => not inside array separated by "|"
 
-            **List of parameters accepted:**
+            **Accepted parameters:**
             - limitRecord: max number of records for query (default="20", "0" or negative value for all)
             - fromRecord: initial record in query
 
@@ -1575,9 +1551,7 @@ class ExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -1588,7 +1562,7 @@ class ExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            **List of field names accepted:**
+            **Accepted field names:**
             - `createdDate` (gt, ge, lt, le, eq, ne)
             - `customernumber` (ne, eq, ct, nct)
             - `firstname` (ne, eq, ct, nct)
@@ -1617,7 +1591,7 @@ class ExportClient:
             - `paypointDba` (ne, eq, ct, nct)
             - `orgName` (ne, eq, ct, nct)
 
-            **List of comparison accepted - enclosed between parentheses:**
+            **Accepted comparison operators - enclosed between parentheses:**
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -1629,7 +1603,7 @@ class ExportClient:
             - in => inside array separated by "|"
             - nin => not inside array separated by "|"
 
-            **List of parameters accepted:**
+            **Accepted parameters:**
             - limitRecord: max number of records for query (default="20", "0" or negative value for all)
             - fromRecord: initial record in query
 
@@ -1711,9 +1685,7 @@ class ExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -1724,7 +1696,7 @@ class ExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
              - `invoiceDate` (gt, ge, lt, le, eq, ne)
              - `dueDate` (gt, ge, lt, le, eq, ne)
              - `sentDate` (gt, ge, lt, le, eq, ne)
@@ -1764,7 +1736,7 @@ class ExportClient:
              - `orgName`  (ne, eq, ct, nct)
              - `additional-xxx`  (ne, eq, ct, nct) where xxx is the additional field name
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
              - eq or empty => equal
              - gt => greater than
              - ge => greater or equal
@@ -1776,7 +1748,7 @@ class ExportClient:
              - in => inside array
              - nin => not inside array
 
-            List of parameters accepted:
+            Accepted parameters:
              - `limitRecord` : max number of records for query (default="20", "0" or negative value for all)
              - `fromRecord` : initial record in query
 
@@ -1857,9 +1829,7 @@ class ExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -1870,7 +1840,7 @@ class ExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
              - `invoiceDate` (gt, ge, lt, le, eq, ne)
              - `dueDate` (gt, ge, lt, le, eq, ne)
              - `sentDate` (gt, ge, lt, le, eq, ne)
@@ -1910,7 +1880,7 @@ class ExportClient:
              - `orgName` (ne, eq, ct, nct)
              - `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
              - eq or empty => equal
              - gt => greater than
              - ge => greater or equal
@@ -1922,7 +1892,7 @@ class ExportClient:
              - in => inside array
              - nin => not inside array
 
-            List of parameters accepted:
+            Accepted parameters:
              - limitRecord : max number of records for query (default="20", "0" or negative value for all)
              - fromRecord : initial record in query
 
@@ -2003,9 +1973,7 @@ class ExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -2016,7 +1984,7 @@ class ExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `name` (ct, nct, eq, ne)
             - `type` (ne, eq)
             - `contactName` (ct, nct, eq, ne)
@@ -2031,7 +1999,7 @@ class ExportClient:
             - `hasBilling` any value greater than zero is taken as TRUE otherwise is FALSE
             - `hasResidual` any value greater than zero is taken as TRUE otherwise is FALSE
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -2043,7 +2011,7 @@ class ExportClient:
             - in => inside array
             - nin => not inside array
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord : max number of records for query (default="20", "0" or negative value for all)
             - fromRecord : initial record in query
 
@@ -2124,9 +2092,7 @@ class ExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -2137,7 +2103,7 @@ class ExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `status` (in, nin, eq, ne)
             - `transactionDate` (gt, ge, lt, le, eq, ne)
             - `billNumber` (ct, nct)
@@ -2151,7 +2117,7 @@ class ExportClient:
             - `paypointDba` (ne, eq, ct, nct)
             - `orgName` (ne, eq, ct, nct)
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -2163,7 +2129,7 @@ class ExportClient:
             - in => inside array separated by "|"
             - nin => not inside array separated by "|"
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord: max number of records for query (default="20", "0" or negative value for all)
             - fromRecord: initial record in query
 
@@ -2244,9 +2210,7 @@ class ExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -2257,7 +2221,7 @@ class ExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `status` (in, nin, eq, ne)
             - `transactionDate` (gt, ge, lt, le, eq, ne)
             - `billNumber` (ct, nct)
@@ -2271,7 +2235,7 @@ class ExportClient:
             - `paypointDba` (ne, eq, ct, nct)
             - `orgName` (ne, eq, ct, nct)
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -2283,7 +2247,7 @@ class ExportClient:
             - in => inside array separated by "|"
             - nin => not inside array separated by "|"
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord: max number of records for query (default="20", "0" or negative value for all)
             - fromRecord: initial record in query
 
@@ -2364,9 +2328,7 @@ class ExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -2377,7 +2339,7 @@ class ExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `createdAt` (gt, ge, lt, le, eq, ne)
             - `startDate` (gt, ge, lt, le, eq, ne)
             - `dbaname` (ct, nct)
@@ -2393,7 +2355,7 @@ class ExportClient:
             - `contactName` (ct, nct)
             - `orgParentname` (ct, nct)
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -2405,7 +2367,7 @@ class ExportClient:
             - in => inside array
             - nin => not inside array
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord : max number of records for query (default="20", "0" or negative value for all)
             - fromRecord : initial record in query
 
@@ -2486,9 +2448,7 @@ class ExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -2499,7 +2459,7 @@ class ExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `settlementDate` (gt, ge, lt, le, eq, ne)
             - `transId` (ne, eq, ct, nct)
             - `gatewayTransId` (ne, eq, ct, nct)
@@ -2535,7 +2495,7 @@ class ExportClient:
             - `orgName` (ne, eq, ct, nct)
             - `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -2547,7 +2507,7 @@ class ExportClient:
             - in => inside array separated by "|"
             - nin => not inside array separated by "|"
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord: max number of records for query (default="20", "0" or negative value for all)
             - fromRecord: initial record in query
 
@@ -2628,9 +2588,7 @@ class ExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -2641,7 +2599,7 @@ class ExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `settlementDate` (gt, ge, lt, le, eq, ne)
             - `transId` (ne, eq, ct, nct)
             - `gatewayTransId` (ne, eq, ct, nct)
@@ -2677,7 +2635,7 @@ class ExportClient:
             - `orgName` (ne, eq, ct, nct)
             - `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -2689,7 +2647,7 @@ class ExportClient:
             - in => inside array separated by "|"
             - nin => not inside array separated by "|"
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord: max number of records for query (default="20", "0" or negative value for all)
             - fromRecord: initial record in query
 
@@ -2770,9 +2728,7 @@ class ExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -2783,7 +2739,7 @@ class ExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `startDate` (gt, ge, lt, le, eq, ne)
             - `endDate` (gt, ge, lt, le, eq, ne)
             - `nextDate` (gt, ge, lt, le, eq, ne)
@@ -2821,7 +2777,7 @@ class ExportClient:
             - `orgName` (ne, eq, ct, nct)
             - `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -2833,7 +2789,7 @@ class ExportClient:
             - in => inside array
             - nin => not inside array
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord : max number of records for query (default="20", "0" or negative value for all)
             - fromRecord : initial record in query
 
@@ -2914,9 +2870,7 @@ class ExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -2927,7 +2881,7 @@ class ExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `startDate` (gt, ge, lt, le, eq, ne)
             - `endDate` (gt, ge, lt, le, eq, ne)
             - `nextDate` (gt, ge, lt, le, eq, ne)
@@ -2965,7 +2919,7 @@ class ExportClient:
             - `orgName` (ne, eq, ct, nct)
             - `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -2977,7 +2931,7 @@ class ExportClient:
             - in => inside array
             - nin => not inside array
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord : max number of records for query (default="20", "0" or negative value for all)
             - fromRecord : initial record in query
 
@@ -3058,9 +3012,7 @@ class ExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -3071,7 +3023,7 @@ class ExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `transactionDate` (gt, ge, lt, le, eq, ne)
             - `transId` (ne, eq, ct, nct)
             - `gatewayTransId` (ne, eq, ct, nct)
@@ -3113,7 +3065,7 @@ class ExportClient:
             - `customerShippingCountry` (ct, nct, eq, ne)
             - `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -3125,7 +3077,7 @@ class ExportClient:
             - in => inside array
             - nin => not inside array
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord : max number of records for query (default="20", "0" or negative value for all)
             - fromRecord : initial record in query
 
@@ -3206,9 +3158,7 @@ class ExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -3219,7 +3169,7 @@ class ExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `transactionDate` (gt, ge, lt, le, eq, ne)
             - `transId` (ne, eq, ct, nct)
             - `gatewayTransId` (ne, eq, ct, nct)
@@ -3261,7 +3211,7 @@ class ExportClient:
             - `customerShippingCountry` (ct, nct, eq, ne)
             - `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -3273,7 +3223,7 @@ class ExportClient:
             - in => inside array
             - nin => not inside array
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord : max number of records for query (default="20", "0" or negative value for all)
             - fromRecord : initial record in query
 
@@ -3359,9 +3309,7 @@ class ExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -3372,7 +3320,7 @@ class ExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
 
               - `grossAmount` (gt, ge, lt, le, eq, ne)
 
@@ -3475,9 +3423,7 @@ class ExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -3488,7 +3434,7 @@ class ExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
               - `transferDate` (gt, ge, lt, le, eq, ne)
 
               - `grossAmount` (gt, ge, lt, le, eq, ne)
@@ -3591,9 +3537,7 @@ class ExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -3604,7 +3548,7 @@ class ExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `method` (in, nin, eq, ne)
             - `enrollmentStatus` (in, nin, eq, ne)
             - `status` (in, nin, eq, ne)
@@ -3624,7 +3568,7 @@ class ExportClient:
             - `paypointDba` (ne, eq, ct, nct)
             - `orgName` (ne, eq, ct, nct)
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -3636,7 +3580,7 @@ class ExportClient:
             - in => inside array separated by "|"
             - nin => not inside array separated by "|"
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord : max number of records for query (default="20", "0" or negative value for all)
             - fromRecord : initial record in query
 
@@ -3717,9 +3661,7 @@ class ExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -3730,7 +3672,7 @@ class ExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `method` (in, nin, eq, ne)
             - `enrollmentStatus` (in, nin, eq, ne)
             - `status` (in, nin, eq, ne)
@@ -3750,7 +3692,7 @@ class ExportClient:
             - `paypointDba` (ne, eq, ct, nct)
             - `orgName` (ne, eq, ct, nct)
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -3762,7 +3704,7 @@ class ExportClient:
             - in => inside array separated by "|"
             - nin => not inside array separated by "|"
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord : max number of records for query (default="20", "0" or negative value for all)
             - fromRecord : initial record in query
 
@@ -3859,9 +3801,7 @@ class AsyncExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -3872,7 +3812,7 @@ class AsyncExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `createdAt` (gt, ge, lt, le, eq, ne)
             - `startDate` (gt, ge, lt, le, eq, ne)
             - `dbaname`  (ct, nct)
@@ -3889,7 +3829,7 @@ class AsyncExportClient:
             - `status`  (eq, ne)
             - `orgParentname`  (ct, nct)
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -3901,7 +3841,7 @@ class AsyncExportClient:
             - in => inside array
             - nin => not inside array
 
-            List of parameters accepted:
+            Accepted parameters:
             - `limitRecord` : max number of records for query (default="20", "0" or negative value for all)
             - `fromRecord` : initial record in query
 
@@ -3990,9 +3930,7 @@ class AsyncExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -4003,7 +3941,7 @@ class AsyncExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            **List of field names accepted:**
+            **Accepted field names:**
 
               - `settlementDate` (gt, ge, lt, le, eq, ne)
               - `depositDate` (gt, ge, lt, le, eq, ne)
@@ -4043,7 +3981,7 @@ class AsyncExportClient:
               - `batchId` (ct, nct, eq, neq)
               - `additional-xxx`  (ne, eq, ct, nct) where xxx is the additional field name
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord: max number of records for query (default="20", "0" or negative value for all)
             - fromRecord: initial record in query
 
@@ -4132,9 +4070,7 @@ class AsyncExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -4145,7 +4081,7 @@ class AsyncExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            **List of field names accepted:**
+            **Accepted field names:**
 
               - `settlementDate` (gt, ge, lt, le, eq, ne)
               - `depositDate` (gt, ge, lt, le, eq, ne)
@@ -4185,7 +4121,7 @@ class AsyncExportClient:
               - `batchId` (ct, nct, eq, neq)
               - `additional-xxx`  (ne, eq, ct, nct) where xxx is the additional field name
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord: max number of records for query (default="20", "0" or negative value for all)
             - fromRecord: initial record in query
 
@@ -4274,9 +4210,7 @@ class AsyncExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -4287,7 +4221,7 @@ class AsyncExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `batchDate` (gt, ge, lt, le, eq, ne)
             - `batchNumber` (ne, eq)
             - `connectorName` (ne, eq, ct, nct)
@@ -4317,7 +4251,7 @@ class AsyncExportClient:
             - `processor` (ne, eq, ct, nct)
             - `transferStatus` (ne, eq, in, nin)
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord: max number of records for query (default="20", "0" or negative value for all)
             - fromRecord: initial record in query
 
@@ -4406,9 +4340,7 @@ class AsyncExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -4418,7 +4350,7 @@ class AsyncExportClient:
             </Info>
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `batchDate` (gt, ge, lt, le, eq, ne)
             - `batchNumber` (ne, eq)
             - `connectorName` (ne, eq, ct, nct)
@@ -4448,7 +4380,7 @@ class AsyncExportClient:
             - `processor` (ne, eq, ct, nct)
             - `transferStatus` (ne, eq, in, nin)
 
-            List of parameters accepted:
+            Accepted parameters:
             - `limitRecord`: max number of records for query (default="20", "0" or negative value for all)
             - `fromRecord`: initial record in query
             Example: `batchAmount(gt)=20` returns all records with a `batchAmount` greater than 20.00
@@ -4536,9 +4468,7 @@ class AsyncExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -4549,7 +4479,7 @@ class AsyncExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
               - `batchDate` (gt, ge, lt, le, eq, ne)
               - `batchNumber` (ne, eq)
               - `batchAmount` (gt, ge, lt, le, eq, ne)
@@ -4559,7 +4489,7 @@ class AsyncExportClient:
               - `orgName` (ne, eq, ct, nct, nin, in)
               - `paypointId` (ne, eq)
               - `externalPaypointID` (ct, nct, eq, ne)
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord: max number of records for query (default="20", "0" or negative value for all)
             - fromRecord: initial record in query
 
@@ -4648,9 +4578,7 @@ class AsyncExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -4661,7 +4589,7 @@ class AsyncExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
               - `batchDate` (gt, ge, lt, le, eq, ne)
               - `batchNumber` (ne, eq)
               - `batchAmount` (gt, ge, lt, le, eq, ne)
@@ -4671,7 +4599,7 @@ class AsyncExportClient:
               - `orgName` (ne, eq, ct, nct, nin, in)
               - `paypointId` (ne, eq)
               - `externalPaypointID` (ct, nct, eq, ne)
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord: max number of records for query (default="20", "0" or negative value for all)
             - fromRecord: initial record in query
 
@@ -4760,9 +4688,7 @@ class AsyncExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -4773,7 +4699,7 @@ class AsyncExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `status` (in, nin, eq, ne)
             - `billNumber` (ct, nct, eq, ne)
             - `billDate` (gt, ge, lt, le, eq, ne)
@@ -4789,7 +4715,7 @@ class AsyncExportClient:
             - `paypointDba` (ne, eq, ct, nct)
             - `orgName` (ne, eq, ct, nct)
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -4801,7 +4727,7 @@ class AsyncExportClient:
             - in => inside array separated by "|"
             - nin => not inside array separated by "|"
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord : max number of records for query (default="20", "0" or negative value for all)
             - fromRecord : initial record in query
 
@@ -4890,9 +4816,7 @@ class AsyncExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -4903,7 +4827,7 @@ class AsyncExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `status` (in, nin, eq, ne)
             - `billNumber` (ct, nct, eq, ne)
             - `billDate` (gt, ge, lt, le, eq, ne)
@@ -4919,7 +4843,7 @@ class AsyncExportClient:
             - `paypointDba` (ne, eq, ct, nct)
             - `orgName` (ne, eq, ct, nct)
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -4931,7 +4855,7 @@ class AsyncExportClient:
             - in => inside array separated by "|"
             - nin => not inside array separated by "|"
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord : max number of records for query (default="20", "0" or negative value for all)
             - fromRecord : initial record in query
 
@@ -5020,9 +4944,7 @@ class AsyncExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -5033,7 +4955,7 @@ class AsyncExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `chargebackDate` (gt, ge, lt, le, eq, ne)
             - `transId` (ne, eq, ct, nct)
             - `method` (in, nin, eq, ne)
@@ -5070,7 +4992,7 @@ class AsyncExportClient:
             - `orgName` (ne, eq, ct, nct)
             - `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -5082,7 +5004,7 @@ class AsyncExportClient:
             - in => inside array separated by "|"
             - nin => not inside array separated by "|"
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord : max number of records for query (default="20", "0" or negative value for all)
             - fromRecord : initial record in query
 
@@ -5171,9 +5093,7 @@ class AsyncExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -5184,7 +5104,7 @@ class AsyncExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `chargebackDate` (gt, ge, lt, le, eq, ne)
             - `transId` (ne, eq, ct, nct)
             - `method` (in, nin, eq, ne)
@@ -5221,7 +5141,7 @@ class AsyncExportClient:
             - `orgName` (ne, eq, ct, nct)
             - `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -5233,7 +5153,7 @@ class AsyncExportClient:
             - in => inside array separated by "|"
             - nin => not inside array separated by "|"
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord : max number of records for query (default="20", "0" or negative value for all)
             - fromRecord : initial record in query
 
@@ -5322,9 +5242,7 @@ class AsyncExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -5335,7 +5253,7 @@ class AsyncExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            **List of field names accepted:**
+            **Accepted field names:**
             - `createdDate` (gt, ge, lt, le, eq, ne)
             - `customernumber` (ne, eq, ct, nct)
             - `firstname` (ne, eq, ct, nct)
@@ -5364,7 +5282,7 @@ class AsyncExportClient:
             - `paypointDba` (ne, eq, ct, nct)
             - `orgName` (ne, eq, ct, nct)
 
-            **List of comparison accepted - enclosed between parentheses:**
+            **Accepted comparison operators - enclosed between parentheses:**
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -5376,7 +5294,7 @@ class AsyncExportClient:
             - in => inside array separated by "|"
             - nin => not inside array separated by "|"
 
-            **List of parameters accepted:**
+            **Accepted parameters:**
             - limitRecord: max number of records for query (default="20", "0" or negative value for all)
             - fromRecord: initial record in query
 
@@ -5466,9 +5384,7 @@ class AsyncExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -5479,7 +5395,7 @@ class AsyncExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            **List of field names accepted:**
+            **Accepted field names:**
             - `createdDate` (gt, ge, lt, le, eq, ne)
             - `customernumber` (ne, eq, ct, nct)
             - `firstname` (ne, eq, ct, nct)
@@ -5508,7 +5424,7 @@ class AsyncExportClient:
             - `paypointDba` (ne, eq, ct, nct)
             - `orgName` (ne, eq, ct, nct)
 
-            **List of comparison accepted - enclosed between parentheses:**
+            **Accepted comparison operators - enclosed between parentheses:**
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -5520,7 +5436,7 @@ class AsyncExportClient:
             - in => inside array separated by "|"
             - nin => not inside array separated by "|"
 
-            **List of parameters accepted:**
+            **Accepted parameters:**
             - limitRecord: max number of records for query (default="20", "0" or negative value for all)
             - fromRecord: initial record in query
 
@@ -5610,9 +5526,7 @@ class AsyncExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -5623,7 +5537,7 @@ class AsyncExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
              - `invoiceDate` (gt, ge, lt, le, eq, ne)
              - `dueDate` (gt, ge, lt, le, eq, ne)
              - `sentDate` (gt, ge, lt, le, eq, ne)
@@ -5663,7 +5577,7 @@ class AsyncExportClient:
              - `orgName`  (ne, eq, ct, nct)
              - `additional-xxx`  (ne, eq, ct, nct) where xxx is the additional field name
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
              - eq or empty => equal
              - gt => greater than
              - ge => greater or equal
@@ -5675,7 +5589,7 @@ class AsyncExportClient:
              - in => inside array
              - nin => not inside array
 
-            List of parameters accepted:
+            Accepted parameters:
              - `limitRecord` : max number of records for query (default="20", "0" or negative value for all)
              - `fromRecord` : initial record in query
 
@@ -5764,9 +5678,7 @@ class AsyncExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -5777,7 +5689,7 @@ class AsyncExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
              - `invoiceDate` (gt, ge, lt, le, eq, ne)
              - `dueDate` (gt, ge, lt, le, eq, ne)
              - `sentDate` (gt, ge, lt, le, eq, ne)
@@ -5817,7 +5729,7 @@ class AsyncExportClient:
              - `orgName` (ne, eq, ct, nct)
              - `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
              - eq or empty => equal
              - gt => greater than
              - ge => greater or equal
@@ -5829,7 +5741,7 @@ class AsyncExportClient:
              - in => inside array
              - nin => not inside array
 
-            List of parameters accepted:
+            Accepted parameters:
              - limitRecord : max number of records for query (default="20", "0" or negative value for all)
              - fromRecord : initial record in query
 
@@ -5918,9 +5830,7 @@ class AsyncExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -5931,7 +5841,7 @@ class AsyncExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `name` (ct, nct, eq, ne)
             - `type` (ne, eq)
             - `contactName` (ct, nct, eq, ne)
@@ -5946,7 +5856,7 @@ class AsyncExportClient:
             - `hasBilling` any value greater than zero is taken as TRUE otherwise is FALSE
             - `hasResidual` any value greater than zero is taken as TRUE otherwise is FALSE
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -5958,7 +5868,7 @@ class AsyncExportClient:
             - in => inside array
             - nin => not inside array
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord : max number of records for query (default="20", "0" or negative value for all)
             - fromRecord : initial record in query
 
@@ -6047,9 +5957,7 @@ class AsyncExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -6060,7 +5968,7 @@ class AsyncExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `status` (in, nin, eq, ne)
             - `transactionDate` (gt, ge, lt, le, eq, ne)
             - `billNumber` (ct, nct)
@@ -6074,7 +5982,7 @@ class AsyncExportClient:
             - `paypointDba` (ne, eq, ct, nct)
             - `orgName` (ne, eq, ct, nct)
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -6086,7 +5994,7 @@ class AsyncExportClient:
             - in => inside array separated by "|"
             - nin => not inside array separated by "|"
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord: max number of records for query (default="20", "0" or negative value for all)
             - fromRecord: initial record in query
 
@@ -6175,9 +6083,7 @@ class AsyncExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -6188,7 +6094,7 @@ class AsyncExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `status` (in, nin, eq, ne)
             - `transactionDate` (gt, ge, lt, le, eq, ne)
             - `billNumber` (ct, nct)
@@ -6202,7 +6108,7 @@ class AsyncExportClient:
             - `paypointDba` (ne, eq, ct, nct)
             - `orgName` (ne, eq, ct, nct)
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -6214,7 +6120,7 @@ class AsyncExportClient:
             - in => inside array separated by "|"
             - nin => not inside array separated by "|"
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord: max number of records for query (default="20", "0" or negative value for all)
             - fromRecord: initial record in query
 
@@ -6303,9 +6209,7 @@ class AsyncExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -6316,7 +6220,7 @@ class AsyncExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `createdAt` (gt, ge, lt, le, eq, ne)
             - `startDate` (gt, ge, lt, le, eq, ne)
             - `dbaname` (ct, nct)
@@ -6332,7 +6236,7 @@ class AsyncExportClient:
             - `contactName` (ct, nct)
             - `orgParentname` (ct, nct)
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -6344,7 +6248,7 @@ class AsyncExportClient:
             - in => inside array
             - nin => not inside array
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord : max number of records for query (default="20", "0" or negative value for all)
             - fromRecord : initial record in query
 
@@ -6433,9 +6337,7 @@ class AsyncExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -6446,7 +6348,7 @@ class AsyncExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `settlementDate` (gt, ge, lt, le, eq, ne)
             - `transId` (ne, eq, ct, nct)
             - `gatewayTransId` (ne, eq, ct, nct)
@@ -6482,7 +6384,7 @@ class AsyncExportClient:
             - `orgName` (ne, eq, ct, nct)
             - `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -6494,7 +6396,7 @@ class AsyncExportClient:
             - in => inside array separated by "|"
             - nin => not inside array separated by "|"
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord: max number of records for query (default="20", "0" or negative value for all)
             - fromRecord: initial record in query
 
@@ -6583,9 +6485,7 @@ class AsyncExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -6596,7 +6496,7 @@ class AsyncExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `settlementDate` (gt, ge, lt, le, eq, ne)
             - `transId` (ne, eq, ct, nct)
             - `gatewayTransId` (ne, eq, ct, nct)
@@ -6632,7 +6532,7 @@ class AsyncExportClient:
             - `orgName` (ne, eq, ct, nct)
             - `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -6644,7 +6544,7 @@ class AsyncExportClient:
             - in => inside array separated by "|"
             - nin => not inside array separated by "|"
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord: max number of records for query (default="20", "0" or negative value for all)
             - fromRecord: initial record in query
 
@@ -6733,9 +6633,7 @@ class AsyncExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -6746,7 +6644,7 @@ class AsyncExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `startDate` (gt, ge, lt, le, eq, ne)
             - `endDate` (gt, ge, lt, le, eq, ne)
             - `nextDate` (gt, ge, lt, le, eq, ne)
@@ -6784,7 +6682,7 @@ class AsyncExportClient:
             - `orgName` (ne, eq, ct, nct)
             - `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -6796,7 +6694,7 @@ class AsyncExportClient:
             - in => inside array
             - nin => not inside array
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord : max number of records for query (default="20", "0" or negative value for all)
             - fromRecord : initial record in query
 
@@ -6885,9 +6783,7 @@ class AsyncExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -6898,7 +6794,7 @@ class AsyncExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `startDate` (gt, ge, lt, le, eq, ne)
             - `endDate` (gt, ge, lt, le, eq, ne)
             - `nextDate` (gt, ge, lt, le, eq, ne)
@@ -6936,7 +6832,7 @@ class AsyncExportClient:
             - `orgName` (ne, eq, ct, nct)
             - `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -6948,7 +6844,7 @@ class AsyncExportClient:
             - in => inside array
             - nin => not inside array
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord : max number of records for query (default="20", "0" or negative value for all)
             - fromRecord : initial record in query
 
@@ -7037,9 +6933,7 @@ class AsyncExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -7050,7 +6944,7 @@ class AsyncExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `transactionDate` (gt, ge, lt, le, eq, ne)
             - `transId` (ne, eq, ct, nct)
             - `gatewayTransId` (ne, eq, ct, nct)
@@ -7092,7 +6986,7 @@ class AsyncExportClient:
             - `customerShippingCountry` (ct, nct, eq, ne)
             - `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -7104,7 +6998,7 @@ class AsyncExportClient:
             - in => inside array
             - nin => not inside array
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord : max number of records for query (default="20", "0" or negative value for all)
             - fromRecord : initial record in query
 
@@ -7193,9 +7087,7 @@ class AsyncExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -7206,7 +7098,7 @@ class AsyncExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `transactionDate` (gt, ge, lt, le, eq, ne)
             - `transId` (ne, eq, ct, nct)
             - `gatewayTransId` (ne, eq, ct, nct)
@@ -7248,7 +7140,7 @@ class AsyncExportClient:
             - `customerShippingCountry` (ct, nct, eq, ne)
             - `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -7260,7 +7152,7 @@ class AsyncExportClient:
             - in => inside array
             - nin => not inside array
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord : max number of records for query (default="20", "0" or negative value for all)
             - fromRecord : initial record in query
 
@@ -7354,9 +7246,7 @@ class AsyncExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -7367,7 +7257,7 @@ class AsyncExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
 
               - `grossAmount` (gt, ge, lt, le, eq, ne)
 
@@ -7478,9 +7368,7 @@ class AsyncExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -7491,7 +7379,7 @@ class AsyncExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
               - `transferDate` (gt, ge, lt, le, eq, ne)
 
               - `grossAmount` (gt, ge, lt, le, eq, ne)
@@ -7602,9 +7490,7 @@ class AsyncExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -7615,7 +7501,7 @@ class AsyncExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `method` (in, nin, eq, ne)
             - `enrollmentStatus` (in, nin, eq, ne)
             - `status` (in, nin, eq, ne)
@@ -7635,7 +7521,7 @@ class AsyncExportClient:
             - `paypointDba` (ne, eq, ct, nct)
             - `orgName` (ne, eq, ct, nct)
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -7647,7 +7533,7 @@ class AsyncExportClient:
             - in => inside array separated by "|"
             - nin => not inside array separated by "|"
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord : max number of records for query (default="20", "0" or negative value for all)
             - fromRecord : initial record in query
 
@@ -7736,9 +7622,7 @@ class AsyncExportClient:
             <Info>
               **You must remove `parameters=` from the request before you send it, otherwise Payabli will ignore the filters.**
 
-              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
-
-              For example:
+              Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
               --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
 
@@ -7749,7 +7633,7 @@ class AsyncExportClient:
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
-            List of field names accepted:
+            **Accepted field names:**
             - `method` (in, nin, eq, ne)
             - `enrollmentStatus` (in, nin, eq, ne)
             - `status` (in, nin, eq, ne)
@@ -7769,7 +7653,7 @@ class AsyncExportClient:
             - `paypointDba` (ne, eq, ct, nct)
             - `orgName` (ne, eq, ct, nct)
 
-            List of comparison accepted - enclosed between parentheses:
+            Accepted comparison operators - enclosed between parentheses:
             - eq or empty => equal
             - gt => greater than
             - ge => greater or equal
@@ -7781,7 +7665,7 @@ class AsyncExportClient:
             - in => inside array separated by "|"
             - nin => not inside array separated by "|"
 
-            List of parameters accepted:
+            Accepted parameters:
             - limitRecord : max number of records for query (default="20", "0" or negative value for all)
             - fromRecord : initial record in query
 

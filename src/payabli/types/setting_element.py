@@ -15,7 +15,7 @@ class SettingElement(UniversalBaseModel):
     enabled: typing.Optional[Enabled] = None
     fields: typing.Optional[typing.List[DisplayProperty]] = pydantic.Field(default=None)
     """
-    Fields to display on the reciept.
+    Fields to display on the receipt.
     """
 
     order: typing.Optional[Order] = None
@@ -36,11 +36,11 @@ class SettingElement(UniversalBaseModel):
         FieldMetadata(alias="sendManual"),
         pydantic.Field(
             alias="sendManual",
-            description="When `true`, you must send the reciept to the payor manually using the [/MoneyIn/sendreceipt/\\{transId\\}](/developers/api-reference/moneyin/send-receipt-for-transaction) endpoint.",
+            description="When `true`, you must send the receipt to the payor manually using the [/MoneyIn/sendreceipt/\\{transId\\}](/developers/api-reference/moneyin/send-receipt-for-transaction) endpoint.",
         ),
     ] = None
     """
-    When `true`, you must send the reciept to the payor manually using the [/MoneyIn/sendreceipt/\\{transId\\}](/developers/api-reference/moneyin/send-receipt-for-transaction) endpoint.
+    When `true`, you must send the receipt to the payor manually using the [/MoneyIn/sendreceipt/\\{transId\\}](/developers/api-reference/moneyin/send-receipt-for-transaction) endpoint.
     """
 
     if IS_PYDANTIC_V2:
