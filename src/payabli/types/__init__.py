@@ -283,6 +283,8 @@ if typing.TYPE_CHECKING:
     from .deposit_funds_response import DepositFundsResponse
     from .descriptor import Descriptor
     from .device import Device
+    from .device_challenge_data import DeviceChallengeData
+    from .device_challenge_response import DeviceChallengeResponse
     from .device_query_record import DeviceQueryRecord
     from .discount import Discount
     from .display_property import DisplayProperty
@@ -406,7 +408,6 @@ if typing.TYPE_CHECKING:
     from .list_payment_method_domains_response import ListPaymentMethodDomainsResponse
     from .location_code import LocationCode
     from .logout_user_response import LogoutUserResponse
-    from .lot_number import LotNumber
     from .maddress import Maddress
     from .maddress_1 import Maddress1
     from .maskedaccount import Maskedaccount
@@ -530,6 +531,8 @@ if typing.TYPE_CHECKING:
     from .pay_method_cloud_method import PayMethodCloudMethod
     from .pay_method_credit import PayMethodCredit
     from .pay_method_credit_method import PayMethodCreditMethod
+    from .pay_method_device import PayMethodDevice
+    from .pay_method_device_method import PayMethodDeviceMethod
     from .pay_method_stored_method import PayMethodStoredMethod
     from .pay_method_stored_method_method import PayMethodStoredMethodMethod
     from .payabli_access_token_response import PayabliAccessTokenResponse
@@ -694,7 +697,6 @@ if typing.TYPE_CHECKING:
     from .request_credit_payment_method_method import RequestCreditPaymentMethodMethod
     from .request_out_authorize_invoice_data import RequestOutAuthorizeInvoiceData
     from .request_out_authorize_payment_details import RequestOutAuthorizePaymentDetails
-    from .request_out_authorize_vendor_billing_data import RequestOutAuthorizeVendorBillingData
     from .request_out_authorize_vendor_data import RequestOutAuthorizeVendorData
     from .request_payment_validate_payment_method import RequestPaymentValidatePaymentMethod
     from .request_payment_validate_payment_method_method import RequestPaymentValidatePaymentMethodMethod
@@ -1220,6 +1222,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DepositFundsResponse": ".deposit_funds_response",
     "Descriptor": ".descriptor",
     "Device": ".device",
+    "DeviceChallengeData": ".device_challenge_data",
+    "DeviceChallengeResponse": ".device_challenge_response",
     "DeviceQueryRecord": ".device_query_record",
     "Discount": ".discount",
     "DisplayProperty": ".display_property",
@@ -1343,7 +1347,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListPaymentMethodDomainsResponse": ".list_payment_method_domains_response",
     "LocationCode": ".location_code",
     "LogoutUserResponse": ".logout_user_response",
-    "LotNumber": ".lot_number",
     "Maddress": ".maddress",
     "Maddress1": ".maddress_1",
     "Maskedaccount": ".maskedaccount",
@@ -1467,6 +1470,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PayMethodCloudMethod": ".pay_method_cloud_method",
     "PayMethodCredit": ".pay_method_credit",
     "PayMethodCreditMethod": ".pay_method_credit_method",
+    "PayMethodDevice": ".pay_method_device",
+    "PayMethodDeviceMethod": ".pay_method_device_method",
     "PayMethodStoredMethod": ".pay_method_stored_method",
     "PayMethodStoredMethodMethod": ".pay_method_stored_method_method",
     "PayabliAccessTokenResponse": ".payabli_access_token_response",
@@ -1631,7 +1636,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RequestCreditPaymentMethodMethod": ".request_credit_payment_method_method",
     "RequestOutAuthorizeInvoiceData": ".request_out_authorize_invoice_data",
     "RequestOutAuthorizePaymentDetails": ".request_out_authorize_payment_details",
-    "RequestOutAuthorizeVendorBillingData": ".request_out_authorize_vendor_billing_data",
     "RequestOutAuthorizeVendorData": ".request_out_authorize_vendor_data",
     "RequestPaymentValidatePaymentMethod": ".request_payment_validate_payment_method",
     "RequestPaymentValidatePaymentMethodMethod": ".request_payment_validate_payment_method_method",
@@ -2181,6 +2185,8 @@ __all__ = [
     "DepositFundsResponse",
     "Descriptor",
     "Device",
+    "DeviceChallengeData",
+    "DeviceChallengeResponse",
     "DeviceQueryRecord",
     "Discount",
     "DisplayProperty",
@@ -2304,7 +2310,6 @@ __all__ = [
     "ListPaymentMethodDomainsResponse",
     "LocationCode",
     "LogoutUserResponse",
-    "LotNumber",
     "Maddress",
     "Maddress1",
     "Maskedaccount",
@@ -2428,6 +2433,8 @@ __all__ = [
     "PayMethodCloudMethod",
     "PayMethodCredit",
     "PayMethodCreditMethod",
+    "PayMethodDevice",
+    "PayMethodDeviceMethod",
     "PayMethodStoredMethod",
     "PayMethodStoredMethodMethod",
     "PayabliAccessTokenResponse",
@@ -2592,7 +2599,6 @@ __all__ = [
     "RequestCreditPaymentMethodMethod",
     "RequestOutAuthorizeInvoiceData",
     "RequestOutAuthorizePaymentDetails",
-    "RequestOutAuthorizeVendorBillingData",
     "RequestOutAuthorizeVendorData",
     "RequestPaymentValidatePaymentMethod",
     "RequestPaymentValidatePaymentMethodMethod",

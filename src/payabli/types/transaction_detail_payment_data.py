@@ -27,11 +27,11 @@ class TransactionDetailPaymentData(UniversalBaseModel):
     """
 
     masked_account: typing_extensions.Annotated[
-        Maskedaccount, FieldMetadata(alias="maskedAccount"), pydantic.Field(alias="maskedAccount")
-    ]
+        typing.Optional[Maskedaccount], FieldMetadata(alias="maskedAccount"), pydantic.Field(alias="maskedAccount")
+    ] = None
     account_type: typing_extensions.Annotated[
-        Accounttype, FieldMetadata(alias="accountType"), pydantic.Field(alias="accountType")
-    ]
+        typing.Optional[Accounttype], FieldMetadata(alias="accountType"), pydantic.Field(alias="accountType")
+    ] = None
     account_exp: typing_extensions.Annotated[
         typing.Optional[Accountexp], FieldMetadata(alias="accountExp"), pydantic.Field(alias="accountExp")
     ] = None

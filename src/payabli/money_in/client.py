@@ -133,29 +133,19 @@ class MoneyInClient:
 
         Examples
         --------
-        from payabli import PaymentDetail, PayMethodCredit, PayorDataRequest, payabli
+        from payabli import PaymentDetail, PayMethodCredit, payabli
 
         client = payabli(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.money_in.authorize(
-            customer_data=PayorDataRequest(
-                customer_id=4440,
-            ),
-            entry_point="8cfec329267",
-            ipaddress="255.255.255.255",
             payment_details=PaymentDetail(
-                service_fee=0.0,
-                total_amount=100.0,
+                total_amount=1.1,
             ),
             payment_method=PayMethodCredit(
-                cardcvv="999",
-                cardexp="02/27",
-                card_holder="John Cassian",
-                cardnumber="4111111111111111",
-                cardzip="12345",
-                initiator="payor",
+                cardexp="cardexp",
+                cardnumber="cardnumber",
                 method="card",
             ),
         )
@@ -215,8 +205,8 @@ class MoneyInClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.money_in.capture(
-            trans_id="10-7d9cd67d-2d5d-4cd7-a1b7-72b8b201ec13",
-            amount=0.0,
+            trans_id="transId",
+            amount=1.1,
         )
         """
         _response = self._raw_client.capture(trans_id, amount, request_options=request_options)
@@ -262,10 +252,9 @@ class MoneyInClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.money_in.capture_auth(
-            trans_id="10-7d9cd67d-2d5d-4cd7-a1b7-72b8b201ec13",
+            trans_id="transId",
             payment_details=CapturePaymentDetails(
-                total_amount=105.0,
-                service_fee=5.0,
+                total_amount=1.1,
             ),
         )
         """
@@ -500,29 +489,19 @@ class MoneyInClient:
 
         Examples
         --------
-        from payabli import PaymentDetail, PayMethodCredit, PayorDataRequest, payabli
+        from payabli import PaymentDetail, PayMethodCredit, payabli
 
         client = payabli(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.money_in.getpaid(
-            customer_data=PayorDataRequest(
-                customer_id=4440,
-            ),
-            entry_point="8cfec329267",
-            ipaddress="255.255.255.255",
             payment_details=PaymentDetail(
-                service_fee=0.0,
-                total_amount=100.0,
+                total_amount=1.1,
             ),
             payment_method=PayMethodCredit(
-                cardcvv="999",
-                cardexp="02/27",
-                card_holder="John Cassian",
-                cardnumber="4111111111111111",
-                cardzip="12345",
-                initiator="payor",
+                cardexp="cardexp",
+                cardnumber="cardnumber",
                 method="card",
             ),
         )
@@ -588,8 +567,8 @@ class MoneyInClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.money_in.reverse(
-            trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
-            amount=0.0,
+            trans_id="transId",
+            amount=1.1,
         )
         """
         _response = self._raw_client.reverse(trans_id, amount, request_options=request_options)
@@ -634,8 +613,8 @@ class MoneyInClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.money_in.refund(
-            trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
-            amount=0.0,
+            trans_id="transId",
+            amount=1.1,
         )
         """
         _response = self._raw_client.refund(trans_id, amount, request_options=request_options)
@@ -696,34 +675,14 @@ class MoneyInClient:
 
         Examples
         --------
-        from payabli import RefundDetail, SplitFundingRefundContent, payabli
+        from payabli import payabli
 
         client = payabli(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.money_in.refund_with_instructions(
-            trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
-            idempotency_key="8A29FC40-CA47-1067-B31D-00DD010662DB",
-            source="api",
-            order_description="Materials deposit",
-            amount=100.0,
-            refund_details=RefundDetail(
-                split_refunding=[
-                    SplitFundingRefundContent(
-                        origination_entry_point="7f1a381696",
-                        account_id="187-342",
-                        description="Refunding undelivered materials",
-                        amount=60.0,
-                    ),
-                    SplitFundingRefundContent(
-                        origination_entry_point="7f1a381696",
-                        account_id="187-343",
-                        description="Refunding deposit for undelivered materials",
-                        amount=40.0,
-                    ),
-                ],
-            ),
+            trans_id="transId",
         )
         """
         _response = self._raw_client.refund_with_instructions(
@@ -916,7 +875,7 @@ class MoneyInClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.money_in.void(
-            trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
+            trans_id="transId",
         )
         """
         _response = self._raw_client.void(trans_id, request_options=request_options)
@@ -1491,12 +1450,7 @@ class AsyncMoneyInClient:
         --------
         import asyncio
 
-        from payabli import (
-            Asyncpayabli,
-            PaymentDetail,
-            PayMethodCredit,
-            PayorDataRequest,
-        )
+        from payabli import Asyncpayabli, PaymentDetail, PayMethodCredit
 
         client = Asyncpayabli(
             client_id="YOUR_CLIENT_ID",
@@ -1506,22 +1460,12 @@ class AsyncMoneyInClient:
 
         async def main() -> None:
             await client.money_in.authorize(
-                customer_data=PayorDataRequest(
-                    customer_id=4440,
-                ),
-                entry_point="8cfec329267",
-                ipaddress="255.255.255.255",
                 payment_details=PaymentDetail(
-                    service_fee=0.0,
-                    total_amount=100.0,
+                    total_amount=1.1,
                 ),
                 payment_method=PayMethodCredit(
-                    cardcvv="999",
-                    cardexp="02/27",
-                    card_holder="John Cassian",
-                    cardnumber="4111111111111111",
-                    cardzip="12345",
-                    initiator="payor",
+                    cardexp="cardexp",
+                    cardnumber="cardnumber",
                     method="card",
                 ),
             )
@@ -1589,8 +1533,8 @@ class AsyncMoneyInClient:
 
         async def main() -> None:
             await client.money_in.capture(
-                trans_id="10-7d9cd67d-2d5d-4cd7-a1b7-72b8b201ec13",
-                amount=0.0,
+                trans_id="transId",
+                amount=1.1,
             )
 
 
@@ -1644,10 +1588,9 @@ class AsyncMoneyInClient:
 
         async def main() -> None:
             await client.money_in.capture_auth(
-                trans_id="10-7d9cd67d-2d5d-4cd7-a1b7-72b8b201ec13",
+                trans_id="transId",
                 payment_details=CapturePaymentDetails(
-                    total_amount=105.0,
-                    service_fee=5.0,
+                    total_amount=1.1,
                 ),
             )
 
@@ -1903,12 +1846,7 @@ class AsyncMoneyInClient:
         --------
         import asyncio
 
-        from payabli import (
-            Asyncpayabli,
-            PaymentDetail,
-            PayMethodCredit,
-            PayorDataRequest,
-        )
+        from payabli import Asyncpayabli, PaymentDetail, PayMethodCredit
 
         client = Asyncpayabli(
             client_id="YOUR_CLIENT_ID",
@@ -1918,22 +1856,12 @@ class AsyncMoneyInClient:
 
         async def main() -> None:
             await client.money_in.getpaid(
-                customer_data=PayorDataRequest(
-                    customer_id=4440,
-                ),
-                entry_point="8cfec329267",
-                ipaddress="255.255.255.255",
                 payment_details=PaymentDetail(
-                    service_fee=0.0,
-                    total_amount=100.0,
+                    total_amount=1.1,
                 ),
                 payment_method=PayMethodCredit(
-                    cardcvv="999",
-                    cardexp="02/27",
-                    card_holder="John Cassian",
-                    cardnumber="4111111111111111",
-                    cardzip="12345",
-                    initiator="payor",
+                    cardexp="cardexp",
+                    cardnumber="cardnumber",
                     method="card",
                 ),
             )
@@ -2007,8 +1935,8 @@ class AsyncMoneyInClient:
 
         async def main() -> None:
             await client.money_in.reverse(
-                trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
-                amount=0.0,
+                trans_id="transId",
+                amount=1.1,
             )
 
 
@@ -2061,8 +1989,8 @@ class AsyncMoneyInClient:
 
         async def main() -> None:
             await client.money_in.refund(
-                trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
-                amount=0.0,
+                trans_id="transId",
+                amount=1.1,
             )
 
 
@@ -2128,7 +2056,7 @@ class AsyncMoneyInClient:
         --------
         import asyncio
 
-        from payabli import Asyncpayabli, RefundDetail, SplitFundingRefundContent
+        from payabli import Asyncpayabli
 
         client = Asyncpayabli(
             client_id="YOUR_CLIENT_ID",
@@ -2138,27 +2066,7 @@ class AsyncMoneyInClient:
 
         async def main() -> None:
             await client.money_in.refund_with_instructions(
-                trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
-                idempotency_key="8A29FC40-CA47-1067-B31D-00DD010662DB",
-                source="api",
-                order_description="Materials deposit",
-                amount=100.0,
-                refund_details=RefundDetail(
-                    split_refunding=[
-                        SplitFundingRefundContent(
-                            origination_entry_point="7f1a381696",
-                            account_id="187-342",
-                            description="Refunding undelivered materials",
-                            amount=60.0,
-                        ),
-                        SplitFundingRefundContent(
-                            origination_entry_point="7f1a381696",
-                            account_id="187-343",
-                            description="Refunding deposit for undelivered materials",
-                            amount=40.0,
-                        ),
-                    ],
-                ),
+                trans_id="transId",
             )
 
 
@@ -2383,7 +2291,7 @@ class AsyncMoneyInClient:
 
         async def main() -> None:
             await client.money_in.void(
-                trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
+                trans_id="transId",
             )
 
 

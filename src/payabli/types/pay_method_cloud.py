@@ -3,12 +3,9 @@
 import typing
 
 import pydantic
-import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ..core.serialization import FieldMetadata
 from .device import Device
 from .pay_method_cloud_method import PayMethodCloudMethod
-from .save_if_success import SaveIfSuccess
 
 
 class PayMethodCloud(UniversalBaseModel):
@@ -17,10 +14,6 @@ class PayMethodCloud(UniversalBaseModel):
     """
     Method to use for the transaction. For cloud device transactions, the method is `cloud`.
     """
-
-    save_if_success: typing_extensions.Annotated[
-        typing.Optional[SaveIfSuccess], FieldMetadata(alias="saveIfSuccess"), pydantic.Field(alias="saveIfSuccess")
-    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -1803,7 +1803,7 @@ Only card transactions can be authorized. This endpoint can't be used for ACH tr
 <dd>
 
 ```python
-from payabli import payabli, PayorDataRequest, PaymentDetail, PayMethodCredit
+from payabli import payabli, PaymentDetail, PayMethodCredit
 from payabli.environment import payabliEnvironment
 
 client = payabli(
@@ -1813,22 +1813,12 @@ client = payabli(
 )
 
 client.money_in.authorize(
-    customer_data=PayorDataRequest(
-        customer_id=4440,
-    ),
-    entry_point="8cfec329267",
-    ipaddress="255.255.255.255",
     payment_details=PaymentDetail(
-        service_fee=0,
-        total_amount=100,
+        total_amount=1.1,
     ),
     payment_method=PayMethodCredit(
-        cardcvv="999",
-        cardexp="02/27",
-        card_holder="John Cassian",
-        cardnumber="4111111111111111",
-        cardzip="12345",
-        initiator="payor",
+        cardexp="cardexp",
+        cardnumber="cardnumber",
         method="card",
     ),
 )
@@ -1925,8 +1915,8 @@ client = payabli(
 )
 
 client.money_in.capture(
-    trans_id="10-7d9cd67d-2d5d-4cd7-a1b7-72b8b201ec13",
-    amount=0,
+    trans_id="transId",
+    amount=1.1,
 )
 
 ```
@@ -2014,10 +2004,9 @@ client = payabli(
 )
 
 client.money_in.capture_auth(
-    trans_id="10-7d9cd67d-2d5d-4cd7-a1b7-72b8b201ec13",
+    trans_id="transId",
     payment_details=CapturePaymentDetails(
-        total_amount=105,
-        service_fee=5,
+        total_amount=1.1,
     ),
 )
 
@@ -2340,7 +2329,7 @@ Make a single transaction. This method authorizes and captures a payment in one 
 <dd>
 
 ```python
-from payabli import payabli, PayorDataRequest, PaymentDetail, PayMethodCredit
+from payabli import payabli, PaymentDetail, PayMethodCredit
 from payabli.environment import payabliEnvironment
 
 client = payabli(
@@ -2350,22 +2339,12 @@ client = payabli(
 )
 
 client.money_in.getpaid(
-    customer_data=PayorDataRequest(
-        customer_id=4440,
-    ),
-    entry_point="8cfec329267",
-    ipaddress="255.255.255.255",
     payment_details=PaymentDetail(
-        service_fee=0,
-        total_amount=100,
+        total_amount=1.1,
     ),
     payment_method=PayMethodCredit(
-        cardcvv="999",
-        cardexp="02/27",
-        card_holder="John Cassian",
-        cardnumber="4111111111111111",
-        cardzip="12345",
-        initiator="payor",
+        cardexp="cardexp",
+        cardnumber="cardnumber",
         method="card",
     ),
 )
@@ -2485,8 +2464,8 @@ client = payabli(
 )
 
 client.money_in.reverse(
-    trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
-    amount=0,
+    trans_id="transId",
+    amount=1.1,
 )
 
 ```
@@ -2578,8 +2557,8 @@ client = payabli(
 )
 
 client.money_in.refund(
-    trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
-    amount=0,
+    trans_id="transId",
+    amount=1.1,
 )
 
 ```
@@ -2661,7 +2640,7 @@ Refunds a settled transaction with split instructions.
 <dd>
 
 ```python
-from payabli import payabli, RefundDetail, SplitFundingRefundContent
+from payabli import payabli
 from payabli.environment import payabliEnvironment
 
 client = payabli(
@@ -2671,27 +2650,7 @@ client = payabli(
 )
 
 client.money_in.refund_with_instructions(
-    trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
-    idempotency_key="8A29FC40-CA47-1067-B31D-00DD010662DB",
-    amount=100,
-    order_description="Materials deposit",
-    refund_details=RefundDetail(
-        split_refunding=[
-            SplitFundingRefundContent(
-                account_id="187-342",
-                amount=60,
-                description="Refunding undelivered materials",
-                origination_entry_point="7f1a381696",
-            ),
-            SplitFundingRefundContent(
-                account_id="187-343",
-                amount=40,
-                description="Refunding deposit for undelivered materials",
-                origination_entry_point="7f1a381696",
-            )
-        ],
-    ),
-    source="api",
+    trans_id="transId",
 )
 
 ```
@@ -3114,7 +3073,7 @@ client = payabli(
 )
 
 client.money_in.void(
-    trans_id="10-3ffa27df-b171-44e0-b251-e95fbfc7a723",
+    trans_id="transId",
 )
 
 ```
@@ -16817,6 +16776,90 @@ client.notificationlogs.bulk_retry_notification_logs(
 </dl>
 </details>
 
+## Device
+<details><summary><code>client.device.<a href="src/payabli/device/client.py">challenge</a>(...) -> DeviceChallengeResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Generates a one-time, 6-digit verification code for activating a
+semi-integrated card-present device in a paypoint. After calling this endpoint, an operator enters the returned code
+on the device's terminal, along with a device name, to register the
+device to the paypoint resolved from `{entry}`.
+
+A code expires 5 minutes after it's issued. A paypoint can have several
+codes active at once — for example, when activating a batch of devices —
+and a code binds to whichever device enters it first.
+
+Authenticate with an OAuth2 Bearer token that has the `device_registry` scope.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.device.challenge(
+    entry="8cfec329267",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Cloud
 <details><summary><code>client.cloud.<a href="src/payabli/cloud/client.py">add_device</a>(...) -> AddDeviceResponse</code></summary>
 <dl>
@@ -17102,7 +17145,7 @@ client.cloud.history_device(
 <dl>
 <dd>
 
-Use [List devices by paypoint](/developers/api-reference/cloud/get-list-of-devices-for-a-paypoint) instead, which supports filters, sorting, and pagination.
+Use [List devices by paypoint](/developers/api-reference/get-list-of-devices-for-a-paypoint) instead, which supports filters, sorting, and pagination.
 
 Get a list of cloud devices registered to an entrypoint.
 </dd>
@@ -28673,14 +28716,6 @@ client.money_out.authorize_out(
 <dl>
 <dd>
 
-**invoice_data:** `typing.List[RequestOutAuthorizeInvoiceData]` — Array of bills associated to the transaction
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **allow_duplicated_bills:** `typing.Optional[bool]` — When `true`, the authorization bypasses the requirement for unique bills, identified by vendor invoice number. This allows you to make more than one payout authorization for a bill, like a split payment.
     
 </dd>
@@ -28690,14 +28725,6 @@ client.money_out.authorize_out(
 <dd>
 
 **do_not_create_bills:** `typing.Optional[bool]` — When `true`, Payabli won't automatically create a bill for this payout transaction.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**force_vendor_creation:** `typing.Optional[bool]` — When `true`, the request creates a new vendor record, regardless of whether the vendor already exists.
     
 </dd>
 </dl>
@@ -28742,6 +28769,14 @@ Same-day ACH has a daily cutoff. Capture the transaction before the cutoff, or p
 <dd>
 
 **order_description:** `typing.Optional[Orderdescription]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**invoice_data:** `typing.Optional[typing.List[RequestOutAuthorizeInvoiceData]]` — Bills to pay with this payout, each referenced by `billId`.
     
 </dd>
 </dl>
@@ -29843,7 +29878,7 @@ client = payabli(
 )
 
 client.funding.deposit_funds(
-    amount=10,
+    amount=1500,
     entrypoint="48acde49",
     account_id="333",
 )

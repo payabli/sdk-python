@@ -7,14 +7,19 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class OperationResult(UniversalBaseModel):
-    message: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    Message describing the result. If the virtual card link was sent successfully, this contains the email address to which the link was sent.
-    """
-
     success: bool = pydantic.Field()
     """
     Indicates whether the operation was successful.
+    """
+
+    message: str = pydantic.Field()
+    """
+    A status message describing the result.
+    """
+
+    link: str = pydantic.Field()
+    """
+    The secure link the vendor uses to view their virtual card details. Empty when the operation fails.
     """
 
     if IS_PYDANTIC_V2:

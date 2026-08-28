@@ -271,10 +271,12 @@ class TransferDetailRecord(UniversalBaseModel):
     method: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="Method"),
-        pydantic.Field(alias="Method", description="Payment method used: card, ach, or wallet"),
+        pydantic.Field(
+            alias="Method", description="The payment method used for the transaction, for example card, ach, or device."
+        ),
     ] = None
     """
-    Payment method used: card, ach, or wallet
+    The payment method used for the transaction, for example card, ach, or device.
     """
 
     batch_number: typing_extensions.Annotated[

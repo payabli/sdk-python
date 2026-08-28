@@ -20,6 +20,7 @@ if typing.TYPE_CHECKING:
     from .check_capture.client import AsyncCheckCaptureClient, CheckCaptureClient
     from .cloud.client import AsyncCloudClient, CloudClient
     from .customer.client import AsyncCustomerClient, CustomerClient
+    from .device.client import AsyncDeviceClient, DeviceClient
     from .export.client import AsyncExportClient, ExportClient
     from .funding.client import AsyncFundingClient, FundingClient
     from .ghost_card.client import AsyncGhostCardClient, GhostCardClient
@@ -257,6 +258,7 @@ class payabli:
         self._query: typing.Optional[QueryClient] = None
         self._ocr: typing.Optional[OcrClient] = None
         self._notificationlogs: typing.Optional[NotificationlogsClient] = None
+        self._device: typing.Optional[DeviceClient] = None
         self._cloud: typing.Optional[CloudClient] = None
         self._line_item: typing.Optional[LineItemClient] = None
         self._boarding: typing.Optional[BoardingClient] = None
@@ -404,6 +406,14 @@ class payabli:
 
             self._notificationlogs = NotificationlogsClient(client_wrapper=self._client_wrapper)
         return self._notificationlogs
+
+    @property
+    def device(self):
+        if self._device is None:
+            from .device.client import DeviceClient  # noqa: E402
+
+            self._device = DeviceClient(client_wrapper=self._client_wrapper)
+        return self._device
 
     @property
     def cloud(self):
@@ -779,6 +789,7 @@ class Asyncpayabli:
         self._query: typing.Optional[AsyncQueryClient] = None
         self._ocr: typing.Optional[AsyncOcrClient] = None
         self._notificationlogs: typing.Optional[AsyncNotificationlogsClient] = None
+        self._device: typing.Optional[AsyncDeviceClient] = None
         self._cloud: typing.Optional[AsyncCloudClient] = None
         self._line_item: typing.Optional[AsyncLineItemClient] = None
         self._boarding: typing.Optional[AsyncBoardingClient] = None
@@ -926,6 +937,14 @@ class Asyncpayabli:
 
             self._notificationlogs = AsyncNotificationlogsClient(client_wrapper=self._client_wrapper)
         return self._notificationlogs
+
+    @property
+    def device(self):
+        if self._device is None:
+            from .device.client import AsyncDeviceClient  # noqa: E402
+
+            self._device = AsyncDeviceClient(client_wrapper=self._client_wrapper)
+        return self._device
 
     @property
     def cloud(self):

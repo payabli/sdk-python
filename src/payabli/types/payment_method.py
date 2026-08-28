@@ -8,8 +8,16 @@ from .pay_method_ach import PayMethodAch
 from .pay_method_body_all_fields import PayMethodBodyAllFields
 from .pay_method_cloud import PayMethodCloud
 from .pay_method_credit import PayMethodCredit
+from .pay_method_device import PayMethodDevice
 from .pay_method_stored_method import PayMethodStoredMethod
 
 PaymentMethod = typing.Union[
-    PayMethodCredit, PayMethodAch, PayMethodStoredMethod, PayMethodCloud, Check, Cash, PayMethodBodyAllFields
+    PayMethodCredit,
+    PayMethodAch,
+    PayMethodStoredMethod,
+    PayMethodCloud,
+    PayMethodDevice,
+    Check,
+    Cash,
+    PayMethodBodyAllFields,
 ]

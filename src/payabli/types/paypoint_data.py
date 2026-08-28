@@ -93,6 +93,19 @@ class PaypointData(UniversalBaseModel):
     state: typing_extensions.Annotated[
         typing.Optional[StateNullable], FieldMetadata(alias="State"), pydantic.Field(alias="State")
     ] = None
+    business_summary: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="Summary"),
+        pydantic.Field(
+            alias="Summary",
+            description="This business description is captured during boarding. It differs from `summary`, which\nreports counts of customers, transactions, and subscriptions attached to the paypoint.",
+        ),
+    ] = None
+    """
+    This business description is captured during boarding. It differs from `summary`, which
+    reports counts of customers, transactions, and subscriptions attached to the paypoint.
+    """
+
     summary: typing.Optional[PaypointSummary] = None
     time_zone: typing_extensions.Annotated[
         typing.Optional[Timezone], FieldMetadata(alias="TimeZone"), pydantic.Field(alias="TimeZone")

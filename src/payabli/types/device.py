@@ -2,5 +2,5 @@
 
 Device = str
 """
-Identifier of registered cloud device used in the transaction.
+Identifier of the registered device used in the transaction.
 """

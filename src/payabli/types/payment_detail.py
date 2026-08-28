@@ -64,11 +64,11 @@ class PaymentDetail(UniversalBaseModel):
         FieldMetadata(alias="splitFunding"),
         pydantic.Field(
             alias="splitFunding",
-            description="Split funding instructions for the transaction. See [Split a Transaction](/developers/developer-guides/money-in-split-funding) for more.",
+            description="Split funding instructions for the transaction. See [Split a Transaction](/guides/pay-in-developer-routing-split-funds) for more.",
         ),
     ] = None
     """
-    Split funding instructions for the transaction. See [Split a Transaction](/developers/developer-guides/money-in-split-funding) for more.
+    Split funding instructions for the transaction. See [Split a Transaction](/guides/pay-in-developer-routing-split-funds) for more.
     """
 
     check_unique_id: typing_extensions.Annotated[

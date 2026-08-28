@@ -75,7 +75,7 @@ class FundingClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.funding.deposit_funds(
-            amount=10.0,
+            amount=1500.0,
             entrypoint="48acde49",
             account_id="333",
         )
@@ -158,7 +158,7 @@ class AsyncFundingClient:
 
         async def main() -> None:
             await client.funding.deposit_funds(
-                amount=10.0,
+                amount=1500.0,
                 entrypoint="48acde49",
                 account_id="333",
             )

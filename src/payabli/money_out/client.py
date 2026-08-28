@@ -56,15 +56,14 @@ class MoneyOutClient:
         payment_method: AuthorizePaymentMethod,
         payment_details: RequestOutAuthorizePaymentDetails,
         vendor_data: RequestOutAuthorizeVendorData,
-        invoice_data: typing.Sequence[RequestOutAuthorizeInvoiceData],
         allow_duplicated_bills: typing.Optional[bool] = None,
         do_not_create_bills: typing.Optional[bool] = None,
-        force_vendor_creation: typing.Optional[bool] = None,
         same_day_ach: typing.Optional[bool] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         source: typing.Optional[Source] = OMIT,
         order_id: typing.Optional[OrderId] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
+        invoice_data: typing.Optional[typing.Sequence[RequestOutAuthorizeInvoiceData]] = OMIT,
         account_id: typing.Optional[AccountId] = OMIT,
         subdomain: typing.Optional[Subdomain] = OMIT,
         subscription_id: typing.Optional[Subscriptionid] = OMIT,
@@ -94,17 +93,11 @@ class MoneyOutClient:
         vendor_data : RequestOutAuthorizeVendorData
             Object containing vendor data.
 
-        invoice_data : typing.Sequence[RequestOutAuthorizeInvoiceData]
-            Array of bills associated to the transaction
-
         allow_duplicated_bills : typing.Optional[bool]
             When `true`, the authorization bypasses the requirement for unique bills, identified by vendor invoice number. This allows you to make more than one payout authorization for a bill, like a split payment.
 
         do_not_create_bills : typing.Optional[bool]
             When `true`, Payabli won't automatically create a bill for this payout transaction.
-
-        force_vendor_creation : typing.Optional[bool]
-            When `true`, the request creates a new vendor record, regardless of whether the vendor already exists.
 
         same_day_ach : typing.Optional[bool]
             When `true`, Payabli authorizes the payout for same-day ACH processing instead of standard ACH. Same-day ACH must be enabled for the paypoint, otherwise the authorization fails with a `400` response and `responseCode` `3492`. Only ACH payouts honor this flag. Wire and RTP payouts ignore it.
@@ -119,6 +112,9 @@ class MoneyOutClient:
         order_id : typing.Optional[OrderId]
 
         order_description : typing.Optional[Orderdescription]
+
+        invoice_data : typing.Optional[typing.Sequence[RequestOutAuthorizeInvoiceData]]
+            Bills to pay with this payout, each referenced by `billId`.
 
         account_id : typing.Optional[AccountId]
 
@@ -176,15 +172,14 @@ class MoneyOutClient:
             payment_method=payment_method,
             payment_details=payment_details,
             vendor_data=vendor_data,
-            invoice_data=invoice_data,
             allow_duplicated_bills=allow_duplicated_bills,
             do_not_create_bills=do_not_create_bills,
-            force_vendor_creation=force_vendor_creation,
             same_day_ach=same_day_ach,
             idempotency_key=idempotency_key,
             source=source,
             order_id=order_id,
             order_description=order_description,
+            invoice_data=invoice_data,
             account_id=account_id,
             subdomain=subdomain,
             subscription_id=subscription_id,
@@ -727,15 +722,14 @@ class AsyncMoneyOutClient:
         payment_method: AuthorizePaymentMethod,
         payment_details: RequestOutAuthorizePaymentDetails,
         vendor_data: RequestOutAuthorizeVendorData,
-        invoice_data: typing.Sequence[RequestOutAuthorizeInvoiceData],
         allow_duplicated_bills: typing.Optional[bool] = None,
         do_not_create_bills: typing.Optional[bool] = None,
-        force_vendor_creation: typing.Optional[bool] = None,
         same_day_ach: typing.Optional[bool] = None,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         source: typing.Optional[Source] = OMIT,
         order_id: typing.Optional[OrderId] = OMIT,
         order_description: typing.Optional[Orderdescription] = OMIT,
+        invoice_data: typing.Optional[typing.Sequence[RequestOutAuthorizeInvoiceData]] = OMIT,
         account_id: typing.Optional[AccountId] = OMIT,
         subdomain: typing.Optional[Subdomain] = OMIT,
         subscription_id: typing.Optional[Subscriptionid] = OMIT,
@@ -765,17 +759,11 @@ class AsyncMoneyOutClient:
         vendor_data : RequestOutAuthorizeVendorData
             Object containing vendor data.
 
-        invoice_data : typing.Sequence[RequestOutAuthorizeInvoiceData]
-            Array of bills associated to the transaction
-
         allow_duplicated_bills : typing.Optional[bool]
             When `true`, the authorization bypasses the requirement for unique bills, identified by vendor invoice number. This allows you to make more than one payout authorization for a bill, like a split payment.
 
         do_not_create_bills : typing.Optional[bool]
             When `true`, Payabli won't automatically create a bill for this payout transaction.
-
-        force_vendor_creation : typing.Optional[bool]
-            When `true`, the request creates a new vendor record, regardless of whether the vendor already exists.
 
         same_day_ach : typing.Optional[bool]
             When `true`, Payabli authorizes the payout for same-day ACH processing instead of standard ACH. Same-day ACH must be enabled for the paypoint, otherwise the authorization fails with a `400` response and `responseCode` `3492`. Only ACH payouts honor this flag. Wire and RTP payouts ignore it.
@@ -790,6 +778,9 @@ class AsyncMoneyOutClient:
         order_id : typing.Optional[OrderId]
 
         order_description : typing.Optional[Orderdescription]
+
+        invoice_data : typing.Optional[typing.Sequence[RequestOutAuthorizeInvoiceData]]
+            Bills to pay with this payout, each referenced by `billId`.
 
         account_id : typing.Optional[AccountId]
 
@@ -855,15 +846,14 @@ class AsyncMoneyOutClient:
             payment_method=payment_method,
             payment_details=payment_details,
             vendor_data=vendor_data,
-            invoice_data=invoice_data,
             allow_duplicated_bills=allow_duplicated_bills,
             do_not_create_bills=do_not_create_bills,
-            force_vendor_creation=force_vendor_creation,
             same_day_ach=same_day_ach,
             idempotency_key=idempotency_key,
             source=source,
             order_id=order_id,
             order_description=order_description,
+            invoice_data=invoice_data,
             account_id=account_id,
             subdomain=subdomain,
             subscription_id=subscription_id,

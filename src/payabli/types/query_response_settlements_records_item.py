@@ -241,10 +241,13 @@ class QueryResponseSettlementsRecordsItem(UniversalBaseModel):
     trans_method: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="TransMethod"),
-        pydantic.Field(alias="TransMethod", description="Payment method used: card or ach."),
+        pydantic.Field(
+            alias="TransMethod",
+            description="The payment method used for the transaction, for example card, ach, or device.",
+        ),
     ] = None
     """
-    Payment method used: card or ach.
+    The payment method used for the transaction, for example card, ach, or device.
     """
 
     type: typing_extensions.Annotated[

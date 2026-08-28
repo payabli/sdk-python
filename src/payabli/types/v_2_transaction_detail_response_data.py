@@ -33,7 +33,7 @@ class V2TransactionDetailResponseData(UniversalBaseModel):
     response: typing.Optional[str] = None
     responsetext: Resulttext
     authcode: typing.Optional[Authcode] = None
-    transactionid: str = pydantic.Field()
+    transactionid: typing.Optional[str] = pydantic.Field(default=None)
     """
     Unique identifier for the transaction assigned by the payment processor.
     """

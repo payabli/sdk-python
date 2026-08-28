@@ -88,10 +88,10 @@ class V2TransactionDetails(UniversalBaseModel):
         pydantic.Field(alias="externalProcessorInformation"),
     ]
     gateway_trans_id: typing_extensions.Annotated[
-        str,
+        typing.Optional[str],
         FieldMetadata(alias="gatewayTransId"),
         pydantic.Field(alias="gatewayTransId", description="Gateway transaction identifier."),
-    ]
+    ] = None
     """
     Gateway transaction identifier.
     """

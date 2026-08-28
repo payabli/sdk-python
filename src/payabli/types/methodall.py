@@ -2,4 +2,4 @@
 
 import typing
 
-Methodall = typing.Union[typing.Literal["card", "ach", "cloud", "check", "cash"], typing.Any]
+Methodall = typing.Union[typing.Literal["card", "ach", "cloud", "device", "check", "cash"], typing.Any]
