@@ -2,6 +2,7 @@
 
 import typing
 
+from .. import core
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.file_content_ftype import FileContentFtype
@@ -29,33 +30,18 @@ class OcrClient:
         return self._raw_client
 
     def ocr_document_form(
-        self,
-        type_result: TypeResult,
-        *,
-        ftype: typing.Optional[FileContentFtype] = OMIT,
-        filename: typing.Optional[str] = OMIT,
-        furl: typing.Optional[str] = OMIT,
-        f_content: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, type_result: TypeResult, *, file: core.File, request_options: typing.Optional[RequestOptions] = None
     ) -> PayabliApiResponseOcr:
         """
-        Use this endpoint to upload an image file for OCR processing. The accepted file formats include PDF, JPG, JPEG, PNG, and GIF. Specify the desired type of result (either 'bill' or 'invoice') in the path parameter `typeResult`. The response will contain the OCR processing results, including extracted data such as bill number, vendor information, bill items, and more.
+        Use this endpoint to upload a document file for OCR processing as `multipart/form-data`, with the file in a field named `file`. The accepted file formats include PDF, JPG, JPEG, PNG, and GIF. Specify the desired type of result (either 'bill' or 'invoice') in the path parameter `typeResult`. The response will contain the OCR processing results, including extracted data such as bill number, vendor information, bill items, and more. To send the file as a Base64-encoded string in a JSON body instead, use `ocrDocumentJson`.
 
         Parameters
         ----------
         type_result : TypeResult
             The type of object to create in Payabli. Accepted values are `bill` and `invoice`.
 
-        ftype : typing.Optional[FileContentFtype]
-
-        filename : typing.Optional[str]
-            The name of the file to be uploaded
-
-        furl : typing.Optional[str]
-            Optional URL link to the file
-
-        f_content : typing.Optional[str]
-            Base64-encoded file content
+        file : core.File
+            See core.File for more documentation
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -77,9 +63,7 @@ class OcrClient:
             type_result="typeResult",
         )
         """
-        _response = self._raw_client.ocr_document_form(
-            type_result, ftype=ftype, filename=filename, furl=furl, f_content=f_content, request_options=request_options
-        )
+        _response = self._raw_client.ocr_document_form(type_result, file=file, request_options=request_options)
         return _response.data
 
     def ocr_document_json(
@@ -153,33 +137,18 @@ class AsyncOcrClient:
         return self._raw_client
 
     async def ocr_document_form(
-        self,
-        type_result: TypeResult,
-        *,
-        ftype: typing.Optional[FileContentFtype] = OMIT,
-        filename: typing.Optional[str] = OMIT,
-        furl: typing.Optional[str] = OMIT,
-        f_content: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, type_result: TypeResult, *, file: core.File, request_options: typing.Optional[RequestOptions] = None
     ) -> PayabliApiResponseOcr:
         """
-        Use this endpoint to upload an image file for OCR processing. The accepted file formats include PDF, JPG, JPEG, PNG, and GIF. Specify the desired type of result (either 'bill' or 'invoice') in the path parameter `typeResult`. The response will contain the OCR processing results, including extracted data such as bill number, vendor information, bill items, and more.
+        Use this endpoint to upload a document file for OCR processing as `multipart/form-data`, with the file in a field named `file`. The accepted file formats include PDF, JPG, JPEG, PNG, and GIF. Specify the desired type of result (either 'bill' or 'invoice') in the path parameter `typeResult`. The response will contain the OCR processing results, including extracted data such as bill number, vendor information, bill items, and more. To send the file as a Base64-encoded string in a JSON body instead, use `ocrDocumentJson`.
 
         Parameters
         ----------
         type_result : TypeResult
             The type of object to create in Payabli. Accepted values are `bill` and `invoice`.
 
-        ftype : typing.Optional[FileContentFtype]
-
-        filename : typing.Optional[str]
-            The name of the file to be uploaded
-
-        furl : typing.Optional[str]
-            Optional URL link to the file
-
-        f_content : typing.Optional[str]
-            Base64-encoded file content
+        file : core.File
+            See core.File for more documentation
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -209,9 +178,7 @@ class AsyncOcrClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.ocr_document_form(
-            type_result, ftype=ftype, filename=filename, furl=furl, f_content=f_content, request_options=request_options
-        )
+        _response = await self._raw_client.ocr_document_form(type_result, file=file, request_options=request_options)
         return _response.data
 
     async def ocr_document_json(

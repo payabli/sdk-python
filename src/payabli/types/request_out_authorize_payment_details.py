@@ -39,11 +39,11 @@ class RequestOutAuthorizePaymentDetails(UniversalBaseModel):
         FieldMetadata(alias="totalAmount"),
         pydantic.Field(
             alias="totalAmount",
-            description="Total amount to be charged. If a service fee is included, then this amount should include the service fee.",
+            description="Total amount to be charged. If a service fee is included, then this amount should include the service fee. If you're using managed payables (`paymentMethod.method` of `managed`), you can partially pay a single bill by setting this below the bill's outstanding balance. See [Partially pay a bill](/guides/pay-out-developer-bills-manage#partially-pay-a-bill).",
         ),
     ] = None
     """
-    Total amount to be charged. If a service fee is included, then this amount should include the service fee.
+    Total amount to be charged. If a service fee is included, then this amount should include the service fee. If you're using managed payables (`paymentMethod.method` of `managed`), you can partially pay a single bill by setting this below the bill's outstanding balance. See [Partially pay a bill](/guides/pay-out-developer-bills-manage#partially-pay-a-bill).
     """
 
     unbundled: typing.Optional[bool] = pydantic.Field(default=None)

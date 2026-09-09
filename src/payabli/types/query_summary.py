@@ -13,8 +13,17 @@ from .totalrecords import Totalrecords
 
 class QuerySummary(UniversalBaseModel):
     page_identifier: typing_extensions.Annotated[
-        typing.Optional[PageIdentifier], FieldMetadata(alias="pageIdentifier"), pydantic.Field(alias="pageIdentifier")
+        typing.Optional[PageIdentifier],
+        FieldMetadata(alias="pageidentifier"),
+        pydantic.Field(
+            alias="pageidentifier",
+            description="Pagination token for retrieving the next page of results. Returns `null` when there's no additional page.",
+        ),
     ] = None
+    """
+    Pagination token for retrieving the next page of results. Returns `null` when there's no additional page.
+    """
+
     page_size: typing_extensions.Annotated[
         typing.Optional[Pagesize], FieldMetadata(alias="pageSize"), pydantic.Field(alias="pageSize")
     ] = None

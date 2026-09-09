@@ -316,6 +316,27 @@ class BillQueryRecord2(UniversalBaseModel):
     Total amount of the bill including taxes and fees.
     """
 
+    paid_amount: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="PaidAmount"),
+        pydantic.Field(alias="PaidAmount", description="The amount paid toward the bill so far."),
+    ] = None
+    """
+    The amount paid toward the bill so far.
+    """
+
+    outstanding_balance: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="OutstandingBalance"),
+        pydantic.Field(
+            alias="OutstandingBalance",
+            description="The amount still owed on the bill, calculated as `NetAmount` minus `PaidAmount`.",
+        ),
+    ] = None
+    """
+    The amount still owed on the bill, calculated as `NetAmount` minus `PaidAmount`.
+    """
+
     transaction: typing_extensions.Annotated[
         typing.Optional[TransactionOutQueryRecord],
         FieldMetadata(alias="Transaction"),

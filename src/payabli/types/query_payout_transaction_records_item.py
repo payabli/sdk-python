@@ -22,6 +22,7 @@ from .is_same_day_ach import IsSameDayAch
 from .last_modified import LastModified
 from .legalname import Legalname
 from .netamountnullable import Netamountnullable
+from .order_id import OrderId
 from .org_parent_id import OrgParentId
 from .org_parent_name import OrgParentName
 from .payment_id_string import PaymentIdString
@@ -108,6 +109,9 @@ class QueryPayoutTransactionRecordsItem(UniversalBaseModel):
 
     payment_id: typing_extensions.Annotated[
         typing.Optional[PaymentIdString], FieldMetadata(alias="PaymentId"), pydantic.Field(alias="PaymentId")
+    ] = None
+    order_id: typing_extensions.Annotated[
+        typing.Optional[OrderId], FieldMetadata(alias="orderId"), pydantic.Field(alias="orderId")
     ] = None
     trans_id: typing_extensions.Annotated[
         typing.Optional[str],

@@ -12,6 +12,7 @@ from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 from ..core.serialization import convert_and_respect_annotation_metadata
 from ..errors.bad_request_error import BadRequestError
+from ..errors.conflict_error import ConflictError
 from ..errors.forbidden_error import ForbiddenError
 from ..errors.internal_server_error import InternalServerError
 from ..errors.service_unavailable_error import ServiceUnavailableError
@@ -719,6 +720,236 @@ class RawMoneyOutClient:
                         PayabliErrorBody,
                         parse_obj_as(
                             type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def payout(
+        self,
+        *,
+        entry_point: Entrypointfield,
+        payment_method: AuthorizePaymentMethod,
+        payment_details: RequestOutAuthorizePaymentDetails,
+        vendor_data: RequestOutAuthorizeVendorData,
+        same_day_ach: typing.Optional[bool] = None,
+        do_not_create_bills: typing.Optional[bool] = None,
+        allow_duplicated_bills: typing.Optional[bool] = None,
+        update_vendor_payment_method: typing.Optional[bool] = None,
+        auto_convert_same_day_ach: typing.Optional[bool] = None,
+        idempotency_key: typing.Optional[IdempotencyKey] = None,
+        source: typing.Optional[Source] = OMIT,
+        order_id: typing.Optional[OrderId] = OMIT,
+        order_description: typing.Optional[Orderdescription] = OMIT,
+        invoice_data: typing.Optional[typing.Sequence[RequestOutAuthorizeInvoiceData]] = OMIT,
+        account_id: typing.Optional[AccountId] = OMIT,
+        subdomain: typing.Optional[Subdomain] = OMIT,
+        subscription_id: typing.Optional[Subscriptionid] = OMIT,
+        auto_capture: typing.Optional[AutoCapture] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[AuthCapturePayoutResponse]:
+        """
+        Authorizes a payout and captures it in the same request, returning the capture result. Use this endpoint when you need the capture outcome synchronously: it does the same work as calling `POST /MoneyOut/authorize` followed by `GET /MoneyOut/capture/{referenceId}`, in a single call.
+
+        Risk and fraud review runs at both the authorize and capture stages, exactly as it does for the two-call flow.
+
+        Payabli ignores the `autoCapture` field in the request body, since this endpoint always captures inline.
+
+        If the capture fails, the payout stays authorized. Retry the capture with `GET /MoneyOut/capture/{referenceId}` using the `referenceId` from the error response rather than resubmitting, which would create a second payout. See the [Manage payouts guide](/guides/pay-out-developer-payouts-manage#authorize-and-capture-in-one-call) for details.
+
+        Parameters
+        ----------
+        entry_point : Entrypointfield
+
+        payment_method : AuthorizePaymentMethod
+
+        payment_details : RequestOutAuthorizePaymentDetails
+            Object containing payment details.
+
+        vendor_data : RequestOutAuthorizeVendorData
+            Object containing vendor data.
+
+        same_day_ach : typing.Optional[bool]
+            When `true`, Payabli authorizes the payout for same-day ACH processing instead of standard ACH. Same-day ACH must be enabled for the paypoint, otherwise the authorization fails with a `400` response and `responseCode` `3492`. Only ACH payouts honor this flag. Wire and RTP payouts ignore it.
+
+            Because this endpoint captures immediately, pass `autoConvertSameDayAch` with a value of `true` to fall back to standard ACH if the capture runs after the same-day ACH cutoff.
+
+        do_not_create_bills : typing.Optional[bool]
+            When `true`, Payabli won't automatically create a bill for this payout transaction.
+
+        allow_duplicated_bills : typing.Optional[bool]
+            When `true`, the payout bypasses the requirement for unique bills, identified by vendor invoice number. This allows you to make more than one payout for a bill, like a split payment.
+
+        update_vendor_payment_method : typing.Optional[bool]
+            When `true`, Payabli updates the vendor's stored default payment method to the method used in this payout.
+
+        auto_convert_same_day_ach : typing.Optional[bool]
+            Controls what happens to a payout authorized with `sameDayACH` set to `true` when the capture runs after the same-day ACH cutoff. When `true`, Payabli converts the payout to a standard ACH payment and captures it. When `false`, the capture is declined.
+
+            This parameter has no effect on payouts that weren't authorized for same-day ACH.
+
+        idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
+
+        source : typing.Optional[Source]
+
+        order_id : typing.Optional[OrderId]
+
+        order_description : typing.Optional[Orderdescription]
+
+        invoice_data : typing.Optional[typing.Sequence[RequestOutAuthorizeInvoiceData]]
+            Bills to pay with this payout, each referenced by `billId`.
+
+        account_id : typing.Optional[AccountId]
+
+        subdomain : typing.Optional[Subdomain]
+
+        subscription_id : typing.Optional[Subscriptionid]
+
+        auto_capture : typing.Optional[AutoCapture]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[AuthCapturePayoutResponse]
+            Success
+        """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
+        _response = self._client_wrapper.httpx_client.request(
+            "MoneyOut/payout",
+            method="POST",
+            params={
+                "sameDayACH": same_day_ach,
+                "doNotCreateBills": do_not_create_bills,
+                "allowDuplicatedBills": allow_duplicated_bills,
+                "updateVendorPaymentMethod": update_vendor_payment_method,
+                "autoConvertSameDayAch": auto_convert_same_day_ach,
+            },
+            json={
+                "entryPoint": entry_point,
+                "source": source,
+                "orderId": order_id,
+                "orderDescription": order_description,
+                "paymentMethod": convert_and_respect_annotation_metadata(
+                    object_=payment_method, annotation=AuthorizePaymentMethod, direction="write"
+                ),
+                "paymentDetails": convert_and_respect_annotation_metadata(
+                    object_=payment_details, annotation=RequestOutAuthorizePaymentDetails, direction="write"
+                ),
+                "vendorData": convert_and_respect_annotation_metadata(
+                    object_=vendor_data, annotation=RequestOutAuthorizeVendorData, direction="write"
+                ),
+                "invoiceData": convert_and_respect_annotation_metadata(
+                    object_=invoice_data, annotation=typing.Sequence[RequestOutAuthorizeInvoiceData], direction="write"
+                ),
+                "accountId": account_id,
+                "subdomain": subdomain,
+                "subscriptionId": subscription_id,
+                "autoCapture": auto_capture,
+            },
+            headers={
+                **_endpoint_auth_headers,
+                "content-type": "application/json",
+                "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    AuthCapturePayoutResponse,
+                    parse_obj_as(
+                        type_=AuthCapturePayoutResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2170,6 +2401,236 @@ class AsyncRawMoneyOutClient:
                         PayabliErrorBody,
                         parse_obj_as(
                             type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def payout(
+        self,
+        *,
+        entry_point: Entrypointfield,
+        payment_method: AuthorizePaymentMethod,
+        payment_details: RequestOutAuthorizePaymentDetails,
+        vendor_data: RequestOutAuthorizeVendorData,
+        same_day_ach: typing.Optional[bool] = None,
+        do_not_create_bills: typing.Optional[bool] = None,
+        allow_duplicated_bills: typing.Optional[bool] = None,
+        update_vendor_payment_method: typing.Optional[bool] = None,
+        auto_convert_same_day_ach: typing.Optional[bool] = None,
+        idempotency_key: typing.Optional[IdempotencyKey] = None,
+        source: typing.Optional[Source] = OMIT,
+        order_id: typing.Optional[OrderId] = OMIT,
+        order_description: typing.Optional[Orderdescription] = OMIT,
+        invoice_data: typing.Optional[typing.Sequence[RequestOutAuthorizeInvoiceData]] = OMIT,
+        account_id: typing.Optional[AccountId] = OMIT,
+        subdomain: typing.Optional[Subdomain] = OMIT,
+        subscription_id: typing.Optional[Subscriptionid] = OMIT,
+        auto_capture: typing.Optional[AutoCapture] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[AuthCapturePayoutResponse]:
+        """
+        Authorizes a payout and captures it in the same request, returning the capture result. Use this endpoint when you need the capture outcome synchronously: it does the same work as calling `POST /MoneyOut/authorize` followed by `GET /MoneyOut/capture/{referenceId}`, in a single call.
+
+        Risk and fraud review runs at both the authorize and capture stages, exactly as it does for the two-call flow.
+
+        Payabli ignores the `autoCapture` field in the request body, since this endpoint always captures inline.
+
+        If the capture fails, the payout stays authorized. Retry the capture with `GET /MoneyOut/capture/{referenceId}` using the `referenceId` from the error response rather than resubmitting, which would create a second payout. See the [Manage payouts guide](/guides/pay-out-developer-payouts-manage#authorize-and-capture-in-one-call) for details.
+
+        Parameters
+        ----------
+        entry_point : Entrypointfield
+
+        payment_method : AuthorizePaymentMethod
+
+        payment_details : RequestOutAuthorizePaymentDetails
+            Object containing payment details.
+
+        vendor_data : RequestOutAuthorizeVendorData
+            Object containing vendor data.
+
+        same_day_ach : typing.Optional[bool]
+            When `true`, Payabli authorizes the payout for same-day ACH processing instead of standard ACH. Same-day ACH must be enabled for the paypoint, otherwise the authorization fails with a `400` response and `responseCode` `3492`. Only ACH payouts honor this flag. Wire and RTP payouts ignore it.
+
+            Because this endpoint captures immediately, pass `autoConvertSameDayAch` with a value of `true` to fall back to standard ACH if the capture runs after the same-day ACH cutoff.
+
+        do_not_create_bills : typing.Optional[bool]
+            When `true`, Payabli won't automatically create a bill for this payout transaction.
+
+        allow_duplicated_bills : typing.Optional[bool]
+            When `true`, the payout bypasses the requirement for unique bills, identified by vendor invoice number. This allows you to make more than one payout for a bill, like a split payment.
+
+        update_vendor_payment_method : typing.Optional[bool]
+            When `true`, Payabli updates the vendor's stored default payment method to the method used in this payout.
+
+        auto_convert_same_day_ach : typing.Optional[bool]
+            Controls what happens to a payout authorized with `sameDayACH` set to `true` when the capture runs after the same-day ACH cutoff. When `true`, Payabli converts the payout to a standard ACH payment and captures it. When `false`, the capture is declined.
+
+            This parameter has no effect on payouts that weren't authorized for same-day ACH.
+
+        idempotency_key : typing.Optional[IdempotencyKey]
+            _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
+
+        source : typing.Optional[Source]
+
+        order_id : typing.Optional[OrderId]
+
+        order_description : typing.Optional[Orderdescription]
+
+        invoice_data : typing.Optional[typing.Sequence[RequestOutAuthorizeInvoiceData]]
+            Bills to pay with this payout, each referenced by `billId`.
+
+        account_id : typing.Optional[AccountId]
+
+        subdomain : typing.Optional[Subdomain]
+
+        subscription_id : typing.Optional[Subscriptionid]
+
+        auto_capture : typing.Optional[AutoCapture]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[AuthCapturePayoutResponse]
+            Success
+        """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
+        _response = await self._client_wrapper.httpx_client.request(
+            "MoneyOut/payout",
+            method="POST",
+            params={
+                "sameDayACH": same_day_ach,
+                "doNotCreateBills": do_not_create_bills,
+                "allowDuplicatedBills": allow_duplicated_bills,
+                "updateVendorPaymentMethod": update_vendor_payment_method,
+                "autoConvertSameDayAch": auto_convert_same_day_ach,
+            },
+            json={
+                "entryPoint": entry_point,
+                "source": source,
+                "orderId": order_id,
+                "orderDescription": order_description,
+                "paymentMethod": convert_and_respect_annotation_metadata(
+                    object_=payment_method, annotation=AuthorizePaymentMethod, direction="write"
+                ),
+                "paymentDetails": convert_and_respect_annotation_metadata(
+                    object_=payment_details, annotation=RequestOutAuthorizePaymentDetails, direction="write"
+                ),
+                "vendorData": convert_and_respect_annotation_metadata(
+                    object_=vendor_data, annotation=RequestOutAuthorizeVendorData, direction="write"
+                ),
+                "invoiceData": convert_and_respect_annotation_metadata(
+                    object_=invoice_data, annotation=typing.Sequence[RequestOutAuthorizeInvoiceData], direction="write"
+                ),
+                "accountId": account_id,
+                "subdomain": subdomain,
+                "subscriptionId": subscription_id,
+                "autoCapture": auto_capture,
+            },
+            headers={
+                **_endpoint_auth_headers,
+                "content-type": "application/json",
+                "idempotencyKey": str(idempotency_key) if idempotency_key is not None else None,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    AuthCapturePayoutResponse,
+                    parse_obj_as(
+                        type_=AuthCapturePayoutResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

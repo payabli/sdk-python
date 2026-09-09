@@ -3,6 +3,7 @@
 import typing
 from json.decoder import JSONDecodeError
 
+from .. import core
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
@@ -29,33 +30,18 @@ class RawOcrClient:
         self._client_wrapper = client_wrapper
 
     def ocr_document_form(
-        self,
-        type_result: TypeResult,
-        *,
-        ftype: typing.Optional[FileContentFtype] = OMIT,
-        filename: typing.Optional[str] = OMIT,
-        furl: typing.Optional[str] = OMIT,
-        f_content: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, type_result: TypeResult, *, file: core.File, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[PayabliApiResponseOcr]:
         """
-        Use this endpoint to upload an image file for OCR processing. The accepted file formats include PDF, JPG, JPEG, PNG, and GIF. Specify the desired type of result (either 'bill' or 'invoice') in the path parameter `typeResult`. The response will contain the OCR processing results, including extracted data such as bill number, vendor information, bill items, and more.
+        Use this endpoint to upload a document file for OCR processing as `multipart/form-data`, with the file in a field named `file`. The accepted file formats include PDF, JPG, JPEG, PNG, and GIF. Specify the desired type of result (either 'bill' or 'invoice') in the path parameter `typeResult`. The response will contain the OCR processing results, including extracted data such as bill number, vendor information, bill items, and more. To send the file as a Base64-encoded string in a JSON body instead, use `ocrDocumentJson`.
 
         Parameters
         ----------
         type_result : TypeResult
             The type of object to create in Payabli. Accepted values are `bill` and `invoice`.
 
-        ftype : typing.Optional[FileContentFtype]
-
-        filename : typing.Optional[str]
-            The name of the file to be uploaded
-
-        furl : typing.Optional[str]
-            Optional URL link to the file
-
-        f_content : typing.Optional[str]
-            Base64-encoded file content
+        file : core.File
+            See core.File for more documentation
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -71,17 +57,16 @@ class RawOcrClient:
         _response = self._client_wrapper.httpx_client.request(
             f"Import/ocrDocumentForm/{encode_path_param(type_result)}",
             method="POST",
-            json={
-                "ftype": ftype,
-                "filename": filename,
-                "furl": furl,
-                "fContent": f_content,
+            data={},
+            files={
+                "file": file,
             },
             headers={
                 **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
+            force_multipart=True,
         )
         try:
             if 200 <= _response.status_code < 300:
@@ -197,6 +182,7 @@ class RawOcrClient:
             },
             headers={
                 **_endpoint_auth_headers,
+                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
@@ -226,33 +212,18 @@ class AsyncRawOcrClient:
         self._client_wrapper = client_wrapper
 
     async def ocr_document_form(
-        self,
-        type_result: TypeResult,
-        *,
-        ftype: typing.Optional[FileContentFtype] = OMIT,
-        filename: typing.Optional[str] = OMIT,
-        furl: typing.Optional[str] = OMIT,
-        f_content: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, type_result: TypeResult, *, file: core.File, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[PayabliApiResponseOcr]:
         """
-        Use this endpoint to upload an image file for OCR processing. The accepted file formats include PDF, JPG, JPEG, PNG, and GIF. Specify the desired type of result (either 'bill' or 'invoice') in the path parameter `typeResult`. The response will contain the OCR processing results, including extracted data such as bill number, vendor information, bill items, and more.
+        Use this endpoint to upload a document file for OCR processing as `multipart/form-data`, with the file in a field named `file`. The accepted file formats include PDF, JPG, JPEG, PNG, and GIF. Specify the desired type of result (either 'bill' or 'invoice') in the path parameter `typeResult`. The response will contain the OCR processing results, including extracted data such as bill number, vendor information, bill items, and more. To send the file as a Base64-encoded string in a JSON body instead, use `ocrDocumentJson`.
 
         Parameters
         ----------
         type_result : TypeResult
             The type of object to create in Payabli. Accepted values are `bill` and `invoice`.
 
-        ftype : typing.Optional[FileContentFtype]
-
-        filename : typing.Optional[str]
-            The name of the file to be uploaded
-
-        furl : typing.Optional[str]
-            Optional URL link to the file
-
-        f_content : typing.Optional[str]
-            Base64-encoded file content
+        file : core.File
+            See core.File for more documentation
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -268,17 +239,16 @@ class AsyncRawOcrClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"Import/ocrDocumentForm/{encode_path_param(type_result)}",
             method="POST",
-            json={
-                "ftype": ftype,
-                "filename": filename,
-                "furl": furl,
-                "fContent": f_content,
+            data={},
+            files={
+                "file": file,
             },
             headers={
                 **_endpoint_auth_headers,
             },
             request_options=request_options,
             omit=OMIT,
+            force_multipart=True,
         )
         try:
             if 200 <= _response.status_code < 300:
@@ -394,6 +364,7 @@ class AsyncRawOcrClient:
             },
             headers={
                 **_endpoint_auth_headers,
+                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,

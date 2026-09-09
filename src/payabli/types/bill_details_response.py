@@ -48,6 +48,27 @@ class BillDetailsResponse(UniversalBaseModel):
     Net Amount owed in bill. Required when adding a bill.
     """
 
+    paid_amount: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="paidAmount"),
+        pydantic.Field(alias="paidAmount", description="The amount paid toward the bill so far."),
+    ] = None
+    """
+    The amount paid toward the bill so far.
+    """
+
+    outstanding_balance: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="outstandingBalance"),
+        pydantic.Field(
+            alias="outstandingBalance",
+            description="The amount still owed on the bill, calculated as `netAmount` minus `paidAmount`.",
+        ),
+    ] = None
+    """
+    The amount still owed on the bill, calculated as `netAmount` minus `paidAmount`.
+    """
+
     discount: typing.Optional[str] = pydantic.Field(default=None)
     """
     Bill discount amount.

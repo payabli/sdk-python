@@ -11,5 +11,6 @@ The bill's status. Values are:
 - `11`: Rejected
 - `20`: Approved
 - `50`: Payment in transit
+- `75`: Partially paid
 - `100`: Paid
 """

@@ -92,6 +92,7 @@ if typing.TYPE_CHECKING:
     from .auth_response_response_data import AuthResponseResponseData
     from .authcode import Authcode
     from .authorize_payment_method import AuthorizePaymentMethod
+    from .authorize_payout_body import AuthorizePayoutBody
     from .auto_capture import AutoCapture
     from .auto_element import AutoElement
     from .available_transitions_response import AvailableTransitionsResponse
@@ -330,7 +331,6 @@ if typing.TYPE_CHECKING:
     from .file import File
     from .file_content import FileContent
     from .file_content_ftype import FileContentFtype
-    from .file_content_image_only import FileContentImageOnly
     from .finishtype import Finishtype
     from .force_customer_creation import ForceCustomerCreation
     from .freight_amount import FreightAmount
@@ -1033,6 +1033,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AuthResponseResponseData": ".auth_response_response_data",
     "Authcode": ".authcode",
     "AuthorizePaymentMethod": ".authorize_payment_method",
+    "AuthorizePayoutBody": ".authorize_payout_body",
     "AutoCapture": ".auto_capture",
     "AutoElement": ".auto_element",
     "AvailableTransitionsResponse": ".available_transitions_response",
@@ -1269,7 +1270,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "File": ".file",
     "FileContent": ".file_content",
     "FileContentFtype": ".file_content_ftype",
-    "FileContentImageOnly": ".file_content_image_only",
     "Finishtype": ".finishtype",
     "ForceCustomerCreation": ".force_customer_creation",
     "FreightAmount": ".freight_amount",
@@ -1996,6 +1996,7 @@ __all__ = [
     "AuthResponseResponseData",
     "Authcode",
     "AuthorizePaymentMethod",
+    "AuthorizePayoutBody",
     "AutoCapture",
     "AutoElement",
     "AvailableTransitionsResponse",
@@ -2232,7 +2233,6 @@ __all__ = [
     "File",
     "FileContent",
     "FileContentFtype",
-    "FileContentImageOnly",
     "Finishtype",
     "ForceCustomerCreation",
     "FreightAmount",

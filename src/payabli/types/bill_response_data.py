@@ -71,6 +71,27 @@ class BillResponseData(UniversalBaseModel):
     Total amount for the bill.
     """
 
+    paid_amount: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="PaidAmount"),
+        pydantic.Field(alias="PaidAmount", description="The amount paid toward the bill so far."),
+    ] = None
+    """
+    The amount paid toward the bill so far.
+    """
+
+    outstanding_balance: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="OutstandingBalance"),
+        pydantic.Field(
+            alias="OutstandingBalance",
+            description="The amount still owed on the bill, calculated as `NetAmount` minus `PaidAmount`.",
+        ),
+    ] = None
+    """
+    The amount still owed on the bill, calculated as `NetAmount` minus `PaidAmount`.
+    """
+
     bill_date: typing_extensions.Annotated[
         typing.Optional[dt.date],
         FieldMetadata(alias="BillDate"),
