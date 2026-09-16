@@ -10,134 +10,151 @@ from ..core.serialization import FieldMetadata
 
 class StatisticsVendorQueryRecord(UniversalBaseModel):
     stat_x: typing_extensions.Annotated[
-        str, FieldMetadata(alias="statX"), pydantic.Field(alias="statX", description="Statistical grouping identifier")
+        str,
+        FieldMetadata(alias="statX"),
+        pydantic.Field(
+            alias="statX",
+            description="The time bucket for this row, formatted according to the query's `freq` (for example, `2025-11` for a monthly bucket). Each bill falls in the bucket of its most recent update. The counts below break the vendor's bills down by bill state.",
+        ),
     ]
     """
-    Statistical grouping identifier
+    The time bucket for this row, formatted according to the query's `freq` (for example, `2025-11` for a monthly bucket). Each bill falls in the bucket of its most recent update. The counts below break the vendor's bills down by bill state.
     """
 
     active: int = pydantic.Field()
     """
-    Number of active transactions
+    Number of the vendor's bills in the active state (created, not yet submitted for approval).
     """
 
     active_volume: typing_extensions.Annotated[
         float,
         FieldMetadata(alias="activeVolume"),
-        pydantic.Field(alias="activeVolume", description="Volume of active transactions"),
+        pydantic.Field(alias="activeVolume", description="Total value of the vendor's active bills, net of fees."),
     ]
     """
-    Volume of active transactions
+    Total value of the vendor's active bills, net of fees.
     """
 
     sent_to_approval: typing_extensions.Annotated[
         int,
         FieldMetadata(alias="sentToApproval"),
-        pydantic.Field(alias="sentToApproval", description="Number of transactions sent to approval"),
+        pydantic.Field(
+            alias="sentToApproval", description="Number of the vendor's bills submitted into an approval workflow."
+        ),
     ]
     """
-    Number of transactions sent to approval
+    Number of the vendor's bills submitted into an approval workflow.
     """
 
     sent_to_approval_volume: typing_extensions.Annotated[
         float,
         FieldMetadata(alias="sentToApprovalVolume"),
-        pydantic.Field(alias="sentToApprovalVolume", description="Volume of transactions sent to approval"),
+        pydantic.Field(
+            alias="sentToApprovalVolume", description="Total value of the vendor's bills sent to approval, net of fees."
+        ),
     ]
     """
-    Volume of transactions sent to approval
+    Total value of the vendor's bills sent to approval, net of fees.
     """
 
     to_approval: typing_extensions.Annotated[
         int,
         FieldMetadata(alias="toApproval"),
-        pydantic.Field(alias="toApproval", description="Number of transactions to approval"),
+        pydantic.Field(alias="toApproval", description="Number of the vendor's bills awaiting an approver's decision."),
     ]
     """
-    Number of transactions to approval
+    Number of the vendor's bills awaiting an approver's decision.
     """
 
     to_approval_volume: typing_extensions.Annotated[
         float,
         FieldMetadata(alias="toApprovalVolume"),
-        pydantic.Field(alias="toApprovalVolume", description="Volume of transactions to approval"),
+        pydantic.Field(
+            alias="toApprovalVolume", description="Total value of the vendor's bills awaiting approval, net of fees."
+        ),
     ]
     """
-    Volume of transactions to approval
+    Total value of the vendor's bills awaiting approval, net of fees.
     """
 
     approved: int = pydantic.Field()
     """
-    Number of approved transactions
+    Number of the vendor's bills approved for payment.
     """
 
     approved_volume: typing_extensions.Annotated[
         float,
         FieldMetadata(alias="approvedVolume"),
-        pydantic.Field(alias="approvedVolume", description="Volume of approved transactions"),
+        pydantic.Field(alias="approvedVolume", description="Total value of the vendor's approved bills, net of fees."),
     ]
     """
-    Volume of approved transactions
+    Total value of the vendor's approved bills, net of fees.
     """
 
     disapproved: int = pydantic.Field()
     """
-    Number of disapproved transactions
+    Number of the vendor's bills rejected during approval.
     """
 
     disapproved_volume: typing_extensions.Annotated[
         float,
         FieldMetadata(alias="disapprovedVolume"),
-        pydantic.Field(alias="disapprovedVolume", description="Volume of disapproved transactions"),
+        pydantic.Field(
+            alias="disapprovedVolume", description="Total value of the vendor's disapproved bills, net of fees."
+        ),
     ]
     """
-    Volume of disapproved transactions
+    Total value of the vendor's disapproved bills, net of fees.
     """
 
     cancelled: int = pydantic.Field()
     """
-    Number of cancelled transactions
+    Number of the vendor's cancelled bills.
     """
 
     cancelled_volume: typing_extensions.Annotated[
         float,
         FieldMetadata(alias="cancelledVolume"),
-        pydantic.Field(alias="cancelledVolume", description="Volume of cancelled transactions"),
+        pydantic.Field(
+            alias="cancelledVolume", description="Total value of the vendor's cancelled bills, net of fees."
+        ),
     ]
     """
-    Volume of cancelled transactions
+    Total value of the vendor's cancelled bills, net of fees.
     """
 
     in_transit: typing_extensions.Annotated[
         int,
         FieldMetadata(alias="inTransit"),
-        pydantic.Field(alias="inTransit", description="Number of transactions in transit"),
+        pydantic.Field(alias="inTransit", description="Number of the vendor's bills whose payment is in transit."),
     ]
     """
-    Number of transactions in transit
+    Number of the vendor's bills whose payment is in transit.
     """
 
     in_transit_volume: typing_extensions.Annotated[
         float,
         FieldMetadata(alias="inTransitVolume"),
-        pydantic.Field(alias="inTransitVolume", description="Volume of transactions in transit"),
+        pydantic.Field(
+            alias="inTransitVolume", description="Total value of the vendor's in-transit bills, net of fees."
+        ),
     ]
     """
-    Volume of transactions in transit
+    Total value of the vendor's in-transit bills, net of fees.
     """
 
     paid: int = pydantic.Field()
     """
-    Number of paid transactions
+    Number of the vendor's bills marked paid. Paid means the payout has settled, not merely that Payabli issued it.
     """
 
     paid_volume: typing_extensions.Annotated[
         float,
         FieldMetadata(alias="paidVolume"),
-        pydantic.Field(alias="paidVolume", description="Volume of paid transactions"),
+        pydantic.Field(alias="paidVolume", description="Total value of the vendor's paid bills, net of fees."),
     ]
     """
-    Volume of paid transactions
+    Total value of the vendor's paid bills, net of fees.
     """
 
     if IS_PYDANTIC_V2:

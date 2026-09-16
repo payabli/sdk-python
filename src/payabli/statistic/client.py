@@ -5,7 +5,7 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.stat_basic_extended_query_record import StatBasicExtendedQueryRecord
-from ..types.stat_basic_query_record import StatBasicQueryRecord
+from ..types.stat_customer_basic_query_record import StatCustomerBasicQueryRecord
 from ..types.statistics_vendor_query_record import StatisticsVendorQueryRecord
 from ..types.subscription_stats_query_record import SubscriptionStatsQueryRecord
 from .raw_client import AsyncRawStatisticClient, RawStatisticClient
@@ -34,12 +34,11 @@ class StatisticClient:
         entry_id: int,
         *,
         end_date: typing.Optional[str] = None,
-        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         start_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[StatBasicExtendedQueryRecord]:
         """
-        Retrieves the basic statistics for an organization or a paypoint, for a given time period, grouped by a particular frequency.
+        Retrieves the basic statistics for an organization or a paypoint over a date range, grouped by a frequency. The response returns one row per time bucket. Counts and volumes cover approved transactions only and leave out declines. Volumes are net of fees.
 
         Parameters
         ----------
@@ -84,9 +83,6 @@ class StatisticClient:
               - YYYY/mm/dd
               - mm-dd-YYYY
               - mm/dd/YYYY
-
-        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-            List of parameters.
 
         start_date : typing.Optional[str]
             Used with `custom` mode. The start date for the range.
@@ -122,28 +118,15 @@ class StatisticClient:
         )
         """
         _response = self._raw_client.basic_stats(
-            mode,
-            freq,
-            level,
-            entry_id,
-            end_date=end_date,
-            parameters=parameters,
-            start_date=start_date,
-            request_options=request_options,
+            mode, freq, level, entry_id, end_date=end_date, start_date=start_date, request_options=request_options
         )
         return _response.data
 
     def customer_basic_stats(
-        self,
-        mode: str,
-        freq: str,
-        customer_id: int,
-        *,
-        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[SubscriptionStatsQueryRecord]:
+        self, mode: str, freq: str, customer_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[StatCustomerBasicQueryRecord]:
         """
-        Retrieves the basic statistics for a customer for a specific time period, grouped by a selected frequency.
+        Retrieves the basic statistics for a customer over a date range, grouped by a frequency. This is a Pay In view: it counts the customer's approved transactions and returns one row per time bucket. Volume here is the gross amount, before fees.
 
         Parameters
         ----------
@@ -175,15 +158,12 @@ class StatisticClient:
         customer_id : int
             Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
 
-        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-            List of parameters.
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        typing.List[SubscriptionStatsQueryRecord]
+        typing.List[StatCustomerBasicQueryRecord]
             Success
 
         Examples
@@ -195,27 +175,19 @@ class StatisticClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.statistic.customer_basic_stats(
-            mode="ytd",
+            mode="m12",
             freq="m",
             customer_id=4440,
         )
         """
-        _response = self._raw_client.customer_basic_stats(
-            mode, freq, customer_id, parameters=parameters, request_options=request_options
-        )
+        _response = self._raw_client.customer_basic_stats(mode, freq, customer_id, request_options=request_options)
         return _response.data
 
     def sub_stats(
-        self,
-        interval: str,
-        level: int,
-        entry_id: int,
-        *,
-        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[StatBasicQueryRecord]:
+        self, interval: str, level: int, entry_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[SubscriptionStatsQueryRecord]:
         """
-        Retrieves the subscription statistics for a given interval for a paypoint or organization.
+        Retrieves subscription statistics for a paypoint or organization, bucketed by how soon active subscriptions are due to renew. This is a forward-looking forecast of upcoming renewals, not charges already taken. Request a single window with `interval`, or `all` to return every window in one call.
 
         Parameters
         ----------
@@ -236,15 +208,12 @@ class StatisticClient:
         entry_id : int
             Identifier in Payabli for the entity.
 
-        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-            List of parameters
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        typing.List[StatBasicQueryRecord]
+        typing.List[SubscriptionStatsQueryRecord]
             Success
 
         Examples
@@ -256,27 +225,19 @@ class StatisticClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.statistic.sub_stats(
-            interval="30",
+            interval="all",
             level=2,
             entry_id=1000000,
         )
         """
-        _response = self._raw_client.sub_stats(
-            interval, level, entry_id, parameters=parameters, request_options=request_options
-        )
+        _response = self._raw_client.sub_stats(interval, level, entry_id, request_options=request_options)
         return _response.data
 
     def vendor_basic_stats(
-        self,
-        mode: str,
-        freq: str,
-        id_vendor: int,
-        *,
-        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, mode: str, freq: str, id_vendor: int, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.List[StatisticsVendorQueryRecord]:
         """
-        Retrieve the basic statistics about a vendor for a given time period, grouped by frequency.
+        Retrieve the basic statistics about a vendor over a date range, grouped by frequency. The response returns one row per time bucket, breaking the vendor's bills down by bill state (active, sent to approval, approved, in transit, paid, and so on). Volumes are net of fees.
 
         Parameters
         ----------
@@ -308,9 +269,6 @@ class StatisticClient:
         id_vendor : int
             Vendor ID.
 
-        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-            List of parameters
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -333,9 +291,7 @@ class StatisticClient:
             id_vendor=1,
         )
         """
-        _response = self._raw_client.vendor_basic_stats(
-            mode, freq, id_vendor, parameters=parameters, request_options=request_options
-        )
+        _response = self._raw_client.vendor_basic_stats(mode, freq, id_vendor, request_options=request_options)
         return _response.data
 
 
@@ -362,12 +318,11 @@ class AsyncStatisticClient:
         entry_id: int,
         *,
         end_date: typing.Optional[str] = None,
-        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         start_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[StatBasicExtendedQueryRecord]:
         """
-        Retrieves the basic statistics for an organization or a paypoint, for a given time period, grouped by a particular frequency.
+        Retrieves the basic statistics for an organization or a paypoint over a date range, grouped by a frequency. The response returns one row per time bucket. Counts and volumes cover approved transactions only and leave out declines. Volumes are net of fees.
 
         Parameters
         ----------
@@ -412,9 +367,6 @@ class AsyncStatisticClient:
               - YYYY/mm/dd
               - mm-dd-YYYY
               - mm/dd/YYYY
-
-        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-            List of parameters.
 
         start_date : typing.Optional[str]
             Used with `custom` mode. The start date for the range.
@@ -458,28 +410,15 @@ class AsyncStatisticClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.basic_stats(
-            mode,
-            freq,
-            level,
-            entry_id,
-            end_date=end_date,
-            parameters=parameters,
-            start_date=start_date,
-            request_options=request_options,
+            mode, freq, level, entry_id, end_date=end_date, start_date=start_date, request_options=request_options
         )
         return _response.data
 
     async def customer_basic_stats(
-        self,
-        mode: str,
-        freq: str,
-        customer_id: int,
-        *,
-        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[SubscriptionStatsQueryRecord]:
+        self, mode: str, freq: str, customer_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[StatCustomerBasicQueryRecord]:
         """
-        Retrieves the basic statistics for a customer for a specific time period, grouped by a selected frequency.
+        Retrieves the basic statistics for a customer over a date range, grouped by a frequency. This is a Pay In view: it counts the customer's approved transactions and returns one row per time bucket. Volume here is the gross amount, before fees.
 
         Parameters
         ----------
@@ -511,8 +450,65 @@ class AsyncStatisticClient:
         customer_id : int
             Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
 
-        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-            List of parameters.
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[StatCustomerBasicQueryRecord]
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+
+
+        async def main() -> None:
+            await client.statistic.customer_basic_stats(
+                mode="m12",
+                freq="m",
+                customer_id=4440,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.customer_basic_stats(
+            mode, freq, customer_id, request_options=request_options
+        )
+        return _response.data
+
+    async def sub_stats(
+        self, interval: str, level: int, entry_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[SubscriptionStatsQueryRecord]:
+        """
+        Retrieves subscription statistics for a paypoint or organization, bucketed by how soon active subscriptions are due to renew. This is a forward-looking forecast of upcoming renewals, not charges already taken. Request a single window with `interval`, or `all` to return every window in one call.
+
+        Parameters
+        ----------
+        interval : str
+            Interval to get the data. Allowed values:
+
+            - `all` - all intervals
+            - `30` - 1-30 days
+            - `60` - 31-60 days
+            - `90` - 61-90 days
+            - `plus` - +90 days
+
+        level : int
+            The entry level for the request:
+              - 0 for Organization
+              - 2 for Paypoint
+
+        entry_id : int
+            Identifier in Payabli for the entity.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -535,77 +531,8 @@ class AsyncStatisticClient:
 
 
         async def main() -> None:
-            await client.statistic.customer_basic_stats(
-                mode="ytd",
-                freq="m",
-                customer_id=4440,
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.customer_basic_stats(
-            mode, freq, customer_id, parameters=parameters, request_options=request_options
-        )
-        return _response.data
-
-    async def sub_stats(
-        self,
-        interval: str,
-        level: int,
-        entry_id: int,
-        *,
-        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[StatBasicQueryRecord]:
-        """
-        Retrieves the subscription statistics for a given interval for a paypoint or organization.
-
-        Parameters
-        ----------
-        interval : str
-            Interval to get the data. Allowed values:
-
-            - `all` - all intervals
-            - `30` - 1-30 days
-            - `60` - 31-60 days
-            - `90` - 61-90 days
-            - `plus` - +90 days
-
-        level : int
-            The entry level for the request:
-              - 0 for Organization
-              - 2 for Paypoint
-
-        entry_id : int
-            Identifier in Payabli for the entity.
-
-        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-            List of parameters
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.List[StatBasicQueryRecord]
-            Success
-
-        Examples
-        --------
-        import asyncio
-
-        from payabli import Asyncpayabli
-
-        client = Asyncpayabli(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
-        )
-
-
-        async def main() -> None:
             await client.statistic.sub_stats(
-                interval="30",
+                interval="all",
                 level=2,
                 entry_id=1000000,
             )
@@ -613,22 +540,14 @@ class AsyncStatisticClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.sub_stats(
-            interval, level, entry_id, parameters=parameters, request_options=request_options
-        )
+        _response = await self._raw_client.sub_stats(interval, level, entry_id, request_options=request_options)
         return _response.data
 
     async def vendor_basic_stats(
-        self,
-        mode: str,
-        freq: str,
-        id_vendor: int,
-        *,
-        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, mode: str, freq: str, id_vendor: int, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.List[StatisticsVendorQueryRecord]:
         """
-        Retrieve the basic statistics about a vendor for a given time period, grouped by frequency.
+        Retrieve the basic statistics about a vendor over a date range, grouped by frequency. The response returns one row per time bucket, breaking the vendor's bills down by bill state (active, sent to approval, approved, in transit, paid, and so on). Volumes are net of fees.
 
         Parameters
         ----------
@@ -660,9 +579,6 @@ class AsyncStatisticClient:
         id_vendor : int
             Vendor ID.
 
-        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-            List of parameters
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -693,7 +609,5 @@ class AsyncStatisticClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.vendor_basic_stats(
-            mode, freq, id_vendor, parameters=parameters, request_options=request_options
-        )
+        _response = await self._raw_client.vendor_basic_stats(mode, freq, id_vendor, request_options=request_options)
         return _response.data

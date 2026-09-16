@@ -42,6 +42,7 @@ if typing.TYPE_CHECKING:
     from .query.client import AsyncQueryClient, QueryClient
     from .statistic.client import AsyncStatisticClient, StatisticClient
     from .subscription.client import AsyncSubscriptionClient, SubscriptionClient
+    from .taptopay.client import AsyncTaptopayClient, TaptopayClient
     from .templates.client import AsyncTemplatesClient, TemplatesClient
     from .token.client import AsyncTokenClient, TokenClient
     from .token_storage.client import AsyncTokenStorageClient, TokenStorageClient
@@ -259,6 +260,7 @@ class payabli:
         self._ocr: typing.Optional[OcrClient] = None
         self._notificationlogs: typing.Optional[NotificationlogsClient] = None
         self._device: typing.Optional[DeviceClient] = None
+        self._taptopay: typing.Optional[TaptopayClient] = None
         self._cloud: typing.Optional[CloudClient] = None
         self._line_item: typing.Optional[LineItemClient] = None
         self._boarding: typing.Optional[BoardingClient] = None
@@ -414,6 +416,14 @@ class payabli:
 
             self._device = DeviceClient(client_wrapper=self._client_wrapper)
         return self._device
+
+    @property
+    def taptopay(self):
+        if self._taptopay is None:
+            from .taptopay.client import TaptopayClient  # noqa: E402
+
+            self._taptopay = TaptopayClient(client_wrapper=self._client_wrapper)
+        return self._taptopay
 
     @property
     def cloud(self):
@@ -790,6 +800,7 @@ class Asyncpayabli:
         self._ocr: typing.Optional[AsyncOcrClient] = None
         self._notificationlogs: typing.Optional[AsyncNotificationlogsClient] = None
         self._device: typing.Optional[AsyncDeviceClient] = None
+        self._taptopay: typing.Optional[AsyncTaptopayClient] = None
         self._cloud: typing.Optional[AsyncCloudClient] = None
         self._line_item: typing.Optional[AsyncLineItemClient] = None
         self._boarding: typing.Optional[AsyncBoardingClient] = None
@@ -945,6 +956,14 @@ class Asyncpayabli:
 
             self._device = AsyncDeviceClient(client_wrapper=self._client_wrapper)
         return self._device
+
+    @property
+    def taptopay(self):
+        if self._taptopay is None:
+            from .taptopay.client import AsyncTaptopayClient  # noqa: E402
+
+            self._taptopay = AsyncTaptopayClient(client_wrapper=self._client_wrapper)
+        return self._taptopay
 
     @property
     def cloud(self):

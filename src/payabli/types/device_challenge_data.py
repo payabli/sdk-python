@@ -26,11 +26,11 @@ class DeviceChallengeData(UniversalBaseModel):
         FieldMetadata(alias="expiresAt"),
         pydantic.Field(
             alias="expiresAt",
-            description="UTC time when the code expires, in ISO-8601 round-trip format. A code is\nvalid for 5 minutes after it's issued.",
+            description="UTC time when the code expires, in ISO 8601 round-trip format. A code is\nvalid for 5 minutes after it's issued.",
         ),
     ]
     """
-    UTC time when the code expires, in ISO-8601 round-trip format. A code is
+    UTC time when the code expires, in ISO 8601 round-trip format. A code is
     valid for 5 minutes after it's issued.
     """
 

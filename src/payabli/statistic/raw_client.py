@@ -16,7 +16,7 @@ from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.payabli_error_body import PayabliErrorBody
 from ..types.stat_basic_extended_query_record import StatBasicExtendedQueryRecord
-from ..types.stat_basic_query_record import StatBasicQueryRecord
+from ..types.stat_customer_basic_query_record import StatCustomerBasicQueryRecord
 from ..types.statistics_vendor_query_record import StatisticsVendorQueryRecord
 from ..types.subscription_stats_query_record import SubscriptionStatsQueryRecord
 from pydantic import ValidationError
@@ -34,12 +34,11 @@ class RawStatisticClient:
         entry_id: int,
         *,
         end_date: typing.Optional[str] = None,
-        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         start_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.List[StatBasicExtendedQueryRecord]]:
         """
-        Retrieves the basic statistics for an organization or a paypoint, for a given time period, grouped by a particular frequency.
+        Retrieves the basic statistics for an organization or a paypoint over a date range, grouped by a frequency. The response returns one row per time bucket. Counts and volumes cover approved transactions only and leave out declines. Volumes are net of fees.
 
         Parameters
         ----------
@@ -85,9 +84,6 @@ class RawStatisticClient:
               - mm-dd-YYYY
               - mm/dd/YYYY
 
-        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-            List of parameters.
-
         start_date : typing.Optional[str]
             Used with `custom` mode. The start date for the range.
             Valid formats:
@@ -112,7 +108,6 @@ class RawStatisticClient:
             method="GET",
             params={
                 "endDate": end_date,
-                "parameters": parameters,
                 "startDate": start_date,
             },
             headers={
@@ -184,16 +179,10 @@ class RawStatisticClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def customer_basic_stats(
-        self,
-        mode: str,
-        freq: str,
-        customer_id: int,
-        *,
-        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[typing.List[SubscriptionStatsQueryRecord]]:
+        self, mode: str, freq: str, customer_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[typing.List[StatCustomerBasicQueryRecord]]:
         """
-        Retrieves the basic statistics for a customer for a specific time period, grouped by a selected frequency.
+        Retrieves the basic statistics for a customer over a date range, grouped by a frequency. This is a Pay In view: it counts the customer's approved transactions and returns one row per time bucket. Volume here is the gross amount, before fees.
 
         Parameters
         ----------
@@ -225,8 +214,112 @@ class RawStatisticClient:
         customer_id : int
             Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
 
-        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-            List of parameters.
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[typing.List[StatCustomerBasicQueryRecord]]
+            Success
+        """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
+        _response = self._client_wrapper.httpx_client.request(
+            f"Statistic/customerbasic/{encode_path_param(mode)}/{encode_path_param(freq)}/{encode_path_param(customer_id)}",
+            method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    typing.List[StatCustomerBasicQueryRecord],
+                    parse_obj_as(
+                        type_=typing.List[StatCustomerBasicQueryRecord],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def sub_stats(
+        self, interval: str, level: int, entry_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[typing.List[SubscriptionStatsQueryRecord]]:
+        """
+        Retrieves subscription statistics for a paypoint or organization, bucketed by how soon active subscriptions are due to renew. This is a forward-looking forecast of upcoming renewals, not charges already taken. Request a single window with `interval`, or `all` to return every window in one call.
+
+        Parameters
+        ----------
+        interval : str
+            Interval to get the data. Allowed values:
+
+            - `all` - all intervals
+            - `30` - 1-30 days
+            - `60` - 31-60 days
+            - `90` - 61-90 days
+            - `plus` - +90 days
+
+        level : int
+            The entry level for the request:
+              - 0 for Organization
+              - 2 for Paypoint
+
+        entry_id : int
+            Identifier in Payabli for the entity.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -240,11 +333,8 @@ class RawStatisticClient:
             security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
         )
         _response = self._client_wrapper.httpx_client.request(
-            f"Statistic/customerbasic/{encode_path_param(mode)}/{encode_path_param(freq)}/{encode_path_param(customer_id)}",
+            f"Statistic/subscriptions/{encode_path_param(interval)}/{encode_path_param(level)}/{encode_path_param(entry_id)}",
             method="GET",
-            params={
-                "parameters": parameters,
-            },
             headers={
                 **_endpoint_auth_headers,
             },
@@ -313,136 +403,11 @@ class RawStatisticClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def sub_stats(
-        self,
-        interval: str,
-        level: int,
-        entry_id: int,
-        *,
-        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[typing.List[StatBasicQueryRecord]]:
-        """
-        Retrieves the subscription statistics for a given interval for a paypoint or organization.
-
-        Parameters
-        ----------
-        interval : str
-            Interval to get the data. Allowed values:
-
-            - `all` - all intervals
-            - `30` - 1-30 days
-            - `60` - 31-60 days
-            - `90` - 61-90 days
-            - `plus` - +90 days
-
-        level : int
-            The entry level for the request:
-              - 0 for Organization
-              - 2 for Paypoint
-
-        entry_id : int
-            Identifier in Payabli for the entity.
-
-        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-            List of parameters
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[typing.List[StatBasicQueryRecord]]
-            Success
-        """
-        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
-            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
-        )
-        _response = self._client_wrapper.httpx_client.request(
-            f"Statistic/subscriptions/{encode_path_param(interval)}/{encode_path_param(level)}/{encode_path_param(entry_id)}",
-            method="GET",
-            params={
-                "parameters": parameters,
-            },
-            headers={
-                **_endpoint_auth_headers,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.List[StatBasicQueryRecord],
-                    parse_obj_as(
-                        type_=typing.List[StatBasicQueryRecord],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliErrorBody,
-                        parse_obj_as(
-                            type_=PayabliErrorBody,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliErrorBody,
-                        parse_obj_as(
-                            type_=PayabliErrorBody,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
     def vendor_basic_stats(
-        self,
-        mode: str,
-        freq: str,
-        id_vendor: int,
-        *,
-        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, mode: str, freq: str, id_vendor: int, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[typing.List[StatisticsVendorQueryRecord]]:
         """
-        Retrieve the basic statistics about a vendor for a given time period, grouped by frequency.
+        Retrieve the basic statistics about a vendor over a date range, grouped by frequency. The response returns one row per time bucket, breaking the vendor's bills down by bill state (active, sent to approval, approved, in transit, paid, and so on). Volumes are net of fees.
 
         Parameters
         ----------
@@ -474,9 +439,6 @@ class RawStatisticClient:
         id_vendor : int
             Vendor ID.
 
-        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-            List of parameters
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -491,9 +453,6 @@ class RawStatisticClient:
         _response = self._client_wrapper.httpx_client.request(
             f"Statistic/vendorbasic/{encode_path_param(mode)}/{encode_path_param(freq)}/{encode_path_param(id_vendor)}",
             method="GET",
-            params={
-                "parameters": parameters,
-            },
             headers={
                 **_endpoint_auth_headers,
             },
@@ -575,12 +534,11 @@ class AsyncRawStatisticClient:
         entry_id: int,
         *,
         end_date: typing.Optional[str] = None,
-        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
         start_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.List[StatBasicExtendedQueryRecord]]:
         """
-        Retrieves the basic statistics for an organization or a paypoint, for a given time period, grouped by a particular frequency.
+        Retrieves the basic statistics for an organization or a paypoint over a date range, grouped by a frequency. The response returns one row per time bucket. Counts and volumes cover approved transactions only and leave out declines. Volumes are net of fees.
 
         Parameters
         ----------
@@ -626,9 +584,6 @@ class AsyncRawStatisticClient:
               - mm-dd-YYYY
               - mm/dd/YYYY
 
-        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-            List of parameters.
-
         start_date : typing.Optional[str]
             Used with `custom` mode. The start date for the range.
             Valid formats:
@@ -653,7 +608,6 @@ class AsyncRawStatisticClient:
             method="GET",
             params={
                 "endDate": end_date,
-                "parameters": parameters,
                 "startDate": start_date,
             },
             headers={
@@ -725,16 +679,10 @@ class AsyncRawStatisticClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def customer_basic_stats(
-        self,
-        mode: str,
-        freq: str,
-        customer_id: int,
-        *,
-        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[typing.List[SubscriptionStatsQueryRecord]]:
+        self, mode: str, freq: str, customer_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[typing.List[StatCustomerBasicQueryRecord]]:
         """
-        Retrieves the basic statistics for a customer for a specific time period, grouped by a selected frequency.
+        Retrieves the basic statistics for a customer over a date range, grouped by a frequency. This is a Pay In view: it counts the customer's approved transactions and returns one row per time bucket. Volume here is the gross amount, before fees.
 
         Parameters
         ----------
@@ -766,8 +714,112 @@ class AsyncRawStatisticClient:
         customer_id : int
             Payabli-generated customer ID. Maps to "Customer ID" column in the Payabli Portal.
 
-        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-            List of parameters.
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[typing.List[StatCustomerBasicQueryRecord]]
+            Success
+        """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
+        _response = await self._client_wrapper.httpx_client.request(
+            f"Statistic/customerbasic/{encode_path_param(mode)}/{encode_path_param(freq)}/{encode_path_param(customer_id)}",
+            method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    typing.List[StatCustomerBasicQueryRecord],
+                    parse_obj_as(
+                        type_=typing.List[StatCustomerBasicQueryRecord],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def sub_stats(
+        self, interval: str, level: int, entry_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[typing.List[SubscriptionStatsQueryRecord]]:
+        """
+        Retrieves subscription statistics for a paypoint or organization, bucketed by how soon active subscriptions are due to renew. This is a forward-looking forecast of upcoming renewals, not charges already taken. Request a single window with `interval`, or `all` to return every window in one call.
+
+        Parameters
+        ----------
+        interval : str
+            Interval to get the data. Allowed values:
+
+            - `all` - all intervals
+            - `30` - 1-30 days
+            - `60` - 31-60 days
+            - `90` - 61-90 days
+            - `plus` - +90 days
+
+        level : int
+            The entry level for the request:
+              - 0 for Organization
+              - 2 for Paypoint
+
+        entry_id : int
+            Identifier in Payabli for the entity.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -781,11 +833,8 @@ class AsyncRawStatisticClient:
             security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
         )
         _response = await self._client_wrapper.httpx_client.request(
-            f"Statistic/customerbasic/{encode_path_param(mode)}/{encode_path_param(freq)}/{encode_path_param(customer_id)}",
+            f"Statistic/subscriptions/{encode_path_param(interval)}/{encode_path_param(level)}/{encode_path_param(entry_id)}",
             method="GET",
-            params={
-                "parameters": parameters,
-            },
             headers={
                 **_endpoint_auth_headers,
             },
@@ -854,136 +903,11 @@ class AsyncRawStatisticClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def sub_stats(
-        self,
-        interval: str,
-        level: int,
-        entry_id: int,
-        *,
-        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[typing.List[StatBasicQueryRecord]]:
-        """
-        Retrieves the subscription statistics for a given interval for a paypoint or organization.
-
-        Parameters
-        ----------
-        interval : str
-            Interval to get the data. Allowed values:
-
-            - `all` - all intervals
-            - `30` - 1-30 days
-            - `60` - 31-60 days
-            - `90` - 61-90 days
-            - `plus` - +90 days
-
-        level : int
-            The entry level for the request:
-              - 0 for Organization
-              - 2 for Paypoint
-
-        entry_id : int
-            Identifier in Payabli for the entity.
-
-        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-            List of parameters
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[typing.List[StatBasicQueryRecord]]
-            Success
-        """
-        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
-            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
-        )
-        _response = await self._client_wrapper.httpx_client.request(
-            f"Statistic/subscriptions/{encode_path_param(interval)}/{encode_path_param(level)}/{encode_path_param(entry_id)}",
-            method="GET",
-            params={
-                "parameters": parameters,
-            },
-            headers={
-                **_endpoint_auth_headers,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.List[StatBasicQueryRecord],
-                    parse_obj_as(
-                        type_=typing.List[StatBasicQueryRecord],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliErrorBody,
-                        parse_obj_as(
-                            type_=PayabliErrorBody,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        PayabliErrorBody,
-                        parse_obj_as(
-                            type_=PayabliErrorBody,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
     async def vendor_basic_stats(
-        self,
-        mode: str,
-        freq: str,
-        id_vendor: int,
-        *,
-        parameters: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, mode: str, freq: str, id_vendor: int, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[typing.List[StatisticsVendorQueryRecord]]:
         """
-        Retrieve the basic statistics about a vendor for a given time period, grouped by frequency.
+        Retrieve the basic statistics about a vendor over a date range, grouped by frequency. The response returns one row per time bucket, breaking the vendor's bills down by bill state (active, sent to approval, approved, in transit, paid, and so on). Volumes are net of fees.
 
         Parameters
         ----------
@@ -1015,9 +939,6 @@ class AsyncRawStatisticClient:
         id_vendor : int
             Vendor ID.
 
-        parameters : typing.Optional[typing.Dict[str, typing.Optional[str]]]
-            List of parameters
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1032,9 +953,6 @@ class AsyncRawStatisticClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"Statistic/vendorbasic/{encode_path_param(mode)}/{encode_path_param(freq)}/{encode_path_param(id_vendor)}",
             method="GET",
-            params={
-                "parameters": parameters,
-            },
             headers={
                 **_endpoint_auth_headers,
             },

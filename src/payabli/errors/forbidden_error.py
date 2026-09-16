@@ -3,9 +3,8 @@
 import typing
 
 from ..core.api_error import ApiError
-from ..types.payabli_error_body import PayabliErrorBody
 
 
 class ForbiddenError(ApiError):
-    def __init__(self, body: PayabliErrorBody, headers: typing.Optional[typing.Dict[str, str]] = None):
+    def __init__(self, body: typing.Any, headers: typing.Optional[typing.Dict[str, str]] = None):
         super().__init__(status_code=403, headers=headers, body=body)

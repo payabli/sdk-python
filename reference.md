@@ -4090,10 +4090,10 @@ client.subscription.new_subscription(
         method="card",
     ),
     schedule_details=ScheduleDetail(
-        end_date="2025-03-20",
+        end_date="2027-12-31",
         frequency="weekly",
         plan_id=1,
-        start_date="2024-09-20",
+        start_date="2027-01-01",
     ),
 )
 
@@ -16823,15 +16823,17 @@ client.notificationlogs.bulk_retry_notification_logs(
 <dd>
 
 Generates a one-time, 6-digit verification code for activating a
-semi-integrated card-present device in a paypoint. After calling this endpoint, an operator enters the returned code
-on the device's terminal, along with a device name, to register the
-device to the paypoint resolved from `{entry}`.
+semi-integrated card-present device in a paypoint. This endpoint is
+for AXIUM devices only. After calling this endpoint, an operator
+enters the returned code on the device's terminal, along with a
+device name, to register the device to the paypoint resolved from
+`{entry}`.
 
 A code expires 5 minutes after it's issued. A paypoint can have several
 codes active at once — for example, when activating a batch of devices —
 and a code binds to whichever device enters it first.
 
-Authenticate with an OAuth2 Bearer token that has the `device_registry` scope.
+Authenticate with an OAuth2 bearer token that has the `device_registry` scope.
 </dd>
 </dl>
 </dd>
@@ -16874,6 +16876,102 @@ client.device.challenge(
 <dd>
 
 **entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## TapToPay
+<details><summary><code>client.taptopay.<a href="src/payabli/taptopay/client.py">activation_challenge</a>(...) -> TapToPayActivationChallengeResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Issues a short-lived activation code for a Tap to Pay device in the
+`Pending` state. This endpoint is for Tap to Pay devices only.
+Deliver the code to the device to complete activation.
+
+A code is valid for 30 minutes after it's issued. Calling this
+endpoint again for the same device before the code expires returns
+the same code, with `alreadyIssued` set to `true`, instead of
+generating a new one. A new code is only generated when no valid
+code exists.
+
+Authenticate with an OAuth2 bearer token that has the `pos_create`
+permission. See [Accept Tap to Pay payments](/guides/pay-in-developer-tap-to-pay)
+for the full integration guide.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.taptopay.activation_challenge(
+    entry="8cfec329267",
+    device_id="499585-389fj484-3jcj8hj3",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**entry:** `Entry` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**device_id:** `str` — The device identifier (`poiId`) returned when the device was registered.
     
 </dd>
 </dl>
@@ -25706,7 +25804,7 @@ client.management.verify_account_details(
 <dl>
 <dd>
 
-Retrieves the basic statistics for an organization or a paypoint, for a given time period, grouped by a particular frequency.
+Retrieves the basic statistics for an organization or a paypoint over a date range, grouped by a frequency. The response returns one row per time bucket. Counts and volumes cover approved transactions only and leave out declines. Volumes are net of fees.
 </dd>
 </dl>
 </dd>
@@ -25828,14 +25926,6 @@ Valid formats:
 <dl>
 <dd>
 
-**parameters:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — List of parameters.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **start_date:** `typing.Optional[str]` 
 
 Used with `custom` mode. The start date for the range.
@@ -25863,7 +25953,7 @@ Valid formats:
 </dl>
 </details>
 
-<details><summary><code>client.statistic.<a href="src/payabli/statistic/client.py">customer_basic_stats</a>(...) -> typing.List[SubscriptionStatsQueryRecord]</code></summary>
+<details><summary><code>client.statistic.<a href="src/payabli/statistic/client.py">customer_basic_stats</a>(...) -> typing.List[StatCustomerBasicQueryRecord]</code></summary>
 <dl>
 <dd>
 
@@ -25875,7 +25965,7 @@ Valid formats:
 <dl>
 <dd>
 
-Retrieves the basic statistics for a customer for a specific time period, grouped by a selected frequency.
+Retrieves the basic statistics for a customer over a date range, grouped by a frequency. This is a Pay In view: it counts the customer's approved transactions and returns one row per time bucket. Volume here is the gross amount, before fees.
 </dd>
 </dl>
 </dd>
@@ -25900,7 +25990,7 @@ client = payabli(
 )
 
 client.statistic.customer_basic_stats(
-    mode="ytd",
+    mode="m12",
     freq="m",
     customer_id=4440,
 )
@@ -25966,14 +26056,6 @@ For example, `w` groups the results by week.
 <dl>
 <dd>
 
-**parameters:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — List of parameters.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -25986,7 +26068,7 @@ For example, `w` groups the results by week.
 </dl>
 </details>
 
-<details><summary><code>client.statistic.<a href="src/payabli/statistic/client.py">sub_stats</a>(...) -> typing.List[StatBasicQueryRecord]</code></summary>
+<details><summary><code>client.statistic.<a href="src/payabli/statistic/client.py">sub_stats</a>(...) -> typing.List[SubscriptionStatsQueryRecord]</code></summary>
 <dl>
 <dd>
 
@@ -25998,7 +26080,7 @@ For example, `w` groups the results by week.
 <dl>
 <dd>
 
-Retrieves the subscription statistics for a given interval for a paypoint or organization.
+Retrieves subscription statistics for a paypoint or organization, bucketed by how soon active subscriptions are due to renew. This is a forward-looking forecast of upcoming renewals, not charges already taken. Request a single window with `interval`, or `all` to return every window in one call.
 </dd>
 </dl>
 </dd>
@@ -26023,7 +26105,7 @@ client = payabli(
 )
 
 client.statistic.sub_stats(
-    interval="30",
+    interval="all",
     level=2,
     entry_id=1000000,
 )
@@ -26078,14 +26160,6 @@ The entry level for the request:
 <dl>
 <dd>
 
-**parameters:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — List of parameters
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -26110,7 +26184,7 @@ The entry level for the request:
 <dl>
 <dd>
 
-Retrieve the basic statistics about a vendor for a given time period, grouped by frequency.
+Retrieve the basic statistics about a vendor over a date range, grouped by frequency. The response returns one row per time bucket, breaking the vendor's bills down by bill state (active, sent to approval, approved, in transit, paid, and so on). Volumes are net of fees.
 </dd>
 </dl>
 </dd>
@@ -26194,14 +26268,6 @@ For example, `w` groups the results by week.
 <dd>
 
 **id_vendor:** `int` — Vendor ID.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**parameters:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — List of parameters
     
 </dd>
 </dl>
@@ -27674,9 +27740,9 @@ client.vendor.add_vendor(
     location_code="MIA123",
     mcc="7777",
     name_1="Herman\'s Coatings and Masonry",
-    name_2="<string>",
-    payee_name_1="<string>",
-    payee_name_2="<string>",
+    name_2="HCM Services",
+    payee_name_1="Herman Martinez",
+    payee_name_2="Herman Coatings",
     payment_method="managed",
     phone="5555555555",
     remit_address_1="123 Walnut Street",
@@ -28811,9 +28877,8 @@ client = payabli(
 
 client.money_out.cancel_all_out(
     request=[
-        "2-29",
-        "2-28",
-        "2-27"
+        "129-230",
+        "129-219"
     ],
 )
 
@@ -29037,9 +29102,8 @@ client = payabli(
 
 client.money_out.capture_all_out(
     request=[
-        "2-29",
-        "2-28",
-        "2-27"
+        "129-230",
+        "129-219"
     ],
 )
 
@@ -30453,15 +30517,15 @@ client.payout_subscription.create_payout_subscription(
     ),
     bill_data=[
         BillPayOutDataRequest(
-            due_date=datetime.date.fromisoformat("2025-08-15"),
-            invoice_date=datetime.date.fromisoformat("2025-08-01"),
+            due_date=datetime.date.fromisoformat("2027-08-15"),
+            invoice_date=datetime.date.fromisoformat("2027-08-01"),
             invoice_number="INV-2345",
             net_amount="500",
         )
     ],
     schedule_details=PayoutScheduleDetail(
-        start_date="09/01/2027",
-        end_date="09/01/2026",
+        start_date="01/01/2027",
+        end_date="12/31/2027",
         frequency="monthly",
     ),
 )

@@ -215,7 +215,7 @@ class MoneyOutClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.money_out.cancel_all_out(
-            request=["2-29", "2-28", "2-27"],
+            request=["129-230", "129-219"],
         )
         """
         _response = self._raw_client.cancel_all_out(request=request, request_options=request_options)
@@ -329,7 +329,7 @@ class MoneyOutClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.money_out.capture_all_out(
-            request=["2-29", "2-28", "2-27"],
+            request=["129-230", "129-219"],
         )
         """
         _response = self._raw_client.capture_all_out(
@@ -1041,7 +1041,7 @@ class AsyncMoneyOutClient:
 
         async def main() -> None:
             await client.money_out.cancel_all_out(
-                request=["2-29", "2-28", "2-27"],
+                request=["129-230", "129-219"],
             )
 
 
@@ -1179,7 +1179,7 @@ class AsyncMoneyOutClient:
 
         async def main() -> None:
             await client.money_out.capture_all_out(
-                request=["2-29", "2-28", "2-27"],
+                request=["129-230", "129-219"],
             )
 
 

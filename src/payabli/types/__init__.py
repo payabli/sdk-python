@@ -781,7 +781,7 @@ if typing.TYPE_CHECKING:
     from .split_funding_content import SplitFundingContent
     from .split_funding_refund_content import SplitFundingRefundContent
     from .stat_basic_extended_query_record import StatBasicExtendedQueryRecord
-    from .stat_basic_query_record import StatBasicQueryRecord
+    from .stat_customer_basic_query_record import StatCustomerBasicQueryRecord
     from .state_nullable import StateNullable
     from .state_transition_response import StateTransitionResponse
     from .statement_email_config import StatementEmailConfig
@@ -799,6 +799,12 @@ if typing.TYPE_CHECKING:
     from .subscriptionid import Subscriptionid
     from .summary_commodity_code import SummaryCommodityCode
     from .summary_org import SummaryOrg
+    from .tap_to_pay_activation_challenge_data import TapToPayActivationChallengeData
+    from .tap_to_pay_activation_challenge_error_response import TapToPayActivationChallengeErrorResponse
+    from .tap_to_pay_activation_challenge_error_response_response_data import (
+        TapToPayActivationChallengeErrorResponseResponseData,
+    )
+    from .tap_to_pay_activation_challenge_response import TapToPayActivationChallengeResponse
     from .target import Target
     from .tax import Tax
     from .taxfillname import Taxfillname
@@ -1720,7 +1726,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SplitFundingContent": ".split_funding_content",
     "SplitFundingRefundContent": ".split_funding_refund_content",
     "StatBasicExtendedQueryRecord": ".stat_basic_extended_query_record",
-    "StatBasicQueryRecord": ".stat_basic_query_record",
+    "StatCustomerBasicQueryRecord": ".stat_customer_basic_query_record",
     "StateNullable": ".state_nullable",
     "StateTransitionResponse": ".state_transition_response",
     "StatementEmailConfig": ".statement_email_config",
@@ -1738,6 +1744,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Subscriptionid": ".subscriptionid",
     "SummaryCommodityCode": ".summary_commodity_code",
     "SummaryOrg": ".summary_org",
+    "TapToPayActivationChallengeData": ".tap_to_pay_activation_challenge_data",
+    "TapToPayActivationChallengeErrorResponse": ".tap_to_pay_activation_challenge_error_response",
+    "TapToPayActivationChallengeErrorResponseResponseData": ".tap_to_pay_activation_challenge_error_response_response_data",
+    "TapToPayActivationChallengeResponse": ".tap_to_pay_activation_challenge_response",
     "Target": ".target",
     "Tax": ".tax",
     "Taxfillname": ".taxfillname",
@@ -2683,7 +2693,7 @@ __all__ = [
     "SplitFundingContent",
     "SplitFundingRefundContent",
     "StatBasicExtendedQueryRecord",
-    "StatBasicQueryRecord",
+    "StatCustomerBasicQueryRecord",
     "StateNullable",
     "StateTransitionResponse",
     "StatementEmailConfig",
@@ -2701,6 +2711,10 @@ __all__ = [
     "Subscriptionid",
     "SummaryCommodityCode",
     "SummaryOrg",
+    "TapToPayActivationChallengeData",
+    "TapToPayActivationChallengeErrorResponse",
+    "TapToPayActivationChallengeErrorResponseResponseData",
+    "TapToPayActivationChallengeResponse",
     "Target",
     "Tax",
     "Taxfillname",
