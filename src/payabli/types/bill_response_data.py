@@ -8,7 +8,7 @@ import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 from .accounting_field import AccountingField
-from .additional_data_string import AdditionalDataString
+from .additional_data_map import AdditionalDataMap
 from .bill_approvals import BillApprovals
 from .bill_events import BillEvents
 from .bill_id import BillId
@@ -93,21 +93,21 @@ class BillResponseData(UniversalBaseModel):
     """
 
     bill_date: typing_extensions.Annotated[
-        typing.Optional[dt.date],
+        typing.Optional[dt.datetime],
         FieldMetadata(alias="BillDate"),
-        pydantic.Field(alias="BillDate", description="Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY"),
+        pydantic.Field(alias="BillDate", description="Date of bill, returned as a timestamp."),
     ] = None
     """
-    Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY
+    Date of bill, returned as a timestamp.
     """
 
     due_date: typing_extensions.Annotated[
-        typing.Optional[dt.date],
+        typing.Optional[dt.datetime],
         FieldMetadata(alias="DueDate"),
-        pydantic.Field(alias="DueDate", description="Due Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY"),
+        pydantic.Field(alias="DueDate", description="Due date of bill, returned as a timestamp."),
     ] = None
     """
-    Due Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY
+    Due date of bill, returned as a timestamp.
     """
 
     comments: typing_extensions.Annotated[
@@ -192,7 +192,7 @@ class BillResponseData(UniversalBaseModel):
     """
 
     additional_data: typing_extensions.Annotated[
-        typing.Optional[AdditionalDataString],
+        typing.Optional[AdditionalDataMap],
         FieldMetadata(alias="AdditionalData"),
         pydantic.Field(alias="AdditionalData"),
     ] = None

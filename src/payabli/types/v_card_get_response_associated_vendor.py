@@ -6,6 +6,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .additional_data_map import AdditionalDataMap
 from .dbaname import Dbaname
 from .external_paypoint_id import ExternalPaypointId
 from .legalname import Legalname
@@ -349,14 +350,10 @@ class VCardGetResponseAssociatedVendor(UniversalBaseModel):
     """
 
     additional_data: typing_extensions.Annotated[
-        typing.Optional[str],
+        typing.Optional[AdditionalDataMap],
         FieldMetadata(alias="additionalData"),
-        pydantic.Field(alias="additionalData", description="Field for additional data, if any."),
+        pydantic.Field(alias="additionalData"),
     ] = None
-    """
-    Field for additional data, if any.
-    """
-
     external_paypoint_id: typing_extensions.Annotated[
         typing.Optional[ExternalPaypointId],
         FieldMetadata(alias="externalPaypointID"),

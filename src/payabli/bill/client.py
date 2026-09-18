@@ -6,7 +6,7 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.accounting_field import AccountingField
-from ..types.additional_data_string import AdditionalDataString
+from ..types.additional_data_map import AdditionalDataMap
 from ..types.attachments import Attachments
 from ..types.bill_out_data_scheduled_options import BillOutDataScheduledOptions
 from ..types.bill_out_data_vendor import BillOutDataVendor
@@ -52,7 +52,7 @@ class BillClient:
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         accounting_field_1: typing.Optional[AccountingField] = OMIT,
         accounting_field_2: typing.Optional[AccountingField] = OMIT,
-        additional_data: typing.Optional[AdditionalDataString] = OMIT,
+        additional_data: typing.Optional[AdditionalDataMap] = OMIT,
         attachments: typing.Optional[Attachments] = OMIT,
         bill_date: typing.Optional[dt.date] = OMIT,
         bill_items: typing.Optional[Billitems] = OMIT,
@@ -87,7 +87,7 @@ class BillClient:
 
         accounting_field_2 : typing.Optional[AccountingField]
 
-        additional_data : typing.Optional[AdditionalDataString]
+        additional_data : typing.Optional[AdditionalDataMap]
 
         attachments : typing.Optional[Attachments]
             An array of bill images. Attachments aren't required, but we strongly
@@ -281,7 +281,7 @@ class BillClient:
         *,
         accounting_field_1: typing.Optional[AccountingField] = OMIT,
         accounting_field_2: typing.Optional[AccountingField] = OMIT,
-        additional_data: typing.Optional[AdditionalDataString] = OMIT,
+        additional_data: typing.Optional[AdditionalDataMap] = OMIT,
         attachments: typing.Optional[Attachments] = OMIT,
         bill_date: typing.Optional[dt.date] = OMIT,
         bill_items: typing.Optional[Billitems] = OMIT,
@@ -313,7 +313,7 @@ class BillClient:
 
         accounting_field_2 : typing.Optional[AccountingField]
 
-        additional_data : typing.Optional[AdditionalDataString]
+        additional_data : typing.Optional[AdditionalDataMap]
 
         attachments : typing.Optional[Attachments]
             An array of bill images. Attachments aren't required, but we strongly
@@ -940,7 +940,7 @@ class AsyncBillClient:
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         accounting_field_1: typing.Optional[AccountingField] = OMIT,
         accounting_field_2: typing.Optional[AccountingField] = OMIT,
-        additional_data: typing.Optional[AdditionalDataString] = OMIT,
+        additional_data: typing.Optional[AdditionalDataMap] = OMIT,
         attachments: typing.Optional[Attachments] = OMIT,
         bill_date: typing.Optional[dt.date] = OMIT,
         bill_items: typing.Optional[Billitems] = OMIT,
@@ -975,7 +975,7 @@ class AsyncBillClient:
 
         accounting_field_2 : typing.Optional[AccountingField]
 
-        additional_data : typing.Optional[AdditionalDataString]
+        additional_data : typing.Optional[AdditionalDataMap]
 
         attachments : typing.Optional[Attachments]
             An array of bill images. Attachments aren't required, but we strongly
@@ -1186,7 +1186,7 @@ class AsyncBillClient:
         *,
         accounting_field_1: typing.Optional[AccountingField] = OMIT,
         accounting_field_2: typing.Optional[AccountingField] = OMIT,
-        additional_data: typing.Optional[AdditionalDataString] = OMIT,
+        additional_data: typing.Optional[AdditionalDataMap] = OMIT,
         attachments: typing.Optional[Attachments] = OMIT,
         bill_date: typing.Optional[dt.date] = OMIT,
         bill_items: typing.Optional[Billitems] = OMIT,
@@ -1218,7 +1218,7 @@ class AsyncBillClient:
 
         accounting_field_2 : typing.Optional[AccountingField]
 
-        additional_data : typing.Optional[AdditionalDataString]
+        additional_data : typing.Optional[AdditionalDataMap]
 
         attachments : typing.Optional[Attachments]
             An array of bill images. Attachments aren't required, but we strongly

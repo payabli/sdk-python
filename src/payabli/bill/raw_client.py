@@ -17,7 +17,7 @@ from ..errors.internal_server_error import InternalServerError
 from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.accounting_field import AccountingField
-from ..types.additional_data_string import AdditionalDataString
+from ..types.additional_data_map import AdditionalDataMap
 from ..types.attachments import Attachments
 from ..types.bill_out_data_scheduled_options import BillOutDataScheduledOptions
 from ..types.bill_out_data_vendor import BillOutDataVendor
@@ -53,7 +53,7 @@ class RawBillClient:
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         accounting_field_1: typing.Optional[AccountingField] = OMIT,
         accounting_field_2: typing.Optional[AccountingField] = OMIT,
-        additional_data: typing.Optional[AdditionalDataString] = OMIT,
+        additional_data: typing.Optional[AdditionalDataMap] = OMIT,
         attachments: typing.Optional[Attachments] = OMIT,
         bill_date: typing.Optional[dt.date] = OMIT,
         bill_items: typing.Optional[Billitems] = OMIT,
@@ -88,7 +88,7 @@ class RawBillClient:
 
         accounting_field_2 : typing.Optional[AccountingField]
 
-        additional_data : typing.Optional[AdditionalDataString]
+        additional_data : typing.Optional[AdditionalDataMap]
 
         attachments : typing.Optional[Attachments]
             An array of bill images. Attachments aren't required, but we strongly
@@ -366,7 +366,7 @@ class RawBillClient:
         *,
         accounting_field_1: typing.Optional[AccountingField] = OMIT,
         accounting_field_2: typing.Optional[AccountingField] = OMIT,
-        additional_data: typing.Optional[AdditionalDataString] = OMIT,
+        additional_data: typing.Optional[AdditionalDataMap] = OMIT,
         attachments: typing.Optional[Attachments] = OMIT,
         bill_date: typing.Optional[dt.date] = OMIT,
         bill_items: typing.Optional[Billitems] = OMIT,
@@ -398,7 +398,7 @@ class RawBillClient:
 
         accounting_field_2 : typing.Optional[AccountingField]
 
-        additional_data : typing.Optional[AdditionalDataString]
+        additional_data : typing.Optional[AdditionalDataMap]
 
         attachments : typing.Optional[Attachments]
             An array of bill images. Attachments aren't required, but we strongly
@@ -1542,7 +1542,7 @@ class AsyncRawBillClient:
         idempotency_key: typing.Optional[IdempotencyKey] = None,
         accounting_field_1: typing.Optional[AccountingField] = OMIT,
         accounting_field_2: typing.Optional[AccountingField] = OMIT,
-        additional_data: typing.Optional[AdditionalDataString] = OMIT,
+        additional_data: typing.Optional[AdditionalDataMap] = OMIT,
         attachments: typing.Optional[Attachments] = OMIT,
         bill_date: typing.Optional[dt.date] = OMIT,
         bill_items: typing.Optional[Billitems] = OMIT,
@@ -1577,7 +1577,7 @@ class AsyncRawBillClient:
 
         accounting_field_2 : typing.Optional[AccountingField]
 
-        additional_data : typing.Optional[AdditionalDataString]
+        additional_data : typing.Optional[AdditionalDataMap]
 
         attachments : typing.Optional[Attachments]
             An array of bill images. Attachments aren't required, but we strongly
@@ -1855,7 +1855,7 @@ class AsyncRawBillClient:
         *,
         accounting_field_1: typing.Optional[AccountingField] = OMIT,
         accounting_field_2: typing.Optional[AccountingField] = OMIT,
-        additional_data: typing.Optional[AdditionalDataString] = OMIT,
+        additional_data: typing.Optional[AdditionalDataMap] = OMIT,
         attachments: typing.Optional[Attachments] = OMIT,
         bill_date: typing.Optional[dt.date] = OMIT,
         bill_items: typing.Optional[Billitems] = OMIT,
@@ -1887,7 +1887,7 @@ class AsyncRawBillClient:
 
         accounting_field_2 : typing.Optional[AccountingField]
 
-        additional_data : typing.Optional[AdditionalDataString]
+        additional_data : typing.Optional[AdditionalDataMap]
 
         attachments : typing.Optional[Attachments]
             An array of bill images. Attachments aren't required, but we strongly

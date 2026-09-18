@@ -60,14 +60,12 @@ class BillQueryRecord2(UniversalBaseModel):
         pydantic.Field(alias="billApprovals"),
     ] = None
     bill_date: typing_extensions.Annotated[
-        typing.Optional[dt.date],
+        typing.Optional[dt.datetime],
         FieldMetadata(alias="BillDate"),
-        pydantic.Field(
-            alias="BillDate", description="Bill creation date in one of the accepted formats: YYYY-MM-DD, MM/DD/YYYY."
-        ),
+        pydantic.Field(alias="BillDate", description="Bill creation date, returned as a timestamp."),
     ] = None
     """
-    Bill creation date in one of the accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+    Bill creation date, returned as a timestamp.
     """
 
     bill_events: typing_extensions.Annotated[
@@ -134,14 +132,12 @@ class BillQueryRecord2(UniversalBaseModel):
     """
 
     due_date: typing_extensions.Annotated[
-        typing.Optional[dt.date],
+        typing.Optional[dt.datetime],
         FieldMetadata(alias="DueDate"),
-        pydantic.Field(
-            alias="DueDate", description="Bill due date in one of the accepted formats: YYYY-MM-DD, MM/DD/YYYY."
-        ),
+        pydantic.Field(alias="DueDate", description="Bill due date, returned as a timestamp."),
     ] = None
     """
-    Bill due date in one of the accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+    Bill due date, returned as a timestamp.
     """
 
     end_date: typing_extensions.Annotated[

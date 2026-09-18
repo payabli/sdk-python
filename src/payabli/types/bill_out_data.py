@@ -8,7 +8,7 @@ import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 from .accounting_field import AccountingField
-from .additional_data_string import AdditionalDataString
+from .additional_data_map import AdditionalDataMap
 from .attachments import Attachments
 from .bill_out_data_scheduled_options import BillOutDataScheduledOptions
 from .bill_out_data_vendor import BillOutDataVendor
@@ -35,7 +35,7 @@ class BillOutData(UniversalBaseModel):
         pydantic.Field(alias="accountingField2"),
     ] = None
     additional_data: typing_extensions.Annotated[
-        typing.Optional[AdditionalDataString],
+        typing.Optional[AdditionalDataMap],
         FieldMetadata(alias="additionalData"),
         pydantic.Field(alias="additionalData"),
     ] = None

@@ -6,7 +6,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .additional_data import AdditionalData
+from .additional_data_map import AdditionalDataMap
 from .email import Email
 from .language import Language
 from .mfa_data import MfaData
@@ -21,7 +21,9 @@ from .usr_status import UsrStatus
 class UserData(UniversalBaseModel):
     access: typing.Optional[typing.List[UsrAccess]] = None
     additional_data: typing_extensions.Annotated[
-        typing.Optional[AdditionalData], FieldMetadata(alias="additionalData"), pydantic.Field(alias="additionalData")
+        typing.Optional[AdditionalDataMap],
+        FieldMetadata(alias="additionalData"),
+        pydantic.Field(alias="additionalData"),
     ] = None
     email: typing.Optional[Email] = pydantic.Field(default=None)
     """

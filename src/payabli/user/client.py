@@ -5,7 +5,7 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.add_user_response import AddUserResponse
-from ..types.additional_data import AdditionalData
+from ..types.additional_data_map import AdditionalDataMap
 from ..types.auth_reset_user_response import AuthResetUserResponse
 from ..types.change_psw_user_response import ChangePswUserResponse
 from ..types.delete_user_response import DeleteUserResponse
@@ -51,7 +51,7 @@ class UserClient:
         self,
         *,
         access: typing.Optional[typing.Sequence[UsrAccess]] = OMIT,
-        additional_data: typing.Optional[AdditionalData] = OMIT,
+        additional_data: typing.Optional[AdditionalDataMap] = OMIT,
         email: typing.Optional[Email] = OMIT,
         language: typing.Optional[Language] = OMIT,
         mfa_data: typing.Optional[MfaData] = OMIT,
@@ -70,7 +70,7 @@ class UserClient:
         ----------
         access : typing.Optional[typing.Sequence[UsrAccess]]
 
-        additional_data : typing.Optional[AdditionalData]
+        additional_data : typing.Optional[AdditionalDataMap]
 
         email : typing.Optional[Email]
             The user's email address.
@@ -177,7 +177,7 @@ class UserClient:
         user_id: int,
         *,
         access: typing.Optional[typing.Sequence[UsrAccess]] = OMIT,
-        additional_data: typing.Optional[AdditionalData] = OMIT,
+        additional_data: typing.Optional[AdditionalDataMap] = OMIT,
         email: typing.Optional[Email] = OMIT,
         language: typing.Optional[Language] = OMIT,
         mfa_data: typing.Optional[MfaData] = OMIT,
@@ -199,7 +199,7 @@ class UserClient:
 
         access : typing.Optional[typing.Sequence[UsrAccess]]
 
-        additional_data : typing.Optional[AdditionalData]
+        additional_data : typing.Optional[AdditionalDataMap]
 
         email : typing.Optional[Email]
             The user's email address.
@@ -635,7 +635,7 @@ class AsyncUserClient:
         self,
         *,
         access: typing.Optional[typing.Sequence[UsrAccess]] = OMIT,
-        additional_data: typing.Optional[AdditionalData] = OMIT,
+        additional_data: typing.Optional[AdditionalDataMap] = OMIT,
         email: typing.Optional[Email] = OMIT,
         language: typing.Optional[Language] = OMIT,
         mfa_data: typing.Optional[MfaData] = OMIT,
@@ -654,7 +654,7 @@ class AsyncUserClient:
         ----------
         access : typing.Optional[typing.Sequence[UsrAccess]]
 
-        additional_data : typing.Optional[AdditionalData]
+        additional_data : typing.Optional[AdditionalDataMap]
 
         email : typing.Optional[Email]
             The user's email address.
@@ -777,7 +777,7 @@ class AsyncUserClient:
         user_id: int,
         *,
         access: typing.Optional[typing.Sequence[UsrAccess]] = OMIT,
-        additional_data: typing.Optional[AdditionalData] = OMIT,
+        additional_data: typing.Optional[AdditionalDataMap] = OMIT,
         email: typing.Optional[Email] = OMIT,
         language: typing.Optional[Language] = OMIT,
         mfa_data: typing.Optional[MfaData] = OMIT,
@@ -799,7 +799,7 @@ class AsyncUserClient:
 
         access : typing.Optional[typing.Sequence[UsrAccess]]
 
-        additional_data : typing.Optional[AdditionalData]
+        additional_data : typing.Optional[AdditionalDataMap]
 
         email : typing.Optional[Email]
             The user's email address.
