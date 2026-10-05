@@ -1296,7 +1296,7 @@ class QueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> QueryDeviceResponse:
         """
-        Returns a list of cloud devices for a single paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
+        Returns a list of cloud and AXIUM devices for a single paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
@@ -1461,7 +1461,7 @@ class QueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> QueryDeviceResponse:
         """
-        Returns a list of cloud devices for a single organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
+        Returns a list of cloud and AXIUM devices for a single organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
@@ -6494,7 +6494,7 @@ class AsyncQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> QueryDeviceResponse:
         """
-        Returns a list of cloud devices for a single paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
+        Returns a list of cloud and AXIUM devices for a single paypoint. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------
@@ -6667,7 +6667,7 @@ class AsyncQueryClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> QueryDeviceResponse:
         """
-        Returns a list of cloud devices for a single organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
+        Returns a list of cloud and AXIUM devices for a single organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 
         Parameters
         ----------

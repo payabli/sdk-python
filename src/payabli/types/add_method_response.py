@@ -7,10 +7,23 @@ import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.serialization import FieldMetadata
 from .add_method_response_response_data import AddMethodResponseResponseData
+from .page_identifier import PageIdentifier
 from .payabli_api_response_generic_2_part import PayabliApiResponseGeneric2Part
 
 
 class AddMethodResponse(PayabliApiResponseGeneric2Part):
+    page_identifier: typing_extensions.Annotated[
+        typing.Optional[PageIdentifier],
+        FieldMetadata(alias="pageIdentifier"),
+        pydantic.Field(
+            alias="pageIdentifier",
+            description="Returned only when the request succeeds. Not returned when the request is declined, or when you convert a temporary token to a permanent token.",
+        ),
+    ] = None
+    """
+    Returned only when the request succeeds. Not returned when the request is declined, or when you convert a temporary token to a permanent token.
+    """
+
     response_data: typing_extensions.Annotated[
         typing.Optional[AddMethodResponseResponseData],
         FieldMetadata(alias="responseData"),

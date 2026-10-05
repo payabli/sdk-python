@@ -5,23 +5,74 @@ import typing
 
 import pydantic
 import typing_extensions
-from ..core.pydantic_utilities import IS_PYDANTIC_V2
+from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .customer_id import CustomerId
+from .customer_number_nullable import CustomerNumberNullable
 from .customer_summary_record import CustomerSummaryRecord
 from .dbaname import Dbaname
+from .email import Email
 from .external_paypoint_id import ExternalPaypointId
+from .identifierfields import Identifierfields
 from .legalname import Legalname
 from .method_query_records import MethodQueryRecords
 from .org_parent_name import OrgParentName
 from .page_identifier import PageIdentifier
-from .payor_data_request import PayorDataRequest
+from .shippingaddress import Shippingaddress
+from .shippingaddressadditional import Shippingaddressadditional
+from .shippingcity import Shippingcity
+from .shippingcountry import Shippingcountry
+from .shippingstate import Shippingstate
+from .shippingzip import Shippingzip
 from .subscription_query_records import SubscriptionQueryRecords
 
 
-class GetMethodResponseResponseDataCustomersItem(PayorDataRequest):
+class GetMethodResponseResponseDataCustomersItem(UniversalBaseModel):
+    """
+    The customer record that owns the stored payment method.
+    """
+
+    additional_fields: typing_extensions.Annotated[
+        typing.Optional[typing.Dict[str, str]],
+        FieldMetadata(alias="additionalFields"),
+        pydantic.Field(alias="additionalFields", description="List of additional custom fields in format key:value."),
+    ] = None
+    """
+    List of additional custom fields in format key:value.
+    """
+
+    address: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Customer address.
+    """
+
+    address_1: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="address1"),
+        pydantic.Field(alias="address1", description="Additional line for customer address."),
+    ] = None
+    """
+    Additional line for customer address.
+    """
+
     balance: typing.Optional[float] = pydantic.Field(default=None)
     """
     Customer's current balance
+    """
+
+    city: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Customer city.
+    """
+
+    company: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Company name.
+    """
+
+    country: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Customer country.
     """
 
     created: typing.Optional[dt.datetime] = pydantic.Field(default=None)
@@ -38,6 +89,26 @@ class GetMethodResponseResponseDataCustomersItem(PayorDataRequest):
     Customer consent information
     """
 
+    customer_events: typing_extensions.Annotated[
+        typing.Optional[typing.List[typing.Any]],
+        FieldMetadata(alias="customerEvents"),
+        pydantic.Field(alias="customerEvents", description="Events recorded for the customer."),
+    ] = None
+    """
+    Events recorded for the customer.
+    """
+
+    customer_id: typing_extensions.Annotated[
+        typing.Optional[CustomerId], FieldMetadata(alias="customerId"), pydantic.Field(alias="customerId")
+    ] = None
+    customer_number: typing_extensions.Annotated[
+        typing.Optional[CustomerNumberNullable],
+        FieldMetadata(alias="customerNumber"),
+        pydantic.Field(alias="customerNumber"),
+    ] = None
+    customer_portal: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="customerPortal"), pydantic.Field(alias="customerPortal")
+    ] = None
     customer_status: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="customerStatus"),
@@ -61,11 +132,31 @@ class GetMethodResponseResponseDataCustomersItem(PayorDataRequest):
     Username of the customer
     """
 
+    email: typing.Optional[Email] = pydantic.Field(default=None)
+    """
+    Customer email address.
+    """
+
     external_paypoint_id: typing_extensions.Annotated[
         typing.Optional[ExternalPaypointId],
         FieldMetadata(alias="externalPaypointID"),
         pydantic.Field(alias="externalPaypointID"),
     ] = None
+    firstname: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Customer first name.
+    """
+
+    identifier_fields: typing_extensions.Annotated[
+        typing.Optional[Identifierfields],
+        FieldMetadata(alias="identifierFields"),
+        pydantic.Field(alias="identifierFields"),
+    ] = None
+    lastname: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Customer last name.
+    """
+
     last_updated: typing_extensions.Annotated[
         typing.Optional[dt.datetime],
         FieldMetadata(alias="lastUpdated"),
@@ -117,6 +208,35 @@ class GetMethodResponseResponseDataCustomersItem(PayorDataRequest):
     paypoint_legalname: typing_extensions.Annotated[
         typing.Optional[Legalname], FieldMetadata(alias="paypointLegalname"), pydantic.Field(alias="paypointLegalname")
     ] = None
+    phone: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Customer phone number.
+    """
+
+    shipping_address: typing_extensions.Annotated[
+        typing.Optional[Shippingaddress],
+        FieldMetadata(alias="shippingAddress"),
+        pydantic.Field(alias="shippingAddress"),
+    ] = None
+    shipping_address_1: typing_extensions.Annotated[
+        typing.Optional[Shippingaddressadditional],
+        FieldMetadata(alias="shippingAddress1"),
+        pydantic.Field(alias="shippingAddress1"),
+    ] = None
+    shipping_city: typing_extensions.Annotated[
+        typing.Optional[Shippingcity], FieldMetadata(alias="shippingCity"), pydantic.Field(alias="shippingCity")
+    ] = None
+    shipping_country: typing_extensions.Annotated[
+        typing.Optional[Shippingcountry],
+        FieldMetadata(alias="shippingCountry"),
+        pydantic.Field(alias="shippingCountry"),
+    ] = None
+    shipping_state: typing_extensions.Annotated[
+        typing.Optional[Shippingstate], FieldMetadata(alias="shippingState"), pydantic.Field(alias="shippingState")
+    ] = None
+    shipping_zip: typing_extensions.Annotated[
+        typing.Optional[Shippingzip], FieldMetadata(alias="shippingZip"), pydantic.Field(alias="shippingZip")
+    ] = None
     sn_data: typing_extensions.Annotated[
         typing.Optional[typing.Dict[str, typing.Any]],
         FieldMetadata(alias="snData"),
@@ -144,6 +264,11 @@ class GetMethodResponseResponseDataCustomersItem(PayorDataRequest):
     Social network provider
     """
 
+    state: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Customer state.
+    """
+
     stored_methods: typing_extensions.Annotated[
         typing.Optional[typing.List[MethodQueryRecords]],
         FieldMetadata(alias="storedMethods"),
@@ -165,6 +290,11 @@ class GetMethodResponseResponseDataCustomersItem(PayorDataRequest):
     ] = None
     """
     Customer's timezone
+    """
+
+    zip: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Customer postal code.
     """
 
     if IS_PYDANTIC_V2:

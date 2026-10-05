@@ -1615,6 +1615,8 @@ class RawMoneyOutClient:
 
         The new transaction goes through the standard authorize-and-capture flow automatically. Both the original and new transactions are linked through their event histories for audit purposes.
 
+        The reissue request doesn't accept a service fee. Payabli always charges the fee configured in the paypoint's ACH payout pricing, even when the pricing allows fee overrides. The new transaction keeps the original payout's total amount. The vendor receives that amount minus the configured fee.
+
         Parameters
         ----------
         trans_id : str
@@ -3295,6 +3297,8 @@ class AsyncRawMoneyOutClient:
         The original transaction must be in **Processing** or **Processed** status. The payment method in the request body is used directly. The endpoint doesn't fall back to vendor-managed payment methods.
 
         The new transaction goes through the standard authorize-and-capture flow automatically. Both the original and new transactions are linked through their event histories for audit purposes.
+
+        The reissue request doesn't accept a service fee. Payabli always charges the fee configured in the paypoint's ACH payout pricing, even when the pricing allows fee overrides. The new transaction keeps the original payout's total amount. The vendor receives that amount minus the configured fee.
 
         Parameters
         ----------

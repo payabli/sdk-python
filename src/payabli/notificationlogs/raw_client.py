@@ -18,6 +18,7 @@ from ..errors.unauthorized_error import UnauthorizedError
 from ..types.bulk_retry_request import BulkRetryRequest
 from ..types.notification_log import NotificationLog
 from ..types.notification_log_detail import NotificationLogDetail
+from ..types.notification_retry_response import NotificationRetryResponse
 from ..types.pagesize import Pagesize
 from ..types.payabli_error_body import PayabliErrorBody
 from pydantic import ValidationError
@@ -53,10 +54,10 @@ class RawNotificationlogsClient:
         Parameters
         ----------
         start_date : dt.datetime
-            The start date for the search.
+            The start date for the search. Can't be more than 30 days before `endDate`.
 
         end_date : dt.datetime
-            The end date for the search.
+            The end date for the search. Can't be more than 30 days after `startDate`.
 
         page_size : typing.Optional[Pagesize]
             Number of records on each response page.
@@ -65,16 +66,16 @@ class RawNotificationlogsClient:
             The page number to retrieve. Defaults to 1 if not provided.
 
         notification_event : typing.Optional[str]
-            The type of notification event to filter by.
+            The event to filter by, such as `approvedpayment`. Case-insensitive.
 
         succeeded : typing.Optional[bool]
-            Indicates whether the notification was successful.
+            Filter by delivery outcome. Set to `false` to return only failed notifications.
 
         org_id : typing.Optional[int]
-            The ID of the organization to filter by.
+            The ID of the organization to filter by. Either `orgId` or `paypointId` is required.
 
         paypoint_id : typing.Optional[int]
-            The ID of the paypoint to filter by.
+            The ID of the paypoint to filter by. Either `orgId` or `paypointId` is required.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -268,7 +269,7 @@ class RawNotificationlogsClient:
 
     def retry_notification_log(
         self, uuid_: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[NotificationLogDetail]:
+    ) -> HttpResponse[NotificationRetryResponse]:
         """
         Retry sending a specific notification.
 
@@ -284,7 +285,7 @@ class RawNotificationlogsClient:
 
         Returns
         -------
-        HttpResponse[NotificationLogDetail]
+        HttpResponse[NotificationRetryResponse]
             Success
         """
         _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
@@ -301,9 +302,9 @@ class RawNotificationlogsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    NotificationLogDetail,
+                    NotificationRetryResponse,
                     parse_obj_as(
-                        type_=NotificationLogDetail,  # type: ignore
+                        type_=NotificationRetryResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -363,7 +364,7 @@ class RawNotificationlogsClient:
 
     def bulk_retry_notification_logs(
         self, *, request: BulkRetryRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[None]:
+    ) -> HttpResponse[str]:
         """
         Retry sending multiple notifications (maximum 50 IDs).
         This is an async process, so use the search endpoint again to check the notification status.
@@ -379,7 +380,8 @@ class RawNotificationlogsClient:
 
         Returns
         -------
-        HttpResponse[None]
+        HttpResponse[str]
+            A success response indicating the notifications are being retried. This is an async process, so refresh the search to see updated status.
         """
         _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
             security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
@@ -396,7 +398,7 @@ class RawNotificationlogsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                return HttpResponse(response=_response, data=None)
+                return HttpResponse(response=_response, data=_response.text)  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -434,10 +436,10 @@ class AsyncRawNotificationlogsClient:
         Parameters
         ----------
         start_date : dt.datetime
-            The start date for the search.
+            The start date for the search. Can't be more than 30 days before `endDate`.
 
         end_date : dt.datetime
-            The end date for the search.
+            The end date for the search. Can't be more than 30 days after `startDate`.
 
         page_size : typing.Optional[Pagesize]
             Number of records on each response page.
@@ -446,16 +448,16 @@ class AsyncRawNotificationlogsClient:
             The page number to retrieve. Defaults to 1 if not provided.
 
         notification_event : typing.Optional[str]
-            The type of notification event to filter by.
+            The event to filter by, such as `approvedpayment`. Case-insensitive.
 
         succeeded : typing.Optional[bool]
-            Indicates whether the notification was successful.
+            Filter by delivery outcome. Set to `false` to return only failed notifications.
 
         org_id : typing.Optional[int]
-            The ID of the organization to filter by.
+            The ID of the organization to filter by. Either `orgId` or `paypointId` is required.
 
         paypoint_id : typing.Optional[int]
-            The ID of the paypoint to filter by.
+            The ID of the paypoint to filter by. Either `orgId` or `paypointId` is required.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -649,7 +651,7 @@ class AsyncRawNotificationlogsClient:
 
     async def retry_notification_log(
         self, uuid_: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[NotificationLogDetail]:
+    ) -> AsyncHttpResponse[NotificationRetryResponse]:
         """
         Retry sending a specific notification.
 
@@ -665,7 +667,7 @@ class AsyncRawNotificationlogsClient:
 
         Returns
         -------
-        AsyncHttpResponse[NotificationLogDetail]
+        AsyncHttpResponse[NotificationRetryResponse]
             Success
         """
         _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
@@ -682,9 +684,9 @@ class AsyncRawNotificationlogsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    NotificationLogDetail,
+                    NotificationRetryResponse,
                     parse_obj_as(
-                        type_=NotificationLogDetail,  # type: ignore
+                        type_=NotificationRetryResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -744,7 +746,7 @@ class AsyncRawNotificationlogsClient:
 
     async def bulk_retry_notification_logs(
         self, *, request: BulkRetryRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[None]:
+    ) -> AsyncHttpResponse[str]:
         """
         Retry sending multiple notifications (maximum 50 IDs).
         This is an async process, so use the search endpoint again to check the notification status.
@@ -760,7 +762,8 @@ class AsyncRawNotificationlogsClient:
 
         Returns
         -------
-        AsyncHttpResponse[None]
+        AsyncHttpResponse[str]
+            A success response indicating the notifications are being retried. This is an async process, so refresh the search to see updated status.
         """
         _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
             security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
@@ -777,7 +780,7 @@ class AsyncRawNotificationlogsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                return AsyncHttpResponse(response=_response, data=None)
+                return AsyncHttpResponse(response=_response, data=_response.text)  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)

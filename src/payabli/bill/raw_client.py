@@ -107,7 +107,7 @@ class RawBillClient:
             for details. Contact Payabli to enable this feature.
 
         bill_date : typing.Optional[dt.date]
-            Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+            Date of bill. Send the date in YYYY-MM-DD format. The API also accepts ISO 8601 date-time values but keeps only the date.
 
         bill_items : typing.Optional[Billitems]
 
@@ -120,7 +120,7 @@ class RawBillClient:
             Discount amount applied to the bill.
 
         due_date : typing.Optional[dt.date]
-            Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+            Due date of bill. Send the date in YYYY-MM-DD format. The API also accepts ISO 8601 date-time values but keeps only the date.
 
         end_date : typing.Optional[dt.date]
             End date for scheduled bills. Applied only in `Mode` = 1. Accepted
@@ -417,7 +417,7 @@ class RawBillClient:
             for details. Contact Payabli to enable this feature.
 
         bill_date : typing.Optional[dt.date]
-            Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+            Date of bill. Send the date in YYYY-MM-DD format. The API also accepts ISO 8601 date-time values but keeps only the date.
 
         bill_items : typing.Optional[Billitems]
 
@@ -430,7 +430,7 @@ class RawBillClient:
             Discount amount applied to the bill.
 
         due_date : typing.Optional[dt.date]
-            Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+            Due date of bill. Send the date in YYYY-MM-DD format. The API also accepts ISO 8601 date-time values but keeps only the date.
 
         end_date : typing.Optional[dt.date]
             End date for scheduled bills. Applied only in `Mode` = 1. Accepted
@@ -1596,7 +1596,7 @@ class AsyncRawBillClient:
             for details. Contact Payabli to enable this feature.
 
         bill_date : typing.Optional[dt.date]
-            Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+            Date of bill. Send the date in YYYY-MM-DD format. The API also accepts ISO 8601 date-time values but keeps only the date.
 
         bill_items : typing.Optional[Billitems]
 
@@ -1609,7 +1609,7 @@ class AsyncRawBillClient:
             Discount amount applied to the bill.
 
         due_date : typing.Optional[dt.date]
-            Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+            Due date of bill. Send the date in YYYY-MM-DD format. The API also accepts ISO 8601 date-time values but keeps only the date.
 
         end_date : typing.Optional[dt.date]
             End date for scheduled bills. Applied only in `Mode` = 1. Accepted
@@ -1906,7 +1906,7 @@ class AsyncRawBillClient:
             for details. Contact Payabli to enable this feature.
 
         bill_date : typing.Optional[dt.date]
-            Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+            Date of bill. Send the date in YYYY-MM-DD format. The API also accepts ISO 8601 date-time values but keeps only the date.
 
         bill_items : typing.Optional[Billitems]
 
@@ -1919,7 +1919,7 @@ class AsyncRawBillClient:
             Discount amount applied to the bill.
 
         due_date : typing.Optional[dt.date]
-            Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+            Due date of bill. Send the date in YYYY-MM-DD format. The API also accepts ISO 8601 date-time values but keeps only the date.
 
         end_date : typing.Optional[dt.date]
             End date for scheduled bills. Applied only in `Mode` = 1. Accepted

@@ -8,6 +8,7 @@ from ..core.request_options import RequestOptions
 from ..types.bulk_retry_request import BulkRetryRequest
 from ..types.notification_log import NotificationLog
 from ..types.notification_log_detail import NotificationLogDetail
+from ..types.notification_retry_response import NotificationRetryResponse
 from ..types.pagesize import Pagesize
 from .raw_client import AsyncRawNotificationlogsClient, RawNotificationlogsClient
 
@@ -53,10 +54,10 @@ class NotificationlogsClient:
         Parameters
         ----------
         start_date : dt.datetime
-            The start date for the search.
+            The start date for the search. Can't be more than 30 days before `endDate`.
 
         end_date : dt.datetime
-            The end date for the search.
+            The end date for the search. Can't be more than 30 days after `startDate`.
 
         page_size : typing.Optional[Pagesize]
             Number of records on each response page.
@@ -65,16 +66,16 @@ class NotificationlogsClient:
             The page number to retrieve. Defaults to 1 if not provided.
 
         notification_event : typing.Optional[str]
-            The type of notification event to filter by.
+            The event to filter by, such as `approvedpayment`. Case-insensitive.
 
         succeeded : typing.Optional[bool]
-            Indicates whether the notification was successful.
+            Filter by delivery outcome. Set to `false` to return only failed notifications.
 
         org_id : typing.Optional[int]
-            The ID of the organization to filter by.
+            The ID of the organization to filter by. Either `orgId` or `paypointId` is required.
 
         paypoint_id : typing.Optional[int]
-            The ID of the paypoint to filter by.
+            The ID of the paypoint to filter by. Either `orgId` or `paypointId` is required.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -103,7 +104,7 @@ class NotificationlogsClient:
                 "2024-01-31 23:59:59+00:00",
             ),
             org_id=123,
-            notification_event="ActivatedMerchant",
+            notification_event="approvedpayment",
             succeeded=True,
         )
         """
@@ -157,7 +158,7 @@ class NotificationlogsClient:
 
     def retry_notification_log(
         self, uuid_: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> NotificationLogDetail:
+    ) -> NotificationRetryResponse:
         """
         Retry sending a specific notification.
 
@@ -173,7 +174,7 @@ class NotificationlogsClient:
 
         Returns
         -------
-        NotificationLogDetail
+        NotificationRetryResponse
             Success
 
         Examples
@@ -193,7 +194,7 @@ class NotificationlogsClient:
 
     def bulk_retry_notification_logs(
         self, *, request: BulkRetryRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> None:
+    ) -> str:
         """
         Retry sending multiple notifications (maximum 50 IDs).
         This is an async process, so use the search endpoint again to check the notification status.
@@ -209,7 +210,8 @@ class NotificationlogsClient:
 
         Returns
         -------
-        None
+        str
+            A success response indicating the notifications are being retried. This is an async process, so refresh the search to see updated status.
 
         Examples
         --------
@@ -220,11 +222,7 @@ class NotificationlogsClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.notificationlogs.bulk_retry_notification_logs(
-            request=[
-                "550e8400-e29b-41d4-a716-446655440000",
-                "550e8400-e29b-41d4-a716-446655440001",
-                "550e8400-e29b-41d4-a716-446655440002",
-            ],
+            request=["string", "string"],
         )
         """
         _response = self._raw_client.bulk_retry_notification_logs(request=request, request_options=request_options)
@@ -269,10 +267,10 @@ class AsyncNotificationlogsClient:
         Parameters
         ----------
         start_date : dt.datetime
-            The start date for the search.
+            The start date for the search. Can't be more than 30 days before `endDate`.
 
         end_date : dt.datetime
-            The end date for the search.
+            The end date for the search. Can't be more than 30 days after `startDate`.
 
         page_size : typing.Optional[Pagesize]
             Number of records on each response page.
@@ -281,16 +279,16 @@ class AsyncNotificationlogsClient:
             The page number to retrieve. Defaults to 1 if not provided.
 
         notification_event : typing.Optional[str]
-            The type of notification event to filter by.
+            The event to filter by, such as `approvedpayment`. Case-insensitive.
 
         succeeded : typing.Optional[bool]
-            Indicates whether the notification was successful.
+            Filter by delivery outcome. Set to `false` to return only failed notifications.
 
         org_id : typing.Optional[int]
-            The ID of the organization to filter by.
+            The ID of the organization to filter by. Either `orgId` or `paypointId` is required.
 
         paypoint_id : typing.Optional[int]
-            The ID of the paypoint to filter by.
+            The ID of the paypoint to filter by. Either `orgId` or `paypointId` is required.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -323,7 +321,7 @@ class AsyncNotificationlogsClient:
                     "2024-01-31 23:59:59+00:00",
                 ),
                 org_id=123,
-                notification_event="ActivatedMerchant",
+                notification_event="approvedpayment",
                 succeeded=True,
             )
 
@@ -388,7 +386,7 @@ class AsyncNotificationlogsClient:
 
     async def retry_notification_log(
         self, uuid_: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> NotificationLogDetail:
+    ) -> NotificationRetryResponse:
         """
         Retry sending a specific notification.
 
@@ -404,7 +402,7 @@ class AsyncNotificationlogsClient:
 
         Returns
         -------
-        NotificationLogDetail
+        NotificationRetryResponse
             Success
 
         Examples
@@ -432,7 +430,7 @@ class AsyncNotificationlogsClient:
 
     async def bulk_retry_notification_logs(
         self, *, request: BulkRetryRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> None:
+    ) -> str:
         """
         Retry sending multiple notifications (maximum 50 IDs).
         This is an async process, so use the search endpoint again to check the notification status.
@@ -448,7 +446,8 @@ class AsyncNotificationlogsClient:
 
         Returns
         -------
-        None
+        str
+            A success response indicating the notifications are being retried. This is an async process, so refresh the search to see updated status.
 
         Examples
         --------
@@ -464,11 +463,7 @@ class AsyncNotificationlogsClient:
 
         async def main() -> None:
             await client.notificationlogs.bulk_retry_notification_logs(
-                request=[
-                    "550e8400-e29b-41d4-a716-446655440000",
-                    "550e8400-e29b-41d4-a716-446655440001",
-                    "550e8400-e29b-41d4-a716-446655440002",
-                ],
+                request=["string", "string"],
             )
 
 

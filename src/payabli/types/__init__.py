@@ -450,6 +450,7 @@ if typing.TYPE_CHECKING:
     from .notification_content_report_name import NotificationContentReportName
     from .notification_id import NotificationId
     from .notification_log import NotificationLog
+    from .notification_log_base import NotificationLogBase
     from .notification_log_detail import NotificationLogDetail
     from .notification_query_record import NotificationQueryRecord
     from .notification_report_request import NotificationReportRequest
@@ -460,6 +461,7 @@ if typing.TYPE_CHECKING:
     from .notification_report_request_frequency import NotificationReportRequestFrequency
     from .notification_report_request_method import NotificationReportRequestMethod
     from .notification_request import NotificationRequest
+    from .notification_retry_response import NotificationRetryResponse
     from .notification_standard_request import NotificationStandardRequest
     from .notification_standard_request_content import NotificationStandardRequestContent
     from .notification_standard_request_content_event_type import NotificationStandardRequestContentEventType
@@ -1395,6 +1397,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "NotificationContentReportName": ".notification_content_report_name",
     "NotificationId": ".notification_id",
     "NotificationLog": ".notification_log",
+    "NotificationLogBase": ".notification_log_base",
     "NotificationLogDetail": ".notification_log_detail",
     "NotificationQueryRecord": ".notification_query_record",
     "NotificationReportRequest": ".notification_report_request",
@@ -1405,6 +1408,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "NotificationReportRequestFrequency": ".notification_report_request_frequency",
     "NotificationReportRequestMethod": ".notification_report_request_method",
     "NotificationRequest": ".notification_request",
+    "NotificationRetryResponse": ".notification_retry_response",
     "NotificationStandardRequest": ".notification_standard_request",
     "NotificationStandardRequestContent": ".notification_standard_request_content",
     "NotificationStandardRequestContentEventType": ".notification_standard_request_content_event_type",
@@ -2362,6 +2366,7 @@ __all__ = [
     "NotificationContentReportName",
     "NotificationId",
     "NotificationLog",
+    "NotificationLogBase",
     "NotificationLogDetail",
     "NotificationQueryRecord",
     "NotificationReportRequest",
@@ -2372,6 +2377,7 @@ __all__ = [
     "NotificationReportRequestFrequency",
     "NotificationReportRequestMethod",
     "NotificationRequest",
+    "NotificationRetryResponse",
     "NotificationStandardRequest",
     "NotificationStandardRequestContent",
     "NotificationStandardRequestContentEventType",

@@ -6,10 +6,14 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .authcode import Authcode
+from .avs_response_text import AvsResponseText
 from .customer_id import CustomerId
+from .cvv_response_text import CvvResponseText
 from .method_reference_id import MethodReferenceId
 from .result_code import ResultCode
 from .resulttext import Resulttext
+from .vendorid import Vendorid
 
 
 class AddMethodResponseResponseData(UniversalBaseModel):
@@ -45,11 +49,56 @@ class AddMethodResponseResponseData(UniversalBaseModel):
     Returns `0` if the method wasn't assigned to an existing customer or no customer was created.
     """
 
+    auth_code: typing_extensions.Annotated[
+        typing.Optional[Authcode],
+        FieldMetadata(alias="authCode"),
+        pydantic.Field(alias="authCode", description="Only returned when the request is declined."),
+    ] = None
+    """
+    Only returned when the request is declined.
+    """
+
+    avs_response_text: typing_extensions.Annotated[
+        typing.Optional[AvsResponseText],
+        FieldMetadata(alias="avsResponseText"),
+        pydantic.Field(alias="avsResponseText", description="Only returned when the request is declined."),
+    ] = None
+    """
+    Only returned when the request is declined.
+    """
+
+    cvv_response_text: typing_extensions.Annotated[
+        typing.Optional[CvvResponseText],
+        FieldMetadata(alias="cvvResponseText"),
+        pydantic.Field(alias="cvvResponseText", description="Only returned when the request is declined."),
+    ] = None
+    """
+    Only returned when the request is declined.
+    """
+
+    vendor_id: typing_extensions.Annotated[
+        typing.Optional[Vendorid],
+        FieldMetadata(alias="vendorId"),
+        pydantic.Field(alias="vendorId", description="Only returned when the request is declined."),
+    ] = None
+    """
+    Only returned when the request is declined.
+    """
+
     method_reference_id: typing_extensions.Annotated[
         typing.Optional[MethodReferenceId],
         FieldMetadata(alias="methodReferenceId"),
-        pydantic.Field(alias="methodReferenceId"),
+        pydantic.Field(
+            alias="methodReferenceId",
+            description="Stored method identifier in Payabli platform. Returns the same value as\n`referenceId`. This field isn't returned when you convert a temporary\ntoken to a permanent token, so use `referenceId` to get the stored\nmethod ID.",
+        ),
     ] = None
+    """
+    Stored method identifier in Payabli platform. Returns the same value as
+    `referenceId`. This field isn't returned when you convert a temporary
+    token to a permanent token, so use `referenceId` to get the stored
+    method ID.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

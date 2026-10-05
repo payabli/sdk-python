@@ -18,8 +18,37 @@ class OcrResultData(UniversalBaseModel):
         typing.Optional[str], FieldMetadata(alias="billNumber"), pydantic.Field(alias="billNumber")
     ] = None
     net_amount: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="netAmount"), pydantic.Field(alias="netAmount")
+        typing.Optional[float],
+        FieldMetadata(alias="netAmount"),
+        pydantic.Field(
+            alias="netAmount",
+            description="Subtotal of the document's line items, before tax.\n\nThis isn't the amount due. When you create a bill from this result,\nset the bill's `netAmount` from `totalAmount`.",
+        ),
     ] = None
+    """
+    Subtotal of the document's line items, before tax.
+    
+    This isn't the amount due. When you create a bill from this result,
+    set the bill's `netAmount` from `totalAmount`.
+    """
+
+    discount: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Discount on the document. This is often `null` even when the
+    document shows a discount. `totalAmount` already reflects any discount.
+    """
+
+    total_amount: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="totalAmount"),
+        pydantic.Field(
+            alias="totalAmount", description="Total amount due on the document, after any discount and including tax."
+        ),
+    ] = None
+    """
+    Total amount due on the document, after any discount and including tax.
+    """
+
     bill_date: typing_extensions.Annotated[
         typing.Optional[dt.datetime], FieldMetadata(alias="billDate"), pydantic.Field(alias="billDate")
     ] = None

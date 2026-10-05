@@ -120,6 +120,14 @@ class GetMethodResponseResponseData(UniversalBaseModel):
     """
 
     vendors: typing.Optional[typing.List[GetMethodResponseResponseDataVendorsItem]] = None
+    wallet_type: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="walletType"),
+        pydantic.Field(alias="walletType", description="Digital wallet type if applicable."),
+    ] = None
+    """
+    Digital wallet type if applicable.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

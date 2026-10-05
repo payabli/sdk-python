@@ -60,10 +60,13 @@ class BillOutData(UniversalBaseModel):
     bill_date: typing_extensions.Annotated[
         typing.Optional[dt.date],
         FieldMetadata(alias="billDate"),
-        pydantic.Field(alias="billDate", description="Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY."),
+        pydantic.Field(
+            alias="billDate",
+            description="Date of bill. Send the date in YYYY-MM-DD format. The API also accepts ISO 8601 date-time values but keeps only the date.",
+        ),
     ] = None
     """
-    Date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+    Date of bill. Send the date in YYYY-MM-DD format. The API also accepts ISO 8601 date-time values but keeps only the date.
     """
 
     bill_items: typing_extensions.Annotated[
@@ -87,10 +90,13 @@ class BillOutData(UniversalBaseModel):
     due_date: typing_extensions.Annotated[
         typing.Optional[dt.date],
         FieldMetadata(alias="dueDate"),
-        pydantic.Field(alias="dueDate", description="Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY."),
+        pydantic.Field(
+            alias="dueDate",
+            description="Due date of bill. Send the date in YYYY-MM-DD format. The API also accepts ISO 8601 date-time values but keeps only the date.",
+        ),
     ] = None
     """
-    Due date of bill. Accepted formats: YYYY-MM-DD, MM/DD/YYYY.
+    Due date of bill. Send the date in YYYY-MM-DD format. The API also accepts ISO 8601 date-time values but keeps only the date.
     """
 
     end_date: typing_extensions.Annotated[

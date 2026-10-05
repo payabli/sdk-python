@@ -7,24 +7,48 @@ import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.serialization import FieldMetadata
 from .key_value_array import KeyValueArray
-from .notification_log import NotificationLog
+from .notification_log_base import NotificationLogBase
 from .string_string_key_value_pair import StringStringKeyValuePair
 
 
-class NotificationLogDetail(NotificationLog):
+class NotificationLogDetail(NotificationLogBase):
+    """
+    A notification log entry returned by the detail and retry endpoints, including the request and response captured for the delivery.
+    """
+
     web_headers: typing_extensions.Annotated[
         typing.Optional[typing.List[StringStringKeyValuePair]],
         FieldMetadata(alias="webHeaders"),
-        pydantic.Field(alias="webHeaders"),
+        pydantic.Field(
+            alias="webHeaders", description="The custom headers Payabli sent with the notification, if any."
+        ),
     ] = None
+    """
+    The custom headers Payabli sent with the notification, if any.
+    """
+
     response_headers: typing_extensions.Annotated[
         typing.Optional[typing.List[KeyValueArray]],
         FieldMetadata(alias="responseHeaders"),
-        pydantic.Field(alias="responseHeaders"),
+        pydantic.Field(
+            alias="responseHeaders",
+            description="The headers the target returned. Null when the target sent no response.",
+        ),
     ] = None
+    """
+    The headers the target returned. Null when the target sent no response.
+    """
+
     response_content: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="responseContent"), pydantic.Field(alias="responseContent")
-    ] = None
+        str,
+        FieldMetadata(alias="responseContent"),
+        pydantic.Field(
+            alias="responseContent", description="The body the target returned. Empty when the target sent no response."
+        ),
+    ]
+    """
+    The body the target returned. Empty when the target sent no response.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
