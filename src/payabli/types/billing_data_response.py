@@ -73,6 +73,10 @@ class BillingDataResponse(UniversalBaseModel):
     status: int
     services: typing.List[typing.Any]
     default: bool
+    country: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Country code of the bank account, in ISO 3166-1 alpha-2 format (for example, `US` or `CA`).
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

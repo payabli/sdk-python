@@ -33,7 +33,8 @@ from .remitstate import Remitstate
 from .remitzip import Remitzip
 from .vendor_number import VendorNumber
 from .vendor_payment_method_string import VendorPaymentMethodString
-from .vendor_response_stored_method import VendorResponseStoredMethod
+from .vendor_portal_access import VendorPortalAccess
+from .vendor_stored_method import VendorStoredMethod
 from .vendor_summary import VendorSummary
 from .vendorid import Vendorid
 from .vendorstatus import Vendorstatus
@@ -306,9 +307,12 @@ class VendorQueryRecord(UniversalBaseModel):
         pydantic.Field(alias="externalPaypointID"),
     ] = None
     stored_methods: typing_extensions.Annotated[
-        typing.Optional[typing.List[VendorResponseStoredMethod]],
+        typing.Optional[typing.List[VendorStoredMethod]],
         FieldMetadata(alias="StoredMethods"),
         pydantic.Field(alias="StoredMethods"),
+    ] = None
+    vendor_portal: typing_extensions.Annotated[
+        typing.Optional[VendorPortalAccess], FieldMetadata(alias="VendorPortal"), pydantic.Field(alias="VendorPortal")
     ] = None
 
     if IS_PYDANTIC_V2:

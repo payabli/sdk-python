@@ -7,7 +7,6 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .bill_pay_out_data import BillPayOutData
 from .created_at import CreatedAt
 from .dbaname import Dbaname
 from .entrypage_id import EntrypageId
@@ -19,10 +18,11 @@ from .legalname import Legalname
 from .netamountnullable import Netamountnullable
 from .org_parent_id import OrgParentId
 from .org_parent_name import OrgParentName
+from .payout_subscription_bill import PayoutSubscriptionBill
+from .payout_subscription_payment_data import PayoutSubscriptionPaymentData
+from .payout_subscription_vendor import PayoutSubscriptionVendor
 from .paypoint_id import PaypointId
-from .query_payment_data import QueryPaymentData
 from .source import Source
-from .vendor_query_record import VendorQueryRecord
 
 
 class PayoutSubscriptionQueryRecord(UniversalBaseModel):
@@ -47,9 +47,9 @@ class PayoutSubscriptionQueryRecord(UniversalBaseModel):
     Events associated with the payout subscription.
     """
 
-    vendor: typing.Optional[VendorQueryRecord] = None
+    vendor: typing.Optional[PayoutSubscriptionVendor] = None
     bill_data: typing_extensions.Annotated[
-        typing.Optional[typing.List[BillPayOutData]],
+        typing.Optional[typing.List[PayoutSubscriptionBill]],
         FieldMetadata(alias="billData"),
         pydantic.Field(alias="billData", description="Bills associated with the payout subscription."),
     ] = None
@@ -62,6 +62,54 @@ class PayoutSubscriptionQueryRecord(UniversalBaseModel):
         FieldMetadata(alias="externalPaypointID"),
         pydantic.Field(alias="externalPaypointID"),
     ] = None
+    same_day_ach: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="sameDayAch"),
+        pydantic.Field(
+            alias="sameDayAch",
+            description="When `true`, the payout subscription's payouts are processed as same-day ACH instead of standard ACH. Same-day ACH must be enabled for the paypoint. Only ACH payouts honor this setting.",
+        ),
+    ] = None
+    """
+    When `true`, the payout subscription's payouts are processed as same-day ACH instead of standard ACH. Same-day ACH must be enabled for the paypoint. Only ACH payouts honor this setting.
+    """
+
+    do_not_create_bills: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="doNotCreateBills"),
+        pydantic.Field(
+            alias="doNotCreateBills",
+            description="When `true`, Payabli doesn't automatically create a bill for the payout subscription's payouts.",
+        ),
+    ] = None
+    """
+    When `true`, Payabli doesn't automatically create a bill for the payout subscription's payouts.
+    """
+
+    allow_duplicated_bills: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="allowDuplicatedBills"),
+        pydantic.Field(
+            alias="allowDuplicatedBills",
+            description="When `true`, the payout subscription bypasses the requirement for unique bills, identified by vendor invoice number.",
+        ),
+    ] = None
+    """
+    When `true`, the payout subscription bypasses the requirement for unique bills, identified by vendor invoice number.
+    """
+
+    auto_convert_same_day_ach: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="autoConvertSameDayAch"),
+        pydantic.Field(
+            alias="autoConvertSameDayAch",
+            description="When `true`, a same-day ACH payout captured after the same-day ACH cutoff is converted to a standard ACH payment. When `false`, the capture is declined. Has no effect when `sameDayAch` is `false`.",
+        ),
+    ] = None
+    """
+    When `true`, a same-day ACH payout captured after the same-day ACH cutoff is converted to a standard ACH payment. When `false`, the capture is declined. Has no effect when `sameDayAch` is `false`.
+    """
+
     method: typing.Optional[str] = pydantic.Field(default=None)
     """
     The payout subscription's payment method.
@@ -98,7 +146,9 @@ class PayoutSubscriptionQueryRecord(UniversalBaseModel):
     """
 
     payment_data: typing_extensions.Annotated[
-        typing.Optional[QueryPaymentData], FieldMetadata(alias="paymentData"), pydantic.Field(alias="paymentData")
+        typing.Optional[PayoutSubscriptionPaymentData],
+        FieldMetadata(alias="paymentData"),
+        pydantic.Field(alias="paymentData"),
     ] = None
     start_date: typing_extensions.Annotated[
         typing.Optional[dt.datetime],
@@ -228,6 +278,16 @@ class PayoutSubscriptionQueryRecord(UniversalBaseModel):
         typing.Optional[OrgParentId], FieldMetadata(alias="parentOrgId"), pydantic.Field(alias="parentOrgId")
     ] = None
     source: typing.Optional[Source] = None
+    subscription_type: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="subscriptionType"),
+        pydantic.Field(
+            alias="subscriptionType", description="Subscription type. Always `null` for payout subscriptions."
+        ),
+    ] = None
+    """
+    Subscription type. Always `null` for payout subscriptions.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

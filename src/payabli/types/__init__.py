@@ -591,8 +591,21 @@ if typing.TYPE_CHECKING:
     from .payout_program import PayoutProgram
     from .payout_schedule_detail import PayoutScheduleDetail
     from .payout_set_pause import PayoutSetPause
+    from .payout_subscription_bill import PayoutSubscriptionBill
+    from .payout_subscription_payment_data import PayoutSubscriptionPaymentData
+    from .payout_subscription_payment_data_pascal import PayoutSubscriptionPaymentDataPascal
+    from .payout_subscription_payment_data_pascal_payor_signature import (
+        PayoutSubscriptionPaymentDataPascalPayorSignature,
+    )
+    from .payout_subscription_payment_data_payor_signature import PayoutSubscriptionPaymentDataPayorSignature
+    from .payout_subscription_payment_details import PayoutSubscriptionPaymentDetails
+    from .payout_subscription_payment_details_pascal import PayoutSubscriptionPaymentDetailsPascal
     from .payout_subscription_query_record import PayoutSubscriptionQueryRecord
     from .payout_subscription_query_record_pascal import PayoutSubscriptionQueryRecordPascal
+    from .payout_subscription_vendor import PayoutSubscriptionVendor
+    from .payout_subscription_vendor_contact import PayoutSubscriptionVendorContact
+    from .payout_subscription_vendor_vendor_portal import PayoutSubscriptionVendorVendorPortal
+    from .payout_subscription_vendor_vendor_portal_users_item import PayoutSubscriptionVendorVendorPortalUsersItem
     from .paypoint_data import PaypointData
     from .paypoint_entry_config import PaypointEntryConfig
     from .paypoint_id import PaypointId
@@ -930,12 +943,15 @@ if typing.TYPE_CHECKING:
     from .vendor_payment_method import VendorPaymentMethod
     from .vendor_payment_method_string import VendorPaymentMethodString
     from .vendor_phone import VendorPhone
+    from .vendor_portal_access import VendorPortalAccess
+    from .vendor_portal_access_users_item import VendorPortalAccessUsersItem
     from .vendor_query_record import VendorQueryRecord
     from .vendor_response_billing_data import VendorResponseBillingData
     from .vendor_response_stored_method import VendorResponseStoredMethod
     from .vendor_response_summary import VendorResponseSummary
     from .vendor_schedule_call_response import VendorScheduleCallResponse
     from .vendor_schedule_call_response_data import VendorScheduleCallResponseData
+    from .vendor_stored_method import VendorStoredMethod
     from .vendor_summary import VendorSummary
     from .vendorid import Vendorid
     from .vendoridtrans import Vendoridtrans
@@ -1538,8 +1554,19 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PayoutProgram": ".payout_program",
     "PayoutScheduleDetail": ".payout_schedule_detail",
     "PayoutSetPause": ".payout_set_pause",
+    "PayoutSubscriptionBill": ".payout_subscription_bill",
+    "PayoutSubscriptionPaymentData": ".payout_subscription_payment_data",
+    "PayoutSubscriptionPaymentDataPascal": ".payout_subscription_payment_data_pascal",
+    "PayoutSubscriptionPaymentDataPascalPayorSignature": ".payout_subscription_payment_data_pascal_payor_signature",
+    "PayoutSubscriptionPaymentDataPayorSignature": ".payout_subscription_payment_data_payor_signature",
+    "PayoutSubscriptionPaymentDetails": ".payout_subscription_payment_details",
+    "PayoutSubscriptionPaymentDetailsPascal": ".payout_subscription_payment_details_pascal",
     "PayoutSubscriptionQueryRecord": ".payout_subscription_query_record",
     "PayoutSubscriptionQueryRecordPascal": ".payout_subscription_query_record_pascal",
+    "PayoutSubscriptionVendor": ".payout_subscription_vendor",
+    "PayoutSubscriptionVendorContact": ".payout_subscription_vendor_contact",
+    "PayoutSubscriptionVendorVendorPortal": ".payout_subscription_vendor_vendor_portal",
+    "PayoutSubscriptionVendorVendorPortalUsersItem": ".payout_subscription_vendor_vendor_portal_users_item",
     "PaypointData": ".paypoint_data",
     "PaypointEntryConfig": ".paypoint_entry_config",
     "PaypointId": ".paypoint_id",
@@ -1875,12 +1902,15 @@ _dynamic_imports: typing.Dict[str, str] = {
     "VendorPaymentMethod": ".vendor_payment_method",
     "VendorPaymentMethodString": ".vendor_payment_method_string",
     "VendorPhone": ".vendor_phone",
+    "VendorPortalAccess": ".vendor_portal_access",
+    "VendorPortalAccessUsersItem": ".vendor_portal_access_users_item",
     "VendorQueryRecord": ".vendor_query_record",
     "VendorResponseBillingData": ".vendor_response_billing_data",
     "VendorResponseStoredMethod": ".vendor_response_stored_method",
     "VendorResponseSummary": ".vendor_response_summary",
     "VendorScheduleCallResponse": ".vendor_schedule_call_response",
     "VendorScheduleCallResponseData": ".vendor_schedule_call_response_data",
+    "VendorStoredMethod": ".vendor_stored_method",
     "VendorSummary": ".vendor_summary",
     "Vendorid": ".vendorid",
     "Vendoridtrans": ".vendoridtrans",
@@ -2507,8 +2537,19 @@ __all__ = [
     "PayoutProgram",
     "PayoutScheduleDetail",
     "PayoutSetPause",
+    "PayoutSubscriptionBill",
+    "PayoutSubscriptionPaymentData",
+    "PayoutSubscriptionPaymentDataPascal",
+    "PayoutSubscriptionPaymentDataPascalPayorSignature",
+    "PayoutSubscriptionPaymentDataPayorSignature",
+    "PayoutSubscriptionPaymentDetails",
+    "PayoutSubscriptionPaymentDetailsPascal",
     "PayoutSubscriptionQueryRecord",
     "PayoutSubscriptionQueryRecordPascal",
+    "PayoutSubscriptionVendor",
+    "PayoutSubscriptionVendorContact",
+    "PayoutSubscriptionVendorVendorPortal",
+    "PayoutSubscriptionVendorVendorPortalUsersItem",
     "PaypointData",
     "PaypointEntryConfig",
     "PaypointId",
@@ -2844,12 +2885,15 @@ __all__ = [
     "VendorPaymentMethod",
     "VendorPaymentMethodString",
     "VendorPhone",
+    "VendorPortalAccess",
+    "VendorPortalAccessUsersItem",
     "VendorQueryRecord",
     "VendorResponseBillingData",
     "VendorResponseStoredMethod",
     "VendorResponseSummary",
     "VendorScheduleCallResponse",
     "VendorScheduleCallResponseData",
+    "VendorStoredMethod",
     "VendorSummary",
     "Vendorid",
     "Vendoridtrans",

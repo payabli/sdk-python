@@ -19,8 +19,8 @@ from .legalname import Legalname
 from .netamountnullable import Netamountnullable
 from .org_parent_id import OrgParentId
 from .org_parent_name import OrgParentName
+from .payout_subscription_payment_data_pascal import PayoutSubscriptionPaymentDataPascal
 from .paypoint_id import PaypointId
-from .query_payment_data import QueryPaymentData
 from .source import Source
 from .vendor_query_record import VendorQueryRecord
 
@@ -72,6 +72,54 @@ class PayoutSubscriptionQueryRecordPascal(UniversalBaseModel):
         FieldMetadata(alias="ExternalPaypointID"),
         pydantic.Field(alias="ExternalPaypointID"),
     ] = None
+    same_day_ach: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="SameDayAch"),
+        pydantic.Field(
+            alias="SameDayAch",
+            description="When `true`, the payout subscription's payouts are processed as same-day ACH instead of standard ACH. Same-day ACH must be enabled for the paypoint. Only ACH payouts honor this setting.",
+        ),
+    ] = None
+    """
+    When `true`, the payout subscription's payouts are processed as same-day ACH instead of standard ACH. Same-day ACH must be enabled for the paypoint. Only ACH payouts honor this setting.
+    """
+
+    do_not_create_bills: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="DoNotCreateBills"),
+        pydantic.Field(
+            alias="DoNotCreateBills",
+            description="When `true`, Payabli doesn't automatically create a bill for the payout subscription's payouts.",
+        ),
+    ] = None
+    """
+    When `true`, Payabli doesn't automatically create a bill for the payout subscription's payouts.
+    """
+
+    allow_duplicated_bills: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="AllowDuplicatedBills"),
+        pydantic.Field(
+            alias="AllowDuplicatedBills",
+            description="When `true`, the payout subscription bypasses the requirement for unique bills, identified by vendor invoice number.",
+        ),
+    ] = None
+    """
+    When `true`, the payout subscription bypasses the requirement for unique bills, identified by vendor invoice number.
+    """
+
+    auto_convert_same_day_ach: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="AutoConvertSameDayAch"),
+        pydantic.Field(
+            alias="AutoConvertSameDayAch",
+            description="When `true`, a same-day ACH payout captured after the same-day ACH cutoff is converted to a standard ACH payment. When `false`, the capture is declined. Has no effect when `SameDayAch` is `false`.",
+        ),
+    ] = None
+    """
+    When `true`, a same-day ACH payout captured after the same-day ACH cutoff is converted to a standard ACH payment. When `false`, the capture is declined. Has no effect when `SameDayAch` is `false`.
+    """
+
     method: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="Method"),
@@ -112,7 +160,9 @@ class PayoutSubscriptionQueryRecordPascal(UniversalBaseModel):
     """
 
     payment_data: typing_extensions.Annotated[
-        typing.Optional[QueryPaymentData], FieldMetadata(alias="PaymentData"), pydantic.Field(alias="PaymentData")
+        typing.Optional[PayoutSubscriptionPaymentDataPascal],
+        FieldMetadata(alias="PaymentData"),
+        pydantic.Field(alias="PaymentData"),
     ] = None
     start_date: typing_extensions.Annotated[
         typing.Optional[dt.datetime],
@@ -248,6 +298,16 @@ class PayoutSubscriptionQueryRecordPascal(UniversalBaseModel):
     source: typing_extensions.Annotated[
         typing.Optional[Source], FieldMetadata(alias="Source"), pydantic.Field(alias="Source")
     ] = None
+    subscription_type: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="SubscriptionType"),
+        pydantic.Field(
+            alias="SubscriptionType", description="Subscription type. Always `null` for payout subscriptions."
+        ),
+    ] = None
+    """
+    Subscription type. Always `null` for payout subscriptions.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
