@@ -4,12 +4,11 @@ dynamic = ["version"]
 
 [tool.poetry]
 name = "payabli"
-version = "1.0.16"
+version = "1.0.17"
 description = ""
 readme = "README.md"
 authors = []
 keywords = []
-
 classifiers = [
     "Intended Audience :: Developers",
     "Programming Language :: Python",

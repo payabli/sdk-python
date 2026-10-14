@@ -35,12 +35,12 @@ class BaseClientWrapper:
         import platform
 
         headers: typing.Dict[str, str] = {
-            "User-Agent": "payabli/1.0.16",
+            "User-Agent": "payabli/1.0.17",
             "X-Fern-Language": "Python",
             "X-Fern-Runtime": f"python/{platform.python_version()}",
             "X-Fern-Platform": f"{platform.system().lower()}/{platform.release()}",
             "X-Fern-SDK-Name": "payabli",
-            "X-Fern-SDK-Version": "1.0.16",
+            "X-Fern-SDK-Version": "1.0.17",
             **(self.get_custom_headers() or {}),
         }
         return headers
@@ -51,9 +51,11 @@ class BaseClientWrapper:
         if not security:
             return {}
         available_auth_headers: typing.Dict[str, typing.Dict[str, str]] = {}
-        _token = self._get_token()
-        if _token is not None:
-            available_auth_headers["BearerAuth"] = {"Authorization": f"Bearer {_token}"}
+        _required_scheme_keys = {scheme_key for requirement in security for scheme_key in requirement}
+        if "BearerAuth" in _required_scheme_keys:
+            _token = self._get_token()
+            if _token is not None:
+                available_auth_headers["BearerAuth"] = {"Authorization": f"Bearer {_token}"}
         if self.api_key is not None:
             available_auth_headers["APIKeyAuth"] = {"requestToken": self.api_key}
         for requirement in security:
@@ -180,13 +182,15 @@ class AsyncClientWrapper(BaseClientWrapper):
         if not security:
             return {}
         available_auth_headers: typing.Dict[str, typing.Dict[str, str]] = {}
-        _token: typing.Optional[str]
-        if self._async_token is not None:
-            _token = await self._async_token()
-        else:
-            _token = self._get_token()
-        if _token is not None:
-            available_auth_headers["BearerAuth"] = {"Authorization": f"Bearer {_token}"}
+        _required_scheme_keys = {scheme_key for requirement in security for scheme_key in requirement}
+        if "BearerAuth" in _required_scheme_keys:
+            _token: typing.Optional[str]
+            if self._async_token is not None:
+                _token = await self._async_token()
+            else:
+                _token = self._get_token()
+            if _token is not None:
+                available_auth_headers["BearerAuth"] = {"Authorization": f"Bearer {_token}"}
         if self.api_key is not None:
             available_auth_headers["APIKeyAuth"] = {"requestToken": self.api_key}
         for requirement in security:
