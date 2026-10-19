@@ -148,6 +148,7 @@ if typing.TYPE_CHECKING:
     from .bill_query_response_summary import BillQueryResponseSummary
     from .bill_response import BillResponse
     from .bill_response_data import BillResponseData
+    from .bill_transaction_reference import BillTransactionReference
     from .billable_event import BillableEvent
     from .billing_address_addtl_nullable import BillingAddressAddtlNullable
     from .billing_address_nullable import BillingAddressNullable
@@ -275,6 +276,8 @@ if typing.TYPE_CHECKING:
     from .cvv_response_text import CvvResponseText
     from .d_section import DSection
     from .dbaname import Dbaname
+    from .delete_ghost_card_response import DeleteGhostCardResponse
+    from .delete_ghost_card_response_data import DeleteGhostCardResponseData
     from .delete_item_response import DeleteItemResponse
     from .delete_organization_response import DeleteOrganizationResponse
     from .delete_payment_method_domain_response import DeletePaymentMethodDomainResponse
@@ -286,7 +289,9 @@ if typing.TYPE_CHECKING:
     from .device import Device
     from .device_challenge_data import DeviceChallengeData
     from .device_challenge_response import DeviceChallengeResponse
+    from .device_entry_mode import DeviceEntryMode
     from .device_query_record import DeviceQueryRecord
+    from .device_query_record_operational_status import DeviceQueryRecordOperationalStatus
     from .discount import Discount
     from .display_property import DisplayProperty
     from .document_section import DocumentSection
@@ -301,6 +306,7 @@ if typing.TYPE_CHECKING:
     from .ein import Ein
     from .element import Element
     from .email import Email
+    from .emv_auth_data import EmvAuthData
     from .emv_auth_response_data import EmvAuthResponseData
     from .enabled import Enabled
     from .enrollment_status import EnrollmentStatus
@@ -383,6 +389,7 @@ if typing.TYPE_CHECKING:
     from .is_root import IsRoot
     from .is_same_day_ach import IsSameDayAch
     from .is_success import IsSuccess
+    from .issue_1099 import Issue1099
     from .item_commodity_code import ItemCommodityCode
     from .item_description import ItemDescription
     from .item_product_code import ItemProductCode
@@ -443,6 +450,7 @@ if typing.TYPE_CHECKING:
     from .name_user import NameUser
     from .net_amountstring import NetAmountstring
     from .netamountnullable import Netamountnullable
+    from .next_check_number_response import NextCheckNumberResponse
     from .note_element import NoteElement
     from .notification_content import NotificationContent
     from .notification_content_event_type import NotificationContentEventType
@@ -640,6 +648,7 @@ if typing.TYPE_CHECKING:
     from .query_chargebacks_response import QueryChargebacksResponse
     from .query_chargebacks_response_records_item import QueryChargebacksResponseRecordsItem
     from .query_customer_response import QueryCustomerResponse
+    from .query_device_data import QueryDeviceData
     from .query_device_response import QueryDeviceResponse
     from .query_entrypoint_response import QueryEntrypointResponse
     from .query_entrypoint_response_records_item import QueryEntrypointResponseRecordsItem
@@ -1113,6 +1122,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "BillQueryResponseSummary": ".bill_query_response_summary",
     "BillResponse": ".bill_response",
     "BillResponseData": ".bill_response_data",
+    "BillTransactionReference": ".bill_transaction_reference",
     "BillableEvent": ".billable_event",
     "BillingAddressAddtlNullable": ".billing_address_addtl_nullable",
     "BillingAddressNullable": ".billing_address_nullable",
@@ -1238,6 +1248,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CvvResponseText": ".cvv_response_text",
     "DSection": ".d_section",
     "Dbaname": ".dbaname",
+    "DeleteGhostCardResponse": ".delete_ghost_card_response",
+    "DeleteGhostCardResponseData": ".delete_ghost_card_response_data",
     "DeleteItemResponse": ".delete_item_response",
     "DeleteOrganizationResponse": ".delete_organization_response",
     "DeletePaymentMethodDomainResponse": ".delete_payment_method_domain_response",
@@ -1249,7 +1261,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Device": ".device",
     "DeviceChallengeData": ".device_challenge_data",
     "DeviceChallengeResponse": ".device_challenge_response",
+    "DeviceEntryMode": ".device_entry_mode",
     "DeviceQueryRecord": ".device_query_record",
+    "DeviceQueryRecordOperationalStatus": ".device_query_record_operational_status",
     "Discount": ".discount",
     "DisplayProperty": ".display_property",
     "DocumentSection": ".document_section",
@@ -1264,6 +1278,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Ein": ".ein",
     "Element": ".element",
     "Email": ".email",
+    "EmvAuthData": ".emv_auth_data",
     "EmvAuthResponseData": ".emv_auth_response_data",
     "Enabled": ".enabled",
     "EnrollmentStatus": ".enrollment_status",
@@ -1346,6 +1361,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "IsRoot": ".is_root",
     "IsSameDayAch": ".is_same_day_ach",
     "IsSuccess": ".is_success",
+    "Issue1099": ".issue_1099",
     "ItemCommodityCode": ".item_commodity_code",
     "ItemDescription": ".item_description",
     "ItemProductCode": ".item_product_code",
@@ -1406,6 +1422,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "NameUser": ".name_user",
     "NetAmountstring": ".net_amountstring",
     "Netamountnullable": ".netamountnullable",
+    "NextCheckNumberResponse": ".next_check_number_response",
     "NoteElement": ".note_element",
     "NotificationContent": ".notification_content",
     "NotificationContentEventType": ".notification_content_event_type",
@@ -1603,6 +1620,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "QueryChargebacksResponse": ".query_chargebacks_response",
     "QueryChargebacksResponseRecordsItem": ".query_chargebacks_response_records_item",
     "QueryCustomerResponse": ".query_customer_response",
+    "QueryDeviceData": ".query_device_data",
     "QueryDeviceResponse": ".query_device_response",
     "QueryEntrypointResponse": ".query_entrypoint_response",
     "QueryEntrypointResponseRecordsItem": ".query_entrypoint_response_records_item",
@@ -2096,6 +2114,7 @@ __all__ = [
     "BillQueryResponseSummary",
     "BillResponse",
     "BillResponseData",
+    "BillTransactionReference",
     "BillableEvent",
     "BillingAddressAddtlNullable",
     "BillingAddressNullable",
@@ -2221,6 +2240,8 @@ __all__ = [
     "CvvResponseText",
     "DSection",
     "Dbaname",
+    "DeleteGhostCardResponse",
+    "DeleteGhostCardResponseData",
     "DeleteItemResponse",
     "DeleteOrganizationResponse",
     "DeletePaymentMethodDomainResponse",
@@ -2232,7 +2253,9 @@ __all__ = [
     "Device",
     "DeviceChallengeData",
     "DeviceChallengeResponse",
+    "DeviceEntryMode",
     "DeviceQueryRecord",
+    "DeviceQueryRecordOperationalStatus",
     "Discount",
     "DisplayProperty",
     "DocumentSection",
@@ -2247,6 +2270,7 @@ __all__ = [
     "Ein",
     "Element",
     "Email",
+    "EmvAuthData",
     "EmvAuthResponseData",
     "Enabled",
     "EnrollmentStatus",
@@ -2329,6 +2353,7 @@ __all__ = [
     "IsRoot",
     "IsSameDayAch",
     "IsSuccess",
+    "Issue1099",
     "ItemCommodityCode",
     "ItemDescription",
     "ItemProductCode",
@@ -2389,6 +2414,7 @@ __all__ = [
     "NameUser",
     "NetAmountstring",
     "Netamountnullable",
+    "NextCheckNumberResponse",
     "NoteElement",
     "NotificationContent",
     "NotificationContentEventType",
@@ -2586,6 +2612,7 @@ __all__ = [
     "QueryChargebacksResponse",
     "QueryChargebacksResponseRecordsItem",
     "QueryCustomerResponse",
+    "QueryDeviceData",
     "QueryDeviceResponse",
     "QueryEntrypointResponse",
     "QueryEntrypointResponseRecordsItem",

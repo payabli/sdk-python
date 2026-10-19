@@ -27,6 +27,7 @@ from ..types.bill_detail_response import BillDetailResponse
 from ..types.capture_all_out_response import CaptureAllOutResponse
 from ..types.entrypointfield import Entrypointfield
 from ..types.idempotency_key import IdempotencyKey
+from ..types.next_check_number_response import NextCheckNumberResponse
 from ..types.operation_result import OperationResult
 from ..types.order_id import OrderId
 from ..types.orderdescription import Orderdescription
@@ -43,6 +44,7 @@ from ..types.source import Source
 from ..types.subdomain import Subdomain
 from ..types.subscriptionid import Subscriptionid
 from ..types.v_card_get_response import VCardGetResponse
+from ..types.vendor_check_number import VendorCheckNumber
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -1600,18 +1602,132 @@ class RawMoneyOutClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def get_next_check_number(
+        self, paypoint_id: int, account_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[NextCheckNumberResponse]:
+        """
+        Returns a suggested check number for the next check payout from a paypoint's funding account. Payabli suggests the highest check number on the account's check payouts plus one, or `1` if the account has no check history. Canceled check payouts don't count toward the highest number.
+
+
+        Use the suggested value with the `checkNumber` field when you reissue a check, or when you create a new check payout.
+
+
+        Errors return HTTP `400`: `3005` when the paypoint ID is invalid or inactive, and `3758` when the account ID isn't valid for the paypoint.
+
+        Parameters
+        ----------
+        paypoint_id : int
+            The ID of the paypoint that owns the funding account.
+
+        account_id : str
+            The `accountId` of the bank account linked to the paypoint's check service, such as `123-456`. Find it in the paypoint's bank account details (`BankData`).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[NextCheckNumberResponse]
+            Success
+        """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
+        _response = self._client_wrapper.httpx_client.request(
+            f"MoneyOut/nextCheckNumber/{encode_path_param(paypoint_id)}/{encode_path_param(account_id)}",
+            method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    NextCheckNumberResponse,
+                    parse_obj_as(
+                        type_=NextCheckNumberResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     def reissue_out(
         self,
         *,
         trans_id: str,
         payment_method: ReissuePaymentMethod,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
+        check_number: typing.Optional[VendorCheckNumber] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ReissuePayoutResponse]:
         """
         Reissues a payout transaction with a new payment method. This creates a new transaction linked to the original and marks the original transaction as reissued.
 
-        The original transaction must be in **Processing** or **Processed** status. The payment method in the request body is used directly. The endpoint doesn't fall back to vendor-managed payment methods.
+        The original transaction must be in **Processing** or **Processed** status. An ACH payout with a **Returned** status can also be reissued. The payment method in the request body is used directly. The endpoint doesn't fall back to vendor-managed payment methods.
 
         The new transaction goes through the standard authorize-and-capture flow automatically. Both the original and new transactions are linked through their event histories for audit purposes.
 
@@ -1626,6 +1742,8 @@ class RawMoneyOutClient:
 
         idempotency_key : typing.Optional[IdempotencyKey]
             _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
+
+        check_number : typing.Optional[VendorCheckNumber]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1648,6 +1766,7 @@ class RawMoneyOutClient:
                 "paymentMethod": convert_and_respect_annotation_metadata(
                     object_=payment_method, annotation=ReissuePaymentMethod, direction="write"
                 ),
+                "checkNumber": check_number,
             },
             headers={
                 **_endpoint_auth_headers,
@@ -3283,18 +3402,132 @@ class AsyncRawMoneyOutClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    async def get_next_check_number(
+        self, paypoint_id: int, account_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[NextCheckNumberResponse]:
+        """
+        Returns a suggested check number for the next check payout from a paypoint's funding account. Payabli suggests the highest check number on the account's check payouts plus one, or `1` if the account has no check history. Canceled check payouts don't count toward the highest number.
+
+
+        Use the suggested value with the `checkNumber` field when you reissue a check, or when you create a new check payout.
+
+
+        Errors return HTTP `400`: `3005` when the paypoint ID is invalid or inactive, and `3758` when the account ID isn't valid for the paypoint.
+
+        Parameters
+        ----------
+        paypoint_id : int
+            The ID of the paypoint that owns the funding account.
+
+        account_id : str
+            The `accountId` of the bank account linked to the paypoint's check service, such as `123-456`. Find it in the paypoint's bank account details (`BankData`).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[NextCheckNumberResponse]
+            Success
+        """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
+        _response = await self._client_wrapper.httpx_client.request(
+            f"MoneyOut/nextCheckNumber/{encode_path_param(paypoint_id)}/{encode_path_param(account_id)}",
+            method="GET",
+            headers={
+                **_endpoint_auth_headers,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    NextCheckNumberResponse,
+                    parse_obj_as(
+                        type_=NextCheckNumberResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     async def reissue_out(
         self,
         *,
         trans_id: str,
         payment_method: ReissuePaymentMethod,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
+        check_number: typing.Optional[VendorCheckNumber] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ReissuePayoutResponse]:
         """
         Reissues a payout transaction with a new payment method. This creates a new transaction linked to the original and marks the original transaction as reissued.
 
-        The original transaction must be in **Processing** or **Processed** status. The payment method in the request body is used directly. The endpoint doesn't fall back to vendor-managed payment methods.
+        The original transaction must be in **Processing** or **Processed** status. An ACH payout with a **Returned** status can also be reissued. The payment method in the request body is used directly. The endpoint doesn't fall back to vendor-managed payment methods.
 
         The new transaction goes through the standard authorize-and-capture flow automatically. Both the original and new transactions are linked through their event histories for audit purposes.
 
@@ -3309,6 +3542,8 @@ class AsyncRawMoneyOutClient:
 
         idempotency_key : typing.Optional[IdempotencyKey]
             _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
+
+        check_number : typing.Optional[VendorCheckNumber]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -3331,6 +3566,7 @@ class AsyncRawMoneyOutClient:
                 "paymentMethod": convert_and_respect_annotation_metadata(
                     object_=payment_method, annotation=ReissuePaymentMethod, direction="write"
                 ),
+                "checkNumber": check_number,
             },
             headers={
                 **_endpoint_auth_headers,

@@ -16,6 +16,7 @@ from .email import Email
 from .enrollment_status import EnrollmentStatus
 from .entrypointfield import Entrypointfield
 from .internal_reference_id import InternalReferenceId
+from .issue_1099 import Issue1099
 from .last_modified import LastModified
 from .legalname import Legalname
 from .location_code import LocationCode
@@ -131,6 +132,9 @@ class AssociatedVendor(UniversalBaseModel):
     )
     location_code: typing_extensions.Annotated[
         typing.Optional[LocationCode], FieldMetadata(alias="LocationCode"), pydantic.Field(alias="LocationCode")
+    ] = None
+    issue_1099: typing_extensions.Annotated[
+        typing.Optional[Issue1099], FieldMetadata(alias="Issue1099"), pydantic.Field(alias="Issue1099")
     ] = None
     contacts: typing_extensions.Annotated[
         typing.Optional[typing.List[Contacts]],

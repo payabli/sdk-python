@@ -91,6 +91,7 @@ class RawVendorClient:
         remit_zip: typing.Optional[Remitzip] = OMIT,
         state: typing.Optional[str] = OMIT,
         vendor_status: typing.Optional[Vendorstatus] = OMIT,
+        issue_1099: typing.Optional[bool] = OMIT,
         zip: typing.Optional[str] = OMIT,
         default_method_id: typing.Optional[str] = OMIT,
         attachment: typing.Optional[FileContent] = OMIT,
@@ -182,6 +183,12 @@ class RawVendorClient:
 
         vendor_status : typing.Optional[Vendorstatus]
 
+        issue_1099 : typing.Optional[bool]
+            When `true`, a 1099 tax form is issued to this vendor. When you
+            create a vendor and omit this field, it defaults to `false`. When
+            you update a vendor and omit this field, the vendor keeps its
+            current value.
+
         zip : typing.Optional[str]
             Vendor's ZIP or postal code. Required if any address field is provided. For US addresses, use five digits (`12345`) or ZIP+4 format (`12345-6789`).
 
@@ -246,6 +253,7 @@ class RawVendorClient:
                 "remitZip": remit_zip,
                 "state": state,
                 "vendorStatus": vendor_status,
+                "issue1099": issue_1099,
                 "zip": zip,
                 "defaultMethodId": default_method_id,
                 "attachment": convert_and_respect_annotation_metadata(
@@ -405,6 +413,7 @@ class RawVendorClient:
         remit_zip: typing.Optional[Remitzip] = OMIT,
         state: typing.Optional[str] = OMIT,
         vendor_status: typing.Optional[Vendorstatus] = OMIT,
+        issue_1099: typing.Optional[bool] = OMIT,
         zip: typing.Optional[str] = OMIT,
         default_method_id: typing.Optional[str] = OMIT,
         attachment: typing.Optional[FileContent] = OMIT,
@@ -496,6 +505,12 @@ class RawVendorClient:
 
         vendor_status : typing.Optional[Vendorstatus]
 
+        issue_1099 : typing.Optional[bool]
+            When `true`, a 1099 tax form is issued to this vendor. When you
+            create a vendor and omit this field, it defaults to `false`. When
+            you update a vendor and omit this field, the vendor keeps its
+            current value.
+
         zip : typing.Optional[str]
             Vendor's ZIP or postal code. Required if any address field is provided. For US addresses, use five digits (`12345`) or ZIP+4 format (`12345-6789`).
 
@@ -560,6 +575,7 @@ class RawVendorClient:
                 "remitZip": remit_zip,
                 "state": state,
                 "vendorStatus": vendor_status,
+                "issue1099": issue_1099,
                 "zip": zip,
                 "defaultMethodId": default_method_id,
                 "attachment": convert_and_respect_annotation_metadata(
@@ -1138,6 +1154,7 @@ class AsyncRawVendorClient:
         remit_zip: typing.Optional[Remitzip] = OMIT,
         state: typing.Optional[str] = OMIT,
         vendor_status: typing.Optional[Vendorstatus] = OMIT,
+        issue_1099: typing.Optional[bool] = OMIT,
         zip: typing.Optional[str] = OMIT,
         default_method_id: typing.Optional[str] = OMIT,
         attachment: typing.Optional[FileContent] = OMIT,
@@ -1229,6 +1246,12 @@ class AsyncRawVendorClient:
 
         vendor_status : typing.Optional[Vendorstatus]
 
+        issue_1099 : typing.Optional[bool]
+            When `true`, a 1099 tax form is issued to this vendor. When you
+            create a vendor and omit this field, it defaults to `false`. When
+            you update a vendor and omit this field, the vendor keeps its
+            current value.
+
         zip : typing.Optional[str]
             Vendor's ZIP or postal code. Required if any address field is provided. For US addresses, use five digits (`12345`) or ZIP+4 format (`12345-6789`).
 
@@ -1293,6 +1316,7 @@ class AsyncRawVendorClient:
                 "remitZip": remit_zip,
                 "state": state,
                 "vendorStatus": vendor_status,
+                "issue1099": issue_1099,
                 "zip": zip,
                 "defaultMethodId": default_method_id,
                 "attachment": convert_and_respect_annotation_metadata(
@@ -1452,6 +1476,7 @@ class AsyncRawVendorClient:
         remit_zip: typing.Optional[Remitzip] = OMIT,
         state: typing.Optional[str] = OMIT,
         vendor_status: typing.Optional[Vendorstatus] = OMIT,
+        issue_1099: typing.Optional[bool] = OMIT,
         zip: typing.Optional[str] = OMIT,
         default_method_id: typing.Optional[str] = OMIT,
         attachment: typing.Optional[FileContent] = OMIT,
@@ -1543,6 +1568,12 @@ class AsyncRawVendorClient:
 
         vendor_status : typing.Optional[Vendorstatus]
 
+        issue_1099 : typing.Optional[bool]
+            When `true`, a 1099 tax form is issued to this vendor. When you
+            create a vendor and omit this field, it defaults to `false`. When
+            you update a vendor and omit this field, the vendor keeps its
+            current value.
+
         zip : typing.Optional[str]
             Vendor's ZIP or postal code. Required if any address field is provided. For US addresses, use five digits (`12345`) or ZIP+4 format (`12345-6789`).
 
@@ -1607,6 +1638,7 @@ class AsyncRawVendorClient:
                 "remitZip": remit_zip,
                 "state": state,
                 "vendorStatus": vendor_status,
+                "issue1099": issue_1099,
                 "zip": zip,
                 "defaultMethodId": default_method_id,
                 "attachment": convert_and_respect_annotation_metadata(

@@ -13,6 +13,8 @@ from .batch_number import BatchNumber
 from .bill_data import BillData
 from .dbaname import Dbaname
 from .device import Device
+from .device_entry_mode import DeviceEntryMode
+from .emv_auth_data import EmvAuthData
 from .entrypage_id import EntrypageId
 from .entrypointfield import Entrypointfield
 from .external_processor_information import ExternalProcessorInformation
@@ -26,6 +28,7 @@ from .orgid import Orgid
 from .payor_id import PayorId
 from .pending_fee_amount import PendingFeeAmount
 from .query_c_fee_transaction import QueryCFeeTransaction
+from .query_device_data import QueryDeviceData
 from .query_payment_data import QueryPaymentData
 from .query_response_data import QueryResponseData
 from .query_transaction_events import QueryTransactionEvents
@@ -82,6 +85,17 @@ class TransactionQueryRecords(UniversalBaseModel):
     ] = None
     device_id: typing_extensions.Annotated[
         typing.Optional[Device], FieldMetadata(alias="DeviceId"), pydantic.Field(alias="DeviceId")
+    ] = None
+    device_data: typing_extensions.Annotated[
+        typing.Optional[QueryDeviceData], FieldMetadata(alias="DeviceData"), pydantic.Field(alias="DeviceData")
+    ] = None
+    device_entry_mode: typing_extensions.Annotated[
+        typing.Optional[DeviceEntryMode],
+        FieldMetadata(alias="DeviceEntryMode"),
+        pydantic.Field(alias="DeviceEntryMode"),
+    ] = None
+    emv_auth_data: typing_extensions.Annotated[
+        typing.Optional[EmvAuthData], FieldMetadata(alias="EmvAuthData"), pydantic.Field(alias="EmvAuthData")
     ] = None
     entrypage_id: typing_extensions.Annotated[
         typing.Optional[EntrypageId], FieldMetadata(alias="EntrypageId"), pydantic.Field(alias="EntrypageId")

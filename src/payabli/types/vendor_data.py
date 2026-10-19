@@ -186,6 +186,21 @@ class VendorData(UniversalBaseModel):
     vendor_status: typing_extensions.Annotated[
         typing.Optional[Vendorstatus], FieldMetadata(alias="vendorStatus"), pydantic.Field(alias="vendorStatus")
     ] = None
+    issue_1099: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="issue1099"),
+        pydantic.Field(
+            alias="issue1099",
+            description="When `true`, a 1099 tax form is issued to this vendor. When you\ncreate a vendor and omit this field, it defaults to `false`. When\nyou update a vendor and omit this field, the vendor keeps its\ncurrent value.",
+        ),
+    ] = None
+    """
+    When `true`, a 1099 tax form is issued to this vendor. When you
+    create a vendor and omit this field, it defaults to `false`. When
+    you update a vendor and omit this field, the vendor keeps its
+    current value.
+    """
+
     zip: typing.Optional[str] = pydantic.Field(default=None)
     """
     Vendor's ZIP or postal code. Required if any address field is provided. For US addresses, use five digits (`12345`) or ZIP+4 format (`12345-6789`).

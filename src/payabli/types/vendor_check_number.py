@@ -2,9 +2,10 @@
 
 VendorCheckNumber = str
 """
-A check number between 1 and 500,000,000. This value must be passed as
-a string. This value can be used for fraud prevention with the
-positive pay service. When no check number is provided, Payabli
+A numeric check number of up to 8 digits. This value must be passed as
+a string. Payabli rejects a check number longer than 8 digits with
+error `3727`, and a non-numeric value with error `3728`. This value
+can be used for fraud prevention with the positive pay service. When no check number is provided, Payabli
 automatically manages check numbering and sequencing for checks issued
 from the same bank account.
 """

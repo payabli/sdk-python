@@ -7,6 +7,7 @@ import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 from .contacts_response import ContactsResponse
+from .issue_1099 import Issue1099
 from .transfer_out_detail_vendor_billing_data import TransferOutDetailVendorBillingData
 
 
@@ -150,6 +151,9 @@ class TransferOutDetailVendor(UniversalBaseModel):
     Location code for the vendor.
     """
 
+    issue_1099: typing_extensions.Annotated[
+        Issue1099, FieldMetadata(alias="Issue1099"), pydantic.Field(alias="Issue1099")
+    ]
     contacts: typing_extensions.Annotated[
         typing.Optional[typing.List[ContactsResponse]],
         FieldMetadata(alias="Contacts"),

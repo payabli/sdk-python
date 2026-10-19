@@ -6,6 +6,7 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.card_status import CardStatus
 from ..types.create_ghost_card_response import CreateGhostCardResponse
+from ..types.delete_ghost_card_response import DeleteGhostCardResponse
 from ..types.entry import Entry
 from ..types.payabli_api_response import PayabliApiResponse
 from .raw_client import AsyncRawGhostCardClient, RawGhostCardClient
@@ -56,7 +57,7 @@ class GhostCardClient:
 
         Unlike single-use virtual cards issued as part of a payout transaction, ghost cards aren't tied to a specific payout. They're issued directly to a vendor and can be reused up to a configurable number of times within the card's spending limits.
 
-        Only one ghost card can exist per vendor per paypoint. To issue a new card to the same vendor, cancel the existing card first.
+        Only one active ghost card can exist per vendor per paypoint. If the vendor already has one, the request fails with error `7067`. To issue a new card to the same vendor, cancel the existing card first. Canceled and expired cards don't count toward this limit. See [Cancel ghost card](/developers/api-reference/cards/cancel-ghost-card).
 
         Parameters
         ----------
@@ -168,6 +169,44 @@ class GhostCardClient:
         )
         return _response.data
 
+    def delete_ghost_card(
+        self, card_token: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> DeleteGhostCardResponse:
+        """
+        Cancels a ghost card. This is always a soft delete: Payabli keeps the card record, including its transaction history.
+
+        Canceling a ghost card frees the vendor's slot, so you can issue a new ghost card to the same vendor. A card canceled with this endpoint can't be used, reactivated, or canceled again.
+
+        Requires the `vcard_delete` permission.
+
+        Parameters
+        ----------
+        card_token : str
+            Token that identifies the ghost card to cancel. This is the `ReferenceId` returned when the card was created.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        DeleteGhostCardResponse
+            Success response confirming the ghost card was canceled.
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+        client.ghost_card.delete_ghost_card(
+            card_token="gc_abc123def456",
+        )
+        """
+        _response = self._raw_client.delete_ghost_card(card_token, request_options=request_options)
+        return _response.data
+
     def update_card(
         self,
         entry: Entry,
@@ -260,7 +299,7 @@ class AsyncGhostCardClient:
 
         Unlike single-use virtual cards issued as part of a payout transaction, ghost cards aren't tied to a specific payout. They're issued directly to a vendor and can be reused up to a configurable number of times within the card's spending limits.
 
-        Only one ghost card can exist per vendor per paypoint. To issue a new card to the same vendor, cancel the existing card first.
+        Only one active ghost card can exist per vendor per paypoint. If the vendor already has one, the request fails with error `7067`. To issue a new card to the same vendor, cancel the existing card first. Canceled and expired cards don't count toward this limit. See [Cancel ghost card](/developers/api-reference/cards/cancel-ghost-card).
 
         Parameters
         ----------
@@ -378,6 +417,52 @@ class AsyncGhostCardClient:
             misc_2=misc_2,
             request_options=request_options,
         )
+        return _response.data
+
+    async def delete_ghost_card(
+        self, card_token: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> DeleteGhostCardResponse:
+        """
+        Cancels a ghost card. This is always a soft delete: Payabli keeps the card record, including its transaction history.
+
+        Canceling a ghost card frees the vendor's slot, so you can issue a new ghost card to the same vendor. A card canceled with this endpoint can't be used, reactivated, or canceled again.
+
+        Requires the `vcard_delete` permission.
+
+        Parameters
+        ----------
+        card_token : str
+            Token that identifies the ghost card to cancel. This is the `ReferenceId` returned when the card was created.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        DeleteGhostCardResponse
+            Success response confirming the ghost card was canceled.
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+
+
+        async def main() -> None:
+            await client.ghost_card.delete_ghost_card(
+                card_token="gc_abc123def456",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.delete_ghost_card(card_token, request_options=request_options)
         return _response.data
 
     async def update_card(

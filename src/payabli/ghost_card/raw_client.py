@@ -16,6 +16,7 @@ from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.card_status import CardStatus
 from ..types.create_ghost_card_response import CreateGhostCardResponse
+from ..types.delete_ghost_card_response import DeleteGhostCardResponse
 from ..types.entry import Entry
 from ..types.payabli_api_response import PayabliApiResponse
 from ..types.payabli_error_body import PayabliErrorBody
@@ -56,7 +57,7 @@ class RawGhostCardClient:
 
         Unlike single-use virtual cards issued as part of a payout transaction, ghost cards aren't tied to a specific payout. They're issued directly to a vendor and can be reused up to a configurable number of times within the card's spending limits.
 
-        Only one ghost card can exist per vendor per paypoint. To issue a new card to the same vendor, cancel the existing card first.
+        Only one active ghost card can exist per vendor per paypoint. If the vendor already has one, the request fails with error `7067`. To issue a new card to the same vendor, cancel the existing card first. Canceled and expired cards don't count toward this limit. See [Cancel ghost card](/developers/api-reference/cards/cancel-ghost-card).
 
         Parameters
         ----------
@@ -156,6 +157,103 @@ class RawGhostCardClient:
                     CreateGhostCardResponse,
                     parse_obj_as(
                         type_=CreateGhostCardResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def delete_ghost_card(
+        self, card_token: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[DeleteGhostCardResponse]:
+        """
+        Cancels a ghost card. This is always a soft delete: Payabli keeps the card record, including its transaction history.
+
+        Canceling a ghost card frees the vendor's slot, so you can issue a new ghost card to the same vendor. A card canceled with this endpoint can't be used, reactivated, or canceled again.
+
+        Requires the `vcard_delete` permission.
+
+        Parameters
+        ----------
+        card_token : str
+            Token that identifies the ghost card to cancel. This is the `ReferenceId` returned when the card was created.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[DeleteGhostCardResponse]
+            Success response confirming the ghost card was canceled.
+        """
+        _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
+        _response = self._client_wrapper.httpx_client.request(
+            f"MoneyOutCard/GhostCard/{encode_path_param(card_token)}",
+            method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    DeleteGhostCardResponse,
+                    parse_obj_as(
+                        type_=DeleteGhostCardResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -355,7 +453,7 @@ class AsyncRawGhostCardClient:
 
         Unlike single-use virtual cards issued as part of a payout transaction, ghost cards aren't tied to a specific payout. They're issued directly to a vendor and can be reused up to a configurable number of times within the card's spending limits.
 
-        Only one ghost card can exist per vendor per paypoint. To issue a new card to the same vendor, cancel the existing card first.
+        Only one active ghost card can exist per vendor per paypoint. If the vendor already has one, the request fails with error `7067`. To issue a new card to the same vendor, cancel the existing card first. Canceled and expired cards don't count toward this limit. See [Cancel ghost card](/developers/api-reference/cards/cancel-ghost-card).
 
         Parameters
         ----------
@@ -455,6 +553,103 @@ class AsyncRawGhostCardClient:
                     CreateGhostCardResponse,
                     parse_obj_as(
                         type_=CreateGhostCardResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PayabliErrorBody,
+                        parse_obj_as(
+                            type_=PayabliErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def delete_ghost_card(
+        self, card_token: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[DeleteGhostCardResponse]:
+        """
+        Cancels a ghost card. This is always a soft delete: Payabli keeps the card record, including its transaction history.
+
+        Canceling a ghost card frees the vendor's slot, so you can issue a new ghost card to the same vendor. A card canceled with this endpoint can't be used, reactivated, or canceled again.
+
+        Requires the `vcard_delete` permission.
+
+        Parameters
+        ----------
+        card_token : str
+            Token that identifies the ghost card to cancel. This is the `ReferenceId` returned when the card was created.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[DeleteGhostCardResponse]
+            Success response confirming the ghost card was canceled.
+        """
+        _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
+            security=[{"BearerAuth": []}, {"APIKeyAuth": []}]
+        )
+        _response = await self._client_wrapper.httpx_client.request(
+            f"MoneyOutCard/GhostCard/{encode_path_param(card_token)}",
+            method="DELETE",
+            headers={
+                **_endpoint_auth_headers,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    DeleteGhostCardResponse,
+                    parse_obj_as(
+                        type_=DeleteGhostCardResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

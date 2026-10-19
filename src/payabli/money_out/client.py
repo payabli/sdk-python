@@ -13,6 +13,7 @@ from ..types.bill_detail_response import BillDetailResponse
 from ..types.capture_all_out_response import CaptureAllOutResponse
 from ..types.entrypointfield import Entrypointfield
 from ..types.idempotency_key import IdempotencyKey
+from ..types.next_check_number_response import NextCheckNumberResponse
 from ..types.operation_result import OperationResult
 from ..types.order_id import OrderId
 from ..types.orderdescription import Orderdescription
@@ -28,6 +29,7 @@ from ..types.source import Source
 from ..types.subdomain import Subdomain
 from ..types.subscriptionid import Subscriptionid
 from ..types.v_card_get_response import VCardGetResponse
+from ..types.vendor_check_number import VendorCheckNumber
 from .raw_client import AsyncRawMoneyOutClient, RawMoneyOutClient
 
 # this is used as the default value for optional parameters
@@ -785,18 +787,63 @@ class MoneyOutClient:
         )
         return _response.data
 
+    def get_next_check_number(
+        self, paypoint_id: int, account_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> NextCheckNumberResponse:
+        """
+        Returns a suggested check number for the next check payout from a paypoint's funding account. Payabli suggests the highest check number on the account's check payouts plus one, or `1` if the account has no check history. Canceled check payouts don't count toward the highest number.
+
+
+        Use the suggested value with the `checkNumber` field when you reissue a check, or when you create a new check payout.
+
+
+        Errors return HTTP `400`: `3005` when the paypoint ID is invalid or inactive, and `3758` when the account ID isn't valid for the paypoint.
+
+        Parameters
+        ----------
+        paypoint_id : int
+            The ID of the paypoint that owns the funding account.
+
+        account_id : str
+            The `accountId` of the bank account linked to the paypoint's check service, such as `123-456`. Find it in the paypoint's bank account details (`BankData`).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        NextCheckNumberResponse
+            Success
+
+        Examples
+        --------
+        from payabli import payabli
+
+        client = payabli(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+        client.money_out.get_next_check_number(
+            paypoint_id=3040,
+            account_id="123-456",
+        )
+        """
+        _response = self._raw_client.get_next_check_number(paypoint_id, account_id, request_options=request_options)
+        return _response.data
+
     def reissue_out(
         self,
         *,
         trans_id: str,
         payment_method: ReissuePaymentMethod,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
+        check_number: typing.Optional[VendorCheckNumber] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ReissuePayoutResponse:
         """
         Reissues a payout transaction with a new payment method. This creates a new transaction linked to the original and marks the original transaction as reissued.
 
-        The original transaction must be in **Processing** or **Processed** status. The payment method in the request body is used directly. The endpoint doesn't fall back to vendor-managed payment methods.
+        The original transaction must be in **Processing** or **Processed** status. An ACH payout with a **Returned** status can also be reissued. The payment method in the request body is used directly. The endpoint doesn't fall back to vendor-managed payment methods.
 
         The new transaction goes through the standard authorize-and-capture flow automatically. Both the original and new transactions are linked through their event histories for audit purposes.
 
@@ -811,6 +858,8 @@ class MoneyOutClient:
 
         idempotency_key : typing.Optional[IdempotencyKey]
             _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
+
+        check_number : typing.Optional[VendorCheckNumber]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -844,6 +893,7 @@ class MoneyOutClient:
             trans_id=trans_id,
             payment_method=payment_method,
             idempotency_key=idempotency_key,
+            check_number=check_number,
             request_options=request_options,
         )
         return _response.data
@@ -1704,18 +1754,73 @@ class AsyncMoneyOutClient:
         )
         return _response.data
 
+    async def get_next_check_number(
+        self, paypoint_id: int, account_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> NextCheckNumberResponse:
+        """
+        Returns a suggested check number for the next check payout from a paypoint's funding account. Payabli suggests the highest check number on the account's check payouts plus one, or `1` if the account has no check history. Canceled check payouts don't count toward the highest number.
+
+
+        Use the suggested value with the `checkNumber` field when you reissue a check, or when you create a new check payout.
+
+
+        Errors return HTTP `400`: `3005` when the paypoint ID is invalid or inactive, and `3758` when the account ID isn't valid for the paypoint.
+
+        Parameters
+        ----------
+        paypoint_id : int
+            The ID of the paypoint that owns the funding account.
+
+        account_id : str
+            The `accountId` of the bank account linked to the paypoint's check service, such as `123-456`. Find it in the paypoint's bank account details (`BankData`).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        NextCheckNumberResponse
+            Success
+
+        Examples
+        --------
+        import asyncio
+
+        from payabli import Asyncpayabli
+
+        client = Asyncpayabli(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+
+
+        async def main() -> None:
+            await client.money_out.get_next_check_number(
+                paypoint_id=3040,
+                account_id="123-456",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_next_check_number(
+            paypoint_id, account_id, request_options=request_options
+        )
+        return _response.data
+
     async def reissue_out(
         self,
         *,
         trans_id: str,
         payment_method: ReissuePaymentMethod,
         idempotency_key: typing.Optional[IdempotencyKey] = None,
+        check_number: typing.Optional[VendorCheckNumber] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ReissuePayoutResponse:
         """
         Reissues a payout transaction with a new payment method. This creates a new transaction linked to the original and marks the original transaction as reissued.
 
-        The original transaction must be in **Processing** or **Processed** status. The payment method in the request body is used directly. The endpoint doesn't fall back to vendor-managed payment methods.
+        The original transaction must be in **Processing** or **Processed** status. An ACH payout with a **Returned** status can also be reissued. The payment method in the request body is used directly. The endpoint doesn't fall back to vendor-managed payment methods.
 
         The new transaction goes through the standard authorize-and-capture flow automatically. Both the original and new transactions are linked through their event histories for audit purposes.
 
@@ -1730,6 +1835,8 @@ class AsyncMoneyOutClient:
 
         idempotency_key : typing.Optional[IdempotencyKey]
             _Optional but recommended_ A unique ID that you can include to prevent duplicating objects or transactions in the case that a request is sent more than once. This key isn't generated in Payabli, you must generate it yourself. This key persists for 2 minutes. After 2 minutes, you can reuse the key if needed.
+
+        check_number : typing.Optional[VendorCheckNumber]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1771,6 +1878,7 @@ class AsyncMoneyOutClient:
             trans_id=trans_id,
             payment_method=payment_method,
             idempotency_key=idempotency_key,
+            check_number=check_number,
             request_options=request_options,
         )
         return _response.data

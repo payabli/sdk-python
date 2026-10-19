@@ -2,6 +2,8 @@
 
 VendorNumber = str
 """
-Custom number identifying the vendor. Must be unique in paypoint. Can't be
-blank.
+Custom number identifying the vendor. Must be unique within the
+paypoint, regardless of `locationCode`. Inactive vendors keep their
+number, so another vendor can't use it. Deleted vendors release their
+number. Can't be blank.
 """

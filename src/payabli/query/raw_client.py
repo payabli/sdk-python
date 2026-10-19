@@ -4891,6 +4891,7 @@ class RawQueryClient:
             - `customerShippingState` (ct, nct, eq, ne)
             - `customerShippingCountry` (ct, nct, eq, ne)
             - `deviceId` (ct, nct, in, nin, eq, ne)
+            - `DeviceEntryMode` (eq, ne, in, nin). Filters by how the device read the card: `Chip`, `Contactless`, `Swipe`, `Manual`, `Fallback`, or `None`. Case-insensitive. Separate multiple values with `|`, for example `DeviceEntryMode(in)=Chip|Contactless`. `ne` and `nin` also return transactions with no entry mode, such as non-device transactions. An unrecognized value is ignored, so the filter isn't applied.
             - `AchSecCode` ( ct, nct, in, nin, eq, ne)
             - `AchHolderType` (ct, nct, in, nin, eq, and ne)
             - `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name related to customer data
@@ -5104,6 +5105,7 @@ class RawQueryClient:
             - `customerShippingState` (ct, nct, eq, ne)
             - `customerShippingCountry` (ct, nct, eq, ne)
             - `deviceId` (ct, nct, in, nin, eq, ne)
+            - `DeviceEntryMode` (eq, ne, in, nin). Filters by how the device read the card: `Chip`, `Contactless`, `Swipe`, `Manual`, `Fallback`, or `None`. Case-insensitive. Separate multiple values with `|`, for example `DeviceEntryMode(in)=Chip|Contactless`. `ne` and `nin` also return transactions with no entry mode, such as non-device transactions. An unrecognized value is ignored, so the filter isn't applied.
             - `AchSecCode` ( ct, nct, in, nin, eq, ne)
             - `AchHolderType`` (ct, nct, in, nin, eq, and ne)
             - `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name related to customer data
@@ -5740,6 +5742,7 @@ class RawQueryClient:
               - `batchId` (ne, eq, in, nin)
               - `detailType` (eq, ne, in, nin, ct, nct)
               - `detailMethod` (eq, ne, in, nin, ct, nct)
+              - `paymentId` (ne, eq, in, nin): The payout's payment ID. Returns every transfer linked to that payout: the payout transfer, any refund and stale check refund transfers, and the billing fee transfer.
 
         sort_by : typing.Optional[str]
             The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
@@ -5887,6 +5890,7 @@ class RawQueryClient:
               - `batchId` (ne, eq, in, nin)
               - `detailType` (eq, ne, in, nin, ct, nct)
               - `detailMethod` (eq, ne, in, nin, ct, nct)
+              - `paymentId` (ne, eq, in, nin): The payout's payment ID. Returns every transfer linked to that payout: the payout transfer, any refund and stale check refund transfers, and the billing fee transfer.
 
         sort_by : typing.Optional[str]
             The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
@@ -12268,6 +12272,7 @@ class AsyncRawQueryClient:
             - `customerShippingState` (ct, nct, eq, ne)
             - `customerShippingCountry` (ct, nct, eq, ne)
             - `deviceId` (ct, nct, in, nin, eq, ne)
+            - `DeviceEntryMode` (eq, ne, in, nin). Filters by how the device read the card: `Chip`, `Contactless`, `Swipe`, `Manual`, `Fallback`, or `None`. Case-insensitive. Separate multiple values with `|`, for example `DeviceEntryMode(in)=Chip|Contactless`. `ne` and `nin` also return transactions with no entry mode, such as non-device transactions. An unrecognized value is ignored, so the filter isn't applied.
             - `AchSecCode` ( ct, nct, in, nin, eq, ne)
             - `AchHolderType` (ct, nct, in, nin, eq, and ne)
             - `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name related to customer data
@@ -12481,6 +12486,7 @@ class AsyncRawQueryClient:
             - `customerShippingState` (ct, nct, eq, ne)
             - `customerShippingCountry` (ct, nct, eq, ne)
             - `deviceId` (ct, nct, in, nin, eq, ne)
+            - `DeviceEntryMode` (eq, ne, in, nin). Filters by how the device read the card: `Chip`, `Contactless`, `Swipe`, `Manual`, `Fallback`, or `None`. Case-insensitive. Separate multiple values with `|`, for example `DeviceEntryMode(in)=Chip|Contactless`. `ne` and `nin` also return transactions with no entry mode, such as non-device transactions. An unrecognized value is ignored, so the filter isn't applied.
             - `AchSecCode` ( ct, nct, in, nin, eq, ne)
             - `AchHolderType`` (ct, nct, in, nin, eq, and ne)
             - `additional-xxx` (ne, eq, ct, nct) where xxx is the additional field name related to customer data
@@ -13117,6 +13123,7 @@ class AsyncRawQueryClient:
               - `batchId` (ne, eq, in, nin)
               - `detailType` (eq, ne, in, nin, ct, nct)
               - `detailMethod` (eq, ne, in, nin, ct, nct)
+              - `paymentId` (ne, eq, in, nin): The payout's payment ID. Returns every transfer linked to that payout: the payout transfer, any refund and stale check refund transfers, and the billing fee transfer.
 
         sort_by : typing.Optional[str]
             The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.
@@ -13264,6 +13271,7 @@ class AsyncRawQueryClient:
               - `batchId` (ne, eq, in, nin)
               - `detailType` (eq, ne, in, nin, ct, nct)
               - `detailMethod` (eq, ne, in, nin, ct, nct)
+              - `paymentId` (ne, eq, in, nin): The payout's payment ID. Returns every transfer linked to that payout: the payout transfer, any refund and stale check refund transfers, and the billing fee transfer.
 
         sort_by : typing.Optional[str]
             The field name to use for sorting results. Use `desc(field_name)` to sort descending by `field_name`, and use `asc(field_name)` to sort ascending by `field_name`.

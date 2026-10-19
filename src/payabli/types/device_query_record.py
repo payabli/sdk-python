@@ -6,6 +6,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .device_query_record_operational_status import DeviceQueryRecordOperationalStatus
 
 
 class DeviceQueryRecord(UniversalBaseModel):
@@ -60,6 +61,24 @@ class DeviceQueryRecord(UniversalBaseModel):
     Model name of the device.
     """
 
+    app_version: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="appVersion"),
+        pydantic.Field(alias="appVersion", description="Version of the Payabli app running on the device."),
+    ] = None
+    """
+    Version of the Payabli app running on the device.
+    """
+
+    os_version: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="osVersion"),
+        pydantic.Field(alias="osVersion", description="Version of Android running on the device."),
+    ] = None
+    """
+    Version of Android running on the device.
+    """
+
     device_type: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="deviceType"),
@@ -72,10 +91,40 @@ class DeviceQueryRecord(UniversalBaseModel):
     device_status: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="deviceStatus"),
-        pydantic.Field(alias="deviceStatus", description="Current status of the device."),
+        pydantic.Field(
+            alias="deviceStatus",
+            description="Lifecycle status of the device, as an integer. A value of `1` means the\ndevice is active. This field doesn't show whether the device is running\na command. To check whether the device can accept a transaction now,\nuse `operationalStatus`.",
+        ),
     ] = None
     """
-    Current status of the device.
+    Lifecycle status of the device, as an integer. A value of `1` means the
+    device is active. This field doesn't show whether the device is running
+    a command. To check whether the device can accept a transaction now,
+    use `operationalStatus`.
+    """
+
+    operational_status: typing_extensions.Annotated[
+        DeviceQueryRecordOperationalStatus,
+        FieldMetadata(alias="operationalStatus"),
+        pydantic.Field(
+            alias="operationalStatus",
+            description="Shows whether the device can accept a transaction now. The value\nreflects the device's state when you send the query.\n\n- `online`: The device is active and isn't running a command. It can\n  accept a transaction.\n- `busy`: The device is running a command that's pending, dispatched,\n  or processing, and the command hasn't expired. A new transaction sent\n  to the device fails with error `E7069` (Device busy). Wait for the\n  command to finish or expire, then query the device again.\n- `offline`: The device isn't active, so it can't accept transactions.\n  Its lifecycle status (`deviceStatus`) isn't active.\n\nCheck this field before you send a transaction to a device.",
+        ),
+    ]
+    """
+    Shows whether the device can accept a transaction now. The value
+    reflects the device's state when you send the query.
+    
+    - `online`: The device is active and isn't running a command. It can
+      accept a transaction.
+    - `busy`: The device is running a command that's pending, dispatched,
+      or processing, and the command hasn't expired. A new transaction sent
+      to the device fails with error `E7069` (Device busy). Wait for the
+      command to finish or expire, then query the device again.
+    - `offline`: The device isn't active, so it can't accept transactions.
+      Its lifecycle status (`deviceStatus`) isn't active.
+    
+    Check this field before you send a transaction to a device.
     """
 
     device_os: typing_extensions.Annotated[

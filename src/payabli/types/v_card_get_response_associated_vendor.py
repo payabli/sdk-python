@@ -9,6 +9,7 @@ from ..core.serialization import FieldMetadata
 from .additional_data_map import AdditionalDataMap
 from .dbaname import Dbaname
 from .external_paypoint_id import ExternalPaypointId
+from .issue_1099 import Issue1099
 from .legalname import Legalname
 from .location_code import LocationCode
 from .org_parent_name import OrgParentName
@@ -156,6 +157,9 @@ class VCardGetResponseAssociatedVendor(UniversalBaseModel):
 
     location_code: typing_extensions.Annotated[
         typing.Optional[LocationCode], FieldMetadata(alias="LocationCode"), pydantic.Field(alias="LocationCode")
+    ] = None
+    issue_1099: typing_extensions.Annotated[
+        typing.Optional[Issue1099], FieldMetadata(alias="Issue1099"), pydantic.Field(alias="Issue1099")
     ] = None
     contacts: typing_extensions.Annotated[
         typing.Optional[typing.List[VCardGetResponseContact]],

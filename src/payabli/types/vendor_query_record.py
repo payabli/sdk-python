@@ -18,6 +18,7 @@ from .enrollment_status import EnrollmentStatus
 from .entrypointfield import Entrypointfield
 from .external_paypoint_id import ExternalPaypointId
 from .internal_reference_id import InternalReferenceId
+from .issue_1099 import Issue1099
 from .last_modified import LastModified
 from .legalname import Legalname
 from .mcc import Mcc
@@ -107,6 +108,9 @@ class VendorQueryRecord(UniversalBaseModel):
     location_code: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="LocationCode"), pydantic.Field(alias="LocationCode")
     ] = None
+    issue_1099: typing_extensions.Annotated[
+        Issue1099, FieldMetadata(alias="Issue1099"), pydantic.Field(alias="Issue1099")
+    ]
     contacts: typing_extensions.Annotated[
         typing.Optional[typing.List[ContactsResponse]],
         FieldMetadata(alias="Contacts"),

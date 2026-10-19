@@ -79,6 +79,7 @@ class SubscriptionClient:
         self,
         sub_id: int,
         *,
+        invoice_data: typing.Optional[BillData] = OMIT,
         payment_details: typing.Optional[PaymentDetail] = OMIT,
         schedule_details: typing.Optional[ScheduleDetail] = OMIT,
         set_pause: typing.Optional[SetPause] = OMIT,
@@ -91,6 +92,9 @@ class SubscriptionClient:
         ----------
         sub_id : int
             The subscription ID.
+
+        invoice_data : typing.Optional[BillData]
+            Object describing an invoice linked to the subscription. Replaces the subscription's existing invoice data entirely. Send `null` to remove it, or leave it out to keep the current invoice data. See [Update a subscription](/guides/pay-in-developer-subscriptions-manage#update-a-subscription) for details.
 
         payment_details : typing.Optional[PaymentDetail]
             Object describing details of the payment. For Regular subscriptions, skip a payment by setting `totalAmount` to 0; payments pause until you update it to a non-zero value, and `serviceFee` must also be 0 when `totalAmount` is 0. For BalanceDriven subscriptions, any `totalAmount` you send is accepted but ignored at run time. Each run charges the payor's live balance, and a zero balance is skipped.
@@ -123,6 +127,7 @@ class SubscriptionClient:
         """
         _response = self._raw_client.update_subscription(
             sub_id,
+            invoice_data=invoice_data,
             payment_details=payment_details,
             schedule_details=schedule_details,
             set_pause=set_pause,
@@ -345,6 +350,7 @@ class AsyncSubscriptionClient:
         self,
         sub_id: int,
         *,
+        invoice_data: typing.Optional[BillData] = OMIT,
         payment_details: typing.Optional[PaymentDetail] = OMIT,
         schedule_details: typing.Optional[ScheduleDetail] = OMIT,
         set_pause: typing.Optional[SetPause] = OMIT,
@@ -357,6 +363,9 @@ class AsyncSubscriptionClient:
         ----------
         sub_id : int
             The subscription ID.
+
+        invoice_data : typing.Optional[BillData]
+            Object describing an invoice linked to the subscription. Replaces the subscription's existing invoice data entirely. Send `null` to remove it, or leave it out to keep the current invoice data. See [Update a subscription](/guides/pay-in-developer-subscriptions-manage#update-a-subscription) for details.
 
         payment_details : typing.Optional[PaymentDetail]
             Object describing details of the payment. For Regular subscriptions, skip a payment by setting `totalAmount` to 0; payments pause until you update it to a non-zero value, and `serviceFee` must also be 0 when `totalAmount` is 0. For BalanceDriven subscriptions, any `totalAmount` you send is accepted but ignored at run time. Each run charges the payor's live balance, and a zero balance is skipped.
@@ -397,6 +406,7 @@ class AsyncSubscriptionClient:
         """
         _response = await self._raw_client.update_subscription(
             sub_id,
+            invoice_data=invoice_data,
             payment_details=payment_details,
             schedule_details=schedule_details,
             set_pause=set_pause,

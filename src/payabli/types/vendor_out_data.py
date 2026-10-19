@@ -12,6 +12,7 @@ from .address_nullable import AddressNullable
 from .billing_data import BillingData
 from .contacts_field import ContactsField
 from .email import Email
+from .issue_1099 import Issue1099
 from .location_code import LocationCode
 from .mcc import Mcc
 from .payee_name import PayeeName
@@ -134,6 +135,9 @@ class VendorOutData(UniversalBaseModel):
 
     location_code: typing_extensions.Annotated[
         typing.Optional[LocationCode], FieldMetadata(alias="LocationCode"), pydantic.Field(alias="LocationCode")
+    ] = None
+    issue_1099: typing_extensions.Annotated[
+        typing.Optional[Issue1099], FieldMetadata(alias="Issue1099"), pydantic.Field(alias="Issue1099")
     ] = None
     mcc: typing_extensions.Annotated[typing.Optional[Mcc], FieldMetadata(alias="Mcc"), pydantic.Field(alias="Mcc")] = (
         None

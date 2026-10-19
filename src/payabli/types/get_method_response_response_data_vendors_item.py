@@ -11,6 +11,7 @@ from .additional_data_map import AdditionalDataMap
 from .contacts import Contacts
 from .email import Email
 from .internal_reference_id import InternalReferenceId
+from .issue_1099 import Issue1099
 from .location_code import LocationCode
 from .mcc import Mcc
 from .payee_name import PayeeName
@@ -171,6 +172,9 @@ class GetMethodResponseResponseDataVendorsItem(UniversalBaseModel):
     Location code for vendor
     """
 
+    issue_1099: typing_extensions.Annotated[
+        typing.Optional[Issue1099], FieldMetadata(alias="issue1099"), pydantic.Field(alias="issue1099")
+    ] = None
     mcc: typing.Optional[Mcc] = pydantic.Field(default=None)
     """
     Merchant category code

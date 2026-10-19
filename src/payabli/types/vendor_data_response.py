@@ -11,6 +11,7 @@ from .additional_data_map import AdditionalDataMap
 from .contacts_response import ContactsResponse
 from .email import Email
 from .internal_reference_id import InternalReferenceId
+from .issue_1099 import Issue1099
 from .location_code import LocationCode
 from .mcc import Mcc
 from .payee_name import PayeeName
@@ -127,6 +128,9 @@ class VendorDataResponse(UniversalBaseModel):
     mcc: typing_extensions.Annotated[Mcc, FieldMetadata(alias="Mcc"), pydantic.Field(alias="Mcc")]
     location_code: typing_extensions.Annotated[
         LocationCode, FieldMetadata(alias="LocationCode"), pydantic.Field(alias="LocationCode")
+    ]
+    issue_1099: typing_extensions.Annotated[
+        Issue1099, FieldMetadata(alias="Issue1099"), pydantic.Field(alias="Issue1099")
     ]
     contacts: typing_extensions.Annotated[
         typing.List[ContactsResponse],

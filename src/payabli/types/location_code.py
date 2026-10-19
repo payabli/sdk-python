@@ -2,5 +2,5 @@
 
 LocationCode = str
 """
-A location code used to identify the vendor's location.
+A location code used to identify the vendor's location. Vendors in the same paypoint can't share a `vendorNumber`, even if their location codes are different.
 """

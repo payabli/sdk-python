@@ -11,6 +11,7 @@ from .accounting_field import AccountingField
 from .bill_item import BillItem
 from .bill_query_record_2_bill_approvals_item import BillQueryRecord2BillApprovalsItem
 from .bill_query_record_2_payment_method import BillQueryRecord2PaymentMethod
+from .bill_transaction_reference import BillTransactionReference
 from .billstatus import Billstatus
 from .created_at import CreatedAt
 from .dbaname import Dbaname
@@ -340,6 +341,13 @@ class BillQueryRecord2(UniversalBaseModel):
     ] = None
     """
     MoneyOut transaction associated to the bill.
+    """
+
+    transactions: typing.Optional[typing.List[BillTransactionReference]] = pydantic.Field(default=None)
+    """
+    All payout transactions that paid the bill, with one entry for each payout. When a bill is paid by several [partial payouts](/guides/pay-out-developer-bills-manage#partially-pay-a-bill), each one has an entry and `Transaction` holds the most recent. Canceled payouts aren't included.
+    
+    The value is `null` when the bill has no payouts, and an empty array when every payout on the bill has been canceled. For details, see `transactions` in [Get bill](/developers/api-reference/bill/get-bill).
     """
 
     vendor: typing_extensions.Annotated[
