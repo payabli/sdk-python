@@ -215,9 +215,9 @@ class RawMoneyOutClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=PayabliErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -741,9 +741,9 @@ class RawMoneyOutClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=PayabliErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -960,9 +960,9 @@ class RawMoneyOutClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=PayabliErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2015,9 +2015,9 @@ class AsyncRawMoneyOutClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=PayabliErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2541,9 +2541,9 @@ class AsyncRawMoneyOutClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=PayabliErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2760,9 +2760,9 @@ class AsyncRawMoneyOutClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        PayabliErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=PayabliErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

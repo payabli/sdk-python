@@ -6,8 +6,8 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .money_in_service import MoneyInService
-from .money_out_service import MoneyOutService
+from .case_management_money_in_service import CaseManagementMoneyInService
+from .case_management_money_out_service import CaseManagementMoneyOutService
 
 
 class BankAccountServices(UniversalBaseModel):
@@ -16,7 +16,7 @@ class BankAccountServices(UniversalBaseModel):
     """
 
     money_in: typing_extensions.Annotated[
-        typing.Optional[typing.List[MoneyInService]],
+        typing.Optional[typing.List[CaseManagementMoneyInService]],
         FieldMetadata(alias="moneyIn"),
         pydantic.Field(alias="moneyIn", description="Pay In services the account is used for."),
     ] = None
@@ -25,7 +25,7 @@ class BankAccountServices(UniversalBaseModel):
     """
 
     money_out: typing_extensions.Annotated[
-        typing.Optional[typing.List[MoneyOutService]],
+        typing.Optional[typing.List[CaseManagementMoneyOutService]],
         FieldMetadata(alias="moneyOut"),
         pydantic.Field(alias="moneyOut", description="Pay Out services the account is used for."),
     ] = None

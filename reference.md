@@ -17852,6 +17852,5586 @@ Example: name(ct)=john return all records with name containing john
 </dl>
 </details>
 
+## Businesses
+<details><summary><code>client.businesses.<a href="src/payabli/businesses/client.py">list_businesses</a>(...) -> ListBusinessesEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists businesses with optional filtering and pagination.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.businesses.list_businesses(
+    limit=1,
+    page=1,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[str]` — Filter by business status.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — Filter by legal name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**merchant_cat_code:** `typing.Optional[str]` — Filter by merchant category code.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**legal_structure:** `typing.Optional[str]` — Filter by legal structure.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Number of results per page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page:** `typing.Optional[int]` — Page number to return.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort_by:** `typing.Optional[str]` — Field to sort by.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort_order:** `typing.Optional[str]` — Sort direction.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.businesses.<a href="src/payabli/businesses/client.py">create_business</a>(...) -> BusinessCreatedEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a business, the legal entity behind a paypoint. New businesses
+start in `Draft`. Set `parentReference` to the organization 
+the business belongs to, or omit it to use the organization your
+credential belongs to.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli, BusinessPaymentMethod
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.businesses.create_business(
+    external_id="rg-001",
+    legal_name="Rose Gardens LLC",
+    legal_structure="llc",
+    website="https://example.com",
+    merchant_cat_code="5814",
+    phone=[
+        "3055551212"
+    ],
+    emails=[
+        "ops@example.com"
+    ],
+    payment_methods=[
+        BusinessPaymentMethod(
+            type="bank_account",
+            name="Operating account",
+            financial_institution="Bank of Example",
+            owner_type="business",
+            account_type="checking",
+            account_number="123456789",
+            routing_number="021000021",
+            usage=[
+                "deposits",
+                "billing"
+            ],
+            is_default=True,
+        ),
+        BusinessPaymentMethod(
+            type="bank_account",
+            name="Payout account",
+            financial_institution="Bank of Example",
+            owner_type="business",
+            account_type="checking",
+            account_number="987654321",
+            routing_number="021000021",
+            usage=[
+                "payOutFunding"
+            ],
+            is_default=False,
+        )
+    ],
+    tax_reference="477498993",
+    parent_reference="8cfec329267",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `CreateBusinessRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.businesses.<a href="src/payabli/businesses/client.py">get_business</a>(...) -> BusinessDetailEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a business by reference. Sensitive fields such as `taxReference` are masked.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.businesses.get_business(
+    business_reference="019fed1a-3d6e-75d3-a81e-cba3874b0a55",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**business_reference:** `str` — The business reference (`businessUuid`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.businesses.<a href="src/payabli/businesses/client.py">deactivate_business</a>(...) -> BusinessDeactivatedEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deactivates a business. This is a soft delete: the business moves to
+`Deactivated` and the record is kept.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.businesses.deactivate_business(
+    business_reference="019fed33-615d-77b6-afaa-46e7ac9bf36e",
+    reason="Duplicate record",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**business_reference:** `str` — The business reference (`businessUuid`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**reason:** `typing.Optional[str]` — Optional reason for deactivation (max 500 characters).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.businesses.<a href="src/payabli/businesses/client.py">update_business</a>(...) -> BusinessUpdatedEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Applies a partial update to a business. Send only the fields you want to change.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.businesses.update_business(
+    business_reference="019fed1a-3d6e-75d3-a81e-cba3874b0a55",
+    website="https://example.org",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**business_reference:** `str` — The business reference (`businessUuid`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**external_id:** `typing.Optional[str]` — Your own identifier for the business.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**legal_name:** `typing.Optional[str]` — The registered legal name of the business.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `typing.Optional[str]` — A free-text description of the business.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**legal_structure:** `typing.Optional[UpdateBusinessRequestLegalStructure]` — The business's legal structure. Accepts the same values as create, and normalizes to a canonical value on read.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**stock_symbol:** `typing.Optional[str]` — The stock ticker symbol, if the business is publicly traded.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**incorporation_state:** `typing.Optional[str]` — The state where the business is incorporated.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tax_id_country:** `typing.Optional[str]` — The country that issued the business's tax identifier.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**established_date:** `typing.Optional[datetime.datetime]` — The date the business was established.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**number_of_employees:** `typing.Optional[int]` — The number of employees.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**annual_revenue:** `typing.Optional[float]` — The business's annual revenue.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**website:** `typing.Optional[str]` — The business's website URL.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**merchant_cat_code:** `typing.Optional[str]` — The merchant category code (MCC) that classifies the business.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**timezone:** `typing.Optional[str]` — The business's time zone.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**phone:** `typing.Optional[typing.List[str]]` — Phone numbers for the business.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**emails:** `typing.Optional[typing.List[str]]` — Email addresses for the business.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**operating_seasons:** `typing.Optional[typing.List[UpdateBusinessRequestOperatingSeasonsItem]]` — The seasons the business operates in. Values are case-insensitive on input and returned capitalized.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**address_details:** `typing.Optional[typing.List[BusinessAddress]]` 
+
+A non-empty `addressDetails` is rejected on update. Manage a business's
+addresses through the `/v2/businesses/{businessReference}/addresses`
+endpoints instead. An omitted field or an empty array is accepted as
+"no address change requested."
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payment_methods:** `typing.Optional[typing.List[BusinessPaymentMethod]]` — The bank accounts and cards attached to the business.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**custom_data:** `typing.Optional[typing.Dict[str, typing.Any]]` 
+
+Key-value data to merge into the business's stored `customData`.
+Payabli stores the applicant's answers to a boarding template's
+custom questions under the `templateAnswers` key.
+
+When you update a business, Payabli merges `customData` into the
+stored value, following JSON Merge Patch (RFC 7396). Keys you
+don't send are kept at every depth, and nested objects merge key
+by key. Strings, numbers, Boolean values, and arrays replace the
+stored value, and arrays aren't merged. Send a key as `null` to
+delete it, such as `{"crmId": null}`. A `customData` that isn't
+an object, such as an array, replaces the stored value whole.
+Leave out `customData` to keep it as is.
+
+The `customData` you send can be up to 65,536 bytes serialized.
+The limit applies to the request, not to the merged result.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_foreign_owned:** `typing.Optional[bool]` — Whether the business is foreign-owned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_tax_exempt:** `typing.Optional[bool]` — Whether the business is tax-exempt.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tax_exempt_classification:** `typing.Optional[str]` — The business's tax-exempt classification, such as `501(c)(3)`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**processing_metrics:** `typing.Optional[ProcessingMetrics]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payout_metrics:** `typing.Optional[PayoutMetrics]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**license:** `typing.Optional[str]` — The business's license number.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**license_state:** `typing.Optional[str]` — The state that issued the business's license.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.businesses.<a href="src/payabli/businesses/client.py">get_business_unmasked</a>(...) -> BusinessDetailEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a business by reference with sensitive fields unmasked.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.businesses.get_business_unmasked(
+    business_reference="019fed1a-3d6e-75d3-a81e-cba3874b0a55",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**business_reference:** `str` — The business reference (`businessUuid`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.businesses.<a href="src/payabli/businesses/client.py">list_business_addresses</a>(...) -> BusinessAddressListEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the addresses on a business. Each address is identified by its `businessAddressReference`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.businesses.list_business_addresses(
+    business_reference="019fed1a-3d6e-75d3-a81e-cba3874b0a55",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**business_reference:** `str` — The business reference (`businessUuid`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.businesses.<a href="src/payabli/businesses/client.py">create_business_address</a>(...) -> BusinessAddressEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Adds an address to a business. Returns the new address and its `businessAddressReference`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.businesses.create_business_address(
+    business_reference="019fed1a-3d6e-75d3-a81e-cba3874b0a55",
+    type="mailing",
+    location="warehouse",
+    address_line_1="202 Warehouse Ln",
+    city_locality="Austin",
+    state_province="TX",
+    postal_code="73302",
+    country="US",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**business_reference:** `str` — The business reference (`businessUuid`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**type:** `AddressType` — The address role.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**address_line_1:** `str` — The first line of the street address.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**city_locality:** `str` — The city or locality.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**state_province:** `str` — The state or province.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**postal_code:** `str` — The postal or ZIP code.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**country:** `str` — The two-character ISO country code.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**location:** `typing.Optional[BusinessAddressLocation]` — The physical use of the address.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**address_line_2:** `typing.Optional[str]` — The second line of the street address.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**floor:** `typing.Optional[str]` — The floor, if applicable.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**suite_apart_number:** `typing.Optional[str]` — The suite or apartment number, if applicable.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.businesses.<a href="src/payabli/businesses/client.py">get_business_address</a>(...) -> BusinessAddressEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a single business address by its `businessAddressReference`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.businesses.get_business_address(
+    business_reference="019fed1a-3d6e-75d3-a81e-cba3874b0a55",
+    business_address_reference="019fed1a-84a6-7043-a6c0-e8aa2d4bec36",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**business_reference:** `str` — The business reference (`businessUuid`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**business_address_reference:** `str` — The business address reference.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.businesses.<a href="src/payabli/businesses/client.py">delete_business_address</a>(...) -> BusinessAddressDeletedEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Removes an address from a business.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.businesses.delete_business_address(
+    business_reference="019fed1a-3d6e-75d3-a81e-cba3874b0a55",
+    business_address_reference="019fed1a-67d6-768a-b4cc-29d4299e21d9",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**business_reference:** `str` — The business reference (`businessUuid`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**business_address_reference:** `str` — The business address reference.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.businesses.<a href="src/payabli/businesses/client.py">update_business_address</a>(...) -> BusinessAddressEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Applies a partial update to a business address. Send only the fields you want to change; omitted fields are kept.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.businesses.update_business_address(
+    business_reference="019fed1a-3d6e-75d3-a81e-cba3874b0a55",
+    business_address_reference="019fed1a-67d6-768a-b4cc-29d4299e21d9",
+    type="billing",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**business_reference:** `str` — The business reference (`businessUuid`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**business_address_reference:** `str` — The business address reference.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**type:** `typing.Optional[AddressType]` — The address role.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**location:** `typing.Optional[BusinessAddressLocation]` — The physical use of the address.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**address_line_1:** `typing.Optional[str]` — The first line of the street address.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**address_line_2:** `typing.Optional[str]` — The second line of the street address.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**city_locality:** `typing.Optional[str]` — The city or locality.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**state_province:** `typing.Optional[str]` — The state or province.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**postal_code:** `typing.Optional[str]` — The postal or ZIP code.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**country:** `typing.Optional[str]` — The two-character ISO country code.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**floor:** `typing.Optional[str]` — The floor, if applicable.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**suite_apart_number:** `typing.Optional[str]` — The suite or apartment number, if applicable.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.businesses.<a href="src/payabli/businesses/client.py">list_business_people</a>(...) -> BusinessPersonListEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the people linked to a business, each with the relationship's role, ownership, and relationship-scoped contact details.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.businesses.list_business_people(
+    business_reference="019fed1a-3d6e-75d3-a81e-cba3874b0a55",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**business_reference:** `str` — The business reference (`businessUuid`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.businesses.<a href="src/payabli/businesses/client.py">link_business_person</a>(...) -> BusinessPersonEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Links an existing person to a business, setting the relationship's role, ownership, primary-controller flag, contact fields, and addresses.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli, PersonAddressRequest
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.businesses.link_business_person(
+    business_reference="019fed1a-3d6e-75d3-a81e-cba3874b0a55",
+    person_reference="01a0014d-ce1a-7110-9bac-c4c59647a88d",
+    person_type="Owner",
+    ownership_percentage=100,
+    is_primary_controller=True,
+    is_signer=True,
+    title="CEO",
+    primary_email="contact@example.com",
+    secondary_email="contact.alt@example.net",
+    primary_phone_number="3055551212",
+    secondary_phone_number="3055559876",
+    billing_address=PersonAddressRequest(
+        address_line_1="123 Main Street",
+        city_locality="Miami",
+        state_province="FL",
+        postal_code="33101",
+        country="US",
+        type="billing",
+    ),
+    mailing_address=PersonAddressRequest(
+        address_line_1="456 Oak Avenue",
+        city_locality="Miami",
+        state_province="FL",
+        postal_code="33102",
+        country="US",
+        type="mailing",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**business_reference:** `str` — The business reference (`businessUuid`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**person_reference:** `str` — The reference of the person to link.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**person_type:** `typing.Optional[PersonType]` — The person's role on the business.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ownership_percentage:** `typing.Optional[float]` — The person's ownership percentage (0 to 100). Required when `personType` is `Owner`, and must be omitted for every other role. If the combined ownership would exceed 100%, the link is rejected with a `400`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_primary_controller:** `typing.Optional[bool]` — Whether the person is the business's primary controller.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_signer:** `typing.Optional[bool]` 
+
+Whether the person signs the business's boarding applications. Only an
+owner can be the signer. Setting `isSigner` to `true` on a person with
+another `personType` returns `400` with the message
+`Only an owner can be the signer.` A business has one signer. Setting
+`isSigner` to `true` on one person removes it from every other person
+linked to the business.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**title:** `typing.Optional[str]` 
+
+The person's job title at this business, such as `CEO` or
+`Managing Member`, from 1 to 100 characters. A person linked to more than
+one business can have a different title at each one. A blank value is
+treated as not sent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**primary_email:** `typing.Optional[str]` — The relationship's primary email address.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**secondary_email:** `typing.Optional[str]` — The relationship's secondary email address.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**primary_phone_number:** `typing.Optional[str]` — The relationship's primary phone number.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**secondary_phone_number:** `typing.Optional[str]` — The relationship's secondary phone number.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**billing_address:** `typing.Optional[PersonAddressRequest]` — The billing address for the relationship.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**mailing_address:** `typing.Optional[PersonAddressRequest]` — The mailing address for the relationship.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.businesses.<a href="src/payabli/businesses/client.py">get_business_person</a>(...) -> BusinessPersonEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a single business-person link by the person's reference.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.businesses.get_business_person(
+    business_reference="019fed1a-3d6e-75d3-a81e-cba3874b0a55",
+    person_reference="01a0014d-ce1a-7110-9bac-c4c59647a88d",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**business_reference:** `str` — The business reference (`businessUuid`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**person_reference:** `str` — The person reference.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.businesses.<a href="src/payabli/businesses/client.py">unlink_business_person</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Removes the link between a person and a business. The person record itself isn't deleted.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.businesses.unlink_business_person(
+    business_reference="019fed1a-3d6e-75d3-a81e-cba3874b0a55",
+    person_reference="01a0014d-ce1a-7110-9bac-c4c59647a88d",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**business_reference:** `str` — The business reference (`businessUuid`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**person_reference:** `str` — The person reference.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.businesses.<a href="src/payabli/businesses/client.py">update_business_person</a>(...) -> BusinessPersonEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Applies a partial update to a business-person link. Send only the fields you want to change; omitted fields are kept.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.businesses.update_business_person(
+    business_reference="019fed1a-3d6e-75d3-a81e-cba3874b0a55",
+    person_reference="01a0014d-ce1a-7110-9bac-c4c59647a88d",
+    is_primary_controller=True,
+    primary_email="updated.contact@example.com",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**business_reference:** `str` — The business reference (`businessUuid`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**person_reference:** `str` — The person reference.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**person_type:** `typing.Optional[PersonType]` — The person's role on the business.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ownership_percentage:** `typing.Optional[float]` — The person's ownership percentage (0 to 100).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_primary_controller:** `typing.Optional[bool]` — Whether the person is the business's primary controller.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_signer:** `typing.Optional[bool]` 
+
+Whether the person signs the business's boarding applications. Only an
+owner can be the signer. Setting `isSigner` to `true` on a person with
+another `personType` returns `400` with the message
+`Only an owner can be the signer.` Changing the signer's `personType`
+away from `Owner` returns the same error. Setting it to `true` removes
+it from every other person linked to the business. Setting it to
+`false` leaves the business with no signer until you set another one.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**title:** `typing.Optional[str]` 
+
+The person's job title at this business, from 1 to 100 characters. Updating it changes the title
+for this business only. Omitting it, or sending `null` or a blank value,
+keeps the stored title. You can replace a title, but you can't clear it.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**primary_email:** `typing.Optional[str]` — The relationship's primary email address.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**secondary_email:** `typing.Optional[str]` — The relationship's secondary email address.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**primary_phone_number:** `typing.Optional[str]` — The relationship's primary phone number.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**secondary_phone_number:** `typing.Optional[str]` — The relationship's secondary phone number.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**billing_address:** `typing.Optional[PersonAddressRequest]` — The billing address for the relationship.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**mailing_address:** `typing.Optional[PersonAddressRequest]` — The mailing address for the relationship.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## People
+<details><summary><code>client.people.<a href="src/payabli/people/client.py">list_people</a>(...) -> ListPeopleEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists people with optional filtering and pagination.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.people.list_people(
+    limit=1,
+    page=1,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — Filter by name (partial match).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**email:** `typing.Optional[str]` — Filter by email (partial match).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**verification_status:** `typing.Optional[str]` — Comma-separated verification status filter.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Number of results per page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page:** `typing.Optional[int]` — Page number to return.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort_by:** `typing.Optional[str]` — Field to sort by.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort_order:** `typing.Optional[str]` — Sort direction.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.people.<a href="src/payabli/people/client.py">create_person</a>(...) -> PersonDetailEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a person, an individual associated with a business such as an
+owner, director, or signer. Include a `businessRelationship` object to
+link the person to a business on create; the business reference, role
+(`personType`), and `ownershipPercentage` go inside that object.
+
+A person's job `title` and whether they're the signer (`isSigner`) also
+belong to the business link, so send them inside `businessRelationship`.
+A top-level `title` returns a `400` with the message
+`title moved into the businessRelationship object; send them there instead of at the top level.`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli, PersonAddressRequest, IdentificationDocumentRequest, BusinessRelationshipRequest
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.people.create_person(
+    first_name="Marcus",
+    middle_name="James",
+    last_name="Delgado",
+    primary_email="marcus.delgado@example.com",
+    secondary_email="m.delgado@example.net",
+    primary_phone_number="3055551212",
+    secondary_phone_number="3055559876",
+    date_of_birth="1985-03-14",
+    ssn="412-55-9021",
+    nationality="US",
+    drivers_license_number="D1234567",
+    drivers_license_state="FL",
+    external_id="person-001",
+    custom_data={
+        "department": "finance"
+    },
+    addresses=[
+        PersonAddressRequest(
+            address_line_1="123 Main Street",
+            address_line_2="Suite 400",
+            city_locality="Miami",
+            state_province="FL",
+            postal_code="33101",
+            country="US",
+            type="legal",
+        )
+    ],
+    identification_documents=[
+        IdentificationDocumentRequest(
+            type="passport",
+            number="X1234567",
+            issuing_country="US",
+            expiration_date="2030-06-30",
+        )
+    ],
+    business_relationship=BusinessRelationshipRequest(
+        business_reference="019fed1a-3d6e-75d3-a81e-cba3874b0a55",
+        person_type="Owner",
+        ownership_percentage=100,
+        is_primary_controller=True,
+        is_signer=True,
+        title="CEO",
+        primary_email="contact@example.com",
+        secondary_email="contact.alt@example.net",
+        primary_phone_number="3055551212",
+        secondary_phone_number="3055559876",
+        billing_address=PersonAddressRequest(
+            address_line_1="123 Main Street",
+            city_locality="Miami",
+            state_province="FL",
+            postal_code="33101",
+            country="US",
+            type="billing",
+        ),
+        mailing_address=PersonAddressRequest(
+            address_line_1="456 Oak Avenue",
+            city_locality="Miami",
+            state_province="FL",
+            postal_code="33102",
+            country="US",
+            type="mailing",
+        ),
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**first_name:** `str` — The person's first name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**last_name:** `str` — The person's last name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**middle_name:** `typing.Optional[str]` — The person's middle name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**primary_email:** `typing.Optional[str]` — The person's primary email address.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**secondary_email:** `typing.Optional[str]` — The person's secondary email address.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**primary_phone_number:** `typing.Optional[str]` — The person's primary phone number.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**secondary_phone_number:** `typing.Optional[str]` — The person's secondary phone number.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**date_of_birth:** `typing.Optional[str]` — The person's date of birth (`YYYY-MM-DD`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ssn:** `typing.Optional[str]` — The person's US Social Security Number, in `XXX-XX-XXXX` or `XXXXXXXXX` format. Applies when `nationality` is `US`, and needed to validate a US owner. Create doesn't enforce it. For any other nationality, send `nationalIdNumber` and `nationalIdIssuer` instead.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**nationality:** `typing.Optional[str]` — The person's nationality, as a two-letter ISO 3166-1 alpha-2 country code. Needed to validate an owner, but create doesn't enforce it. Nationality selects which identity number applies. `US` uses `ssn`, and any other value uses `nationalIdNumber` and `nationalIdIssuer`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**national_id_number:** `typing.Optional[str]` — The person's national identification number, for an individual whose `nationality` is not `US`. Send it with `nationalIdIssuer` when `nationality` is non-US. Create doesn't enforce it.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**national_id_issuer:** `typing.Optional[str]` — The authority that issued the national ID, for example the two-letter country code. Send it with `nationalIdNumber` when `nationality` is non-US. Create doesn't enforce it.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**drivers_license_number:** `typing.Optional[str]` — The person's driver's license number.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**drivers_license_state:** `typing.Optional[str]` — The two-letter state code for the driver's license.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**external_id:** `typing.Optional[str]` — Your own identifier for the person.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**custom_data:** `typing.Optional[typing.Dict[str, typing.Any]]` 
+
+Arbitrary key-value data you attach to the person. Payabli
+stores an owner's answers to a boarding template's custom
+questions under the `templateAnswers` key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**addresses:** `typing.Optional[typing.List[PersonAddressRequest]]` — Postal addresses associated with the person.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**identification_documents:** `typing.Optional[typing.List[IdentificationDocumentRequest]]` — Government-issued identification documents for the person.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**business_relationship:** `typing.Optional[BusinessRelationshipRequest]` 
+
+Links the person to a business as you create them. The link's role,
+ownership, primary-controller flag, contact fields, and addresses go here.
+These relationship contact fields are separate from the person's own
+top-level contact fields above.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.people.<a href="src/payabli/people/client.py">get_person</a>(...) -> PersonDetailEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a person by reference. Sensitive fields such as `ssn` are masked.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.people.get_person(
+    person_reference="01a0014d-ce1a-7110-9bac-c4c59647a88d",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**person_reference:** `str` — The person reference.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.people.<a href="src/payabli/people/client.py">update_person</a>(...) -> PersonUpdatedEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Applies a partial update to a person. Send only the fields you want to change.
+
+A person's job title belongs to their business link, not the person. Sending `title` in any form, including `null`, returns a `400` with the message `title moved to the business relationship; update it with PATCH /api/v2/businesses/{businessReference}/people/{personReference}.`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.people.update_person(
+    person_reference="01a0014d-ce1a-7110-9bac-c4c59647a88d",
+    primary_phone_number="3055550199",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**person_reference:** `str` — The person reference.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**first_name:** `typing.Optional[str]` — The person's first name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**middle_name:** `typing.Optional[str]` — The person's middle name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**last_name:** `typing.Optional[str]` — The person's last name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**primary_email:** `typing.Optional[str]` — The person's primary email address.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**secondary_email:** `typing.Optional[str]` — The person's secondary email address.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**primary_phone_number:** `typing.Optional[str]` — The person's primary phone number.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**secondary_phone_number:** `typing.Optional[str]` — The person's secondary phone number.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**nationality:** `typing.Optional[str]` — The person's nationality, as a two-letter ISO 3166-1 alpha-2 country code. Nationality selects which identity number applies — `US` uses `ssn`, and any other value uses `nationalIdNumber` and `nationalIdIssuer`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**national_id_issuer:** `typing.Optional[str]` — The authority that issued the national ID, used when `nationality` is not `US`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**drivers_license_number:** `typing.Optional[str]` — The person's driver's license number.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**drivers_license_state:** `typing.Optional[str]` — The two-letter state code for the driver's license.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**external_id:** `typing.Optional[str]` — Your own identifier for the person.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**custom_data:** `typing.Optional[typing.Dict[str, typing.Any]]` 
+
+Key-value data to merge into the person's stored `customData`.
+Payabli stores an owner's answers to a boarding template's
+custom questions under the `templateAnswers` key.
+
+When you update a person, Payabli merges `customData` into the
+stored value, following JSON Merge Patch (RFC 7396). Keys you
+don't send are kept at every depth, and nested objects merge key
+by key. Strings, numbers, Boolean values, and arrays replace the
+stored value, and arrays aren't merged. Send a key as `null` to
+delete it, such as `{"crmId": null}`. A `customData` that isn't
+an object, such as an array, replaces the stored value whole.
+Leave out `customData` to keep it as is.
+
+The `customData` you send can be up to 65,536 bytes serialized.
+The limit applies to the request, not to the merged result.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**addresses:** `typing.Optional[typing.List[PersonAddressRequest]]` — Postal addresses associated with the person.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**identification_documents:** `typing.Optional[typing.List[IdentificationDocumentRequest]]` — Government-issued identification documents for the person.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.people.<a href="src/payabli/people/client.py">get_person_unmasked</a>(...) -> PersonDetailEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a person by reference with sensitive fields unmasked.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.people.get_person_unmasked(
+    person_reference="01a0014d-ce1a-7110-9bac-c4c59647a88d",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**person_reference:** `str` — The person reference.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.people.<a href="src/payabli/people/client.py">search_people</a>(...) -> PeopleSearchEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Searches for people by identity attributes during boarding. The search
+covers every business in your organization, so use it to find a person
+before you create them again. To read the people already on a
+paypoint's business, use a standard `GET` instead.
+Provide at least one of `firstName` or `lastName`. Each result has a
+`matchScore` showing how closely it matches, and an external identity
+vendor can enrich the results. Each result's `dateOfBirth` is masked.
+To get the full value, use the unmasked search.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.people.search_people(
+    entry="8cfec329267",
+    org_id=123,
+    request={"firstName": "Marcus", "lastName": "Delgado"},
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**entry:** `str` — The entry name of your organization, from `OrgEntryName` on the organization. With a paypoint's entry name instead, the search covers only that paypoint's business.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**org_id:** `int` — The ID of your organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `PeopleSearchRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.people.<a href="src/payabli/people/client.py">search_people_unmasked</a>(...) -> PeopleSearchEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Searches for people by identity attributes during boarding, and returns
+each result's `dateOfBirth` unmasked. The query parameters, request
+body, and other response fields match the standard people search.
+Provide at least one of `firstName` or `lastName`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.people.search_people_unmasked(
+    entry="8cfec329267",
+    org_id=123,
+    request={"firstName": "Marcus", "lastName": "Delgado"},
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**entry:** `str` — The entry name of your organization, from `OrgEntryName` on the organization. With a paypoint's entry name instead, the search covers only that paypoint's business.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**org_id:** `int` — The ID of your organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `PeopleSearchRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Paypoints
+<details><summary><code>client.paypoints.<a href="src/payabli/paypoints/client.py">list_paypoints</a>(...) -> ListPaypointsEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists paypoints with optional filtering and pagination.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.paypoints.list_paypoints(
+    limit=1,
+    page=1,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**business_reference:** `typing.Optional[str]` — Filter by the business the paypoint belongs to.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[str]` — Filter by paypoint status.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**search:** `typing.Optional[str]` — Free-text search across paypoints.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Number of results per page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page:** `typing.Optional[int]` — Page number to return.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.paypoints.<a href="src/payabli/paypoints/client.py">create_paypoint</a>(...) -> PaypointCreatedEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a paypoint. New paypoints start in `pending`. Provide exactly
+one of `businessReference` (an existing business) or `business` (to
+create the business inline).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli, CreatePaypointWithBusinessReference
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.paypoints.create_paypoint(
+    request=CreatePaypointWithBusinessReference(
+        paypoint_type="merchant",
+        doing_business_as="Rose Gardens",
+        description="Boutique flower shop",
+        website="https://example.com",
+        customer_service_phone="3055551212",
+        customer_service_email="support@example.com",
+        timezone="America/New_York",
+        business_reference="019fed1a-3d6e-75d3-a81e-cba3874b0a55",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `CreatePaypointPaypointsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.paypoints.<a href="src/payabli/paypoints/client.py">get_paypoint</a>(...) -> PaypointDetailEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a paypoint by reference.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.paypoints.get_paypoint(
+    paypoint_reference="019ff064-c690-7679-a73e-688418aadc7c",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**paypoint_reference:** `str` — The paypoint reference.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.paypoints.<a href="src/payabli/paypoints/client.py">update_paypoint</a>(...) -> PaypointUpdatedEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Applies a partial update to a paypoint. Send only the fields you want to change.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.paypoints.update_paypoint(
+    paypoint_reference="019ff064-c690-7679-a73e-688418aadc7c",
+    description="Updated description",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**paypoint_reference:** `str` — The paypoint reference.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**paypoint_type:** `typing.Optional[str]` — The paypoint type, for example `merchant`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**doing_business_as:** `typing.Optional[str]` — The name the paypoint does business as (DBA).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `typing.Optional[str]` — A free-text description of the paypoint.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**website:** `typing.Optional[str]` — The paypoint's website URL.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**customer_service_phone:** `typing.Optional[str]` — The customer service phone number.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**customer_service_email:** `typing.Optional[str]` — The customer service email address.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**timezone:** `typing.Optional[str]` — The paypoint's time zone.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**external_id:** `typing.Optional[str]` — Your own identifier for the paypoint.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**custom_data:** `typing.Optional[typing.Dict[str, typing.Any]]` — Arbitrary key-value data you attach to the paypoint.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Payment methods
+<details><summary><code>client.payment_methods.<a href="src/payabli/payment_methods/client.py">list_payment_methods</a>(...) -> ListPaymentMethodsEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists payment methods with optional filtering and pagination.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.payment_methods.list_payment_methods(
+    limit=1,
+    page=1,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**account_owner:** `typing.Optional[str]` — Filter by the entity that owns the payment method.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**owner_type:** `typing.Optional[PaymentMethodOwnerType]` — Filter by owner type.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[str]` — Filter by payment method status.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**type:** `typing.Optional[str]` — Filter by payment method type.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Number of results per page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page:** `typing.Optional[int]` — Page number to return.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort_by:** `typing.Optional[str]` — Field to sort by.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort_order:** `typing.Optional[str]` — Sort direction.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.payment_methods.<a href="src/payabli/payment_methods/client.py">create_payment_methods</a>(...) -> PaymentMethodsCreatedEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates one or more payment methods for an entity in a single call.
+Set each payment method's `accountOwner` to the entity it belongs to.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli, CreatePaymentMethodRequest
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.payment_methods.create_payment_methods(
+    data=[
+        CreatePaymentMethodRequest(
+            type="bank_account",
+            account_owner="019fed1a-3d6e-75d3-a81e-cba3874b0a55",
+            owner_type="business",
+            nickname="Operating account",
+            financial_institution="Bank of Example",
+            account_type="checking",
+            account_number="123456789",
+            routing_number="021000021",
+            usage=[
+                "deposits",
+                "billing"
+            ],
+        )
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**data:** `typing.List[CreatePaymentMethodRequest]` — The payment methods to create.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.payment_methods.<a href="src/payabli/payment_methods/client.py">get_payment_method</a>(...) -> PaymentMethodDetailEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a payment method by reference. Sensitive fields such as the account and routing numbers are masked.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.payment_methods.get_payment_method(
+    payment_method_reference="019ff142-454b-7721-96a3-c8628b9d568f",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**payment_method_reference:** `str` — The payment method reference.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.payment_methods.<a href="src/payabli/payment_methods/client.py">deactivate_payment_method</a>(...) -> PaymentMethodDeactivatedEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deactivates a payment method. This is a soft delete: the payment
+method moves to `INACTIVE` and the record is kept.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.payment_methods.deactivate_payment_method(
+    payment_method_reference="019ff142-454b-7721-96a3-c8628b9d568f",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**payment_method_reference:** `str` — The payment method reference.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.payment_methods.<a href="src/payabli/payment_methods/client.py">update_payment_method</a>(...) -> PaymentMethodUpdatedEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Applies a partial update to a payment method. Send only the fields you
+want to change. Only payment methods in `PENDING` status can be updated.
+Once a payment method is active, change it through the bank account
+change process instead.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.payment_methods.update_payment_method(
+    payment_method_reference="019ff142-454b-7721-96a3-c8628b9d568f",
+    nickname="Primary operating account",
+    usage=[
+        "deposits",
+        "billing"
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**payment_method_reference:** `str` — The payment method reference.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**nickname:** `typing.Optional[str]` — An optional label for the payment method.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**financial_institution:** `typing.Optional[str]` — The bank or financial institution that holds the account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_type:** `typing.Optional[str]` — The account type, for example `checking` or `savings`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_number:** `typing.Optional[str]` — The bank account number.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**routing_number:** `typing.Optional[str]` — The bank routing number.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**usage:** `typing.Optional[typing.List[PaymentMethodUsage]]` — What the payment method is used for. Provide at least one value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Boarding templates
+<details><summary><code>client.boarding_templates.<a href="src/payabli/boarding_templates/client.py">list_templates</a>(...) -> ListTemplatesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the boarding templates an organization owns, plus templates
+inherited from ancestor organizations. Scope the listing with the
+required `orgId` query parameter. You can filter by `status`, `name`,
+`slug`, `orgName`, and `inherited`, and page through results.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.boarding_templates.list_templates(
+    org_id=123,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**org_id:** `int` — The numeric identifier of the organization to list templates for.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[TemplateStatus]` — Filter by template status.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — Filter by exact template name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**slug:** `typing.Optional[str]` — Filter by exact template slug.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**org_name:** `typing.Optional[str]` — Filter by exact owning organization name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**inherited:** `typing.Optional[bool]` — Filter by whether the template is inherited from an ancestor organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from_record:** `typing.Optional[int]` — The number of records to skip before collecting the result set.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit_record:** `typing.Optional[int]` — The maximum number of records to return. Use `0` or a negative value to return all records.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.boarding_templates.<a href="src/payabli/boarding_templates/client.py">get_template</a>(...) -> Template</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a boarding template by UUID, including its current content version.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.boarding_templates.get_template(
+    uuid_="019ff129-d393-7761-9a31-e5afe85b4081",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**uuid:** `str` — The template's UUID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.boarding_templates.<a href="src/payabli/boarding_templates/client.py">archive_template</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Archives a boarding template by UUID. Archiving is a soft delete: the
+template stays readable with `status: archived`, so archiving an
+already-archived template returns `409`, not another success. Unknown
+templates return `404`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.boarding_templates.archive_template(
+    uuid_="019ff129-d393-7761-9a31-e5afe85b4081",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**uuid:** `str` — The template's UUID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.boarding_templates.<a href="src/payabli/boarding_templates/client.py">get_template_version</a>(...) -> TemplateVersion</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a specific immutable content version of a template.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.boarding_templates.get_template_version(
+    uuid_="019ff129-d393-7761-9a31-e5afe85b4081",
+    version_uuid="019ff129-d396-74c4-86da-ae3d082d7ef9",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**uuid:** `str` — The template's UUID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version_uuid:** `str` — The version's UUID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Applications
+<details><summary><code>client.applications.<a href="src/payabli/applications/client.py">list_applications</a>(...) -> ListApplicationsEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists boarding applications with pagination.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.applications.list_applications()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**page:** `typing.Optional[int]` — The page number to return, starting at 1.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — The number of applications per page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.applications.<a href="src/payabli/applications/client.py">create_application</a>(...) -> ApplicationEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a boarding application for a business. The business must
+already have a paypoint. New applications start in `draft`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.applications.create_application(
+    business_reference="019fed1a-3d6e-75d3-a81e-cba3874b0a55",
+    external_id="APP-2025-0417",
+    tags=[
+        "priority"
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**business_reference:** `str` — The reference of the business to board. The business must have a paypoint.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**paypoint_reference:** `typing.Optional[str]` — The reference of the paypoint to board. Defaults to the business's paypoint when omitted.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**external_id:** `typing.Optional[str]` — An optional identifier from your own system.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**entity_type:** `typing.Optional[str]` — The type of entity being boarded.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_template:** `typing.Optional[str]` — The reference of the boarding template to apply. Send one on every application. Payabli assigns the underwriting policy from the template, so a submitted application without one fails in review.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tags:** `typing.Optional[typing.List[str]]` — Optional labels for the application.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**representatives:** `typing.Optional[typing.List[RepresentativeInput]]` — The sales or service representatives assigned to the application.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**configurations:** `typing.Optional[typing.Dict[str, typing.Any]]` — Opaque application-level configuration. Null when not supplied.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**services:** `typing.Optional[RequestedServices]` — The services to request on the application.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.applications.<a href="src/payabli/applications/client.py">get_application</a>(...) -> ApplicationEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a boarding application by reference.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.applications.get_application(
+    requests_reference="3f3caa7b-bdfe-4bf1-814b-30d54859247c",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requests_reference:** `str` — The application reference.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.applications.<a href="src/payabli/applications/client.py">update_application</a>(...) -> ApplicationEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Applies a partial update to a boarding application. Send only the fields you want to change.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.applications.update_application(
+    requests_reference="3f3caa7b-bdfe-4bf1-814b-30d54859247c",
+    external_id="APP-2025-0417-REV2",
+    tags=[
+        "priority",
+        "expedited"
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requests_reference:** `str` — The application reference.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**external_id:** `typing.Optional[str]` — An optional identifier from your own system.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**entity_type:** `typing.Optional[str]` — The type of entity being boarded.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_template:** `typing.Optional[str]` — The reference of the boarding template to apply.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tags:** `typing.Optional[typing.List[str]]` — Optional labels for the application.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**representatives:** `typing.Optional[typing.List[RepresentativeInput]]` — The sales or service representatives assigned to the application.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**configurations:** `typing.Optional[typing.Dict[str, typing.Any]]` — Opaque application-level configuration.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**services:** `typing.Optional[RequestedServices]` — The services to request on the application. Replaces the whole `services` object, so send every service you want to keep. Leave it out to keep the current services.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.applications.<a href="src/payabli/applications/client.py">validate_application</a>(...) -> ValidationResultEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Checks whether the records linked to an application (the business, its people, and its payment methods) include everything the application's requested services need. The response lists any missing or invalid fields by section. Validation doesn't change the application, and it doesn't return a validation token. The request has no body.
+
+One owner on the application must be the signer, flagged with `isSigner` on their business link. If no one is flagged, the `people` section returns a `missingFields` entry with `field` set to `people.isSigner`, `label` set to `Signer`, and `reason` set to `required — choose the person who signs the application`. The signer rule isn't reported when the application has no people.
+
+The `people` section also checks ownership. At least one person must be the primary controller, flagged with `isPrimaryController`. If no one is, the entry has `field` set to `people.isPrimaryController`, `label` set to `Primary Controller`, and `reason` set to `required — at least one principal must be designated`. Unless the business's `legalStructure` is `government` or `non-profit`, at least one owner must have an `ownershipPercentage` of 25 or more. If no one does, the entry has `field` set to `people.ownershipPercentage`, `label` set to `Qualifying Owner`, and `reason` set to `at least one principal must have an ownership stake of 25% or more`.
+
+Validation also reports required documents that have nothing uploaded. See [List application document requirements](/developers/api-reference/applications/list-application-document-requirements). The bank statement requirement appears in the `business` section, with `field` set to `documents.bankStatement`. A person document appears in the `people` section, with `field` set to `people.{personReference}.` followed by the requirement's `fieldPath`, such as `people.01a0014d-ce1a-7110-9bac-c4c59647a88d.person.documents.w9`. Submit doesn't enforce document requirements.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.applications.validate_application(
+    requests_reference="3f3caa7b-bdfe-4bf1-814b-30d54859247c",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requests_reference:** `str` — The application reference.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.applications.<a href="src/payabli/applications/client.py">submit_application</a>(...) -> TransitionResultEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Submits a draft application for review. Your integration (the applicant) calls this after the business, its people, payment methods, and services are in place. Verification then runs automatically.
+
+The application must have a signer: an owner flagged with `isSigner` on their business link, or one you name in `signer.personReference`. Payabli records the signer's identity from their person record and business link, so update those before you submit. The `signer` object carries the signature details.
+
+If the application has no signer, the request fails with `422` and the error `SIGNER_REQUIRED`. If `signer.personReference` names a person who isn't an owner, the request fails with `422` and the error `SIGNER_NOT_OWNER`. If the application isn't a draft, the request fails with `409` and the error `BIZ_004`, before any signer check. If `signer.reportedSignerIp` isn't a single valid IPv4 or IPv6 address, the request fails with `400` and the error `VALIDATION_ERROR`, and the application isn't submitted.
+
+Submit doesn't check every rule that [validate](/developers/api-reference/applications/validate-an-application) reports, such as the primary controller and ownership rules. Validate the application and resolve its missing fields before you submit.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli, SubmitSigner
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.applications.submit_application(
+    requests_reference="3f3caa7b-bdfe-4bf1-814b-30d54859247c",
+    signer=SubmitSigner(
+        person_reference="01a0014d-ce1a-7110-9bac-c4c59647a88d",
+        signature="Marcus J Delgado",
+        signature_type="type",
+        acceptance=True,
+        pci_attestation=True,
+        reported_signer_ip="203.0.113.7",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requests_reference:** `str` — The application reference.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**signer:** `SubmitSigner` — The signature details for the application's signer, and optionally which person signs.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.applications.<a href="src/payabli/applications/client.py">provide_documents</a>(...) -> TransitionResultEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Marks the documents that Payabli requested during review as provided, when the application is in `pendingdocuments`. It returns the application to review. The request has no body.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.applications.provide_documents(
+    requests_reference="3f3caa7b-bdfe-4bf1-814b-30d54859247c",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requests_reference:** `str` — The application reference.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.applications.<a href="src/payabli/applications/client.py">provide_response</a>(...) -> TransitionResultEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Marks the information that Payabli requested during review as provided, when the application is in `pendingresponse`. It returns the application to review. The request has no body.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.applications.provide_response(
+    requests_reference="3f3caa7b-bdfe-4bf1-814b-30d54859247c",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requests_reference:** `str` — The application reference.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.applications.<a href="src/payabli/applications/client.py">withdraw_application</a>(...) -> TransitionResultEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Withdraws a boarding application. The response returns the application's
+new status and the actions now allowed on it.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.applications.withdraw_application(
+    requests_reference="3f3caa7b-bdfe-4bf1-814b-30d54859247c",
+    reason="Duplicate application",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requests_reference:** `str` — The application reference.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**reason:** `typing.Optional[str]` — An optional reason for the withdrawal, recorded in the status history.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.applications.<a href="src/payabli/applications/client.py">get_application_history</a>(...) -> StatusHistoryEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves the status transition history of a boarding application, oldest first. History records changes only. An approved application that fails enablement the same way on every attempt doesn't add entries, so use [enablement](/developers/api-reference/applications/get-application-enablement-progress) to follow that progress.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.applications.get_application_history(
+    requests_reference="3f3caa7b-bdfe-4bf1-814b-30d54859247c",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requests_reference:** `str` — The application reference.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.applications.<a href="src/payabli/applications/client.py">get_application_enablement</a>(...) -> EnablementEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves the progress of setting up an approved application's services with their processors. An application's status stays `approved` or `autoapproved` while this runs, and it moves to `activated` after every requested service is set up. Use this endpoint to see why an approved merchant isn't live yet.
+
+Enablement doesn't send webhooks, so poll this endpoint to follow it. Until enablement starts, `state` and the other progress fields are `null`, and `services` is empty. That includes applications that are in `draft`, withdrawn, or in `error`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.applications.get_application_enablement(
+    requests_reference="3f3caa7b-bdfe-4bf1-814b-30d54859247c",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requests_reference:** `str` — The application reference.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.applications.<a href="src/payabli/applications/client.py">list_application_document_requirements</a>(...) -> DocumentRequirementListEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the documents an application asks for, from its template and from Payabli business rules. For example, a business with an annual revenue of $1,000,000 or more needs bank statements. Each requirement gives the `fieldPath` and `subject` to send when you upload, the formats it accepts, how many documents it takes, and how many are uploaded so far.
+
+A person requirement appears once for each owner of the business, with that owner's `personReference`. The list is empty when the application asks for no documents.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.applications.list_application_document_requirements(
+    requests_reference="3f3caa7b-bdfe-4bf1-814b-30d54859247c",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requests_reference:** `str` — The application reference.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.applications.<a href="src/payabli/applications/client.py">list_application_documents</a>(...) -> ApplicationDocumentListEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the documents uploaded to an application. The list is empty when none are uploaded.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.applications.list_application_documents(
+    requests_reference="3f3caa7b-bdfe-4bf1-814b-30d54859247c",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requests_reference:** `str` — The application reference.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.applications.<a href="src/payabli/applications/client.py">upload_application_document</a>(...) -> ApplicationDocumentEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Uploads one document to an application as multipart form data. [List the application's document requirements](/developers/api-reference/applications/list-application-document-requirements) first. Send the requirement's `fieldPath`, one of its `subjectTypes` as `subject`, and, for a person requirement, its `personReference`.
+
+The file can be up to 10 MB, in a format the requirement accepts. Payabli checks the file's content, not only its name. Each requirement takes up to `maxUploads` documents.
+
+Uploading doesn't change the application's status. When underwriting requests documents, upload them, then call [provide documents](/developers/api-reference/applications/provide-application-documents) to return the application to review.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.applications.upload_application_document(
+    requests_reference="3f3caa7b-bdfe-4bf1-814b-30d54859247c",
+    file="example_file",
+    field_path="documents.bankStatement",
+    subject="business",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requests_reference:** `str` — The application reference.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**file:** `core.File` — The file to upload, up to 10 MB. Payabli checks the file's content, not only its name, against the requirement's `allowedFormats`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**field_path:** `str` — The `fieldPath` of the requirement you're uploading for, from [List application document requirements](/developers/api-reference/applications/list-application-document-requirements).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**subject:** `DocumentSubjectType` — The record the document is about. Send one of the requirement's `subjectTypes`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**person_reference:** `typing.Optional[str]` — The person the document is about. Required when `subject` is `person`. Use the `personReference` from the person's requirement.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.applications.<a href="src/payabli/applications/client.py">delete_application_document</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Removes a document you uploaded from an application. Deleting doesn't change the application's status. A deleted document no longer counts toward its requirement, so you can upload a replacement. Deleting a document that's already deleted returns `404`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.applications.delete_application_document(
+    requests_reference="3f3caa7b-bdfe-4bf1-814b-30d54859247c",
+    document_reference="019ff1d7-6e14-7c8b-a2f5-91d3b7e04c62",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requests_reference:** `str` — The application reference.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**document_reference:** `str` — The document reference, from the upload response or [List application documents](/developers/api-reference/applications/list-application-documents).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Boarding
 <details><summary><code>client.boarding.<a href="src/payabli/boarding/client.py">add_application</a>(...) -> PayabliApiResponse00Responsedatanonobject</code></summary>
 <dl>
@@ -17864,6 +23444,11 @@ Example: name(ct)=john return all records with name containing john
 
 <dl>
 <dd>
+
+<Warning>
+  Legacy boarding is deprecated and will be sunset in Q2 2027. Use [Create an application](/developers/api-reference/applications/create-an-application) instead. One legacy call becomes several intelligent boarding calls, one for each record. See [Map legacy calls to new endpoints](/guides/pay-ops-developer-boarding-legacy-migrate#map-legacy-calls-to-new-endpoints).
+</Warning>
+
 
 Creates a boarding application in an organization. This endpoint requires an application API token.
 </dd>
@@ -18067,6 +23652,11 @@ client.boarding.add_application(
 <dl>
 <dd>
 
+<Warning>
+  Legacy boarding is deprecated and will be sunset in Q2 2027. Update the record that holds the data instead, such as [the business](/developers/api-reference/businesses/update-a-business) or [a person](/developers/api-reference/people/update-a-person). Use [Update an application](/developers/api-reference/applications/update-an-application) only for the application's own fields.
+</Warning>
+
+
 Updates a boarding application by ID. This endpoint requires an application API token.
 </dd>
 </dl>
@@ -18149,6 +23739,11 @@ client.boarding.update_application(
 <dl>
 <dd>
 
+<Warning>
+  Legacy boarding is deprecated and will be sunset in Q2 2027. Use [Withdraw an application](/developers/api-reference/applications/withdraw-an-application) instead.
+</Warning>
+
+
 Deletes a boarding application by ID.
 </dd>
 </dl>
@@ -18223,6 +23818,11 @@ client.boarding.delete_application(
 <dl>
 <dd>
 
+<Warning>
+  Legacy boarding is deprecated and will be sunset in Q2 2027. Use [Get an application](/developers/api-reference/applications/get-an-application) instead.
+</Warning>
+
+
 Retrieves the details for a boarding application by ID.
 </dd>
 </dl>
@@ -18296,6 +23896,11 @@ client.boarding.get_application(
 
 <dl>
 <dd>
+
+<Warning>
+  Legacy boarding is deprecated and will be sunset in Q2 2027. Intelligent boarding has no matching endpoint. Each application has its own hosted form link instead. See [Send merchants a boarding link](/guides/pay-ops-developer-boarding-legacy-migrate#send-merchants-a-boarding-link).
+</Warning>
+
 
 Gets a boarding application by authentication information. This endpoint requires an `application` API token.
 </dd>
@@ -18389,6 +23994,11 @@ client.boarding.get_application_by_auth(
 <dl>
 <dd>
 
+<Warning>
+  Legacy boarding is deprecated and will be sunset in Q2 2027. Intelligent boarding has no matching endpoint. Each application has its own hosted form link instead. See [Send merchants a boarding link](/guides/pay-ops-developer-boarding-legacy-migrate#send-merchants-a-boarding-link).
+</Warning>
+
+
 Retrieves details for a boarding link, by ID.
 </dd>
 </dl>
@@ -18463,6 +24073,11 @@ client.boarding.get_by_id_link_application(
 <dl>
 <dd>
 
+<Warning>
+  Legacy boarding is deprecated and will be sunset in Q2 2027. Intelligent boarding has no matching endpoint. Each application has its own hosted form link instead. See [Send merchants a boarding link](/guides/pay-ops-developer-boarding-legacy-migrate#send-merchants-a-boarding-link).
+</Warning>
+
+
 Get details for a boarding link using the boarding template ID. This endpoint requires an application API token.
 </dd>
 </dl>
@@ -18536,6 +24151,11 @@ client.boarding.get_by_template_id_link_application(
 
 <dl>
 <dd>
+
+<Warning>
+  Legacy boarding is deprecated and will be sunset in Q2 2027. Intelligent boarding has no matching endpoint. Each application has its own hosted form link instead. See [Send merchants a boarding link](/guides/pay-ops-developer-boarding-legacy-migrate#send-merchants-a-boarding-link).
+</Warning>
+
 
 Retrieves a link and the verification code used to log into an existing boarding application. You can also use this endpoint to send a link and referenceId for an existing boarding application to an email address. The recipient can use the referenceId and email address to access and edit the application.
 </dd>
@@ -18628,6 +24248,11 @@ client.boarding.get_external_application(
 <dl>
 <dd>
 
+<Warning>
+  Legacy boarding is deprecated and will be sunset in Q2 2027. Intelligent boarding has no matching endpoint. Each application has its own hosted form link instead. See [Send merchants a boarding link](/guides/pay-ops-developer-boarding-legacy-migrate#send-merchants-a-boarding-link).
+</Warning>
+
+
 Retrieves the details for a boarding link, by reference name. This endpoint requires an application API token.
 </dd>
 </dl>
@@ -18701,6 +24326,11 @@ client.boarding.get_link_application(
 
 <dl>
 <dd>
+
+<Warning>
+  Legacy boarding is deprecated and will be sunset in Q2 2027. Use [List applications](/developers/api-reference/applications/list-applications) instead.
+</Warning>
+
 
 Returns a list of boarding applications for an organization. Use filters to limit results. Include the `exportFormat` query parameter to return the results as a file instead of a JSON response.
 </dd>
@@ -18855,6 +24485,11 @@ Accepted comparison operators - enclosed between parentheses:
 <dl>
 <dd>
 
+<Warning>
+  Legacy boarding is deprecated and will be sunset in Q2 2027. Intelligent boarding has no matching endpoint. Each application has its own hosted form link instead. See [Send merchants a boarding link](/guides/pay-ops-developer-boarding-legacy-migrate#send-merchants-a-boarding-link).
+</Warning>
+
+
 Return a list of boarding links for an organization. Use filters to limit results.
 </dd>
 </dl>
@@ -18996,6 +24631,11 @@ Example: templateName(ct)=hoa return all records with template title containing 
 <dl>
 <dd>
 
+<Warning>
+  Legacy boarding is deprecated and will be sunset in Q2 2027. Use [Create an application](/developers/api-reference/applications/create-an-application) for a paypoint that's already boarded instead. See [Request more services with the API](/guides/pay-ops-developer-boarding-add-services).
+</Warning>
+
+
 Creates a new boarding application linked to an existing paypoint as part of the multi-product boarding flow. Use this endpoint to add new services to a paypoint without creating a duplicate record. The system copies eligible business, contact, banking, and address data from the paypoint to the new application based on 1:1 field matching. The merchant only needs to provide fields that are specific to the new service. See the [Multi-product boarding](/guides/pay-ops-developer-boarding-multi-product) guide for the full flow.
 </dd>
 </dl>
@@ -19108,6 +24748,11 @@ client.boarding.add_service_to_paypoint_from_app(
 <dl>
 <dd>
 
+<Warning>
+  Legacy boarding is deprecated and will be sunset in Q2 2027. Use [List applications](/developers/api-reference/applications/list-applications) instead. It doesn't filter by paypoint.
+</Warning>
+
+
 Returns all boarding applications associated with a specific paypoint, including those created through the multi-product boarding flow. Use this endpoint to track underwriting progress across multiple service additions or to build reporting views. See the [Multi-product boarding](/guides/pay-ops-developer-boarding-multi-product) guide for the full flow.
 </dd>
 </dl>
@@ -19183,6 +24828,11 @@ client.boarding.get_applications_by_paypoint_id(
 <dl>
 <dd>
 
+<Warning>
+  Legacy boarding is deprecated and will be sunset in Q2 2027. Use [Archive a template](/developers/api-reference/boarding-templates/archive-a-template) instead.
+</Warning>
+
+
 Deletes a template by ID.
 </dd>
 </dl>
@@ -19256,6 +24906,11 @@ client.templates.delete_template(
 
 <dl>
 <dd>
+
+<Warning>
+  Legacy boarding is deprecated and will be sunset in Q2 2027. Intelligent boarding has no matching endpoint. Each application has its own hosted form link instead. See [Send merchants a boarding link](/guides/pay-ops-developer-boarding-legacy-migrate#send-merchants-a-boarding-link).
+</Warning>
+
 
 Generates a boarding link from a boarding template.
 </dd>
@@ -19340,6 +24995,11 @@ client.templates.getlink_template(
 <dl>
 <dd>
 
+<Warning>
+  Legacy boarding is deprecated and will be sunset in Q2 2027. Use [Get a template](/developers/api-reference/boarding-templates/get-a-template) instead.
+</Warning>
+
+
 Retrieves a boarding template's details by ID.
 </dd>
 </dl>
@@ -19413,6 +25073,11 @@ client.templates.get_template(
 
 <dl>
 <dd>
+
+<Warning>
+  Legacy boarding is deprecated and will be sunset in Q2 2027. Use [List templates](/developers/api-reference/boarding-templates/list-templates) instead.
+</Warning>
+
 
 Retrieves a list of boarding templates for an organization. Use filters to limit results. You can't make a request that includes filters from the API console in the documentation. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client.
 </dd>
@@ -19567,7 +25232,7 @@ Example: title(ct)=hoa return all records with title containing "hoa"
 <dd>
 
 <Warning>
-  This endpoint is deprecated. To export this data, use [List all apps for org](/developers/api-reference/boarding/get-list-of-applications-for-an-organization) with the `exportFormat` query parameter instead.
+  Legacy boarding is deprecated and will be sunset in Q2 2027. Use [List applications](/developers/api-reference/applications/list-applications) instead. It doesn't export files.
 </Warning>
 
 Export a list of boarding applications for an organization. Use filters to limit results.

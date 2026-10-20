@@ -12,9 +12,12 @@ from .core.oauth_token_provider import AsyncOAuthTokenProvider, OAuthTokenProvid
 from .environment import payabliEnvironment
 
 if typing.TYPE_CHECKING:
+    from .applications.client import ApplicationsClient, AsyncApplicationsClient
     from .bill.client import AsyncBillClient, BillClient
     from .billing.client import AsyncBillingClient, BillingClient
     from .boarding.client import AsyncBoardingClient, BoardingClient
+    from .boarding_templates.client import AsyncBoardingTemplatesClient, BoardingTemplatesClient
+    from .businesses.client import AsyncBusinessesClient, BusinessesClient
     from .case_management.client import AsyncCaseManagementClient, CaseManagementClient
     from .charge_backs.client import AsyncChargeBacksClient, ChargeBacksClient
     from .check_capture.client import AsyncCheckCaptureClient, CheckCaptureClient
@@ -37,8 +40,11 @@ if typing.TYPE_CHECKING:
     from .organization.client import AsyncOrganizationClient, OrganizationClient
     from .payment_link.client import AsyncPaymentLinkClient, PaymentLinkClient
     from .payment_method_domain.client import AsyncPaymentMethodDomainClient, PaymentMethodDomainClient
+    from .payment_methods.client import AsyncPaymentMethodsClient, PaymentMethodsClient
     from .payout_subscription.client import AsyncPayoutSubscriptionClient, PayoutSubscriptionClient
     from .paypoint.client import AsyncPaypointClient, PaypointClient
+    from .paypoints.client import AsyncPaypointsClient, PaypointsClient
+    from .people.client import AsyncPeopleClient, PeopleClient
     from .query.client import AsyncQueryClient, QueryClient
     from .statistic.client import AsyncStatisticClient, StatisticClient
     from .subscription.client import AsyncSubscriptionClient, SubscriptionClient
@@ -263,6 +269,12 @@ class payabli:
         self._taptopay: typing.Optional[TaptopayClient] = None
         self._cloud: typing.Optional[CloudClient] = None
         self._line_item: typing.Optional[LineItemClient] = None
+        self._businesses: typing.Optional[BusinessesClient] = None
+        self._people: typing.Optional[PeopleClient] = None
+        self._paypoints: typing.Optional[PaypointsClient] = None
+        self._payment_methods: typing.Optional[PaymentMethodsClient] = None
+        self._boarding_templates: typing.Optional[BoardingTemplatesClient] = None
+        self._applications: typing.Optional[ApplicationsClient] = None
         self._boarding: typing.Optional[BoardingClient] = None
         self._templates: typing.Optional[TemplatesClient] = None
         self._export: typing.Optional[ExportClient] = None
@@ -440,6 +452,54 @@ class payabli:
 
             self._line_item = LineItemClient(client_wrapper=self._client_wrapper)
         return self._line_item
+
+    @property
+    def businesses(self):
+        if self._businesses is None:
+            from .businesses.client import BusinessesClient  # noqa: E402
+
+            self._businesses = BusinessesClient(client_wrapper=self._client_wrapper)
+        return self._businesses
+
+    @property
+    def people(self):
+        if self._people is None:
+            from .people.client import PeopleClient  # noqa: E402
+
+            self._people = PeopleClient(client_wrapper=self._client_wrapper)
+        return self._people
+
+    @property
+    def paypoints(self):
+        if self._paypoints is None:
+            from .paypoints.client import PaypointsClient  # noqa: E402
+
+            self._paypoints = PaypointsClient(client_wrapper=self._client_wrapper)
+        return self._paypoints
+
+    @property
+    def payment_methods(self):
+        if self._payment_methods is None:
+            from .payment_methods.client import PaymentMethodsClient  # noqa: E402
+
+            self._payment_methods = PaymentMethodsClient(client_wrapper=self._client_wrapper)
+        return self._payment_methods
+
+    @property
+    def boarding_templates(self):
+        if self._boarding_templates is None:
+            from .boarding_templates.client import BoardingTemplatesClient  # noqa: E402
+
+            self._boarding_templates = BoardingTemplatesClient(client_wrapper=self._client_wrapper)
+        return self._boarding_templates
+
+    @property
+    def applications(self):
+        if self._applications is None:
+            from .applications.client import ApplicationsClient  # noqa: E402
+
+            self._applications = ApplicationsClient(client_wrapper=self._client_wrapper)
+        return self._applications
 
     @property
     def boarding(self):
@@ -825,6 +885,12 @@ class Asyncpayabli:
         self._taptopay: typing.Optional[AsyncTaptopayClient] = None
         self._cloud: typing.Optional[AsyncCloudClient] = None
         self._line_item: typing.Optional[AsyncLineItemClient] = None
+        self._businesses: typing.Optional[AsyncBusinessesClient] = None
+        self._people: typing.Optional[AsyncPeopleClient] = None
+        self._paypoints: typing.Optional[AsyncPaypointsClient] = None
+        self._payment_methods: typing.Optional[AsyncPaymentMethodsClient] = None
+        self._boarding_templates: typing.Optional[AsyncBoardingTemplatesClient] = None
+        self._applications: typing.Optional[AsyncApplicationsClient] = None
         self._boarding: typing.Optional[AsyncBoardingClient] = None
         self._templates: typing.Optional[AsyncTemplatesClient] = None
         self._export: typing.Optional[AsyncExportClient] = None
@@ -1002,6 +1068,54 @@ class Asyncpayabli:
 
             self._line_item = AsyncLineItemClient(client_wrapper=self._client_wrapper)
         return self._line_item
+
+    @property
+    def businesses(self):
+        if self._businesses is None:
+            from .businesses.client import AsyncBusinessesClient  # noqa: E402
+
+            self._businesses = AsyncBusinessesClient(client_wrapper=self._client_wrapper)
+        return self._businesses
+
+    @property
+    def people(self):
+        if self._people is None:
+            from .people.client import AsyncPeopleClient  # noqa: E402
+
+            self._people = AsyncPeopleClient(client_wrapper=self._client_wrapper)
+        return self._people
+
+    @property
+    def paypoints(self):
+        if self._paypoints is None:
+            from .paypoints.client import AsyncPaypointsClient  # noqa: E402
+
+            self._paypoints = AsyncPaypointsClient(client_wrapper=self._client_wrapper)
+        return self._paypoints
+
+    @property
+    def payment_methods(self):
+        if self._payment_methods is None:
+            from .payment_methods.client import AsyncPaymentMethodsClient  # noqa: E402
+
+            self._payment_methods = AsyncPaymentMethodsClient(client_wrapper=self._client_wrapper)
+        return self._payment_methods
+
+    @property
+    def boarding_templates(self):
+        if self._boarding_templates is None:
+            from .boarding_templates.client import AsyncBoardingTemplatesClient  # noqa: E402
+
+            self._boarding_templates = AsyncBoardingTemplatesClient(client_wrapper=self._client_wrapper)
+        return self._boarding_templates
+
+    @property
+    def applications(self):
+        if self._applications is None:
+            from .applications.client import AsyncApplicationsClient  # noqa: E402
+
+            self._applications = AsyncApplicationsClient(client_wrapper=self._client_wrapper)
+        return self._applications
 
     @property
     def boarding(self):
