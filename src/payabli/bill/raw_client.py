@@ -1250,8 +1250,8 @@ class RawBillClient:
             **Accepted field names:**
             - `frequency` (`in`, `nin`, `ne`, `eq`)
             - `method` (`in`, `nin`, `eq`, `ne`)
-            - `event` (`in`, `nin`, `eq`, `ne`)
-            - `target` (`ct`, `nct`, `eq`, `ne`)
+            - `vendorNumber` (`eq`)
+            - `vendorId` (`eq`)
             - `status` (`eq`, `ne`)
             - `approvalUserId` (`eq`, `ne`)
             - `parentOrgId` (`ne`, `eq`, `nin`, `in`)
@@ -1413,8 +1413,8 @@ class RawBillClient:
             **Accepted field names:**
             - `frequency` (in, nin, ne, eq)
             - `method` (in, nin, eq, ne)
-            - `event` (in, nin, eq, ne)
-            - `target` (ct, nct, eq, ne)
+            - `vendorNumber` (eq)
+            - `vendorId` (eq)
             - `status` (eq, ne)
             - `parentOrgId` (ne, eq, nin, in)
             - `approvalUserId` (eq, ne)
@@ -2739,8 +2739,8 @@ class AsyncRawBillClient:
             **Accepted field names:**
             - `frequency` (`in`, `nin`, `ne`, `eq`)
             - `method` (`in`, `nin`, `eq`, `ne`)
-            - `event` (`in`, `nin`, `eq`, `ne`)
-            - `target` (`ct`, `nct`, `eq`, `ne`)
+            - `vendorNumber` (`eq`)
+            - `vendorId` (`eq`)
             - `status` (`eq`, `ne`)
             - `approvalUserId` (`eq`, `ne`)
             - `parentOrgId` (`ne`, `eq`, `nin`, `in`)
@@ -2902,8 +2902,8 @@ class AsyncRawBillClient:
             **Accepted field names:**
             - `frequency` (in, nin, ne, eq)
             - `method` (in, nin, eq, ne)
-            - `event` (in, nin, eq, ne)
-            - `target` (ct, nct, eq, ne)
+            - `vendorNumber` (eq)
+            - `vendorId` (eq)
             - `status` (eq, ne)
             - `parentOrgId` (ne, eq, nin, in)
             - `approvalUserId` (eq, ne)

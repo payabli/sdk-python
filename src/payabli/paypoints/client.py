@@ -49,7 +49,7 @@ class PaypointsClient:
             Filter by the business the paypoint belongs to.
 
         status : typing.Optional[str]
-            Filter by paypoint status.
+            Filter by paypoint status. One of `active`, `inactive`, `suspended`, or `closed`. Any other value, including `pending`, returns `400`.
 
         search : typing.Optional[str]
             Free-text search across paypoints.
@@ -290,7 +290,7 @@ class AsyncPaypointsClient:
             Filter by the business the paypoint belongs to.
 
         status : typing.Optional[str]
-            Filter by paypoint status.
+            Filter by paypoint status. One of `active`, `inactive`, `suspended`, or `closed`. Any other value, including `pending`, returns `400`.
 
         search : typing.Optional[str]
             Free-text search across paypoints.

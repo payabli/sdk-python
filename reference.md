@@ -941,8 +941,8 @@ See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-repo
 **Accepted field names:**
 - `frequency` (`in`, `nin`, `ne`, `eq`)
 - `method` (`in`, `nin`, `eq`, `ne`)
-- `event` (`in`, `nin`, `eq`, `ne`)
-- `target` (`ct`, `nct`, `eq`, `ne`)
+- `vendorNumber` (`eq`)
+- `vendorId` (`eq`)
 - `status` (`eq`, `ne`)
 - `approvalUserId` (`eq`, `ne`)
 - `parentOrgId` (`ne`, `eq`, `nin`, `in`)
@@ -1100,8 +1100,8 @@ See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-repo
 **Accepted field names:**
 - `frequency` (in, nin, ne, eq)
 - `method` (in, nin, eq, ne)
-- `event` (in, nin, eq, ne)
-- `target` (ct, nct, eq, ne)
+- `vendorNumber` (eq)
+- `vendorId` (eq)
 - `status` (eq, ne)
 - `parentOrgId` (ne, eq, nin, in)
 - `approvalUserId` (eq, ne)
@@ -20876,7 +20876,7 @@ client.paypoints.list_paypoints(
 <dl>
 <dd>
 
-**status:** `typing.Optional[str]` — Filter by paypoint status.
+**status:** `typing.Optional[str]` — Filter by paypoint status. One of `active`, `inactive`, `suspended`, or `closed`. Any other value, including `pending`, returns `400`.
     
 </dd>
 </dl>
@@ -21207,6 +21207,423 @@ client.paypoints.update_paypoint(
 <dd>
 
 **custom_data:** `typing.Optional[typing.Dict[str, typing.Any]]` — Arbitrary key-value data you attach to the paypoint.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Organizations
+<details><summary><code>client.organizations.<a href="src/payabli/organizations/client.py">list_organizations</a>(...) -> ListPaypointsEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists organizations with optional filtering and pagination. Only
+organizations are returned. Other paypoints never appear in this list.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.organizations.list_organizations(
+    business_reference="6e2b9d14-7a3c-4f58-b1e6-0c9d3a5f8e27",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**business_reference:** `typing.Optional[str]` — Filter by the business the organization belongs to.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[str]` — Filter by organization status. One of `active`, `inactive`, `suspended`, or `closed`. Any other value returns `400`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**search:** `typing.Optional[str]` — Free-text search across organizations.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Number of results per page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page:** `typing.Optional[int]` — Page number to return.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organizations.<a href="src/payabli/organizations/client.py">create_organization</a>(...) -> PaypointCreatedEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates an organization. Provide exactly one of `business` (to create
+the business inline, recommended) or `businessReference` (an existing
+business). In intelligent boarding, an organization is a kind of paypoint, so the
+request takes the paypoint create fields except `paypointType`. Payabli
+sets the organization type itself. An organization isn't underwritten,
+so only the fields needed to create the records are required. New
+organizations start in `pending`. If you don't set
+`parentPaypointReference`, the organization nests under the
+organization your credential belongs to. Returns `409` if an
+organization with the same `externalId` already exists.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli, CreateOrganizationWithInlineBusiness, CreateBusinessRequest
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.organizations.create_organization(
+    request=CreateOrganizationWithInlineBusiness(
+        doing_business_as="PropertyManager Pro",
+        description="Property management software partner",
+        website="https://example.com",
+        customer_service_phone="3055551212",
+        customer_service_email="support@example.com",
+        timezone="America/New_York",
+        external_id="pmp-org-001",
+        business=CreateBusinessRequest(
+            external_id="pmp-biz-001",
+            legal_name="PropertyManager Pro LLC",
+            legal_structure="llc",
+        ),
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `CreateOrganizationOrganizationsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organizations.<a href="src/payabli/organizations/client.py">get_organization</a>(...) -> PaypointDetailEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves an organization by reference.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.organizations.get_organization(
+    organization_reference="a8806f02-23b3-4f6d-bba3-42e1b94326ea",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**organization_reference:** `str` — The organization reference.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organizations.<a href="src/payabli/organizations/client.py">update_organization</a>(...) -> PaypointUpdatedEnvelope</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Applies a partial update to an organization. Send only the fields you want to change. You can't change an organization's type. If you send `paypointType`, the request ignores it and doesn't return an error.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from payabli import payabli
+from payabli.environment import payabliEnvironment
+
+client = payabli(
+    client_id="<clientId>",
+    client_secret="<clientSecret>",
+    environment=payabliEnvironment.SANDBOX,
+)
+
+client.organizations.update_organization(
+    organization_reference="a8806f02-23b3-4f6d-bba3-42e1b94326ea",
+    description="Updated description",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**organization_reference:** `str` — The organization reference.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**doing_business_as:** `typing.Optional[str]` — The name the organization does business as (DBA).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `typing.Optional[str]` — A free-text description of the organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**website:** `typing.Optional[str]` — The organization's website URL.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**customer_service_phone:** `typing.Optional[str]` — The customer service phone number.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**customer_service_email:** `typing.Optional[str]` — The customer service email address.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**timezone:** `typing.Optional[str]` — The organization's time zone, as an IANA identifier such as `America/Chicago`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**external_id:** `typing.Optional[str]` — Your own identifier for the organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**custom_data:** `typing.Optional[typing.Dict[str, typing.Any]]` — Arbitrary key-value data you attach to the organization.
     
 </dd>
 </dl>
@@ -31038,7 +31455,7 @@ client.organization.delete_organization(
 </dl>
 </details>
 
-<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">get_basic_organization</a>(...) -> OrganizationQueryRecord</code></summary>
+<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">get_basic_organization</a>(...) -> GetBasicOrganizationResponse</code></summary>
 <dl>
 <dd>
 
@@ -31075,7 +31492,7 @@ client = payabli(
 )
 
 client.organization.get_basic_organization(
-    entry="8cfec329267",
+    entry="pilgrim-planner",
 )
 
 ```
@@ -31092,7 +31509,7 @@ client.organization.get_basic_organization(
 <dl>
 <dd>
 
-**entry:** `str` — The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
+**entry:** `str` — The organization's entry name (`OrgEntryName`).
     
 </dd>
 </dl>
@@ -31112,7 +31529,7 @@ client.organization.get_basic_organization(
 </dl>
 </details>
 
-<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">get_basic_organization_by_id</a>(...) -> OrganizationQueryRecord</code></summary>
+<details><summary><code>client.organization.<a href="src/payabli/organization/client.py">get_basic_organization_by_id</a>(...) -> GetBasicOrganizationResponse</code></summary>
 <dl>
 <dd>
 

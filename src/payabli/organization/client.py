@@ -9,6 +9,7 @@ from ..types.contacts_field import ContactsField
 from ..types.delete_organization_response import DeleteOrganizationResponse
 from ..types.edit_organization_response import EditOrganizationResponse
 from ..types.file_content import FileContent
+from ..types.get_basic_organization_response import GetBasicOrganizationResponse
 from ..types.idempotency_key import IdempotencyKey
 from ..types.instrument import Instrument
 from ..types.org_parent_id import OrgParentId
@@ -373,21 +374,21 @@ class OrganizationClient:
 
     def get_basic_organization(
         self, entry: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> OrganizationQueryRecord:
+    ) -> GetBasicOrganizationResponse:
         """
         Gets an organization's basic information by entry name (entrypoint identifier).
 
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
+            The organization's entry name (`OrgEntryName`).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        OrganizationQueryRecord
+        GetBasicOrganizationResponse
             Success
 
         Examples
@@ -399,7 +400,7 @@ class OrganizationClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.organization.get_basic_organization(
-            entry="8cfec329267",
+            entry="pilgrim-planner",
         )
         """
         _response = self._raw_client.get_basic_organization(entry, request_options=request_options)
@@ -407,7 +408,7 @@ class OrganizationClient:
 
     def get_basic_organization_by_id(
         self, org_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> OrganizationQueryRecord:
+    ) -> GetBasicOrganizationResponse:
         """
         Gets an organization's basic details by org ID.
 
@@ -421,7 +422,7 @@ class OrganizationClient:
 
         Returns
         -------
-        OrganizationQueryRecord
+        GetBasicOrganizationResponse
             Success
 
         Examples
@@ -872,21 +873,21 @@ class AsyncOrganizationClient:
 
     async def get_basic_organization(
         self, entry: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> OrganizationQueryRecord:
+    ) -> GetBasicOrganizationResponse:
         """
         Gets an organization's basic information by entry name (entrypoint identifier).
 
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
+            The organization's entry name (`OrgEntryName`).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        OrganizationQueryRecord
+        GetBasicOrganizationResponse
             Success
 
         Examples
@@ -903,7 +904,7 @@ class AsyncOrganizationClient:
 
         async def main() -> None:
             await client.organization.get_basic_organization(
-                entry="8cfec329267",
+                entry="pilgrim-planner",
             )
 
 
@@ -914,7 +915,7 @@ class AsyncOrganizationClient:
 
     async def get_basic_organization_by_id(
         self, org_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> OrganizationQueryRecord:
+    ) -> GetBasicOrganizationResponse:
         """
         Gets an organization's basic details by org ID.
 
@@ -928,7 +929,7 @@ class AsyncOrganizationClient:
 
         Returns
         -------
-        OrganizationQueryRecord
+        GetBasicOrganizationResponse
             Success
 
         Examples

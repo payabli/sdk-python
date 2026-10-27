@@ -38,6 +38,7 @@ if typing.TYPE_CHECKING:
     from .notificationlogs.client import AsyncNotificationlogsClient, NotificationlogsClient
     from .ocr.client import AsyncOcrClient, OcrClient
     from .organization.client import AsyncOrganizationClient, OrganizationClient
+    from .organizations.client import AsyncOrganizationsClient, OrganizationsClient
     from .payment_link.client import AsyncPaymentLinkClient, PaymentLinkClient
     from .payment_method_domain.client import AsyncPaymentMethodDomainClient, PaymentMethodDomainClient
     from .payment_methods.client import AsyncPaymentMethodsClient, PaymentMethodsClient
@@ -272,6 +273,7 @@ class payabli:
         self._businesses: typing.Optional[BusinessesClient] = None
         self._people: typing.Optional[PeopleClient] = None
         self._paypoints: typing.Optional[PaypointsClient] = None
+        self._organizations: typing.Optional[OrganizationsClient] = None
         self._payment_methods: typing.Optional[PaymentMethodsClient] = None
         self._boarding_templates: typing.Optional[BoardingTemplatesClient] = None
         self._applications: typing.Optional[ApplicationsClient] = None
@@ -476,6 +478,14 @@ class payabli:
 
             self._paypoints = PaypointsClient(client_wrapper=self._client_wrapper)
         return self._paypoints
+
+    @property
+    def organizations(self):
+        if self._organizations is None:
+            from .organizations.client import OrganizationsClient  # noqa: E402
+
+            self._organizations = OrganizationsClient(client_wrapper=self._client_wrapper)
+        return self._organizations
 
     @property
     def payment_methods(self):
@@ -888,6 +898,7 @@ class Asyncpayabli:
         self._businesses: typing.Optional[AsyncBusinessesClient] = None
         self._people: typing.Optional[AsyncPeopleClient] = None
         self._paypoints: typing.Optional[AsyncPaypointsClient] = None
+        self._organizations: typing.Optional[AsyncOrganizationsClient] = None
         self._payment_methods: typing.Optional[AsyncPaymentMethodsClient] = None
         self._boarding_templates: typing.Optional[AsyncBoardingTemplatesClient] = None
         self._applications: typing.Optional[AsyncApplicationsClient] = None
@@ -1092,6 +1103,14 @@ class Asyncpayabli:
 
             self._paypoints = AsyncPaypointsClient(client_wrapper=self._client_wrapper)
         return self._paypoints
+
+    @property
+    def organizations(self):
+        if self._organizations is None:
+            from .organizations.client import AsyncOrganizationsClient  # noqa: E402
+
+            self._organizations = AsyncOrganizationsClient(client_wrapper=self._client_wrapper)
+        return self._organizations
 
     @property
     def payment_methods(self):

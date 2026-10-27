@@ -104,6 +104,17 @@ class PaypointSummaryResponse(UniversalBaseModel):
     The customer service email address.
     """
 
+    external_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="externalId"),
+        pydantic.Field(
+            alias="externalId", description="Your own identifier for the paypoint. Omitted when you haven't set one."
+        ),
+    ] = None
+    """
+    Your own identifier for the paypoint. Omitted when you haven't set one.
+    """
+
     entry_name: typing_extensions.Annotated[
         str,
         FieldMetadata(alias="entryName"),

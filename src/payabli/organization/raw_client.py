@@ -20,6 +20,7 @@ from ..types.contacts_field import ContactsField
 from ..types.delete_organization_response import DeleteOrganizationResponse
 from ..types.edit_organization_response import EditOrganizationResponse
 from ..types.file_content import FileContent
+from ..types.get_basic_organization_response import GetBasicOrganizationResponse
 from ..types.idempotency_key import IdempotencyKey
 from ..types.instrument import Instrument
 from ..types.org_parent_id import OrgParentId
@@ -513,21 +514,21 @@ class RawOrganizationClient:
 
     def get_basic_organization(
         self, entry: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[OrganizationQueryRecord]:
+    ) -> HttpResponse[GetBasicOrganizationResponse]:
         """
         Gets an organization's basic information by entry name (entrypoint identifier).
 
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
+            The organization's entry name (`OrgEntryName`).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[OrganizationQueryRecord]
+        HttpResponse[GetBasicOrganizationResponse]
             Success
         """
         _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
@@ -544,9 +545,9 @@ class RawOrganizationClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    OrganizationQueryRecord,
+                    GetBasicOrganizationResponse,
                     parse_obj_as(
-                        type_=OrganizationQueryRecord,  # type: ignore
+                        type_=GetBasicOrganizationResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -606,7 +607,7 @@ class RawOrganizationClient:
 
     def get_basic_organization_by_id(
         self, org_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[OrganizationQueryRecord]:
+    ) -> HttpResponse[GetBasicOrganizationResponse]:
         """
         Gets an organization's basic details by org ID.
 
@@ -620,7 +621,7 @@ class RawOrganizationClient:
 
         Returns
         -------
-        HttpResponse[OrganizationQueryRecord]
+        HttpResponse[GetBasicOrganizationResponse]
             Success
         """
         _endpoint_auth_headers = self._client_wrapper.get_auth_headers_for_endpoint(
@@ -637,9 +638,9 @@ class RawOrganizationClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    OrganizationQueryRecord,
+                    GetBasicOrganizationResponse,
                     parse_obj_as(
-                        type_=OrganizationQueryRecord,  # type: ignore
+                        type_=GetBasicOrganizationResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1352,21 +1353,21 @@ class AsyncRawOrganizationClient:
 
     async def get_basic_organization(
         self, entry: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[OrganizationQueryRecord]:
+    ) -> AsyncHttpResponse[GetBasicOrganizationResponse]:
         """
         Gets an organization's basic information by entry name (entrypoint identifier).
 
         Parameters
         ----------
         entry : str
-            The paypoint's entrypoint identifier. [Learn more](/developers/api-reference/api-overview#entrypoint-vs-entry)
+            The organization's entry name (`OrgEntryName`).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[OrganizationQueryRecord]
+        AsyncHttpResponse[GetBasicOrganizationResponse]
             Success
         """
         _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
@@ -1383,9 +1384,9 @@ class AsyncRawOrganizationClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    OrganizationQueryRecord,
+                    GetBasicOrganizationResponse,
                     parse_obj_as(
-                        type_=OrganizationQueryRecord,  # type: ignore
+                        type_=GetBasicOrganizationResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1445,7 +1446,7 @@ class AsyncRawOrganizationClient:
 
     async def get_basic_organization_by_id(
         self, org_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[OrganizationQueryRecord]:
+    ) -> AsyncHttpResponse[GetBasicOrganizationResponse]:
         """
         Gets an organization's basic details by org ID.
 
@@ -1459,7 +1460,7 @@ class AsyncRawOrganizationClient:
 
         Returns
         -------
-        AsyncHttpResponse[OrganizationQueryRecord]
+        AsyncHttpResponse[GetBasicOrganizationResponse]
             Success
         """
         _endpoint_auth_headers = await self._client_wrapper.async_get_auth_headers_for_endpoint(
@@ -1476,9 +1477,9 @@ class AsyncRawOrganizationClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    OrganizationQueryRecord,
+                    GetBasicOrganizationResponse,
                     parse_obj_as(
-                        type_=OrganizationQueryRecord,  # type: ignore
+                        type_=GetBasicOrganizationResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

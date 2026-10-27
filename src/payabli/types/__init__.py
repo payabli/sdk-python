@@ -303,6 +303,9 @@ if typing.TYPE_CHECKING:
     from .create_business_request_operating_seasons_item import CreateBusinessRequestOperatingSeasonsItem
     from .create_ghost_card_response import CreateGhostCardResponse
     from .create_ghost_card_response_data import CreateGhostCardResponseData
+    from .create_organization_all_fields import CreateOrganizationAllFields
+    from .create_organization_with_business_reference import CreateOrganizationWithBusinessReference
+    from .create_organization_with_inline_business import CreateOrganizationWithInlineBusiness
     from .create_payment_method_request import CreatePaymentMethodRequest
     from .create_payment_method_request_type import CreatePaymentMethodRequestType
     from .create_paypoint_all_fields import CreatePaypointAllFields
@@ -404,6 +407,7 @@ if typing.TYPE_CHECKING:
     from .general_events import GeneralEvents
     from .get_basic_entry_by_id_response import GetBasicEntryByIdResponse
     from .get_basic_entry_response import GetBasicEntryResponse
+    from .get_basic_organization_response import GetBasicOrganizationResponse
     from .get_bill_response import GetBillResponse
     from .get_entry_config_response import GetEntryConfigResponse
     from .get_invoice_record import GetInvoiceRecord
@@ -432,6 +436,7 @@ if typing.TYPE_CHECKING:
     from .idpaypoint import Idpaypoint
     from .initiator import Initiator
     from .instrument import Instrument
+    from .instrument_response import InstrumentResponse
     from .internal_reference_id import InternalReferenceId
     from .invoice_amount import InvoiceAmount
     from .invoice_data_request import InvoiceDataRequest
@@ -575,6 +580,7 @@ if typing.TYPE_CHECKING:
     from .organization_query_record import OrganizationQueryRecord
     from .organization_query_record_services_item import OrganizationQueryRecordServicesItem
     from .organization_updates import OrganizationUpdates
+    from .organization_writable_fields import OrganizationWritableFields
     from .orgcity import Orgcity
     from .orgcountry import Orgcountry
     from .orgentryname import Orgentryname
@@ -1403,6 +1409,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateBusinessRequestOperatingSeasonsItem": ".create_business_request_operating_seasons_item",
     "CreateGhostCardResponse": ".create_ghost_card_response",
     "CreateGhostCardResponseData": ".create_ghost_card_response_data",
+    "CreateOrganizationAllFields": ".create_organization_all_fields",
+    "CreateOrganizationWithBusinessReference": ".create_organization_with_business_reference",
+    "CreateOrganizationWithInlineBusiness": ".create_organization_with_inline_business",
     "CreatePaymentMethodRequest": ".create_payment_method_request",
     "CreatePaymentMethodRequestType": ".create_payment_method_request_type",
     "CreatePaypointAllFields": ".create_paypoint_all_fields",
@@ -1502,6 +1511,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "GeneralEvents": ".general_events",
     "GetBasicEntryByIdResponse": ".get_basic_entry_by_id_response",
     "GetBasicEntryResponse": ".get_basic_entry_response",
+    "GetBasicOrganizationResponse": ".get_basic_organization_response",
     "GetBillResponse": ".get_bill_response",
     "GetEntryConfigResponse": ".get_entry_config_response",
     "GetInvoiceRecord": ".get_invoice_record",
@@ -1530,6 +1540,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Idpaypoint": ".idpaypoint",
     "Initiator": ".initiator",
     "Instrument": ".instrument",
+    "InstrumentResponse": ".instrument_response",
     "InternalReferenceId": ".internal_reference_id",
     "InvoiceAmount": ".invoice_amount",
     "InvoiceDataRequest": ".invoice_data_request",
@@ -1673,6 +1684,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "OrganizationQueryRecord": ".organization_query_record",
     "OrganizationQueryRecordServicesItem": ".organization_query_record_services_item",
     "OrganizationUpdates": ".organization_updates",
+    "OrganizationWritableFields": ".organization_writable_fields",
     "Orgcity": ".orgcity",
     "Orgcountry": ".orgcountry",
     "Orgentryname": ".orgentryname",
@@ -2521,6 +2533,9 @@ __all__ = [
     "CreateBusinessRequestOperatingSeasonsItem",
     "CreateGhostCardResponse",
     "CreateGhostCardResponseData",
+    "CreateOrganizationAllFields",
+    "CreateOrganizationWithBusinessReference",
+    "CreateOrganizationWithInlineBusiness",
     "CreatePaymentMethodRequest",
     "CreatePaymentMethodRequestType",
     "CreatePaypointAllFields",
@@ -2620,6 +2635,7 @@ __all__ = [
     "GeneralEvents",
     "GetBasicEntryByIdResponse",
     "GetBasicEntryResponse",
+    "GetBasicOrganizationResponse",
     "GetBillResponse",
     "GetEntryConfigResponse",
     "GetInvoiceRecord",
@@ -2648,6 +2664,7 @@ __all__ = [
     "Idpaypoint",
     "Initiator",
     "Instrument",
+    "InstrumentResponse",
     "InternalReferenceId",
     "InvoiceAmount",
     "InvoiceDataRequest",
@@ -2791,6 +2808,7 @@ __all__ = [
     "OrganizationQueryRecord",
     "OrganizationQueryRecordServicesItem",
     "OrganizationUpdates",
+    "OrganizationWritableFields",
     "Orgcity",
     "Orgcountry",
     "Orgentryname",

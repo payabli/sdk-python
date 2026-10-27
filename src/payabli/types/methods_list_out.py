@@ -21,9 +21,19 @@ class MethodsListOut(UniversalBaseModel):
     When `true`, physical check is offered as a payout method.
     """
 
+    rtp: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When `true`, Real-Time Payments (RTP) is offered as a payout method.
+    """
+
     vcard: typing.Optional[bool] = pydantic.Field(default=None)
     """
     When `true`, virtual card (vCard) is offered as a payout method.
+    """
+
+    wire: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When `true`, wire transfer is offered as a payout method.
     """
 
     if IS_PYDANTIC_V2:

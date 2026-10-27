@@ -39,11 +39,11 @@ class PayabliCredentialsPascal(UniversalBaseModel):
     The payment mode supported by this service. `0` for one-time payments, `1` for recurring payments, `2` for both.
     """
 
-    min_ticket: typing_extensions.Annotated[
-        typing.Optional[MinTicket], FieldMetadata(alias="MinTicket"), pydantic.Field(alias="MinTicket")
+    minticket: typing_extensions.Annotated[
+        typing.Optional[MinTicket], FieldMetadata(alias="Minticket"), pydantic.Field(alias="Minticket")
     ] = None
-    max_ticket: typing_extensions.Annotated[
-        typing.Optional[MaxTicket], FieldMetadata(alias="MaxTicket"), pydantic.Field(alias="MaxTicket")
+    maxticket: typing_extensions.Annotated[
+        typing.Optional[MaxTicket], FieldMetadata(alias="Maxticket"), pydantic.Field(alias="Maxticket")
     ] = None
     cfee_fix: typing_extensions.Annotated[
         typing.Optional[float], FieldMetadata(alias="CfeeFix"), pydantic.Field(alias="CfeeFix")

@@ -50,7 +50,7 @@ class RawPaypointsClient:
             Filter by the business the paypoint belongs to.
 
         status : typing.Optional[str]
-            Filter by paypoint status.
+            Filter by paypoint status. One of `active`, `inactive`, `suspended`, or `closed`. Any other value, including `pending`, returns `400`.
 
         search : typing.Optional[str]
             Free-text search across paypoints.
@@ -95,6 +95,17 @@ class RawPaypointsClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
@@ -458,7 +469,7 @@ class AsyncRawPaypointsClient:
             Filter by the business the paypoint belongs to.
 
         status : typing.Optional[str]
-            Filter by paypoint status.
+            Filter by paypoint status. One of `active`, `inactive`, `suspended`, or `closed`. Any other value, including `pending`, returns `400`.
 
         search : typing.Optional[str]
             Free-text search across paypoints.
@@ -505,6 +516,17 @@ class AsyncRawPaypointsClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
