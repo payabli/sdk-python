@@ -66,11 +66,11 @@ class ExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -128,7 +128,7 @@ class ExportClient:
         )
         client.export.export_applications(
             format="csv",
-            org_id=123,
+            org_id=900123,
             columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
             from_record=251,
             limit_record=1000,
@@ -187,11 +187,11 @@ class ExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -319,11 +319,11 @@ class ExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -392,7 +392,7 @@ class ExportClient:
         )
         client.export.export_batch_details_org(
             format="csv",
-            org_id=123,
+            org_id=900123,
             columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
             from_record=251,
             limit_record=1000,
@@ -451,11 +451,11 @@ class ExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -573,11 +573,11 @@ class ExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
@@ -634,7 +634,7 @@ class ExportClient:
         )
         client.export.export_batches_org(
             format="csv",
-            org_id=123,
+            org_id=900123,
             columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
             from_record=251,
             limit_record=1000,
@@ -693,11 +693,11 @@ class ExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -795,11 +795,11 @@ class ExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -838,7 +838,7 @@ class ExportClient:
         )
         client.export.export_batches_out_org(
             format="csv",
-            org_id=123,
+            org_id=900123,
             columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
             from_record=251,
             limit_record=1000,
@@ -897,11 +897,11 @@ class ExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -1017,11 +1017,11 @@ class ExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -1078,7 +1078,7 @@ class ExportClient:
         )
         client.export.export_bills_org(
             format="csv",
-            org_id=123,
+            org_id=900123,
             columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
             from_record=251,
             limit_record=1000,
@@ -1137,11 +1137,11 @@ class ExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -1278,11 +1278,11 @@ class ExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -1360,7 +1360,7 @@ class ExportClient:
         )
         client.export.export_chargebacks_org(
             format="csv",
-            org_id=123,
+            org_id=900123,
             columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
             from_record=251,
             limit_record=1000,
@@ -1419,11 +1419,11 @@ class ExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -1553,11 +1553,11 @@ class ExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -1628,7 +1628,7 @@ class ExportClient:
         )
         client.export.export_customers_org(
             format="csv",
-            org_id=123,
+            org_id=900123,
             columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
             from_record=251,
             limit_record=1000,
@@ -1687,11 +1687,11 @@ class ExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -1831,11 +1831,11 @@ class ExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -1916,7 +1916,7 @@ class ExportClient:
         )
         client.export.export_invoices_org(
             format="csv",
-            org_id=123,
+            org_id=900123,
             columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
             from_record=251,
             limit_record=1000,
@@ -1975,11 +1975,11 @@ class ExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -2035,7 +2035,7 @@ class ExportClient:
         )
         client.export.export_organizations(
             format="csv",
-            org_id=123,
+            org_id=900123,
             columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
             from_record=251,
             limit_record=1000,
@@ -2094,11 +2094,11 @@ class ExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -2212,11 +2212,11 @@ class ExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -2271,7 +2271,7 @@ class ExportClient:
         )
         client.export.export_payout_org(
             format="csv",
-            org_id=123,
+            org_id=900123,
             columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
             from_record=251,
             limit_record=1000,
@@ -2330,11 +2330,11 @@ class ExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -2391,7 +2391,7 @@ class ExportClient:
         )
         client.export.export_paypoints(
             format="csv",
-            org_id=123,
+            org_id=900123,
             columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
             from_record=251,
             limit_record=1000,
@@ -2450,11 +2450,11 @@ class ExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -2590,11 +2590,11 @@ class ExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -2671,7 +2671,7 @@ class ExportClient:
         )
         client.export.export_settlements_org(
             format="csv",
-            org_id=123,
+            org_id=900123,
             columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
             from_record=251,
             limit_record=1000,
@@ -2730,11 +2730,11 @@ class ExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -2872,11 +2872,11 @@ class ExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -2955,7 +2955,7 @@ class ExportClient:
         )
         client.export.export_subscriptions_org(
             format="csv",
-            org_id=123,
+            org_id=900123,
             columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
             from_record=251,
             limit_record=1000,
@@ -3014,11 +3014,11 @@ class ExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -3160,11 +3160,11 @@ class ExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -3247,7 +3247,7 @@ class ExportClient:
         )
         client.export.export_transactions_org(
             format="csv",
-            org_id=123,
+            org_id=900123,
             columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
             from_record=251,
             limit_record=1000,
@@ -3311,11 +3311,11 @@ class ExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -3425,11 +3425,11 @@ class ExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -3539,11 +3539,11 @@ class ExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -3663,11 +3663,11 @@ class ExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -3728,7 +3728,7 @@ class ExportClient:
         )
         client.export.export_vendors_org(
             format="csv",
-            org_id=123,
+            org_id=900123,
             columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
             from_record=251,
             limit_record=1000,
@@ -3803,11 +3803,11 @@ class AsyncExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -3870,7 +3870,7 @@ class AsyncExportClient:
         async def main() -> None:
             await client.export.export_applications(
                 format="csv",
-                org_id=123,
+                org_id=900123,
                 columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
                 from_record=251,
                 limit_record=1000,
@@ -3932,11 +3932,11 @@ class AsyncExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -4072,11 +4072,11 @@ class AsyncExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -4150,7 +4150,7 @@ class AsyncExportClient:
         async def main() -> None:
             await client.export.export_batch_details_org(
                 format="csv",
-                org_id=123,
+                org_id=900123,
                 columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
                 from_record=251,
                 limit_record=1000,
@@ -4212,11 +4212,11 @@ class AsyncExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -4342,11 +4342,11 @@ class AsyncExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
 
@@ -4408,7 +4408,7 @@ class AsyncExportClient:
         async def main() -> None:
             await client.export.export_batches_org(
                 format="csv",
-                org_id=123,
+                org_id=900123,
                 columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
                 from_record=251,
                 limit_record=1000,
@@ -4470,11 +4470,11 @@ class AsyncExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -4580,11 +4580,11 @@ class AsyncExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -4628,7 +4628,7 @@ class AsyncExportClient:
         async def main() -> None:
             await client.export.export_batches_out_org(
                 format="csv",
-                org_id=123,
+                org_id=900123,
                 columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
                 from_record=251,
                 limit_record=1000,
@@ -4690,11 +4690,11 @@ class AsyncExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -4818,11 +4818,11 @@ class AsyncExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -4884,7 +4884,7 @@ class AsyncExportClient:
         async def main() -> None:
             await client.export.export_bills_org(
                 format="csv",
-                org_id=123,
+                org_id=900123,
                 columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
                 from_record=251,
                 limit_record=1000,
@@ -4946,11 +4946,11 @@ class AsyncExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -5095,11 +5095,11 @@ class AsyncExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -5182,7 +5182,7 @@ class AsyncExportClient:
         async def main() -> None:
             await client.export.export_chargebacks_org(
                 format="csv",
-                org_id=123,
+                org_id=900123,
                 columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
                 from_record=251,
                 limit_record=1000,
@@ -5244,11 +5244,11 @@ class AsyncExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -5386,11 +5386,11 @@ class AsyncExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -5466,7 +5466,7 @@ class AsyncExportClient:
         async def main() -> None:
             await client.export.export_customers_org(
                 format="csv",
-                org_id=123,
+                org_id=900123,
                 columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
                 from_record=251,
                 limit_record=1000,
@@ -5528,11 +5528,11 @@ class AsyncExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -5680,11 +5680,11 @@ class AsyncExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -5770,7 +5770,7 @@ class AsyncExportClient:
         async def main() -> None:
             await client.export.export_invoices_org(
                 format="csv",
-                org_id=123,
+                org_id=900123,
                 columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
                 from_record=251,
                 limit_record=1000,
@@ -5832,11 +5832,11 @@ class AsyncExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -5897,7 +5897,7 @@ class AsyncExportClient:
         async def main() -> None:
             await client.export.export_organizations(
                 format="csv",
-                org_id=123,
+                org_id=900123,
                 columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
                 from_record=251,
                 limit_record=1000,
@@ -5959,11 +5959,11 @@ class AsyncExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -6085,11 +6085,11 @@ class AsyncExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -6149,7 +6149,7 @@ class AsyncExportClient:
         async def main() -> None:
             await client.export.export_payout_org(
                 format="csv",
-                org_id=123,
+                org_id=900123,
                 columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
                 from_record=251,
                 limit_record=1000,
@@ -6211,11 +6211,11 @@ class AsyncExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -6277,7 +6277,7 @@ class AsyncExportClient:
         async def main() -> None:
             await client.export.export_paypoints(
                 format="csv",
-                org_id=123,
+                org_id=900123,
                 columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
                 from_record=251,
                 limit_record=1000,
@@ -6339,11 +6339,11 @@ class AsyncExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -6487,11 +6487,11 @@ class AsyncExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -6573,7 +6573,7 @@ class AsyncExportClient:
         async def main() -> None:
             await client.export.export_settlements_org(
                 format="csv",
-                org_id=123,
+                org_id=900123,
                 columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
                 from_record=251,
                 limit_record=1000,
@@ -6635,11 +6635,11 @@ class AsyncExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -6785,11 +6785,11 @@ class AsyncExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -6873,7 +6873,7 @@ class AsyncExportClient:
         async def main() -> None:
             await client.export.export_subscriptions_org(
                 format="csv",
-                org_id=123,
+                org_id=900123,
                 columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
                 from_record=251,
                 limit_record=1000,
@@ -6935,11 +6935,11 @@ class AsyncExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -7089,11 +7089,11 @@ class AsyncExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -7181,7 +7181,7 @@ class AsyncExportClient:
         async def main() -> None:
             await client.export.export_transactions_org(
                 format="csv",
-                org_id=123,
+                org_id=900123,
                 columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
                 from_record=251,
                 limit_record=1000,
@@ -7248,11 +7248,11 @@ class AsyncExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -7370,11 +7370,11 @@ class AsyncExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -7492,11 +7492,11 @@ class AsyncExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -7624,11 +7624,11 @@ class AsyncExportClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
             See [Filters and Conditions Reference](/developers/developer-guides/pay-ops-reporting-engine-overview#filters-and-conditions-reference) for help.
@@ -7694,7 +7694,7 @@ class AsyncExportClient:
         async def main() -> None:
             await client.export.export_vendors_org(
                 format="csv",
-                org_id=123,
+                org_id=900123,
                 columns_export="BatchDate:Batch_Date,PaypointName:Legal_name",
                 from_record=251,
                 limit_record=1000,

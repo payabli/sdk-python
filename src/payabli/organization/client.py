@@ -161,7 +161,7 @@ class OrganizationClient:
             org_city="Johnson City",
             org_country="US",
             org_entry_name="pilgrim-planner",
-            org_id="123",
+            org_id="900123",
             org_logo=FileContent(
                 f_content="TXkgdGVzdCBmaWxlHJ==...",
                 filename="my-doc.pdf",
@@ -169,7 +169,7 @@ class OrganizationClient:
                 furl="https://mysite.com/my-doc.pdf",
             ),
             org_name="Pilgrim Planner",
-            org_parent_id=236,
+            org_parent_id=900123,
             org_state="TN",
             org_timezone=-5,
             org_type=0,
@@ -291,7 +291,7 @@ class OrganizationClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.organization.edit_organization(
-            org_id_path_param=123,
+            org_id_path_param=900123,
             contacts=[
                 Contacts(
                     contact_email="herman@hermanscoatings.com",
@@ -304,7 +304,7 @@ class OrganizationClient:
             org_city="Johnson City",
             org_country="US",
             org_entry_name="pilgrim-planner",
-            org_id="123",
+            org_id="900123",
             org_name="Pilgrim Planner",
             org_state="TN",
             org_timezone=-5,
@@ -366,7 +366,7 @@ class OrganizationClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.organization.delete_organization(
-            org_id=123,
+            org_id=900123,
         )
         """
         _response = self._raw_client.delete_organization(org_id, request_options=request_options)
@@ -434,7 +434,7 @@ class OrganizationClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.organization.get_basic_organization_by_id(
-            org_id=123,
+            org_id=900123,
         )
         """
         _response = self._raw_client.get_basic_organization_by_id(org_id, request_options=request_options)
@@ -468,7 +468,7 @@ class OrganizationClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.organization.get_organization(
-            org_id=123,
+            org_id=900123,
         )
         """
         _response = self._raw_client.get_organization(org_id, request_options=request_options)
@@ -502,7 +502,7 @@ class OrganizationClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.organization.get_settings_organization(
-            org_id=123,
+            org_id=900123,
         )
         """
         _response = self._raw_client.get_settings_organization(org_id, request_options=request_options)
@@ -641,7 +641,7 @@ class AsyncOrganizationClient:
                 org_city="Johnson City",
                 org_country="US",
                 org_entry_name="pilgrim-planner",
-                org_id="123",
+                org_id="900123",
                 org_logo=FileContent(
                     f_content="TXkgdGVzdCBmaWxlHJ==...",
                     filename="my-doc.pdf",
@@ -649,7 +649,7 @@ class AsyncOrganizationClient:
                     furl="https://mysite.com/my-doc.pdf",
                 ),
                 org_name="Pilgrim Planner",
-                org_parent_id=236,
+                org_parent_id=900123,
                 org_state="TN",
                 org_timezone=-5,
                 org_type=0,
@@ -779,7 +779,7 @@ class AsyncOrganizationClient:
 
         async def main() -> None:
             await client.organization.edit_organization(
-                org_id_path_param=123,
+                org_id_path_param=900123,
                 contacts=[
                     Contacts(
                         contact_email="herman@hermanscoatings.com",
@@ -792,7 +792,7 @@ class AsyncOrganizationClient:
                 org_city="Johnson City",
                 org_country="US",
                 org_entry_name="pilgrim-planner",
-                org_id="123",
+                org_id="900123",
                 org_name="Pilgrim Planner",
                 org_state="TN",
                 org_timezone=-5,
@@ -862,7 +862,7 @@ class AsyncOrganizationClient:
 
         async def main() -> None:
             await client.organization.delete_organization(
-                org_id=123,
+                org_id=900123,
             )
 
 
@@ -946,7 +946,7 @@ class AsyncOrganizationClient:
 
         async def main() -> None:
             await client.organization.get_basic_organization_by_id(
-                org_id=123,
+                org_id=900123,
             )
 
 
@@ -988,7 +988,7 @@ class AsyncOrganizationClient:
 
         async def main() -> None:
             await client.organization.get_organization(
-                org_id=123,
+                org_id=900123,
             )
 
 
@@ -1030,7 +1030,7 @@ class AsyncOrganizationClient:
 
         async def main() -> None:
             await client.organization.get_settings_organization(
-                org_id=123,
+                org_id=900123,
             )
 
 

@@ -99,6 +99,21 @@ class Owners(UniversalBaseModel):
         FieldMetadata(alias="additionalData"),
         pydantic.Field(alias="additionalData"),
     ] = None
+    primary_owner: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="primaryOwner"),
+        pydantic.Field(
+            alias="primaryOwner",
+            description="When `true`, marks this owner as the primary owner, the main principal that Payabli sends to the processor. Set it on exactly one owner. If you flag more than one owner, the request fails with HTTP 400 and the response text `Only one owner can be primary`.\n\nIf the application has one owner and you don't flag it, Payabli flags that owner as the primary owner. If the application has two or more owners, flag one of them. Payabli accepts an application with no primary owner, but the processor can reject it at submission.\n\nResponses return `null` for owners that aren't the primary owner.",
+        ),
+    ] = None
+    """
+    When `true`, marks this owner as the primary owner, the main principal that Payabli sends to the processor. Set it on exactly one owner. If you flag more than one owner, the request fails with HTTP 400 and the response text `Only one owner can be primary`.
+    
+    If the application has one owner and you don't flag it, Payabli flags that owner as the primary owner. If the application has two or more owners, flag one of them. Payabli accepts an application with no primary owner, but the processor can reject it at submission.
+    
+    Responses return `null` for owners that aren't the primary owner.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

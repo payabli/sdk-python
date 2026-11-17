@@ -202,6 +202,21 @@ class BillDetailResponse(UniversalBaseModel):
     | **Paid** | 5 | A payout has been paid and the recipient has redeemed the funds. | Paid (check cleared, vCard used, ACH settled) |
     """
 
+    status_label: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="StatusLabel"),
+        pydantic.Field(
+            alias="StatusLabel",
+            description="The name of the payout's `Status`: `Canceled`, `Captured`, `Processing`, `Processed`,\n`Held`, `Paid`, `Authorized`, `Capturing`, `Returned`, `Rejected`, `Reissued`, or\n`Refunded`. Returns `null` for an unrecognized code. See\n[Pay Out statuses](/guides/pay-out-status-reference#payout-transaction-statuses).",
+        ),
+    ] = None
+    """
+    The name of the payout's `Status`: `Canceled`, `Captured`, `Processing`, `Processed`,
+    `Held`, `Paid`, `Authorized`, `Capturing`, `Returned`, `Rejected`, `Reissued`, or
+    `Refunded`. Returns `null` for an unrecognized code. See
+    [Pay Out statuses](/guides/pay-out-status-reference#payout-transaction-statuses).
+    """
+
     status_text: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="StatusText"),

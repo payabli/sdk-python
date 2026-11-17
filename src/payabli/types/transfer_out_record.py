@@ -38,10 +38,13 @@ class TransferOutRecord(UniversalBaseModel):
     batch_number: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="batchNumber"),
-        pydantic.Field(alias="batchNumber", description="The batch number for the transfer."),
+        pydantic.Field(
+            alias="batchNumber",
+            description="The batch number for the transfer. Vendor enrichment and bank account verification billing transfers aren't tied to a batch, so this is an empty string for those transfers.",
+        ),
     ] = None
     """
-    The batch number for the transfer.
+    The batch number for the transfer. Vendor enrichment and bank account verification billing transfers aren't tied to a batch, so this is an empty string for those transfers.
     """
 
     batch_currency: typing_extensions.Annotated[
@@ -56,28 +59,37 @@ class TransferOutRecord(UniversalBaseModel):
     batch_records: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="batchRecords"),
-        pydantic.Field(alias="batchRecords", description="The number of records in the batch."),
+        pydantic.Field(
+            alias="batchRecords",
+            description="The number of records in the batch. Vendor enrichment and bank account verification billing transfers aren't tied to a batch, so this is `0` for those transfers.",
+        ),
     ] = None
     """
-    The number of records in the batch.
+    The number of records in the batch. Vendor enrichment and bank account verification billing transfers aren't tied to a batch, so this is `0` for those transfers.
     """
 
     transfer_identifier: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="transferIdentifier"),
-        pydantic.Field(alias="transferIdentifier", description="An identifier for the transfer."),
+        pydantic.Field(
+            alias="transferIdentifier",
+            description="An identifier for the transfer. Vendor enrichment and bank account verification billing transfers use the format `BILL_{paypointId}_{yyyyMMdd}_{feeType}`, where `feeType` is `VendorEnrichment` or `BankAccountVerification`.",
+        ),
     ] = None
     """
-    An identifier for the transfer.
+    An identifier for the transfer. Vendor enrichment and bank account verification billing transfers use the format `BILL_{paypointId}_{yyyyMMdd}_{feeType}`, where `feeType` is `VendorEnrichment` or `BankAccountVerification`.
     """
 
     batch_id: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="batchId"),
-        pydantic.Field(alias="batchId", description="The ID of the batch."),
+        pydantic.Field(
+            alias="batchId",
+            description="The ID of the batch. Vendor enrichment and bank account verification billing transfers aren't tied to a batch, so this is `0` for those transfers.",
+        ),
     ] = None
     """
-    The ID of the batch.
+    The ID of the batch. Vendor enrichment and bank account verification billing transfers aren't tied to a batch, so this is `0` for those transfers.
     """
 
     batch_net_amount: typing_extensions.Annotated[
@@ -199,7 +211,7 @@ class TransferOutRecord(UniversalBaseModel):
 
     processor: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The processor used for the transfer.
+    The processor used for the transfer. This is `billing` for vendor enrichment and bank account verification billing transfers.
     """
 
     transfer_status: typing_extensions.Annotated[
@@ -209,6 +221,20 @@ class TransferOutRecord(UniversalBaseModel):
     ] = None
     """
     The status of the transfer.
+    """
+
+    transfer_status_label: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="transferStatusLabel"),
+        pydantic.Field(
+            alias="transferStatusLabel",
+            description="The name of the `transferStatus`: `Pending`, `In Transit`, `Transferred`, `Funded\n(settled)`, `Resolved`, `Exception`, `ACH Return or Chargeback`, `Held`, `Released`,\n`Refunded`, or `None`. Returns `null` for an unrecognized code.",
+        ),
+    ] = None
+    """
+    The name of the `transferStatus`: `Pending`, `In Transit`, `Transferred`, `Funded
+    (settled)`, `Resolved`, `Exception`, `ACH Return or Chargeback`, `Held`, `Released`,
+    `Refunded`, or `None`. Returns `null` for an unrecognized code.
     """
 
     gross_amount: typing_extensions.Annotated[
@@ -317,7 +343,7 @@ class TransferOutRecord(UniversalBaseModel):
 
     type: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The transfer type. One of `debit`, `credit`, or `billing`.
+    The transfer type. One of `debit`, `credit`, or `billing`. A `billing` transfer is an ACH debit from the paypoint that collects fees. Billing transfers for payout fees belong to the payout's batch. Vendor enrichment and bank account verification charges are collected in a separate daily debit for each paypoint and fee type. These transfers aren't tied to a batch, so `batchId` and `batchRecords` are `0` and `batchNumber` is empty. Their `grossAmount`, `billingFeesAmount`, and `netTransferAmount` each hold the charge total as a negative value.
     """
 
     method: typing.Optional[str] = pydantic.Field(default=None)

@@ -70,7 +70,7 @@ class WalletClient:
         client.wallet.configure_apple_pay_organization(
             cascade=True,
             is_enabled=True,
-            org_id=123,
+            org_id=900123,
         )
         """
         _response = self._raw_client.configure_apple_pay_organization(
@@ -159,7 +159,7 @@ class WalletClient:
         client.wallet.configure_google_pay_organization(
             cascade=True,
             is_enabled=True,
-            org_id=123,
+            org_id=900123,
         )
         """
         _response = self._raw_client.configure_google_pay_organization(
@@ -269,7 +269,7 @@ class AsyncWalletClient:
             await client.wallet.configure_apple_pay_organization(
                 cascade=True,
                 is_enabled=True,
-                org_id=123,
+                org_id=900123,
             )
 
 
@@ -374,7 +374,7 @@ class AsyncWalletClient:
             await client.wallet.configure_google_pay_organization(
                 cascade=True,
                 is_enabled=True,
-                org_id=123,
+                org_id=900123,
             )
 
 

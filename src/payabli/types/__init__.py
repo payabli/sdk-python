@@ -719,6 +719,7 @@ if typing.TYPE_CHECKING:
     from .paypointstatus import Paypointstatus
     from .pci_attestation import PciAttestation
     from .pending_fee_amount import PendingFeeAmount
+    from .people_search_address_response import PeopleSearchAddressResponse
     from .people_search_envelope import PeopleSearchEnvelope
     from .people_search_request import PeopleSearchRequest
     from .people_search_result_response import PeopleSearchResultResponse
@@ -1821,6 +1822,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Paypointstatus": ".paypointstatus",
     "PciAttestation": ".pci_attestation",
     "PendingFeeAmount": ".pending_fee_amount",
+    "PeopleSearchAddressResponse": ".people_search_address_response",
     "PeopleSearchEnvelope": ".people_search_envelope",
     "PeopleSearchRequest": ".people_search_request",
     "PeopleSearchResultResponse": ".people_search_result_response",
@@ -2945,6 +2947,7 @@ __all__ = [
     "Paypointstatus",
     "PciAttestation",
     "PendingFeeAmount",
+    "PeopleSearchAddressResponse",
     "PeopleSearchEnvelope",
     "PeopleSearchRequest",
     "PeopleSearchResultResponse",

@@ -47,13 +47,12 @@ class BillItem(UniversalBaseModel):
         FieldMetadata(alias="itemMode"),
         pydantic.Field(
             alias="itemMode",
-            description="Internal class of item or product: value `0` is only for invoices,\n`1` for bills, and `2` is common for both. Required on invoice line\nitems — invoice creation fails with `Invalid item data` if it's omitted.",
+            description="Internal class of item or product: value `0` is only for invoices,\n`1` for bills, and `2` is common for both.",
         ),
     ] = None
     """
     Internal class of item or product: value `0` is only for invoices,
-    `1` for bills, and `2` is common for both. Required on invoice line
-    items — invoice creation fails with `Invalid item data` if it's omitted.
+    `1` for bills, and `2` is common for both.
     """
 
     item_product_code: typing_extensions.Annotated[
@@ -98,12 +97,14 @@ class BillItem(UniversalBaseModel):
         FieldMetadata(alias="itemTotalAmount"),
         pydantic.Field(
             alias="itemTotalAmount",
-            description="Per-line total for this item (unit cost times quantity). Distinct from\nthe invoice's overall total, `invoiceAmount`. Required on invoice line items.",
+            description="Per-line total for this item (unit cost times quantity). Distinct from\nthe invoice's overall total, `invoiceAmount`. Required on invoice line\nitems when `itemQty` and `itemCost` are greater than 0. If it's missing,\n0, or less, invoice creation fails with `Invalid item data`.",
         ),
     ] = None
     """
     Per-line total for this item (unit cost times quantity). Distinct from
-    the invoice's overall total, `invoiceAmount`. Required on invoice line items.
+    the invoice's overall total, `invoiceAmount`. Required on invoice line
+    items when `itemQty` and `itemCost` are greater than 0. If it's missing,
+    0, or less, invoice creation fails with `Invalid item data`.
     """
 
     item_unit_of_measure: typing_extensions.Annotated[

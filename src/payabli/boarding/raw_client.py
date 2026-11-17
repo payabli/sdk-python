@@ -263,6 +263,9 @@ class RawBoardingClient:
 
         Updates a boarding application by ID. This endpoint requires an application API token.
 
+
+        If you send `ownership`, it replaces the application's owners. Include every owner, and set `primaryOwner` again on the primary owner, or the application loses its primary owner. If you leave `ownership` out, the owners don't change.
+
         Parameters
         ----------
         app_id : int
@@ -1965,6 +1968,9 @@ class AsyncRawBoardingClient:
 
 
         Updates a boarding application by ID. This endpoint requires an application API token.
+
+
+        If you send `ownership`, it replaces the application's owners. Include every owner, and set `primaryOwner` again on the primary owner, or the application loses its primary owner. If you leave `ownership` out, the owners don't change.
 
         Parameters
         ----------

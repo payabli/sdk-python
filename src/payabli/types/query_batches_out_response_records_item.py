@@ -157,6 +157,20 @@ class QueryBatchesOutResponseRecordsItem(UniversalBaseModel):
     The batch status. See [Batch Status](/developers/references/money-out-statuses#batch-statuses) for more.
     """
 
+    batch_status_label: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="BatchStatusLabel"),
+        pydantic.Field(
+            alias="BatchStatusLabel",
+            description="The name of the `BatchStatus`: `Open`, `Closed`, `Funded`, `Processed`, `Paid`,\n`Canceled`, `Funding Pending`, `Held`, or `Released`. Returns `null` for an unrecognized\ncode. See [Pay Out statuses](/guides/pay-out-status-reference#batch-statuses).",
+        ),
+    ] = None
+    """
+    The name of the `BatchStatus`: `Open`, `Closed`, `Funded`, `Processed`, `Paid`,
+    `Canceled`, `Funding Pending`, `Held`, or `Released`. Returns `null` for an unrecognized
+    code. See [Pay Out statuses](/guides/pay-out-status-reference#batch-statuses).
+    """
+
     batch_status_text: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="BatchStatusText"),
@@ -277,6 +291,20 @@ class QueryBatchesOutResponseRecordsItem(UniversalBaseModel):
     ] = None
     """
     Paypoint legal name.
+    """
+
+    transfer_date: typing_extensions.Annotated[
+        typing.Optional[dt.datetime],
+        FieldMetadata(alias="TransferDate"),
+        pydantic.Field(
+            alias="TransferDate",
+            description="The date and time, in UTC, of the transfer that funds the batch. For a batch that\nhasn't been funded yet, this field returns the time of the request instead, and\n`transferDate` filters don't match that value.",
+        ),
+    ] = None
+    """
+    The date and time, in UTC, of the transfer that funds the batch. For a batch that
+    hasn't been funded yet, this field returns the time of the request instead, and
+    `transferDate` filters don't match that value.
     """
 
     vcard_amount: typing_extensions.Annotated[

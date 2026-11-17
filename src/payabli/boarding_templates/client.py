@@ -88,7 +88,7 @@ class BoardingTemplatesClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.boarding_templates.list_templates(
-            org_id=123,
+            org_id=900123,
         )
         """
         _response = self._raw_client.list_templates(
@@ -291,7 +291,7 @@ class AsyncBoardingTemplatesClient:
 
         async def main() -> None:
             await client.boarding_templates.list_templates(
-                org_id=123,
+                org_id=900123,
             )
 
 

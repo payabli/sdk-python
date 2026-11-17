@@ -15,6 +15,39 @@ from .min_ticket import MinTicket
 
 
 class PayabliCredentialsPascal(UniversalBaseModel):
+    active: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    When `true`, the gateway for this credential is enabled for the paypoint. The value is
+    `null` when the credential isn't linked to a gateway.
+    """
+
+    customer_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="customerId"),
+        pydantic.Field(
+            alias="customerId",
+            description="The customer ID configured for this gateway. Returned only for gateways that use a\ncustomer ID. For all other gateways, or when no customer ID is configured, the value is\n`null`.",
+        ),
+    ] = None
+    """
+    The customer ID configured for this gateway. Returned only for gateways that use a
+    customer ID. For all other gateways, or when no customer ID is configured, the value is
+    `null`.
+    """
+
+    client_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="clientId"),
+        pydantic.Field(
+            alias="clientId",
+            description="The client ID configured for this gateway. Returned only for gateways that use a client\nID. For all other gateways, or when no client ID is configured, the value is `null`.",
+        ),
+    ] = None
+    """
+    The client ID configured for this gateway. Returned only for gateways that use a client
+    ID. For all other gateways, or when no client ID is configured, the value is `null`.
+    """
+
     service: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="Service"),

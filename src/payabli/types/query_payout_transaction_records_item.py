@@ -107,6 +107,21 @@ class QueryPayoutTransactionRecordsItem(UniversalBaseModel):
     Internal status of transaction.
     """
 
+    status_label: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="StatusLabel"),
+        pydantic.Field(
+            alias="StatusLabel",
+            description="The name of the payout's `Status`: `Canceled`, `Captured`, `Processing`, `Processed`,\n`Held`, `Paid`, `Authorized`, `Capturing`, `Returned`, `Rejected`, `Reissued`, or\n`Refunded`. Returns `null` for an unrecognized code. See\n[Pay Out statuses](/guides/pay-out-status-reference#payout-transaction-statuses).",
+        ),
+    ] = None
+    """
+    The name of the payout's `Status`: `Canceled`, `Captured`, `Processing`, `Processed`,
+    `Held`, `Paid`, `Authorized`, `Capturing`, `Returned`, `Rejected`, `Reissued`, or
+    `Refunded`. Returns `null` for an unrecognized code. See
+    [Pay Out statuses](/guides/pay-out-status-reference#payout-transaction-statuses).
+    """
+
     payment_id: typing_extensions.Annotated[
         typing.Optional[PaymentIdString], FieldMetadata(alias="PaymentId"), pydantic.Field(alias="PaymentId")
     ] = None

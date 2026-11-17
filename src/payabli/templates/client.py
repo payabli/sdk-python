@@ -59,7 +59,7 @@ class TemplatesClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.templates.delete_template(
-            template_id=80.0,
+            template_id=900022.0,
         )
         """
         _response = self._raw_client.delete_template(template_id, request_options=request_options)
@@ -101,7 +101,7 @@ class TemplatesClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.templates.getlink_template(
-            template_id=80.0,
+            template_id=900022.0,
             ignore_empty=True,
         )
         """
@@ -141,7 +141,7 @@ class TemplatesClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.templates.get_template(
-            template_id=80.0,
+            template_id=900022.0,
         )
         """
         _response = self._raw_client.get_template(template_id, request_options=request_options)
@@ -184,11 +184,11 @@ class TemplatesClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
 
@@ -239,7 +239,7 @@ class TemplatesClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.templates.list_templates(
-            org_id=123,
+            org_id=900123,
             from_record=251,
             limit_record=0,
             sort_by="desc(field_name)",
@@ -309,7 +309,7 @@ class AsyncTemplatesClient:
 
         async def main() -> None:
             await client.templates.delete_template(
-                template_id=80.0,
+                template_id=900022.0,
             )
 
 
@@ -359,7 +359,7 @@ class AsyncTemplatesClient:
 
         async def main() -> None:
             await client.templates.getlink_template(
-                template_id=80.0,
+                template_id=900022.0,
                 ignore_empty=True,
             )
 
@@ -407,7 +407,7 @@ class AsyncTemplatesClient:
 
         async def main() -> None:
             await client.templates.get_template(
-                template_id=80.0,
+                template_id=900022.0,
             )
 
 
@@ -453,11 +453,11 @@ class AsyncTemplatesClient:
 
               Because of a technical limitation, you can't make a request that includes filters from the API console on this page. The response won't be filtered. Instead, copy the request, remove `parameters=` and run the request in a different client, for example:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?parameters=totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?parameters=totalAmount(gt)=1000&limitRecord=20
 
               should become:
 
-              --url https://api-sandbox.payabli.com/api/Query/transactions/org/236?totalAmount(gt)=1000&limitRecord=20
+              --url https://api-sandbox.payabli.com/api/Query/transactions/org/900123?totalAmount(gt)=1000&limitRecord=20
             </Info>
 
 
@@ -513,7 +513,7 @@ class AsyncTemplatesClient:
 
         async def main() -> None:
             await client.templates.list_templates(
-                org_id=123,
+                org_id=900123,
                 from_record=251,
                 limit_record=0,
                 sort_by="desc(field_name)",

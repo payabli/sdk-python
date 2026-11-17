@@ -651,7 +651,7 @@ class InvoiceClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.invoice.list_invoices_org(
-            org_id=123,
+            org_id=900123,
             from_record=251,
             limit_record=0,
             sort_by="desc(field_name)",
@@ -1447,7 +1447,7 @@ class AsyncInvoiceClient:
 
         async def main() -> None:
             await client.invoice.list_invoices_org(
-                org_id=123,
+                org_id=900123,
                 from_record=251,
                 limit_record=0,
                 sort_by="desc(field_name)",

@@ -103,7 +103,7 @@ class NotificationlogsClient:
             end_date=datetime.datetime.fromisoformat(
                 "2024-01-31 23:59:59+00:00",
             ),
-            org_id=123,
+            org_id=900123,
             notification_event="approvedpayment",
             succeeded=True,
         )
@@ -320,7 +320,7 @@ class AsyncNotificationlogsClient:
                 end_date=datetime.datetime.fromisoformat(
                     "2024-01-31 23:59:59+00:00",
                 ),
-                org_id=123,
+                org_id=900123,
                 notification_event="approvedpayment",
                 succeeded=True,
             )

@@ -292,6 +292,21 @@ class BillQueryRecord2(UniversalBaseModel):
     status: typing_extensions.Annotated[
         typing.Optional[Billstatus], FieldMetadata(alias="Status"), pydantic.Field(alias="Status")
     ] = None
+    status_label: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="StatusLabel"),
+        pydantic.Field(
+            alias="StatusLabel",
+            description="The name of the bill's `Status`: `Canceled`, `None`, `Active`, `Sent to Approval`,\n`Partially Approved`, `Rejected`, `Approved`, `In Transit`, `Partially Paid`, or `Paid`.\nReturns `null` for an unrecognized code. See\n[Pay Out statuses](/guides/pay-out-status-reference#bill-statuses).",
+        ),
+    ] = None
+    """
+    The name of the bill's `Status`: `Canceled`, `None`, `Active`, `Sent to Approval`,
+    `Partially Approved`, `Rejected`, `Approved`, `In Transit`, `Partially Paid`, or `Paid`.
+    Returns `null` for an unrecognized code. See
+    [Pay Out statuses](/guides/pay-out-status-reference#bill-statuses).
+    """
+
     terms: typing_extensions.Annotated[
         typing.Optional[Terms],
         FieldMetadata(alias="Terms"),

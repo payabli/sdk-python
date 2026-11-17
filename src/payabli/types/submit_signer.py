@@ -16,9 +16,10 @@ class SubmitSigner(UniversalBaseModel):
     with `isSigner` on the business, and Payabli records the signer's identity
     from their person record and business link. Keep the signer's details
     current with the people endpoints before you submit, because you can't
-    correct them here. Provide a signature with `signature` and
-    `signatureType`, or, if the signer signed in your own e-sign tool, send
-    `signedDocumentReference` instead. Signer identity fields such as `name`,
+    correct them here. Every submit needs a signature in `signature` and
+    `signatureType`. If the signer also signed in your own e-sign tool, send
+    `signedDocumentReference` too, and Payabli records it with the
+    signature. Signer identity fields such as `name`,
     `email`, `ssn`, and `address` aren't part of this object, and Payabli
     ignores them if you send them.
     """
@@ -35,18 +36,18 @@ class SubmitSigner(UniversalBaseModel):
     The reference of an owner linked to this business, to make them the signer before the application is submitted. Works only while the application is a draft. Leave it out when the business already has a signer. If the person isn't linked to this business, the request fails with `404`. If the person isn't an owner, the request fails with `422` and the error `SIGNER_NOT_OWNER`.
     """
 
-    signature: typing.Optional[str] = pydantic.Field(default=None)
+    signature: str = pydantic.Field()
     """
-    The signature. For `type` and `checkbox`, send the signer's name. For `draw`, send the image as a base64 data URL, such as the output of `canvas.toDataURL()`. Required unless you send `signedDocumentReference`.
+    The signature. For `type` and `checkbox`, send the signer's name. For `draw`, send the image as a base64 data URL, such as the output of `canvas.toDataURL()`. Can't be empty or only whitespace.
     """
 
     signature_type: typing_extensions.Annotated[
-        typing.Optional[SignatureType],
+        SignatureType,
         FieldMetadata(alias="signatureType"),
-        pydantic.Field(alias="signatureType", description="How the signer signed. Required with `signature`."),
-    ] = None
+        pydantic.Field(alias="signatureType", description="How the signer signed."),
+    ]
     """
-    How the signer signed. Required with `signature`.
+    How the signer signed.
     """
 
     signed_document_reference: typing_extensions.Annotated[
@@ -54,11 +55,11 @@ class SubmitSigner(UniversalBaseModel):
         FieldMetadata(alias="signedDocumentReference"),
         pydantic.Field(
             alias="signedDocumentReference",
-            description="The reference for a document the signer signed in your own e-sign tool, such as a DocuSign envelope ID. Send it instead of `signature` and `signatureType`.",
+            description="The reference for a document the signer signed in your own e-sign tool, such as a DocuSign envelope ID. Payabli records it with the signature. It doesn't replace `signature` and `signatureType`, which every submit needs.",
         ),
     ] = None
     """
-    The reference for a document the signer signed in your own e-sign tool, such as a DocuSign envelope ID. Send it instead of `signature` and `signatureType`.
+    The reference for a document the signer signed in your own e-sign tool, such as a DocuSign envelope ID. Payabli records it with the signature. It doesn't replace `signature` and `signatureType`, which every submit needs.
     """
 
     acceptance: typing.Optional[bool] = pydantic.Field(default=None)

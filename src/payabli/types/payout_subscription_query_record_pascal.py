@@ -46,6 +46,19 @@ class PayoutSubscriptionQueryRecordPascal(UniversalBaseModel):
     - 1: Active
     """
 
+    status_label: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="StatusLabel"),
+        pydantic.Field(
+            alias="StatusLabel",
+            description="The name of the payout subscription's `Status`: `Paused`, `Active`, `Completed`, `Marked\nfor Deletion`, or `In Progress`. Returns `null` for an unrecognized code.",
+        ),
+    ] = None
+    """
+    The name of the payout subscription's `Status`: `Paused`, `Active`, `Completed`, `Marked
+    for Deletion`, or `In Progress`. Returns `null` for an unrecognized code.
+    """
+
     events: typing_extensions.Annotated[
         typing.Optional[typing.List[GeneralEvents]],
         FieldMetadata(alias="Events"),

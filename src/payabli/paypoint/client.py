@@ -198,7 +198,7 @@ class PaypointClient:
         )
         client.paypoint.migrate(
             entry_point="8cfec329267",
-            new_parent_organization_id=123,
+            new_parent_organization_id=900123,
             notification_request=NotificationRequest(
                 notification_url="https://webhook-test.yoursie.com",
                 web_header_parameters=[
@@ -575,7 +575,7 @@ class AsyncPaypointClient:
         async def main() -> None:
             await client.paypoint.migrate(
                 entry_point="8cfec329267",
-                new_parent_organization_id=123,
+                new_parent_organization_id=900123,
                 notification_request=NotificationRequest(
                     notification_url="https://webhook-test.yoursie.com",
                     web_header_parameters=[

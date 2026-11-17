@@ -205,7 +205,7 @@ class BoardingClient:
                 mcountry="US",
                 mstate="TN",
                 mzip="37615",
-                org_id=123,
+                org_id=900123,
                 ownership=[
                     Owners(
                         oaddress="33 North St",
@@ -254,7 +254,7 @@ class BoardingClient:
                 ),
                 startdate="01/01/1990",
                 tax_fill_name="Sunshine LLC",
-                template_id=22,
+                template_id=900022,
                 ticketamt=1000.0,
                 website="www.example.com",
                 when_charged="When Service Provided",
@@ -336,6 +336,9 @@ class BoardingClient:
 
 
         Updates a boarding application by ID. This endpoint requires an application API token.
+
+
+        If you send `ownership`, it replaces the application's owners. Include every owner, and set `primaryOwner` again on the primary owner, or the application loses its primary owner. If you leave `ownership` out, the owners don't change.
 
         Parameters
         ----------
@@ -741,7 +744,7 @@ class BoardingClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.boarding.get_by_template_id_link_application(
-            template_id=80.0,
+            template_id=900022.0,
         )
         """
         _response = self._raw_client.get_by_template_id_link_application(template_id, request_options=request_options)
@@ -929,7 +932,7 @@ class BoardingClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.boarding.list_applications(
-            org_id=123,
+            org_id=900123,
             from_record=251,
             limit_record=0,
             sort_by="desc(field_name)",
@@ -1028,7 +1031,7 @@ class BoardingClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.boarding.list_boarding_links(
-            org_id=123,
+            org_id=900123,
             from_record=251,
             limit_record=0,
             sort_by="desc(field_name)",
@@ -1097,7 +1100,7 @@ class BoardingClient:
         )
         client.boarding.add_service_to_paypoint_from_app(
             paypoint_id=3040,
-            template_id=456,
+            template_id=900022,
             recipient_email="merchant@example.com",
             return_boarding_access_info_in_line=True,
             on_create=["submitApplication"],
@@ -1287,7 +1290,7 @@ class AsyncBoardingClient:
                     mcountry="US",
                     mstate="TN",
                     mzip="37615",
-                    org_id=123,
+                    org_id=900123,
                     ownership=[
                         Owners(
                             oaddress="33 North St",
@@ -1336,7 +1339,7 @@ class AsyncBoardingClient:
                     ),
                     startdate="01/01/1990",
                     tax_fill_name="Sunshine LLC",
-                    template_id=22,
+                    template_id=900022,
                     ticketamt=1000.0,
                     website="www.example.com",
                     when_charged="When Service Provided",
@@ -1421,6 +1424,9 @@ class AsyncBoardingClient:
 
 
         Updates a boarding application by ID. This endpoint requires an application API token.
+
+
+        If you send `ownership`, it replaces the application's owners. Include every owner, and set `primaryOwner` again on the primary owner, or the application loses its primary owner. If you leave `ownership` out, the owners don't change.
 
         Parameters
         ----------
@@ -1871,7 +1877,7 @@ class AsyncBoardingClient:
 
         async def main() -> None:
             await client.boarding.get_by_template_id_link_application(
-                template_id=80.0,
+                template_id=900022.0,
             )
 
 
@@ -2087,7 +2093,7 @@ class AsyncBoardingClient:
 
         async def main() -> None:
             await client.boarding.list_applications(
-                org_id=123,
+                org_id=900123,
                 from_record=251,
                 limit_record=0,
                 sort_by="desc(field_name)",
@@ -2194,7 +2200,7 @@ class AsyncBoardingClient:
 
         async def main() -> None:
             await client.boarding.list_boarding_links(
-                org_id=123,
+                org_id=900123,
                 from_record=251,
                 limit_record=0,
                 sort_by="desc(field_name)",
@@ -2271,7 +2277,7 @@ class AsyncBoardingClient:
         async def main() -> None:
             await client.boarding.add_service_to_paypoint_from_app(
                 paypoint_id=3040,
-                template_id=456,
+                template_id=900022,
                 recipient_email="merchant@example.com",
                 return_boarding_access_info_in_line=True,
                 on_create=["submitApplication"],

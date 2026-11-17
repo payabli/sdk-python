@@ -162,6 +162,19 @@ class VendorDataResponse(UniversalBaseModel):
     vendor_status: typing_extensions.Annotated[
         Vendorstatus, FieldMetadata(alias="VendorStatus"), pydantic.Field(alias="VendorStatus")
     ]
+    vendor_status_label: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="VendorStatusLabel"),
+        pydantic.Field(
+            alias="VendorStatusLabel",
+            description="The name of the `VendorStatus`: `Inactive`, `Active`, or `Deleted`. Returns `null` for\nan unrecognized code.",
+        ),
+    ] = None
+    """
+    The name of the `VendorStatus`: `Inactive`, `Active`, or `Deleted`. Returns `null` for
+    an unrecognized code.
+    """
+
     vendor_id: typing_extensions.Annotated[Vendorid, FieldMetadata(alias="VendorId"), pydantic.Field(alias="VendorId")]
     enrollment_status: typing_extensions.Annotated[
         typing.Optional[str],

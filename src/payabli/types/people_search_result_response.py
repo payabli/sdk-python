@@ -6,6 +6,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .people_search_address_response import PeopleSearchAddressResponse
 
 
 class PeopleSearchResultResponse(UniversalBaseModel):
@@ -110,6 +111,23 @@ class PeopleSearchResultResponse(UniversalBaseModel):
     ] = None
     """
     When `true`, no existing person matched, and this result comes only from the identity vendor. A vendor result has no `personReference`.
+    """
+
+    primary_address: typing_extensions.Annotated[
+        typing.Optional[PeopleSearchAddressResponse],
+        FieldMetadata(alias="primaryAddress"),
+        pydantic.Field(
+            alias="primaryAddress",
+            description="The person's primary address. `null` when the person has no address on file.",
+        ),
+    ] = None
+    """
+    The person's primary address. `null` when the person has no address on file.
+    """
+
+    addresses: typing.Optional[typing.List[PeopleSearchAddressResponse]] = pydantic.Field(default=None)
+    """
+    The person's addresses on file. Empty when the person has no address.
     """
 
     phones: typing.Optional[typing.List[str]] = pydantic.Field(default=None)

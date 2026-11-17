@@ -558,7 +558,7 @@ class PeopleClient:
         )
         client.people.search_people(
             entry="8cfec329267",
-            org_id=123,
+            org_id=900123,
             request={"firstName": "Marcus", "lastName": "Delgado"},
         )
         """
@@ -609,7 +609,7 @@ class PeopleClient:
         )
         client.people.search_people_unmasked(
             entry="8cfec329267",
-            org_id=123,
+            org_id=900123,
             request={"firstName": "Marcus", "lastName": "Delgado"},
         )
         """
@@ -1204,7 +1204,7 @@ class AsyncPeopleClient:
         async def main() -> None:
             await client.people.search_people(
                 entry="8cfec329267",
-                org_id=123,
+                org_id=900123,
                 request={"firstName": "Marcus", "lastName": "Delgado"},
             )
 
@@ -1263,7 +1263,7 @@ class AsyncPeopleClient:
         async def main() -> None:
             await client.people.search_people_unmasked(
                 entry="8cfec329267",
-                org_id=123,
+                org_id=900123,
                 request={"firstName": "Marcus", "lastName": "Delgado"},
             )
 
